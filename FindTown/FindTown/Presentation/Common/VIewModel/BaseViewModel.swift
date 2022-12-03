@@ -9,7 +9,9 @@ import Foundation
 import RxSwift
 
 class BaseViewModel: ViewModelType {
-    
+    struct Input { }
+    struct Output { }
+
     let disposeBag = DisposeBag()
     
     init() {
