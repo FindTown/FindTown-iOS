@@ -78,6 +78,61 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		BC6EFB73293B9C2A00AB3332 /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				F3891E20293B8393003CE8AD /* SceneDelegate.swift */,
+				F3891E1E293B8393003CE8AD /* AppDelegate.swift */,
+			);
+			path = Application;
+			sourceTree = "<group>";
+		};
+		BC6EFB74293B9C3400AB3332 /* Domain */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Domain;
+			sourceTree = "<group>";
+		};
+		BC6EFB75293B9C3800AB3332 /* Presentation */ = {
+			isa = PBXGroup;
+			children = (
+				BC6EFB77293B9C4F00AB3332 /* Common */,
+			);
+			path = Presentation;
+			sourceTree = "<group>";
+		};
+		BC6EFB76293B9C4600AB3332 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		BC6EFB77293B9C4F00AB3332 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				BC6EFB79293B9C5B00AB3332 /* VIewModel */,
+				BC6EFB78293B9C5800AB3332 /* View */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		BC6EFB78293B9C5800AB3332 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				F3891E22293B8393003CE8AD /* ViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		BC6EFB79293B9C5B00AB3332 /* VIewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = VIewModel;
+			sourceTree = "<group>";
+		};
 		F3891E12293B8393003CE8AD = {
 			isa = PBXGroup;
 			children = (
@@ -101,9 +156,10 @@
 		F3891E1D293B8393003CE8AD /* FindTown */ = {
 			isa = PBXGroup;
 			children = (
-				F3891E1E293B8393003CE8AD /* AppDelegate.swift */,
-				F3891E20293B8393003CE8AD /* SceneDelegate.swift */,
-				F3891E22293B8393003CE8AD /* ViewController.swift */,
+				BC6EFB76293B9C4600AB3332 /* Data */,
+				BC6EFB75293B9C3800AB3332 /* Presentation */,
+				BC6EFB74293B9C3400AB3332 /* Domain */,
+				BC6EFB73293B9C2A00AB3332 /* Application */,
 				F3891E24293B8393003CE8AD /* Main.storyboard */,
 				F3891E2A293B8394003CE8AD /* Assets.xcassets */,
 				F3891E2C293B8394003CE8AD /* LaunchScreen.storyboard */,
