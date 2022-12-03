@@ -10,7 +10,6 @@
 		F3891E1F293B8393003CE8AD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3891E1E293B8393003CE8AD /* AppDelegate.swift */; };
 		F3891E21293B8393003CE8AD /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3891E20293B8393003CE8AD /* SceneDelegate.swift */; };
 		F3891E23293B8393003CE8AD /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3891E22293B8393003CE8AD /* ViewController.swift */; };
-		F3891E29293B8393003CE8AD /* FindTown.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F3891E27293B8393003CE8AD /* FindTown.xcdatamodeld */; };
 		F3891E2B293B8394003CE8AD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F3891E2A293B8394003CE8AD /* Assets.xcassets */; };
 		F3891E2E293B8394003CE8AD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F3891E2C293B8394003CE8AD /* LaunchScreen.storyboard */; };
 		F3891E39293B8394003CE8AD /* FindTownTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3891E38293B8394003CE8AD /* FindTownTests.swift */; };
@@ -40,7 +39,6 @@
 		F3891E1E293B8393003CE8AD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F3891E20293B8393003CE8AD /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		F3891E22293B8393003CE8AD /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		F3891E28293B8393003CE8AD /* FindTown.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = FindTown.xcdatamodel; sourceTree = "<group>"; };
 		F3891E2A293B8394003CE8AD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F3891E2D293B8394003CE8AD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F3891E2F293B8394003CE8AD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -169,7 +167,6 @@
 				BC6EFB75293B9C3800AB3332 /* Presentation */,
 				BC6EFB74293B9C3400AB3332 /* Domain */,
 				BC6EFB73293B9C2A00AB3332 /* Application */,
-				F3891E27293B8393003CE8AD /* FindTown.xcdatamodeld */,
 			);
 			path = FindTown;
 			sourceTree = "<group>";
@@ -323,7 +320,6 @@
 			files = (
 				F3891E23293B8393003CE8AD /* ViewController.swift in Sources */,
 				F3891E1F293B8393003CE8AD /* AppDelegate.swift in Sources */,
-				F3891E29293B8393003CE8AD /* FindTown.xcdatamodeld in Sources */,
 				F3891E21293B8393003CE8AD /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -656,19 +652,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCVersionGroup section */
-		F3891E27293B8393003CE8AD /* FindTown.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				F3891E28293B8393003CE8AD /* FindTown.xcdatamodel */,
-			);
-			currentVersion = F3891E28293B8393003CE8AD /* FindTown.xcdatamodel */;
-			path = FindTown.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-/* End XCVersionGroup section */
 	};
 	rootObject = F3891E13293B8393003CE8AD /* Project object */;
 }
