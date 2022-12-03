@@ -1,0 +1,624 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 55;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		F3891E1F293B8393003CE8AD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3891E1E293B8393003CE8AD /* AppDelegate.swift */; };
+		F3891E21293B8393003CE8AD /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3891E20293B8393003CE8AD /* SceneDelegate.swift */; };
+		F3891E23293B8393003CE8AD /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3891E22293B8393003CE8AD /* ViewController.swift */; };
+		F3891E26293B8393003CE8AD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F3891E24293B8393003CE8AD /* Main.storyboard */; };
+		F3891E29293B8393003CE8AD /* FindTown.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F3891E27293B8393003CE8AD /* FindTown.xcdatamodeld */; };
+		F3891E2B293B8394003CE8AD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F3891E2A293B8394003CE8AD /* Assets.xcassets */; };
+		F3891E2E293B8394003CE8AD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F3891E2C293B8394003CE8AD /* LaunchScreen.storyboard */; };
+		F3891E39293B8394003CE8AD /* FindTownTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3891E38293B8394003CE8AD /* FindTownTests.swift */; };
+		F3891E43293B8394003CE8AD /* FindTownUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3891E42293B8394003CE8AD /* FindTownUITests.swift */; };
+		F3891E45293B8394003CE8AD /* FindTownUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3891E44293B8394003CE8AD /* FindTownUITestsLaunchTests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		F3891E35293B8394003CE8AD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F3891E13293B8393003CE8AD /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F3891E1A293B8393003CE8AD;
+			remoteInfo = FindTown;
+		};
+		F3891E3F293B8394003CE8AD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F3891E13293B8393003CE8AD /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F3891E1A293B8393003CE8AD;
+			remoteInfo = FindTown;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		F3891E1B293B8393003CE8AD /* FindTown.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FindTown.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F3891E1E293B8393003CE8AD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		F3891E20293B8393003CE8AD /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		F3891E22293B8393003CE8AD /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		F3891E25293B8393003CE8AD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		F3891E28293B8393003CE8AD /* FindTown.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = FindTown.xcdatamodel; sourceTree = "<group>"; };
+		F3891E2A293B8394003CE8AD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		F3891E2D293B8394003CE8AD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		F3891E2F293B8394003CE8AD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F3891E34293B8394003CE8AD /* FindTownTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FindTownTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		F3891E38293B8394003CE8AD /* FindTownTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindTownTests.swift; sourceTree = "<group>"; };
+		F3891E3E293B8394003CE8AD /* FindTownUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FindTownUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		F3891E42293B8394003CE8AD /* FindTownUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindTownUITests.swift; sourceTree = "<group>"; };
+		F3891E44293B8394003CE8AD /* FindTownUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindTownUITestsLaunchTests.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		F3891E18293B8393003CE8AD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F3891E31293B8394003CE8AD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F3891E3B293B8394003CE8AD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		F3891E12293B8393003CE8AD = {
+			isa = PBXGroup;
+			children = (
+				F3891E1D293B8393003CE8AD /* FindTown */,
+				F3891E37293B8394003CE8AD /* FindTownTests */,
+				F3891E41293B8394003CE8AD /* FindTownUITests */,
+				F3891E1C293B8393003CE8AD /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		F3891E1C293B8393003CE8AD /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F3891E1B293B8393003CE8AD /* FindTown.app */,
+				F3891E34293B8394003CE8AD /* FindTownTests.xctest */,
+				F3891E3E293B8394003CE8AD /* FindTownUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F3891E1D293B8393003CE8AD /* FindTown */ = {
+			isa = PBXGroup;
+			children = (
+				F3891E1E293B8393003CE8AD /* AppDelegate.swift */,
+				F3891E20293B8393003CE8AD /* SceneDelegate.swift */,
+				F3891E22293B8393003CE8AD /* ViewController.swift */,
+				F3891E24293B8393003CE8AD /* Main.storyboard */,
+				F3891E2A293B8394003CE8AD /* Assets.xcassets */,
+				F3891E2C293B8394003CE8AD /* LaunchScreen.storyboard */,
+				F3891E2F293B8394003CE8AD /* Info.plist */,
+				F3891E27293B8393003CE8AD /* FindTown.xcdatamodeld */,
+			);
+			path = FindTown;
+			sourceTree = "<group>";
+		};
+		F3891E37293B8394003CE8AD /* FindTownTests */ = {
+			isa = PBXGroup;
+			children = (
+				F3891E38293B8394003CE8AD /* FindTownTests.swift */,
+			);
+			path = FindTownTests;
+			sourceTree = "<group>";
+		};
+		F3891E41293B8394003CE8AD /* FindTownUITests */ = {
+			isa = PBXGroup;
+			children = (
+				F3891E42293B8394003CE8AD /* FindTownUITests.swift */,
+				F3891E44293B8394003CE8AD /* FindTownUITestsLaunchTests.swift */,
+			);
+			path = FindTownUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		F3891E1A293B8393003CE8AD /* FindTown */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F3891E48293B8394003CE8AD /* Build configuration list for PBXNativeTarget "FindTown" */;
+			buildPhases = (
+				F3891E17293B8393003CE8AD /* Sources */,
+				F3891E18293B8393003CE8AD /* Frameworks */,
+				F3891E19293B8393003CE8AD /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = FindTown;
+			productName = FindTown;
+			productReference = F3891E1B293B8393003CE8AD /* FindTown.app */;
+			productType = "com.apple.product-type.application";
+		};
+		F3891E33293B8394003CE8AD /* FindTownTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F3891E4B293B8394003CE8AD /* Build configuration list for PBXNativeTarget "FindTownTests" */;
+			buildPhases = (
+				F3891E30293B8394003CE8AD /* Sources */,
+				F3891E31293B8394003CE8AD /* Frameworks */,
+				F3891E32293B8394003CE8AD /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F3891E36293B8394003CE8AD /* PBXTargetDependency */,
+			);
+			name = FindTownTests;
+			productName = FindTownTests;
+			productReference = F3891E34293B8394003CE8AD /* FindTownTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		F3891E3D293B8394003CE8AD /* FindTownUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F3891E4E293B8394003CE8AD /* Build configuration list for PBXNativeTarget "FindTownUITests" */;
+			buildPhases = (
+				F3891E3A293B8394003CE8AD /* Sources */,
+				F3891E3B293B8394003CE8AD /* Frameworks */,
+				F3891E3C293B8394003CE8AD /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F3891E40293B8394003CE8AD /* PBXTargetDependency */,
+			);
+			name = FindTownUITests;
+			productName = FindTownUITests;
+			productReference = F3891E3E293B8394003CE8AD /* FindTownUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		F3891E13293B8393003CE8AD /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1340;
+				LastUpgradeCheck = 1340;
+				TargetAttributes = {
+					F3891E1A293B8393003CE8AD = {
+						CreatedOnToolsVersion = 13.4.1;
+					};
+					F3891E33293B8394003CE8AD = {
+						CreatedOnToolsVersion = 13.4.1;
+						TestTargetID = F3891E1A293B8393003CE8AD;
+					};
+					F3891E3D293B8394003CE8AD = {
+						CreatedOnToolsVersion = 13.4.1;
+						TestTargetID = F3891E1A293B8393003CE8AD;
+					};
+				};
+			};
+			buildConfigurationList = F3891E16293B8393003CE8AD /* Build configuration list for PBXProject "FindTown" */;
+			compatibilityVersion = "Xcode 13.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = F3891E12293B8393003CE8AD;
+			productRefGroup = F3891E1C293B8393003CE8AD /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				F3891E1A293B8393003CE8AD /* FindTown */,
+				F3891E33293B8394003CE8AD /* FindTownTests */,
+				F3891E3D293B8394003CE8AD /* FindTownUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		F3891E19293B8393003CE8AD /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F3891E2E293B8394003CE8AD /* LaunchScreen.storyboard in Resources */,
+				F3891E2B293B8394003CE8AD /* Assets.xcassets in Resources */,
+				F3891E26293B8393003CE8AD /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F3891E32293B8394003CE8AD /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F3891E3C293B8394003CE8AD /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		F3891E17293B8393003CE8AD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F3891E23293B8393003CE8AD /* ViewController.swift in Sources */,
+				F3891E1F293B8393003CE8AD /* AppDelegate.swift in Sources */,
+				F3891E29293B8393003CE8AD /* FindTown.xcdatamodeld in Sources */,
+				F3891E21293B8393003CE8AD /* SceneDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F3891E30293B8394003CE8AD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F3891E39293B8394003CE8AD /* FindTownTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F3891E3A293B8394003CE8AD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F3891E45293B8394003CE8AD /* FindTownUITestsLaunchTests.swift in Sources */,
+				F3891E43293B8394003CE8AD /* FindTownUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		F3891E36293B8394003CE8AD /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F3891E1A293B8393003CE8AD /* FindTown */;
+			targetProxy = F3891E35293B8394003CE8AD /* PBXContainerItemProxy */;
+		};
+		F3891E40293B8394003CE8AD /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F3891E1A293B8393003CE8AD /* FindTown */;
+			targetProxy = F3891E3F293B8394003CE8AD /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		F3891E24293B8393003CE8AD /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F3891E25293B8393003CE8AD /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		F3891E2C293B8394003CE8AD /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F3891E2D293B8394003CE8AD /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		F3891E46293B8394003CE8AD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		F3891E47293B8394003CE8AD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		F3891E49293B8394003CE8AD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = CADXU3X8JU;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = FindTown/Info.plist;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = hoyoung.FindTown;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		F3891E4A293B8394003CE8AD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = CADXU3X8JU;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = FindTown/Info.plist;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = hoyoung.FindTown;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		F3891E4C293B8394003CE8AD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = CADXU3X8JU;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = hoyoung.FindTownTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FindTown.app/FindTown";
+			};
+			name = Debug;
+		};
+		F3891E4D293B8394003CE8AD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = CADXU3X8JU;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = hoyoung.FindTownTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FindTown.app/FindTown";
+			};
+			name = Release;
+		};
+		F3891E4F293B8394003CE8AD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = CADXU3X8JU;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = hoyoung.FindTownUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = FindTown;
+			};
+			name = Debug;
+		};
+		F3891E50293B8394003CE8AD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = CADXU3X8JU;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = hoyoung.FindTownUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = FindTown;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		F3891E16293B8393003CE8AD /* Build configuration list for PBXProject "FindTown" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F3891E46293B8394003CE8AD /* Debug */,
+				F3891E47293B8394003CE8AD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F3891E48293B8394003CE8AD /* Build configuration list for PBXNativeTarget "FindTown" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F3891E49293B8394003CE8AD /* Debug */,
+				F3891E4A293B8394003CE8AD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F3891E4B293B8394003CE8AD /* Build configuration list for PBXNativeTarget "FindTownTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F3891E4C293B8394003CE8AD /* Debug */,
+				F3891E4D293B8394003CE8AD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F3891E4E293B8394003CE8AD /* Build configuration list for PBXNativeTarget "FindTownUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F3891E4F293B8394003CE8AD /* Debug */,
+				F3891E50293B8394003CE8AD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		F3891E27293B8393003CE8AD /* FindTown.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				F3891E28293B8393003CE8AD /* FindTown.xcdatamodel */,
+			);
+			currentVersion = F3891E28293B8393003CE8AD /* FindTown.xcdatamodel */;
+			path = FindTown.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = F3891E13293B8393003CE8AD /* Project object */;
+}
