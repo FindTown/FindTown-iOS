@@ -40,6 +40,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		F31A80BD2948B99C003B8A6E /* FindTownNetwork */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = FindTownNetwork; sourceTree = "<group>"; };
+		F31A80BE2948B9CB003B8A6E /* FindTownCore */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = FindTownCore; sourceTree = "<group>"; };
 		F35B78112948B7DB002FAD65 /* FindTownUI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = FindTownUI; sourceTree = "<group>"; };
 		F3891E1B293B8393003CE8AD /* FindTown.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FindTown.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F3891E1E293B8393003CE8AD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -160,6 +162,8 @@
 		F3891E12293B8393003CE8AD = {
 			isa = PBXGroup;
 			children = (
+				F31A80BE2948B9CB003B8A6E /* FindTownCore */,
+				F31A80BD2948B99C003B8A6E /* FindTownNetwork */,
 				F35B78112948B7DB002FAD65 /* FindTownUI */,
 				F3891E1D293B8393003CE8AD /* FindTown */,
 				F3891E37293B8394003CE8AD /* FindTownTests */,
