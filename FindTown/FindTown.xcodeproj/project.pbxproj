@@ -12,6 +12,8 @@
 		BC6EFB83293BD12300AB3332 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = BC6EFB82293BD12300AB3332 /* RxSwift */; };
 		BC6EFB86293BD15A00AB3332 /* RxDataSources in Frameworks */ = {isa = PBXBuildFile; productRef = BC6EFB85293BD15A00AB3332 /* RxDataSources */; };
 		F31A80BC2948B7F6003B8A6E /* FindTownUI in Frameworks */ = {isa = PBXBuildFile; productRef = F31A80BB2948B7F6003B8A6E /* FindTownUI */; };
+		F31A80C02948BA07003B8A6E /* FindTownCore in Frameworks */ = {isa = PBXBuildFile; productRef = F31A80BF2948BA07003B8A6E /* FindTownCore */; };
+		F31A80C22948BA0C003B8A6E /* FindTownNetwork in Frameworks */ = {isa = PBXBuildFile; productRef = F31A80C12948BA0C003B8A6E /* FindTownNetwork */; };
 		F3891E1F293B8393003CE8AD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3891E1E293B8393003CE8AD /* AppDelegate.swift */; };
 		F3891E21293B8393003CE8AD /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3891E20293B8393003CE8AD /* SceneDelegate.swift */; };
 		F3891E23293B8393003CE8AD /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3891E22293B8393003CE8AD /* ViewController.swift */; };
@@ -62,8 +64,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F31A80C22948BA0C003B8A6E /* FindTownNetwork in Frameworks */,
 				F31A80BC2948B7F6003B8A6E /* FindTownUI in Frameworks */,
 				BC6EFB83293BD12300AB3332 /* RxSwift in Frameworks */,
+				F31A80C02948BA07003B8A6E /* FindTownCore in Frameworks */,
 				BC6EFB86293BD15A00AB3332 /* RxDataSources in Frameworks */,
 				BC6EFB81293BD12300AB3332 /* RxRelay in Frameworks */,
 				BC6EFB7F293BD12300AB3332 /* RxCocoa in Frameworks */,
@@ -234,6 +238,8 @@
 				BC6EFB82293BD12300AB3332 /* RxSwift */,
 				BC6EFB85293BD15A00AB3332 /* RxDataSources */,
 				F31A80BB2948B7F6003B8A6E /* FindTownUI */,
+				F31A80BF2948BA07003B8A6E /* FindTownCore */,
+				F31A80C12948BA0C003B8A6E /* FindTownNetwork */,
 			);
 			productName = FindTown;
 			productReference = F3891E1B293B8393003CE8AD /* FindTown.app */;
@@ -731,6 +737,14 @@
 		F31A80BB2948B7F6003B8A6E /* FindTownUI */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = FindTownUI;
+		};
+		F31A80BF2948BA07003B8A6E /* FindTownCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = FindTownCore;
+		};
+		F31A80C12948BA0C003B8A6E /* FindTownNetwork */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = FindTownNetwork;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
