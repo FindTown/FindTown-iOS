@@ -14,6 +14,9 @@
 		BC6EFB88293BD60300AB3332 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC6EFB87293BD60300AB3332 /* BaseViewController.swift */; };
 		BC6EFB8B293BD83E00AB3332 /* BaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC6EFB8A293BD83E00AB3332 /* BaseViewModel.swift */; };
 		BC6EFB8D293BD8AB00AB3332 /* ViewModelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC6EFB8C293BD8AB00AB3332 /* ViewModelType.swift */; };
+		F31A80C82949A5BB003B8A6E /* FindTownCore in Frameworks */ = {isa = PBXBuildFile; productRef = F31A80C72949A5BB003B8A6E /* FindTownCore */; };
+		F31A80CA2949A5BB003B8A6E /* FindTownNetwork in Frameworks */ = {isa = PBXBuildFile; productRef = F31A80C92949A5BB003B8A6E /* FindTownNetwork */; };
+		F31A80CC2949A5BB003B8A6E /* FindTownUI in Frameworks */ = {isa = PBXBuildFile; productRef = F31A80CB2949A5BB003B8A6E /* FindTownUI */; };
 		F3891E1F293B8393003CE8AD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3891E1E293B8393003CE8AD /* AppDelegate.swift */; };
 		F3891E21293B8393003CE8AD /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3891E20293B8393003CE8AD /* SceneDelegate.swift */; };
 		F3891E23293B8393003CE8AD /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3891E22293B8393003CE8AD /* ViewController.swift */; };
@@ -45,6 +48,9 @@
 		BC6EFB87293BD60300AB3332 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		BC6EFB8A293BD83E00AB3332 /* BaseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewModel.swift; sourceTree = "<group>"; };
 		BC6EFB8C293BD8AB00AB3332 /* ViewModelType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelType.swift; sourceTree = "<group>"; };
+		F31A80C32949A556003B8A6E /* FindTownUI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = FindTownUI; sourceTree = "<group>"; };
+		F31A80C42949A568003B8A6E /* FindTownCore */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = FindTownCore; sourceTree = "<group>"; };
+		F31A80C52949A577003B8A6E /* FindTownNetwork */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = FindTownNetwork; sourceTree = "<group>"; };
 		F3891E1B293B8393003CE8AD /* FindTown.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FindTown.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F3891E1E293B8393003CE8AD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F3891E20293B8393003CE8AD /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -64,8 +70,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F31A80CA2949A5BB003B8A6E /* FindTownNetwork in Frameworks */,
 				BC6EFB83293BD12300AB3332 /* RxSwift in Frameworks */,
+				F31A80C82949A5BB003B8A6E /* FindTownCore in Frameworks */,
 				BC6EFB86293BD15A00AB3332 /* RxDataSources in Frameworks */,
+				F31A80CC2949A5BB003B8A6E /* FindTownUI in Frameworks */,
 				BC6EFB81293BD12300AB3332 /* RxRelay in Frameworks */,
 				BC6EFB7F293BD12300AB3332 /* RxCocoa in Frameworks */,
 			);
@@ -164,13 +173,24 @@
 			path = ViewController;
 			sourceTree = "<group>";
 		};
+		F31A80C62949A5BB003B8A6E /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		F3891E12293B8393003CE8AD = {
 			isa = PBXGroup;
 			children = (
+				F31A80C52949A577003B8A6E /* FindTownNetwork */,
+				F31A80C42949A568003B8A6E /* FindTownCore */,
+				F31A80C32949A556003B8A6E /* FindTownUI */,
 				F3891E1D293B8393003CE8AD /* FindTown */,
 				F3891E37293B8394003CE8AD /* FindTownTests */,
 				F3891E41293B8394003CE8AD /* FindTownUITests */,
 				F3891E1C293B8393003CE8AD /* Products */,
+				F31A80C62949A5BB003B8A6E /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -234,6 +254,9 @@
 				BC6EFB80293BD12300AB3332 /* RxRelay */,
 				BC6EFB82293BD12300AB3332 /* RxSwift */,
 				BC6EFB85293BD15A00AB3332 /* RxDataSources */,
+				F31A80C72949A5BB003B8A6E /* FindTownCore */,
+				F31A80C92949A5BB003B8A6E /* FindTownNetwork */,
+				F31A80CB2949A5BB003B8A6E /* FindTownUI */,
 			);
 			productName = FindTown;
 			productReference = F3891E1B293B8393003CE8AD /* FindTown.app */;
@@ -730,6 +753,18 @@
 			isa = XCSwiftPackageProductDependency;
 			package = BC6EFB84293BD15A00AB3332 /* XCRemoteSwiftPackageReference "RxDataSources" */;
 			productName = RxDataSources;
+		};
+		F31A80C72949A5BB003B8A6E /* FindTownCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = FindTownCore;
+		};
+		F31A80C92949A5BB003B8A6E /* FindTownNetwork */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = FindTownNetwork;
+		};
+		F31A80CB2949A5BB003B8A6E /* FindTownUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = FindTownUI;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
