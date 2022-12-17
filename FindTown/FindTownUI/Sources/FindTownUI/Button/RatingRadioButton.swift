@@ -89,11 +89,11 @@ public final class RatingRadioButton: UIView {
     }
     
     private func addView() {
-        starStackView.addArrangedSubview(star1)
-        starStackView.addArrangedSubview(star2)
-        starStackView.addArrangedSubview(star3)
-        starStackView.addArrangedSubview(star4)
-        starStackView.addArrangedSubview(star5)
+        let starButtons = [star1, star2, star3, star4, star5]
+        
+        starButtons.forEach {
+            starStackView.addArrangedSubview($0)
+        }
         
         backgroundView.addSubview(radioButton)
         backgroundView.addSubview(starStackView)
