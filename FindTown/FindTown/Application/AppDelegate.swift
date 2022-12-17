@@ -7,14 +7,15 @@
 
 import UIKit
 import CoreData
+import FindTownUI
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        
+        // FindTownUI Package의 있는 Custom 폰트 등록 메소드 호출
+        registerFonts()
         return true
     }
 

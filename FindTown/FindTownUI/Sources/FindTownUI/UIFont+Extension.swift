@@ -33,23 +33,23 @@ public extension UIFont {
     static let H3: UIFont = .init(name: "Pretendard-SemiBold", size: 24.0) ?? .systemFont(ofSize: 24.0)
     
     // Subtitle
-    static let S1: UIFont = .init(name: "Pretendard-Medium", size: 22.0) ?? .systemFont(ofSize: 5.0)
-    static let S2: UIFont = .init(name: "Pretendard-SemiBold", size: 20.0) ?? .systemFont(ofSize: 5.0)
-    static let S3: UIFont = .init(name: "Pretendard-Medium", size: 20.0) ?? .systemFont(ofSize: 5.0)
-    static let S4: UIFont = .init(name: "Pretendard-SemiBold", size: 18.0) ?? .systemFont(ofSize: 5.0)
-    static let S5: UIFont = .init(name: "Pretendard-Medium", size: 18.0) ?? .systemFont(ofSize: 5.0)
+    static let S1: UIFont = .init(name: "Pretendard-Medium", size: 22.0) ?? .systemFont(ofSize: 22.0)
+    static let S2: UIFont = .init(name: "Pretendard-SemiBold", size: 20.0) ?? .systemFont(ofSize: 20.0)
+    static let S3: UIFont = .init(name: "Pretendard-Medium", size: 20.0) ?? .systemFont(ofSize: 20.0)
+    static let S4: UIFont = .init(name: "Pretendard-SemiBold", size: 18.0) ?? .systemFont(ofSize: 18.0)
+    static let S5: UIFont = .init(name: "Pretendard-Medium", size: 18.0) ?? .systemFont(ofSize: 18.0)
     
     // Body
-    static let B1: UIFont = .init(name: "Pretendard-Medium", size: 16.0) ?? .systemFont(ofSize: 5.0)
-    static let B2: UIFont = .init(name: "Pretendard-Regular", size: 16.0) ?? .systemFont(ofSize: 5.0)
-    static let B3: UIFont = .init(name: "Pretendard-Medium", size: 14.0) ?? .systemFont(ofSize: 5.0)
-    static let B4: UIFont = .init(name: "Pretendard-Regular", size: 14.0) ?? .systemFont(ofSize: 5.0)
+    static let B1: UIFont = .init(name: "Pretendard-Medium", size: 16.0) ?? .systemFont(ofSize: 16.0)
+    static let B2: UIFont = .init(name: "Pretendard-Regular", size: 16.0) ?? .systemFont(ofSize: 16.0)
+    static let B3: UIFont = .init(name: "Pretendard-Medium", size: 14.0) ?? .systemFont(ofSize: 14.0)
+    static let B4: UIFont = .init(name: "Pretendard-Regular", size: 14.0) ?? .systemFont(ofSize: 14.0)
     
     // Label
-    static let L1: UIFont = .init(name: "Pretendard-Regular", size: 14.0) ?? .systemFont(ofSize: 5.0)
-    static let L2: UIFont = .init(name: "Pretendard-Medium", size: 12.0) ?? .systemFont(ofSize: 5.0)
-    static let L3: UIFont = .init(name: "Pretendard-Light", size: 12.0) ?? .systemFont(ofSize: 5.0)
-    static let L4: UIFont = .init(name: "Pretendard-Light", size: 11.0) ?? .systemFont(ofSize: 5.0)
+    static let L1: UIFont = .init(name: "Pretendard-Regular", size: 14.0) ?? .systemFont(ofSize: 14.0)
+    static let L2: UIFont = .init(name: "Pretendard-Medium", size: 12.0) ?? .systemFont(ofSize: 12.0)
+    static let L3: UIFont = .init(name: "Pretendard-Light", size: 12.0) ?? .systemFont(ofSize: 12.0)
+    static let L4: UIFont = .init(name: "Pretendard-Light", size: 11.0) ?? .systemFont(ofSize: 11.0)
     
     
     // 폰트 등록
