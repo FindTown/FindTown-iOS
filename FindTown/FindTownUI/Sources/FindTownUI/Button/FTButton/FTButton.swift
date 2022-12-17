@@ -13,40 +13,18 @@ public final class FTButton: UIButton {
     
     public init(frame: CGRect = .zero, style: FTButtonStyle) {
         self.style = style
+        
         super.init(frame: frame)
         
         translatesAutoresizingMaskIntoConstraints = false
+        
+        isSelected = false
         
         configureUI()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    public override var isSelected: Bool {
-        didSet {
-            switch isSelected {
-            case true:
-                configuration?.background.strokeColor = style.selectedBaseColor
-                configuration?.baseForegroundColor = style.selectedBaseColor
-                configuration?.baseBackgroundColor = style.selectedBackgroundColor
-            case false:
-                configuration?.background.strokeColor = style.nonSelectedBaseColor
-                configuration?.baseForegroundColor = style.nonSelectedBaseColor
-                configuration?.baseBackgroundColor = style.nonSelectedBackgroundColor
-            }
-        }
-    }
-    
-    public func setSelectedTitle(normalTitle: String = .init(), selectedTitle: String = .init()) {
-        setTitle(normalTitle, for: .normal)
-        setTitle(selectedTitle, for: .selected)
-    }
-    
-    public func setSelectedImage(normalImage: UIImage = .init(), selectedImage: UIImage = .init()) {
-        setImage(normalImage, for: .normal)
-        setImage(selectedImage, for: .selected)
     }
     
     private func configureUI() {
@@ -57,9 +35,9 @@ public final class FTButton: UIButton {
             layer.shadowRadius = 5
         }
         
-        var config = style.configu
-        config.baseBackgroundColor = style.selectedBackgroundColor
-        config.baseForegroundColor = style.nonSelectedBaseColor
+        var config = style.configuration
+        config.baseBackgroundColor = style.backgroundColor
+        config.baseForegroundColor = style.foregroundColor
         config.titleTextAttributesTransformer = UIConfigurationTextAttributesTransformer (
             { [weak self] incoming in
                 var outgoing = incoming
@@ -71,13 +49,11 @@ public final class FTButton: UIButton {
         config.contentInsets = NSDirectionalEdgeInsets(
             top: 12, leading: style.inset, bottom: 12, trailing: style.inset
         )
-        config.background.strokeColor = style.nonSelectedBaseColor
+        config.background.strokeColor = style.foregroundColor
         config.background.strokeWidth = style.strokeWidth
         config.imagePlacement = style.imagePlacement
         config.imagePadding = style.imagePadding
         
         configuration = config
-        
-        isSelected = false
     }
 }
