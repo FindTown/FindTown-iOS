@@ -14,7 +14,7 @@ private let tempRedColor = UIColor.red
 private let tempGrayColor = UIColor.gray
 
 public struct FTButtonStyle {
-    let configu: UIButton.Configuration
+    let configuration: UIButton.Configuration
     let titleFont: UIFont
     let selectedBackgroundColor: UIColor
     let nonSelectedBackgroundColor: UIColor
@@ -30,7 +30,7 @@ public struct FTButtonStyle {
 
 extension FTButtonStyle {
     public static let largeType = FTButtonStyle (
-        configu: .tinted(),
+        configuration: .tinted(),
         titleFont: .systemFont(ofSize: tempFontSize),
         selectedBackgroundColor: tempWhiteColor,
         nonSelectedBackgroundColor: tempWhiteColor,
@@ -42,7 +42,7 @@ extension FTButtonStyle {
     )
     
     public static let mediumBackgroundColorType = FTButtonStyle (
-        configu: .filled(),
+        configuration: .filled(),
         titleFont: .systemFont(ofSize: tempFontSize),
         selectedBackgroundColor: tempRedColor,
         nonSelectedBackgroundColor: tempRedColor,
@@ -54,7 +54,7 @@ extension FTButtonStyle {
     )
     
     public static let mediumOpacityBackgroundColorType = FTButtonStyle (
-        configu: .tinted(),
+        configuration: .tinted(),
         titleFont: .systemFont(ofSize: tempFontSize),
         selectedBackgroundColor: tempRedColor.withAlphaComponent(0.3),
         nonSelectedBackgroundColor: tempRedColor.withAlphaComponent(0.3),
@@ -66,7 +66,7 @@ extension FTButtonStyle {
     )
     
     public static let mediumRadiusColorType = FTButtonStyle (
-        configu: .tinted(),
+        configuration: .tinted(),
         titleFont: .systemFont(ofSize: tempFontSize),
         selectedBackgroundColor: tempWhiteColor,
         nonSelectedBackgroundColor: tempWhiteColor,
@@ -78,7 +78,7 @@ extension FTButtonStyle {
     )
     
     public static let smallType = FTButtonStyle (
-        configu: .tinted(),
+        configuration: .tinted(),
         titleFont: .systemFont(ofSize: tempFontSize),
         selectedBackgroundColor: tempWhiteColor,
         nonSelectedBackgroundColor: tempWhiteColor,
@@ -90,7 +90,7 @@ extension FTButtonStyle {
     )
     
     public static let xSmallType = FTButtonStyle (
-        configu: .tinted(),
+        configuration: .tinted(),
         titleFont: .systemFont(ofSize: tempFontSize),
         selectedBackgroundColor: tempWhiteColor,
         nonSelectedBackgroundColor: tempWhiteColor,
@@ -102,7 +102,7 @@ extension FTButtonStyle {
     )
     
     public static let xxSmallType = FTButtonStyle (
-        configu: .tinted(),
+        configuration: .tinted(),
         titleFont: .systemFont(ofSize: tempFontSize),
         selectedBackgroundColor: tempWhiteColor,
         nonSelectedBackgroundColor: tempWhiteColor,
@@ -114,7 +114,7 @@ extension FTButtonStyle {
     )
     
     public static let buttonFilterClipType = FTButtonStyle (
-        configu: .tinted(),
+        configuration: .tinted(),
         titleFont: .systemFont(ofSize: tempFontSize),
         selectedBackgroundColor: tempWhiteColor,
         nonSelectedBackgroundColor: tempWhiteColor,
@@ -127,7 +127,7 @@ extension FTButtonStyle {
     )
     
     public static let iconFilterClipType = FTButtonStyle (
-        configu: .filled(),
+        configuration: .filled(),
         titleFont: .systemFont(ofSize: tempFontSize),
         selectedBackgroundColor: tempRedColor,
         nonSelectedBackgroundColor: tempWhiteColor,
@@ -141,7 +141,7 @@ extension FTButtonStyle {
     )
     
     public static let roundButtonType = FTButtonStyle (
-        configu: .filled(),
+        configuration: .filled(),
         titleFont: .systemFont(ofSize: tempFontSize),
         selectedBackgroundColor: tempWhiteColor,
         nonSelectedBackgroundColor: tempBlackColor,
@@ -155,7 +155,7 @@ extension FTButtonStyle {
     )
     
     public static let iconButtonType = FTButtonStyle (
-        configu: .tinted(),
+        configuration: .tinted(),
         titleFont: .systemFont(ofSize: 20),
         selectedBackgroundColor: tempWhiteColor,
         nonSelectedBackgroundColor: tempWhiteColor,
