@@ -9,13 +9,13 @@ import UIKit
 
 public final class RatingRadioButton: UIView {
     
-    public enum StarType {
-        case none
-        case three
-        case five
+    public enum StarPriority {
+        case low
+        case medium
+        case high
     }
     
-    private var starType: StarType
+    private var starPriority: StarPriority
     private var labelPadding: Double = 10.0
     
     private let backgroundView: UIView = {
@@ -76,8 +76,8 @@ public final class RatingRadioButton: UIView {
         return label
     }()
     
-    public init(starType: StarType) {
-        self.starType = starType
+    public init(starPriority: StarPriority) {
+        self.starPriority = starPriority
         super.init(frame: CGRect.zero)
         
         addView()
@@ -99,19 +99,19 @@ public final class RatingRadioButton: UIView {
         backgroundView.addSubview(starStackView)
         backgroundView.addSubview(ratingGuirdTitle)
         
-        switch starType {
-        case .none:
+        switch starPriority {
+        case .low:
             [star1, star2, star3, star4, star5].forEach {
                 $0.isHidden = true
             }
             labelPadding = 0
             ratingGuirdTitle.text = "크게 중요하지 않아요."
-        case .three:
+        case .medium:
             [star1, star2, star3].forEach {
                 $0.isSelected = true
             }
             ratingGuirdTitle.text = "중요해요."
-        case .five:
+        case .high:
             [star1, star2, star3, star4, star5].forEach {
                 $0.isSelected = true
             }
