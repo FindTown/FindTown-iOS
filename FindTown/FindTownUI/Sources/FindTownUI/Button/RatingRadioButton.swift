@@ -69,7 +69,7 @@ public final class RatingRadioButton: UIView {
         return btn
     }()
     
-    private let rattingGuirdTitle: UILabel = {
+    private let ratingGuirdTitle: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .gray
@@ -97,7 +97,7 @@ public final class RatingRadioButton: UIView {
         
         backgroundView.addSubview(radioButton)
         backgroundView.addSubview(starStackView)
-        backgroundView.addSubview(rattingGuirdTitle)
+        backgroundView.addSubview(ratingGuirdTitle)
         
         switch starType {
         case .none:
@@ -105,17 +105,17 @@ public final class RatingRadioButton: UIView {
                 $0.isHidden = true
             }
             labelPadding = 0
-            rattingGuirdTitle.text = "크게 중요하지 않아요."
+            ratingGuirdTitle.text = "크게 중요하지 않아요."
         case .three:
             [star1, star2, star3].forEach {
                 $0.isSelected = true
             }
-            rattingGuirdTitle.text = "중요해요."
+            ratingGuirdTitle.text = "중요해요."
         case .five:
             [star1, star2, star3, star4, star5].forEach {
                 $0.isSelected = true
             }
-            rattingGuirdTitle.text = "매우 중요해요."
+            ratingGuirdTitle.text = "매우 중요해요."
         }
         
         addSubview(backgroundView)
@@ -130,7 +130,7 @@ public final class RatingRadioButton: UIView {
         starStackView.leftAnchor.constraint(equalTo: radioButton.rightAnchor, constant: 10).isActive = true
         starStackView.centerYAnchor.constraint(equalTo: super.centerYAnchor).isActive = true
         
-        rattingGuirdTitle.leftAnchor.constraint(equalTo: starStackView.rightAnchor, constant: labelPadding).isActive = true
-        rattingGuirdTitle.centerYAnchor.constraint(equalTo: super.centerYAnchor).isActive = true
+        ratingGuirdTitle.leftAnchor.constraint(equalTo: starStackView.rightAnchor, constant: labelPadding).isActive = true
+        ratingGuirdTitle.centerYAnchor.constraint(equalTo: super.centerYAnchor).isActive = true
     }
 }
