@@ -11,9 +11,6 @@
 		BC6EFB81293BD12300AB3332 /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = BC6EFB80293BD12300AB3332 /* RxRelay */; };
 		BC6EFB83293BD12300AB3332 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = BC6EFB82293BD12300AB3332 /* RxSwift */; };
 		BC6EFB86293BD15A00AB3332 /* RxDataSources in Frameworks */ = {isa = PBXBuildFile; productRef = BC6EFB85293BD15A00AB3332 /* RxDataSources */; };
-		BC6EFB88293BD60300AB3332 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC6EFB87293BD60300AB3332 /* BaseViewController.swift */; };
-		BC6EFB8B293BD83E00AB3332 /* BaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC6EFB8A293BD83E00AB3332 /* BaseViewModel.swift */; };
-		BC6EFB8D293BD8AB00AB3332 /* ViewModelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC6EFB8C293BD8AB00AB3332 /* ViewModelType.swift */; };
 		F31A80C82949A5BB003B8A6E /* FindTownCore in Frameworks */ = {isa = PBXBuildFile; productRef = F31A80C72949A5BB003B8A6E /* FindTownCore */; };
 		F31A80CA2949A5BB003B8A6E /* FindTownNetwork in Frameworks */ = {isa = PBXBuildFile; productRef = F31A80C92949A5BB003B8A6E /* FindTownNetwork */; };
 		F31A80CC2949A5BB003B8A6E /* FindTownUI in Frameworks */ = {isa = PBXBuildFile; productRef = F31A80CB2949A5BB003B8A6E /* FindTownUI */; };
@@ -45,9 +42,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		BC6EFB87293BD60300AB3332 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
-		BC6EFB8A293BD83E00AB3332 /* BaseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewModel.swift; sourceTree = "<group>"; };
-		BC6EFB8C293BD8AB00AB3332 /* ViewModelType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelType.swift; sourceTree = "<group>"; };
 		F31A80C32949A556003B8A6E /* FindTownUI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = FindTownUI; sourceTree = "<group>"; };
 		F31A80C42949A568003B8A6E /* FindTownCore */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = FindTownCore; sourceTree = "<group>"; };
 		F31A80C52949A577003B8A6E /* FindTownNetwork */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = FindTownNetwork; sourceTree = "<group>"; };
@@ -149,8 +143,6 @@
 		BC6EFB79293B9C5B00AB3332 /* VIewModel */ = {
 			isa = PBXGroup;
 			children = (
-				BC6EFB8A293BD83E00AB3332 /* BaseViewModel.swift */,
-				BC6EFB8C293BD8AB00AB3332 /* ViewModelType.swift */,
 			);
 			path = VIewModel;
 			sourceTree = "<group>";
@@ -168,7 +160,6 @@
 		BC6EFB89293BD63600AB3332 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
-				BC6EFB87293BD60300AB3332 /* BaseViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -377,9 +368,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				F3891E23293B8393003CE8AD /* ViewController.swift in Sources */,
-				BC6EFB8B293BD83E00AB3332 /* BaseViewModel.swift in Sources */,
-				BC6EFB8D293BD8AB00AB3332 /* ViewModelType.swift in Sources */,
-				BC6EFB88293BD60300AB3332 /* BaseViewController.swift in Sources */,
 				F3891E1F293B8393003CE8AD /* AppDelegate.swift in Sources */,
 				F3891E21293B8393003CE8AD /* SceneDelegate.swift in Sources */,
 			);
