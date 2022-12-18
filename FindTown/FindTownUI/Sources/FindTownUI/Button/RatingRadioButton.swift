@@ -15,8 +15,9 @@ public final class RatingRadioButton: UIView {
         case high
     }
     
-    private var starPriority: StarPriority
     private var labelPadding: Double = 10.0
+    private var starPriority: StarPriority
+    private var starButtons: [StarButton] = []
     
     private let backgroundView: UIView = {
         let view = UIView()
@@ -39,36 +40,6 @@ public final class RatingRadioButton: UIView {
         return stackView
     }()
     
-    private let star1: StarButton = {
-        let btn = StarButton()
-        btn.isUserInteractionEnabled = false
-        return btn
-    }()
-    
-    private let star2: StarButton = {
-        let btn = StarButton()
-        btn.isUserInteractionEnabled = false
-        return btn
-    }()
-    
-    private let star3: StarButton = {
-        let btn = StarButton()
-        btn.isUserInteractionEnabled = false
-        return btn
-    }()
-    
-    private let star4: StarButton = {
-        let btn = StarButton()
-        btn.isUserInteractionEnabled = false
-        return btn
-    }()
-    
-    private let star5: StarButton = {
-        let btn = StarButton()
-        btn.isUserInteractionEnabled = false
-        return btn
-    }()
-    
     private let ratingGuirdTitle: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -89,7 +60,11 @@ public final class RatingRadioButton: UIView {
     }
     
     private func addView() {
-        let starButtons = [star1, star2, star3, star4, star5]
+        for _ in 1...5 {
+            let starButton = StarButton()
+            starButton.isUserInteractionEnabled = false
+            starButtons.append(starButton)
+        }
         
         starButtons.forEach {
             starStackView.addArrangedSubview($0)
@@ -101,18 +76,18 @@ public final class RatingRadioButton: UIView {
         
         switch starPriority {
         case .low:
-            [star1, star2, star3, star4, star5].forEach {
+            starButtons.forEach {
                 $0.isHidden = true
             }
             labelPadding = 0
             ratingGuirdTitle.text = "크게 중요하지 않아요."
         case .medium:
-            [star1, star2, star3].forEach {
-                $0.isSelected = true
+            for i in 0..<3 {
+                starButtons[i].isSelected = true
             }
             ratingGuirdTitle.text = "중요해요."
         case .high:
-            [star1, star2, star3, star4, star5].forEach {
+            starButtons.forEach {
                 $0.isSelected = true
             }
             ratingGuirdTitle.text = "매우 중요해요."
