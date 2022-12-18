@@ -6,8 +6,11 @@
 //
 
 import UIKit
+import RxSwift
 
 open class BaseViewController: UIViewController {
+    
+    public let disposeBag = DisposeBag()
     
     open override func viewDidLoad() {
         super.viewDidLoad()

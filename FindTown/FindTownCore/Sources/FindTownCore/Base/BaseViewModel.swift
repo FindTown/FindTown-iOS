@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import RxSwift
 
 protocol ViewModelType {
     associatedtype Input
@@ -15,6 +16,9 @@ protocol ViewModelType {
 }
 
 open class BaseViewModel: ViewModelType {
+    
+    public let disposeBag = DisposeBag()
+    
     struct Input { }
     struct Output { }
 
