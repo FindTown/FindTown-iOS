@@ -11,7 +11,10 @@ public final class CheckButton: UIButton {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        
         translatesAutoresizingMaskIntoConstraints = false
+        
+        changesSelectionAsPrimaryAction = true
         
         configureUI()
     }

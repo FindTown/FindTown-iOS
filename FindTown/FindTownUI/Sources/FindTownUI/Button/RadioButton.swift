@@ -10,7 +10,10 @@ import UIKit
 public final class RadioButton: UIButton {
     override init(frame: CGRect) {
         super.init(frame: frame)
+        
         translatesAutoresizingMaskIntoConstraints = false
+        
+        changesSelectionAsPrimaryAction = true
         
         configureUI()
     }

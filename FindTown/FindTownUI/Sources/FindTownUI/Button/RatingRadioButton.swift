@@ -122,6 +122,8 @@ public final class RatingRadioButton: UIView {
     }
     
     private func setLayout() {
+        translatesAutoresizingMaskIntoConstraints = false
+        
         radioButton.leftAnchor.constraint(equalTo: super.leftAnchor).isActive = true
         radioButton.centerYAnchor.constraint(equalTo: super.centerYAnchor).isActive = true
         
