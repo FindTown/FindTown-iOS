@@ -7,7 +7,7 @@
 
 import UIKit
 
-public final class FTSelectableButton: UIButton {
+public final class FTSelectableButton: UIButton, Selectable {
     
     private let selectedButtonStyle: FTButtonStyle
     private let nonSelectedButtonStyle: FTButtonStyle
