@@ -18,7 +18,6 @@ open class BaseViewModel: ViewModelType {
     struct Input { }
     struct Output { }
 
-    
     public init() {
       self.bind()
     }
