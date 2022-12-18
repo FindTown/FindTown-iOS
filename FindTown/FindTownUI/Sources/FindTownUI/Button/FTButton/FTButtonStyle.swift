@@ -27,7 +27,7 @@ public struct FTButtonStyle {
 }
 
 extension FTButtonStyle {
-    public static let largeSelectedType = FTButtonStyle (
+    public static let largeSelected = FTButtonStyle (
         configuration: .tinted(),
         titleFont: .systemFont(ofSize: tempFontSize),
         backgroundColor: tempWhiteColor,
@@ -36,7 +36,7 @@ extension FTButtonStyle {
         cornerRadius: 10
     )
     
-    public static let largeNonSelectedType = FTButtonStyle (
+    public static let largeNonSelected = FTButtonStyle (
         configuration: .tinted(),
         titleFont: .systemFont(ofSize: tempFontSize),
         backgroundColor: tempWhiteColor,
@@ -45,7 +45,7 @@ extension FTButtonStyle {
         cornerRadius: 10
     )
     
-    public static let mediumBackgroundColorType = FTButtonStyle (
+    public static let mediumFilled = FTButtonStyle (
         configuration: .filled(),
         titleFont: .systemFont(ofSize: tempFontSize),
         backgroundColor: tempRedColor,
@@ -54,7 +54,7 @@ extension FTButtonStyle {
         cornerRadius: 10
     )
 
-    public static let mediumOpacityBackgroundColorType = FTButtonStyle (
+    public static let mediumTintedWithOpacity = FTButtonStyle (
         configuration: .tinted(),
         titleFont: .systemFont(ofSize: tempFontSize),
         backgroundColor: tempRedColor.withAlphaComponent(0.3),
@@ -64,7 +64,7 @@ extension FTButtonStyle {
         strokeWidth: 0.0
     )
 
-    public static let mediumRadiusColorType = FTButtonStyle (
+    public static let mediumTintedWithRadius = FTButtonStyle (
         configuration: .tinted(),
         titleFont: .systemFont(ofSize: tempFontSize),
         backgroundColor: tempWhiteColor,
@@ -73,7 +73,7 @@ extension FTButtonStyle {
         cornerRadius: 10
     )
 
-    public static let smallSelectedType = FTButtonStyle (
+    public static let smallSelected = FTButtonStyle (
         configuration: .tinted(),
         titleFont: .systemFont(ofSize: tempFontSize),
         backgroundColor: tempWhiteColor,
@@ -82,7 +82,7 @@ extension FTButtonStyle {
         cornerRadius: 10
     )
     
-    public static let smallNonSelectedType = FTButtonStyle (
+    public static let smallNonSelected = FTButtonStyle (
         configuration: .tinted(),
         titleFont: .systemFont(ofSize: tempFontSize),
         backgroundColor: tempWhiteColor,
@@ -91,7 +91,7 @@ extension FTButtonStyle {
         cornerRadius: 10
     )
 
-    public static let xSmallSelectedType = FTButtonStyle (
+    public static let xSmallSelected = FTButtonStyle (
         configuration: .tinted(),
         titleFont: .systemFont(ofSize: tempFontSize),
         backgroundColor: tempWhiteColor,
@@ -100,7 +100,7 @@ extension FTButtonStyle {
         cornerRadius: 10
     )
     
-    public static let xSmallNonSelectedType = FTButtonStyle (
+    public static let xSmallNonSelected = FTButtonStyle (
         configuration: .tinted(),
         titleFont: .systemFont(ofSize: tempFontSize),
         backgroundColor: tempWhiteColor,
@@ -109,7 +109,7 @@ extension FTButtonStyle {
         cornerRadius: 10
     )
     
-    public static let xxSmallSelectedType = FTButtonStyle (
+    public static let xxSmallSelected = FTButtonStyle (
         configuration: .tinted(),
         titleFont: .systemFont(ofSize: tempFontSize),
         backgroundColor: tempWhiteColor,
@@ -118,7 +118,7 @@ extension FTButtonStyle {
         cornerRadius: 10
     )
     
-    public static let xxSmallNonSelectedType = FTButtonStyle (
+    public static let xxSmallNonSelected = FTButtonStyle (
         configuration: .tinted(),
         titleFont: .systemFont(ofSize: tempFontSize),
         backgroundColor: tempWhiteColor,
@@ -127,7 +127,7 @@ extension FTButtonStyle {
         cornerRadius: 10
     )
 
-    public static let buttonFilterChipSelectedType = FTButtonStyle (
+    public static let buttonFilterSelected = FTButtonStyle (
         configuration: .tinted(),
         titleFont: .systemFont(ofSize: tempFontSize),
         backgroundColor: tempWhiteColor,
@@ -138,7 +138,7 @@ extension FTButtonStyle {
         imagePadding: 5
     )
     
-    public static let buttonFilterChipNonSelectedType = FTButtonStyle (
+    public static let buttonFilterNonSelected = FTButtonStyle (
         configuration: .tinted(),
         titleFont: .systemFont(ofSize: tempFontSize),
         backgroundColor: tempWhiteColor,
@@ -149,7 +149,7 @@ extension FTButtonStyle {
         imagePadding: 5
     )
 
-    public static let iconFilterChipSelectedType = FTButtonStyle (
+    public static let iconFilterSelected = FTButtonStyle (
         configuration: .filled(),
         titleFont: .systemFont(ofSize: tempFontSize),
         backgroundColor: tempRedColor,
@@ -161,7 +161,7 @@ extension FTButtonStyle {
         isShadow: true
     )
     
-    public static let iconFilterChipNonSelectedType = FTButtonStyle (
+    public static let iconFilterNonSelected = FTButtonStyle (
         configuration: .filled(),
         titleFont: .systemFont(ofSize: tempFontSize),
         backgroundColor: tempWhiteColor,
@@ -173,7 +173,7 @@ extension FTButtonStyle {
         isShadow: true
     )
 
-    public static let roundSelectedType = FTButtonStyle (
+    public static let roundSelected = FTButtonStyle (
         configuration: .filled(),
         titleFont: .systemFont(ofSize: tempFontSize),
         backgroundColor: tempWhiteColor,
@@ -185,7 +185,7 @@ extension FTButtonStyle {
         isShadow: true
     )
     
-    public static let roundNonSelectedType = FTButtonStyle (
+    public static let roundNonSelected = FTButtonStyle (
         configuration: .filled(),
         titleFont: .systemFont(ofSize: tempFontSize),
         backgroundColor: tempBlackColor,
@@ -197,7 +197,7 @@ extension FTButtonStyle {
         isShadow: true
     )
 
-    public static let iconButtonSelectedType = FTButtonStyle (
+    public static let iconSelected = FTButtonStyle (
         configuration: .tinted(),
         titleFont: .systemFont(ofSize: 20),
         backgroundColor: tempWhiteColor,
@@ -209,7 +209,7 @@ extension FTButtonStyle {
         strokeWidth: 0.0
     )
     
-    public static let iconButtonNonSelectedType = FTButtonStyle (
+    public static let iconNonSelected = FTButtonStyle (
         configuration: .tinted(),
         titleFont: .systemFont(ofSize: 20),
         backgroundColor: tempWhiteColor,
