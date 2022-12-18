@@ -24,8 +24,7 @@ let package = Package(
         .target(
             name: "FindTownUI",
             dependencies: [],
-            resources: [.process("Assets.xcassets"),
-                        .process("Fonts")] ),
+            resources: [.process("Resource")] ),
         .testTarget(
             name: "FindTownUITests",
             dependencies: ["FindTownUI"]),
