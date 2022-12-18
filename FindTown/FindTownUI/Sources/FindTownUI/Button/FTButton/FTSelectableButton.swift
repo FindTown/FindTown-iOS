@@ -20,6 +20,8 @@ public final class FTSelectableButton: UIButton {
         
         translatesAutoresizingMaskIntoConstraints = false
         
+        changesSelectionAsPrimaryAction = true
+        
         isSelected = false
         
         configuration = configureUI(style: nonSelectedButtonStyle)
