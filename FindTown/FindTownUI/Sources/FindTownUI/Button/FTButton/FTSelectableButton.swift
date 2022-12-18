@@ -58,25 +58,25 @@ public final class FTSelectableButton: UIButton {
             layer.shadowRadius = 5
         }
         
-        var config = style.configuration
-        config.baseBackgroundColor = style.backgroundColor
-        config.baseForegroundColor = style.foregroundColor
-        config.titleTextAttributesTransformer = UIConfigurationTextAttributesTransformer (
+        var configuration = style.configuration
+        configuration.baseBackgroundColor = style.backgroundColor
+        configuration.baseForegroundColor = style.foregroundColor
+        configuration.titleTextAttributesTransformer = UIConfigurationTextAttributesTransformer (
             { incoming in
                 var outgoing = incoming
                 outgoing.font = style.titleFont
                 return outgoing
             }
         )
-        config.background.cornerRadius = style.cornerRadius
-        config.contentInsets = NSDirectionalEdgeInsets(
+        configuration.background.cornerRadius = style.cornerRadius
+        configuration.contentInsets = NSDirectionalEdgeInsets(
             top: 12, leading: style.inset, bottom: 12, trailing: style.inset
         )
-        config.background.strokeColor = style.foregroundColor
-        config.background.strokeWidth = style.strokeWidth
-        config.imagePlacement = style.imagePlacement
-        config.imagePadding = style.imagePadding
+        configuration.background.strokeColor = style.foregroundColor
+        configuration.background.strokeWidth = style.strokeWidth
+        configuration.imagePlacement = style.imagePlacement
+        configuration.imagePadding = style.imagePadding
         
-        return config
+        return configuration
     }
 }
