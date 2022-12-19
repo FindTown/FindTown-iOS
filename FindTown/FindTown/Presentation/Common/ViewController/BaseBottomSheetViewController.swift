@@ -14,7 +14,7 @@ class BaseBottomSheetViewController: BaseViewController {
         case hide
     }
     
-    private let bottomHeight: CGFloat = 360
+    var bottomHeight: CGFloat
     private var bottomSheetViewTopConstraint: NSLayoutConstraint!
     
     private lazy var dimmedBackView: UIView = {
@@ -42,6 +42,15 @@ class BaseBottomSheetViewController: BaseViewController {
         view.layer.cornerRadius = 3
         return view
     }()
+    
+    init(bottomHeight: CGFloat) {
+         self.bottomHeight = bottomHeight
+         super.init(nibName: nil, bundle: nil)
+     }
+     
+     required init?(coder: NSCoder) {
+         fatalError("init(coder:) has not been implemented")
+     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
