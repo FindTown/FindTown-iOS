@@ -9,6 +9,11 @@ import UIKit
 
 class BaseBottomSheetViewController: BaseViewController {
     
+    enum BottomSheetStatus {
+        case show
+        case hide
+    }
+    
     private let bottomHeight: CGFloat = 360
     private var bottomSheetViewTopConstraint: NSLayoutConstraint!
     
@@ -45,7 +50,7 @@ class BaseBottomSheetViewController: BaseViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        showBottomSheet()
+        setBottomSheetStatus(to: .show)
     }
     
     override func addView() {
@@ -97,42 +102,39 @@ class BaseBottomSheetViewController: BaseViewController {
         view.addGestureRecognizer(swipeGesture)
     }
     
-    private func showBottomSheet() {
+    private func setBottomSheetStatus(to status: BottomSheetStatus) {
         let safeAreaHeight: CGFloat = view.safeAreaLayoutGuide.layoutFrame.height
         let bottomPadding: CGFloat = view.safeAreaInsets.bottom
         
-        bottomSheetViewTopConstraint.constant = (safeAreaHeight + bottomPadding) - bottomHeight
-        
-        UIView.animate(withDuration: 0.25, delay: 0, options: .curveEaseIn, animations: {
-            self.dimmedBackView.alpha = 0.5
-            self.view.layoutIfNeeded()
-        }, completion: nil)
-    }
-    
-    private func hideBottomSheet() {
-        let safeAreaHeight = view.safeAreaLayoutGuide.layoutFrame.height
-        let bottomPadding = view.safeAreaInsets.bottom
-        
-        bottomSheetViewTopConstraint.constant = safeAreaHeight + bottomPadding
-        UIView.animate(withDuration: 0.25, delay: 0, options: .curveEaseIn, animations: {
-            self.dimmedBackView.alpha = 0.0
-            self.view.layoutIfNeeded()
-        }) { _ in
-            if self.presentingViewController != nil {
-                self.dismiss(animated: false, completion: nil)
+        switch status {
+        case .show:
+            bottomSheetViewTopConstraint.constant = (safeAreaHeight + bottomPadding) - bottomHeight
+            UIView.animate(withDuration: 0.25, delay: 0, options: .curveEaseIn, animations: {
+                self.dimmedBackView.alpha = 0.5
+                self.view.layoutIfNeeded()
+            }, completion: nil)
+        case .hide:
+            bottomSheetViewTopConstraint.constant = safeAreaHeight + bottomPadding
+            UIView.animate(withDuration: 0.25, delay: 0, options: .curveEaseIn, animations: {
+                self.dimmedBackView.alpha = 0.0
+                self.view.layoutIfNeeded()
+            }) { _ in
+                if self.presentingViewController != nil {
+                    self.dismiss(animated: false, completion: nil)
+                }
             }
         }
     }
     
     @objc private func dimmedViewTapped(_ tapRecognizer: UITapGestureRecognizer) {
-        hideBottomSheet()
+        setBottomSheetStatus(to: .hide)
     }
     
     @objc private func panGesture(_ recognizer: UISwipeGestureRecognizer) {
         if recognizer.state == .ended {
             switch recognizer.direction {
             case .down:
-                hideBottomSheet()
+                setBottomSheetStatus(to: .hide)
             default:
                 break
             }
