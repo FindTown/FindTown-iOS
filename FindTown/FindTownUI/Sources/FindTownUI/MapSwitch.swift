@@ -8,10 +8,10 @@
 import Foundation
 import UIKit
 
-/// 동네지도 에서 사용되는 인프라, 테마 지도 전환 Switch
+/// 동네지도에서 사용되는 인프라, 테마 지도 전환 Switch
 public class MapSwitch: UISegmentedControl {
     
-    /// init할 때 segment들의 title을 string 배열로 받음
+    /// items: segment들의 title 배열
     public init(items: [String]) {
         super.init(items: items)
         translatesAutoresizingMaskIntoConstraints = false
@@ -57,8 +57,9 @@ private extension MapSwitch {
                                      NSAttributedString.Key.font: FindTownFont.body3.font],
                                     for: .normal)
         
+        /// selectedSegmentIndex = 0 을 default로 설정
+        self.selectedSegmentIndex = 0
         self.backgroundColor = .clear
-        self.clipsToBounds = true
         removeDivider()
     }
     
