@@ -27,6 +27,7 @@ public enum FindTownColor {
     case primary
     case secondary
     case white
+    case semantic
 }
 
 extension FindTownColor {
@@ -67,6 +68,8 @@ extension FindTownColor {
             return UIColor.findTownColor(named: "Secondary")
         case .white:
             return UIColor.findTownColor(named: "White")
+        case .semantic:
+            return UIColor.findTownColor(named: "Semantic")
         }
     }
 }
