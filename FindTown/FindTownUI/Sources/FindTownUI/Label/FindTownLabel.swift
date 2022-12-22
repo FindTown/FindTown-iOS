@@ -20,14 +20,28 @@ public final class FindTownLabel: UILabel {
         super.init(frame: .zero)
         translatesAutoresizingMaskIntoConstraints = false
         
-        self.font = font.font
-        self.textColor = textColor.color
-        self.text = text
-        self.textAlignment = textAlignment
+        self.setupView(text: text,
+                       font: font,
+                       textColor: textColor,
+                       textAlignment: textAlignment)
+        
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+}
 
+private extension FindTownLabel {
+    
+    func setupView(text: String,
+                   font: FindTownFont,
+                   textColor: FindTownColor,
+                   textAlignment: NSTextAlignment) {
+        
+        self.font = font.font
+        self.textColor = textColor.color
+        self.text = text
+        self.textAlignment = textAlignment
+    }
 }
