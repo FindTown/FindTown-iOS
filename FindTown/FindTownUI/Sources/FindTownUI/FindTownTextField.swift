@@ -10,9 +10,9 @@ import UIKit
 
 /// FindTownTF의 status 타입 정의
 public enum FindTownTextFieldStatus {
-    case unfocused
-    case error
-    case focused
+    case focused   /// 작성 중
+    case unfocused /// 작성 중 아님
+    case error     /// 텍스트가 조건을 만족하지 않음
 }
 
 /// FindTown 프로젝트에서 사용되는 Custom TextField
@@ -20,6 +20,8 @@ public class FindTownTextField: UITextField {
     
     /// TextField의 좌, 우 inset
     var insetX: CGFloat = 16
+    /// TextField의 status중 error 케이스 사용 여부
+    var isErrorCaseIncluded = false
     
     /// FindTownTextFieldStatus에 따라 TextField layer의 색상 변경
     public var status: FindTownTextFieldStatus = .unfocused {
@@ -35,22 +37,28 @@ public class FindTownTextField: UITextField {
         }
     }
     
-    /// clearButtonMode = .whileEditing 로 default 설정
-    public init(clearButtonMode: UITextField.ViewMode = .whileEditing) {
+    
+    /// clearButtonMode = .whileEditing, isErrorCaseIncluded = false로 default 설정
+    public init(clearButtonMode: UITextField.ViewMode = .whileEditing,
+                isErrorCaseIncluded: Bool = false) {
         super.init(frame: .zero)
         self.translatesAutoresizingMaskIntoConstraints = false
         
         self.clearButtonMode = clearButtonMode
+        self.isErrorCaseIncluded = isErrorCaseIncluded
         configureUI()
     }
-        
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
     public override func layoutSubviews() {
         super.layoutSubviews()
-        setTextFieldStatus()
+        
+        if !isErrorCaseIncluded {
+            setTextFieldStatus()
+        }
     }
 }
 
