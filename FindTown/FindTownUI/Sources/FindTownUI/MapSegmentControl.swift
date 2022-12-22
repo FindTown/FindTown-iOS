@@ -8,13 +8,14 @@
 import Foundation
 import UIKit
 
-/// 동네지도에서 사용되는 인프라, 테마 지도 전환 Switch
-public class MapSwitch: UISegmentedControl {
+/// 동네지도에서 사용되는 인프라, 테마 지도 전환 SegmentControl(토글 스위치)
+public class MapSegmentControl: UISegmentedControl {
     
     /// items: segment들의 title 배열
     public init(items: [String]) {
         super.init(items: items)
         translatesAutoresizingMaskIntoConstraints = false
+        
         configureUI()
     }
     
@@ -42,7 +43,7 @@ public class MapSwitch: UISegmentedControl {
     }
 }
 
-private extension MapSwitch {
+private extension MapSegmentControl {
     
     func configureUI() {
         /// width, height 크기 설정
@@ -60,15 +61,5 @@ private extension MapSwitch {
         /// selectedSegmentIndex = 0 을 default로 설정
         self.selectedSegmentIndex = 0
         self.backgroundColor = .clear
-        removeDivider()
-    }
-    
-    /// segment 사이 구분선 제거 메서드
-    func removeDivider() {
-        let emptyImage = UIImage()
-        self.setDividerImage(emptyImage,
-                             forLeftSegmentState: .selected,
-                             rightSegmentState: .normal,
-                             barMetrics: .default)
     }
 }
