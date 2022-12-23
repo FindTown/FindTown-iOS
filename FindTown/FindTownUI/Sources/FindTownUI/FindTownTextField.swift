@@ -18,10 +18,13 @@ public enum FindTownTextFieldStatus {
 /// FindTown 프로젝트에서 사용되는 Custom TextField
 public class FindTownTextField: UITextField {
     
+    /// TextField의 error 케이스에 대한 변수
+    /// isError = true: 텍스트가 조건을 만족하지 않음/ isError = false: 텍스트가 조건을 만족 or error 케이스를 사용하지 않는 경우
+    public var isError = false
     /// TextField의 좌, 우 inset
-    var insetX: CGFloat = 16
-    /// TextField의 status중 error 케이스 사용 여부
-    var isErrorCaseIncluded = false
+    let insetX: CGFloat = 16
+    /// clearButton의 width,height 길이
+    let clearButtonWidth = 18.0
     
     /// FindTownTextFieldStatus에 따라 TextField layer의 색상 변경
     public var status: FindTownTextFieldStatus = .unfocused {
@@ -37,15 +40,12 @@ public class FindTownTextField: UITextField {
         }
     }
     
-    
-    /// clearButtonMode = .whileEditing, isErrorCaseIncluded = false로 default 설정
-    public init(clearButtonMode: UITextField.ViewMode = .whileEditing,
-                isErrorCaseIncluded: Bool = false) {
+    /// clearButtonMode = .whileEditing으로 default 설정
+    public init(clearButtonMode: UITextField.ViewMode = .whileEditing) {
         super.init(frame: .zero)
         self.translatesAutoresizingMaskIntoConstraints = false
-        
         self.clearButtonMode = clearButtonMode
-        self.isErrorCaseIncluded = isErrorCaseIncluded
+        
         configureUI()
     }
     
@@ -55,10 +55,8 @@ public class FindTownTextField: UITextField {
     
     public override func layoutSubviews() {
         super.layoutSubviews()
-        
-        if !isErrorCaseIncluded {
-            setTextFieldStatus()
-        }
+
+        setTextFieldStatus()
     }
 }
 
@@ -69,15 +67,28 @@ extension FindTownTextField {
     public override func textRect(forBounds bounds: CGRect) -> CGRect {
         return bounds.insetBy(dx: insetX, dy: 0.0)
     }
-
+    
     public override func editingRect(forBounds bounds: CGRect) -> CGRect {
-        return bounds.insetBy(dx: insetX, dy: 0.0)
+        
+        if clearButtonMode == .never {
+            return CGRect(x: insetX, y: 0, width: bounds.size.width - (insetX), height: bounds.size.height)
+        } else {
+            return CGRect(x: insetX, y: 0, width: bounds.size.width - (clearButtonWidth + insetX*2), height: bounds.size.height)
+        }
+    }
+    
+    public override func placeholderRect(forBounds bounds: CGRect) -> CGRect {
+        
+        if clearButtonMode == .never {
+            return CGRect(x: insetX, y: 0, width: bounds.size.width - (insetX), height: bounds.size.height)
+        } else {
+            return CGRect(x: insetX, y: 0, width: bounds.size.width - (clearButtonWidth + insetX*2), height: bounds.size.height)
+        }
     }
     
     public override func clearButtonRect(forBounds bounds: CGRect) -> CGRect {
-        let buttonWidth = 18.0
-        let buttonX = self.bounds.width - (buttonWidth + insetX)
-        return CGRect(x: buttonX, y: 13.0, width: buttonWidth, height: buttonWidth)
+        let buttonX = self.bounds.size.width - (clearButtonWidth + insetX)
+        return CGRect(x: buttonX, y: 13.0, width: clearButtonWidth, height: clearButtonWidth)
     }
 }
 
@@ -97,7 +108,9 @@ private extension FindTownTextField {
     }
     
     func setTextFieldStatus() {
-        if self.isFirstResponder {
+        if self.isFirstResponder && self.isError {
+            self.status = .error
+        } else if self.isFirstResponder && self.isError == false {
             self.status = .focused
         } else {
             self.status = .unfocused
