@@ -36,6 +36,10 @@ public class BaseNavigationController: UINavigationController {
         navigationBar.scrollEdgeAppearance = appearance
         
         navigationBar.tintColor = FindTownColor.grey7.color
+        navigationBar.titleTextAttributes = [
+            NSAttributedString.Key.foregroundColor: FindTownColor.black.color,
+            NSAttributedString.Key.font: FindTownFont.subtitle4
+        ]
         navigationItem.backButtonDisplayMode = .minimal
     }
 }

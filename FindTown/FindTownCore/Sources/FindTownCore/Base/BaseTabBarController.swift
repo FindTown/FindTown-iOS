@@ -19,10 +19,16 @@ public class BaseTabBarController: UITabBarController {
     func setTabBarAppearance() {
         let itemAppearance = UITabBarItemAppearance()
         itemAppearance.normal.iconColor = FindTownColor.grey6.color
-        itemAppearance.normal.titleTextAttributes = [NSAttributedString.Key.foregroundColor: FindTownColor.grey6.color]
+        itemAppearance.normal.titleTextAttributes = [
+            NSAttributedString.Key.foregroundColor: FindTownColor.grey6.color,
+            NSAttributedString.Key.font: FindTownFont.label4.font
+        ]
         
         itemAppearance.selected.iconColor = FindTownColor.primary.color
-        itemAppearance.selected.titleTextAttributes = [NSAttributedString.Key.foregroundColor: FindTownColor.primary.color]
+        itemAppearance.selected.titleTextAttributes = [
+            NSAttributedString.Key.foregroundColor: FindTownColor.primary.color,
+            NSAttributedString.Key.font: FindTownFont.label4.font
+        ]
         
         let appearance = UITabBarAppearance()
         
