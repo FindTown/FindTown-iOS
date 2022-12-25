@@ -20,7 +20,7 @@ public extension FlowCoordinator {
         switch presentationStyle {
         case let .push(navigationController):
             self.navigationController = navigationController
-            navigationController.pushViewController(initScene(), animated: true)
+            self.navigationController?.pushViewController(initScene(), animated: true)
         case .present(presenter: let presenter, modalPresentationStyle: let modalPresentationStyle):
             let navigationController = BaseNavigationController(rootViewController: initScene())
             self.navigationController = navigationController
@@ -28,10 +28,10 @@ public extension FlowCoordinator {
             presenter.present(navigationController, animated: true, completion: nil)
         case .setViewController(navigationController: let navigationController):
             self.navigationController = navigationController
-            navigationController.setViewControllers([initScene()], animated: true)
+            self.navigationController?.isNavigationBarHidden = true
+            self.navigationController?.setViewControllers([initScene()], animated: true)
         case .none:
-            let navigationController = BaseNavigationController(rootViewController: initScene())
-            self.navigationController = navigationController
+            self.navigationController = BaseNavigationController(rootViewController: initScene())
         }
     }
 }

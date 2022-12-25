@@ -25,6 +25,6 @@ public final class AppCoordinator: Coordinator {
     }
     
     private func goToTabBar() {
-        TabBarCoordinator(presentationStyle: .push(navigationController: navigationController)).start()
+        TabBarCoordinator(presentationStyle: .setViewController(navigationController: navigationController)).start()
     }
 }
