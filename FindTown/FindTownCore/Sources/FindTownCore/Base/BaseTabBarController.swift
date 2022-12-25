@@ -35,7 +35,7 @@ public class BaseTabBarController: UITabBarController {
         appearance.configureWithDefaultBackground()
         appearance.backgroundEffect = .none
         appearance.backgroundColor = FindTownColor.white.color
-        appearance.shadowColor = FindTownColor.white.color
+        appearance.shadowColor = FindTownColor.grey3.color
         
         appearance.stackedLayoutAppearance = itemAppearance
         appearance.inlineLayoutAppearance = itemAppearance
