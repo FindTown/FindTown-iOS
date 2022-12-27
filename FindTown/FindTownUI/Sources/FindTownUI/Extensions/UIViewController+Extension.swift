@@ -16,8 +16,19 @@ extension UIViewController {
                                                 action: #selector(UIViewController.dismissKeyboard))
         view.addGestureRecognizer(tapGesture)
     }
+    
+    /// AlertPopUpVC 띄워 줌
+    public func showAlertPopUp(message: String, buttonText: String, buttonAction: @escaping () -> Void) {
+        let alertPopUp = AlertPopUpViewController(messageText: message,
+                                                  buttonText: buttonText,
+                                                  buttonAction: buttonAction)
+        present(alertPopUp, animated: false)
+    }
+}
 
-    @objc private func dismissKeyboard() {
+private extension UIViewController {
+    
+    @objc func dismissKeyboard() {
         view.endEditing(true)
     }
 }
