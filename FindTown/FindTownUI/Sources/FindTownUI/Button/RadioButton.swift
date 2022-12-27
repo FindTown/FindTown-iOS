@@ -7,7 +7,7 @@
 
 import UIKit
 
-public final class RadioButton: UIButton, Selectable {
+public final class RadioButton: UIButton {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
