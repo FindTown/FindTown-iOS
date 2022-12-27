@@ -47,7 +47,8 @@ public final class FTButton: UIButton {
         )
         configuration.background.cornerRadius = style.cornerRadius
         configuration.contentInsets = NSDirectionalEdgeInsets(
-            top: 12, leading: style.inset, bottom: 12, trailing: style.inset
+            top: style.topBottomInset, leading: style.leftRightInset,
+            bottom: style.topBottomInset, trailing: style.leftRightInset
         )
         configuration.background.strokeColor = style.strokeColor == .clear
         ? style.foregroundColor : style.strokeColor

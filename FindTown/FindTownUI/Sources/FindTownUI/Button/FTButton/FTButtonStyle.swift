@@ -13,7 +13,8 @@ public struct FTButtonStyle {
     let backgroundColor: UIColor
     let foregroundColor: UIColor
     var strokeColor: UIColor = .clear
-    let inset: CGFloat
+    let topBottomInset: CGFloat
+    let leftRightInset: CGFloat
     let cornerRadius: CGFloat
     var imagePlacement: NSDirectionalRectEdge = .all
     var imagePadding: CGFloat = 0.0
@@ -27,7 +28,8 @@ extension FTButtonStyle {
         titleFont: FindTownFont.body3.font,
         backgroundColor: FindTownColor.white.color,
         foregroundColor: FindTownColor.primary.color,
-        inset: 0,
+        topBottomInset: 14,
+        leftRightInset: 0,
         cornerRadius: 10
     )
     
@@ -36,7 +38,8 @@ extension FTButtonStyle {
         titleFont: FindTownFont.body3.font,
         backgroundColor: FindTownColor.white.color,
         foregroundColor: FindTownColor.grey5.color,
-        inset: 0,
+        topBottomInset: 14,
+        leftRightInset: 0,
         cornerRadius: 10
     )
     
@@ -45,7 +48,8 @@ extension FTButtonStyle {
         titleFont: FindTownFont.body3.font,
         backgroundColor: FindTownColor.primary.color,
         foregroundColor: FindTownColor.white.color,
-        inset: 50,
+        topBottomInset: 12,
+        leftRightInset: 50,
         cornerRadius: 10
     )
 
@@ -54,7 +58,8 @@ extension FTButtonStyle {
         titleFont: FindTownFont.body3.font,
         backgroundColor: FindTownColor.primary10.color,
         foregroundColor: FindTownColor.primary.color,
-        inset: 50,
+        topBottomInset: 12,
+        leftRightInset: 50,
         cornerRadius: 10,
         strokeWidth: 0.0
     )
@@ -64,7 +69,8 @@ extension FTButtonStyle {
         titleFont: FindTownFont.body3.font,
         backgroundColor: FindTownColor.white.color,
         foregroundColor: FindTownColor.primary.color,
-        inset: 50,
+        topBottomInset: 12,
+        leftRightInset: 50,
         cornerRadius: 10
     )
 
@@ -73,7 +79,8 @@ extension FTButtonStyle {
         titleFont: FindTownFont.body3.font,
         backgroundColor: FindTownColor.white.color,
         foregroundColor: FindTownColor.primary.color,
-        inset: 40,
+        topBottomInset: 11,
+        leftRightInset: 40,
         cornerRadius: 10
     )
     
@@ -82,7 +89,8 @@ extension FTButtonStyle {
         titleFont: FindTownFont.body3.font,
         backgroundColor: FindTownColor.white.color,
         foregroundColor: FindTownColor.grey4.color,
-        inset: 40,
+        topBottomInset: 11,
+        leftRightInset: 40,
         cornerRadius: 10
     )
 
@@ -91,7 +99,8 @@ extension FTButtonStyle {
         titleFont: FindTownFont.body3.font,
         backgroundColor: FindTownColor.white.color,
         foregroundColor: FindTownColor.primary.color,
-        inset: 25,
+        topBottomInset: 8,
+        leftRightInset: 25,
         cornerRadius: 10
     )
     
@@ -100,7 +109,8 @@ extension FTButtonStyle {
         titleFont: FindTownFont.body3.font,
         backgroundColor: FindTownColor.white.color,
         foregroundColor: FindTownColor.grey4.color,
-        inset: 25,
+        topBottomInset: 8,
+        leftRightInset: 25,
         cornerRadius: 10
     )
     
@@ -109,7 +119,8 @@ extension FTButtonStyle {
         titleFont: FindTownFont.label2.font,
         backgroundColor: FindTownColor.white.color,
         foregroundColor: FindTownColor.primary.color,
-        inset: 10,
+        topBottomInset: 8,
+        leftRightInset: 8,
         cornerRadius: 10
     )
     
@@ -118,7 +129,8 @@ extension FTButtonStyle {
         titleFont: FindTownFont.label2.font,
         backgroundColor: FindTownColor.white.color,
         foregroundColor: FindTownColor.grey4.color,
-        inset: 10,
+        topBottomInset: 8,
+        leftRightInset: 8,
         cornerRadius: 10
     )
 
@@ -127,7 +139,8 @@ extension FTButtonStyle {
         titleFont: FindTownFont.label1.font,
         backgroundColor: FindTownColor.white.color,
         foregroundColor: FindTownColor.primary.color,
-        inset: 20,
+        topBottomInset: 12,
+        leftRightInset: 20,
         cornerRadius: 30,
         imagePlacement: .trailing,
         imagePadding: 5
@@ -138,7 +151,8 @@ extension FTButtonStyle {
         titleFont: FindTownFont.label1.font,
         backgroundColor: FindTownColor.white.color,
         foregroundColor: FindTownColor.grey4.color,
-        inset: 20,
+        topBottomInset: 12,
+        leftRightInset: 20,
         cornerRadius: 30,
         imagePlacement: .trailing,
         imagePadding: 5
@@ -149,7 +163,8 @@ extension FTButtonStyle {
         titleFont: FindTownFont.body4.font,
         backgroundColor: FindTownColor.primary.color,
         foregroundColor: FindTownColor.white.color,
-        inset: 20,
+        topBottomInset: 8,
+        leftRightInset: 20,
         cornerRadius: 30,
         imagePlacement: .leading,
         imagePadding: 5,
@@ -162,7 +177,8 @@ extension FTButtonStyle {
         backgroundColor: FindTownColor.white.color,
         foregroundColor: FindTownColor.grey6.color,
         strokeColor: FindTownColor.grey2.color,
-        inset: 20,
+        topBottomInset: 8,
+        leftRightInset: 20,
         cornerRadius: 30,
         imagePlacement: .leading,
         imagePadding: 5,
@@ -175,7 +191,8 @@ extension FTButtonStyle {
         backgroundColor: FindTownColor.white.color,
         foregroundColor: FindTownColor.grey7.color,
         strokeColor: FindTownColor.grey3.color,
-        inset: 20,
+        topBottomInset: 12,
+        leftRightInset: 20,
         cornerRadius: 30,
         imagePlacement: .leading,
         imagePadding: 5,
@@ -187,7 +204,8 @@ extension FTButtonStyle {
         titleFont: FindTownFont.body4.font,
         backgroundColor: FindTownColor.black.color,
         foregroundColor: FindTownColor.white.color,
-        inset: 20,
+        topBottomInset: 12,
+        leftRightInset: 20,
         cornerRadius: 30,
         imagePlacement: .leading,
         imagePadding: 5,
@@ -199,7 +217,8 @@ extension FTButtonStyle {
         titleFont: FindTownFont.label1.font,
         backgroundColor: FindTownColor.white.color,
         foregroundColor: FindTownColor.primary.color,
-        inset: 20,
+        topBottomInset: 8,
+        leftRightInset: 20,
         cornerRadius: 0,
         imagePlacement: .top,
         imagePadding: 10,
@@ -211,7 +230,8 @@ extension FTButtonStyle {
         titleFont: FindTownFont.label1.font,
         backgroundColor: FindTownColor.white.color,
         foregroundColor: FindTownColor.grey4.color,
-        inset: 20,
+        topBottomInset: 8,
+        leftRightInset: 20,
         cornerRadius: 0,
         imagePlacement: .top,
         imagePadding: 10,
