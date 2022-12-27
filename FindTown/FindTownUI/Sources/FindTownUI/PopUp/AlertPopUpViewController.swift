@@ -7,6 +7,7 @@
 
 import UIKit
 
+/// 텍스트와 버튼으로만 구성된 알림 팝업
 public class AlertPopUpViewController: UIViewController {
     
     private var messageText: String = ""
@@ -16,9 +17,6 @@ public class AlertPopUpViewController: UIViewController {
         let view = UIView()
         view.backgroundColor = FindTownColor.white.color
         view.layer.cornerRadius = 16
-        
-        /// 애니메이션
-        view.transform = CGAffineTransform(scaleX: 1.1, y: 1.1)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
