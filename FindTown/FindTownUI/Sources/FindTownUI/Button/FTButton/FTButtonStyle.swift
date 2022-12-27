@@ -157,6 +157,18 @@ extension FTButtonStyle {
         imagePlacement: .trailing,
         imagePadding: 5
     )
+    
+    public static let buttonFilterNormal = FTButtonStyle (
+        configuration: .tinted(),
+        titleFont: FindTownFont.label1.font,
+        backgroundColor: FindTownColor.white.color,
+        foregroundColor: FindTownColor.grey5.color,
+        topBottomInset: 12,
+        leftRightInset: 20,
+        cornerRadius: 30,
+        imagePlacement: .leading,
+        imagePadding: 5
+    )
 
     public static let iconFilterSelected = FTButtonStyle (
         configuration: .filled(),
