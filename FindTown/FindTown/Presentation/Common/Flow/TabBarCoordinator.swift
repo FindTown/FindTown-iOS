@@ -32,7 +32,7 @@ final class TabBarCoordinator: FlowCoordinator {
         mapViewController.tabBarItem = UITabBarItem(title: "동네 지도", image: UIImage(systemName: "map"), tag: 1)
         
         tabBarController.viewControllers = [homeViewController, mapViewController]
-        tabBarController.hidesBottomBarWhenPushed = true
+        
         return tabBarController
     }
 }

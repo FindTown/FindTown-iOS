@@ -20,6 +20,7 @@ public extension FlowCoordinator {
         switch presentationStyle {
         case let .push(navigationController):
             self.navigationController = navigationController
+            navigationController.hidesBottomBarWhenPushed = true
             self.navigationController?.pushViewController(initScene(), animated: true)
         case .present(presenter: let presenter, modalPresentationStyle: let modalPresentationStyle):
             let navigationController = BaseNavigationController(rootViewController: initScene())
@@ -27,9 +28,11 @@ public extension FlowCoordinator {
             self.navigationController?.modalPresentationStyle = modalPresentationStyle
             presenter.present(navigationController, animated: true, completion: nil)
         case .setViewController(navigationController: let navigationController):
-            self.navigationController = navigationController
-            self.navigationController?.isNavigationBarHidden = true
-            self.navigationController?.setViewControllers([initScene()], animated: true)
+            self.navigationController?.viewControllers = []
+            let newNavigation = BaseNavigationController(rootViewController: initScene())
+            newNavigation.modalTransitionStyle = .flipHorizontal
+            newNavigation.modalPresentationStyle = .overFullScreen
+            navigationController.present(newNavigation, animated: true, completion: nil)
         case .none:
             self.navigationController = BaseNavigationController(rootViewController: initScene())
         }
