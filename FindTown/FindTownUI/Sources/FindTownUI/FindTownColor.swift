@@ -25,6 +25,7 @@ public enum FindTownColor {
     case grey6
     case grey7
     case primary
+    case primary10
     case secondary
     case white
     case semantic
@@ -64,6 +65,8 @@ extension FindTownColor {
             return UIColor.findTownColor(named: "Grey7")
         case .primary:
             return UIColor.findTownColor(named: "Primary")
+        case .primary10:
+            return UIColor.findTownColor(named: "Primary10")
         case .secondary:
             return UIColor.findTownColor(named: "Secondary")
         case .white:
