@@ -30,9 +30,9 @@ public final class FTButton: UIButton {
     private func configureUI() {
         if style.isShadow {
             layer.shadowColor = UIColor.black.cgColor
-            layer.shadowOffset = .init(width: 4, height: 4)
-            layer.shadowOpacity = 0.2
-            layer.shadowRadius = 5
+            layer.shadowOffset = .init(width: 2, height: 4)
+            layer.shadowOpacity = 0.15
+            layer.shadowRadius = 6
         }
         
         var configuration = style.configuration
@@ -49,7 +49,8 @@ public final class FTButton: UIButton {
         configuration.contentInsets = NSDirectionalEdgeInsets(
             top: 12, leading: style.inset, bottom: 12, trailing: style.inset
         )
-        configuration.background.strokeColor = style.foregroundColor
+        configuration.background.strokeColor = style.strokeColor == .clear
+        ? style.foregroundColor : style.strokeColor
         configuration.background.strokeWidth = style.strokeWidth
         configuration.imagePlacement = style.imagePlacement
         configuration.imagePadding = style.imagePadding

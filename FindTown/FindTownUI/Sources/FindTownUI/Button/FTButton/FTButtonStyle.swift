@@ -7,17 +7,12 @@
 
 import UIKit
 
-private let tempFontSize = 16.0
-private let tempWhiteColor = UIColor.white
-private let tempBlackColor = UIColor.black
-private let tempRedColor = UIColor.red
-private let tempGrayColor = UIColor.gray
-
 public struct FTButtonStyle {
     let configuration: UIButton.Configuration
     let titleFont: UIFont
     let backgroundColor: UIColor
     let foregroundColor: UIColor
+    var strokeColor: UIColor = .clear
     let inset: CGFloat
     let cornerRadius: CGFloat
     var imagePlacement: NSDirectionalRectEdge = .all
@@ -30,8 +25,8 @@ extension FTButtonStyle {
     public static let largeSelected = FTButtonStyle (
         configuration: .tinted(),
         titleFont: FindTownFont.body3.font,
-        backgroundColor: tempWhiteColor,
-        foregroundColor: tempRedColor,
+        backgroundColor: FindTownColor.white.color,
+        foregroundColor: FindTownColor.primary.color,
         inset: 0,
         cornerRadius: 10
     )
@@ -39,8 +34,8 @@ extension FTButtonStyle {
     public static let largeNonSelected = FTButtonStyle (
         configuration: .tinted(),
         titleFont: FindTownFont.body3.font,
-        backgroundColor: tempWhiteColor,
-        foregroundColor: tempGrayColor,
+        backgroundColor: FindTownColor.white.color,
+        foregroundColor: FindTownColor.grey5.color,
         inset: 0,
         cornerRadius: 10
     )
@@ -48,8 +43,8 @@ extension FTButtonStyle {
     public static let mediumFilled = FTButtonStyle (
         configuration: .filled(),
         titleFont: FindTownFont.body3.font,
-        backgroundColor: tempRedColor,
-        foregroundColor: tempWhiteColor,
+        backgroundColor: FindTownColor.primary.color,
+        foregroundColor: FindTownColor.white.color,
         inset: 50,
         cornerRadius: 10
     )
@@ -57,8 +52,8 @@ extension FTButtonStyle {
     public static let mediumTintedWithOpacity = FTButtonStyle (
         configuration: .tinted(),
         titleFont: FindTownFont.body3.font,
-        backgroundColor: tempRedColor.withAlphaComponent(0.3),
-        foregroundColor: tempRedColor,
+        backgroundColor: FindTownColor.primary10.color,
+        foregroundColor: FindTownColor.primary.color,
         inset: 50,
         cornerRadius: 10,
         strokeWidth: 0.0
@@ -67,8 +62,8 @@ extension FTButtonStyle {
     public static let mediumTintedWithRadius = FTButtonStyle (
         configuration: .tinted(),
         titleFont: FindTownFont.body3.font,
-        backgroundColor: tempWhiteColor,
-        foregroundColor: tempRedColor,
+        backgroundColor: FindTownColor.white.color,
+        foregroundColor: FindTownColor.primary.color,
         inset: 50,
         cornerRadius: 10
     )
@@ -76,8 +71,8 @@ extension FTButtonStyle {
     public static let smallSelected = FTButtonStyle (
         configuration: .tinted(),
         titleFont: FindTownFont.body3.font,
-        backgroundColor: tempWhiteColor,
-        foregroundColor: tempRedColor,
+        backgroundColor: FindTownColor.white.color,
+        foregroundColor: FindTownColor.primary.color,
         inset: 40,
         cornerRadius: 10
     )
@@ -85,8 +80,8 @@ extension FTButtonStyle {
     public static let smallNonSelected = FTButtonStyle (
         configuration: .tinted(),
         titleFont: FindTownFont.body3.font,
-        backgroundColor: tempWhiteColor,
-        foregroundColor: tempGrayColor,
+        backgroundColor: FindTownColor.white.color,
+        foregroundColor: FindTownColor.grey4.color,
         inset: 40,
         cornerRadius: 10
     )
@@ -94,8 +89,8 @@ extension FTButtonStyle {
     public static let xSmallSelected = FTButtonStyle (
         configuration: .tinted(),
         titleFont: FindTownFont.body3.font,
-        backgroundColor: tempWhiteColor,
-        foregroundColor: tempRedColor,
+        backgroundColor: FindTownColor.white.color,
+        foregroundColor: FindTownColor.primary.color,
         inset: 25,
         cornerRadius: 10
     )
@@ -103,8 +98,8 @@ extension FTButtonStyle {
     public static let xSmallNonSelected = FTButtonStyle (
         configuration: .tinted(),
         titleFont: FindTownFont.body3.font,
-        backgroundColor: tempWhiteColor,
-        foregroundColor: tempGrayColor,
+        backgroundColor: FindTownColor.white.color,
+        foregroundColor: FindTownColor.grey4.color,
         inset: 25,
         cornerRadius: 10
     )
@@ -112,8 +107,8 @@ extension FTButtonStyle {
     public static let xxSmallSelected = FTButtonStyle (
         configuration: .tinted(),
         titleFont: FindTownFont.label2.font,
-        backgroundColor: tempWhiteColor,
-        foregroundColor: tempRedColor,
+        backgroundColor: FindTownColor.white.color,
+        foregroundColor: FindTownColor.primary.color,
         inset: 10,
         cornerRadius: 10
     )
@@ -121,8 +116,8 @@ extension FTButtonStyle {
     public static let xxSmallNonSelected = FTButtonStyle (
         configuration: .tinted(),
         titleFont: FindTownFont.label2.font,
-        backgroundColor: tempWhiteColor,
-        foregroundColor: tempGrayColor,
+        backgroundColor: FindTownColor.white.color,
+        foregroundColor: FindTownColor.grey4.color,
         inset: 10,
         cornerRadius: 10
     )
@@ -130,8 +125,8 @@ extension FTButtonStyle {
     public static let buttonFilterSelected = FTButtonStyle (
         configuration: .tinted(),
         titleFont: FindTownFont.label1.font,
-        backgroundColor: tempWhiteColor,
-        foregroundColor: tempRedColor,
+        backgroundColor: FindTownColor.white.color,
+        foregroundColor: FindTownColor.primary.color,
         inset: 20,
         cornerRadius: 30,
         imagePlacement: .trailing,
@@ -141,8 +136,8 @@ extension FTButtonStyle {
     public static let buttonFilterNonSelected = FTButtonStyle (
         configuration: .tinted(),
         titleFont: FindTownFont.label1.font,
-        backgroundColor: tempWhiteColor,
-        foregroundColor: tempGrayColor,
+        backgroundColor: FindTownColor.white.color,
+        foregroundColor: FindTownColor.grey4.color,
         inset: 20,
         cornerRadius: 30,
         imagePlacement: .trailing,
@@ -152,8 +147,8 @@ extension FTButtonStyle {
     public static let iconFilterSelected = FTButtonStyle (
         configuration: .filled(),
         titleFont: FindTownFont.body4.font,
-        backgroundColor: tempRedColor,
-        foregroundColor: tempWhiteColor,
+        backgroundColor: FindTownColor.primary.color,
+        foregroundColor: FindTownColor.white.color,
         inset: 20,
         cornerRadius: 30,
         imagePlacement: .leading,
@@ -164,8 +159,9 @@ extension FTButtonStyle {
     public static let iconFilterNonSelected = FTButtonStyle (
         configuration: .filled(),
         titleFont: FindTownFont.body4.font,
-        backgroundColor: tempWhiteColor,
-        foregroundColor: tempGrayColor,
+        backgroundColor: FindTownColor.white.color,
+        foregroundColor: FindTownColor.grey6.color,
+        strokeColor: FindTownColor.grey2.color,
         inset: 20,
         cornerRadius: 30,
         imagePlacement: .leading,
@@ -176,8 +172,9 @@ extension FTButtonStyle {
     public static let roundSelected = FTButtonStyle (
         configuration: .filled(),
         titleFont: FindTownFont.body4.font,
-        backgroundColor: tempWhiteColor,
-        foregroundColor: tempBlackColor,
+        backgroundColor: FindTownColor.white.color,
+        foregroundColor: FindTownColor.grey7.color,
+        strokeColor: FindTownColor.grey3.color,
         inset: 20,
         cornerRadius: 30,
         imagePlacement: .leading,
@@ -188,8 +185,8 @@ extension FTButtonStyle {
     public static let roundNonSelected = FTButtonStyle (
         configuration: .filled(),
         titleFont: FindTownFont.body4.font,
-        backgroundColor: tempBlackColor,
-        foregroundColor: tempWhiteColor,
+        backgroundColor: FindTownColor.black.color,
+        foregroundColor: FindTownColor.white.color,
         inset: 20,
         cornerRadius: 30,
         imagePlacement: .leading,
@@ -200,8 +197,8 @@ extension FTButtonStyle {
     public static let iconSelected = FTButtonStyle (
         configuration: .tinted(),
         titleFont: FindTownFont.label1.font,
-        backgroundColor: tempWhiteColor,
-        foregroundColor: tempRedColor,
+        backgroundColor: FindTownColor.white.color,
+        foregroundColor: FindTownColor.primary.color,
         inset: 20,
         cornerRadius: 0,
         imagePlacement: .top,
@@ -212,8 +209,8 @@ extension FTButtonStyle {
     public static let iconNonSelected = FTButtonStyle (
         configuration: .tinted(),
         titleFont: FindTownFont.label1.font,
-        backgroundColor: tempWhiteColor,
-        foregroundColor: tempGrayColor,
+        backgroundColor: FindTownColor.white.color,
+        foregroundColor: FindTownColor.grey4.color,
         inset: 20,
         cornerRadius: 0,
         imagePlacement: .top,
