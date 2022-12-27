@@ -44,6 +44,7 @@ public final class RatingRadioButton: UIView {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .gray
+        label.font = FindTownFont.body3.font
         return label
     }()
     
