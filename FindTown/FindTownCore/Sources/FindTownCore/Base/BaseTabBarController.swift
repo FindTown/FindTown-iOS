@@ -35,7 +35,7 @@ public class BaseTabBarController: UITabBarController {
         appearance.configureWithDefaultBackground()
         appearance.backgroundEffect = .none
         appearance.backgroundColor = FindTownColor.white.color
-        appearance.shadowColor = FindTownColor.grey3.color
+        appearance.shadowColor = .clear
         
         appearance.stackedLayoutAppearance = itemAppearance
         appearance.inlineLayoutAppearance = itemAppearance
@@ -43,5 +43,13 @@ public class BaseTabBarController: UITabBarController {
         
         tabBar.scrollEdgeAppearance = appearance
         tabBar.standardAppearance = appearance
+        addTopBorder()
+    }
+    
+    func addTopBorder() {
+        let topBorder = CALayer()
+        topBorder.frame = CoreGraphics.CGRect(x: 0, y: 0, width: self.tabBar.bounds.width, height: 1)
+        topBorder.backgroundColor = FindTownColor.grey3.color.cgColor
+        tabBar.layer.addSublayer(topBorder)
     }
 }
