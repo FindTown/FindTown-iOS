@@ -25,6 +25,7 @@ public struct FTButtonStyle {
 
 extension FTButtonStyle {
     
+    /// Button_L - 첫번째 두번째 버튼 세트
     public static let largeFilled = FTButtonStyle (
         isSelectedButton: true,
         configuration: .filled(),
@@ -37,6 +38,7 @@ extension FTButtonStyle {
         cornerRadius: 10
     )
     
+    /// Button_L - 세번째 네번째 버튼 세트
     public static let largeTinted = FTButtonStyle (
         isSelectedButton: true,
         configuration: .tinted(),
@@ -48,6 +50,7 @@ extension FTButtonStyle {
         cornerRadius: 10
     )
     
+    /// Button_M - 첫번째 버튼
     public static let mediumFilled = FTButtonStyle (
         isSelectedButton: false,
         configuration: .filled(),
@@ -58,6 +61,7 @@ extension FTButtonStyle {
         cornerRadius: 10
     )
     
+    /// Button_M - 두번째 버튼
     public static let mediumTintedWithPrimaryRadius = FTButtonStyle (
         isSelectedButton: false,
         configuration: .tinted(),
@@ -68,6 +72,7 @@ extension FTButtonStyle {
         cornerRadius: 10
     )
     
+    /// Button_M - 세번째 버튼
     public static let mediumTintedWithOpacity = FTButtonStyle (
         isSelectedButton: false,
         configuration: .tinted(),
@@ -79,6 +84,7 @@ extension FTButtonStyle {
         strokeWidth: 0.0
     )
     
+    /// Button_M - 네번째 버튼
     public static let mediumTintedWithGreyRadius = FTButtonStyle (
         isSelectedButton: false,
         configuration: .tinted(),
@@ -89,6 +95,7 @@ extension FTButtonStyle {
         cornerRadius: 10
     )
     
+    /// Button_S
     public static let small = FTButtonStyle (
         isSelectedButton: true,
         configuration: .tinted(),
@@ -100,6 +107,7 @@ extension FTButtonStyle {
         cornerRadius: 10
     )
     
+    /// Button_XS
     public static let xSmall = FTButtonStyle (
         isSelectedButton: true,
         configuration: .tinted(),
@@ -111,6 +119,7 @@ extension FTButtonStyle {
         cornerRadius: 10
     )
     
+    /// Button_XXS
     public static let xxSmall = FTButtonStyle (
         isSelectedButton: true,
         configuration: .tinted(),
@@ -122,6 +131,7 @@ extension FTButtonStyle {
         cornerRadius: 10
     )
     
+    /// Button_Filter_Chip - 첫번째 두번째 버튼 세트
     public static let buttonFilter = FTButtonStyle (
         isSelectedButton: true,
         configuration: .tinted(),
@@ -135,6 +145,7 @@ extension FTButtonStyle {
         imagePadding: 5
     )
     
+    /// Button_Filter_Chip - 세번째 버튼
     public static let buttonFilterNormal = FTButtonStyle (
         isSelectedButton: false,
         configuration: .tinted(),
@@ -147,6 +158,7 @@ extension FTButtonStyle {
         imagePadding: 5
     )
     
+    /// Icon_Filter_Chip - 첫번째 두번째 버튼 세트
     public static let iconFilter = FTButtonStyle (
         isSelectedButton: true,
         configuration: .filled(),
@@ -162,6 +174,7 @@ extension FTButtonStyle {
         isShadow: true
     )
     
+    /// Round Button
     public static let round = FTButtonStyle (
         isSelectedButton: true,
         configuration: .filled(),
@@ -177,6 +190,7 @@ extension FTButtonStyle {
         isShadow: true
     )
     
+    /// Icon Button
     public static let icon = FTButtonStyle (
         isSelectedButton: true,
         configuration: .tinted(),
