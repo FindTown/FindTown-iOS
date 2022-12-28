@@ -43,7 +43,8 @@ public final class RatingRadioButton: UIView {
     private let ratingGuirdTitle: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.textColor = .gray
+        label.textColor = FindTownColor.grey5.color
+        label.font = FindTownFont.body3.font
         return label
     }()
     

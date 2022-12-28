@@ -7,7 +7,7 @@
 
 import UIKit
 
-public final class CheckButton: UIButton, Selectable {
+public final class CheckButton: UIButton {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
