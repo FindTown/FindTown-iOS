@@ -22,6 +22,14 @@
 		F3891E39293B8394003CE8AD /* FindTownTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3891E38293B8394003CE8AD /* FindTownTests.swift */; };
 		F3891E43293B8394003CE8AD /* FindTownUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3891E42293B8394003CE8AD /* FindTownUITests.swift */; };
 		F3891E45293B8394003CE8AD /* FindTownUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3891E44293B8394003CE8AD /* FindTownUITestsLaunchTests.swift */; };
+		F38CCBD729582869000C16AF /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F38CCBD529582869000C16AF /* AppCoordinator.swift */; };
+		F38CCBD829582869000C16AF /* TabBarCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F38CCBD629582869000C16AF /* TabBarCoordinator.swift */; };
+		F38CCBDF2958287C000C16AF /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F38CCBDB2958287C000C16AF /* HomeViewModel.swift */; };
+		F38CCBE02958287C000C16AF /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F38CCBDC2958287C000C16AF /* HomeViewController.swift */; };
+		F38CCBE12958287C000C16AF /* HomeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F38CCBDE2958287C000C16AF /* HomeCoordinator.swift */; };
+		F38CCBE829582881000C16AF /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F38CCBE429582881000C16AF /* MapViewController.swift */; };
+		F38CCBE929582881000C16AF /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F38CCBE529582881000C16AF /* MapViewModel.swift */; };
+		F38CCBEA29582881000C16AF /* MapCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F38CCBE729582881000C16AF /* MapCoordinator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +65,14 @@
 		F3891E3E293B8394003CE8AD /* FindTownUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FindTownUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F3891E42293B8394003CE8AD /* FindTownUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindTownUITests.swift; sourceTree = "<group>"; };
 		F3891E44293B8394003CE8AD /* FindTownUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindTownUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		F38CCBD529582869000C16AF /* AppCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
+		F38CCBD629582869000C16AF /* TabBarCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarCoordinator.swift; sourceTree = "<group>"; };
+		F38CCBDB2958287C000C16AF /* HomeViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		F38CCBDC2958287C000C16AF /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		F38CCBDE2958287C000C16AF /* HomeCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeCoordinator.swift; sourceTree = "<group>"; };
+		F38CCBE429582881000C16AF /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		F38CCBE529582881000C16AF /* MapViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
+		F38CCBE729582881000C16AF /* MapCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapCoordinator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,6 +126,8 @@
 		BC6EFB75293B9C3800AB3332 /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				F38CCBD92958287C000C16AF /* HomeScene */,
+				F38CCBE229582881000C16AF /* MapScene */,
 				BC6EFB77293B9C4F00AB3332 /* Common */,
 			);
 			path = Presentation;
@@ -125,6 +143,7 @@
 		BC6EFB77293B9C4F00AB3332 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				F38CCBD429582869000C16AF /* Flow */,
 				BC6EFB89293BD63600AB3332 /* ViewController */,
 				BC6EFB79293B9C5B00AB3332 /* VIewModel */,
 				BC6EFB78293B9C5800AB3332 /* View */,
@@ -222,6 +241,68 @@
 				F3891E44293B8394003CE8AD /* FindTownUITestsLaunchTests.swift */,
 			);
 			path = FindTownUITests;
+			sourceTree = "<group>";
+		};
+		F38CCBD429582869000C16AF /* Flow */ = {
+			isa = PBXGroup;
+			children = (
+				F38CCBD529582869000C16AF /* AppCoordinator.swift */,
+				F38CCBD629582869000C16AF /* TabBarCoordinator.swift */,
+			);
+			path = Flow;
+			sourceTree = "<group>";
+		};
+		F38CCBD92958287C000C16AF /* HomeScene */ = {
+			isa = PBXGroup;
+			children = (
+				F38CCBDD2958287C000C16AF /* Flows */,
+				F38CCBDA2958287C000C16AF /* Home */,
+			);
+			path = HomeScene;
+			sourceTree = "<group>";
+		};
+		F38CCBDA2958287C000C16AF /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				F38CCBDB2958287C000C16AF /* HomeViewModel.swift */,
+				F38CCBDC2958287C000C16AF /* HomeViewController.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		F38CCBDD2958287C000C16AF /* Flows */ = {
+			isa = PBXGroup;
+			children = (
+				F38CCBDE2958287C000C16AF /* HomeCoordinator.swift */,
+			);
+			path = Flows;
+			sourceTree = "<group>";
+		};
+		F38CCBE229582881000C16AF /* MapScene */ = {
+			isa = PBXGroup;
+			children = (
+				F38CCBE329582881000C16AF /* Map */,
+				F38CCBE629582881000C16AF /* Flows */,
+			);
+			name = MapScene;
+			path = FindTown/Presentation/MapScene;
+			sourceTree = SOURCE_ROOT;
+		};
+		F38CCBE329582881000C16AF /* Map */ = {
+			isa = PBXGroup;
+			children = (
+				F38CCBE429582881000C16AF /* MapViewController.swift */,
+				F38CCBE529582881000C16AF /* MapViewModel.swift */,
+			);
+			path = Map;
+			sourceTree = "<group>";
+		};
+		F38CCBE629582881000C16AF /* Flows */ = {
+			isa = PBXGroup;
+			children = (
+				F38CCBE729582881000C16AF /* MapCoordinator.swift */,
+			);
+			path = Flows;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -367,8 +448,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F38CCBD729582869000C16AF /* AppCoordinator.swift in Sources */,
+				F38CCBE929582881000C16AF /* MapViewModel.swift in Sources */,
+				F38CCBEA29582881000C16AF /* MapCoordinator.swift in Sources */,
+				F38CCBDF2958287C000C16AF /* HomeViewModel.swift in Sources */,
 				F3891E23293B8393003CE8AD /* ViewController.swift in Sources */,
 				F3891E1F293B8393003CE8AD /* AppDelegate.swift in Sources */,
+				F38CCBE829582881000C16AF /* MapViewController.swift in Sources */,
+				F38CCBD829582869000C16AF /* TabBarCoordinator.swift in Sources */,
+				F38CCBE12958287C000C16AF /* HomeCoordinator.swift in Sources */,
+				F38CCBE02958287C000C16AF /* HomeViewController.swift in Sources */,
 				F3891E21293B8393003CE8AD /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
