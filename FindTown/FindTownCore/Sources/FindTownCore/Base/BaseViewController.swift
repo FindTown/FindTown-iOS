@@ -21,18 +21,6 @@ open class BaseViewController: UIViewController {
         bindViewModel()
     }
     
-    open override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        hidesBottomBarWhenPushed = true
-    }
-    
-    open override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        
-        hidesBottomBarWhenPushed = false
-    }
-    
     open func addView() {}
     open func setupView() {}
     open func setLayout() {}
