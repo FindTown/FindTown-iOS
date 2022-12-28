@@ -20,7 +20,6 @@ public struct FTButtonStyle {
     var imagePlacement: NSDirectionalRectEdge = .all
     var imagePadding: CGFloat = 0.0
     var isShadow: Bool = false
-    var strokeWidth: Double = 1
 }
 
 extension FTButtonStyle {
@@ -78,10 +77,10 @@ extension FTButtonStyle {
         configuration: .tinted(),
         titleFont: FindTownFont.body3.font,
         nonSelectedColorSet: [FindTownColor.primary10.color, FindTownColor.primary.color],
+        strokeColor: .clear,
         topBottomInset: 12,
         leftRightInset: 50,
-        cornerRadius: 10,
-        strokeWidth: 0.0
+        cornerRadius: 10
     )
     
     /// Button_M - 네번째 버튼
@@ -197,11 +196,11 @@ extension FTButtonStyle {
         titleFont: FindTownFont.label1.font,
         selectedColorSet: [FindTownColor.white.color, FindTownColor.primary.color],
         nonSelectedColorSet: [FindTownColor.white.color, FindTownColor.grey4.color],
+        strokeColor: .clear,
         topBottomInset: 8,
         leftRightInset: 20,
         cornerRadius: 0,
         imagePlacement: .top,
-        imagePadding: 10,
-        strokeWidth: 0.0
+        imagePadding: 10
     )
 }

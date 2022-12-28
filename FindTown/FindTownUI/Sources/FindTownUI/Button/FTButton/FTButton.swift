@@ -75,7 +75,7 @@ private extension FTButton {
         } else {
             configuration.background.strokeColor = style.strokeColor
         }
-        configuration.background.strokeWidth = style.strokeWidth
+        configuration.background.strokeWidth = 1.0
         configuration.imagePlacement = style.imagePlacement
         configuration.imagePadding = style.imagePadding
         
