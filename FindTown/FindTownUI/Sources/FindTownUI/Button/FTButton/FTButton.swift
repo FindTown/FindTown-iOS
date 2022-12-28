@@ -70,7 +70,7 @@ private extension FTButton {
         configuration.contentInsets = NSDirectionalEdgeInsets(
             top: style.topBottomInset, leading: style.leftRightInset,
             bottom: style.topBottomInset, trailing: style.leftRightInset)
-        if style.strokeColor == .clear {
+        if style.strokeColor == .black {
             configuration.background.strokeColor = isSelected ? style.selectedColorSet[1] : style.nonSelectedColorSet[1]
         } else {
             configuration.background.strokeColor = style.strokeColor

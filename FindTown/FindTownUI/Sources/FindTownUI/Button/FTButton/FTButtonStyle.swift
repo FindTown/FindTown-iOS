@@ -13,7 +13,7 @@ public struct FTButtonStyle {
     let titleFont: UIFont
     var selectedColorSet: [UIColor] = []
     let nonSelectedColorSet: [UIColor]
-    var strokeColor: UIColor = .clear
+    var strokeColor: UIColor = .black
     let topBottomInset: CGFloat
     let leftRightInset: CGFloat
     let cornerRadius: CGFloat
@@ -25,7 +25,19 @@ public struct FTButtonStyle {
 
 extension FTButtonStyle {
     
-    public static let large = FTButtonStyle (
+    public static let largeFilled = FTButtonStyle (
+        isSelectedButton: true,
+        configuration: .filled(),
+        titleFont: FindTownFont.body3.font,
+        selectedColorSet: [FindTownColor.primary.color, FindTownColor.white.color],
+        nonSelectedColorSet: [FindTownColor.grey3.color, FindTownColor.grey5.color],
+        strokeColor: .clear,
+        topBottomInset: 14,
+        leftRightInset: 0,
+        cornerRadius: 10
+    )
+    
+    public static let largeTinted = FTButtonStyle (
         isSelectedButton: true,
         configuration: .tinted(),
         titleFont: FindTownFont.body3.font,
@@ -46,6 +58,16 @@ extension FTButtonStyle {
         cornerRadius: 10
     )
     
+    public static let mediumTintedWithPrimaryRadius = FTButtonStyle (
+        isSelectedButton: false,
+        configuration: .tinted(),
+        titleFont: FindTownFont.body3.font,
+        nonSelectedColorSet: [FindTownColor.white.color, FindTownColor.primary.color],
+        topBottomInset: 12,
+        leftRightInset: 50,
+        cornerRadius: 10
+    )
+    
     public static let mediumTintedWithOpacity = FTButtonStyle (
         isSelectedButton: false,
         configuration: .tinted(),
@@ -57,11 +79,11 @@ extension FTButtonStyle {
         strokeWidth: 0.0
     )
     
-    public static let mediumTintedWithRadius = FTButtonStyle (
+    public static let mediumTintedWithGreyRadius = FTButtonStyle (
         isSelectedButton: false,
         configuration: .tinted(),
         titleFont: FindTownFont.body3.font,
-        nonSelectedColorSet: [FindTownColor.white.color, FindTownColor.primary.color],
+        nonSelectedColorSet: [FindTownColor.white.color, FindTownColor.grey5.color],
         topBottomInset: 12,
         leftRightInset: 50,
         cornerRadius: 10
@@ -131,7 +153,7 @@ extension FTButtonStyle {
         titleFont: FindTownFont.body4.font,
         selectedColorSet: [FindTownColor.primary.color, FindTownColor.white.color],
         nonSelectedColorSet: [FindTownColor.white.color, FindTownColor.grey6.color],
-        strokeColor: FindTownColor.grey2.color,
+        strokeColor: .clear,
         topBottomInset: 8,
         leftRightInset: 20,
         cornerRadius: 30,
