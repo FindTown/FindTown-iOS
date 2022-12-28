@@ -14,6 +14,8 @@ open class BaseViewController: UIViewController {
     
     open override func viewDidLoad() {
         super.viewDidLoad()
+        hideKeyboard()
+        
         addView()
         setupView()
         setLayout()
