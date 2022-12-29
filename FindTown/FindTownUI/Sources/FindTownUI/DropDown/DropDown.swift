@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-enum DropDownStatus {
+public enum DropDownStatus {
     case selected
     case nonSelected
 }
@@ -19,7 +19,7 @@ public class DropDown: UIView {
     /// 0번째에는 데이터가 아닌 안내 텍스트 (ex:자치구(선택)) 가 들어감
     var dataSource = ["test1", "Test2","test3","Test4","test5"]
     
-    var status: DropDownStatus = .nonSelected {
+    public var status: DropDownStatus = .nonSelected {
         didSet {
             switch status {
             case .selected:
