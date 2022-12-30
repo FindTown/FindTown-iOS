@@ -8,6 +8,7 @@
 import UIKit
 import CoreData
 import FindTownUI
+import NMapsMap
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -16,6 +17,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // FindTownUI Package의 있는 Custom 폰트 등록 메소드 호출
         registerFonts()
+        
+        // NaverMap API Set
+        NMFAuthManager.shared().clientId = Bundle.main.NAVER_MAP_KEY
+        
         return true
     }
 

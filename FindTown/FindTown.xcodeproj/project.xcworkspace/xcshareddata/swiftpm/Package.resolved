@@ -1,6 +1,15 @@
 {
   "pins" : [
     {
+      "identity" : "nmapsmap-spm",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/jaemyeong/NMapsMap-SPM.git",
+      "state" : {
+        "revision" : "ce8c40aaaa97454f8b3d296a262533fe9dc0de5f",
+        "version" : "3.16.0"
+      }
+    },
+    {
       "identity" : "rxdatasources",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/RxSwiftCommunity/RxDataSources",
