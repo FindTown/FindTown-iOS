@@ -17,7 +17,7 @@ public enum DropDownStatus {
 public class DropDown: UIView {
     
     /// 0번째에는 데이터가 아닌 안내 텍스트 (ex:자치구(선택)) 가 들어감
-    var dataSource = ["test1", "Test2","test3","Test4","test5"]
+    private var dataSource: [String]
     
     public var status: DropDownStatus = .nonSelected {
         didSet {
@@ -60,12 +60,13 @@ public class DropDown: UIView {
     /// 그림자를 표현하기 위한 껍데기 뷰
     var shadowView: UIView = {
         let view = UIView()
-        view.layer.customShadow(shadowX: 0.0,
-                                shadowY: 4.0,
-                                shadowColor: UIColor(red: 194/255,green: 191/255,blue: 198/255,alpha: 0.6),
-                                blur: 20.0,
-                                spread: 0.0,
-                                alpha: 0.6)
+        view.layer.addCustomShadow(shadowX: 0,
+                                   shadowY: 4,
+                                   shadowColor: UIColor(red: 194/255,green: 191/255,blue: 198/255,
+                                                        alpha: 0.6),
+                                   blur: 20.0,
+                                   spread: 0.0,
+                                   alpha: 0.6)
         view.backgroundColor = .white
         view.layer.cornerRadius = 8
         view.isHidden = true
@@ -84,9 +85,9 @@ public class DropDown: UIView {
     
     /// data : 드롭다운에서 보여줄 텍스트 배열, 0번째에는 안내텍스트 ex: 자치구(선택) 이 들어감
     public init(data: [String]) {
+        self.dataSource = data
         super.init(frame: .zero)
         
-        self.dataSource = data
         self.backgroundColor = .clear
         self.translatesAutoresizingMaskIntoConstraints = false
         
@@ -97,10 +98,6 @@ public class DropDown: UIView {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    public func addData(data: [String]) {
-        self.dataSource = data
     }
 }
 
