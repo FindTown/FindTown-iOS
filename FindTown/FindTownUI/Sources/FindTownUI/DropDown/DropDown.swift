@@ -9,8 +9,8 @@ import Foundation
 import UIKit
 
 public enum DropDownStatus {
-    case selected
-    case nonSelected
+    case selected    /// dataSource 중 0번째 이외의 값이 선택된 경우
+    case nonSelected /// dataSource 중 0번째(안내 데이터)가 선택된 경우
 }
 
 /// 커스텀 드롭다운, 드롭다운의 세로 길이가 데이터 목록을 보여주는 tableView의 세로 길이가 됨
