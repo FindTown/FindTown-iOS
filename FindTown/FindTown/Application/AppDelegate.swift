@@ -8,6 +8,7 @@
 import UIKit
 import CoreData
 import FindTownUI
+import FindTownCore
 import NMapsMap
 
 @main
