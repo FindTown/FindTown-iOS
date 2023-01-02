@@ -7,11 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BC056C562962B29F00EDCA18 /* LoginCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC056C552962B29F00EDCA18 /* LoginCoordinator.swift */; };
+		BC056C582962B2AD00EDCA18 /* SignUpNickNameCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC056C572962B2AD00EDCA18 /* SignUpNickNameCoordinator.swift */; };
+		BC056C5A2962B2B900EDCA18 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC056C592962B2B900EDCA18 /* LoginViewModel.swift */; };
+		BC056C5C2962B2C400EDCA18 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC056C5B2962B2C400EDCA18 /* LoginViewController.swift */; };
+		BC056C5E2962B2CF00EDCA18 /* SignUpNickNameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC056C5D2962B2CF00EDCA18 /* SignUpNickNameViewModel.swift */; };
+		BC056C602962B2D900EDCA18 /* SignUpNickNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC056C5F2962B2D900EDCA18 /* SignUpNickNameViewController.swift */; };
 		BC6EFB7F293BD12300AB3332 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = BC6EFB7E293BD12300AB3332 /* RxCocoa */; };
 		BC6EFB81293BD12300AB3332 /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = BC6EFB80293BD12300AB3332 /* RxRelay */; };
 		BC6EFB83293BD12300AB3332 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = BC6EFB82293BD12300AB3332 /* RxSwift */; };
 		BC6EFB86293BD15A00AB3332 /* RxDataSources in Frameworks */ = {isa = PBXBuildFile; productRef = BC6EFB85293BD15A00AB3332 /* RxDataSources */; };
-		BC990199295F061B0051CC9B /* APIKeyInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = BC990198295F061B0051CC9B /* APIKeyInfo.plist */; };
 		BC99019C295F09720051CC9B /* NMapsMap in Frameworks */ = {isa = PBXBuildFile; productRef = BC99019B295F09720051CC9B /* NMapsMap */; };
 		F31A80C82949A5BB003B8A6E /* FindTownCore in Frameworks */ = {isa = PBXBuildFile; productRef = F31A80C72949A5BB003B8A6E /* FindTownCore */; };
 		F31A80CA2949A5BB003B8A6E /* FindTownNetwork in Frameworks */ = {isa = PBXBuildFile; productRef = F31A80C92949A5BB003B8A6E /* FindTownNetwork */; };
@@ -52,7 +57,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		BC990198295F061B0051CC9B /* APIKeyInfo.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = APIKeyInfo.plist; sourceTree = "<group>"; };
+		BC056C552962B29F00EDCA18 /* LoginCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginCoordinator.swift; sourceTree = "<group>"; };
+		BC056C572962B2AD00EDCA18 /* SignUpNickNameCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpNickNameCoordinator.swift; sourceTree = "<group>"; };
+		BC056C592962B2B900EDCA18 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
+		BC056C5B2962B2C400EDCA18 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		BC056C5D2962B2CF00EDCA18 /* SignUpNickNameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpNickNameViewModel.swift; sourceTree = "<group>"; };
+		BC056C5F2962B2D900EDCA18 /* SignUpNickNameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpNickNameViewController.swift; sourceTree = "<group>"; };
 		F31A80C32949A556003B8A6E /* FindTownUI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = FindTownUI; sourceTree = "<group>"; };
 		F31A80C42949A568003B8A6E /* FindTownCore */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = FindTownCore; sourceTree = "<group>"; };
 		F31A80C52949A577003B8A6E /* FindTownNetwork */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = FindTownNetwork; sourceTree = "<group>"; };
@@ -111,6 +121,43 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		BC056C512962B03B00EDCA18 /* AuthScene */ = {
+			isa = PBXGroup;
+			children = (
+				BC056C542962B27900EDCA18 /* SignUpNickName */,
+				BC056C532962B06100EDCA18 /* Login */,
+				BC056C522962B05900EDCA18 /* Flows */,
+			);
+			path = AuthScene;
+			sourceTree = "<group>";
+		};
+		BC056C522962B05900EDCA18 /* Flows */ = {
+			isa = PBXGroup;
+			children = (
+				BC056C552962B29F00EDCA18 /* LoginCoordinator.swift */,
+				BC056C572962B2AD00EDCA18 /* SignUpNickNameCoordinator.swift */,
+			);
+			path = Flows;
+			sourceTree = "<group>";
+		};
+		BC056C532962B06100EDCA18 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				BC056C592962B2B900EDCA18 /* LoginViewModel.swift */,
+				BC056C5B2962B2C400EDCA18 /* LoginViewController.swift */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		BC056C542962B27900EDCA18 /* SignUpNickName */ = {
+			isa = PBXGroup;
+			children = (
+				BC056C5D2962B2CF00EDCA18 /* SignUpNickNameViewModel.swift */,
+				BC056C5F2962B2D900EDCA18 /* SignUpNickNameViewController.swift */,
+			);
+			path = SignUpNickName;
+			sourceTree = "<group>";
+		};
 		BC6EFB73293B9C2A00AB3332 /* Application */ = {
 			isa = PBXGroup;
 			children = (
@@ -130,6 +177,7 @@
 		BC6EFB75293B9C3800AB3332 /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				BC056C512962B03B00EDCA18 /* AuthScene */,
 				F38CCBD92958287C000C16AF /* HomeScene */,
 				F38CCBE229582881000C16AF /* MapScene */,
 				BC6EFB77293B9C4F00AB3332 /* Common */,
@@ -176,7 +224,6 @@
 				F3891E2A293B8394003CE8AD /* Assets.xcassets */,
 				F3891E2F293B8394003CE8AD /* Info.plist */,
 				F3891E2C293B8394003CE8AD /* LaunchScreen.storyboard */,
-				BC990198295F061B0051CC9B /* APIKeyInfo.plist */,
 			);
 			path = Resource;
 			sourceTree = "<group>";
@@ -430,7 +477,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				F3891E2E293B8394003CE8AD /* LaunchScreen.storyboard in Resources */,
-				BC990199295F061B0051CC9B /* APIKeyInfo.plist in Resources */,
 				F3891E2B293B8394003CE8AD /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -456,14 +502,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BC056C5E2962B2CF00EDCA18 /* SignUpNickNameViewModel.swift in Sources */,
 				F38CCBD729582869000C16AF /* AppCoordinator.swift in Sources */,
+				BC056C602962B2D900EDCA18 /* SignUpNickNameViewController.swift in Sources */,
 				F38CCBE929582881000C16AF /* MapViewModel.swift in Sources */,
 				F38CCBEA29582881000C16AF /* MapCoordinator.swift in Sources */,
+				BC056C5C2962B2C400EDCA18 /* LoginViewController.swift in Sources */,
 				F38CCBDF2958287C000C16AF /* HomeViewModel.swift in Sources */,
 				F3891E23293B8393003CE8AD /* ViewController.swift in Sources */,
 				F3891E1F293B8393003CE8AD /* AppDelegate.swift in Sources */,
+				BC056C5A2962B2B900EDCA18 /* LoginViewModel.swift in Sources */,
+				BC056C562962B29F00EDCA18 /* LoginCoordinator.swift in Sources */,
 				F38CCBE829582881000C16AF /* MapViewController.swift in Sources */,
 				F38CCBD829582869000C16AF /* TabBarCoordinator.swift in Sources */,
+				BC056C582962B2AD00EDCA18 /* SignUpNickNameCoordinator.swift in Sources */,
 				F38CCBE12958287C000C16AF /* HomeCoordinator.swift in Sources */,
 				F38CCBE02958287C000C16AF /* HomeViewController.swift in Sources */,
 				F3891E21293B8393003CE8AD /* SceneDelegate.swift in Sources */,
