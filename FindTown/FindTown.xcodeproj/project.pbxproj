@@ -11,6 +11,8 @@
 		BC6EFB81293BD12300AB3332 /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = BC6EFB80293BD12300AB3332 /* RxRelay */; };
 		BC6EFB83293BD12300AB3332 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = BC6EFB82293BD12300AB3332 /* RxSwift */; };
 		BC6EFB86293BD15A00AB3332 /* RxDataSources in Frameworks */ = {isa = PBXBuildFile; productRef = BC6EFB85293BD15A00AB3332 /* RxDataSources */; };
+		BC990199295F061B0051CC9B /* APIKeyInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = BC990198295F061B0051CC9B /* APIKeyInfo.plist */; };
+		BC99019C295F09720051CC9B /* NMapsMap in Frameworks */ = {isa = PBXBuildFile; productRef = BC99019B295F09720051CC9B /* NMapsMap */; };
 		F31A80C82949A5BB003B8A6E /* FindTownCore in Frameworks */ = {isa = PBXBuildFile; productRef = F31A80C72949A5BB003B8A6E /* FindTownCore */; };
 		F31A80CA2949A5BB003B8A6E /* FindTownNetwork in Frameworks */ = {isa = PBXBuildFile; productRef = F31A80C92949A5BB003B8A6E /* FindTownNetwork */; };
 		F31A80CC2949A5BB003B8A6E /* FindTownUI in Frameworks */ = {isa = PBXBuildFile; productRef = F31A80CB2949A5BB003B8A6E /* FindTownUI */; };
@@ -50,6 +52,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		BC990198295F061B0051CC9B /* APIKeyInfo.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = APIKeyInfo.plist; sourceTree = "<group>"; };
 		F31A80C32949A556003B8A6E /* FindTownUI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = FindTownUI; sourceTree = "<group>"; };
 		F31A80C42949A568003B8A6E /* FindTownCore */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = FindTownCore; sourceTree = "<group>"; };
 		F31A80C52949A577003B8A6E /* FindTownNetwork */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = FindTownNetwork; sourceTree = "<group>"; };
@@ -85,6 +88,7 @@
 				F31A80C82949A5BB003B8A6E /* FindTownCore in Frameworks */,
 				BC6EFB86293BD15A00AB3332 /* RxDataSources in Frameworks */,
 				F31A80CC2949A5BB003B8A6E /* FindTownUI in Frameworks */,
+				BC99019C295F09720051CC9B /* NMapsMap in Frameworks */,
 				BC6EFB81293BD12300AB3332 /* RxRelay in Frameworks */,
 				BC6EFB7F293BD12300AB3332 /* RxCocoa in Frameworks */,
 			);
@@ -172,6 +176,7 @@
 				F3891E2A293B8394003CE8AD /* Assets.xcassets */,
 				F3891E2F293B8394003CE8AD /* Info.plist */,
 				F3891E2C293B8394003CE8AD /* LaunchScreen.storyboard */,
+				BC990198295F061B0051CC9B /* APIKeyInfo.plist */,
 			);
 			path = Resource;
 			sourceTree = "<group>";
@@ -329,6 +334,7 @@
 				F31A80C72949A5BB003B8A6E /* FindTownCore */,
 				F31A80C92949A5BB003B8A6E /* FindTownNetwork */,
 				F31A80CB2949A5BB003B8A6E /* FindTownUI */,
+				BC99019B295F09720051CC9B /* NMapsMap */,
 			);
 			productName = FindTown;
 			productReference = F3891E1B293B8393003CE8AD /* FindTown.app */;
@@ -405,6 +411,7 @@
 			packageReferences = (
 				BC6EFB7D293BD12300AB3332 /* XCRemoteSwiftPackageReference "RxSwift" */,
 				BC6EFB84293BD15A00AB3332 /* XCRemoteSwiftPackageReference "RxDataSources" */,
+				BC99019A295F09720051CC9B /* XCRemoteSwiftPackageReference "NMapsMap-SPM" */,
 			);
 			productRefGroup = F3891E1C293B8393003CE8AD /* Products */;
 			projectDirPath = "";
@@ -423,6 +430,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F3891E2E293B8394003CE8AD /* LaunchScreen.storyboard in Resources */,
+				BC990199295F061B0051CC9B /* APIKeyInfo.plist in Resources */,
 				F3891E2B293B8394003CE8AD /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -629,7 +637,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = CADXU3X8JU;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = FindTown/Info.plist;
+				INFOPLIST_FILE = FindTown/Resource/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -656,7 +664,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = CADXU3X8JU;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = FindTown/Info.plist;
+				INFOPLIST_FILE = FindTown/Resource/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -808,6 +816,14 @@
 				kind = branch;
 			};
 		};
+		BC99019A295F09720051CC9B /* XCRemoteSwiftPackageReference "NMapsMap-SPM" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/jaemyeong/NMapsMap-SPM.git";
+			requirement = {
+				kind = exactVersion;
+				version = 3.16.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -830,6 +846,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = BC6EFB84293BD15A00AB3332 /* XCRemoteSwiftPackageReference "RxDataSources" */;
 			productName = RxDataSources;
+		};
+		BC99019B295F09720051CC9B /* NMapsMap */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BC99019A295F09720051CC9B /* XCRemoteSwiftPackageReference "NMapsMap-SPM" */;
+			productName = NMapsMap;
 		};
 		F31A80C72949A5BB003B8A6E /* FindTownCore */ = {
 			isa = XCSwiftPackageProductDependency;
