@@ -9,12 +9,16 @@ import UIKit
 import FindTownCore
 import FindTownUI
 import NMapsMap
+import RxCocoa
 
 class MapViewController: BaseViewController {
     
     let mapView = NMFMapView()
-    
     let naviBarSubView = UIView()
+    let rightBarButton = UIBarButtonItem(image: UIImage(named: "favoriteBtn"),
+                                         style: .plain,
+                                         target: nil,
+                                         action: nil)
     let addressButton = UIButton()
     let mapToggle = MapSegmentControl(items: ["인프라", "테마"])
 
@@ -37,16 +41,7 @@ class MapViewController: BaseViewController {
     
     let detailCategoryView = MapDetailCategoryView()
         
-    /// collectionView의 데이터 (아이콘 이미지 네임, 카테고리) 로 구성
-    var collectionViewDataSource: [(String, String)] = [("martIcon" ,"마트&편의점"),
-                                                        ("cafeIcon","카페"),
-                                                        ("bellIcon","치안"),
-                                                        ("storeIcon","생활"),
-                                                        ("healthIcon","운동"),
-                                                        ("walkIcon","산책"),
-                                                        ("hospitalIcon","병원"),
-                                                        ("pharmacyIcon","약국")]
-    
+    /// collectionView의 데이터
     var collectionViewData: [Category] = []
 
     var viewModel: MapViewModel?
@@ -65,6 +60,23 @@ class MapViewController: BaseViewController {
         returnTestData()
         collectionView.reloadData()
         detailCategoryView.isHidden = true
+    }
+    
+    override func bindViewModel() {
+        
+        // MARK: Input
+        
+        rightBarButton.rx.tap
+            .subscribe(onNext: {
+                print("rightBarButton tapped")
+            })
+            .disposed(by: disposeBag)
+        
+        addressButton.rx.tap
+            .bind { [weak self] in
+                self?.viewModel?.presentAddressPopup()
+            }
+            .disposed(by: disposeBag)
     }
 
     override func addView() {
@@ -87,26 +99,44 @@ class MapViewController: BaseViewController {
     override func setupView() {
         self.title = "동네 지도"
         view.backgroundColor = FindTownColor.back2.color
-        naviBarSubView.backgroundColor = FindTownColor.white.color
         
-        let rightBarButton = UIBarButtonItem(image: UIImage(named: "favoriteBtn"),
-                                             style: .plain,
-                                             target: self,
-                                             action: #selector(didTapRightBarButton))
+        naviBarSubView.backgroundColor = FindTownColor.white.color
         self.navigationItem.rightBarButtonItem = rightBarButton
         setUpAddressButton()
     }
 
     override func setLayout() {
+        setNaviBarLayout()
+        setMapViewLayout()
+    }
+}
+
+private extension MapViewController {
+    
+    func setUpAddressButton() {
+        addressButton.setTitle("00시 00구 00동", for: .normal)
+        addressButton.setTitleColor(FindTownColor.grey7.color, for: .normal)
+        addressButton.titleLabel?.font = FindTownFont.label1.font
+        addressButton.setImage(UIImage(named: "dropDown"), for: .normal)
+        addressButton.semanticContentAttribute = .forceRightToLeft
+    }
+    
+    func setStackView(data: [DetailCategory]) {
+        detailCategoryView.detailCategoryStackView.subviews.forEach {
+            $0.removeFromSuperview()
+        }
+        
+        for i in 0..<data.count{
+            let view = MapDetailComponentView()
+            view.textLabel.text = data[i].detailTitle
+            view.colorView.backgroundColor = data[i].color
+            detailCategoryView.detailCategoryStackView.addArrangedSubview(view)
+         }
+     }
+    
+    func setNaviBarLayout() {
         
         let view = self.view.safeAreaLayoutGuide
-        
-        NSLayoutConstraint.activate([
-            mapView.topAnchor.constraint(equalTo: naviBarSubView.bottomAnchor),
-            mapView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            mapView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            mapView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
-        ])
         
         NSLayoutConstraint.activate([
             naviBarSubView.topAnchor.constraint(equalTo: view.topAnchor),
@@ -124,7 +154,20 @@ class MapViewController: BaseViewController {
             mapToggle.centerYAnchor.constraint(equalTo: naviBarSubView.centerYAnchor),
             mapToggle.trailingAnchor.constraint(equalTo: naviBarSubView.trailingAnchor, constant: -16.0)
         ])
-
+    }
+    
+    func setMapViewLayout() {
+        
+        let view = self.view.safeAreaLayoutGuide
+        
+        NSLayoutConstraint.activate([
+            mapView.topAnchor.constraint(equalTo: naviBarSubView.bottomAnchor),
+            mapView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            mapView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            mapView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+        ])
+        
+        
         NSLayoutConstraint.activate([
             collectionView.topAnchor.constraint(equalTo: mapView.topAnchor, constant: 16.0),
             collectionView.leadingAnchor.constraint(equalTo: mapView.leadingAnchor),
@@ -139,52 +182,11 @@ class MapViewController: BaseViewController {
     }
 }
 
-private extension MapViewController {
-    
-    @objc func didTapRightBarButton() {
-        print("didTapRightBarButton")
-    }
-    
-    @objc func didTapAddressButton() {
-        print("didTapAddressButton")
-        
-        let addressPopupVC = AddressPopUpViewController()
-        addressPopupVC.modalPresentationStyle = .overFullScreen
-        self.navigationController?.present(addressPopupVC, animated: true)
-    }
-}
-
-private extension MapViewController {
-    
-    func setUpAddressButton() {
-        addressButton.setTitle("00시 00구 00동", for: .normal)
-        addressButton.setTitleColor(FindTownColor.grey7.color, for: .normal)
-        addressButton.titleLabel?.font = FindTownFont.label1.font
-        addressButton.setImage(UIImage(named: "dropDown"), for: .normal)
-        addressButton.semanticContentAttribute = .forceRightToLeft
-        addressButton.addTarget(self, action: #selector(didTapAddressButton), for: .touchUpInside)
-    }
-    
-    func setStackView(data: [DetailCategory]) {
-        detailCategoryView.detailCategoryStackView.subviews.forEach {
-            $0.removeFromSuperview()
-        }
-        
-        for i in 0..<data.count{
-            let view = MapDetailComponentView()
-            view.textLabel.text = data[i].detailTitle
-            view.colorView.backgroundColor = data[i].color
-            detailCategoryView.detailCategoryStackView.addArrangedSubview(view)
-         }
-     }
-}
-
 // MARK: UICollectionViewDelegate, UICollectionViewDataSource
 
 extension MapViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-//        return collectionViewDataSource.count
         return collectionViewData.count
     }
     

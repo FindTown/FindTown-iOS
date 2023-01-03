@@ -2,7 +2,7 @@
 //  MapData.swift
 //  FindTown
 //
-//  Created by 장선영 on 2023/01/02.
+//  Created by 장선영 on 2023/01/03.
 //
 
 import Foundation

@@ -2,7 +2,7 @@
 //  MapCollectionViewCell.swift
 //  FindTown
 //
-//  Created by 장선영 on 2023/01/02.
+//  Created by 장선영 on 2023/01/03.
 //
 
 import UIKit
@@ -55,7 +55,6 @@ private extension MapCollectionViewCell {
     }
     
     func setupLayout() {
-                
         [imageView, titleLabel].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
             self.contentView.addSubview($0)
