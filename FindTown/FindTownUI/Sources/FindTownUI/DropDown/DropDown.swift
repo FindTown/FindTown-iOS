@@ -69,7 +69,7 @@ public class DropDown: UIView {
                                    alpha: 0.6)
         view.backgroundColor = .white
         view.layer.cornerRadius = 8
-        view.isHidden = true
+        view.alpha = 0
         return view
     }()
     
@@ -133,7 +133,7 @@ extension DropDown: UITableViewDelegate, UITableViewDataSource {
         }
         
         textLabel.text = dataSource[indexPath.row]
-        shadowView.isHidden = true
+        shadowView.alpha = 0
     }
 }
 
@@ -149,7 +149,13 @@ private extension DropDown {
     }
     
     @objc func showTableView() {
-        shadowView.isHidden = false
+        UIView.animate(withDuration: 0.3,
+                       delay: 0,
+                       options: [.allowUserInteraction, .curveEaseOut],
+                       animations: {
+            self.shadowView.alpha = 1
+            self.layoutIfNeeded()},
+                       completion: nil)
     }
     
     /// 0번째 cell이 선택된 상태로 시작하게 함
