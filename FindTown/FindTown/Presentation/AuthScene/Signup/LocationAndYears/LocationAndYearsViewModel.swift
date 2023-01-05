@@ -12,7 +12,7 @@ import RxSwift
 import RxRelay
 
 protocol LocationAndYearsViewModelType {
-    func goToTwonMood()
+    func goToTownMood()
 }
 
 // 추후 수정
@@ -78,13 +78,13 @@ final class LocationAndYearsViewModel: BaseViewModel {
         print("dongYearMonth \(dongYearMonth)")
         
         // 2. after goToTwonMood
-        self.goToTwonMood()
+        self.goToTownMood()
     }
 }
 
 extension LocationAndYearsViewModel: LocationAndYearsViewModelType {
     
-    func goToTwonMood() {
+    func goToTownMood() {
         delegate.goToTownMood()
     }
 }
