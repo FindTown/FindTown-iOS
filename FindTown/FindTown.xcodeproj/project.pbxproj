@@ -7,17 +7,23 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		BC056C562962B29F00EDCA18 /* LoginCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC056C552962B29F00EDCA18 /* LoginCoordinator.swift */; };
-		BC056C582962B2AD00EDCA18 /* SignUpNickNameCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC056C572962B2AD00EDCA18 /* SignUpNickNameCoordinator.swift */; };
+		BC056C562962B29F00EDCA18 /* SignupCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC056C552962B29F00EDCA18 /* SignupCoordinator.swift */; };
 		BC056C5A2962B2B900EDCA18 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC056C592962B2B900EDCA18 /* LoginViewModel.swift */; };
 		BC056C5C2962B2C400EDCA18 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC056C5B2962B2C400EDCA18 /* LoginViewController.swift */; };
-		BC056C5E2962B2CF00EDCA18 /* SignUpNickNameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC056C5D2962B2CF00EDCA18 /* SignUpNickNameViewModel.swift */; };
-		BC056C602962B2D900EDCA18 /* SignUpNickNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC056C5F2962B2D900EDCA18 /* SignUpNickNameViewController.swift */; };
+		BC056C5E2962B2CF00EDCA18 /* NicknameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC056C5D2962B2CF00EDCA18 /* NicknameViewModel.swift */; };
+		BC056C602962B2D900EDCA18 /* NicknameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC056C5F2962B2D900EDCA18 /* NicknameViewController.swift */; };
+		BC0D88512963DCF300CCB800 /* LocationAndYearsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC0D88502963DCF300CCB800 /* LocationAndYearsViewModel.swift */; };
+		BC0D88532963DD0D00CCB800 /* LocationAndYearsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC0D88522963DD0D00CCB800 /* LocationAndYearsViewController.swift */; };
+		BC0D88552963DD1D00CCB800 /* KakaoAddressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC0D88542963DD1D00CCB800 /* KakaoAddressViewController.swift */; };
+		BC0D88592964641400CCB800 /* YearMonthPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC0D88582964641400CCB800 /* YearMonthPickerView.swift */; };
 		BC6EFB7F293BD12300AB3332 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = BC6EFB7E293BD12300AB3332 /* RxCocoa */; };
 		BC6EFB81293BD12300AB3332 /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = BC6EFB80293BD12300AB3332 /* RxRelay */; };
 		BC6EFB83293BD12300AB3332 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = BC6EFB82293BD12300AB3332 /* RxSwift */; };
 		BC6EFB86293BD15A00AB3332 /* RxDataSources in Frameworks */ = {isa = PBXBuildFile; productRef = BC6EFB85293BD15A00AB3332 /* RxDataSources */; };
+		BC7BCBCD29646EE1003BB4FF /* TownMoodViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC7BCBCC29646EE1003BB4FF /* TownMoodViewController.swift */; };
+		BC7BCBCF29646EEA003BB4FF /* TownMoodViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC7BCBCE29646EEA003BB4FF /* TownMoodViewModel.swift */; };
 		BC99019C295F09720051CC9B /* NMapsMap in Frameworks */ = {isa = PBXBuildFile; productRef = BC99019B295F09720051CC9B /* NMapsMap */; };
+		BC9E86522966821C00AB4AE7 /* SignupCoordinatorDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC9E86512966821C00AB4AE7 /* SignupCoordinatorDelegate.swift */; };
 		F31A80C82949A5BB003B8A6E /* FindTownCore in Frameworks */ = {isa = PBXBuildFile; productRef = F31A80C72949A5BB003B8A6E /* FindTownCore */; };
 		F31A80CA2949A5BB003B8A6E /* FindTownNetwork in Frameworks */ = {isa = PBXBuildFile; productRef = F31A80C92949A5BB003B8A6E /* FindTownNetwork */; };
 		F31A80CC2949A5BB003B8A6E /* FindTownUI in Frameworks */ = {isa = PBXBuildFile; productRef = F31A80CB2949A5BB003B8A6E /* FindTownUI */; };
@@ -57,12 +63,18 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		BC056C552962B29F00EDCA18 /* LoginCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginCoordinator.swift; sourceTree = "<group>"; };
-		BC056C572962B2AD00EDCA18 /* SignUpNickNameCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpNickNameCoordinator.swift; sourceTree = "<group>"; };
+		BC056C552962B29F00EDCA18 /* SignupCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupCoordinator.swift; sourceTree = "<group>"; };
 		BC056C592962B2B900EDCA18 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		BC056C5B2962B2C400EDCA18 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
-		BC056C5D2962B2CF00EDCA18 /* SignUpNickNameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpNickNameViewModel.swift; sourceTree = "<group>"; };
-		BC056C5F2962B2D900EDCA18 /* SignUpNickNameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpNickNameViewController.swift; sourceTree = "<group>"; };
+		BC056C5D2962B2CF00EDCA18 /* NicknameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NicknameViewModel.swift; sourceTree = "<group>"; };
+		BC056C5F2962B2D900EDCA18 /* NicknameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NicknameViewController.swift; sourceTree = "<group>"; };
+		BC0D88502963DCF300CCB800 /* LocationAndYearsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationAndYearsViewModel.swift; sourceTree = "<group>"; };
+		BC0D88522963DD0D00CCB800 /* LocationAndYearsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationAndYearsViewController.swift; sourceTree = "<group>"; };
+		BC0D88542963DD1D00CCB800 /* KakaoAddressViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoAddressViewController.swift; sourceTree = "<group>"; };
+		BC0D88582964641400CCB800 /* YearMonthPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YearMonthPickerView.swift; sourceTree = "<group>"; };
+		BC7BCBCC29646EE1003BB4FF /* TownMoodViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TownMoodViewController.swift; sourceTree = "<group>"; };
+		BC7BCBCE29646EEA003BB4FF /* TownMoodViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TownMoodViewModel.swift; sourceTree = "<group>"; };
+		BC9E86512966821C00AB4AE7 /* SignupCoordinatorDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupCoordinatorDelegate.swift; sourceTree = "<group>"; };
 		F31A80C32949A556003B8A6E /* FindTownUI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = FindTownUI; sourceTree = "<group>"; };
 		F31A80C42949A568003B8A6E /* FindTownCore */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = FindTownCore; sourceTree = "<group>"; };
 		F31A80C52949A577003B8A6E /* FindTownNetwork */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = FindTownNetwork; sourceTree = "<group>"; };
@@ -124,7 +136,7 @@
 		BC056C512962B03B00EDCA18 /* AuthScene */ = {
 			isa = PBXGroup;
 			children = (
-				BC056C542962B27900EDCA18 /* SignUpNickName */,
+				BC5DA80A296696D500BF5C3D /* Signup */,
 				BC056C532962B06100EDCA18 /* Login */,
 				BC056C522962B05900EDCA18 /* Flows */,
 			);
@@ -134,8 +146,8 @@
 		BC056C522962B05900EDCA18 /* Flows */ = {
 			isa = PBXGroup;
 			children = (
-				BC056C552962B29F00EDCA18 /* LoginCoordinator.swift */,
-				BC056C572962B2AD00EDCA18 /* SignUpNickNameCoordinator.swift */,
+				BC056C552962B29F00EDCA18 /* SignupCoordinator.swift */,
+				BC9E86512966821C00AB4AE7 /* SignupCoordinatorDelegate.swift */,
 			);
 			path = Flows;
 			sourceTree = "<group>";
@@ -149,13 +161,43 @@
 			path = Login;
 			sourceTree = "<group>";
 		};
-		BC056C542962B27900EDCA18 /* SignUpNickName */ = {
+		BC5DA80A296696D500BF5C3D /* Signup */ = {
 			isa = PBXGroup;
 			children = (
-				BC056C5D2962B2CF00EDCA18 /* SignUpNickNameViewModel.swift */,
-				BC056C5F2962B2D900EDCA18 /* SignUpNickNameViewController.swift */,
+				BC5DA80D2966974F00BF5C3D /* Nickname */,
+				BC5DA80C2966970800BF5C3D /* LocationAndYears */,
+				BC5DA80B296696F700BF5C3D /* TownMood */,
 			);
-			path = SignUpNickName;
+			path = Signup;
+			sourceTree = "<group>";
+		};
+		BC5DA80B296696F700BF5C3D /* TownMood */ = {
+			isa = PBXGroup;
+			children = (
+				BC7BCBCC29646EE1003BB4FF /* TownMoodViewController.swift */,
+				BC7BCBCE29646EEA003BB4FF /* TownMoodViewModel.swift */,
+			);
+			path = TownMood;
+			sourceTree = "<group>";
+		};
+		BC5DA80C2966970800BF5C3D /* LocationAndYears */ = {
+			isa = PBXGroup;
+			children = (
+				BC0D88502963DCF300CCB800 /* LocationAndYearsViewModel.swift */,
+				BC0D88522963DD0D00CCB800 /* LocationAndYearsViewController.swift */,
+				BC0D88542963DD1D00CCB800 /* KakaoAddressViewController.swift */,
+				BC0D88582964641400CCB800 /* YearMonthPickerView.swift */,
+			);
+			path = LocationAndYears;
+			sourceTree = "<group>";
+		};
+		BC5DA80D2966974F00BF5C3D /* Nickname */ = {
+			isa = PBXGroup;
+			children = (
+				BC056C5D2962B2CF00EDCA18 /* NicknameViewModel.swift */,
+				BC056C5F2962B2D900EDCA18 /* NicknameViewController.swift */,
+			);
+			path = Nickname;
 			sourceTree = "<group>";
 		};
 		BC6EFB73293B9C2A00AB3332 /* Application */ = {
@@ -502,22 +544,28 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BC056C5E2962B2CF00EDCA18 /* SignUpNickNameViewModel.swift in Sources */,
+				BC0D88592964641400CCB800 /* YearMonthPickerView.swift in Sources */,
+				BC056C5E2962B2CF00EDCA18 /* NicknameViewModel.swift in Sources */,
 				F38CCBD729582869000C16AF /* AppCoordinator.swift in Sources */,
-				BC056C602962B2D900EDCA18 /* SignUpNickNameViewController.swift in Sources */,
+				BC056C602962B2D900EDCA18 /* NicknameViewController.swift in Sources */,
 				F38CCBE929582881000C16AF /* MapViewModel.swift in Sources */,
 				F38CCBEA29582881000C16AF /* MapCoordinator.swift in Sources */,
+				BC0D88552963DD1D00CCB800 /* KakaoAddressViewController.swift in Sources */,
 				BC056C5C2962B2C400EDCA18 /* LoginViewController.swift in Sources */,
 				F38CCBDF2958287C000C16AF /* HomeViewModel.swift in Sources */,
+				BC0D88512963DCF300CCB800 /* LocationAndYearsViewModel.swift in Sources */,
 				F3891E23293B8393003CE8AD /* ViewController.swift in Sources */,
 				F3891E1F293B8393003CE8AD /* AppDelegate.swift in Sources */,
+				BC7BCBCF29646EEA003BB4FF /* TownMoodViewModel.swift in Sources */,
 				BC056C5A2962B2B900EDCA18 /* LoginViewModel.swift in Sources */,
-				BC056C562962B29F00EDCA18 /* LoginCoordinator.swift in Sources */,
+				BC7BCBCD29646EE1003BB4FF /* TownMoodViewController.swift in Sources */,
+				BC056C562962B29F00EDCA18 /* SignupCoordinator.swift in Sources */,
+				BC9E86522966821C00AB4AE7 /* SignupCoordinatorDelegate.swift in Sources */,
 				F38CCBE829582881000C16AF /* MapViewController.swift in Sources */,
 				F38CCBD829582869000C16AF /* TabBarCoordinator.swift in Sources */,
-				BC056C582962B2AD00EDCA18 /* SignUpNickNameCoordinator.swift in Sources */,
 				F38CCBE12958287C000C16AF /* HomeCoordinator.swift in Sources */,
 				F38CCBE02958287C000C16AF /* HomeViewController.swift in Sources */,
+				BC0D88532963DD0D00CCB800 /* LocationAndYearsViewController.swift in Sources */,
 				F3891E21293B8393003CE8AD /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
