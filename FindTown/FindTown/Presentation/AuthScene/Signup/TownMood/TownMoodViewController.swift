@@ -120,6 +120,7 @@ final class TownMoodViewController: BaseViewController {
         townLikeTextView.delegate = self
         townLikeTextView.text = textViewPlaceHolder
         townLikeTextView.textColor = FindTownColor.grey5.color
+        townLikeTextView.tintColor = FindTownColor.primary.color
         townLikeTextView.textContainerInset = UIEdgeInsets(top: 12, left: 16, bottom: 12, right: 16);
         townLikeTextView.font = FindTownFont.label1.font
         
