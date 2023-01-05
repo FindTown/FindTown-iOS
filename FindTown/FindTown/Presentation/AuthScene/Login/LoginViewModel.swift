@@ -9,24 +9,22 @@ import Foundation
 
 import FindTownCore
 
-protocol LoginViewModelDelegate {
-    func goToSignUpNickName()
-}
-
 protocol LoginViewModelType {
-    func goToSignUpNickName()
+    func goToNicnName()
 }
 
 final class LoginViewModel: BaseViewModel {
-    let delegate: LoginViewModelDelegate
+    let delegate: SignupCoordinatorDelegate
     
-    init(delegate: LoginViewModelDelegate) {
+    init(
+        delegate: SignupCoordinatorDelegate
+    ) {
         self.delegate = delegate
     }
 }
 
 extension LoginViewModel: LoginViewModelType {
-    func goToSignUpNickName() {
-        delegate.goToSignUpNickName()
+    func goToNicnName() {
+        delegate.goToNickname()
     }
 }

@@ -12,15 +12,15 @@ import FindTownUI
 import RxCocoa
 import RxSwift
 
-final class SignUpNickNameViewController: BaseViewController {
+final class NicknameViewController: BaseViewController {
     
     // MARK: - Properties
     
-    private let viewModel: SignUpNickNameViewModel!
+    private let viewModel: NicknameViewModel?
     
     // MARK: - Views
     
-    private let nowStatuspPogressView = UIProgressView(progressViewStyle: .bar)
+    private let nowStatusPogressView = UIProgressView(progressViewStyle: .bar)
     
     private let inputNickNameTitle = FindTownLabel(text: "닉네임을 입력해주세요", font: .subtitle4)
     
@@ -34,7 +34,7 @@ final class SignUpNickNameViewController: BaseViewController {
     
     // MARK: - Life Cycle
     
-    init(viewModel: SignUpNickNameViewModel) {
+    init(viewModel: NicknameViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
@@ -50,23 +50,23 @@ final class SignUpNickNameViewController: BaseViewController {
     // MARK: - Functions
     
     override func addView() {
-        [nowStatuspPogressView, inputNickNameTitle, nickNameTextField,
+        [nowStatusPogressView, inputNickNameTitle, nickNameTextField,
          nickNameStatusLabel, duplicateButton, nextButton].forEach {
             view.addSubview($0)
         }
     }
     
     override func setLayout() {
-        nowStatuspPogressView.translatesAutoresizingMaskIntoConstraints = false
+        nowStatusPogressView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            nowStatuspPogressView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            nowStatuspPogressView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            nowStatuspPogressView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            nowStatuspPogressView.heightAnchor.constraint(equalToConstant: 1)
+            nowStatusPogressView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            nowStatusPogressView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            nowStatusPogressView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            nowStatusPogressView.heightAnchor.constraint(equalToConstant: 1)
         ])
         
         NSLayoutConstraint.activate([
-            inputNickNameTitle.topAnchor.constraint(equalTo: nowStatuspPogressView.bottomAnchor, constant: 74),
+            inputNickNameTitle.topAnchor.constraint(equalTo: nowStatusPogressView.bottomAnchor, constant: 74),
             inputNickNameTitle.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16)
         ])
         
@@ -98,9 +98,9 @@ final class SignUpNickNameViewController: BaseViewController {
     override func setupView() {
         view.backgroundColor = .white
         
-        nowStatuspPogressView.trackTintColor = FindTownColor.grey2.color
-        nowStatuspPogressView.progressTintColor = FindTownColor.primary.color
-        nowStatuspPogressView.progress = Float(1) / 4.0
+        nowStatusPogressView.trackTintColor = FindTownColor.grey2.color
+        nowStatusPogressView.progressTintColor = FindTownColor.primary.color
+        nowStatusPogressView.progress = Float(1) / 4.0
         
         nickNameTextField.delegate = self
         nickNameTextField.placeholder = "공백 포함 최대 10자, 특수문자 제외"
@@ -122,34 +122,34 @@ final class SignUpNickNameViewController: BaseViewController {
         
         nickNameTextField.rx.text.orEmpty
             .bind { [weak self] in
-                self?.viewModel.input.nickname.onNext($0)
+                self?.viewModel?.input.nickname.onNext($0)
             }
             .disposed(by: disposeBag)
         
         duplicateButton.rx.tap
             .throttle(.milliseconds(300), scheduler: MainScheduler.instance)
             .bind { [weak self] in
-                self?.viewModel.input.nickNameCheckTrigger.onNext(self?.nickNameTextField.text ?? "")
+                self?.viewModel?.input.nickNameCheckTrigger.onNext(self?.nickNameTextField.text ?? "")
             }
             .disposed(by: disposeBag)
         
         nextButton.rx.tap
             .throttle(.milliseconds(300), scheduler: MainScheduler.instance)
             .bind { [weak self] in
-                if self!.nextButton.isSelected { self?.viewModel.goToFirstInfo() }
+                if self!.nextButton.isSelected { self?.viewModel?.input.nextButtonTrigger.onNext(()) }
             }
             .disposed(by: disposeBag)
         
         // output
         
-        viewModel.output.buttonsSelected
+        viewModel?.output.buttonsSelected
             .asDriver(onErrorJustReturn: true)
             .drive { [weak self] in
                 self?.buttonIsSelectedChange(isSelected: $0)
             }
             .disposed(by: disposeBag)
         
-        viewModel.output.nickNameStatus
+        viewModel?.output.nickNameStatus
             .asDriver(onErrorJustReturn: .none)
             .drive { [weak self] in
                 self?.nickNameStatusChange(nickNameStatus: $0)
@@ -164,7 +164,7 @@ final class SignUpNickNameViewController: BaseViewController {
         }
     }
     
-    private func nickNameStatusChange(nickNameStatus: SignUpNickNameStatus) {
+    private func nickNameStatusChange(nickNameStatus: NicknameStatus) {
         switch nickNameStatus {
         case .none:
             nickNameStatusLabel.isHidden = true
@@ -188,7 +188,7 @@ final class SignUpNickNameViewController: BaseViewController {
     }
 }
 
-extension SignUpNickNameViewController: UITextFieldDelegate {
+extension NicknameViewController: UITextFieldDelegate {
     // 닉네임 글자 수 10글자로 제한
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         guard let text = textField.text else { return true }

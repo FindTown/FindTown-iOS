@@ -12,39 +12,39 @@ import FindTownUI
 import RxSwift
 import RxRelay
 
-protocol SignUpNickNameViewModelDelegate {
-    func goToFirstInfo()
+protocol NicknameViewModelType {
+    func goToLocationAndYears()
 }
 
-protocol SignUpNickNameViewModelType {
-    func goToFirstInfo()
-}
-
-enum SignUpNickNameStatus {
+enum NicknameStatus {
     case none
     case complete
     case duplicate
     case inSpecialChar
 }
 
-final class SignUpNickNameViewModel: BaseViewModel {
-    
+final class NicknameViewModel: BaseViewModel {
+   
     struct Input {
         let nickname = PublishSubject<String>()
         let nickNameCheckTrigger = PublishSubject<String>()
+        let nextButtonTrigger = PublishSubject<Void>()
     }
     
     struct Output {
-        let nickNameStatus = PublishRelay<SignUpNickNameStatus>()
+        let nickNameStatus = PublishRelay<NicknameStatus>()
         let buttonsSelected = PublishRelay<Bool>()
     }
     
     let input = Input()
-    var output = Output()
-    var delegate: SignUpNickNameViewModelDelegate
+    let output = Output()
+    let delegate: SignupCoordinatorDelegate
     
-    init(delegate: SignUpNickNameViewModelDelegate) {
+    init(
+        delegate: SignupCoordinatorDelegate
+    ) {
         self.delegate = delegate
+        
         super.init()
         self.bind()
     }
@@ -70,11 +70,24 @@ final class SignUpNickNameViewModel: BaseViewModel {
                 }
             }
             .disposed(by: disposeBag)
+        
+        self.input.nextButtonTrigger
+            .withLatestFrom(self.input.nickname)
+            .bind(onNext: self.setNickname(nickname:))
+            .disposed(by: disposeBag)
+    }
+    
+    private func setNickname(nickname: String) {
+        // 1. nickname 임시로 set
+        print("setNickname \(nickname)")
+        
+        // 2. after goToLocationAndYears
+        self.goToLocationAndYears()   
     }
 }
 
-extension SignUpNickNameViewModel: SignUpNickNameViewModelType {
-    func goToFirstInfo() {
-        delegate.goToFirstInfo()
+extension NicknameViewModel: NicknameViewModelType {
+    func goToLocationAndYears() {
+        delegate.goToLocationAndYears()
     }
 }

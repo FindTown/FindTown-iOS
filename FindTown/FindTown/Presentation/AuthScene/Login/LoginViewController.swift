@@ -142,7 +142,7 @@ final class LoginViewController: BaseViewController {
             .throttle(.milliseconds(300), scheduler: MainScheduler.instance)
             .bind { [weak self] in
                 // 임시
-                self?.viewModel?.goToSignUpNickName()
+                self?.viewModel?.goToNicnName()
             }
             .disposed(by: disposeBag)
         
