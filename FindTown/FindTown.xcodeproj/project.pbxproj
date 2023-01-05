@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2B718C142966A4D20068884A /* AddressPopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B718C132966A4D20068884A /* AddressPopUpViewController.swift */; };
+		2B718C182966A5930068884A /* MapCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B718C172966A5930068884A /* MapCollectionViewCell.swift */; };
+		2B718C1A2966A6000068884A /* MapData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B718C192966A6000068884A /* MapData.swift */; };
 		BC6EFB7F293BD12300AB3332 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = BC6EFB7E293BD12300AB3332 /* RxCocoa */; };
 		BC6EFB81293BD12300AB3332 /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = BC6EFB80293BD12300AB3332 /* RxRelay */; };
 		BC6EFB83293BD12300AB3332 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = BC6EFB82293BD12300AB3332 /* RxSwift */; };
@@ -52,6 +55,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2B718C132966A4D20068884A /* AddressPopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressPopUpViewController.swift; sourceTree = "<group>"; };
+		2B718C172966A5930068884A /* MapCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapCollectionViewCell.swift; sourceTree = "<group>"; };
+		2B718C192966A6000068884A /* MapData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapData.swift; sourceTree = "<group>"; };
 		BC990198295F061B0051CC9B /* APIKeyInfo.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = APIKeyInfo.plist; sourceTree = "<group>"; };
 		F31A80C32949A556003B8A6E /* FindTownUI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = FindTownUI; sourceTree = "<group>"; };
 		F31A80C42949A568003B8A6E /* FindTownCore */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = FindTownCore; sourceTree = "<group>"; };
@@ -298,6 +304,9 @@
 			children = (
 				F38CCBE429582881000C16AF /* MapViewController.swift */,
 				F38CCBE529582881000C16AF /* MapViewModel.swift */,
+				2B718C132966A4D20068884A /* AddressPopUpViewController.swift */,
+				2B718C172966A5930068884A /* MapCollectionViewCell.swift */,
+				2B718C192966A6000068884A /* MapData.swift */,
 			);
 			path = Map;
 			sourceTree = "<group>";
@@ -463,7 +472,10 @@
 				F3891E23293B8393003CE8AD /* ViewController.swift in Sources */,
 				F3891E1F293B8393003CE8AD /* AppDelegate.swift in Sources */,
 				F38CCBE829582881000C16AF /* MapViewController.swift in Sources */,
+				2B718C182966A5930068884A /* MapCollectionViewCell.swift in Sources */,
 				F38CCBD829582869000C16AF /* TabBarCoordinator.swift in Sources */,
+				2B718C142966A4D20068884A /* AddressPopUpViewController.swift in Sources */,
+				2B718C1A2966A6000068884A /* MapData.swift in Sources */,
 				F38CCBE12958287C000C16AF /* HomeCoordinator.swift in Sources */,
 				F38CCBE02958287C000C16AF /* HomeViewController.swift in Sources */,
 				F3891E21293B8393003CE8AD /* SceneDelegate.swift in Sources */,

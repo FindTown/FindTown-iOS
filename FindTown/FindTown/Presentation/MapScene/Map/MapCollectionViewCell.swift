@@ -2,7 +2,7 @@
 //  MapCollectionViewCell.swift
 //  FindTown
 //
-//  Created by 장선영 on 2023/01/03.
+//  Created by 장선영 on 2023/01/05.
 //
 
 import UIKit
@@ -25,6 +25,8 @@ class MapCollectionViewCell: UICollectionViewCell {
     }()
     
     func setupCell(image: UIImage, title: String) {
+        self.heightAnchor.constraint(equalToConstant: 32.0).isActive = true
+        
         setupView()
         setupLayout()
         imageView.image = image

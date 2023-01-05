@@ -2,16 +2,13 @@
 //  MapData.swift
 //  FindTown
 //
-//  Created by 장선영 on 2023/01/03.
+//  Created by 장선영 on 2023/01/05.
 //
 
 import Foundation
 import UIKit
 
-//struct MapData {
-//    let category
-//}
-
+/// 임시로 설계해놓은 Map Test Data
 enum MapCategory {
     case infra
     case theme

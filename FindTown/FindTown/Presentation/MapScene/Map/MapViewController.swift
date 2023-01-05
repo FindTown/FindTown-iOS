@@ -9,6 +9,7 @@ import UIKit
 import FindTownCore
 import FindTownUI
 import NMapsMap
+import RxSwift
 import RxCocoa
 
 class MapViewController: BaseViewController {
@@ -21,28 +22,28 @@ class MapViewController: BaseViewController {
                                          action: nil)
     let addressButton = UIButton()
     let mapToggle = MapSegmentControl(items: ["인프라", "테마"])
+    let detailCategoryView = MapDetailCategoryView()
 
     lazy var collectionView: UICollectionView = {
         let flowLayout = UICollectionViewFlowLayout()
         flowLayout.scrollDirection = .horizontal
         flowLayout.minimumLineSpacing = 8
-        flowLayout.sectionInset = UIEdgeInsets(top: 0.0, left: 17.0, bottom: 0.0, right: 82.0)
+        flowLayout.sectionInset = UIEdgeInsets(top: 0.0,
+                                               left: 17.0,
+                                               bottom: 0.0,
+                                               right: 82.0)
+        flowLayout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
         
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
+        let collectionView = UICollectionView(frame: .zero,
+                                              collectionViewLayout: flowLayout)
         collectionView.backgroundColor = .clear
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.allowsMultipleSelection = false
         collectionView.register(MapCollectionViewCell.self,
                                 forCellWithReuseIdentifier: MapCollectionViewCell.reuseIdentifier)
-        collectionView.delegate = self
-        collectionView.dataSource = self
+        collectionView.autoresizingMask = .flexibleWidth
         return collectionView
     }()
-    
-    let detailCategoryView = MapDetailCategoryView()
-        
-    /// collectionView의 데이터
-    var collectionViewData: [Category] = []
 
     var viewModel: MapViewModel?
     
@@ -53,13 +54,6 @@ class MapViewController: BaseViewController {
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        returnTestData()
-        collectionView.reloadData()
-        detailCategoryView.isHidden = true
     }
     
     override func bindViewModel() {
@@ -77,6 +71,29 @@ class MapViewController: BaseViewController {
                 self?.viewModel?.presentAddressPopup()
             }
             .disposed(by: disposeBag)
+ 
+        // MARK: Output
+        
+        /// iconCollectionView 데이터 바인딩
+        viewModel?.dataSource.observe(on: MainScheduler.instance)
+            .bind(to: collectionView.rx.items(cellIdentifier: MapCollectionViewCell.reuseIdentifier,
+                                              cellType: MapCollectionViewCell.self)) { index, item, cell in
+                
+                cell.setupCell(image: item.image, title: item.title)
+                
+            }.disposed(by: disposeBag)
+        
+        /// 선택한 iconCell에 맞는 detailCategoryView 데이터 보여주게 함
+        collectionView.rx.modelSelected(Category.self)
+            .map { category in
+                return category.detailCategories
+            }
+            .subscribe(onNext: { detailCategories in
+                self.detailCategoryView.isHidden = false
+                self.setStackView(data: detailCategories)
+            })
+            .disposed(by: disposeBag)
+        
     }
 
     override func addView() {
@@ -102,6 +119,7 @@ class MapViewController: BaseViewController {
         
         naviBarSubView.backgroundColor = FindTownColor.white.color
         self.navigationItem.rightBarButtonItem = rightBarButton
+        self.detailCategoryView.isHidden = true
         setUpAddressButton()
     }
 
@@ -110,6 +128,8 @@ class MapViewController: BaseViewController {
         setMapViewLayout()
     }
 }
+
+// MARK: UI Details
 
 private extension MapViewController {
     
@@ -167,7 +187,6 @@ private extension MapViewController {
             mapView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
         
-        
         NSLayoutConstraint.activate([
             collectionView.topAnchor.constraint(equalTo: mapView.topAnchor, constant: 16.0),
             collectionView.leadingAnchor.constraint(equalTo: mapView.leadingAnchor),
@@ -179,85 +198,5 @@ private extension MapViewController {
             detailCategoryView.topAnchor.constraint(equalTo: collectionView.bottomAnchor, constant: 16.0),
             detailCategoryView.leadingAnchor.constraint(equalTo: mapView.leadingAnchor, constant: 16.0)
         ])
-    }
-}
-
-// MARK: UICollectionViewDelegate, UICollectionViewDataSource
-
-extension MapViewController: UICollectionViewDelegate, UICollectionViewDataSource {
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return collectionViewData.count
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MapCollectionViewCell.reuseIdentifier, for: indexPath) as? MapCollectionViewCell else {
-            return UICollectionViewCell()
-        }
-        
-        let cellData = collectionViewData[indexPath.item]
-        cell.setupCell(image: cellData.image, title: cellData.title)
-        return cell
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
-        let detailCategories = collectionViewData[indexPath.item].detailCategories
-        detailCategoryView.isHidden = false
-        setStackView(data: detailCategories)
-    }
-}
-
-// MARK: UICollectionViewDelegateFlowLayout
-
-extension MapViewController: UICollectionViewDelegateFlowLayout {
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-
-        return CGSize(width: collectionViewData[indexPath.item].title.size(withAttributes: [NSAttributedString.Key.font : FindTownFont.body4.font]).width + 45, height: 32)
-    }
-}
-
-
-extension MapViewController {
-    func returnTestData() {
-        let detailCategories1 = [DetailCategory(color: UIColor.init(red: 255,
-                                                                   green: 30,
-                                                                   blue: 30),
-                                               detailTitle: "편의점"),
-                                DetailCategory(color: UIColor.init(red: 255,
-                                                                   green: 210,
-                                                                   blue: 49),
-                                               detailTitle: "편의점편의점편의점"),
-                                DetailCategory(color: UIColor.init(red: 255,
-                                                                   green: 30,
-                                                                   blue: 30),
-                                               detailTitle: "편의점")]
-        
-        let detailCategories2 = [DetailCategory(color: UIColor.init(red: 255,
-                                                                   green: 30,
-                                                                   blue: 30),
-                                               detailTitle: "편의점"),
-                                DetailCategory(color: UIColor.init(red: 255,
-                                                                   green: 210,
-                                                                   blue: 49),
-                                               detailTitle: "편의점"),
-                                DetailCategory(color: UIColor.init(red: 255,
-                                                                   green: 30,
-                                                                   blue: 30),
-                                               detailTitle: "편의점")]
-        
-    
-        let categories = [Category(image: UIImage(named: "martIcon")?.withRenderingMode(.alwaysTemplate) ?? UIImage(),
-                                   title: "마트&편의점",
-                                   detailCategories: detailCategories1),
-                          Category(image: UIImage(named: "cafeIcon")?.withRenderingMode(.alwaysTemplate) ?? UIImage(),
-                                   title: "카페",
-                                   detailCategories: detailCategories2),
-                          Category(image: UIImage(named: "bellIcon")?.withRenderingMode(.alwaysTemplate) ?? UIImage(),
-                                   title: "치안",
-                                   detailCategories: detailCategories1)]
-                          
-        self.collectionViewData = categories
     }
 }
