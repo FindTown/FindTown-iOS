@@ -38,7 +38,7 @@ extension FTButtonStyle {
     /// Button_L - 세번째 네번째 버튼 세트
     public static let largeTinted = FTButtonStyle (
         isSelectedButton: true,
-        configuration: .tinted(),
+        configuration: .plain(),
         titleFont: FindTownFont.body3.font,
         selectedColorSet: [FindTownColor.white.color, FindTownColor.primary.color],
         nonSelectedColorSet: [FindTownColor.white.color, FindTownColor.grey5.color],
@@ -59,7 +59,7 @@ extension FTButtonStyle {
     /// Button_M - 두번째 네번째 버튼 세트
     public static let mediumTintedWithRadius = FTButtonStyle (
         isSelectedButton: true,
-        configuration: .tinted(),
+        configuration: .plain(),
         titleFont: FindTownFont.body3.font,
         selectedColorSet: [FindTownColor.white.color, FindTownColor.primary.color],
         nonSelectedColorSet: [FindTownColor.white.color, FindTownColor.grey5.color],
@@ -81,7 +81,7 @@ extension FTButtonStyle {
     /// Button_S
     public static let small = FTButtonStyle (
         isSelectedButton: true,
-        configuration: .tinted(),
+        configuration: .plain(),
         titleFont: FindTownFont.body3.font,
         selectedColorSet: [FindTownColor.white.color, FindTownColor.primary.color],
         nonSelectedColorSet: [FindTownColor.white.color, FindTownColor.grey4.color],
@@ -92,7 +92,7 @@ extension FTButtonStyle {
     /// Button_XS
     public static let xSmall = FTButtonStyle (
         isSelectedButton: true,
-        configuration: .tinted(),
+        configuration: .plain(),
         titleFont: FindTownFont.body3.font,
         selectedColorSet: [FindTownColor.white.color, FindTownColor.primary.color],
         nonSelectedColorSet: [FindTownColor.white.color, FindTownColor.grey4.color],
@@ -103,7 +103,7 @@ extension FTButtonStyle {
     /// Button_XXS
     public static let xxSmall = FTButtonStyle (
         isSelectedButton: true,
-        configuration: .tinted(),
+        configuration: .plain(),
         titleFont: FindTownFont.label2.font,
         selectedColorSet: [FindTownColor.white.color, FindTownColor.primary.color],
         nonSelectedColorSet: [FindTownColor.white.color, FindTownColor.grey4.color],
