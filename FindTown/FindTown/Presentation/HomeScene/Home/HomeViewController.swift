@@ -14,31 +14,31 @@ class HomeViewController: BaseViewController {
     var viewModel: HomeViewModel?
     
     private let button: FTButton = {
-        let button = FTButton(style: .largeSelected)
+        let button = FTButton(style: .largeFilled)
         button.setTitle("push", for: .normal)
         return button
     }()
     
     private let button2: FTButton = {
-        let button = FTButton(style: .largeSelected)
+        let button = FTButton(style: .largeFilled)
         button.setTitle("present", for: .normal)
         return button
     }()
     
     private let button3: FTButton = {
-        let button = FTButton(style: .largeSelected)
+        let button = FTButton(style: .largeFilled)
         button.setTitle("dismiss", for: .normal)
         return button
     }()
     
     private let button4: FTButton = {
-        let button = FTButton(style: .largeSelected)
+        let button = FTButton(style: .largeFilled)
         button.setTitle("pop", for: .normal)
         return button
     }()
     
     private let button5: FTButton = {
-        let button = FTButton(style: .largeSelected)
+        let button = FTButton(style: .largeFilled)
         button.setTitle("setVC", for: .normal)
         return button
     }()
