@@ -6,9 +6,16 @@
 //
 
 import UIKit
+
 import FindTownUI
+import RxCocoa
+import RxSwift
 
 final class YearMonthPickerView: UIView {
+    
+    private let disposeBag = DisposeBag()
+    
+    private var viewModel: LocationAndYearsViewModel?
     
     /// 0 ~ 30년
     private let availableYear = [
@@ -21,38 +28,64 @@ final class YearMonthPickerView: UIView {
     
     private let pickerView = UIPickerView()
     
-    private var viewModel: LocationAndYearsViewModel!
-    
     init(viewModel: LocationAndYearsViewModel) {
         super.init(frame: .zero)
+        
         self.viewModel = viewModel
-        pickerView.delegate = self
-        pickerView.dataSource = self
-        pickerView.selectRow(0, inComponent: 0, animated: true)
-        pickerView.selectRow(0, inComponent: 1, animated: true)
         
         addSubview(pickerView)
+        
+        pickerView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            pickerView.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width - 100),
+            pickerView.centerXAnchor.constraint(equalTo: super.centerXAnchor)
+        ])
+        
+        bind()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    private func bind() {
+        
+        Observable.just([availableYear, availableMonth])
+            .bind(to: pickerView.rx.items(adapter: PickerViewViewAdapter()))
+            .disposed(by: disposeBag)
+        
+        pickerView.rx.modelSelected(Int.self)
+            .subscribe(onNext: { [weak self] models in
+                self?.viewModel?.input.year.onNext(models[0])
+                self?.viewModel?.input.month.onNext(models[1])
+            })
+            .disposed(by: disposeBag)
+    }
 }
 
-extension YearMonthPickerView: UIPickerViewDelegate, UIPickerViewDataSource {
+final class PickerViewViewAdapter
+: NSObject
+, UIPickerViewDataSource
+, UIPickerViewDelegate
+, RxPickerViewDataSourceType
+, SectionedViewDataSourceType {
+    typealias Element = [[CustomStringConvertible]]
+    private var items: [[CustomStringConvertible]] = []
+    
+    func model(at indexPath: IndexPath) throws -> Any {
+        items[indexPath.section][indexPath.row]
+    }
+    
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 2 /// 년, 월 두 가지 선택하는 피커뷰
+        items.count
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        switch component {
-        case 0:
-            return availableYear.count /// 연도의 아이템 개수
-        case 1:
-            return availableMonth.count /// 월의 아이템 개수
-        default:
-            return 0
-        }
+        items[component].count
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
+        return 40
     }
     
     func pickerView(
@@ -61,14 +94,16 @@ extension YearMonthPickerView: UIPickerViewDelegate, UIPickerViewDataSource {
     ) -> UIView {
         let pickerLabel = FindTownLabel(text: "", font: .body1, textColor: FindTownColor.grey7)
         pickerLabel.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        pickerLabel.textAlignment = .center
+        
         switch component {
         case 0:
-            viewModel.input.year.onNext(availableYear[row])
-            pickerLabel.text = "\(availableYear[row])년"
+            pickerLabel.text = "\(items[component][row])년"
+            pickerLabel.widthAnchor.constraint(equalToConstant: pickerView.frame.width / 2 ).isActive = true
             return pickerLabel
         case 1:
-            viewModel.input.month.onNext(availableMonth[row])
-            pickerLabel.text = "\(availableMonth[row])개월"
+            pickerLabel.text = "\(items[component][row])개월"
+            pickerLabel.widthAnchor.constraint(equalToConstant: pickerView.frame.width / 2  - 40).isActive = true
             return pickerLabel
         default:
             pickerLabel.text = ""
@@ -76,15 +111,10 @@ extension YearMonthPickerView: UIPickerViewDelegate, UIPickerViewDataSource {
         }
     }
     
-    func pickerView(_ pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
-        return 40
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, widthForComponent component: Int) -> CGFloat {
-        if component == 0 {
-            return 100
-        } else {
-            return 50
-        }
+    func pickerView(_ pickerView: UIPickerView, observedEvent: Event<Element>) {
+        Binder(self) { (adapter, items) in
+            adapter.items = items
+            pickerView.reloadAllComponents()
+        }.on(observedEvent)
     }
 }
