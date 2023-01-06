@@ -32,7 +32,7 @@ public class AlertPopUpViewController: UIViewController {
     }()
     
     private lazy var button: FTButton = {
-        let button = FTButton(style: .mediumFilled)
+        let button = FTButton(style: .largeFilled)
         button.setTitle(buttonText, for: .normal)
         return button
     }()

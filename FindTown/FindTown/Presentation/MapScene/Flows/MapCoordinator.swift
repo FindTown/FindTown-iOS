@@ -31,7 +31,8 @@ extension MapCoordinator: MapViewModelDelegate {
     }
     
     func presentAddressPopup() {
-        
+        let addressPopup = AddressPopUpViewController()
+        addressPopup.modalPresentationStyle = .overFullScreen
+        self.navigationController?.present(addressPopup, animated: false)
     }
-    
 }

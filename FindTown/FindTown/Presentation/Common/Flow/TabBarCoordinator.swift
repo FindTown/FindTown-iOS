@@ -24,12 +24,12 @@ final class TabBarCoordinator: FlowCoordinator {
         let homeCoordinator = HomeCoordinator(presentationStyle: .none)
         homeCoordinator.start()
         guard let homeViewController = homeCoordinator.navigationController else { return UIViewController() }
-        homeViewController.tabBarItem = UITabBarItem(title: "동네 찾기", image: UIImage(systemName: "house"), tag: 0)
+        homeViewController.tabBarItem = UITabBarItem(title: "동네 찾기", image: UIImage(named: "homeIcon"), tag: 0)
         
         let mapCoordinator = MapCoordinator(presentationStyle: .none)
         mapCoordinator.start()
         guard let mapViewController = mapCoordinator.navigationController else { return UIViewController() }
-        mapViewController.tabBarItem = UITabBarItem(title: "동네 지도", image: UIImage(systemName: "map"), tag: 1)
+        mapViewController.tabBarItem = UITabBarItem(title: "동네 지도", image: UIImage(named: "mapIcon"), tag: 1)
         
         tabBarController.viewControllers = [homeViewController, mapViewController]
         
