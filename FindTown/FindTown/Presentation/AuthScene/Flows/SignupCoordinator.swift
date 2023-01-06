@@ -47,6 +47,7 @@ extension SignupCoordinator: SignupCoordinatorDelegate {
     
     func goToLocationAndYears() {
         guard let navigationController = navigationController else { return }
+        navigationController.isNavigationBarHidden = false
         navigationController.pushViewController(signUpInputLocationAndYearsScene(), animated: true)
     }
     

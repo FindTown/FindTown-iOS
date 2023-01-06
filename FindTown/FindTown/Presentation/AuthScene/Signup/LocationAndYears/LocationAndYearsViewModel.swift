@@ -26,8 +26,8 @@ final class LocationAndYearsViewModel: BaseViewModel {
     
     struct Input {
         let dong = PublishSubject<String>()
-        let year = PublishSubject<Int>()
-        let month = PublishSubject<Int>()
+        let year = BehaviorSubject<Int>(value: 0)
+        let month = BehaviorSubject<Int>(value: 1)
         
         let dongYearMonth = BehaviorSubject<DongYearMonthModel>(
             value: DongYearMonthModel(dong: "", year: 0, month: 1)

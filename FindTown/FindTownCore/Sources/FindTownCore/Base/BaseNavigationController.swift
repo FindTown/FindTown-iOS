@@ -21,7 +21,7 @@ public class BaseNavigationController: UINavigationController {
         let backButtonAppearance = UIBarButtonItemAppearance(style: .plain)
         backButtonAppearance.normal.titleTextAttributes = [.foregroundColor: UIColor.clear]
         
-        let backButtonImage = UIImage(systemName: "chevron.backward")
+        let backButtonImage = UIImage(named: "Back")?.withAlignmentRectInsets(UIEdgeInsets(top: 0.0, left: -8.0, bottom: -8.0, right: 0.0))
         backButtonImage?.withTintColor(FindTownColor.grey7.color)
         
         let appearance = UINavigationBarAppearance()

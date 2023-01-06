@@ -47,6 +47,11 @@ final class NicknameViewController: BaseViewController {
         super.viewDidLoad()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationItem.hidesBackButton = true
+    }
+    
     // MARK: - Functions
     
     override func addView() {
@@ -114,6 +119,7 @@ final class NicknameViewController: BaseViewController {
         nextButton.setTitle("다음", for: .normal)
         nextButton.changesSelectionAsPrimaryAction = false
         nextButton.isSelected = false
+        nextButton.isEnabled = false
     }
     
     override func bindViewModel() {
@@ -121,6 +127,7 @@ final class NicknameViewController: BaseViewController {
         // input
         
         nickNameTextField.rx.text.orEmpty
+            .distinctUntilChanged()
             .bind { [weak self] in
                 self?.viewModel?.input.nickname.onNext($0)
             }
@@ -136,7 +143,7 @@ final class NicknameViewController: BaseViewController {
         nextButton.rx.tap
             .throttle(.milliseconds(300), scheduler: MainScheduler.instance)
             .bind { [weak self] in
-                if self!.nextButton.isSelected { self?.viewModel?.input.nextButtonTrigger.onNext(()) }
+                self?.viewModel?.input.nextButtonTrigger.onNext(())
             }
             .disposed(by: disposeBag)
         
@@ -160,7 +167,9 @@ final class NicknameViewController: BaseViewController {
     private func buttonIsSelectedChange(isSelected: Bool) {
         if isSelected == nextButton.isSelected {
             duplicateButton.isSelected = isSelected
+            duplicateButton.isEnabled = isSelected
             nextButton.isSelected = !isSelected
+            nextButton.isEnabled = !isSelected
         }
     }
     

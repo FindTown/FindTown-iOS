@@ -82,7 +82,7 @@ final class NicknameViewModel: BaseViewModel {
         print("setNickname \(nickname)")
         
         // 2. after goToLocationAndYears
-        self.goToLocationAndYears()   
+        self.goToLocationAndYears()
     }
 }
 

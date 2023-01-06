@@ -29,13 +29,6 @@ final class LocationAndYearsViewController: BaseViewController {
     
     private let whereIsNowTitle = FindTownLabel(text: "지금 어떤 동네에 살고 계신가요?", font: .subtitle4)
     
-    private let backButton: UIButton = {
-        let button = UIButton()
-        button.setImage(UIImage(named: "Back"), for: .normal)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
-    }()
-    
     private let dongButton = FTButton(style: .largeTinted)
     
     private let howLongStayTitle = FindTownLabel(text: "얼마나 거주하셨나요?", font: .subtitle4)
@@ -63,7 +56,7 @@ final class LocationAndYearsViewController: BaseViewController {
     // MARK: - Functions
     
     override func addView() {
-        [nowStatusPogressView, whereIsNowTitle, backButton, dongButton,
+        [nowStatusPogressView, whereIsNowTitle, dongButton,
          howLongStayTitle, pickerView, nextButton].forEach {
             view.addSubview($0)
         }
@@ -84,11 +77,6 @@ final class LocationAndYearsViewController: BaseViewController {
         ])
         
         NSLayoutConstraint.activate([
-            backButton.topAnchor.constraint(equalTo: nowStatusPogressView.bottomAnchor, constant: 14),
-            backButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 17),
-        ])
-        
-        NSLayoutConstraint.activate([
             dongButton.topAnchor.constraint(equalTo: whereIsNowTitle.bottomAnchor, constant: 16),
             dongButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             dongButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
@@ -100,12 +88,13 @@ final class LocationAndYearsViewController: BaseViewController {
         ])
         
         pickerView.translatesAutoresizingMaskIntoConstraints = false
+//        pickerView.backgroundColor = .yellow
+        
         NSLayoutConstraint.activate([
             pickerView.topAnchor.constraint(equalTo: howLongStayTitle.bottomAnchor, constant: 0),
-            pickerView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             pickerView.heightAnchor.constraint(equalToConstant: 200),
-            pickerView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 44),
-            pickerView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -44)
+            pickerView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
+            pickerView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
         ])
         
         NSLayoutConstraint.activate([
@@ -131,6 +120,7 @@ final class LocationAndYearsViewController: BaseViewController {
         nextButton.setTitle("다음", for: .normal)
         nextButton.changesSelectionAsPrimaryAction = false
         nextButton.isSelected = false
+        nextButton.isEnabled = false
     }
     
     override func bindViewModel() {
@@ -146,17 +136,10 @@ final class LocationAndYearsViewController: BaseViewController {
             }
             .disposed(by: disposeBag)
         
-        backButton.rx.tap
-            .throttle(.milliseconds(300), scheduler: MainScheduler.instance)
-            .bind { [weak self] in
-                self?.navigationController?.popViewController(animated: true)
-            }
-            .disposed(by: disposeBag)
-        
         nextButton.rx.tap
             .throttle(.milliseconds(300), scheduler: MainScheduler.instance)
             .bind { [weak self] in
-                if self!.nextButton.isSelected { self?.viewModel?.input.nextButtonTrigger.onNext(()) }
+                self?.viewModel?.input.nextButtonTrigger.onNext(())
             }
             .disposed(by: disposeBag)
         
@@ -184,6 +167,7 @@ extension Reactive where Base: LocationAndYearsViewController {
     var nextButtonIsSelected: Binder<Void> {
         return Binder(self.base) { view, _ in
             view.nextButton.isSelected = true
+            view.nextButton.isEnabled = true
         }
     }
 }

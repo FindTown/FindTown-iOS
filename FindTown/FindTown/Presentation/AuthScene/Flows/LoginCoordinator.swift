@@ -30,7 +30,7 @@ extension LoginCoordinator: LoginCoordinatorDelegate {
     
     func goToNickname() {
         guard let navigationController = navigationController else { return }
-        navigationController.isNavigationBarHidden = true
+        navigationController.isNavigationBarHidden = false
         SignupCoordinator(presentationStyle: .push(navigationController: navigationController)).start()
     }
     

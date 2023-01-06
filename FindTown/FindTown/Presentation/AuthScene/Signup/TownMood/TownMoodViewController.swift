@@ -25,13 +25,6 @@ final class TownMoodViewController: BaseViewController {
     
     private let townLikeTitle = FindTownLabel(text: "살고 있는 동네는 어떤가요?", font: .subtitle4)
     
-    private let backButton: UIButton = {
-        let button = UIButton()
-        button.setImage(UIImage(named: "Back"), for: .normal)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
-    }()
-    
     private let townLikeTextView: UITextView = {
         let textField = UITextView()
         textField.translatesAutoresizingMaskIntoConstraints = false
@@ -62,7 +55,7 @@ final class TownMoodViewController: BaseViewController {
     // MARK: - Functions
     
     override func addView() {
-        [nowStatusPogressView, backButton, townLikeTitle, townLikeTextView, textViewCountTitle, afterTwentyTitle, nextButton].forEach {
+        [nowStatusPogressView, townLikeTitle, townLikeTextView, textViewCountTitle, afterTwentyTitle, nextButton].forEach {
             view.addSubview($0)
         }
     }
@@ -78,11 +71,6 @@ final class TownMoodViewController: BaseViewController {
         NSLayoutConstraint.activate([
             townLikeTitle.topAnchor.constraint(equalTo: nowStatusPogressView.bottomAnchor, constant: 74),
             townLikeTitle.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-        ])
-        
-        NSLayoutConstraint.activate([
-            backButton.topAnchor.constraint(equalTo: nowStatusPogressView.bottomAnchor, constant: 14),
-            backButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 17),
         ])
         
         NSLayoutConstraint.activate([
@@ -133,19 +121,15 @@ final class TownMoodViewController: BaseViewController {
         nextButton.setTitle("다음", for: .normal)
         nextButton.changesSelectionAsPrimaryAction = false
         nextButton.isSelected = false
+        nextButton.isEnabled = false
     }
     
     override func bindViewModel() {
         
         // Input
         
-        backButton.rx.tap
-            .bind { [weak self] in
-                self?.navigationController?.popViewController(animated: true)
-            }
-            .disposed(by: disposeBag)
-        
         townLikeTextView.rx.text.orEmpty
+            .distinctUntilChanged()
             .bind { [weak self] in
                 if $0 != self?.textViewPlaceHolder { self?.viewModel?.input.townLikeText.onNext($0) }
             }
@@ -153,7 +137,7 @@ final class TownMoodViewController: BaseViewController {
         
         nextButton.rx.tap
             .bind { [weak self] in
-                if self!.nextButton.isSelected { self?.viewModel?.input.nextButtonTrigger.onNext(()) }
+                self?.viewModel?.input.nextButtonTrigger.onNext(())
             }
             .disposed(by: disposeBag)
         
@@ -170,6 +154,7 @@ final class TownMoodViewController: BaseViewController {
     private func buttonIsSelectedChange(isSelected: Bool) {
         if isSelected != nextButton.isSelected {
             nextButton.isSelected = isSelected
+            nextButton.isEnabled = isSelected
         }
         afterTwentyTitle.isHidden = isSelected
     }
