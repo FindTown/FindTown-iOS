@@ -68,8 +68,8 @@ private extension FTButton {
         )
         configuration.background.cornerRadius = style.cornerRadius
         configuration.contentInsets = NSDirectionalEdgeInsets(
-            top: style.topBottomInset, leading: style.leftRightInset,
-            bottom: style.topBottomInset, trailing: style.leftRightInset)
+            top: style.topBottomInset, leading: 0,
+            bottom: style.topBottomInset, trailing: 0)
         if style.strokeColor == .black {
             configuration.background.strokeColor = isSelected ? style.selectedColorSet[1] : style.nonSelectedColorSet[1]
         } else {
