@@ -8,7 +8,6 @@
 import Foundation
 
 protocol SignupCoordinatorDelegate {
-    func goToNickname()
     func goToLocationAndYears()
     func goToTownMood()
     func goToFavorite()

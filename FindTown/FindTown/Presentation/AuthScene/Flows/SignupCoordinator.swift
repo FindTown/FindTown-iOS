@@ -18,20 +18,13 @@ final class SignupCoordinator: FlowCoordinator {
         self.presentationStyle = presentationStyle
     }
     
-    /// 로그인 화면
-    internal func initScene() -> UIViewController {
-        let loginViewModel = LoginViewModel(delegate: self)
-        let loginViewController = LoginViewController(viewModel: loginViewModel)
-        return loginViewController
-    }
-    
     /// 회원거입 닉네임 설정 화면
-    internal func signUpNicknameScene() -> UIViewController {
+    internal func initScene() -> UIViewController {
         let nicknameViewModel = NicknameViewModel(delegate: self)
         let nicknameViewController = NicknameViewController(viewModel: nicknameViewModel)
         return nicknameViewController
     }
-
+    
     /// 회원거입 첫번째 정보입력 화면 (위치, 몇년 거주)
     internal func signUpInputLocationAndYearsScene() -> UIViewController {
         let locationAndYearsViewModel = LocationAndYearsViewModel(delegate: self)
@@ -51,11 +44,6 @@ final class SignupCoordinator: FlowCoordinator {
 }
 
 extension SignupCoordinator: SignupCoordinatorDelegate {
-    
-    func goToNickname() {
-        guard let navigationController = navigationController else { return }
-        navigationController.pushViewController(signUpNicknameScene(), animated: true)
-    }
     
     func goToLocationAndYears() {
         guard let navigationController = navigationController else { return }
