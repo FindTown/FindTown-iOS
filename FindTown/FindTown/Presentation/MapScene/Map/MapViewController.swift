@@ -12,18 +12,24 @@ import NMapsMap
 import RxSwift
 import RxCocoa
 
-class MapViewController: BaseViewController {
+final class MapViewController: BaseViewController {
     
-    let mapView = NMFMapView()
-    let naviBarSubView = UIView()
-    let rightBarButton = UIBarButtonItem(image: UIImage(named: "favoriteBtn"),
+    // MARK: - Properties
+    
+    var viewModel: MapViewModel?
+    
+    // MARK: - Views
+    
+    private let mapView = NMFMapView()
+    private let naviBarSubView = UIView()
+    private let favoriteButton = UIBarButtonItem(image: UIImage(named: "favoriteBtn"),
                                          style: .plain,
                                          target: nil,
                                          action: nil)
-    let addressButton = UIButton()
-    let mapToggle = MapSegmentControl(items: ["인프라", "테마"])
-    let detailCategoryView = MapDetailCategoryView()
-
+    private let addressButton = UIButton()
+    private let mapToggle = MapSegmentControl(items: ["인프라", "테마"])
+    private let detailCategoryView = MapDetailCategoryView()
+    
     lazy var collectionView: UICollectionView = {
         let flowLayout = UICollectionViewFlowLayout()
         flowLayout.scrollDirection = .horizontal
@@ -41,11 +47,10 @@ class MapViewController: BaseViewController {
         collectionView.allowsMultipleSelection = false
         collectionView.register(MapCollectionViewCell.self,
                                 forCellWithReuseIdentifier: MapCollectionViewCell.reuseIdentifier)
-        collectionView.autoresizingMask = .flexibleWidth
         return collectionView
     }()
-
-    var viewModel: MapViewModel?
+    
+    // MARK: - Life Cycle
     
     init(viewModel: MapViewModel) {
         self.viewModel = viewModel
@@ -56,11 +61,14 @@ class MapViewController: BaseViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - Functions
+    
     override func bindViewModel() {
         
         // MARK: Input
         
-        rightBarButton.rx.tap
+        favoriteButton.rx.tap
+            .throttle(.seconds(10), scheduler: MainScheduler.instance)
             .subscribe(onNext: {
                 print("rightBarButton tapped")
             })
@@ -80,7 +88,6 @@ class MapViewController: BaseViewController {
                                               cellType: MapCollectionViewCell.self)) { index, item, cell in
                 
                 cell.setupCell(image: item.image, title: item.title)
-                
             }.disposed(by: disposeBag)
         
         /// 선택한 iconCell에 맞는 detailCategoryView 데이터 보여주게 함
@@ -118,7 +125,7 @@ class MapViewController: BaseViewController {
         view.backgroundColor = FindTownColor.back2.color
         
         naviBarSubView.backgroundColor = FindTownColor.white.color
-        self.navigationItem.rightBarButtonItem = rightBarButton
+        self.navigationItem.rightBarButtonItem = favoriteButton
         self.detailCategoryView.isHidden = true
         setUpAddressButton()
     }

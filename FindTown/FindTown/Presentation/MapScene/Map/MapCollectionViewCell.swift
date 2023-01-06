@@ -24,13 +24,18 @@ class MapCollectionViewCell: UICollectionViewCell {
         return label
     }()
     
-    func setupCell(image: UIImage, title: String) {
-        self.heightAnchor.constraint(equalToConstant: 32.0).isActive = true
-        
+    override init(frame: CGRect) {
+        super.init(frame: frame)
         setupView()
         setupLayout()
-        imageView.image = image
-        imageView.tintColor = FindTownColor.grey5.color
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    func setupCell(image: UIImage, title: String) {
+        imageView.image = returnColoredImage(image: image, color: FindTownColor.grey5.color)
         titleLabel.text = title
     }
     
@@ -57,6 +62,8 @@ private extension MapCollectionViewCell {
     }
     
     func setupLayout() {
+        self.heightAnchor.constraint(equalToConstant: 32.0).isActive = true
+        
         [imageView, titleLabel].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
             self.contentView.addSubview($0)
@@ -68,7 +75,7 @@ private extension MapCollectionViewCell {
             imageView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 10),
             imageView.centerYAnchor.constraint(equalTo: self.centerYAnchor)
         ])
-        
+
         NSLayoutConstraint.activate([
             titleLabel.leadingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: 4),
             titleLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -10),
@@ -78,13 +85,41 @@ private extension MapCollectionViewCell {
     
     func selectedView() {
         contentView.layer.borderColor = FindTownColor.primary.color.cgColor
-        imageView.tintColor = FindTownColor.primary.color
         titleLabel.textColor = FindTownColor.primary.color
+        
+        guard let image = imageView.image else {
+            return
+        }
+        imageView.image = returnColoredImage(image: image , color: FindTownColor.primary.color)
     }
     
     func nonSelectedView() {
         contentView.layer.borderColor = FindTownColor.grey2.color.cgColor
-        imageView.tintColor = FindTownColor.grey5.color
         titleLabel.textColor = FindTownColor.grey6.color
+        guard let image = imageView.image else {
+            return
+        }
+        
+        imageView.image = returnColoredImage(image: image , color: FindTownColor.grey5.color)
+    }
+    
+    /// 이미지에 색상 입히는 메서드
+    func returnColoredImage(image: UIImage, color: UIColor) -> UIImage! {
+
+        let rect = CGRect(origin: .zero, size: image.size)
+
+        UIGraphicsBeginImageContextWithOptions(image.size, false, image.scale)
+
+        let context = UIGraphicsGetCurrentContext()
+    
+        image.draw(in: rect)
+        context?.setFillColor(color.cgColor)
+        context?.setBlendMode(.sourceAtop)
+        context?.fill(rect)
+
+        let result = UIGraphicsGetImageFromCurrentImageContext()
+
+        UIGraphicsEndImageContext()
+        return result
     }
 }

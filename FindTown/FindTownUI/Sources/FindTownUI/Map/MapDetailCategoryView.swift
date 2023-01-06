@@ -29,7 +29,7 @@ public class MapDetailCategoryView: UIView {
     }
 }
 
-extension MapDetailCategoryView {
+private extension MapDetailCategoryView {
     
     func setupView() {
         self.backgroundColor = FindTownColor.white.color.withAlphaComponent(0.8)
