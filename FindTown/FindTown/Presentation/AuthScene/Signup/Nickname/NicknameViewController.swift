@@ -46,12 +46,7 @@ final class NicknameViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
     }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        self.navigationItem.hidesBackButton = true
-    }
-    
+
     // MARK: - Functions
     
     override func addView() {
@@ -178,21 +173,17 @@ final class NicknameViewController: BaseViewController {
         case .none:
             nickNameStatusLabel.isHidden = true
             buttonIsSelectedChange(isSelected: true)
-            break
         case .duplicate:
             nickNameStatusLabel.text = "이미 사용한 닉네임입니다."
             nickNameStatusLabel.isHidden = false
             buttonIsSelectedChange(isSelected: true)
-            break
         case .complete:
             nickNameStatusLabel.isHidden = true
             buttonIsSelectedChange(isSelected: false)
-            break
-        case .inSpecialChar:
+        case .includeSpecialChar:
             nickNameStatusLabel.text = "특수문자는 입력할 수 없습니다."
             nickNameStatusLabel.isHidden = false
             buttonIsSelectedChange(isSelected: true)
-            break
         }
     }
 }

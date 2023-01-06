@@ -10,7 +10,7 @@ import Foundation
 import FindTownCore
 
 protocol LoginViewModelType {
-    func goToNicnName()
+    func goToNickname()
     func goToTabBar()
 }
 
@@ -27,7 +27,7 @@ final class LoginViewModel: BaseViewModel {
 
 extension LoginViewModel: LoginViewModelType {
     
-    func goToNicnName() {
+    func goToNickname() {
         delegate.goToNickname()
     }
     

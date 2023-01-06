@@ -63,12 +63,7 @@ final class YearMonthPickerView: UIView {
     }
 }
 
-final class PickerViewViewAdapter
-: NSObject
-, UIPickerViewDataSource
-, UIPickerViewDelegate
-, RxPickerViewDataSourceType
-, SectionedViewDataSourceType {
+final class PickerViewViewAdapter: NSObject, UIPickerViewDataSource, UIPickerViewDelegate, RxPickerViewDataSourceType, SectionedViewDataSourceType {
     typealias Element = [[CustomStringConvertible]]
     private var items: [[CustomStringConvertible]] = []
     

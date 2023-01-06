@@ -20,7 +20,7 @@ enum NicknameStatus {
     case none
     case complete
     case duplicate
-    case inSpecialChar
+    case includeSpecialChar
 }
 
 final class NicknameViewModel: BaseViewModel {
@@ -66,7 +66,7 @@ final class NicknameViewModel: BaseViewModel {
                     self?.output.nickNameStatus.accept(.complete)
                     
                 } else {
-                    self?.output.nickNameStatus.accept(.inSpecialChar)
+                    self?.output.nickNameStatus.accept(.includeSpecialChar)
                 }
             }
             .disposed(by: disposeBag)
