@@ -36,9 +36,9 @@ final class MapViewController: BaseViewController {
         return button
     }()
     private let mapToggle = MapSegmentControl(items: ["인프라", "테마"])
-    private let detailCategoryView = MapDetailCategoryView()
+    let detailCategoryView = MapDetailCategoryView()
     
-    lazy var categoryCollectionView: UICollectionView = {
+    let categoryCollectionView: UICollectionView = {
         let flowLayout = UICollectionViewFlowLayout()
         flowLayout.scrollDirection = .horizontal
         flowLayout.minimumLineSpacing = 10
@@ -53,14 +53,13 @@ final class MapViewController: BaseViewController {
         collectionView.backgroundColor = .clear
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.allowsMultipleSelection = false
-        
 
         collectionView.register(MapCategoryCollectionViewCell.self,
                                 forCellWithReuseIdentifier: MapCategoryCollectionViewCell.reuseIdentifier)
         return collectionView
     }()
     
-    lazy var storeCollectionView: UICollectionView = {
+    let storeCollectionView: UICollectionView = {
         let flowLayout = UICollectionViewFlowLayout()
         flowLayout.scrollDirection = .horizontal
         flowLayout.minimumLineSpacing = 10
@@ -112,14 +111,7 @@ final class MapViewController: BaseViewController {
             .disposed(by: disposeBag)
  
         mapToggle.rx.selectedSegmentIndex
-            .subscribe(onNext: { [weak self] index in
-                if index == 0 {
-                    // storeCollectionView 보여주기
-                } else {
-                    self?.detailCategoryView.isHidden = true
-                }
-                self?.viewModel?.input.segmentIndex.accept(index)
-            })
+            .bind(to: self.rx.mapCategoryIndex)
             .disposed(by: disposeBag)
         
         // MARK: Output
@@ -128,8 +120,10 @@ final class MapViewController: BaseViewController {
         viewModel?.output.dataSource.observe(on: MainScheduler.instance)
             .bind(to: categoryCollectionView.rx.items(cellIdentifier: MapCategoryCollectionViewCell.reuseIdentifier,
                                               cellType: MapCategoryCollectionViewCell.self)) { index, item, cell in
-                
                 cell.setupCell(image: item.image, title: item.title)
+                if index == 0 {
+                    self.selectFirstItem(item)
+                }
             }.disposed(by: disposeBag)
         
         /// 선택한 iconCell에 맞는 detailCategoryView 데이터 보여주게 함
@@ -138,7 +132,6 @@ final class MapViewController: BaseViewController {
                 return category.detailCategories
             }
             .subscribe(onNext: { detailCategories in
-                self.detailCategoryView.isHidden = false
                 self.detailCategoryView.setStackView(data: detailCategories)
             })
             .disposed(by: disposeBag)
@@ -168,12 +161,18 @@ final class MapViewController: BaseViewController {
         
         naviBarSubView.backgroundColor = FindTownColor.white.color
         self.navigationItem.rightBarButtonItem = favoriteButton
-        self.detailCategoryView.isHidden = true
     }
 
     override func setLayout() {
         setNaviBarLayout()
         setMapViewLayout()
+    }
+    
+    private func selectFirstItem(_ item: Category) {
+        DispatchQueue.main.async {
+            self.categoryCollectionView.selectItem(at: IndexPath(item: 0, section: 0), animated: true, scrollPosition: .bottom)
+            self.detailCategoryView.setStackView(data: item.detailCategories)
+        }
     }
 }
 
@@ -228,3 +227,18 @@ private extension MapViewController {
     }
 }
 
+extension Reactive where Base: MapViewController {
+    
+    var mapCategoryIndex: Binder<Int> {
+        return Binder(self.base) { (viewController, index) in
+            if index == 0 {
+                viewController.storeCollectionView.isHidden = true
+                viewController.detailCategoryView.isHidden = false
+            } else {
+                viewController.storeCollectionView.isHidden = false
+                viewController.detailCategoryView.isHidden = true
+            }
+            viewController.viewModel?.input.segmentIndex.accept(index)
+        }
+    }
+}
