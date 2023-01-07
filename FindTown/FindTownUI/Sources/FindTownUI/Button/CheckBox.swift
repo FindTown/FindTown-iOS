@@ -2,12 +2,12 @@
 //  File.swift
 //  
 //
-//  Created by 김성훈 on 2022/12/15.
+//  Created by 김성훈 on 2023/01/07.
 //
 
 import UIKit
 
-public final class RadioButton: UIButton {
+public final class CheckBox: UIButton {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -24,10 +24,11 @@ public final class RadioButton: UIButton {
     }
     
     private func configureUI() {
-        let image = UIImage(named: "radioButton", in: .module, compatibleWith: nil)
-        let selectedImage = UIImage(named: "radioButtonFill", in: .module, compatibleWith: nil)
+        let image = UIImage(named: "checkBox", in: .module, compatibleWith: nil)
+        let selectedImage = UIImage(named: "checkBoxFill", in: .module, compatibleWith: nil)
         
         setImage(image, for: .normal)
         setImage(selectedImage, for: .selected)
     }
 }
+

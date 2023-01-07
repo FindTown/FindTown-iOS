@@ -24,8 +24,8 @@ public final class CheckButton: UIButton {
     }
     
     private func configureUI() {
-        let image = UIImage(systemName: "checkmark.circle")
-        let selectedImage = UIImage(systemName: "checkmark.circle.fill")
+        let image = UIImage(named: "checkButton", in: .module, compatibleWith: nil)
+        let selectedImage = UIImage(named: "checkButtonFill", in: .module, compatibleWith: nil)
         
         setImage(image, for: .normal)
         setImage(selectedImage, for: .selected)
