@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2B718C142966A4D20068884A /* AddressPopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B718C132966A4D20068884A /* AddressPopUpViewController.swift */; };
+		2B718C182966A5930068884A /* MapCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B718C172966A5930068884A /* MapCollectionViewCell.swift */; };
+		2B718C1A2966A6000068884A /* MapCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B718C192966A6000068884A /* MapCategory.swift */; };
 		BC056C562962B29F00EDCA18 /* SignupCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC056C552962B29F00EDCA18 /* SignupCoordinator.swift */; };
 		BC056C5A2962B2B900EDCA18 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC056C592962B2B900EDCA18 /* LoginViewModel.swift */; };
 		BC056C5C2962B2C400EDCA18 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC056C5B2962B2C400EDCA18 /* LoginViewController.swift */; };
@@ -16,9 +19,6 @@
 		BC0D88532963DD0D00CCB800 /* LocationAndYearsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC0D88522963DD0D00CCB800 /* LocationAndYearsViewController.swift */; };
 		BC0D88552963DD1D00CCB800 /* KakaoAddressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC0D88542963DD1D00CCB800 /* KakaoAddressViewController.swift */; };
 		BC0D88592964641400CCB800 /* YearMonthPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC0D88582964641400CCB800 /* YearMonthPickerView.swift */; };
-		2B718C142966A4D20068884A /* AddressPopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B718C132966A4D20068884A /* AddressPopUpViewController.swift */; };
-		2B718C182966A5930068884A /* MapCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B718C172966A5930068884A /* MapCollectionViewCell.swift */; };
-		2B718C1A2966A6000068884A /* MapData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B718C192966A6000068884A /* MapData.swift */; };
 		BC6EFB7F293BD12300AB3332 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = BC6EFB7E293BD12300AB3332 /* RxCocoa */; };
 		BC6EFB81293BD12300AB3332 /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = BC6EFB80293BD12300AB3332 /* RxRelay */; };
 		BC6EFB83293BD12300AB3332 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = BC6EFB82293BD12300AB3332 /* RxSwift */; };
@@ -32,9 +32,14 @@
 		F31A80C82949A5BB003B8A6E /* FindTownCore in Frameworks */ = {isa = PBXBuildFile; productRef = F31A80C72949A5BB003B8A6E /* FindTownCore */; };
 		F31A80CA2949A5BB003B8A6E /* FindTownNetwork in Frameworks */ = {isa = PBXBuildFile; productRef = F31A80C92949A5BB003B8A6E /* FindTownNetwork */; };
 		F31A80CC2949A5BB003B8A6E /* FindTownUI in Frameworks */ = {isa = PBXBuildFile; productRef = F31A80CB2949A5BB003B8A6E /* FindTownUI */; };
+		F3219B5B29693F12000024E4 /* APIKeyInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = F3219B5A29693F12000024E4 /* APIKeyInfo.plist */; };
+		F3219B5E2969403F000024E4 /* MapData.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3219B5D2969403F000024E4 /* MapData.swift */; };
+		F3219B602969407A000024E4 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3219B5F29694079000024E4 /* Category.swift */; };
+		F3219B622969408C000024E4 /* DetailCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3219B612969408C000024E4 /* DetailCategory.swift */; };
+		F3219B6729694328000024E4 /* MapDetailCategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3219B6629694328000024E4 /* MapDetailCategoryView.swift */; };
+		F3219B692969432C000024E4 /* MapDetailComponentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3219B682969432C000024E4 /* MapDetailComponentView.swift */; };
 		F3891E1F293B8393003CE8AD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3891E1E293B8393003CE8AD /* AppDelegate.swift */; };
 		F3891E21293B8393003CE8AD /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3891E20293B8393003CE8AD /* SceneDelegate.swift */; };
-		F3891E23293B8393003CE8AD /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3891E22293B8393003CE8AD /* ViewController.swift */; };
 		F3891E2B293B8394003CE8AD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F3891E2A293B8394003CE8AD /* Assets.xcassets */; };
 		F3891E2E293B8394003CE8AD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F3891E2C293B8394003CE8AD /* LaunchScreen.storyboard */; };
 		F3891E39293B8394003CE8AD /* FindTownTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3891E38293B8394003CE8AD /* FindTownTests.swift */; };
@@ -68,6 +73,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2B718C132966A4D20068884A /* AddressPopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressPopUpViewController.swift; sourceTree = "<group>"; };
+		2B718C172966A5930068884A /* MapCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapCollectionViewCell.swift; sourceTree = "<group>"; };
+		2B718C192966A6000068884A /* MapCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapCategory.swift; sourceTree = "<group>"; };
 		BC056C552962B29F00EDCA18 /* SignupCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupCoordinator.swift; sourceTree = "<group>"; };
 		BC056C592962B2B900EDCA18 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		BC056C5B2962B2C400EDCA18 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -82,16 +90,18 @@
 		BC9E86512966821C00AB4AE7 /* SignupCoordinatorDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupCoordinatorDelegate.swift; sourceTree = "<group>"; };
 		BCE814F52967DAF200A6E3CB /* LoginCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginCoordinator.swift; sourceTree = "<group>"; };
 		BCE814F72967DBAD00A6E3CB /* LoginCoordinatorDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginCoordinatorDelegate.swift; sourceTree = "<group>"; };
-		2B718C132966A4D20068884A /* AddressPopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressPopUpViewController.swift; sourceTree = "<group>"; };
-		2B718C172966A5930068884A /* MapCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapCollectionViewCell.swift; sourceTree = "<group>"; };
-		2B718C192966A6000068884A /* MapData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapData.swift; sourceTree = "<group>"; };
 		F31A80C32949A556003B8A6E /* FindTownUI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = FindTownUI; sourceTree = "<group>"; };
 		F31A80C42949A568003B8A6E /* FindTownCore */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = FindTownCore; sourceTree = "<group>"; };
 		F31A80C52949A577003B8A6E /* FindTownNetwork */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = FindTownNetwork; sourceTree = "<group>"; };
+		F3219B5A29693F12000024E4 /* APIKeyInfo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = APIKeyInfo.plist; sourceTree = "<group>"; };
+		F3219B5D2969403F000024E4 /* MapData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapData.swift; sourceTree = "<group>"; };
+		F3219B5F29694079000024E4 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
+		F3219B612969408C000024E4 /* DetailCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailCategory.swift; sourceTree = "<group>"; };
+		F3219B6629694328000024E4 /* MapDetailCategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapDetailCategoryView.swift; sourceTree = "<group>"; };
+		F3219B682969432C000024E4 /* MapDetailComponentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapDetailComponentView.swift; sourceTree = "<group>"; };
 		F3891E1B293B8393003CE8AD /* FindTown.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FindTown.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F3891E1E293B8393003CE8AD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F3891E20293B8393003CE8AD /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		F3891E22293B8393003CE8AD /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		F3891E2A293B8394003CE8AD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F3891E2D293B8394003CE8AD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F3891E2F293B8394003CE8AD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -224,6 +234,7 @@
 		BC6EFB74293B9C3400AB3332 /* Domain */ = {
 			isa = PBXGroup;
 			children = (
+				F3219B5C29693FB2000024E4 /* Entities */,
 			);
 			path = Domain;
 			sourceTree = "<group>";
@@ -250,31 +261,14 @@
 			isa = PBXGroup;
 			children = (
 				F38CCBD429582869000C16AF /* Flow */,
-				BC6EFB89293BD63600AB3332 /* ViewController */,
-				BC6EFB79293B9C5B00AB3332 /* VIewModel */,
-				BC6EFB78293B9C5800AB3332 /* View */,
 			);
 			path = Common;
-			sourceTree = "<group>";
-		};
-		BC6EFB78293B9C5800AB3332 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				F3891E22293B8393003CE8AD /* ViewController.swift */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		BC6EFB79293B9C5B00AB3332 /* VIewModel */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = VIewModel;
 			sourceTree = "<group>";
 		};
 		BC6EFB7A293BA31D00AB3332 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				F3219B5A29693F12000024E4 /* APIKeyInfo.plist */,
 				F3891E2A293B8394003CE8AD /* Assets.xcassets */,
 				F3891E2F293B8394003CE8AD /* Info.plist */,
 				F3891E2C293B8394003CE8AD /* LaunchScreen.storyboard */,
@@ -282,18 +276,39 @@
 			path = Resource;
 			sourceTree = "<group>";
 		};
-		BC6EFB89293BD63600AB3332 /* ViewController */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = ViewController;
-			sourceTree = "<group>";
-		};
 		F31A80C62949A5BB003B8A6E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		F3219B5C29693FB2000024E4 /* Entities */ = {
+			isa = PBXGroup;
+			children = (
+				2B718C192966A6000068884A /* MapCategory.swift */,
+				F3219B5D2969403F000024E4 /* MapData.swift */,
+				F3219B5F29694079000024E4 /* Category.swift */,
+				F3219B612969408C000024E4 /* DetailCategory.swift */,
+			);
+			path = Entities;
+			sourceTree = "<group>";
+		};
+		F3219B632969412C000024E4 /* SubViews */ = {
+			isa = PBXGroup;
+			children = (
+				F3219B6629694328000024E4 /* MapDetailCategoryView.swift */,
+				F3219B682969432C000024E4 /* MapDetailComponentView.swift */,
+				2B718C172966A5930068884A /* MapCollectionViewCell.swift */,
+			);
+			path = SubViews;
+			sourceTree = "<group>";
+		};
+		F3219B6A296944AD000024E4 /* AddressSheet */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = AddressSheet;
 			sourceTree = "<group>";
 		};
 		F3891E12293B8393003CE8AD = {
@@ -388,6 +403,7 @@
 			isa = PBXGroup;
 			children = (
 				F38CCBE329582881000C16AF /* Map */,
+				F3219B6A296944AD000024E4 /* AddressSheet */,
 				F38CCBE629582881000C16AF /* Flows */,
 			);
 			name = MapScene;
@@ -400,8 +416,7 @@
 				F38CCBE429582881000C16AF /* MapViewController.swift */,
 				F38CCBE529582881000C16AF /* MapViewModel.swift */,
 				2B718C132966A4D20068884A /* AddressPopUpViewController.swift */,
-				2B718C172966A5930068884A /* MapCollectionViewCell.swift */,
-				2B718C192966A6000068884A /* MapData.swift */,
+				F3219B632969412C000024E4 /* SubViews */,
 			);
 			path = Map;
 			sourceTree = "<group>";
@@ -534,6 +549,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F3891E2E293B8394003CE8AD /* LaunchScreen.storyboard in Resources */,
+				F3219B5B29693F12000024E4 /* APIKeyInfo.plist in Resources */,
 				F3891E2B293B8394003CE8AD /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -568,9 +584,9 @@
 				BCE814F62967DAF200A6E3CB /* LoginCoordinator.swift in Sources */,
 				BC0D88552963DD1D00CCB800 /* KakaoAddressViewController.swift in Sources */,
 				BC056C5C2962B2C400EDCA18 /* LoginViewController.swift in Sources */,
+				F3219B622969408C000024E4 /* DetailCategory.swift in Sources */,
 				F38CCBDF2958287C000C16AF /* HomeViewModel.swift in Sources */,
 				BC0D88512963DCF300CCB800 /* LocationAndYearsViewModel.swift in Sources */,
-				F3891E23293B8393003CE8AD /* ViewController.swift in Sources */,
 				F3891E1F293B8393003CE8AD /* AppDelegate.swift in Sources */,
 				BC7BCBCF29646EEA003BB4FF /* TownMoodViewModel.swift in Sources */,
 				BCE814F82967DBAD00A6E3CB /* LoginCoordinatorDelegate.swift in Sources */,
@@ -581,9 +597,13 @@
 				F38CCBE829582881000C16AF /* MapViewController.swift in Sources */,
 				2B718C182966A5930068884A /* MapCollectionViewCell.swift in Sources */,
 				F38CCBD829582869000C16AF /* TabBarCoordinator.swift in Sources */,
+				F3219B692969432C000024E4 /* MapDetailComponentView.swift in Sources */,
 				2B718C142966A4D20068884A /* AddressPopUpViewController.swift in Sources */,
-				2B718C1A2966A6000068884A /* MapData.swift in Sources */,
+				2B718C1A2966A6000068884A /* MapCategory.swift in Sources */,
 				F38CCBE12958287C000C16AF /* HomeCoordinator.swift in Sources */,
+				F3219B5E2969403F000024E4 /* MapData.swift in Sources */,
+				F3219B602969407A000024E4 /* Category.swift in Sources */,
+				F3219B6729694328000024E4 /* MapDetailCategoryView.swift in Sources */,
 				F38CCBE02958287C000C16AF /* HomeViewController.swift in Sources */,
 				BC0D88532963DD0D00CCB800 /* LocationAndYearsViewController.swift in Sources */,
 				F3891E21293B8393003CE8AD /* SceneDelegate.swift in Sources */,
