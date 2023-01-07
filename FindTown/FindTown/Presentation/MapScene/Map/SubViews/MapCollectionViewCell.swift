@@ -8,8 +8,17 @@
 import UIKit
 import FindTownUI
 
+import RxSwift
+
 class MapCollectionViewCell: UICollectionViewCell {
     static let reuseIdentifier = "MapCollectionViewCell"
+    
+    var disposeBag = DisposeBag()
+    
+    let containerView: UIView = {
+        let containerView = UIView()
+        return containerView
+    }()
     
     let imageView: UIImageView = {
         let imageView = UIImageView()
@@ -23,6 +32,12 @@ class MapCollectionViewCell: UICollectionViewCell {
         label.textColor = FindTownColor.grey6.color
         return label
     }()
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        disposeBag = DisposeBag()
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -53,33 +68,43 @@ class MapCollectionViewCell: UICollectionViewCell {
 private extension MapCollectionViewCell {
     
     func setupView() {
-        contentView.backgroundColor = FindTownColor.white.color
-        contentView.layer.borderColor = FindTownColor.grey2.color.cgColor
-        contentView.layer.borderWidth = 1
-        contentView.layer.cornerRadius = 16
-        contentView.layer.masksToBounds = true
+        containerView.backgroundColor = FindTownColor.white.color
+        containerView.layer.borderColor = FindTownColor.grey2.color.cgColor
+        containerView.layer.borderWidth = 1
+        containerView.layer.cornerRadius = 16
+        containerView.layer.masksToBounds = true
         nonSelectedView()
     }
     
     func setupLayout() {
-        self.heightAnchor.constraint(equalToConstant: 32.0).isActive = true
+        self.contentView.addSubview(containerView)
+        containerView.translatesAutoresizingMaskIntoConstraints = false
         
         [imageView, titleLabel].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
-            self.contentView.addSubview($0)
+            containerView.addSubview($0)
         }
+        
+        NSLayoutConstraint.activate([
+            containerView.heightAnchor.constraint(equalToConstant: 32),
+            
+            containerView.topAnchor.constraint(equalTo: self.contentView.topAnchor),
+            containerView.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 6),
+            containerView.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: 6),
+            containerView.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor)
+        ])
         
         NSLayoutConstraint.activate([
             imageView.widthAnchor.constraint(equalToConstant: 16.0),
             imageView.heightAnchor.constraint(equalToConstant: 16.0),
-            imageView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 10),
-            imageView.centerYAnchor.constraint(equalTo: self.centerYAnchor)
+            imageView.leadingAnchor.constraint(equalTo: self.containerView.leadingAnchor, constant: 10),
+            imageView.centerYAnchor.constraint(equalTo: self.containerView.centerYAnchor)
         ])
 
         NSLayoutConstraint.activate([
-            titleLabel.leadingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: 4),
-            titleLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -10),
-            titleLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor)
+            titleLabel.leadingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: 6),
+            titleLabel.trailingAnchor.constraint(equalTo: self.containerView.trailingAnchor, constant: -10),
+            titleLabel.centerYAnchor.constraint(equalTo: self.containerView.centerYAnchor)
         ])
     }
     

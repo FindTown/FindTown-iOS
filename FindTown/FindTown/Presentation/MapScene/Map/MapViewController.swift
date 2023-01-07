@@ -26,18 +26,26 @@ final class MapViewController: BaseViewController {
                                          style: .plain,
                                          target: nil,
                                          action: nil)
-    private let addressButton = UIButton()
+    private let addressButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("서울시 관악구 신림동", for: .normal)
+        button.setTitleColor(FindTownColor.grey7.color, for: .normal)
+        button.titleLabel?.font = FindTownFont.label1.font
+        button.setImage(UIImage(named: "dropDown"), for: .normal)
+        button.semanticContentAttribute = .forceRightToLeft
+        return button
+    }()
     private let mapToggle = MapSegmentControl(items: ["인프라", "테마"])
     private let detailCategoryView = MapDetailCategoryView()
     
     lazy var collectionView: UICollectionView = {
         let flowLayout = UICollectionViewFlowLayout()
         flowLayout.scrollDirection = .horizontal
-        flowLayout.minimumLineSpacing = 8
+        flowLayout.minimumLineSpacing = 10
         flowLayout.sectionInset = UIEdgeInsets(top: 0.0,
                                                left: 17.0,
                                                bottom: 0.0,
-                                               right: 82.0)
+                                               right: 17.0)
         flowLayout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
         
         let collectionView = UICollectionView(frame: .zero,
@@ -45,6 +53,8 @@ final class MapViewController: BaseViewController {
         collectionView.backgroundColor = .clear
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.allowsMultipleSelection = false
+        
+
         collectionView.register(MapCollectionViewCell.self,
                                 forCellWithReuseIdentifier: MapCollectionViewCell.reuseIdentifier)
         return collectionView
@@ -64,6 +74,7 @@ final class MapViewController: BaseViewController {
     // MARK: - Functions
     
     override func bindViewModel() {
+        guard let viewModel = viewModel else { return }
         
         // MARK: Input
         
@@ -75,15 +86,19 @@ final class MapViewController: BaseViewController {
             .disposed(by: disposeBag)
         
         addressButton.rx.tap
-            .bind { [weak self] in
-                self?.viewModel?.presentAddressPopup()
-            }
+            .subscribe(onNext: {
+                print("rightBarButton tapped")
+            })
             .disposed(by: disposeBag)
  
+        mapToggle.rx.selectedSegmentIndex
+            .bind(to: viewModel.input.segmentIndex)
+            .disposed(by: disposeBag)
+        
         // MARK: Output
         
         /// iconCollectionView 데이터 바인딩
-        viewModel?.dataSource.observe(on: MainScheduler.instance)
+        viewModel.output.dataSource.observe(on: MainScheduler.instance)
             .bind(to: collectionView.rx.items(cellIdentifier: MapCollectionViewCell.reuseIdentifier,
                                               cellType: MapCollectionViewCell.self)) { index, item, cell in
                 
@@ -127,7 +142,6 @@ final class MapViewController: BaseViewController {
         naviBarSubView.backgroundColor = FindTownColor.white.color
         self.navigationItem.rightBarButtonItem = favoriteButton
         self.detailCategoryView.isHidden = true
-        setUpAddressButton()
     }
 
     override func setLayout() {
@@ -139,14 +153,6 @@ final class MapViewController: BaseViewController {
 // MARK: UI Details
 
 private extension MapViewController {
-    
-    func setUpAddressButton() {
-        addressButton.setTitle("00시 00구 00동", for: .normal)
-        addressButton.setTitleColor(FindTownColor.grey7.color, for: .normal)
-        addressButton.titleLabel?.font = FindTownFont.label1.font
-        addressButton.setImage(UIImage(named: "dropDown"), for: .normal)
-        addressButton.semanticContentAttribute = .forceRightToLeft
-    }
     
     func setNaviBarLayout() {
         
@@ -194,3 +200,4 @@ private extension MapViewController {
         ])
     }
 }
+
