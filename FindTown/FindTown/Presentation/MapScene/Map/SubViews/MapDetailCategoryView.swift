@@ -28,7 +28,7 @@ public class MapDetailCategoryView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setupDetailCatecory(data: [DetailCategory]) {
+    func setStackView(data: [DetailCategory]) {
         detailCategoryStackView.subviews.forEach {
             $0.removeFromSuperview()
         }

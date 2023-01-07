@@ -97,7 +97,7 @@ final class MapViewController: BaseViewController {
             }
             .subscribe(onNext: { detailCategories in
                 self.detailCategoryView.isHidden = false
-                self.setStackView(data: detailCategories)
+                self.detailCategoryView.setStackView(data: detailCategories)
             })
             .disposed(by: disposeBag)
         
@@ -147,19 +147,6 @@ private extension MapViewController {
         addressButton.setImage(UIImage(named: "dropDown"), for: .normal)
         addressButton.semanticContentAttribute = .forceRightToLeft
     }
-    
-    func setStackView(data: [DetailCategory]) {
-        detailCategoryView.detailCategoryStackView.subviews.forEach {
-            $0.removeFromSuperview()
-        }
-        
-        for i in 0..<data.count{
-            let view = MapDetailComponentView()
-            view.textLabel.text = data[i].detailTitle
-            view.colorView.backgroundColor = data[i].color
-            detailCategoryView.detailCategoryStackView.addArrangedSubview(view)
-         }
-     }
     
     func setNaviBarLayout() {
         
