@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2B718C142966A4D20068884A /* AddressPopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B718C132966A4D20068884A /* AddressPopUpViewController.swift */; };
-		2B718C182966A5930068884A /* MapCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B718C172966A5930068884A /* MapCollectionViewCell.swift */; };
+		2B718C182966A5930068884A /* MapCategoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B718C172966A5930068884A /* MapCategoryCollectionViewCell.swift */; };
 		2B718C1A2966A6000068884A /* MapCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B718C192966A6000068884A /* MapCategory.swift */; };
 		BC056C562962B29F00EDCA18 /* SignupCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC056C552962B29F00EDCA18 /* SignupCoordinator.swift */; };
 		BC056C5A2962B2B900EDCA18 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC056C592962B2B900EDCA18 /* LoginViewModel.swift */; };
@@ -74,7 +74,7 @@
 
 /* Begin PBXFileReference section */
 		2B718C132966A4D20068884A /* AddressPopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressPopUpViewController.swift; sourceTree = "<group>"; };
-		2B718C172966A5930068884A /* MapCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapCollectionViewCell.swift; sourceTree = "<group>"; };
+		2B718C172966A5930068884A /* MapCategoryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapCategoryCollectionViewCell.swift; sourceTree = "<group>"; };
 		2B718C192966A6000068884A /* MapCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapCategory.swift; sourceTree = "<group>"; };
 		BC056C552962B29F00EDCA18 /* SignupCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupCoordinator.swift; sourceTree = "<group>"; };
 		BC056C592962B2B900EDCA18 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
@@ -299,7 +299,7 @@
 			children = (
 				F3219B6629694328000024E4 /* MapDetailCategoryView.swift */,
 				F3219B682969432C000024E4 /* MapDetailComponentView.swift */,
-				2B718C172966A5930068884A /* MapCollectionViewCell.swift */,
+				2B718C172966A5930068884A /* MapCategoryCollectionViewCell.swift */,
 			);
 			path = SubViews;
 			sourceTree = "<group>";
@@ -595,7 +595,7 @@
 				BC056C562962B29F00EDCA18 /* SignupCoordinator.swift in Sources */,
 				BC9E86522966821C00AB4AE7 /* SignupCoordinatorDelegate.swift in Sources */,
 				F38CCBE829582881000C16AF /* MapViewController.swift in Sources */,
-				2B718C182966A5930068884A /* MapCollectionViewCell.swift in Sources */,
+				2B718C182966A5930068884A /* MapCategoryCollectionViewCell.swift in Sources */,
 				F38CCBD829582869000C16AF /* TabBarCoordinator.swift in Sources */,
 				F3219B692969432C000024E4 /* MapDetailComponentView.swift in Sources */,
 				2B718C142966A4D20068884A /* AddressPopUpViewController.swift in Sources */,

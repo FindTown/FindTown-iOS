@@ -55,8 +55,8 @@ final class MapViewController: BaseViewController {
         collectionView.allowsMultipleSelection = false
         
 
-        collectionView.register(MapCollectionViewCell.self,
-                                forCellWithReuseIdentifier: MapCollectionViewCell.reuseIdentifier)
+        collectionView.register(MapCategoryCollectionViewCell.self,
+                                forCellWithReuseIdentifier: MapCategoryCollectionViewCell.reuseIdentifier)
         return collectionView
     }()
     
@@ -99,8 +99,8 @@ final class MapViewController: BaseViewController {
         
         /// iconCollectionView 데이터 바인딩
         viewModel.output.dataSource.observe(on: MainScheduler.instance)
-            .bind(to: categoryCollectionView.rx.items(cellIdentifier: MapCollectionViewCell.reuseIdentifier,
-                                              cellType: MapCollectionViewCell.self)) { index, item, cell in
+            .bind(to: categoryCollectionView.rx.items(cellIdentifier: MapCategoryCollectionViewCell.reuseIdentifier,
+                                              cellType: MapCategoryCollectionViewCell.self)) { index, item, cell in
                 
                 cell.setupCell(image: item.image, title: item.title)
             }.disposed(by: disposeBag)

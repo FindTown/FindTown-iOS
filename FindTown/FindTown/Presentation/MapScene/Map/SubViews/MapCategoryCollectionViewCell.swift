@@ -10,8 +10,8 @@ import FindTownUI
 
 import RxSwift
 
-class MapCollectionViewCell: UICollectionViewCell {
-    static let reuseIdentifier = "MapCollectionViewCell"
+class MapCategoryCollectionViewCell: UICollectionViewCell {
+    static let reuseIdentifier = "MapCategoryCollectionViewCell"
     
     var disposeBag = DisposeBag()
     
@@ -60,7 +60,7 @@ class MapCollectionViewCell: UICollectionViewCell {
     }
 }
 
-private extension MapCollectionViewCell {
+private extension MapCategoryCollectionViewCell {
     
     func setupView() {
         contentView.backgroundColor = FindTownColor.white.color
