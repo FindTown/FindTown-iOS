@@ -38,7 +38,7 @@ final class MapViewController: BaseViewController {
     private let mapToggle = MapSegmentControl(items: ["인프라", "테마"])
     private let detailCategoryView = MapDetailCategoryView()
     
-    lazy var collectionView: UICollectionView = {
+    lazy var categoryCollectionView: UICollectionView = {
         let flowLayout = UICollectionViewFlowLayout()
         flowLayout.scrollDirection = .horizontal
         flowLayout.minimumLineSpacing = 10
@@ -99,14 +99,14 @@ final class MapViewController: BaseViewController {
         
         /// iconCollectionView 데이터 바인딩
         viewModel.output.dataSource.observe(on: MainScheduler.instance)
-            .bind(to: collectionView.rx.items(cellIdentifier: MapCollectionViewCell.reuseIdentifier,
+            .bind(to: categoryCollectionView.rx.items(cellIdentifier: MapCollectionViewCell.reuseIdentifier,
                                               cellType: MapCollectionViewCell.self)) { index, item, cell in
                 
                 cell.setupCell(image: item.image, title: item.title)
             }.disposed(by: disposeBag)
         
         /// 선택한 iconCell에 맞는 detailCategoryView 데이터 보여주게 함
-        collectionView.rx.modelSelected(Category.self)
+        categoryCollectionView.rx.modelSelected(Category.self)
             .map { category in
                 return category.detailCategories
             }
@@ -129,7 +129,7 @@ final class MapViewController: BaseViewController {
             naviBarSubView.addSubview($0)
         }
         
-        [collectionView, detailCategoryView].forEach {
+        [categoryCollectionView, detailCategoryView].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
             mapView.addSubview($0)
         }
@@ -188,14 +188,14 @@ private extension MapViewController {
         ])
         
         NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalTo: mapView.topAnchor, constant: 16.0),
-            collectionView.leadingAnchor.constraint(equalTo: mapView.leadingAnchor),
-            collectionView.trailingAnchor.constraint(equalTo: mapView.trailingAnchor),
-            collectionView.heightAnchor.constraint(equalToConstant: 32.0)
+            categoryCollectionView.topAnchor.constraint(equalTo: mapView.topAnchor, constant: 16.0),
+            categoryCollectionView.leadingAnchor.constraint(equalTo: mapView.leadingAnchor),
+            categoryCollectionView.trailingAnchor.constraint(equalTo: mapView.trailingAnchor),
+            categoryCollectionView.heightAnchor.constraint(equalToConstant: 32.0)
         ])
         
         NSLayoutConstraint.activate([
-            detailCategoryView.topAnchor.constraint(equalTo: collectionView.bottomAnchor, constant: 16.0),
+            detailCategoryView.topAnchor.constraint(equalTo: categoryCollectionView.bottomAnchor, constant: 16.0),
             detailCategoryView.leadingAnchor.constraint(equalTo: mapView.leadingAnchor, constant: 16.0)
         ])
     }
