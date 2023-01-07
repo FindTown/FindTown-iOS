@@ -38,7 +38,7 @@ final class MapViewController: BaseViewController {
     private let mapToggle = MapSegmentControl(items: ["인프라", "테마"])
     let detailCategoryView = MapDetailCategoryView()
     
-    let categoryCollectionView: UICollectionView = {
+    private let categoryCollectionView: UICollectionView = {
         let flowLayout = UICollectionViewFlowLayout()
         flowLayout.scrollDirection = .horizontal
         flowLayout.minimumLineSpacing = 10
@@ -67,7 +67,7 @@ final class MapViewController: BaseViewController {
                                                left: 17.0,
                                                bottom: 0.0,
                                                right: 17.0)
-        flowLayout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
+        flowLayout.estimatedItemSize = CGSize(width: 290, height: 142)
         
         let collectionView = UICollectionView(frame: .zero,
                                               collectionViewLayout: flowLayout)
@@ -76,8 +76,8 @@ final class MapViewController: BaseViewController {
         collectionView.allowsMultipleSelection = false
         
 
-        collectionView.register(MapCategoryCollectionViewCell.self,
-                                forCellWithReuseIdentifier: MapCategoryCollectionViewCell.reuseIdentifier)
+        collectionView.register(MapStoreCollectionViewCell.self,
+                                forCellWithReuseIdentifier: MapStoreCollectionViewCell.reuseIdentifier)
         return collectionView
     }()
     
@@ -117,7 +117,7 @@ final class MapViewController: BaseViewController {
         // MARK: Output
         
         /// iconCollectionView 데이터 바인딩
-        viewModel?.output.dataSource.observe(on: MainScheduler.instance)
+        viewModel?.output.categoryDataSource.observe(on: MainScheduler.instance)
             .bind(to: categoryCollectionView.rx.items(cellIdentifier: MapCategoryCollectionViewCell.reuseIdentifier,
                                               cellType: MapCategoryCollectionViewCell.self)) { index, item, cell in
                 cell.setupCell(image: item.image, title: item.title)
@@ -149,7 +149,7 @@ final class MapViewController: BaseViewController {
             naviBarSubView.addSubview($0)
         }
         
-        [categoryCollectionView, detailCategoryView].forEach {
+        [categoryCollectionView, detailCategoryView, storeCollectionView].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
             mapView.addSubview($0)
         }
@@ -218,6 +218,13 @@ private extension MapViewController {
             categoryCollectionView.leadingAnchor.constraint(equalTo: mapView.leadingAnchor),
             categoryCollectionView.trailingAnchor.constraint(equalTo: mapView.trailingAnchor),
             categoryCollectionView.heightAnchor.constraint(equalToConstant: 32.0)
+        ])
+        
+        NSLayoutConstraint.activate([
+            storeCollectionView.heightAnchor.constraint(equalToConstant: 116.0),
+            storeCollectionView.leadingAnchor.constraint(equalTo: mapView.leadingAnchor),
+            storeCollectionView.trailingAnchor.constraint(equalTo: mapView.trailingAnchor),
+            storeCollectionView.bottomAnchor.constraint(equalTo: mapView.bottomAnchor, constant: 32)
         ])
         
         NSLayoutConstraint.activate([

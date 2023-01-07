@@ -30,7 +30,7 @@ final class MapViewModel: BaseViewModel {
     }
     
     struct Output {
-        var dataSource = BehaviorSubject<[Category]>(value: [])
+        var categoryDataSource = BehaviorSubject<[Category]>(value: [])
     }
     
     let input = Input()
@@ -48,9 +48,9 @@ final class MapViewModel: BaseViewModel {
         self.input.segmentIndex
             .bind { [weak self] index in
                 if index == 0 {
-                    self?.output.dataSource.onNext(self?.returnInfraTestData() ?? [])
+                    self?.output.categoryDataSource.onNext(self?.returnInfraTestData() ?? [])
                 } else {
-                    self?.output.dataSource.onNext(self?.returnThemaTestData() ?? [])
+                    self?.output.categoryDataSource.onNext(self?.returnThemaTestData() ?? [])
                 }
             }
             .disposed(by: disposeBag)
