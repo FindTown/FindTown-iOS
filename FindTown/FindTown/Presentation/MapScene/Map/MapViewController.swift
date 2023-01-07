@@ -64,10 +64,10 @@ final class MapViewController: BaseViewController {
         flowLayout.scrollDirection = .horizontal
         flowLayout.minimumLineSpacing = 10
         flowLayout.sectionInset = UIEdgeInsets(top: 0.0,
-                                               left: 17.0,
+                                               left: 16.0,
                                                bottom: 0.0,
-                                               right: 17.0)
-        flowLayout.estimatedItemSize = CGSize(width: 290, height: 142)
+                                               right: 16.0)
+        flowLayout.itemSize = CGSize(width: 290, height: 142)
         
         let collectionView = UICollectionView(frame: .zero,
                                               collectionViewLayout: flowLayout)
@@ -75,7 +75,6 @@ final class MapViewController: BaseViewController {
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.allowsMultipleSelection = false
         
-
         collectionView.register(MapStoreCollectionViewCell.self,
                                 forCellWithReuseIdentifier: MapStoreCollectionViewCell.reuseIdentifier)
         return collectionView
@@ -124,6 +123,13 @@ final class MapViewController: BaseViewController {
                 if index == 0 {
                     self.selectFirstItem(item)
                 }
+            }.disposed(by: disposeBag)
+        
+        /// iconCollectionView 데이터 바인딩
+        viewModel?.output.storeDataSource.observe(on: MainScheduler.instance)
+            .bind(to: storeCollectionView.rx.items(cellIdentifier: MapStoreCollectionViewCell.reuseIdentifier,
+                                              cellType: MapStoreCollectionViewCell.self)) { index, item, cell in
+                cell.setupCell(store: item)
             }.disposed(by: disposeBag)
         
         /// 선택한 iconCell에 맞는 detailCategoryView 데이터 보여주게 함
@@ -221,10 +227,10 @@ private extension MapViewController {
         ])
         
         NSLayoutConstraint.activate([
-            storeCollectionView.heightAnchor.constraint(equalToConstant: 116.0),
+            storeCollectionView.heightAnchor.constraint(equalToConstant: 142),
             storeCollectionView.leadingAnchor.constraint(equalTo: mapView.leadingAnchor),
             storeCollectionView.trailingAnchor.constraint(equalTo: mapView.trailingAnchor),
-            storeCollectionView.bottomAnchor.constraint(equalTo: mapView.bottomAnchor, constant: 32)
+            storeCollectionView.bottomAnchor.constraint(equalTo: mapView.bottomAnchor, constant: -32)
         ])
         
         NSLayoutConstraint.activate([

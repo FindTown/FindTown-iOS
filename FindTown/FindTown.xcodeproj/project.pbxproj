@@ -38,6 +38,11 @@
 		F3219B622969408C000024E4 /* DetailCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3219B612969408C000024E4 /* DetailCategory.swift */; };
 		F3219B6729694328000024E4 /* MapDetailCategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3219B6629694328000024E4 /* MapDetailCategoryView.swift */; };
 		F3219B692969432C000024E4 /* MapDetailComponentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3219B682969432C000024E4 /* MapDetailComponentView.swift */; };
+		F3219B6C29699B25000024E4 /* MapStoreCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3219B6B29699B25000024E4 /* MapStoreCollectionViewCell.swift */; };
+		F3219B6E29699F88000024E4 /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3219B6D29699F88000024E4 /* Store.swift */; };
+		F3219B702969B32F000024E4 /* Thema.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3219B6F2969B32F000024E4 /* Thema.swift */; };
+		F3219B722969B346000024E4 /* StoreType.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3219B712969B346000024E4 /* StoreType.swift */; };
+		F3219B742969B351000024E4 /* StoreDetailType.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3219B732969B351000024E4 /* StoreDetailType.swift */; };
 		F3891E1F293B8393003CE8AD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3891E1E293B8393003CE8AD /* AppDelegate.swift */; };
 		F3891E21293B8393003CE8AD /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3891E20293B8393003CE8AD /* SceneDelegate.swift */; };
 		F3891E2B293B8394003CE8AD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F3891E2A293B8394003CE8AD /* Assets.xcassets */; };
@@ -99,6 +104,11 @@
 		F3219B612969408C000024E4 /* DetailCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailCategory.swift; sourceTree = "<group>"; };
 		F3219B6629694328000024E4 /* MapDetailCategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapDetailCategoryView.swift; sourceTree = "<group>"; };
 		F3219B682969432C000024E4 /* MapDetailComponentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapDetailComponentView.swift; sourceTree = "<group>"; };
+		F3219B6B29699B25000024E4 /* MapStoreCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapStoreCollectionViewCell.swift; sourceTree = "<group>"; };
+		F3219B6D29699F88000024E4 /* Store.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
+		F3219B6F2969B32F000024E4 /* Thema.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Thema.swift; sourceTree = "<group>"; };
+		F3219B712969B346000024E4 /* StoreType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreType.swift; sourceTree = "<group>"; };
+		F3219B732969B351000024E4 /* StoreDetailType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreDetailType.swift; sourceTree = "<group>"; };
 		F3891E1B293B8393003CE8AD /* FindTown.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FindTown.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F3891E1E293B8393003CE8AD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F3891E20293B8393003CE8AD /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -290,6 +300,10 @@
 				F3219B5D2969403F000024E4 /* MapData.swift */,
 				F3219B5F29694079000024E4 /* Category.swift */,
 				F3219B612969408C000024E4 /* DetailCategory.swift */,
+				F3219B6D29699F88000024E4 /* Store.swift */,
+				F3219B6F2969B32F000024E4 /* Thema.swift */,
+				F3219B712969B346000024E4 /* StoreType.swift */,
+				F3219B732969B351000024E4 /* StoreDetailType.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -300,6 +314,7 @@
 				F3219B6629694328000024E4 /* MapDetailCategoryView.swift */,
 				F3219B682969432C000024E4 /* MapDetailComponentView.swift */,
 				2B718C172966A5930068884A /* MapCategoryCollectionViewCell.swift */,
+				F3219B6B29699B25000024E4 /* MapStoreCollectionViewCell.swift */,
 			);
 			path = SubViews;
 			sourceTree = "<group>";
@@ -592,6 +607,7 @@
 				BCE814F82967DBAD00A6E3CB /* LoginCoordinatorDelegate.swift in Sources */,
 				BC056C5A2962B2B900EDCA18 /* LoginViewModel.swift in Sources */,
 				BC7BCBCD29646EE1003BB4FF /* TownMoodViewController.swift in Sources */,
+				F3219B722969B346000024E4 /* StoreType.swift in Sources */,
 				BC056C562962B29F00EDCA18 /* SignupCoordinator.swift in Sources */,
 				BC9E86522966821C00AB4AE7 /* SignupCoordinatorDelegate.swift in Sources */,
 				F38CCBE829582881000C16AF /* MapViewController.swift in Sources */,
@@ -602,11 +618,15 @@
 				2B718C1A2966A6000068884A /* MapCategory.swift in Sources */,
 				F38CCBE12958287C000C16AF /* HomeCoordinator.swift in Sources */,
 				F3219B5E2969403F000024E4 /* MapData.swift in Sources */,
+				F3219B6E29699F88000024E4 /* Store.swift in Sources */,
+				F3219B702969B32F000024E4 /* Thema.swift in Sources */,
 				F3219B602969407A000024E4 /* Category.swift in Sources */,
 				F3219B6729694328000024E4 /* MapDetailCategoryView.swift in Sources */,
 				F38CCBE02958287C000C16AF /* HomeViewController.swift in Sources */,
 				BC0D88532963DD0D00CCB800 /* LocationAndYearsViewController.swift in Sources */,
+				F3219B6C29699B25000024E4 /* MapStoreCollectionViewCell.swift in Sources */,
 				F3891E21293B8393003CE8AD /* SceneDelegate.swift in Sources */,
+				F3219B742969B351000024E4 /* StoreDetailType.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

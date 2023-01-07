@@ -31,6 +31,7 @@ final class MapViewModel: BaseViewModel {
     
     struct Output {
         var categoryDataSource = BehaviorSubject<[Category]>(value: [])
+        var storeDataSource = BehaviorSubject<[Store]>(value: [])
     }
     
     let input = Input()
@@ -54,6 +55,8 @@ final class MapViewModel: BaseViewModel {
                 }
             }
             .disposed(by: disposeBag)
+        
+        self.output.storeDataSource.onNext(returnStoreTestData())
     }
 }
 
@@ -147,5 +150,22 @@ extension MapViewModel {
                                    title: "반려견 동물과 동반 가능한 ",
                                    detailCategories: detailCategories1)]
         return categories
+    }
+    
+    func returnStoreTestData() -> [Store] {
+        let stores = [Store(name: "프레퍼스 다이어트 푸드", address: "서울 강서구 마곡중앙5로 6 마곡나루역", thema:
+                                    Thema(storeType: .restaurent, detailStoreType: .fastFood)),
+                          Store(name: "미정국수0410 멸치국수 잘하는집 신촌점", address: "서울 강서구 마곡중앙5로 6 마곡나루역 보타닉푸르지오시티 1층 114호", thema:
+                                    Thema(storeType: .restaurent, detailStoreType: .fastFood)),
+                          Store(name: "프레퍼스 다이어트 푸드", address: "서울 강서구 마곡중앙5로 6 마곡나루역", thema:
+                                    Thema(storeType: .restaurent, detailStoreType: .fastFood)),
+                          Store(name: "미정국수0410 멸치국수 잘하는집 신촌점", address: "서울 강서구 마곡중앙5로 6 마곡나루역 보타닉푸르지오시티 1층 114호", thema:
+                                    Thema(storeType: .restaurent, detailStoreType: .fastFood)),
+                          Store(name: "프레퍼스 다이어트 푸드", address: "서울 강서구 마곡중앙5로 6 마곡나루역", thema:
+                                    Thema(storeType: .restaurent, detailStoreType: .fastFood)),
+                          Store(name: "미정국수0410 멸치국수 잘하는집 신촌점", address: "서울 강서구 마곡중앙5로 6 마곡나루역 보타닉푸르지오시티 1층 114호", thema:
+                                    Thema(storeType: .restaurent, detailStoreType: .fastFood)),
+                          ]
+        return stores
     }
 }
