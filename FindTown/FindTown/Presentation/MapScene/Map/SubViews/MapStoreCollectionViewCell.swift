@@ -41,7 +41,7 @@ class MapStoreCollectionViewCell: UICollectionViewCell {
         let stackView = UIStackView()
         stackView.axis = .vertical
         stackView.distribution = .equalSpacing
-        stackView.spacing = 2
+        stackView.spacing = 0
         return stackView
     }()
     
@@ -55,10 +55,14 @@ class MapStoreCollectionViewCell: UICollectionViewCell {
                             font: .body1,
                             textColor: .black)
     
-    private let addressLabel = FindTownLabel(
-                            text: "",
-                            font: .label1,
-                            textColor: .grey5)
+    private let addressLabel: FindTownLabel = {
+        let label = FindTownLabel(text: "",
+                                  font: .label1,
+                                  textColor: .grey5)
+        label.numberOfLines = 0
+        label.adjustsFontSizeToFitWidth = true
+        return label
+    }()
     
     private let bottomStackView: UIStackView = {
         let stackView = UIStackView()
@@ -101,7 +105,7 @@ class MapStoreCollectionViewCell: UICollectionViewCell {
     
     func setupCell(store: Store) {
         typeImageView.image = UIImage(named: "martIcon")?.withRenderingMode(.alwaysTemplate) ?? UIImage()
-        typeNameLabel.text = store.thema.detailStoreType.description
+        typeNameLabel.text = store.thema.storeDetailType.description
         nameLabel.text = store.name
         addressLabel.text = store.address
     }
@@ -151,7 +155,6 @@ private extension MapStoreCollectionViewCell {
             typeImageView.widthAnchor.constraint(equalToConstant: 15.0),
             typeImageView.heightAnchor.constraint(equalToConstant: 15.0),
             nameLabel.heightAnchor.constraint(equalToConstant: 24.0),
-            addressLabel.heightAnchor.constraint(equalToConstant: 24.0),
             
             informationUpdateButton.widthAnchor.constraint(equalToConstant: 78),
             informationUpdateButton.heightAnchor.constraint(equalToConstant: 24)

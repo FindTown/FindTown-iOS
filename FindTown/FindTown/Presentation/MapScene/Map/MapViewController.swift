@@ -53,7 +53,6 @@ final class MapViewController: BaseViewController {
         collectionView.backgroundColor = .clear
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.allowsMultipleSelection = false
-
         collectionView.register(MapCategoryCollectionViewCell.self,
                                 forCellWithReuseIdentifier: MapCategoryCollectionViewCell.reuseIdentifier)
         return collectionView
@@ -62,7 +61,7 @@ final class MapViewController: BaseViewController {
     let storeCollectionView: UICollectionView = {
         let flowLayout = UICollectionViewFlowLayout()
         flowLayout.scrollDirection = .horizontal
-        flowLayout.minimumLineSpacing = 10
+        flowLayout.minimumInteritemSpacing = 0
         flowLayout.sectionInset = UIEdgeInsets(top: 0.0,
                                                left: 16.0,
                                                bottom: 0.0,
@@ -74,11 +73,14 @@ final class MapViewController: BaseViewController {
         collectionView.backgroundColor = .clear
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.allowsMultipleSelection = false
-        
+        collectionView.isPagingEnabled = false
+        collectionView.decelerationRate = .fast
         collectionView.register(MapStoreCollectionViewCell.self,
                                 forCellWithReuseIdentifier: MapStoreCollectionViewCell.reuseIdentifier)
         return collectionView
     }()
+    
+    var currentIndex: CGFloat = 0
     
     // MARK: - Life Cycle
     
@@ -167,6 +169,7 @@ final class MapViewController: BaseViewController {
         
         naviBarSubView.backgroundColor = FindTownColor.white.color
         self.navigationItem.rightBarButtonItem = favoriteButton
+        self.storeCollectionView.delegate = self
     }
 
     override func setLayout() {
@@ -237,6 +240,40 @@ private extension MapViewController {
             detailCategoryView.topAnchor.constraint(equalTo: categoryCollectionView.bottomAnchor, constant: 16.0),
             detailCategoryView.leadingAnchor.constraint(equalTo: mapView.leadingAnchor, constant: 16.0)
         ])
+    }
+}
+
+extension MapViewController: UIScrollViewDelegate, UICollectionViewDelegate {
+    
+    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+        
+        guard let layout = self.storeCollectionView.collectionViewLayout as? UICollectionViewFlowLayout else {
+            return
+        }
+        let cellWidthIncludingSpacing = layout.itemSize.width + layout.minimumLineSpacing
+        
+        var offset = targetContentOffset.pointee
+        let index = (offset.x + scrollView.contentInset.left) / cellWidthIncludingSpacing
+        var roundedIndex = round(index)
+        
+        if scrollView.contentOffset.x > targetContentOffset.pointee.x {
+            roundedIndex = floor(index)
+        } else if scrollView.contentOffset.x < targetContentOffset.pointee.x {
+            roundedIndex = ceil(index)
+        } else {
+            roundedIndex = round(index)
+        }
+        
+        if currentIndex > roundedIndex {
+            currentIndex -= 1
+            roundedIndex = currentIndex
+        } else if currentIndex < roundedIndex {
+            currentIndex += 1
+            roundedIndex = currentIndex
+        }
+    
+        offset = CGPoint(x: roundedIndex * cellWidthIncludingSpacing - scrollView.contentInset.left, y: -scrollView.contentInset.top)
+        targetContentOffset.pointee = offset
     }
 }
 

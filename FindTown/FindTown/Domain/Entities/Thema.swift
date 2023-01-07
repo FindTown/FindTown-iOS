@@ -9,5 +9,5 @@ import Foundation
 
 struct Thema {
     let storeType: StoreType
-    let detailStoreType: DetailStoreType
+    let storeDetailType: StoreDetailType
 }

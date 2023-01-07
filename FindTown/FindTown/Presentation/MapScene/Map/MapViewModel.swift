@@ -154,17 +154,17 @@ extension MapViewModel {
     
     func returnStoreTestData() -> [Store] {
         let stores = [Store(name: "프레퍼스 다이어트 푸드", address: "서울 강서구 마곡중앙5로 6 마곡나루역", thema:
-                                    Thema(storeType: .restaurent, detailStoreType: .fastFood)),
+                                    Thema(storeType: .restaurent, storeDetailType: .fastFood)),
                           Store(name: "미정국수0410 멸치국수 잘하는집 신촌점", address: "서울 강서구 마곡중앙5로 6 마곡나루역 보타닉푸르지오시티 1층 114호", thema:
-                                    Thema(storeType: .restaurent, detailStoreType: .fastFood)),
+                                    Thema(storeType: .restaurent, storeDetailType: .fastFood)),
                           Store(name: "프레퍼스 다이어트 푸드", address: "서울 강서구 마곡중앙5로 6 마곡나루역", thema:
-                                    Thema(storeType: .restaurent, detailStoreType: .fastFood)),
+                                    Thema(storeType: .restaurent, storeDetailType: .fastFood)),
                           Store(name: "미정국수0410 멸치국수 잘하는집 신촌점", address: "서울 강서구 마곡중앙5로 6 마곡나루역 보타닉푸르지오시티 1층 114호", thema:
-                                    Thema(storeType: .restaurent, detailStoreType: .fastFood)),
+                                    Thema(storeType: .restaurent, storeDetailType: .fastFood)),
                           Store(name: "프레퍼스 다이어트 푸드", address: "서울 강서구 마곡중앙5로 6 마곡나루역", thema:
-                                    Thema(storeType: .restaurent, detailStoreType: .fastFood)),
+                                    Thema(storeType: .restaurent, storeDetailType: .fastFood)),
                           Store(name: "미정국수0410 멸치국수 잘하는집 신촌점", address: "서울 강서구 마곡중앙5로 6 마곡나루역 보타닉푸르지오시티 1층 114호", thema:
-                                    Thema(storeType: .restaurent, detailStoreType: .fastFood)),
+                                    Thema(storeType: .restaurent, storeDetailType: .fastFood)),
                           ]
         return stores
     }
