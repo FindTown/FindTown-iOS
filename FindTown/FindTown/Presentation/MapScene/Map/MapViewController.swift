@@ -60,6 +60,28 @@ final class MapViewController: BaseViewController {
         return collectionView
     }()
     
+    lazy var storeCollectionView: UICollectionView = {
+        let flowLayout = UICollectionViewFlowLayout()
+        flowLayout.scrollDirection = .horizontal
+        flowLayout.minimumLineSpacing = 10
+        flowLayout.sectionInset = UIEdgeInsets(top: 0.0,
+                                               left: 17.0,
+                                               bottom: 0.0,
+                                               right: 17.0)
+        flowLayout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
+        
+        let collectionView = UICollectionView(frame: .zero,
+                                              collectionViewLayout: flowLayout)
+        collectionView.backgroundColor = .clear
+        collectionView.showsHorizontalScrollIndicator = false
+        collectionView.allowsMultipleSelection = false
+        
+
+        collectionView.register(MapCategoryCollectionViewCell.self,
+                                forCellWithReuseIdentifier: MapCategoryCollectionViewCell.reuseIdentifier)
+        return collectionView
+    }()
+    
     // MARK: - Life Cycle
     
     init(viewModel: MapViewModel) {
@@ -74,8 +96,6 @@ final class MapViewController: BaseViewController {
     // MARK: - Functions
     
     override func bindViewModel() {
-        guard let viewModel = viewModel else { return }
-        
         // MARK: Input
         
         favoriteButton.rx.tap
@@ -92,13 +112,20 @@ final class MapViewController: BaseViewController {
             .disposed(by: disposeBag)
  
         mapToggle.rx.selectedSegmentIndex
-            .bind(to: viewModel.input.segmentIndex)
+            .subscribe(onNext: { [weak self] index in
+                if index == 0 {
+                    // storeCollectionView 보여주기
+                } else {
+                    self?.detailCategoryView.isHidden = true
+                }
+                self?.viewModel?.input.segmentIndex.accept(index)
+            })
             .disposed(by: disposeBag)
         
         // MARK: Output
         
         /// iconCollectionView 데이터 바인딩
-        viewModel.output.dataSource.observe(on: MainScheduler.instance)
+        viewModel?.output.dataSource.observe(on: MainScheduler.instance)
             .bind(to: categoryCollectionView.rx.items(cellIdentifier: MapCategoryCollectionViewCell.reuseIdentifier,
                                               cellType: MapCategoryCollectionViewCell.self)) { index, item, cell in
                 
