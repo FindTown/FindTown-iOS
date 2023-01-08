@@ -14,12 +14,12 @@ import RxCocoa
 
 protocol MapViewModelDelegate {
     func gotoIntroduce()
-    func presentAddressPopup()
+    func presentAddressSheet()
 }
 
 protocol MapViewModelType {
     func gotoIntroduce()
-    func presentAddressPopup()
+    func presentAddressSheet()
 }
 
 final class MapViewModel: BaseViewModel {
@@ -66,8 +66,8 @@ extension MapViewModel: MapViewModelType {
         delegate.gotoIntroduce()
     }
     
-    func presentAddressPopup() {
-        delegate.presentAddressPopup()
+    func presentAddressSheet() {
+        delegate.presentAddressSheet()
     }
 }
 

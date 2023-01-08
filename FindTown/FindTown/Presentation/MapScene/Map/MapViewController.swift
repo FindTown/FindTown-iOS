@@ -107,7 +107,7 @@ final class MapViewController: BaseViewController {
         
         addressButton.rx.tap
             .subscribe(onNext: {
-                print("rightBarButton tapped")
+                self.viewModel?.presentAddressSheet()
             })
             .disposed(by: disposeBag)
  

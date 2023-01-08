@@ -23,11 +23,11 @@ public extension FlowCoordinator {
             let initScene = initScene()
             initScene.hidesBottomBarWhenPushed = true
             self.navigationController?.pushViewController(initScene, animated: true)
-        case .present(presenter: let presenter, modalPresentationStyle: let modalPresentationStyle):
-            let navigationController = BaseNavigationController(rootViewController: initScene())
+        case .present(navigationController: let navigationController, modalPresentationStyle: let modalPresentationStyle):
             self.navigationController = navigationController
-            self.navigationController?.modalPresentationStyle = modalPresentationStyle
-            presenter.present(navigationController, animated: true, completion: nil)
+            let initScene = initScene()
+            initScene.modalPresentationStyle = modalPresentationStyle
+            self.navigationController?.present(initScene, animated: true, completion: nil)
         case .setViewController(navigationController: let navigationController):
             self.navigationController?.viewControllers = []
             let newNavigation = BaseNavigationController(rootViewController: initScene())

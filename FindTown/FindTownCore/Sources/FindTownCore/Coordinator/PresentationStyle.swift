@@ -9,7 +9,7 @@ import UIKit
 
 public enum PresentationStyle {
     case push(navigationController: UINavigationController)
-    case present(presenter: UINavigationController, modalPresentationStyle: UIModalPresentationStyle = .automatic)
+    case present(navigationController: UINavigationController, modalPresentationStyle: UIModalPresentationStyle = .automatic)
     case setViewController(navigationController: UINavigationController)
     case none
 }

@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2B718C142966A4D20068884A /* AddressPopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B718C132966A4D20068884A /* AddressPopUpViewController.swift */; };
 		2B718C182966A5930068884A /* MapCategoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B718C172966A5930068884A /* MapCategoryCollectionViewCell.swift */; };
 		2B718C1A2966A6000068884A /* MapCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B718C192966A6000068884A /* MapCategory.swift */; };
 		BC056C562962B29F00EDCA18 /* SignupCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC056C552962B29F00EDCA18 /* SignupCoordinator.swift */; };
@@ -43,6 +42,9 @@
 		F3219B702969B32F000024E4 /* Thema.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3219B6F2969B32F000024E4 /* Thema.swift */; };
 		F3219B722969B346000024E4 /* StoreType.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3219B712969B346000024E4 /* StoreType.swift */; };
 		F3219B742969B351000024E4 /* StoreDetailType.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3219B732969B351000024E4 /* StoreDetailType.swift */; };
+		F3219B762969D169000024E4 /* AddressSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3219B752969D169000024E4 /* AddressSheetViewController.swift */; };
+		F3219B7A2969D53D000024E4 /* AddressSheetCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3219B792969D53D000024E4 /* AddressSheetCoordinator.swift */; };
+		F3219B7C2969D589000024E4 /* AddressSheetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3219B7B2969D589000024E4 /* AddressSheetViewModel.swift */; };
 		F3891E1F293B8393003CE8AD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3891E1E293B8393003CE8AD /* AppDelegate.swift */; };
 		F3891E21293B8393003CE8AD /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3891E20293B8393003CE8AD /* SceneDelegate.swift */; };
 		F3891E2B293B8394003CE8AD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F3891E2A293B8394003CE8AD /* Assets.xcassets */; };
@@ -78,7 +80,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		2B718C132966A4D20068884A /* AddressPopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressPopUpViewController.swift; sourceTree = "<group>"; };
 		2B718C172966A5930068884A /* MapCategoryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapCategoryCollectionViewCell.swift; sourceTree = "<group>"; };
 		2B718C192966A6000068884A /* MapCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapCategory.swift; sourceTree = "<group>"; };
 		BC056C552962B29F00EDCA18 /* SignupCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupCoordinator.swift; sourceTree = "<group>"; };
@@ -109,6 +110,9 @@
 		F3219B6F2969B32F000024E4 /* Thema.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Thema.swift; sourceTree = "<group>"; };
 		F3219B712969B346000024E4 /* StoreType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreType.swift; sourceTree = "<group>"; };
 		F3219B732969B351000024E4 /* StoreDetailType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreDetailType.swift; sourceTree = "<group>"; };
+		F3219B752969D169000024E4 /* AddressSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressSheetViewController.swift; sourceTree = "<group>"; };
+		F3219B792969D53D000024E4 /* AddressSheetCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressSheetCoordinator.swift; sourceTree = "<group>"; };
+		F3219B7B2969D589000024E4 /* AddressSheetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressSheetViewModel.swift; sourceTree = "<group>"; };
 		F3891E1B293B8393003CE8AD /* FindTown.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FindTown.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F3891E1E293B8393003CE8AD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F3891E20293B8393003CE8AD /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -322,6 +326,8 @@
 		F3219B6A296944AD000024E4 /* AddressSheet */ = {
 			isa = PBXGroup;
 			children = (
+				F3219B752969D169000024E4 /* AddressSheetViewController.swift */,
+				F3219B7B2969D589000024E4 /* AddressSheetViewModel.swift */,
 			);
 			path = AddressSheet;
 			sourceTree = "<group>";
@@ -430,7 +436,6 @@
 			children = (
 				F38CCBE429582881000C16AF /* MapViewController.swift */,
 				F38CCBE529582881000C16AF /* MapViewModel.swift */,
-				2B718C132966A4D20068884A /* AddressPopUpViewController.swift */,
 				F3219B632969412C000024E4 /* SubViews */,
 			);
 			path = Map;
@@ -440,6 +445,7 @@
 			isa = PBXGroup;
 			children = (
 				F38CCBE729582881000C16AF /* MapCoordinator.swift */,
+				F3219B792969D53D000024E4 /* AddressSheetCoordinator.swift */,
 			);
 			path = Flows;
 			sourceTree = "<group>";
@@ -591,6 +597,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BC0D88592964641400CCB800 /* YearMonthPickerView.swift in Sources */,
+				F3219B7C2969D589000024E4 /* AddressSheetViewModel.swift in Sources */,
 				BC056C5E2962B2CF00EDCA18 /* NicknameViewModel.swift in Sources */,
 				F38CCBD729582869000C16AF /* AppCoordinator.swift in Sources */,
 				BC056C602962B2D900EDCA18 /* NicknameViewController.swift in Sources */,
@@ -614,7 +621,7 @@
 				2B718C182966A5930068884A /* MapCategoryCollectionViewCell.swift in Sources */,
 				F38CCBD829582869000C16AF /* TabBarCoordinator.swift in Sources */,
 				F3219B692969432C000024E4 /* MapDetailComponentView.swift in Sources */,
-				2B718C142966A4D20068884A /* AddressPopUpViewController.swift in Sources */,
+				F3219B7A2969D53D000024E4 /* AddressSheetCoordinator.swift in Sources */,
 				2B718C1A2966A6000068884A /* MapCategory.swift in Sources */,
 				F38CCBE12958287C000C16AF /* HomeCoordinator.swift in Sources */,
 				F3219B5E2969403F000024E4 /* MapData.swift in Sources */,
@@ -624,6 +631,7 @@
 				F3219B6729694328000024E4 /* MapDetailCategoryView.swift in Sources */,
 				F38CCBE02958287C000C16AF /* HomeViewController.swift in Sources */,
 				BC0D88532963DD0D00CCB800 /* LocationAndYearsViewController.swift in Sources */,
+				F3219B762969D169000024E4 /* AddressSheetViewController.swift in Sources */,
 				F3219B6C29699B25000024E4 /* MapStoreCollectionViewCell.swift in Sources */,
 				F3891E21293B8393003CE8AD /* SceneDelegate.swift in Sources */,
 				F3219B742969B351000024E4 /* StoreDetailType.swift in Sources */,
