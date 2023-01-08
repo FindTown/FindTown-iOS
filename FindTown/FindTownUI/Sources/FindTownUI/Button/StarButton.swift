@@ -21,8 +21,8 @@ public final class StarButton: UIButton {
     }
     
     private func configureUI() {
-        let image = UIImage(systemName: "star")
-        let selectedImage = UIImage(systemName: "star.fill")
+        let image = UIImage(named: "star", in: .module, compatibleWith: nil)
+        let selectedImage = UIImage(named: "starFill", in: .module, compatibleWith: nil)
         
         setImage(image, for: .normal)
         setImage(selectedImage, for: .selected)

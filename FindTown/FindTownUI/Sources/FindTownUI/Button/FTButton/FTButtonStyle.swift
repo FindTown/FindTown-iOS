@@ -13,7 +13,7 @@ public struct FTButtonStyle {
     let titleFont: UIFont
     var selectedColorSet: [UIColor] = []
     let nonSelectedColorSet: [UIColor]
-    var strokeColor: UIColor = .black
+    var strokeColorSet: [UIColor] = [.clear, .clear]
     let topBottomInset: CGFloat
     let cornerRadius: CGFloat
     var imagePlacement: NSDirectionalRectEdge = .all
@@ -30,7 +30,6 @@ extension FTButtonStyle {
         titleFont: FindTownFont.body3.font,
         selectedColorSet: [FindTownColor.primary.color, FindTownColor.white.color],
         nonSelectedColorSet: [FindTownColor.grey3.color, FindTownColor.grey5.color],
-        strokeColor: .clear,
         topBottomInset: 14,
         cornerRadius: 10
     )
@@ -42,6 +41,7 @@ extension FTButtonStyle {
         titleFont: FindTownFont.body3.font,
         selectedColorSet: [FindTownColor.white.color, FindTownColor.primary.color],
         nonSelectedColorSet: [FindTownColor.white.color, FindTownColor.grey5.color],
+        strokeColorSet: [FindTownColor.primary.color, FindTownColor.grey5.color],
         topBottomInset: 14,
         cornerRadius: 10
     )
@@ -63,6 +63,7 @@ extension FTButtonStyle {
         titleFont: FindTownFont.body3.font,
         selectedColorSet: [FindTownColor.white.color, FindTownColor.primary.color],
         nonSelectedColorSet: [FindTownColor.white.color, FindTownColor.grey5.color],
+        strokeColorSet: [FindTownColor.primary.color, FindTownColor.grey5.color],
         topBottomInset: 12,
         cornerRadius: 10
     )
@@ -73,7 +74,6 @@ extension FTButtonStyle {
         configuration: .tinted(),
         titleFont: FindTownFont.body3.font,
         nonSelectedColorSet: [FindTownColor.primary10.color, FindTownColor.primary.color],
-        strokeColor: .clear,
         topBottomInset: 12,
         cornerRadius: 10
     )
@@ -85,6 +85,7 @@ extension FTButtonStyle {
         titleFont: FindTownFont.body3.font,
         selectedColorSet: [FindTownColor.white.color, FindTownColor.primary.color],
         nonSelectedColorSet: [FindTownColor.white.color, FindTownColor.grey4.color],
+        strokeColorSet: [FindTownColor.primary.color, FindTownColor.grey4.color],
         topBottomInset: 11,
         cornerRadius: 10
     )
@@ -96,6 +97,7 @@ extension FTButtonStyle {
         titleFont: FindTownFont.body3.font,
         selectedColorSet: [FindTownColor.white.color, FindTownColor.primary.color],
         nonSelectedColorSet: [FindTownColor.white.color, FindTownColor.grey4.color],
+        strokeColorSet: [FindTownColor.primary.color, FindTownColor.grey4.color],
         topBottomInset: 8,
         cornerRadius: 10
     )
@@ -107,6 +109,7 @@ extension FTButtonStyle {
         titleFont: FindTownFont.label2.font,
         selectedColorSet: [FindTownColor.white.color, FindTownColor.primary.color],
         nonSelectedColorSet: [FindTownColor.white.color, FindTownColor.grey4.color],
+        strokeColorSet: [FindTownColor.primary.color, FindTownColor.grey4.color],
         topBottomInset: 8,
         cornerRadius: 10
     )
@@ -118,6 +121,7 @@ extension FTButtonStyle {
         titleFont: FindTownFont.label1.font,
         selectedColorSet: [FindTownColor.white.color, FindTownColor.primary.color],
         nonSelectedColorSet: [FindTownColor.white.color, FindTownColor.grey4.color],
+        strokeColorSet: [FindTownColor.primary.color, FindTownColor.grey4.color],
         topBottomInset: 12,
         cornerRadius: 30,
         imagePlacement: .trailing,
@@ -130,6 +134,7 @@ extension FTButtonStyle {
         configuration: .tinted(),
         titleFont: FindTownFont.label1.font,
         nonSelectedColorSet: [FindTownColor.white.color, FindTownColor.grey5.color],
+        strokeColorSet: [FindTownColor.grey5.color, FindTownColor.grey5.color],
         topBottomInset: 12,
         cornerRadius: 30,
         imagePlacement: .leading,
@@ -137,13 +142,28 @@ extension FTButtonStyle {
     )
     
     /// Icon_Filter_Chip - 첫번째 두번째 버튼 세트
-    public static let iconFilter = FTButtonStyle (
+    public static let iconFilterWithRadius = FTButtonStyle (
+        isSelectedButton: true,
+        configuration: .filled(),
+        titleFont: FindTownFont.body4.font,
+        selectedColorSet: [FindTownColor.white.color, FindTownColor.primary.color],
+        nonSelectedColorSet: [FindTownColor.white.color, FindTownColor.grey6.color],
+        strokeColorSet: [FindTownColor.primary.color, FindTownColor.grey2.color],
+        topBottomInset: 8,
+        cornerRadius: 30,
+        imagePlacement: .leading,
+        imagePadding: 5,
+        isShadow: true
+    )
+    
+    /// Icon_Filter_Chip - 첫번째 세번째 버튼 세트
+    public static let iconFilterWithBackgroundColor = FTButtonStyle (
         isSelectedButton: true,
         configuration: .filled(),
         titleFont: FindTownFont.body4.font,
         selectedColorSet: [FindTownColor.primary.color, FindTownColor.white.color],
         nonSelectedColorSet: [FindTownColor.white.color, FindTownColor.grey6.color],
-        strokeColor: .clear,
+        strokeColorSet: [.clear, FindTownColor.grey2.color],
         topBottomInset: 8,
         cornerRadius: 30,
         imagePlacement: .leading,
@@ -158,7 +178,7 @@ extension FTButtonStyle {
         titleFont: FindTownFont.body4.font,
         selectedColorSet: [FindTownColor.white.color, FindTownColor.grey7.color],
         nonSelectedColorSet: [FindTownColor.black.color, FindTownColor.white.color],
-        strokeColor: FindTownColor.grey3.color,
+        strokeColorSet: [FindTownColor.black.color, FindTownColor.white.color],
         topBottomInset: 12,
         cornerRadius: 30,
         imagePlacement: .leading,
@@ -173,7 +193,6 @@ extension FTButtonStyle {
         titleFont: FindTownFont.label1.font,
         selectedColorSet: [FindTownColor.white.color, FindTownColor.primary.color],
         nonSelectedColorSet: [FindTownColor.white.color, FindTownColor.grey4.color],
-        strokeColor: .clear,
         topBottomInset: 8,
         cornerRadius: 0,
         imagePlacement: .top,
