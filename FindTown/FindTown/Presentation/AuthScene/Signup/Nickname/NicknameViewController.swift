@@ -26,7 +26,7 @@ final class NicknameViewController: BaseViewController {
     
     private let nickNameTextField = FindTownTextField()
     
-    private let nickNameStatusLabel = FindTownLabel(text: "", font: .label3, textColor: .semantic)
+    private let nickNameStatusLabel = FindTownLabel(text: "", font: .label3)
     
     private let duplicateButton = FTButton(style: .mediumTintedWithRadius)
     

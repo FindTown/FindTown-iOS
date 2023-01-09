@@ -31,7 +31,7 @@ final class TownMoodViewController: BaseViewController {
         return textField
     }()
     
-    private let afterTwentyTitle = FindTownLabel(text: "최소 20자 이상 작성해주세요", font: .label3, textColor: .semantic)
+    private let afterTwentyTitle = FindTownLabel(text: "최소 20자 이상 작성해주세요", font: .label3, textColor: .error)
     
     private let textViewCountTitle = FindTownLabel(text: "0/200", font: .label3)
     
