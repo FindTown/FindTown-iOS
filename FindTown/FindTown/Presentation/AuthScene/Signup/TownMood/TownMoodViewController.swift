@@ -18,6 +18,7 @@ final class TownMoodViewController: BaseViewController {
     
     private let viewModel: TownMoodViewModel?
     private let textViewPlaceHolder = "동네의 장, 단점 or 동네 생활 꿀팁을 알려주세요. \n(최소 20자 이상 작성)"
+    private let afterTwentyTitleText = "최소 20자 이상 작성해주세요"
     
     // MARK: - Views
     
@@ -31,9 +32,19 @@ final class TownMoodViewController: BaseViewController {
         return textField
     }()
     
-    private let afterTwentyTitle = FindTownLabel(text: "최소 20자 이상 작성해주세요", font: .label3, textColor: .error)
+    private let afterTwentyTitle = FindTownLabel(text: "", font: .label3, textColor: .error)
     
     private let textViewCountTitle = FindTownLabel(text: "0/200", font: .label3)
+    
+    private let textViewGuirdTitleStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .horizontal
+        stackView.distribution = .equalSpacing
+        return stackView
+    }()
+    
+    private let emptyView = UIView()
     
     private let nextButton = FTButton(style: .largeFilled)
     
@@ -55,11 +66,23 @@ final class TownMoodViewController: BaseViewController {
     // MARK: - Functions
     
     override func addView() {
-        [nowStatusPogressView, townLikeTitle, townLikeTextView, textViewCountTitle, afterTwentyTitle, nextButton].forEach {
-            view.addSubview($0)
+        view.addSubview(nowStatusPogressView)
+        
+        textViewGuirdTitleStackView.addArrangedSubview(afterTwentyTitle)
+        textViewGuirdTitleStackView.addArrangedSubview(textViewCountTitle)
+        
+        [townLikeTitle, townLikeTextView, textViewGuirdTitleStackView, emptyView, nextButton].forEach {
+            stackView.addArrangedSubview($0)
         }
+        
+        super.addView()
     }
-    override func setupView() {
+    
+    override func setLayout() {
+        NSLayoutConstraint.activate([
+            townLikeTitle.topAnchor.constraint(equalTo: super.contentView.topAnchor, constant: 46),
+        ])
+        
         nowStatusPogressView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             nowStatusPogressView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
@@ -69,36 +92,23 @@ final class TownMoodViewController: BaseViewController {
         ])
         
         NSLayoutConstraint.activate([
-            townLikeTitle.topAnchor.constraint(equalTo: nowStatusPogressView.bottomAnchor, constant: 74),
-            townLikeTitle.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            stackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
+            stackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
+            stackView.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.size.height - (self.navigationController?.navigationBar.intrinsicContentSize.height ?? 0) - 100)
         ])
         
         NSLayoutConstraint.activate([
-            townLikeTextView.topAnchor.constraint(equalTo: townLikeTitle.bottomAnchor, constant: 16),
-            townLikeTextView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            townLikeTextView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
             townLikeTextView.heightAnchor.constraint(equalToConstant: 200)
         ])
         
-        NSLayoutConstraint.activate([
-            afterTwentyTitle.topAnchor.constraint(equalTo: townLikeTextView.bottomAnchor, constant: 8),
-            afterTwentyTitle.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-        ])
+        stackView.setCustomSpacing(16, after: townLikeTitle)
+        stackView.setCustomSpacing(8, after: townLikeTextView)
         
-        NSLayoutConstraint.activate([
-            textViewCountTitle.topAnchor.constraint(equalTo: townLikeTextView.bottomAnchor, constant: 8),
-            textViewCountTitle.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-        ])
-        
-        NSLayoutConstraint.activate([
-            nextButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -24),
-            nextButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            nextButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-        ])
-        
+        super.setLayout()
     }
     
-    override func setLayout() {
+    override func setupView() {
+        
         view.backgroundColor = .white
         
         nowStatusPogressView.trackTintColor = FindTownColor.grey2.color
@@ -115,8 +125,6 @@ final class TownMoodViewController: BaseViewController {
         townLikeTextView.layer.cornerRadius = 8.0
         townLikeTextView.layer.borderWidth = 1.0
         townLikeTextView.layer.borderColor = FindTownColor.grey4.color.cgColor
-        
-        afterTwentyTitle.isHidden = true
         
         nextButton.setTitle("다음", for: .normal)
         nextButton.changesSelectionAsPrimaryAction = false
@@ -156,10 +164,9 @@ final class TownMoodViewController: BaseViewController {
             nextButton.isSelected = isSelected
             nextButton.isEnabled = isSelected
         }
-        afterTwentyTitle.isHidden = isSelected
+        afterTwentyTitle.text = isSelected ? "" : afterTwentyTitleText
     }
 }
-
 
 extension TownMoodViewController: UITextViewDelegate {
     
