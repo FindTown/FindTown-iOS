@@ -43,7 +43,7 @@ final class SignupCoordinator: FlowCoordinator {
     
 }
 
-extension SignupCoordinator: SignupCoordinatorDelegate {
+extension SignupCoordinator: SignupViewModelDelegate {
     
     func goToLocationAndYears() {
         guard let navigationController = navigationController else { return }

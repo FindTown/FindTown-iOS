@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol LoginCoordinatorDelegate {
+protocol LoginViewModelDelegate {
     func goToNickname()
     func goToTabBar()
 }

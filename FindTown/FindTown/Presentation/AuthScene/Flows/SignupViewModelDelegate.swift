@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol SignupCoordinatorDelegate {
+protocol SignupViewModelDelegate {
     func goToLocationAndYears()
     func goToTownMood()
     func goToFavorite()

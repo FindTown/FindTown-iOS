@@ -42,10 +42,10 @@ final class LocationAndYearsViewModel: BaseViewModel {
     
     let input = Input()
     let output = Output()
-    let delegate: SignupCoordinatorDelegate
+    let delegate: SignupViewModelDelegate
     
     init(
-        delegate: SignupCoordinatorDelegate
+        delegate: SignupViewModelDelegate
     ) {
         self.delegate = delegate
         
