@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2B718C142966A4D20068884A /* AddressPopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B718C132966A4D20068884A /* AddressPopUpViewController.swift */; };
+		2B718C182966A5930068884A /* MapCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B718C172966A5930068884A /* MapCollectionViewCell.swift */; };
+		2B718C1A2966A6000068884A /* MapData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B718C192966A6000068884A /* MapData.swift */; };
 		BC056C562962B29F00EDCA18 /* SignupCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC056C552962B29F00EDCA18 /* SignupCoordinator.swift */; };
 		BC056C5A2962B2B900EDCA18 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC056C592962B2B900EDCA18 /* LoginViewModel.swift */; };
 		BC056C5C2962B2C400EDCA18 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC056C5B2962B2C400EDCA18 /* LoginViewController.swift */; };
@@ -16,25 +19,25 @@
 		BC0D88532963DD0D00CCB800 /* LocationAndYearsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC0D88522963DD0D00CCB800 /* LocationAndYearsViewController.swift */; };
 		BC0D88552963DD1D00CCB800 /* KakaoAddressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC0D88542963DD1D00CCB800 /* KakaoAddressViewController.swift */; };
 		BC0D88592964641400CCB800 /* YearMonthPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC0D88582964641400CCB800 /* YearMonthPickerView.swift */; };
-		2B718C142966A4D20068884A /* AddressPopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B718C132966A4D20068884A /* AddressPopUpViewController.swift */; };
-		2B718C182966A5930068884A /* MapCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B718C172966A5930068884A /* MapCollectionViewCell.swift */; };
-		2B718C1A2966A6000068884A /* MapData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B718C192966A6000068884A /* MapData.swift */; };
-		BC6EFB7F293BD12300AB3332 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = BC6EFB7E293BD12300AB3332 /* RxCocoa */; };
 		BC6EFB81293BD12300AB3332 /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = BC6EFB80293BD12300AB3332 /* RxRelay */; };
 		BC6EFB83293BD12300AB3332 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = BC6EFB82293BD12300AB3332 /* RxSwift */; };
 		BC6EFB86293BD15A00AB3332 /* RxDataSources in Frameworks */ = {isa = PBXBuildFile; productRef = BC6EFB85293BD15A00AB3332 /* RxDataSources */; };
 		BC7BCBCD29646EE1003BB4FF /* TownMoodViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC7BCBCC29646EE1003BB4FF /* TownMoodViewController.swift */; };
 		BC7BCBCF29646EEA003BB4FF /* TownMoodViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC7BCBCE29646EEA003BB4FF /* TownMoodViewModel.swift */; };
 		BC99019C295F09720051CC9B /* NMapsMap in Frameworks */ = {isa = PBXBuildFile; productRef = BC99019B295F09720051CC9B /* NMapsMap */; };
-		BC9E86522966821C00AB4AE7 /* SignupCoordinatorDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC9E86512966821C00AB4AE7 /* SignupCoordinatorDelegate.swift */; };
+		BC9E86522966821C00AB4AE7 /* SignupViewModelDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC9E86512966821C00AB4AE7 /* SignupViewModelDelegate.swift */; };
+		BC9F4D59296BE5FC0099473C /* FavoriteTownViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC9F4D58296BE5FC0099473C /* FavoriteTownViewController.swift */; };
+		BC9F4D5B296BE6060099473C /* FavoriteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC9F4D5A296BE6060099473C /* FavoriteViewModel.swift */; };
+		BC9F4D5E296BF0C90099473C /* AgreePolicyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC9F4D5D296BF0C90099473C /* AgreePolicyViewController.swift */; };
+		BC9F4D60296BF0D30099473C /* AgreePolicyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC9F4D5F296BF0D30099473C /* AgreePolicyViewModel.swift */; };
+		BC9F4D62296C20C40099473C /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = BC9F4D61296C20C40099473C /* RxCocoa */; };
 		BCE814F62967DAF200A6E3CB /* LoginCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCE814F52967DAF200A6E3CB /* LoginCoordinator.swift */; };
-		BCE814F82967DBAD00A6E3CB /* LoginCoordinatorDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCE814F72967DBAD00A6E3CB /* LoginCoordinatorDelegate.swift */; };
+		BCE814F82967DBAD00A6E3CB /* LoginViewModelDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCE814F72967DBAD00A6E3CB /* LoginViewModelDelegate.swift */; };
 		F31A80C82949A5BB003B8A6E /* FindTownCore in Frameworks */ = {isa = PBXBuildFile; productRef = F31A80C72949A5BB003B8A6E /* FindTownCore */; };
 		F31A80CA2949A5BB003B8A6E /* FindTownNetwork in Frameworks */ = {isa = PBXBuildFile; productRef = F31A80C92949A5BB003B8A6E /* FindTownNetwork */; };
 		F31A80CC2949A5BB003B8A6E /* FindTownUI in Frameworks */ = {isa = PBXBuildFile; productRef = F31A80CB2949A5BB003B8A6E /* FindTownUI */; };
 		F3891E1F293B8393003CE8AD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3891E1E293B8393003CE8AD /* AppDelegate.swift */; };
 		F3891E21293B8393003CE8AD /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3891E20293B8393003CE8AD /* SceneDelegate.swift */; };
-		F3891E23293B8393003CE8AD /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3891E22293B8393003CE8AD /* ViewController.swift */; };
 		F3891E2B293B8394003CE8AD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F3891E2A293B8394003CE8AD /* Assets.xcassets */; };
 		F3891E2E293B8394003CE8AD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F3891E2C293B8394003CE8AD /* LaunchScreen.storyboard */; };
 		F3891E39293B8394003CE8AD /* FindTownTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3891E38293B8394003CE8AD /* FindTownTests.swift */; };
@@ -68,6 +71,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2B718C132966A4D20068884A /* AddressPopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressPopUpViewController.swift; sourceTree = "<group>"; };
+		2B718C172966A5930068884A /* MapCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapCollectionViewCell.swift; sourceTree = "<group>"; };
+		2B718C192966A6000068884A /* MapData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapData.swift; sourceTree = "<group>"; };
 		BC056C552962B29F00EDCA18 /* SignupCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupCoordinator.swift; sourceTree = "<group>"; };
 		BC056C592962B2B900EDCA18 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		BC056C5B2962B2C400EDCA18 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -79,19 +85,19 @@
 		BC0D88582964641400CCB800 /* YearMonthPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YearMonthPickerView.swift; sourceTree = "<group>"; };
 		BC7BCBCC29646EE1003BB4FF /* TownMoodViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TownMoodViewController.swift; sourceTree = "<group>"; };
 		BC7BCBCE29646EEA003BB4FF /* TownMoodViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TownMoodViewModel.swift; sourceTree = "<group>"; };
-		BC9E86512966821C00AB4AE7 /* SignupCoordinatorDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupCoordinatorDelegate.swift; sourceTree = "<group>"; };
+		BC9E86512966821C00AB4AE7 /* SignupViewModelDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupViewModelDelegate.swift; sourceTree = "<group>"; };
+		BC9F4D58296BE5FC0099473C /* FavoriteTownViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteTownViewController.swift; sourceTree = "<group>"; };
+		BC9F4D5A296BE6060099473C /* FavoriteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteViewModel.swift; sourceTree = "<group>"; };
+		BC9F4D5D296BF0C90099473C /* AgreePolicyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgreePolicyViewController.swift; sourceTree = "<group>"; };
+		BC9F4D5F296BF0D30099473C /* AgreePolicyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgreePolicyViewModel.swift; sourceTree = "<group>"; };
 		BCE814F52967DAF200A6E3CB /* LoginCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginCoordinator.swift; sourceTree = "<group>"; };
-		BCE814F72967DBAD00A6E3CB /* LoginCoordinatorDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginCoordinatorDelegate.swift; sourceTree = "<group>"; };
-		2B718C132966A4D20068884A /* AddressPopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressPopUpViewController.swift; sourceTree = "<group>"; };
-		2B718C172966A5930068884A /* MapCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapCollectionViewCell.swift; sourceTree = "<group>"; };
-		2B718C192966A6000068884A /* MapData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapData.swift; sourceTree = "<group>"; };
+		BCE814F72967DBAD00A6E3CB /* LoginViewModelDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModelDelegate.swift; sourceTree = "<group>"; };
 		F31A80C32949A556003B8A6E /* FindTownUI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = FindTownUI; sourceTree = "<group>"; };
 		F31A80C42949A568003B8A6E /* FindTownCore */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = FindTownCore; sourceTree = "<group>"; };
 		F31A80C52949A577003B8A6E /* FindTownNetwork */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = FindTownNetwork; sourceTree = "<group>"; };
 		F3891E1B293B8393003CE8AD /* FindTown.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FindTown.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F3891E1E293B8393003CE8AD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F3891E20293B8393003CE8AD /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		F3891E22293B8393003CE8AD /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		F3891E2A293B8394003CE8AD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F3891E2D293B8394003CE8AD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F3891E2F293B8394003CE8AD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -121,8 +127,8 @@
 				BC6EFB86293BD15A00AB3332 /* RxDataSources in Frameworks */,
 				F31A80CC2949A5BB003B8A6E /* FindTownUI in Frameworks */,
 				BC99019C295F09720051CC9B /* NMapsMap in Frameworks */,
+				BC9F4D62296C20C40099473C /* RxCocoa in Frameworks */,
 				BC6EFB81293BD12300AB3332 /* RxRelay in Frameworks */,
-				BC6EFB7F293BD12300AB3332 /* RxCocoa in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -157,9 +163,9 @@
 			isa = PBXGroup;
 			children = (
 				BC056C552962B29F00EDCA18 /* SignupCoordinator.swift */,
-				BC9E86512966821C00AB4AE7 /* SignupCoordinatorDelegate.swift */,
+				BC9E86512966821C00AB4AE7 /* SignupViewModelDelegate.swift */,
 				BCE814F52967DAF200A6E3CB /* LoginCoordinator.swift */,
-				BCE814F72967DBAD00A6E3CB /* LoginCoordinatorDelegate.swift */,
+				BCE814F72967DBAD00A6E3CB /* LoginViewModelDelegate.swift */,
 			);
 			path = Flows;
 			sourceTree = "<group>";
@@ -176,6 +182,8 @@
 		BC5DA80A296696D500BF5C3D /* Signup */ = {
 			isa = PBXGroup;
 			children = (
+				BC9F4D5C296BEFFF0099473C /* AgreePolicy */,
+				BC9F4D57296BE5BF0099473C /* FavoriteTown */,
 				BC5DA80D2966974F00BF5C3D /* Nickname */,
 				BC5DA80C2966970800BF5C3D /* LocationAndYears */,
 				BC5DA80B296696F700BF5C3D /* TownMood */,
@@ -250,26 +258,8 @@
 			isa = PBXGroup;
 			children = (
 				F38CCBD429582869000C16AF /* Flow */,
-				BC6EFB89293BD63600AB3332 /* ViewController */,
-				BC6EFB79293B9C5B00AB3332 /* VIewModel */,
-				BC6EFB78293B9C5800AB3332 /* View */,
 			);
 			path = Common;
-			sourceTree = "<group>";
-		};
-		BC6EFB78293B9C5800AB3332 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				F3891E22293B8393003CE8AD /* ViewController.swift */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		BC6EFB79293B9C5B00AB3332 /* VIewModel */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = VIewModel;
 			sourceTree = "<group>";
 		};
 		BC6EFB7A293BA31D00AB3332 /* Resource */ = {
@@ -282,11 +272,22 @@
 			path = Resource;
 			sourceTree = "<group>";
 		};
-		BC6EFB89293BD63600AB3332 /* ViewController */ = {
+		BC9F4D57296BE5BF0099473C /* FavoriteTown */ = {
 			isa = PBXGroup;
 			children = (
+				BC9F4D58296BE5FC0099473C /* FavoriteTownViewController.swift */,
+				BC9F4D5A296BE6060099473C /* FavoriteViewModel.swift */,
 			);
-			path = ViewController;
+			path = FavoriteTown;
+			sourceTree = "<group>";
+		};
+		BC9F4D5C296BEFFF0099473C /* AgreePolicy */ = {
+			isa = PBXGroup;
+			children = (
+				BC9F4D5D296BF0C90099473C /* AgreePolicyViewController.swift */,
+				BC9F4D5F296BF0D30099473C /* AgreePolicyViewModel.swift */,
+			);
+			path = AgreePolicy;
 			sourceTree = "<group>";
 		};
 		F31A80C62949A5BB003B8A6E /* Frameworks */ = {
@@ -431,7 +432,6 @@
 			);
 			name = FindTown;
 			packageProductDependencies = (
-				BC6EFB7E293BD12300AB3332 /* RxCocoa */,
 				BC6EFB80293BD12300AB3332 /* RxRelay */,
 				BC6EFB82293BD12300AB3332 /* RxSwift */,
 				BC6EFB85293BD15A00AB3332 /* RxDataSources */,
@@ -439,6 +439,7 @@
 				F31A80C92949A5BB003B8A6E /* FindTownNetwork */,
 				F31A80CB2949A5BB003B8A6E /* FindTownUI */,
 				BC99019B295F09720051CC9B /* NMapsMap */,
+				BC9F4D61296C20C40099473C /* RxCocoa */,
 			);
 			productName = FindTown;
 			productReference = F3891E1B293B8393003CE8AD /* FindTown.app */;
@@ -458,6 +459,8 @@
 				F3891E36293B8394003CE8AD /* PBXTargetDependency */,
 			);
 			name = FindTownTests;
+			packageProductDependencies = (
+			);
 			productName = FindTownTests;
 			productReference = F3891E34293B8394003CE8AD /* FindTownTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
@@ -476,6 +479,8 @@
 				F3891E40293B8394003CE8AD /* PBXTargetDependency */,
 			);
 			name = FindTownUITests;
+			packageProductDependencies = (
+			);
 			productName = FindTownUITests;
 			productReference = F3891E3E293B8394003CE8AD /* FindTownUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
@@ -570,14 +575,16 @@
 				BC056C5C2962B2C400EDCA18 /* LoginViewController.swift in Sources */,
 				F38CCBDF2958287C000C16AF /* HomeViewModel.swift in Sources */,
 				BC0D88512963DCF300CCB800 /* LocationAndYearsViewModel.swift in Sources */,
-				F3891E23293B8393003CE8AD /* ViewController.swift in Sources */,
+				BC9F4D5E296BF0C90099473C /* AgreePolicyViewController.swift in Sources */,
 				F3891E1F293B8393003CE8AD /* AppDelegate.swift in Sources */,
+				BC9F4D59296BE5FC0099473C /* FavoriteTownViewController.swift in Sources */,
 				BC7BCBCF29646EEA003BB4FF /* TownMoodViewModel.swift in Sources */,
-				BCE814F82967DBAD00A6E3CB /* LoginCoordinatorDelegate.swift in Sources */,
+				BCE814F82967DBAD00A6E3CB /* LoginViewModelDelegate.swift in Sources */,
+				BC9F4D60296BF0D30099473C /* AgreePolicyViewModel.swift in Sources */,
 				BC056C5A2962B2B900EDCA18 /* LoginViewModel.swift in Sources */,
 				BC7BCBCD29646EE1003BB4FF /* TownMoodViewController.swift in Sources */,
 				BC056C562962B29F00EDCA18 /* SignupCoordinator.swift in Sources */,
-				BC9E86522966821C00AB4AE7 /* SignupCoordinatorDelegate.swift in Sources */,
+				BC9E86522966821C00AB4AE7 /* SignupViewModelDelegate.swift in Sources */,
 				F38CCBE829582881000C16AF /* MapViewController.swift in Sources */,
 				2B718C182966A5930068884A /* MapCollectionViewCell.swift in Sources */,
 				F38CCBD829582869000C16AF /* TabBarCoordinator.swift in Sources */,
@@ -585,6 +592,7 @@
 				2B718C1A2966A6000068884A /* MapData.swift in Sources */,
 				F38CCBE12958287C000C16AF /* HomeCoordinator.swift in Sources */,
 				F38CCBE02958287C000C16AF /* HomeViewController.swift in Sources */,
+				BC9F4D5B296BE6060099473C /* FavoriteViewModel.swift in Sources */,
 				BC0D88532963DD0D00CCB800 /* LocationAndYearsViewController.swift in Sources */,
 				F3891E21293B8393003CE8AD /* SceneDelegate.swift in Sources */,
 			);
@@ -949,11 +957,6 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		BC6EFB7E293BD12300AB3332 /* RxCocoa */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = BC6EFB7D293BD12300AB3332 /* XCRemoteSwiftPackageReference "RxSwift" */;
-			productName = RxCocoa;
-		};
 		BC6EFB80293BD12300AB3332 /* RxRelay */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = BC6EFB7D293BD12300AB3332 /* XCRemoteSwiftPackageReference "RxSwift" */;
@@ -973,6 +976,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = BC99019A295F09720051CC9B /* XCRemoteSwiftPackageReference "NMapsMap-SPM" */;
 			productName = NMapsMap;
+		};
+		BC9F4D61296C20C40099473C /* RxCocoa */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BC6EFB7D293BD12300AB3332 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxCocoa;
 		};
 		F31A80C72949A5BB003B8A6E /* FindTownCore */ = {
 			isa = XCSwiftPackageProductDependency;
