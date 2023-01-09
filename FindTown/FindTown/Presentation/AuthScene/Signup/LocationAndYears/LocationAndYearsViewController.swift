@@ -31,6 +31,8 @@ final class LocationAndYearsViewController: BaseViewController {
     
     private let dongButton = FTButton(style: .largeTinted)
     
+    private let dongStatusLabel = FindTownLabel(text: "주소를 입력해주세요.", font: .label3, textColor: .error)
+    
     private let howLongStayTitle = FindTownLabel(text: "얼마나 거주하셨나요?", font: .subtitle4)
     
     private let pickerView: YearMonthPickerView
@@ -56,7 +58,7 @@ final class LocationAndYearsViewController: BaseViewController {
     // MARK: - Functions
     
     override func addView() {
-        [nowStatusPogressView, whereIsNowTitle, dongButton,
+        [nowStatusPogressView, whereIsNowTitle, dongButton, dongStatusLabel,
          howLongStayTitle, pickerView, nextButton].forEach {
             view.addSubview($0)
         }
@@ -83,12 +85,16 @@ final class LocationAndYearsViewController: BaseViewController {
         ])
         
         NSLayoutConstraint.activate([
+            dongStatusLabel.topAnchor.constraint(equalTo: dongButton.bottomAnchor, constant: 8),
+            dongStatusLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+        ])
+        
+        NSLayoutConstraint.activate([
             howLongStayTitle.topAnchor.constraint(equalTo: dongButton.bottomAnchor, constant: 68),
             howLongStayTitle.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
         ])
         
         pickerView.translatesAutoresizingMaskIntoConstraints = false
-//        pickerView.backgroundColor = .yellow
         
         NSLayoutConstraint.activate([
             pickerView.topAnchor.constraint(equalTo: howLongStayTitle.bottomAnchor, constant: 0),
@@ -157,6 +163,8 @@ extension LocationAndYearsViewController: LocationAndYearsDelegate {
         dongButton.configuration?.baseForegroundColor = FindTownColor.grey7.color
         dongButton.setImage(UIImage(named: "MapPinIcon"), for: .normal)
         dongButton.setTitle(address, for: .normal)
+        
+        dongStatusLabel.isHidden = true
         
         viewModel?.input.dong.onNext(address)
     }
