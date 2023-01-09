@@ -26,9 +26,19 @@ final class NicknameViewController: BaseViewController {
     
     private let nickNameTextField = FindTownTextField()
     
+    private let duplicateButton = FTButton(style: .mediumTintedWithRadius)
+    
+    private let nickNameTextStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .horizontal
+        stackView.spacing = 8
+        return stackView
+    }()
+    
     private let nickNameStatusLabel = FindTownLabel(text: "", font: .label3)
     
-    private let duplicateButton = FTButton(style: .mediumTintedWithRadius)
+    private let emptyView = UIView()
     
     private let nextButton = FTButton(style: .largeFilled)
     
@@ -46,14 +56,21 @@ final class NicknameViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
     }
-
+    
     // MARK: - Functions
     
     override func addView() {
-        [nowStatusPogressView, inputNickNameTitle, nickNameTextField,
-         nickNameStatusLabel, duplicateButton, nextButton].forEach {
-            view.addSubview($0)
+        
+        view.addSubview(nowStatusPogressView)
+        
+        nickNameTextStackView.addArrangedSubview(nickNameTextField)
+        nickNameTextStackView.addArrangedSubview(duplicateButton)
+        
+        [inputNickNameTitle, nickNameTextStackView, nickNameStatusLabel, emptyView, nextButton].forEach {
+            stackView.addArrangedSubview($0)
         }
+        
+        super.addView()
     }
     
     override func setLayout() {
@@ -66,33 +83,24 @@ final class NicknameViewController: BaseViewController {
         ])
         
         NSLayoutConstraint.activate([
-            inputNickNameTitle.topAnchor.constraint(equalTo: nowStatusPogressView.bottomAnchor, constant: 74),
-            inputNickNameTitle.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16)
+            inputNickNameTitle.topAnchor.constraint(equalTo: super.contentView.topAnchor, constant: 46),
         ])
         
         NSLayoutConstraint.activate([
-            nickNameTextField.topAnchor.constraint(equalTo: inputNickNameTitle.bottomAnchor, constant: 16),
-            nickNameTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            nickNameTextField.trailingAnchor.constraint(equalTo: duplicateButton.leadingAnchor, constant: -8)
-        ])
-        
-        NSLayoutConstraint.activate([
-            nickNameStatusLabel.topAnchor.constraint(equalTo: nickNameTextField.bottomAnchor, constant: 8),
-            nickNameStatusLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-        ])
-        
-        NSLayoutConstraint.activate([
-            duplicateButton.topAnchor.constraint(equalTo: inputNickNameTitle.bottomAnchor, constant: 16),
-            duplicateButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
             duplicateButton.widthAnchor.constraint(equalToConstant: 74),
             duplicateButton.heightAnchor.constraint(equalToConstant: 44),
         ])
         
         NSLayoutConstraint.activate([
-            nextButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -24),
-            nextButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            nextButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+            stackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
+            stackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
+            stackView.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.size.height - (self.navigationController?.navigationBar.intrinsicContentSize.height ?? 0) - 100)
         ])
+        
+        stackView.setCustomSpacing(16, after: inputNickNameTitle)
+        stackView.setCustomSpacing(8, after: nickNameTextStackView)
+        
+        super.setLayout()
     }
     
     override func setupView() {
@@ -175,13 +183,17 @@ final class NicknameViewController: BaseViewController {
             buttonIsSelectedChange(isSelected: true)
         case .duplicate:
             nickNameStatusLabel.text = "이미 사용한 닉네임입니다."
+            nickNameStatusLabel.textColor = FindTownColor.error.color
             nickNameStatusLabel.isHidden = false
             buttonIsSelectedChange(isSelected: true)
         case .complete:
-            nickNameStatusLabel.isHidden = true
+            nickNameStatusLabel.text = "사용할 수 있는 닉네임입니다."
+            nickNameStatusLabel.textColor = FindTownColor.success.color
+            nickNameStatusLabel.isHidden = false
             buttonIsSelectedChange(isSelected: false)
         case .includeSpecialChar:
             nickNameStatusLabel.text = "특수문자는 입력할 수 없습니다."
+            nickNameStatusLabel.textColor = FindTownColor.error.color
             nickNameStatusLabel.isHidden = false
             buttonIsSelectedChange(isSelected: true)
         }
