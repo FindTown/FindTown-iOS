@@ -11,4 +11,6 @@ protocol SignupViewModelDelegate {
     func goToLocationAndYears()
     func goToTownMood()
     func goToFavorite()
+    func goToAgreePolicy()
+    func goToTabBar()
 }
