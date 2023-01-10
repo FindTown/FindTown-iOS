@@ -20,60 +20,8 @@ class AddressSheetViewController: BaseBottomSheetViewController {
                                 textColor: .black)
     
     fileprivate let backButton = ImageButton(imageText: "navi.back", tintColor: .grey7)
-    
-    fileprivate let countyCollectionView: UICollectionView = {
-        let screenWidth = UIScreen.main.bounds.width
-        let itemSizeWidth = screenWidth * 0.282
-        let itemSizeHeight = screenWidth * 0.112
-        let itemSpacing = screenWidth * 0.022
-        let lineSpacing = screenWidth * 0.022
-        let flowLayout = UICollectionViewFlowLayout()
-        flowLayout.scrollDirection = .vertical
-        flowLayout.minimumLineSpacing = lineSpacing
-        flowLayout.minimumInteritemSpacing = itemSpacing
-        flowLayout.sectionInset = UIEdgeInsets(top: 0.0,
-                                               left: 17.0,
-                                               bottom: 0.0,
-                                               right: 17.0)
-        flowLayout.estimatedItemSize = CGSize(width: itemSizeWidth, height: itemSizeHeight)
-        
-        let collectionView = UICollectionView(frame: .zero,
-                                              collectionViewLayout: flowLayout)
-        collectionView.backgroundColor = .clear
-        collectionView.showsHorizontalScrollIndicator = false
-        collectionView.allowsMultipleSelection = false
-        collectionView.register(CityCollectionViewCell.self,
-                                forCellWithReuseIdentifier: CityCollectionViewCell.reuseIdentifier)
-        return collectionView
-    }()
-    
-    fileprivate let villageCollectionView: UICollectionView = {
-        let screenWidth = UIScreen.main.bounds.width
-        let itemSizeWidth = screenWidth * 0.282
-        let itemSizeHeight = screenWidth * 0.112
-        let itemSpacing = screenWidth * 0.022
-        let lineSpacing = screenWidth * 0.022
-        let flowLayout = UICollectionViewFlowLayout()
-        flowLayout.scrollDirection = .vertical
-        flowLayout.minimumLineSpacing = lineSpacing
-        flowLayout.minimumInteritemSpacing = itemSpacing
-
-        flowLayout.sectionInset = UIEdgeInsets(top: 0.0,
-                                               left: 17.0,
-                                               bottom: 0.0,
-                                               right: 17.0)
-        flowLayout.estimatedItemSize = CGSize(width: itemSizeWidth, height: itemSizeHeight)
-        
-        let collectionView = UICollectionView(frame: .zero,
-                                              collectionViewLayout: flowLayout)
-        collectionView.backgroundColor = .clear
-        collectionView.showsHorizontalScrollIndicator = false
-        collectionView.allowsMultipleSelection = false
-        collectionView.register(CityCollectionViewCell.self,
-                                forCellWithReuseIdentifier: CityCollectionViewCell.reuseIdentifier)
-        return collectionView
-    }()
-    
+    fileprivate let countyCollectionView = CityCollectionView()
+    fileprivate let villageCollectionView = CityCollectionView()
     fileprivate let completeButton = FTButton(style: .largeFilled)
     
     init(viewModel: AddressSheetViewModel) {
@@ -99,18 +47,6 @@ class AddressSheetViewController: BaseBottomSheetViewController {
     override func bindViewModel() {
         super.bindViewModel()
         
-        viewModel?.output.countyDataSource
-            .bind(to: countyCollectionView.rx.items(cellIdentifier: CityCollectionViewCell.reuseIdentifier,
-                                              cellType: CityCollectionViewCell.self)) { index, item, cell in
-                cell.setupCell(itemText: item.rawValue)
-            }.disposed(by: disposeBag)
-        
-        viewModel?.output.villageDataSource
-            .bind(to: villageCollectionView.rx.items(cellIdentifier: CityCollectionViewCell.reuseIdentifier,
-                                              cellType: CityCollectionViewCell.self)) { index, item, cell in
-                cell.setupCell(itemText: item.village)
-            }.disposed(by: disposeBag)
-        
         completeButton.rx.tap
             .throttle(.milliseconds(300), scheduler: MainScheduler.instance)
             .bind { [weak self] _ in
@@ -126,6 +62,18 @@ class AddressSheetViewController: BaseBottomSheetViewController {
                 self?.rx.cityType.onNext(.county)
             }
             .disposed(by: disposeBag)
+        
+        viewModel?.output.countyDataSource
+            .bind(to: countyCollectionView.rx.items(cellIdentifier: CityCollectionViewCell.reuseIdentifier,
+                                              cellType: CityCollectionViewCell.self)) { index, item, cell in
+                cell.setupCell(itemText: item.rawValue)
+            }.disposed(by: disposeBag)
+        
+        viewModel?.output.villageDataSource
+            .bind(to: villageCollectionView.rx.items(cellIdentifier: CityCollectionViewCell.reuseIdentifier,
+                                              cellType: CityCollectionViewCell.self)) { index, item, cell in
+                cell.setupCell(itemText: item.village)
+            }.disposed(by: disposeBag)
         
         countyCollectionView.rx.modelSelected(County.self)
             .map { county in
@@ -170,8 +118,8 @@ class AddressSheetViewController: BaseBottomSheetViewController {
             backButton.centerYAnchor.constraint(equalTo: self.titleLabel.centerYAnchor),
             
             countyCollectionView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 32.0),
-            countyCollectionView.leadingAnchor.constraint(equalTo: bottomSheetView.leadingAnchor),
-            countyCollectionView.trailingAnchor.constraint(equalTo: bottomSheetView.trailingAnchor),
+            countyCollectionView.leadingAnchor.constraint(equalTo: bottomSheetView.leadingAnchor, constant: 17.0),
+            countyCollectionView.trailingAnchor.constraint(equalTo: bottomSheetView.trailingAnchor, constant: -17.0),
             countyCollectionView.bottomAnchor.constraint(equalTo: completeButton.topAnchor, constant: -48.0),
             
             villageCollectionView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 32.0),
