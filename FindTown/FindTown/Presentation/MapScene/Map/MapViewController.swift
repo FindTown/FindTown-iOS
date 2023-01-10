@@ -36,49 +36,9 @@ final class MapViewController: BaseViewController {
         return button
     }()
     private let mapToggle = MapSegmentControl(items: ["인프라", "테마"])
-    let detailCategoryView = MapDetailCategoryView()
-    
-    private let categoryCollectionView: UICollectionView = {
-        let flowLayout = UICollectionViewFlowLayout()
-        flowLayout.scrollDirection = .horizontal
-        flowLayout.minimumLineSpacing = 10
-        flowLayout.sectionInset = UIEdgeInsets(top: 0.0,
-                                               left: 17.0,
-                                               bottom: 0.0,
-                                               right: 17.0)
-        flowLayout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
-        
-        let collectionView = UICollectionView(frame: .zero,
-                                              collectionViewLayout: flowLayout)
-        collectionView.backgroundColor = .clear
-        collectionView.showsHorizontalScrollIndicator = false
-        collectionView.allowsMultipleSelection = false
-        collectionView.register(MapCategoryCollectionViewCell.self,
-                                forCellWithReuseIdentifier: MapCategoryCollectionViewCell.reuseIdentifier)
-        return collectionView
-    }()
-    
-    let storeCollectionView: UICollectionView = {
-        let flowLayout = UICollectionViewFlowLayout()
-        flowLayout.scrollDirection = .horizontal
-        flowLayout.minimumInteritemSpacing = 0
-        flowLayout.sectionInset = UIEdgeInsets(top: 0.0,
-                                               left: 16.0,
-                                               bottom: 0.0,
-                                               right: 16.0)
-        flowLayout.itemSize = CGSize(width: 290, height: 142)
-        
-        let collectionView = UICollectionView(frame: .zero,
-                                              collectionViewLayout: flowLayout)
-        collectionView.backgroundColor = .clear
-        collectionView.showsHorizontalScrollIndicator = false
-        collectionView.allowsMultipleSelection = false
-        collectionView.isPagingEnabled = false
-        collectionView.decelerationRate = .fast
-        collectionView.register(MapStoreCollectionViewCell.self,
-                                forCellWithReuseIdentifier: MapStoreCollectionViewCell.reuseIdentifier)
-        return collectionView
-    }()
+    fileprivate let detailCategoryView = MapDetailCategoryView()
+    private let categoryCollectionView = CategoryCollectionView()
+    fileprivate let storeCollectionView = StoreCollectionView()
     
     var currentIndex: CGFloat = 0
     

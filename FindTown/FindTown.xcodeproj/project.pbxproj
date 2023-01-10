@@ -66,6 +66,10 @@
 		F39EDDC4296D667800A4E655 /* County.swift in Sources */ = {isa = PBXBuildFile; fileRef = F39EDDC3296D667800A4E655 /* County.swift */; };
 		F39EDDC8296D748200A4E655 /* CityCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F39EDDC7296D748200A4E655 /* CityCollectionView.swift */; };
 		F39EDDCA296D788800A4E655 /* CityCollectionViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = F39EDDC9296D788800A4E655 /* CityCollectionViewFlowLayout.swift */; };
+		F39EDDCC296D7A1800A4E655 /* CategoryCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F39EDDCB296D7A1800A4E655 /* CategoryCollectionView.swift */; };
+		F39EDDCE296D7A6900A4E655 /* CategoryCollectionViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = F39EDDCD296D7A6900A4E655 /* CategoryCollectionViewFlowLayout.swift */; };
+		F39EDDD0296D7BBF00A4E655 /* StoreCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F39EDDCF296D7BBF00A4E655 /* StoreCollectionView.swift */; };
+		F39EDDD2296D7C0E00A4E655 /* StoreCollectionViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = F39EDDD1296D7C0E00A4E655 /* StoreCollectionViewFlowLayout.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -144,6 +148,10 @@
 		F39EDDC3296D667800A4E655 /* County.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = County.swift; sourceTree = "<group>"; };
 		F39EDDC7296D748200A4E655 /* CityCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityCollectionView.swift; sourceTree = "<group>"; };
 		F39EDDC9296D788800A4E655 /* CityCollectionViewFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityCollectionViewFlowLayout.swift; sourceTree = "<group>"; };
+		F39EDDCB296D7A1800A4E655 /* CategoryCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCollectionView.swift; sourceTree = "<group>"; };
+		F39EDDCD296D7A6900A4E655 /* CategoryCollectionViewFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCollectionViewFlowLayout.swift; sourceTree = "<group>"; };
+		F39EDDCF296D7BBF00A4E655 /* StoreCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreCollectionView.swift; sourceTree = "<group>"; };
+		F39EDDD1296D7C0E00A4E655 /* StoreCollectionViewFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreCollectionViewFlowLayout.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -334,6 +342,10 @@
 				F3219B682969432C000024E4 /* MapDetailComponentView.swift */,
 				2B718C172966A5930068884A /* MapCategoryCollectionViewCell.swift */,
 				F3219B6B29699B25000024E4 /* MapStoreCollectionViewCell.swift */,
+				F39EDDCB296D7A1800A4E655 /* CategoryCollectionView.swift */,
+				F39EDDCD296D7A6900A4E655 /* CategoryCollectionViewFlowLayout.swift */,
+				F39EDDCF296D7BBF00A4E655 /* StoreCollectionView.swift */,
+				F39EDDD1296D7C0E00A4E655 /* StoreCollectionViewFlowLayout.swift */,
 			);
 			path = SubViews;
 			sourceTree = "<group>";
@@ -622,6 +634,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F39EDDCC296D7A1800A4E655 /* CategoryCollectionView.swift in Sources */,
 				BC0D88592964641400CCB800 /* YearMonthPickerView.swift in Sources */,
 				F3219B7C2969D589000024E4 /* AddressSheetViewModel.swift in Sources */,
 				BC056C5E2962B2CF00EDCA18 /* NicknameViewModel.swift in Sources */,
@@ -629,6 +642,7 @@
 				BC056C602962B2D900EDCA18 /* NicknameViewController.swift in Sources */,
 				F38CCBE929582881000C16AF /* MapViewModel.swift in Sources */,
 				F39EDDBC296D5AE500A4E655 /* City.swift in Sources */,
+				F39EDDD0296D7BBF00A4E655 /* StoreCollectionView.swift in Sources */,
 				F39EDDC8296D748200A4E655 /* CityCollectionView.swift in Sources */,
 				F38CCBEA29582881000C16AF /* MapCoordinator.swift in Sources */,
 				F39EDDC2296D635100A4E655 /* CityType.swift in Sources */,
@@ -636,6 +650,7 @@
 				BC0D88552963DD1D00CCB800 /* KakaoAddressViewController.swift in Sources */,
 				BC056C5C2962B2C400EDCA18 /* LoginViewController.swift in Sources */,
 				F3219B622969408C000024E4 /* DetailCategory.swift in Sources */,
+				F39EDDD2296D7C0E00A4E655 /* StoreCollectionViewFlowLayout.swift in Sources */,
 				F38CCBDF2958287C000C16AF /* HomeViewModel.swift in Sources */,
 				BC0D88512963DCF300CCB800 /* LocationAndYearsViewModel.swift in Sources */,
 				F3891E1F293B8393003CE8AD /* AppDelegate.swift in Sources */,
@@ -654,6 +669,7 @@
 				F3219B7A2969D53D000024E4 /* AddressSheetCoordinator.swift in Sources */,
 				2B718C1A2966A6000068884A /* MapCategory.swift in Sources */,
 				F38CCBE12958287C000C16AF /* HomeCoordinator.swift in Sources */,
+				F39EDDCE296D7A6900A4E655 /* CategoryCollectionViewFlowLayout.swift in Sources */,
 				F3219B5E2969403F000024E4 /* MapData.swift in Sources */,
 				F3219B6E29699F88000024E4 /* Store.swift in Sources */,
 				F3219B702969B32F000024E4 /* Thema.swift in Sources */,
