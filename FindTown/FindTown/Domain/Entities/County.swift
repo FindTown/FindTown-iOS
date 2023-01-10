@@ -27,9 +27,9 @@ enum County: String, CaseIterable {
     var villages: [String] {
         switch self {
         case .gangnam:
-            return ["역삼 1동", "논현 1동"]
+            return ["역삼1동", "논현1동"]
         case .gangseo:
-            return ["가양 1동", "화곡 1동"]
+            return ["가양1동", "화곡1동"]
         case .gwanak:
             return ["청룡동", "신사동", "행운동", "대학동", "신림동", "서원동", "인헌동", "서림동", "낙성대동"]
         case .gwangjin:
@@ -39,9 +39,9 @@ enum County: String, CaseIterable {
         case .geumcheon:
             return ["가산동"]
         case .dongdaemun:
-            return ["이문 1동"]
+            return ["이문1동"]
         case .dongjak:
-            return ["상도 1동"]
+            return ["상도1동"]
         case .mapo:
             return ["서교동"]
         case .seodaemun:
@@ -51,7 +51,7 @@ enum County: String, CaseIterable {
         case .songpa:
             return ["잠실본동"]
         case .yeongdeungpo:
-            return ["영등포동", "당산 2동", "신길 1동"]
+            return ["영등포동", "당산2동", "신길1동"]
         case .jongno:
             return ["혜화동"]
         }
