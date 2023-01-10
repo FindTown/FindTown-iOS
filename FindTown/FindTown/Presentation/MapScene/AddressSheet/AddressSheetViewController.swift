@@ -123,8 +123,8 @@ class AddressSheetViewController: BaseBottomSheetViewController {
             countyCollectionView.bottomAnchor.constraint(equalTo: completeButton.topAnchor, constant: -48.0),
             
             villageCollectionView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 32.0),
-            villageCollectionView.leadingAnchor.constraint(equalTo: bottomSheetView.leadingAnchor),
-            villageCollectionView.trailingAnchor.constraint(equalTo: bottomSheetView.trailingAnchor),
+            villageCollectionView.leadingAnchor.constraint(equalTo: bottomSheetView.leadingAnchor, constant: 17.0),
+            villageCollectionView.trailingAnchor.constraint(equalTo: bottomSheetView.trailingAnchor, constant: -17.0),
             villageCollectionView.bottomAnchor.constraint(equalTo: completeButton.topAnchor, constant: -48.0),
             
             completeButton.widthAnchor.constraint(equalToConstant: 343),

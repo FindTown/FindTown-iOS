@@ -7,7 +7,6 @@
 
 import UIKit
 
-/// 임시로 설계해놓은 Map Test Data
 enum MapCategory {
     case infra
     case theme

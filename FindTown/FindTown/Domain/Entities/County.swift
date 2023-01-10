@@ -8,7 +8,6 @@
 import Foundation
 
 enum County: String, CaseIterable {
-    
     case gangnam = "강남구"
     case gangseo = "강서구"
     case gwanak = "관악구"
