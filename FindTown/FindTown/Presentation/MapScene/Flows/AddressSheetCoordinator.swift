@@ -25,6 +25,8 @@ final class AddressSheetCoordinator: FlowCoordinator {
 }
 
 extension AddressSheetCoordinator: AddressSheetViewModelDelegate {
-    
-
+    func dismiss(_ city: City) {
+        guard let navigationController = navigationController else { return }
+        navigationController.dismiss(animated: true) 
+    }
 }
