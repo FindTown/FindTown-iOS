@@ -24,8 +24,10 @@ class AddressSheetViewController: BaseBottomSheetViewController {
     fileprivate let villageCollectionView = CityCollectionView()
     fileprivate let completeButton = FTButton(style: .largeFilled)
     
+    let screenWidth = UIScreen.main.bounds.width
+    
     init(viewModel: AddressSheetViewModel) {
-        super.init(bottomHeight: 488)
+        super.init(bottomHeight: screenWidth * 1.3)
         self.viewModel = viewModel
      }
     
@@ -117,7 +119,7 @@ class AddressSheetViewController: BaseBottomSheetViewController {
             backButton.leadingAnchor.constraint(equalTo: self.bottomSheetView.leadingAnchor, constant: 17),
             backButton.centerYAnchor.constraint(equalTo: self.titleLabel.centerYAnchor),
             
-            countyCollectionView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 32.0),
+            countyCollectionView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 25.0),
             countyCollectionView.leadingAnchor.constraint(equalTo: bottomSheetView.leadingAnchor, constant: 17.0),
             countyCollectionView.trailingAnchor.constraint(equalTo: bottomSheetView.trailingAnchor, constant: -17.0),
             countyCollectionView.bottomAnchor.constraint(equalTo: completeButton.topAnchor, constant: -48.0),
@@ -125,10 +127,11 @@ class AddressSheetViewController: BaseBottomSheetViewController {
             villageCollectionView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 32.0),
             villageCollectionView.leadingAnchor.constraint(equalTo: bottomSheetView.leadingAnchor, constant: 17.0),
             villageCollectionView.trailingAnchor.constraint(equalTo: bottomSheetView.trailingAnchor, constant: -17.0),
-            villageCollectionView.bottomAnchor.constraint(equalTo: completeButton.topAnchor, constant: -48.0),
+            villageCollectionView.bottomAnchor.constraint(equalTo: completeButton.topAnchor, constant: screenWidth * -0.128),
             
-            completeButton.widthAnchor.constraint(equalToConstant: 343),
             completeButton.heightAnchor.constraint(equalToConstant: 48),
+            completeButton.leadingAnchor.constraint(equalTo: bottomSheetView.leadingAnchor, constant: 17.0),
+            completeButton.trailingAnchor.constraint(equalTo: bottomSheetView.trailingAnchor, constant: -17.0),
             completeButton.centerXAnchor.constraint(equalTo: bottomSheetView.centerXAnchor),
             completeButton.bottomAnchor.constraint(equalTo: bottomSheetView.bottomAnchor, constant: -34.0)
         ])
