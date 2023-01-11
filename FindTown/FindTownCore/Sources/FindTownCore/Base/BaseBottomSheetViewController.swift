@@ -1,6 +1,6 @@
 //
 //  File.swift
-//  
+//
 //
 //  Created by 김성훈 on 2022/12/28.
 //
@@ -16,8 +16,9 @@ open class BaseBottomSheetViewController: BaseViewController {
     
     var bottomHeight: CGFloat
     private var bottomSheetViewTopConstraint: NSLayoutConstraint!
+    private var bottomSheetViewBottomConstraint: NSLayoutConstraint!
     
-    private lazy var dimmedBackView: UIView = {
+    public lazy var dimmedBackView: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.5)
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -35,22 +36,14 @@ open class BaseBottomSheetViewController: BaseViewController {
         return view
     }()
     
-    private lazy var dismissIndicatorView: UIView = {
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .systemGray2
-        view.layer.cornerRadius = 3
-        return view
-    }()
-    
     public init(bottomHeight: CGFloat) {
-         self.bottomHeight = bottomHeight
-         super.init(nibName: nil, bundle: nil)
-     }
-     
+        self.bottomHeight = bottomHeight
+        super.init(nibName: nil, bundle: nil)
+    }
+    
     required public init?(coder: NSCoder) {
-         fatalError("init(coder:) has not been implemented")
-     }
+        fatalError("init(coder:) has not been implemented")
+    }
     
     open override func viewDidLoad() {
         super.viewDidLoad()
@@ -63,7 +56,7 @@ open class BaseBottomSheetViewController: BaseViewController {
     }
     
     open override func addView() {
-        [dimmedBackView, bottomSheetView, dismissIndicatorView].forEach {
+        [dimmedBackView, bottomSheetView].forEach {
             view.addSubview($0)
         }
     }
@@ -83,21 +76,19 @@ open class BaseBottomSheetViewController: BaseViewController {
         let bottom = window?.safeAreaInsets.bottom ?? 0
         
         let topConstant = view.safeAreaInsets.bottom + view.safeAreaLayoutGuide.layoutFrame.height
+        
         bottomSheetViewTopConstraint = bottomSheetView.topAnchor.constraint(
             equalTo: view.safeAreaLayoutGuide.topAnchor, constant: topConstant - top - bottom
         )
+        bottomSheetViewBottomConstraint = bottomSheetView.bottomAnchor.constraint(
+            equalTo: view.safeAreaLayoutGuide.topAnchor, constant: topConstant - top - bottom + bottomHeight
+        )
+        
         NSLayoutConstraint.activate([
             bottomSheetView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             bottomSheetView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            bottomSheetView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            bottomSheetViewBottomConstraint,
             bottomSheetViewTopConstraint
-        ])
-        
-        NSLayoutConstraint.activate([
-            dismissIndicatorView.widthAnchor.constraint(equalToConstant: 100),
-            dismissIndicatorView.heightAnchor.constraint(equalToConstant: 7),
-            dismissIndicatorView.topAnchor.constraint(equalTo: bottomSheetView.topAnchor, constant: 10),
-            dismissIndicatorView.centerXAnchor.constraint(equalTo: bottomSheetView.centerXAnchor)
         ])
     }
     
@@ -118,12 +109,15 @@ open class BaseBottomSheetViewController: BaseViewController {
         switch status {
         case .show:
             bottomSheetViewTopConstraint.constant = (safeAreaHeight + bottomPadding) - bottomHeight
+            bottomSheetViewBottomConstraint.constant = (safeAreaHeight + bottomPadding)
             UIView.animate(withDuration: 0.25, delay: 0, options: .curveEaseIn, animations: {
                 self.dimmedBackView.alpha = 0.5
                 self.view.layoutIfNeeded()
+                
             }, completion: nil)
         case .hide:
             bottomSheetViewTopConstraint.constant = safeAreaHeight + bottomPadding
+            bottomSheetViewBottomConstraint.constant = safeAreaHeight + bottomPadding + bottomHeight
             UIView.animate(withDuration: 0.25, delay: 0, options: .curveEaseIn, animations: {
                 self.dimmedBackView.alpha = 0.0
                 self.view.layoutIfNeeded()

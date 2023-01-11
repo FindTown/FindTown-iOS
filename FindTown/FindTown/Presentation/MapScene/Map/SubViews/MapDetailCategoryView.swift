@@ -5,12 +5,12 @@
 //  Created by 장선영 on 2023/01/02.
 //
 
-import Foundation
 import UIKit
+import FindTownUI
 
-public class MapDetailCategoryView: UIView {
+final class MapDetailCategoryView: UIView {
     
-    public var detailCategoryStackView: UIStackView = {
+    private var detailCategoryStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.backgroundColor = .clear
         stackView.axis = .vertical
@@ -27,6 +27,19 @@ public class MapDetailCategoryView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    func setStackView(data: [DetailCategory]) {
+        detailCategoryStackView.subviews.forEach {
+            $0.removeFromSuperview()
+        }
+        
+        for i in 0..<data.count{
+            let view = MapDetailComponentView()
+            view.textLabel.text = data[i].detailTitle
+            view.colorView.backgroundColor = data[i].color
+            detailCategoryStackView.addArrangedSubview(view)
+         }
+     }
 }
 
 private extension MapDetailCategoryView {

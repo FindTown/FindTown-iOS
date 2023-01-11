@@ -13,7 +13,6 @@ final class TabBarCoordinator: FlowCoordinator {
     var presentationStyle: PresentationStyle
     weak var navigationController: UINavigationController?
     
-    
     init(presentationStyle: PresentationStyle) {
         self.presentationStyle = presentationStyle
     }

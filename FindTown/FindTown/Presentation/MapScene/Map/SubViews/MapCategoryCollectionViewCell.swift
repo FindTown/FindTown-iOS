@@ -8,21 +8,34 @@
 import UIKit
 import FindTownUI
 
-class MapCollectionViewCell: UICollectionViewCell {
-    static let reuseIdentifier = "MapCollectionViewCell"
+import RxSwift
+
+final class MapCategoryCollectionViewCell: UICollectionViewCell {
     
-    let imageView: UIImageView = {
+    static var reuseIdentifier: String {
+        return String(describing: self)
+    }
+    
+    private var disposeBag = DisposeBag()
+    
+    private let imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.tintColor = FindTownColor.grey5.color
         return imageView
     }()
     
-    let titleLabel: UILabel = {
+    private let titleLabel: UILabel = {
         let label = UILabel()
         label.font = FindTownFont.body4.font
         label.textColor = FindTownColor.grey6.color
         return label
     }()
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        disposeBag = DisposeBag()
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -50,7 +63,7 @@ class MapCollectionViewCell: UICollectionViewCell {
     }
 }
 
-private extension MapCollectionViewCell {
+private extension MapCategoryCollectionViewCell {
     
     func setupView() {
         contentView.backgroundColor = FindTownColor.white.color
@@ -62,24 +75,25 @@ private extension MapCollectionViewCell {
     }
     
     func setupLayout() {
-        self.heightAnchor.constraint(equalToConstant: 32.0).isActive = true
         
         [imageView, titleLabel].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
-            self.contentView.addSubview($0)
+            contentView.addSubview($0)
         }
         
         NSLayoutConstraint.activate([
+            contentView.heightAnchor.constraint(equalToConstant: 32),
+            
             imageView.widthAnchor.constraint(equalToConstant: 16.0),
             imageView.heightAnchor.constraint(equalToConstant: 16.0),
-            imageView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 10),
-            imageView.centerYAnchor.constraint(equalTo: self.centerYAnchor)
+            imageView.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 10),
+            imageView.centerYAnchor.constraint(equalTo: self.contentView.centerYAnchor)
         ])
 
         NSLayoutConstraint.activate([
-            titleLabel.leadingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: 4),
-            titleLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -10),
-            titleLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor)
+            titleLabel.leadingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: 6),
+            titleLabel.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -10),
+            titleLabel.centerYAnchor.constraint(equalTo: self.contentView.centerYAnchor)
         ])
     }
     
@@ -93,7 +107,7 @@ private extension MapCollectionViewCell {
         imageView.image = returnColoredImage(image: image , color: FindTownColor.primary.color)
     }
     
-    func nonSelectedView() {
+    private func nonSelectedView() {
         contentView.layer.borderColor = FindTownColor.grey2.color.cgColor
         titleLabel.textColor = FindTownColor.grey6.color
         guard let image = imageView.image else {
@@ -104,7 +118,7 @@ private extension MapCollectionViewCell {
     }
     
     /// 이미지에 색상 입히는 메서드
-    func returnColoredImage(image: UIImage, color: UIColor) -> UIImage! {
+    private func returnColoredImage(image: UIImage, color: UIColor) -> UIImage! {
 
         let rect = CGRect(origin: .zero, size: image.size)
 
