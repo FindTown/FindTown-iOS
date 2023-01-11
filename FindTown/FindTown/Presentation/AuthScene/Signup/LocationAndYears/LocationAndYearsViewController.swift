@@ -123,10 +123,11 @@ final class LocationAndYearsViewController: BaseViewController {
         dongButton.configuration?.contentInsets.leading = 16
         dongButton.changesSelectionAsPrimaryAction = false
         
+        dongStatusLabel.isHidden = true
+        
         nextButton.setTitle("다음", for: .normal)
         nextButton.changesSelectionAsPrimaryAction = false
         nextButton.isSelected = false
-        nextButton.isEnabled = false
     }
     
     override func bindViewModel() {
@@ -172,7 +173,7 @@ extension Reactive where Base: LocationAndYearsViewController {
     
     var nextButtonIsSelected: Binder<Bool> {
         return Binder(self.base) { view, isEnabled in
-            view.nextButton.isEnabledAndSelected(isEnabled)
+            view.nextButton.isSelected = isEnabled
             view.dongStatusLabel.isHidden = isEnabled
         }
     }

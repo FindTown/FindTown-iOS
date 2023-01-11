@@ -62,13 +62,9 @@ final class LocationAndYearsViewModel: BaseViewModel {
         
         Observable.combineLatest(input.dong, input.year, input.month)
             .bind { [weak self] (dong, year, month) in
-                if dong == "" {
-                    self?.output.nextButtonEnabled.accept(false)
-                } else {
-                    self?.output.nextButtonEnabled.accept(true)
-                    let model = DongYearMonthModel(dong: dong, year: year, month: month)
-                    self?.input.dongYearMonth.onNext(model)
-                }
+                self?.output.nextButtonEnabled.accept(true)
+                let model = DongYearMonthModel(dong: dong, year: year, month: month)
+                self?.input.dongYearMonth.onNext(model)
             }
             .disposed(by: disposeBag)
     }
@@ -77,8 +73,12 @@ final class LocationAndYearsViewModel: BaseViewModel {
         // 1. dongYearMonth 임시로 set
         print("dongYearMonth \(dongYearMonth)")
         
-        // 2. after goToTwonMood
-        self.goToTownMood()
+        if dongYearMonth.dong == "" {
+            self.output.nextButtonEnabled.accept(false)
+        } else {
+            // 2. after goToTwonMood
+            self.goToTownMood()
+        }
     }
 }
 
