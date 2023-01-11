@@ -17,6 +17,7 @@ final class NicknameViewController: BaseViewController {
     // MARK: - Properties
     
     private let viewModel: NicknameViewModel?
+    private var keyHeight: CGFloat?
     
     // MARK: - Views
     
@@ -37,9 +38,7 @@ final class NicknameViewController: BaseViewController {
     }()
     
     private let nickNameStatusLabel = FindTownLabel(text: "", font: .label3)
-    
-    private let emptyView = UIView()
-    
+
     private let nextButton = FTButton(style: .largeFilled)
     
     // MARK: - Life Cycle
@@ -61,16 +60,13 @@ final class NicknameViewController: BaseViewController {
     
     override func addView() {
         
-        view.addSubview(nowStatusPogressView)
-        
         nickNameTextStackView.addArrangedSubview(nickNameTextField)
         nickNameTextStackView.addArrangedSubview(duplicateButton)
         
-        [inputNickNameTitle, nickNameTextStackView, nickNameStatusLabel, emptyView, nextButton].forEach {
-            stackView.addArrangedSubview($0)
+        [nowStatusPogressView, inputNickNameTitle, nickNameTextStackView,
+         nickNameStatusLabel, nextButton].forEach {
+            view.addSubview($0)
         }
-        
-        super.addView()
     }
     
     override func setLayout() {
@@ -83,7 +79,14 @@ final class NicknameViewController: BaseViewController {
         ])
         
         NSLayoutConstraint.activate([
-            inputNickNameTitle.topAnchor.constraint(equalTo: super.contentView.topAnchor, constant: 46),
+            inputNickNameTitle.topAnchor.constraint(equalTo: nowStatusPogressView.bottomAnchor, constant: 48),
+            inputNickNameTitle.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+        ])
+        
+        NSLayoutConstraint.activate([
+            nickNameTextStackView.topAnchor.constraint(equalTo: inputNickNameTitle.bottomAnchor, constant: 16),
+            nickNameTextStackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
+            nickNameTextStackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
         ])
         
         NSLayoutConstraint.activate([
@@ -92,15 +95,15 @@ final class NicknameViewController: BaseViewController {
         ])
         
         NSLayoutConstraint.activate([
-            stackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
-            stackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
-            stackView.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.size.height - (self.navigationController?.navigationBar.intrinsicContentSize.height ?? 0) - 100)
+            nickNameStatusLabel.topAnchor.constraint(equalTo: nickNameTextStackView.bottomAnchor, constant: 8),
+            nickNameStatusLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 16)
         ])
         
-        stackView.setCustomSpacing(16, after: inputNickNameTitle)
-        stackView.setCustomSpacing(8, after: nickNameTextStackView)
-        
-        super.setLayout()
+        NSLayoutConstraint.activate([
+            nextButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -16),
+            nextButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
+            nextButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
+        ])
     }
     
     override func setupView() {
@@ -122,6 +125,12 @@ final class NicknameViewController: BaseViewController {
         nextButton.setTitle("다음", for: .normal)
         nextButton.changesSelectionAsPrimaryAction = false
         nextButton.isEnabledAndSelected(false)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShowSender(_:)),
+                                               name: UIResponder.keyboardWillShowNotification, object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHideSender(_:)),
+                                               name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
     override func bindViewModel() {
@@ -185,6 +194,21 @@ final class NicknameViewController: BaseViewController {
     private func buttonStatusChange(_ isStatus: Bool) {
         duplicateButton.isEnabledAndSelected(isStatus)
         nextButton.isEnabledAndSelected(!isStatus)
+    }
+    
+    @objc private func keyboardWillShowSender(_ sender: Notification) {
+        let userInfo:NSDictionary = sender.userInfo! as NSDictionary
+        let keyboardFrame:NSValue = userInfo.value(forKey: UIResponder.keyboardFrameEndUserInfoKey) as! NSValue
+        let keyboardRectangle = keyboardFrame.cgRectValue
+        let keyboardHeight = keyboardRectangle.height
+        keyHeight = keyboardHeight
+        
+        self.view.frame.size.height -= keyboardHeight
+    }
+    
+    @objc private func keyboardWillHideSender(_ sender: Notification) {
+        guard let keyHeight else { return }
+        self.view.frame.size.height += keyHeight
     }
 }
 

@@ -23,14 +23,14 @@ open class BaseViewController: UIViewController {
     
     open override func viewDidLoad() {
         super.viewDidLoad()
-        hideKeyboard()
+        //        hideKeyboard()
         
         addView()
         setupView()
         setLayout()
         
         bindViewModel()
-        setUpNotification()
+        //        setUpNotification()
     }
     
     open func addView() {
@@ -66,6 +66,11 @@ open class BaseViewController: UIViewController {
     }
     
     open func bindViewModel() {}
+    
+    // 빈 공간만 탭 키보드 내리기
+    open override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?){
+        self.view.endEditing(true)
+    }
     
     private func setUpNotification() {
         NotificationCenter.default.addObserver(

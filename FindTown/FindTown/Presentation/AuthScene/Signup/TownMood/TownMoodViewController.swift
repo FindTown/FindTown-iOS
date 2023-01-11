@@ -17,6 +17,7 @@ final class TownMoodViewController: BaseViewController {
     // MARK: - Properteis
     
     private let viewModel: TownMoodViewModel?
+    private var keyHeight: CGFloat?
     private let textViewPlaceHolder = "동네의 장, 단점 or 동네 생활 꿀팁을 알려주세요. \n(최소 20자 이상 작성)"
     private let afterTwentyTitleText = "최소 20자 이상 작성해주세요"
     
@@ -44,8 +45,6 @@ final class TownMoodViewController: BaseViewController {
         return stackView
     }()
     
-    private let emptyView = UIView()
-    
     private let nextButton = FTButton(style: .largeFilled)
     
     // MARK: - Life Cycle
@@ -66,23 +65,18 @@ final class TownMoodViewController: BaseViewController {
     // MARK: - Functions
     
     override func addView() {
-        view.addSubview(nowStatusPogressView)
-        
         textViewGuirdTitleStackView.addArrangedSubview(afterTwentyTitle)
         textViewGuirdTitleStackView.addArrangedSubview(textViewCountTitle)
         
-        [townLikeTitle, townLikeTextView, textViewGuirdTitleStackView, emptyView, nextButton].forEach {
-            stackView.addArrangedSubview($0)
+        [nowStatusPogressView, townLikeTitle, townLikeTextView,
+         textViewGuirdTitleStackView, nextButton].forEach {
+            view.addSubview($0)
         }
         
-        super.addView()
+        //        super.addView()
     }
     
     override func setLayout() {
-        NSLayoutConstraint.activate([
-            townLikeTitle.topAnchor.constraint(equalTo: super.contentView.topAnchor, constant: 46),
-        ])
-        
         nowStatusPogressView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             nowStatusPogressView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
@@ -92,19 +86,29 @@ final class TownMoodViewController: BaseViewController {
         ])
         
         NSLayoutConstraint.activate([
-            stackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
-            stackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
-            stackView.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.size.height - (self.navigationController?.navigationBar.intrinsicContentSize.height ?? 0) - 100)
+            townLikeTitle.topAnchor.constraint(equalTo: nowStatusPogressView.bottomAnchor, constant: 48),
+            townLikeTitle.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
         ])
         
         NSLayoutConstraint.activate([
+            townLikeTextView.topAnchor.constraint(equalTo: townLikeTitle.bottomAnchor,constant: 16),
+            townLikeTextView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
+            townLikeTextView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
             townLikeTextView.heightAnchor.constraint(equalToConstant: 200)
         ])
         
-        stackView.setCustomSpacing(16, after: townLikeTitle)
-        stackView.setCustomSpacing(8, after: townLikeTextView)
+        NSLayoutConstraint.activate([
+            textViewGuirdTitleStackView.topAnchor.constraint(equalTo: townLikeTextView.bottomAnchor, constant: 8),
+            textViewGuirdTitleStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            textViewGuirdTitleStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+        ])
         
-        super.setLayout()
+        NSLayoutConstraint.activate([
+            nextButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -16),
+            nextButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
+            nextButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
+        ])
+        //        super.setLayout()
     }
     
     override func setupView() {
@@ -130,6 +134,12 @@ final class TownMoodViewController: BaseViewController {
         nextButton.changesSelectionAsPrimaryAction = false
         nextButton.isSelected = false
         nextButton.isEnabled = false
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShowSender(_:)),
+                                               name: UIResponder.keyboardWillShowNotification, object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHideSender(_:)),
+                                               name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
     override func bindViewModel() {
@@ -165,6 +175,21 @@ final class TownMoodViewController: BaseViewController {
             nextButton.isEnabled = isSelected
         }
         afterTwentyTitle.text = isSelected ? "" : afterTwentyTitleText
+    }
+    
+    @objc private func keyboardWillShowSender(_ sender: Notification) {
+        let userInfo:NSDictionary = sender.userInfo! as NSDictionary
+        let keyboardFrame:NSValue = userInfo.value(forKey: UIResponder.keyboardFrameEndUserInfoKey) as! NSValue
+        let keyboardRectangle = keyboardFrame.cgRectValue
+        let keyboardHeight = keyboardRectangle.height
+        keyHeight = keyboardHeight
+        
+        self.view.frame.size.height -= keyboardHeight
+    }
+    
+    @objc private func keyboardWillHideSender(_ sender: Notification) {
+        guard let keyHeight else { return }
+        self.view.frame.size.height += keyHeight
     }
 }
 
