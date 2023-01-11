@@ -10,8 +10,11 @@ import FindTownUI
 
 import RxSwift
 
-class MapStoreCollectionViewCell: UICollectionViewCell {
-    static let reuseIdentifier = "MapStoreCollectionViewCell"
+final class MapStoreCollectionViewCell: UICollectionViewCell {
+    
+    static var reuseIdentifier: String {
+        return String(describing: self)
+    }
     
     var disposeBag = DisposeBag()
     

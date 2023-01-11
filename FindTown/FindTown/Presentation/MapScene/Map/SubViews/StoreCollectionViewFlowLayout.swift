@@ -7,7 +7,7 @@
 
 import UIKit
 
-class StoreCollectionViewFlowLayout: UICollectionViewFlowLayout {
+final class StoreCollectionViewFlowLayout: UICollectionViewFlowLayout {
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
@@ -19,7 +19,7 @@ class StoreCollectionViewFlowLayout: UICollectionViewFlowLayout {
         setupView()
     }
     
-    func setupView() {
+    private func setupView() {
         scrollDirection = .horizontal
         minimumInteritemSpacing = 0
         sectionInset = UIEdgeInsets(top: 0.0,

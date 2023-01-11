@@ -7,7 +7,7 @@
 
 import UIKit
 
-class CityCollectionViewFlowLayout: UICollectionViewFlowLayout {
+final class CityCollectionViewFlowLayout: UICollectionViewFlowLayout {
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
@@ -19,7 +19,7 @@ class CityCollectionViewFlowLayout: UICollectionViewFlowLayout {
         setupView()
     }
     
-    func setupView() {
+    private func setupView() {
         let screenWidth = UIScreen.main.bounds.width
         let itemSizeWidth = screenWidth * 0.282
         let itemSizeHeight = screenWidth * 0.112

@@ -10,7 +10,7 @@ import FindTownCore
 import FindTownUI
 import RxSwift
 
-class AddressSheetViewController: BaseBottomSheetViewController {
+final class AddressSheetViewController: BaseBottomSheetViewController {
     
     var viewModel: AddressSheetViewModel?
     
@@ -24,7 +24,7 @@ class AddressSheetViewController: BaseBottomSheetViewController {
     fileprivate let villageCollectionView = CityCollectionView()
     fileprivate let completeButton = FTButton(style: .largeFilled)
     
-    let screenWidth = UIScreen.main.bounds.width
+    private let screenWidth = UIScreen.main.bounds.width
     
     init(viewModel: AddressSheetViewModel) {
         super.init(bottomHeight: screenWidth * 1.3)

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class StoreCollectionView: UICollectionView {
+final class StoreCollectionView: UICollectionView {
     
     convenience init() {
         self.init(frame: .zero, collectionViewLayout: StoreCollectionViewFlowLayout())
@@ -23,7 +23,7 @@ class StoreCollectionView: UICollectionView {
         setupView()
     }
     
-    func setupView() {
+    private func setupView() {
         backgroundColor = .clear
         showsHorizontalScrollIndicator = false
         allowsMultipleSelection = false

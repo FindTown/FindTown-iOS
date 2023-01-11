@@ -10,7 +10,7 @@ import FindTownUI
 
 import RxSwift
 
-class CityCollectionViewCell: UICollectionViewCell {
+final class CityCollectionViewCell: UICollectionViewCell {
     
     static var reuseIdentifier: String {
         return String(describing: self)

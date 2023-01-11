@@ -7,7 +7,7 @@
 
 import UIKit
 
-class CategoryCollectionViewFlowLayout: UICollectionViewFlowLayout {
+final class CategoryCollectionViewFlowLayout: UICollectionViewFlowLayout {
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
@@ -19,7 +19,7 @@ class CategoryCollectionViewFlowLayout: UICollectionViewFlowLayout {
         setupView()
     }
     
-    func setupView() {
+    private func setupView() {
         scrollDirection = .horizontal
         minimumLineSpacing = 10
         sectionInset = UIEdgeInsets(top: 0.0,

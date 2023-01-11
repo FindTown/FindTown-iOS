@@ -7,7 +7,7 @@
 
 import UIKit
 
-class CityCollectionView: UICollectionView {
+final class CityCollectionView: UICollectionView {
     
     convenience init() {
         self.init(frame: .zero, collectionViewLayout: CityCollectionViewFlowLayout())
@@ -23,7 +23,7 @@ class CityCollectionView: UICollectionView {
         setupView()
     }
     
-    func setupView() {
+    private func setupView() {
         self.backgroundColor = .clear
         self.showsHorizontalScrollIndicator = false
         self.allowsMultipleSelection = false

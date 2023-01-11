@@ -8,9 +8,9 @@
 import UIKit
 import FindTownUI
 
-public class MapDetailCategoryView: UIView {
+final class MapDetailCategoryView: UIView {
     
-    public var detailCategoryStackView: UIStackView = {
+    private var detailCategoryStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.backgroundColor = .clear
         stackView.axis = .vertical

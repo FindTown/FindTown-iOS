@@ -10,18 +10,21 @@ import FindTownUI
 
 import RxSwift
 
-class MapCategoryCollectionViewCell: UICollectionViewCell {
-    static let reuseIdentifier = "MapCategoryCollectionViewCell"
+final class MapCategoryCollectionViewCell: UICollectionViewCell {
     
-    var disposeBag = DisposeBag()
+    static var reuseIdentifier: String {
+        return String(describing: self)
+    }
     
-    let imageView: UIImageView = {
+    private var disposeBag = DisposeBag()
+    
+    private let imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.tintColor = FindTownColor.grey5.color
         return imageView
     }()
     
-    let titleLabel: UILabel = {
+    private let titleLabel: UILabel = {
         let label = UILabel()
         label.font = FindTownFont.body4.font
         label.textColor = FindTownColor.grey6.color
@@ -104,7 +107,7 @@ private extension MapCategoryCollectionViewCell {
         imageView.image = returnColoredImage(image: image , color: FindTownColor.primary.color)
     }
     
-    func nonSelectedView() {
+    private func nonSelectedView() {
         contentView.layer.borderColor = FindTownColor.grey2.color.cgColor
         titleLabel.textColor = FindTownColor.grey6.color
         guard let image = imageView.image else {
@@ -115,7 +118,7 @@ private extension MapCategoryCollectionViewCell {
     }
     
     /// 이미지에 색상 입히는 메서드
-    func returnColoredImage(image: UIImage, color: UIColor) -> UIImage! {
+    private func returnColoredImage(image: UIImage, color: UIColor) -> UIImage! {
 
         let rect = CGRect(origin: .zero, size: image.size)
 
