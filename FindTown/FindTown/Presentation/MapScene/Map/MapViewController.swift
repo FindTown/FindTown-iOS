@@ -26,29 +26,21 @@ final class MapViewController: BaseViewController {
                                          style: .plain,
                                          target: nil,
                                          action: nil)
-    private let addressButton = UIButton()
-    private let mapToggle = MapSegmentControl(items: ["인프라", "테마"])
-    private let detailCategoryView = MapDetailCategoryView()
-    
-    lazy var collectionView: UICollectionView = {
-        let flowLayout = UICollectionViewFlowLayout()
-        flowLayout.scrollDirection = .horizontal
-        flowLayout.minimumLineSpacing = 8
-        flowLayout.sectionInset = UIEdgeInsets(top: 0.0,
-                                               left: 17.0,
-                                               bottom: 0.0,
-                                               right: 82.0)
-        flowLayout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
-        
-        let collectionView = UICollectionView(frame: .zero,
-                                              collectionViewLayout: flowLayout)
-        collectionView.backgroundColor = .clear
-        collectionView.showsHorizontalScrollIndicator = false
-        collectionView.allowsMultipleSelection = false
-        collectionView.register(MapCollectionViewCell.self,
-                                forCellWithReuseIdentifier: MapCollectionViewCell.reuseIdentifier)
-        return collectionView
+    private let addressButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("서울시 관악구 신림동", for: .normal)
+        button.setTitleColor(FindTownColor.grey7.color, for: .normal)
+        button.titleLabel?.font = FindTownFont.label1.font
+        button.setImage(UIImage(named: "dropDown"), for: .normal)
+        button.semanticContentAttribute = .forceRightToLeft
+        return button
     }()
+    private let mapToggle = MapSegmentControl(items: ["인프라", "테마"])
+    fileprivate let detailCategoryView = MapDetailCategoryView()
+    private let categoryCollectionView = CategoryCollectionView()
+    fileprivate let storeCollectionView = StoreCollectionView()
+    
+    var currentIndex: CGFloat = 0
     
     // MARK: - Life Cycle
     
@@ -64,7 +56,6 @@ final class MapViewController: BaseViewController {
     // MARK: - Functions
     
     override func bindViewModel() {
-        
         // MARK: Input
         
         favoriteButton.rx.tap
@@ -75,29 +66,41 @@ final class MapViewController: BaseViewController {
             .disposed(by: disposeBag)
         
         addressButton.rx.tap
-            .bind { [weak self] in
-                self?.viewModel?.presentAddressPopup()
-            }
+            .subscribe(onNext: {
+                self.viewModel?.presentAddressSheet()
+            })
             .disposed(by: disposeBag)
  
+        mapToggle.rx.selectedSegmentIndex
+            .bind(to: self.rx.mapCategoryIndex)
+            .disposed(by: disposeBag)
+        
         // MARK: Output
         
         /// iconCollectionView 데이터 바인딩
-        viewModel?.dataSource.observe(on: MainScheduler.instance)
-            .bind(to: collectionView.rx.items(cellIdentifier: MapCollectionViewCell.reuseIdentifier,
-                                              cellType: MapCollectionViewCell.self)) { index, item, cell in
-                
+        viewModel?.output.categoryDataSource.observe(on: MainScheduler.instance)
+            .bind(to: categoryCollectionView.rx.items(cellIdentifier: MapCategoryCollectionViewCell.reuseIdentifier,
+                                              cellType: MapCategoryCollectionViewCell.self)) { index, item, cell in
                 cell.setupCell(image: item.image, title: item.title)
+                if index == 0 {
+                    self.selectFirstItem(item)
+                }
+            }.disposed(by: disposeBag)
+        
+        /// iconCollectionView 데이터 바인딩
+        viewModel?.output.storeDataSource.observe(on: MainScheduler.instance)
+            .bind(to: storeCollectionView.rx.items(cellIdentifier: MapStoreCollectionViewCell.reuseIdentifier,
+                                              cellType: MapStoreCollectionViewCell.self)) { index, item, cell in
+                cell.setupCell(store: item)
             }.disposed(by: disposeBag)
         
         /// 선택한 iconCell에 맞는 detailCategoryView 데이터 보여주게 함
-        collectionView.rx.modelSelected(Category.self)
+        categoryCollectionView.rx.modelSelected(Category.self)
             .map { category in
                 return category.detailCategories
             }
             .subscribe(onNext: { detailCategories in
-                self.detailCategoryView.isHidden = false
-                self.setStackView(data: detailCategories)
+                self.detailCategoryView.setStackView(data: detailCategories)
             })
             .disposed(by: disposeBag)
         
@@ -114,7 +117,7 @@ final class MapViewController: BaseViewController {
             naviBarSubView.addSubview($0)
         }
         
-        [collectionView, detailCategoryView].forEach {
+        [categoryCollectionView, detailCategoryView, storeCollectionView].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
             mapView.addSubview($0)
         }
@@ -126,40 +129,25 @@ final class MapViewController: BaseViewController {
         
         naviBarSubView.backgroundColor = FindTownColor.white.color
         self.navigationItem.rightBarButtonItem = favoriteButton
-        self.detailCategoryView.isHidden = true
-        setUpAddressButton()
+        self.storeCollectionView.delegate = self
     }
 
     override func setLayout() {
         setNaviBarLayout()
         setMapViewLayout()
     }
+    
+    private func selectFirstItem(_ item: Category) {
+        DispatchQueue.main.async {
+            self.categoryCollectionView.selectItem(at: IndexPath(item: 0, section: 0), animated: true, scrollPosition: .bottom)
+            self.detailCategoryView.setStackView(data: item.detailCategories)
+        }
+    }
 }
 
 // MARK: UI Details
 
 private extension MapViewController {
-    
-    func setUpAddressButton() {
-        addressButton.setTitle("00시 00구 00동", for: .normal)
-        addressButton.setTitleColor(FindTownColor.grey7.color, for: .normal)
-        addressButton.titleLabel?.font = FindTownFont.label1.font
-        addressButton.setImage(UIImage(named: "dropDown"), for: .normal)
-        addressButton.semanticContentAttribute = .forceRightToLeft
-    }
-    
-    func setStackView(data: [DetailCategory]) {
-        detailCategoryView.detailCategoryStackView.subviews.forEach {
-            $0.removeFromSuperview()
-        }
-        
-        for i in 0..<data.count{
-            let view = MapDetailComponentView()
-            view.textLabel.text = data[i].detailTitle
-            view.colorView.backgroundColor = data[i].color
-            detailCategoryView.detailCategoryStackView.addArrangedSubview(view)
-         }
-     }
     
     func setNaviBarLayout() {
         
@@ -195,15 +183,72 @@ private extension MapViewController {
         ])
         
         NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalTo: mapView.topAnchor, constant: 16.0),
-            collectionView.leadingAnchor.constraint(equalTo: mapView.leadingAnchor),
-            collectionView.trailingAnchor.constraint(equalTo: mapView.trailingAnchor),
-            collectionView.heightAnchor.constraint(equalToConstant: 32.0)
+            categoryCollectionView.topAnchor.constraint(equalTo: mapView.topAnchor, constant: 16.0),
+            categoryCollectionView.leadingAnchor.constraint(equalTo: mapView.leadingAnchor),
+            categoryCollectionView.trailingAnchor.constraint(equalTo: mapView.trailingAnchor),
+            categoryCollectionView.heightAnchor.constraint(equalToConstant: 32.0)
         ])
         
         NSLayoutConstraint.activate([
-            detailCategoryView.topAnchor.constraint(equalTo: collectionView.bottomAnchor, constant: 16.0),
+            storeCollectionView.heightAnchor.constraint(equalToConstant: 142),
+            storeCollectionView.leadingAnchor.constraint(equalTo: mapView.leadingAnchor),
+            storeCollectionView.trailingAnchor.constraint(equalTo: mapView.trailingAnchor),
+            storeCollectionView.bottomAnchor.constraint(equalTo: mapView.bottomAnchor, constant: -32)
+        ])
+        
+        NSLayoutConstraint.activate([
+            detailCategoryView.topAnchor.constraint(equalTo: categoryCollectionView.bottomAnchor, constant: 16.0),
             detailCategoryView.leadingAnchor.constraint(equalTo: mapView.leadingAnchor, constant: 16.0)
         ])
+    }
+}
+
+extension MapViewController: UIScrollViewDelegate, UICollectionViewDelegate {
+    
+    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+        
+        guard let layout = self.storeCollectionView.collectionViewLayout as? UICollectionViewFlowLayout else {
+            return
+        }
+        let cellWidthIncludingSpacing = layout.itemSize.width + layout.minimumLineSpacing
+        
+        var offset = targetContentOffset.pointee
+        let index = (offset.x + scrollView.contentInset.left) / cellWidthIncludingSpacing
+        var roundedIndex = round(index)
+        
+        if scrollView.contentOffset.x > targetContentOffset.pointee.x {
+            roundedIndex = floor(index)
+        } else if scrollView.contentOffset.x < targetContentOffset.pointee.x {
+            roundedIndex = ceil(index)
+        } else {
+            roundedIndex = round(index)
+        }
+        
+        if currentIndex > roundedIndex {
+            currentIndex -= 1
+            roundedIndex = currentIndex
+        } else if currentIndex < roundedIndex {
+            currentIndex += 1
+            roundedIndex = currentIndex
+        }
+    
+        offset = CGPoint(x: roundedIndex * cellWidthIncludingSpacing - scrollView.contentInset.left, y: -scrollView.contentInset.top)
+        targetContentOffset.pointee = offset
+    }
+}
+
+extension Reactive where Base: MapViewController {
+    
+    var mapCategoryIndex: Binder<Int> {
+        return Binder(self.base) { (viewController, index) in
+            if index == 0 {
+                viewController.storeCollectionView.isHidden = true
+                viewController.detailCategoryView.isHidden = false
+            } else {
+                viewController.storeCollectionView.isHidden = false
+                viewController.detailCategoryView.isHidden = true
+            }
+            viewController.viewModel?.input.segmentIndex.accept(index)
+        }
     }
 }

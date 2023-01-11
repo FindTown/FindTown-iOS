@@ -5,13 +5,13 @@
 //  Created by 장선영 on 2023/01/02.
 //
 
-import Foundation
 import UIKit
+import FindTownUI
 
-public class MapDetailComponentView: UIView {
+final class MapDetailComponentView: UIView {
     
-    public var colorView = UIView()
-    public var textLabel = UILabel()
+    var colorView = UIView()
+    var textLabel = UILabel()
     
     override init(frame: CGRect) {
         super.init(frame: frame)

@@ -34,7 +34,7 @@ extension HomeCoordinator: HomeViewModelDelegate {
     
     func present() {
         guard let navigationController = navigationController else { return }
-        HomeCoordinator(presentationStyle: .present(presenter: navigationController)).start()
+        HomeCoordinator(presentationStyle: .present(navigationController: navigationController)).start()
     }
     
     func pop() {
