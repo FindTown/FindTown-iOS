@@ -1,6 +1,6 @@
 //
 //  File.swift
-//  
+//
 //
 //  Created by 이호영 on 2022/12/23.
 //
@@ -21,7 +21,7 @@ public class BaseNavigationController: UINavigationController {
         let backButtonAppearance = UIBarButtonItemAppearance(style: .plain)
         backButtonAppearance.normal.titleTextAttributes = [.foregroundColor: UIColor.clear]
         
-        let backButtonImage = UIImage(named: "Back")?.withAlignmentRectInsets(UIEdgeInsets(top: 0.0, left: -8.0, bottom: -8.0, right: 0.0))
+        let backButtonImage = UIImage(named: "Back", in: .module, compatibleWith: nil)?.withAlignmentRectInsets(UIEdgeInsets(top: 0.0, left: -8.0, bottom: -8.0, right: 0.0))
         backButtonImage?.withTintColor(FindTownColor.grey7.color)
         
         let appearance = UINavigationBarAppearance()

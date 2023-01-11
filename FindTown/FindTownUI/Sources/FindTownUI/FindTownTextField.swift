@@ -1,6 +1,6 @@
 //
 //  File.swift
-//  
+//
 //
 //  Created by 장선영 on 2022/12/21.
 //
@@ -33,7 +33,7 @@ public class FindTownTextField: UITextField {
             case .unfocused:
                 self.layer.borderColor = FindTownColor.grey4.color.cgColor
             case .error:
-                self.layer.borderColor = FindTownColor.semantic.color.cgColor
+                self.layer.borderColor = FindTownColor.error.color.cgColor
             case .focused:
                 self.layer.borderColor = FindTownColor.grey6.color.cgColor
             }

@@ -17,11 +17,13 @@ public final class AppCoordinator: Coordinator {
     
     public func start() {
         /// kakao, apple 자동로그인 유무 확인
-        goToTabBar()
-//        goToAuth()
+//        goToTabBar()
+        goToAuth()
     }
     
     private func goToAuth() {
+        navigationController.isNavigationBarHidden = true
+        LoginCoordinator(presentationStyle: .push(navigationController: navigationController)).start()
     }
     
     private func goToTabBar() {
