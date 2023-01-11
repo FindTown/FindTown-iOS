@@ -37,7 +37,7 @@ final class LocationAndYearsViewModel: BaseViewModel {
     }
     
     struct Output {
-        let buttonsSelected = PublishRelay<Void>()
+        let nextButtonEnabled = PublishRelay<Bool>()
     }
     
     let input = Input()
@@ -55,21 +55,21 @@ final class LocationAndYearsViewModel: BaseViewModel {
     
     func bind() {
         
-        self.input.dong
-            .map { _ in }
-            .bind(to: self.output.buttonsSelected)
-            .disposed(by: disposeBag)
-        
         self.input.nextButtonTrigger
             .withLatestFrom(input.dongYearMonth)
             .bind(onNext: setDongYearMonth)
             .disposed(by: disposeBag)
         
         Observable.combineLatest(input.dong, input.year, input.month)
-            .map { (dong, year, month) in
-                return DongYearMonthModel(dong: dong, year: year, month: month)
+            .bind { [weak self] (dong, year, month) in
+                if dong == "" {
+                    self?.output.nextButtonEnabled.accept(false)
+                } else {
+                    self?.output.nextButtonEnabled.accept(true)
+                    let model = DongYearMonthModel(dong: dong, year: year, month: month)
+                    self?.input.dongYearMonth.onNext(model)
+                }
             }
-            .bind(to: input.dongYearMonth)
             .disposed(by: disposeBag)
     }
     

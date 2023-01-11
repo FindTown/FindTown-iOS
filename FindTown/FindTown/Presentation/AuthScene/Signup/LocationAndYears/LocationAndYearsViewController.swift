@@ -31,13 +31,13 @@ final class LocationAndYearsViewController: BaseViewController {
     
     private let dongButton = FTButton(style: .largeTinted)
     
-    private let dongStatusLabel = FindTownLabel(text: "주소를 입력해주세요.", font: .label3, textColor: .error)
+    fileprivate let dongStatusLabel = FindTownLabel(text: "주소를 입력해주세요.", font: .label3, textColor: .error)
     
     private let howLongStayTitle = FindTownLabel(text: "얼마나 거주하셨나요?", font: .subtitle4)
     
     private let pickerView: YearMonthPickerView
     
-    let nextButton = FTButton(style: .largeFilled)
+    fileprivate let nextButton = FTButton(style: .largeFilled)
     
     // MARK: - Life Cycle
     
@@ -151,8 +151,8 @@ final class LocationAndYearsViewController: BaseViewController {
         
         // Output
         
-        viewModel?.output.buttonsSelected
-            .asDriver(onErrorJustReturn: ())
+        viewModel?.output.nextButtonEnabled
+            .asDriver(onErrorJustReturn: (false))
             .drive(self.rx.nextButtonIsSelected)
             .disposed(by: disposeBag)
     }
@@ -164,18 +164,16 @@ extension LocationAndYearsViewController: LocationAndYearsDelegate {
         dongButton.setImage(UIImage(named: "MapPinIcon"), for: .normal)
         dongButton.setTitle(address, for: .normal)
         
-        dongStatusLabel.isHidden = true
-        
         viewModel?.input.dong.onNext(address)
     }
 }
 
 extension Reactive where Base: LocationAndYearsViewController {
     
-    var nextButtonIsSelected: Binder<Void> {
-        return Binder(self.base) { view, _ in
-            view.nextButton.isSelected = true
-            view.nextButton.isEnabled = true
+    var nextButtonIsSelected: Binder<Bool> {
+        return Binder(self.base) { view, isEnabled in
+            view.nextButton.isEnabledAndSelected(isEnabled)
+            view.dongStatusLabel.isHidden = isEnabled
         }
     }
 }
