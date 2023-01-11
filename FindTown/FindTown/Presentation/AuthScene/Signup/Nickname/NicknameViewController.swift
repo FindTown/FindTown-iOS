@@ -121,8 +121,7 @@ final class NicknameViewController: BaseViewController {
         
         nextButton.setTitle("다음", for: .normal)
         nextButton.changesSelectionAsPrimaryAction = false
-        nextButton.isSelected = false
-        nextButton.isEnabled = false
+        nextButton.isEnabledAndSelected(false)
     }
     
     override func bindViewModel() {
@@ -152,13 +151,6 @@ final class NicknameViewController: BaseViewController {
         
         // output
         
-        viewModel?.output.buttonsSelected
-            .asDriver(onErrorJustReturn: true)
-            .drive { [weak self] in
-                self?.buttonIsSelectedChange(isSelected: $0)
-            }
-            .disposed(by: disposeBag)
-        
         viewModel?.output.nickNameStatus
             .asDriver(onErrorJustReturn: .none)
             .drive { [weak self] in
@@ -167,36 +159,32 @@ final class NicknameViewController: BaseViewController {
             .disposed(by: disposeBag)
     }
     
-    private func buttonIsSelectedChange(isSelected: Bool) {
-        if isSelected == nextButton.isSelected {
-            duplicateButton.isSelected = isSelected
-            duplicateButton.isEnabled = isSelected
-            nextButton.isSelected = !isSelected
-            nextButton.isEnabled = !isSelected
-        }
-    }
-    
     private func nickNameStatusChange(nickNameStatus: NicknameStatus) {
         switch nickNameStatus {
         case .none:
             nickNameStatusLabel.isHidden = true
-            buttonIsSelectedChange(isSelected: true)
+            buttonStatusChange(true)
         case .duplicate:
             nickNameStatusLabel.text = "이미 사용한 닉네임입니다."
             nickNameStatusLabel.textColor = FindTownColor.error.color
             nickNameStatusLabel.isHidden = false
-            buttonIsSelectedChange(isSelected: true)
+            buttonStatusChange(true)
         case .complete:
             nickNameStatusLabel.text = "사용할 수 있는 닉네임입니다."
             nickNameStatusLabel.textColor = FindTownColor.success.color
             nickNameStatusLabel.isHidden = false
-            buttonIsSelectedChange(isSelected: false)
+            buttonStatusChange(false)
         case .includeSpecialChar:
             nickNameStatusLabel.text = "특수문자는 입력할 수 없습니다."
             nickNameStatusLabel.textColor = FindTownColor.error.color
             nickNameStatusLabel.isHidden = false
-            buttonIsSelectedChange(isSelected: true)
+            buttonStatusChange(true)
         }
+    }
+    
+    private func buttonStatusChange(_ isStatus: Bool) {
+        duplicateButton.isEnabledAndSelected(isStatus)
+        nextButton.isEnabledAndSelected(!isStatus)
     }
 }
 
