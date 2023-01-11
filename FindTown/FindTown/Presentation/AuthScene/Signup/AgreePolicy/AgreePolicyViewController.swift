@@ -74,7 +74,7 @@ final class AgreePolicyViewController: BaseBottomSheetViewController {
     // MARK: - Functions
     
     override func addView() {
-        super.addView()
+        
         
         allAgreeStackView.addArrangedSubview(allAgreeCheckButton)
         allAgreeStackView.addArrangedSubview(allAgreeTitle)
@@ -88,10 +88,11 @@ final class AgreePolicyViewController: BaseBottomSheetViewController {
         [AgreePolicyTitle, allAgreeStackView, agreePolicyStackView, agreePersonalInforStackView, confirmButton].forEach {
             bottomSheetView.addSubview($0)
         }
+        super.addView()
     }
     
     override func setLayout() {
-        super.setLayout()
+        
         
         NSLayoutConstraint.activate([
             AgreePolicyTitle.topAnchor.constraint(equalTo: bottomSheetView.topAnchor, constant: 40),
@@ -114,10 +115,12 @@ final class AgreePolicyViewController: BaseBottomSheetViewController {
         ])
         
         NSLayoutConstraint.activate([
-            confirmButton.topAnchor.constraint(equalTo: bottomSheetView.topAnchor, constant: bottomHeight - 80),
+            confirmButton.bottomAnchor.constraint(equalTo: bottomSheetView.bottomAnchor, constant: -40),
             confirmButton.leadingAnchor.constraint(equalTo: bottomSheetView.leadingAnchor, constant: 16),
             confirmButton.trailingAnchor.constraint(equalTo: bottomSheetView.trailingAnchor, constant: -16),
         ])
+        
+        super.setLayout()
     }
     
     override func setupView() {
