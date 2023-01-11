@@ -160,8 +160,10 @@ extension Reactive where Base: AddressSheetViewController {
         return Binder(self.base) { (viewController, isEnabled) in
             if isEnabled == true {
                 viewController.completeButton.isSelected = true
+                viewController.completeButton.isEnabled = true
             } else {
                 viewController.completeButton.isSelected = false
+                viewController.completeButton.isEnabled = false
             }
         }
     }
