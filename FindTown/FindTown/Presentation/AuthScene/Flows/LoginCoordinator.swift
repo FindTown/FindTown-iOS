@@ -26,7 +26,7 @@ final class LoginCoordinator: FlowCoordinator {
     }
 }
 
-extension LoginCoordinator: LoginCoordinatorDelegate {
+extension LoginCoordinator: LoginViewModelDelegate {
     
     func goToNickname() {
         guard let navigationController = navigationController else { return }

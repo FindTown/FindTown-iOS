@@ -17,7 +17,9 @@ final class TownMoodViewController: BaseViewController {
     // MARK: - Properteis
     
     private let viewModel: TownMoodViewModel?
+    private var keyHeight: CGFloat?
     private let textViewPlaceHolder = "동네의 장, 단점 or 동네 생활 꿀팁을 알려주세요. \n(최소 20자 이상 작성)"
+    private let afterTwentyTitleText = "최소 20자 이상 작성해주세요"
     
     // MARK: - Views
     
@@ -31,9 +33,17 @@ final class TownMoodViewController: BaseViewController {
         return textField
     }()
     
-    private let afterTwentyTitle = FindTownLabel(text: "최소 20자 이상 작성해주세요", font: .label3, textColor: .semantic)
+    private let afterTwentyTitle = FindTownLabel(text: "", font: .label3, textColor: .error)
     
     private let textViewCountTitle = FindTownLabel(text: "0/200", font: .label3)
+    
+    private let textViewGuirdTitleStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .horizontal
+        stackView.distribution = .equalSpacing
+        return stackView
+    }()
     
     private let nextButton = FTButton(style: .largeFilled)
     
@@ -55,11 +65,16 @@ final class TownMoodViewController: BaseViewController {
     // MARK: - Functions
     
     override func addView() {
-        [nowStatusPogressView, townLikeTitle, townLikeTextView, textViewCountTitle, afterTwentyTitle, nextButton].forEach {
+        textViewGuirdTitleStackView.addArrangedSubview(afterTwentyTitle)
+        textViewGuirdTitleStackView.addArrangedSubview(textViewCountTitle)
+        
+        [nowStatusPogressView, townLikeTitle, townLikeTextView,
+         textViewGuirdTitleStackView, nextButton].forEach {
             view.addSubview($0)
         }
     }
-    override func setupView() {
+    
+    override func setLayout() {
         nowStatusPogressView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             nowStatusPogressView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
@@ -69,36 +84,32 @@ final class TownMoodViewController: BaseViewController {
         ])
         
         NSLayoutConstraint.activate([
-            townLikeTitle.topAnchor.constraint(equalTo: nowStatusPogressView.bottomAnchor, constant: 74),
+            townLikeTitle.topAnchor.constraint(equalTo: nowStatusPogressView.bottomAnchor, constant: 48),
             townLikeTitle.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
         ])
         
         NSLayoutConstraint.activate([
-            townLikeTextView.topAnchor.constraint(equalTo: townLikeTitle.bottomAnchor, constant: 16),
-            townLikeTextView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            townLikeTextView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+            townLikeTextView.topAnchor.constraint(equalTo: townLikeTitle.bottomAnchor,constant: 16),
+            townLikeTextView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
+            townLikeTextView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
             townLikeTextView.heightAnchor.constraint(equalToConstant: 200)
         ])
         
         NSLayoutConstraint.activate([
-            afterTwentyTitle.topAnchor.constraint(equalTo: townLikeTextView.bottomAnchor, constant: 8),
-            afterTwentyTitle.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            textViewGuirdTitleStackView.topAnchor.constraint(equalTo: townLikeTextView.bottomAnchor, constant: 8),
+            textViewGuirdTitleStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            textViewGuirdTitleStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
         ])
         
         NSLayoutConstraint.activate([
-            textViewCountTitle.topAnchor.constraint(equalTo: townLikeTextView.bottomAnchor, constant: 8),
-            textViewCountTitle.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+            nextButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -16),
+            nextButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
+            nextButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
         ])
-        
-        NSLayoutConstraint.activate([
-            nextButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -24),
-            nextButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            nextButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-        ])
-        
     }
     
-    override func setLayout() {
+    override func setupView() {
+        
         view.backgroundColor = .white
         
         nowStatusPogressView.trackTintColor = FindTownColor.grey2.color
@@ -116,12 +127,16 @@ final class TownMoodViewController: BaseViewController {
         townLikeTextView.layer.borderWidth = 1.0
         townLikeTextView.layer.borderColor = FindTownColor.grey4.color.cgColor
         
-        afterTwentyTitle.isHidden = true
-        
         nextButton.setTitle("다음", for: .normal)
         nextButton.changesSelectionAsPrimaryAction = false
         nextButton.isSelected = false
         nextButton.isEnabled = false
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShowSender(_:)),
+                                               name: UIResponder.keyboardWillShowNotification, object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHideSender(_:)),
+                                               name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
     override func bindViewModel() {
@@ -131,7 +146,10 @@ final class TownMoodViewController: BaseViewController {
         townLikeTextView.rx.text.orEmpty
             .distinctUntilChanged()
             .bind { [weak self] in
-                if $0 != self?.textViewPlaceHolder { self?.viewModel?.input.townLikeText.onNext($0) }
+                if $0 != self?.textViewPlaceHolder {
+                    self?.viewModel?.input.townLikeText.onNext($0)
+                    
+                }
             }
             .disposed(by: disposeBag)
         
@@ -156,10 +174,23 @@ final class TownMoodViewController: BaseViewController {
             nextButton.isSelected = isSelected
             nextButton.isEnabled = isSelected
         }
-        afterTwentyTitle.isHidden = isSelected
+        afterTwentyTitle.text = isSelected ? "" : afterTwentyTitleText
+    }
+    
+    @objc private func keyboardWillShowSender(_ sender: Notification) {
+        let userInfo:NSDictionary = sender.userInfo! as NSDictionary
+        let keyboardFrame:NSValue = userInfo.value(forKey: UIResponder.keyboardFrameEndUserInfoKey) as! NSValue
+        let keyboardRectangle = keyboardFrame.cgRectValue
+        let keyboardHeight = keyboardRectangle.height
+        keyHeight = keyboardHeight
+        
+        self.view.frame.size.height -= keyboardHeight
+    }
+    
+    @objc private func keyboardWillHideSender(_ sender: Notification) {
+        self.view.frame.size.height += keyHeight ?? 0
     }
 }
-
 
 extension TownMoodViewController: UITextViewDelegate {
     
@@ -177,6 +208,7 @@ extension TownMoodViewController: UITextViewDelegate {
         if textView.textColor == FindTownColor.grey5.color {
             textView.text = nil
             textView.textColor = FindTownColor.grey7.color
+            textView.layer.borderColor = FindTownColor.grey6.color.cgColor
         }
     }
     
@@ -184,6 +216,7 @@ extension TownMoodViewController: UITextViewDelegate {
         if textView.text.isEmpty {
             textView.text = textViewPlaceHolder
             textView.textColor = FindTownColor.grey5.color
+            textView.layer.borderColor = FindTownColor.grey4.color.cgColor
         }
     }
 }

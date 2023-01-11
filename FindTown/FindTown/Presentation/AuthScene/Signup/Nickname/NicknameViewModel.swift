@@ -33,15 +33,14 @@ final class NicknameViewModel: BaseViewModel {
     
     struct Output {
         let nickNameStatus = PublishRelay<NicknameStatus>()
-        let buttonsSelected = PublishRelay<Bool>()
     }
     
     let input = Input()
     let output = Output()
-    let delegate: SignupCoordinatorDelegate
+    let delegate: SignupViewModelDelegate
     
     init(
-        delegate: SignupCoordinatorDelegate
+        delegate: SignupViewModelDelegate
     ) {
         self.delegate = delegate
         
@@ -53,7 +52,7 @@ final class NicknameViewModel: BaseViewModel {
         
         self.input.nickname
             .bind { [weak self] _ in
-                self?.output.buttonsSelected.accept(true)
+                self?.output.nickNameStatus.accept(.none)
             }
             .disposed(by: disposeBag)
         
