@@ -22,7 +22,7 @@ public final class FTButton: UIButton {
         
         self.isSelected = false
         
-        configuration = configureUI(style: self.buttonStyle)
+        configuration = initConfigureUI(style: self.buttonStyle)
     }
     
     required init?(coder: NSCoder) {
@@ -31,7 +31,7 @@ public final class FTButton: UIButton {
     
     public override var isSelected: Bool {
         didSet {
-            configuration = configureUI(style: self.buttonStyle)
+            configureUI(style: self.buttonStyle)
         }
     }
     
@@ -44,11 +44,48 @@ public final class FTButton: UIButton {
         setImage(normalImage, for: .normal)
         setImage(selectedImage, for: .selected)
     }
+    
+    /// isEnabled, isSelected 값이 똑같이 바껴야 하는 경우 사용
+    public func isEnabledAndSelected(_ isEnabledSelected: Bool) {
+        self.isSelected = isEnabledSelected
+        self.isEnabled = isEnabledSelected
+    }
 }
 
 private extension FTButton {
     
-    func configureUI(style: FTButtonStyle) -> Configuration {
+    func configureUI(style: FTButtonStyle) {
+        if style.isShadow {
+            layer.shadowColor = UIColor.black.cgColor
+            layer.shadowOffset = .init(width: 2, height: 4)
+            layer.shadowOpacity = 0.15
+            layer.shadowRadius = 6
+        }
+        
+        self.configuration?.baseBackgroundColor = isSelected ? style.selectedColorSet[0] : style.nonSelectedColorSet[0]
+        self.configuration?.baseForegroundColor = isSelected ? style.selectedColorSet[1] : style.nonSelectedColorSet[1]
+        self.configuration?.titleTextAttributesTransformer = UIConfigurationTextAttributesTransformer (
+            { incoming in
+                var outgoing = incoming
+                outgoing.font = style.titleFont
+                return outgoing
+            }
+        )
+        self.configuration?.background.cornerRadius = style.cornerRadius
+        self.configuration?.contentInsets = NSDirectionalEdgeInsets(
+            top: style.topBottomInset, leading: 0,
+            bottom: style.topBottomInset, trailing: 0)
+        if style.strokeColorSet[0] == .clear && style.strokeColorSet[1] == .clear {
+            self.configuration?.background.strokeColor = .clear
+        } else {
+            self.configuration?.background.strokeColor = isSelected ? style.strokeColorSet[0] : style.strokeColorSet[1]
+        }
+        self.configuration?.background.strokeWidth = 1.0
+        self.configuration?.imagePlacement = style.imagePlacement
+        self.configuration?.imagePadding = style.imagePadding
+    }
+    
+    func initConfigureUI(style: FTButtonStyle) -> Configuration {
         if style.isShadow {
             layer.shadowColor = UIColor.black.cgColor
             layer.shadowOffset = .init(width: 2, height: 4)
