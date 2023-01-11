@@ -74,7 +74,7 @@ final class LocationAndYearsViewController: BaseViewController {
         ])
         
         NSLayoutConstraint.activate([
-            whereIsNowTitle.topAnchor.constraint(equalTo: nowStatusPogressView.bottomAnchor, constant: 74),
+            whereIsNowTitle.topAnchor.constraint(equalTo: nowStatusPogressView.bottomAnchor, constant: 48),
             whereIsNowTitle.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
         ])
         

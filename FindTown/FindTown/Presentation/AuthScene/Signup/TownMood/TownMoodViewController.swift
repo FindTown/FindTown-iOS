@@ -72,8 +72,6 @@ final class TownMoodViewController: BaseViewController {
          textViewGuirdTitleStackView, nextButton].forEach {
             view.addSubview($0)
         }
-        
-        //        super.addView()
     }
     
     override func setLayout() {
@@ -108,7 +106,6 @@ final class TownMoodViewController: BaseViewController {
             nextButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
             nextButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
         ])
-        //        super.setLayout()
     }
     
     override func setupView() {
@@ -149,7 +146,10 @@ final class TownMoodViewController: BaseViewController {
         townLikeTextView.rx.text.orEmpty
             .distinctUntilChanged()
             .bind { [weak self] in
-                if $0 != self?.textViewPlaceHolder { self?.viewModel?.input.townLikeText.onNext($0) }
+                if $0 != self?.textViewPlaceHolder {
+                    self?.viewModel?.input.townLikeText.onNext($0)
+                    
+                }
             }
             .disposed(by: disposeBag)
         
@@ -209,6 +209,7 @@ extension TownMoodViewController: UITextViewDelegate {
         if textView.textColor == FindTownColor.grey5.color {
             textView.text = nil
             textView.textColor = FindTownColor.grey7.color
+            textView.layer.borderColor = FindTownColor.grey6.color.cgColor
         }
     }
     
@@ -216,6 +217,7 @@ extension TownMoodViewController: UITextViewDelegate {
         if textView.text.isEmpty {
             textView.text = textViewPlaceHolder
             textView.textColor = FindTownColor.grey5.color
+            textView.layer.borderColor = FindTownColor.grey4.color.cgColor
         }
     }
 }
