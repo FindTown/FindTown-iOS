@@ -1,16 +1,12 @@
 //
 //  File.swift
-//
+//  
 //
 //  Created by 장선영 on 2022/12/29.
 //
 
 import Foundation
 import UIKit
-
-@objc public protocol DropDownDelegate: AnyObject {
-    @objc optional func didSelectDropDown(value: String)
-}
 
 public enum DropDownStatus {
     case selected    /// dataSource 중 0번째 이외의 값이 선택된 경우
@@ -19,8 +15,6 @@ public enum DropDownStatus {
 
 /// 커스텀 드롭다운, 드롭다운의 세로 길이가 데이터 목록을 보여주는 tableView의 세로 길이가 됨
 public class DropDown: UIView {
-    
-    public weak var delegate: DropDownDelegate?
     
     /// 0번째에는 데이터가 아닌 안내 텍스트 (ex:자치구(선택)) 가 들어감
     private var dataSource: [String]
@@ -105,10 +99,6 @@ public class DropDown: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    public func dismiss() {
-        self.shadowView.alpha = 0
-    }
 }
 
 //MARK: - UITableViewDelegate, UITableViewDataSource
@@ -143,9 +133,6 @@ extension DropDown: UITableViewDelegate, UITableViewDataSource {
         }
         
         textLabel.text = dataSource[indexPath.row]
-        
-        delegate?.didSelectDropDown?(value: dataSource[indexPath.row])
-        
         shadowView.alpha = 0
     }
 }

@@ -31,13 +31,11 @@ final class LocationAndYearsViewController: BaseViewController {
     
     private let dongButton = FTButton(style: .largeTinted)
     
-    fileprivate let dongStatusLabel = FindTownLabel(text: "주소를 입력해주세요.", font: .label3, textColor: .error)
-    
     private let howLongStayTitle = FindTownLabel(text: "얼마나 거주하셨나요?", font: .subtitle4)
     
     private let pickerView: YearMonthPickerView
     
-    fileprivate let nextButton = FTButton(style: .largeFilled)
+    let nextButton = FTButton(style: .largeFilled)
     
     // MARK: - Life Cycle
     
@@ -58,7 +56,7 @@ final class LocationAndYearsViewController: BaseViewController {
     // MARK: - Functions
     
     override func addView() {
-        [nowStatusPogressView, whereIsNowTitle, dongButton, dongStatusLabel,
+        [nowStatusPogressView, whereIsNowTitle, dongButton,
          howLongStayTitle, pickerView, nextButton].forEach {
             view.addSubview($0)
         }
@@ -74,7 +72,7 @@ final class LocationAndYearsViewController: BaseViewController {
         ])
         
         NSLayoutConstraint.activate([
-            whereIsNowTitle.topAnchor.constraint(equalTo: nowStatusPogressView.bottomAnchor, constant: 48),
+            whereIsNowTitle.topAnchor.constraint(equalTo: nowStatusPogressView.bottomAnchor, constant: 74),
             whereIsNowTitle.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
         ])
         
@@ -85,16 +83,12 @@ final class LocationAndYearsViewController: BaseViewController {
         ])
         
         NSLayoutConstraint.activate([
-            dongStatusLabel.topAnchor.constraint(equalTo: dongButton.bottomAnchor, constant: 8),
-            dongStatusLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-        ])
-        
-        NSLayoutConstraint.activate([
             howLongStayTitle.topAnchor.constraint(equalTo: dongButton.bottomAnchor, constant: 68),
             howLongStayTitle.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
         ])
         
         pickerView.translatesAutoresizingMaskIntoConstraints = false
+//        pickerView.backgroundColor = .yellow
         
         NSLayoutConstraint.activate([
             pickerView.topAnchor.constraint(equalTo: howLongStayTitle.bottomAnchor, constant: 0),
@@ -123,11 +117,10 @@ final class LocationAndYearsViewController: BaseViewController {
         dongButton.configuration?.contentInsets.leading = 16
         dongButton.changesSelectionAsPrimaryAction = false
         
-        dongStatusLabel.isHidden = true
-        
         nextButton.setTitle("다음", for: .normal)
         nextButton.changesSelectionAsPrimaryAction = false
         nextButton.isSelected = false
+        nextButton.isEnabled = false
     }
     
     override func bindViewModel() {
@@ -152,8 +145,8 @@ final class LocationAndYearsViewController: BaseViewController {
         
         // Output
         
-        viewModel?.output.nextButtonEnabled
-            .asDriver(onErrorJustReturn: (false))
+        viewModel?.output.buttonsSelected
+            .asDriver(onErrorJustReturn: ())
             .drive(self.rx.nextButtonIsSelected)
             .disposed(by: disposeBag)
     }
@@ -171,10 +164,10 @@ extension LocationAndYearsViewController: LocationAndYearsDelegate {
 
 extension Reactive where Base: LocationAndYearsViewController {
     
-    var nextButtonIsSelected: Binder<Bool> {
-        return Binder(self.base) { view, isEnabled in
-            view.nextButton.isSelected = isEnabled
-            view.dongStatusLabel.isHidden = isEnabled
+    var nextButtonIsSelected: Binder<Void> {
+        return Binder(self.base) { view, _ in
+            view.nextButton.isSelected = true
+            view.nextButton.isEnabled = true
         }
     }
 }

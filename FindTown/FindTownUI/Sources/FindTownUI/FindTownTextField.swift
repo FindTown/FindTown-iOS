@@ -33,7 +33,7 @@ public class FindTownTextField: UITextField {
             case .unfocused:
                 self.layer.borderColor = FindTownColor.grey4.color.cgColor
             case .error:
-                self.layer.borderColor = FindTownColor.error.color.cgColor
+                self.layer.borderColor = FindTownColor.semantic.color.cgColor
             case .focused:
                 self.layer.borderColor = FindTownColor.grey6.color.cgColor
             }

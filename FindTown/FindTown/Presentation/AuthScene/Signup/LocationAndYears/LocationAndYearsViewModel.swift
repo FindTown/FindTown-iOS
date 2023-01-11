@@ -37,15 +37,15 @@ final class LocationAndYearsViewModel: BaseViewModel {
     }
     
     struct Output {
-        let nextButtonEnabled = PublishRelay<Bool>()
+        let buttonsSelected = PublishRelay<Void>()
     }
     
     let input = Input()
     let output = Output()
-    let delegate: SignupViewModelDelegate
+    let delegate: SignupCoordinatorDelegate
     
     init(
-        delegate: SignupViewModelDelegate
+        delegate: SignupCoordinatorDelegate
     ) {
         self.delegate = delegate
         
@@ -55,17 +55,21 @@ final class LocationAndYearsViewModel: BaseViewModel {
     
     func bind() {
         
+        self.input.dong
+            .map { _ in }
+            .bind(to: self.output.buttonsSelected)
+            .disposed(by: disposeBag)
+        
         self.input.nextButtonTrigger
             .withLatestFrom(input.dongYearMonth)
             .bind(onNext: setDongYearMonth)
             .disposed(by: disposeBag)
         
         Observable.combineLatest(input.dong, input.year, input.month)
-            .bind { [weak self] (dong, year, month) in
-                self?.output.nextButtonEnabled.accept(true)
-                let model = DongYearMonthModel(dong: dong, year: year, month: month)
-                self?.input.dongYearMonth.onNext(model)
+            .map { (dong, year, month) in
+                return DongYearMonthModel(dong: dong, year: year, month: month)
             }
+            .bind(to: input.dongYearMonth)
             .disposed(by: disposeBag)
     }
     
@@ -73,12 +77,8 @@ final class LocationAndYearsViewModel: BaseViewModel {
         // 1. dongYearMonth 임시로 set
         print("dongYearMonth \(dongYearMonth)")
         
-        if dongYearMonth.dong == "" {
-            self.output.nextButtonEnabled.accept(false)
-        } else {
-            // 2. after goToTwonMood
-            self.goToTownMood()
-        }
+        // 2. after goToTwonMood
+        self.goToTownMood()
     }
 }
 

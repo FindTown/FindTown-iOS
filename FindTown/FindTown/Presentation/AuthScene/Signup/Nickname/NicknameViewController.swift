@@ -17,7 +17,6 @@ final class NicknameViewController: BaseViewController {
     // MARK: - Properties
     
     private let viewModel: NicknameViewModel?
-    private var keyHeight: CGFloat?
     
     // MARK: - Views
     
@@ -27,18 +26,10 @@ final class NicknameViewController: BaseViewController {
     
     private let nickNameTextField = FindTownTextField()
     
+    private let nickNameStatusLabel = FindTownLabel(text: "", font: .label3, textColor: .semantic)
+    
     private let duplicateButton = FTButton(style: .mediumTintedWithRadius)
     
-    private let nickNameTextStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.axis = .horizontal
-        stackView.spacing = 8
-        return stackView
-    }()
-    
-    private let nickNameStatusLabel = FindTownLabel(text: "", font: .label3)
-
     private let nextButton = FTButton(style: .largeFilled)
     
     // MARK: - Life Cycle
@@ -55,16 +46,12 @@ final class NicknameViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
     }
-    
+
     // MARK: - Functions
     
     override func addView() {
-        
-        nickNameTextStackView.addArrangedSubview(nickNameTextField)
-        nickNameTextStackView.addArrangedSubview(duplicateButton)
-        
-        [nowStatusPogressView, inputNickNameTitle, nickNameTextStackView,
-         nickNameStatusLabel, nextButton].forEach {
+        [nowStatusPogressView, inputNickNameTitle, nickNameTextField,
+         nickNameStatusLabel, duplicateButton, nextButton].forEach {
             view.addSubview($0)
         }
     }
@@ -79,30 +66,32 @@ final class NicknameViewController: BaseViewController {
         ])
         
         NSLayoutConstraint.activate([
-            inputNickNameTitle.topAnchor.constraint(equalTo: nowStatusPogressView.bottomAnchor, constant: 48),
-            inputNickNameTitle.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            inputNickNameTitle.topAnchor.constraint(equalTo: nowStatusPogressView.bottomAnchor, constant: 74),
+            inputNickNameTitle.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16)
         ])
         
         NSLayoutConstraint.activate([
-            nickNameTextStackView.topAnchor.constraint(equalTo: inputNickNameTitle.bottomAnchor, constant: 16),
-            nickNameTextStackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
-            nickNameTextStackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
+            nickNameTextField.topAnchor.constraint(equalTo: inputNickNameTitle.bottomAnchor, constant: 16),
+            nickNameTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            nickNameTextField.trailingAnchor.constraint(equalTo: duplicateButton.leadingAnchor, constant: -8)
         ])
         
         NSLayoutConstraint.activate([
+            nickNameStatusLabel.topAnchor.constraint(equalTo: nickNameTextField.bottomAnchor, constant: 8),
+            nickNameStatusLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+        ])
+        
+        NSLayoutConstraint.activate([
+            duplicateButton.topAnchor.constraint(equalTo: inputNickNameTitle.bottomAnchor, constant: 16),
+            duplicateButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
             duplicateButton.widthAnchor.constraint(equalToConstant: 74),
             duplicateButton.heightAnchor.constraint(equalToConstant: 44),
         ])
         
         NSLayoutConstraint.activate([
-            nickNameStatusLabel.topAnchor.constraint(equalTo: nickNameTextStackView.bottomAnchor, constant: 8),
-            nickNameStatusLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 16)
-        ])
-        
-        NSLayoutConstraint.activate([
-            nextButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -16),
-            nextButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
-            nextButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
+            nextButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -24),
+            nextButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            nextButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
         ])
     }
     
@@ -124,13 +113,8 @@ final class NicknameViewController: BaseViewController {
         
         nextButton.setTitle("다음", for: .normal)
         nextButton.changesSelectionAsPrimaryAction = false
-        nextButton.isEnabledAndSelected(false)
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShowSender(_:)),
-                                               name: UIResponder.keyboardWillShowNotification, object: nil)
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHideSender(_:)),
-                                               name: UIResponder.keyboardWillHideNotification, object: nil)
+        nextButton.isSelected = false
+        nextButton.isEnabled = false
     }
     
     override func bindViewModel() {
@@ -160,6 +144,13 @@ final class NicknameViewController: BaseViewController {
         
         // output
         
+        viewModel?.output.buttonsSelected
+            .asDriver(onErrorJustReturn: true)
+            .drive { [weak self] in
+                self?.buttonIsSelectedChange(isSelected: $0)
+            }
+            .disposed(by: disposeBag)
+        
         viewModel?.output.nickNameStatus
             .asDriver(onErrorJustReturn: .none)
             .drive { [weak self] in
@@ -168,46 +159,32 @@ final class NicknameViewController: BaseViewController {
             .disposed(by: disposeBag)
     }
     
+    private func buttonIsSelectedChange(isSelected: Bool) {
+        if isSelected == nextButton.isSelected {
+            duplicateButton.isSelected = isSelected
+            duplicateButton.isEnabled = isSelected
+            nextButton.isSelected = !isSelected
+            nextButton.isEnabled = !isSelected
+        }
+    }
+    
     private func nickNameStatusChange(nickNameStatus: NicknameStatus) {
         switch nickNameStatus {
         case .none:
             nickNameStatusLabel.isHidden = true
-            buttonStatusChange(true)
+            buttonIsSelectedChange(isSelected: true)
         case .duplicate:
             nickNameStatusLabel.text = "이미 사용한 닉네임입니다."
-            nickNameStatusLabel.textColor = FindTownColor.error.color
             nickNameStatusLabel.isHidden = false
-            buttonStatusChange(true)
+            buttonIsSelectedChange(isSelected: true)
         case .complete:
-            nickNameStatusLabel.text = "사용할 수 있는 닉네임입니다."
-            nickNameStatusLabel.textColor = FindTownColor.success.color
-            nickNameStatusLabel.isHidden = false
-            buttonStatusChange(false)
+            nickNameStatusLabel.isHidden = true
+            buttonIsSelectedChange(isSelected: false)
         case .includeSpecialChar:
             nickNameStatusLabel.text = "특수문자는 입력할 수 없습니다."
-            nickNameStatusLabel.textColor = FindTownColor.error.color
             nickNameStatusLabel.isHidden = false
-            buttonStatusChange(true)
+            buttonIsSelectedChange(isSelected: true)
         }
-    }
-    
-    private func buttonStatusChange(_ isStatus: Bool) {
-        duplicateButton.isEnabledAndSelected(isStatus)
-        nextButton.isEnabledAndSelected(!isStatus)
-    }
-    
-    @objc private func keyboardWillShowSender(_ sender: Notification) {
-        let userInfo:NSDictionary = sender.userInfo! as NSDictionary
-        let keyboardFrame:NSValue = userInfo.value(forKey: UIResponder.keyboardFrameEndUserInfoKey) as! NSValue
-        let keyboardRectangle = keyboardFrame.cgRectValue
-        let keyboardHeight = keyboardRectangle.height
-        keyHeight = keyboardHeight
-        
-        self.view.frame.size.height -= keyboardHeight
-    }
-    
-    @objc private func keyboardWillHideSender(_ sender: Notification) {
-        self.view.frame.size.height += keyHeight ?? 0
     }
 }
 

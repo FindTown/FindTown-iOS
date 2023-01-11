@@ -16,10 +16,10 @@ protocol LoginViewModelType {
 
 final class LoginViewModel: BaseViewModel {
     
-    let delegate: LoginViewModelDelegate
+    let delegate: LoginCoordinatorDelegate
     
     init(
-        delegate: LoginViewModelDelegate
+        delegate: LoginCoordinatorDelegate
     ) {
         self.delegate = delegate
     }

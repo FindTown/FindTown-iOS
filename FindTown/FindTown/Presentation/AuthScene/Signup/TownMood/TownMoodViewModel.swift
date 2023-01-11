@@ -28,10 +28,10 @@ final class TownMoodViewModel: BaseViewModel {
     
     let input = Input()
     let output = Output()
-    let delegate: SignupViewModelDelegate
+    let delegate: SignupCoordinatorDelegate
     
     init(
-        delegate: SignupViewModelDelegate
+        delegate: SignupCoordinatorDelegate
     ) {
         self.delegate = delegate
         
