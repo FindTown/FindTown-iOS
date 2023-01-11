@@ -81,6 +81,7 @@ final class AddressSheetViewController: BaseBottomSheetViewController {
             .map { county in
                 return county.villages.map { City(county: county, village: $0) }
             }
+            .delay(.milliseconds(400), scheduler: MainScheduler.instance)
             .subscribe(onNext: { cities in
                 self.viewModel?.output.villageDataSource.onNext(cities)
                 self.rx.cityType.onNext(.village)
@@ -119,7 +120,7 @@ final class AddressSheetViewController: BaseBottomSheetViewController {
             backButton.leadingAnchor.constraint(equalTo: self.bottomSheetView.leadingAnchor, constant: 17),
             backButton.centerYAnchor.constraint(equalTo: self.titleLabel.centerYAnchor),
             
-            countyCollectionView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 25.0),
+            countyCollectionView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 32.0),
             countyCollectionView.leadingAnchor.constraint(equalTo: bottomSheetView.leadingAnchor, constant: 17.0),
             countyCollectionView.trailingAnchor.constraint(equalTo: bottomSheetView.trailingAnchor, constant: -17.0),
             countyCollectionView.bottomAnchor.constraint(equalTo: completeButton.topAnchor, constant: -48.0),
