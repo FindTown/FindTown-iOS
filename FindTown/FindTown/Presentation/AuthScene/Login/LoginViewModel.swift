@@ -54,9 +54,8 @@ final class LoginViewModel: BaseViewModel {
             .flatMapLatest { self.kakaoManager.signin() }
             .subscribe(onNext: { [weak self] signinRequest in
                 
+                print("signinRequest \(signinRequest.accessToken)")
                 // 임시 -> 회원가입 완료 시점으로 가야함
-                self?.userDefaults.accessToken = signinRequest.accessToken
-                self?.userDefaults.signinType = signinRequest.signinType.value
                 self?.userDefaults.userNickname = "userNickname"
                 
                 // 유저 정보가 있으면
