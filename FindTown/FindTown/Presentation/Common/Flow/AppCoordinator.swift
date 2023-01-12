@@ -24,19 +24,17 @@ public final class AppCoordinator: Coordinator {
     
     public func start() {
         
-        print("ACCESS_TOKEN \(userDefaults.accessToken)")
-        print("SIGNIN_TYPE \(userDefaults.signinType)")
-        print("SIGNIN_TYPE \(userDefaults.userNickname)")
-        
         // 자동 로그인
-        if userDefaults.accessToken == "" {
+        
+        if TokenManager.shared.readAccessToken() == nil {
             // 로그인 필요
             goToAuth()
         } else {
             // 1. server로 부터 유저정보 확인
             // 2. 유저정보가 있으면 goToTabBar()
             // 3. 없으면 goToAuth()
-            
+
+//            goToAuth()
             goToTabBar()
         }
     }

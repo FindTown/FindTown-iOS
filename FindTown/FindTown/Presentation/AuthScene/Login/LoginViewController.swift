@@ -158,7 +158,6 @@ final class LoginViewController: BaseViewController {
         anonymousTitleTapGesture.rx.event
             .throttle(.milliseconds(300), scheduler: MainScheduler.instance)
             .bind { [weak self] _ in
-                // userdefault type 익명으로 세팅하고 넘어가기
                 self?.viewModel?.input.anonymousTrigger.onNext(())
             }
             .disposed(by: disposeBag)

@@ -54,14 +54,15 @@ final class LoginViewModel: BaseViewModel {
             .flatMapLatest { self.kakaoManager.signin() }
             .subscribe(onNext: { [weak self] signinRequest in
                 
-                print("signinRequest \(signinRequest.accessToken)")
-                // 임시 -> 회원가입 완료 시점으로 가야함
-                self?.userDefaults.userNickname = "userNickname"
+                TokenManager.shared.createTokens(accessToken: signinRequest.accessToken,
+                                                 refreshToken: signinRequest.refreshToken)
                 
                 // 유저 정보가 있으면
-                self?.goToTabBar()
+//                self?.goToTabBar()
+                
                 // 없으면
-                // self?.goToSignUpNickName()
+                self?.goToNickname()
+                
             },onError: { err in
                 let error = err as? BaseError
                 print("error \(error!)")

@@ -12,7 +12,7 @@ import KakaoSDKAuth
 import KakaoSDKCommon
 import RxSwift
 
-// 어디로 빼지
+// 수정
 enum BaseError: LocalizedError {
     case custom(String)
     case unknown
@@ -47,7 +47,6 @@ final class KakaoSigninManager: SigninManagerProtocol {
         
         if UserApi.isKakaoTalkLoginAvailable() {
             self.signInWithKakaoTalk()
-            
         } else {
             self.signInWithKakaoAccount()
         }
@@ -55,7 +54,7 @@ final class KakaoSigninManager: SigninManagerProtocol {
     }
     
     // logout API -> accessToken, refreshToken 날아감
-    // signout : logoutAPI 호출 + userDefault, 서버 유저정보 다 날려야함
+    // signout : logoutAPI 호출 + KeyChain + userDefault, 서버 유저정보 다 날려야함
     func signout() -> Observable<Void> {
         return .create { observer in
             UserApi.shared.logout { error in
@@ -120,7 +119,8 @@ final class KakaoSigninManager: SigninManagerProtocol {
                 }
                 let request = SigninRequest(
                     signinType: .kakao,
-                    accessToken: authToken.accessToken
+                    accessToken: authToken.accessToken,
+                    refreshToken: authToken.refreshToken
                 )
 
                 self.publisher.onNext(request)
@@ -157,7 +157,8 @@ final class KakaoSigninManager: SigninManagerProtocol {
                 }
                 let request = SigninRequest(
                     signinType: .kakao,
-                    accessToken: authToken.accessToken
+                    accessToken: authToken.accessToken,
+                    refreshToken: authToken.refreshToken
                 )
                 
                 self.publisher.onNext(request)

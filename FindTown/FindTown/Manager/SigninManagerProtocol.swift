@@ -21,11 +21,13 @@ protocol SigninManagerProtocol {
 struct SigninRequest {
     var signinType: SigninType
     var accessToken: String
+    var refreshToken: String
     
     var params: [String : Any] {
         return [
             "signinType": self.signinType.value,
-            "accessToken": self.accessToken
+            "accessToken": self.accessToken,
+            "refreshToken": self.refreshToken,
         ]
     }
 }
