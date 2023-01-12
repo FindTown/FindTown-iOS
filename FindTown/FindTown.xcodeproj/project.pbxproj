@@ -16,6 +16,11 @@
 		BC04A6D4296FBC5C00B60BCF /* SigninManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC04A6D3296FBC5C00B60BCF /* SigninManagerProtocol.swift */; };
 		BC04A6D6296FBC6F00B60BCF /* KakaoSigninManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC04A6D5296FBC6F00B60BCF /* KakaoSigninManager.swift */; };
 		BC04A6D9296FBC8E00B60BCF /* UserDefaultUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC04A6D8296FBC8E00B60BCF /* UserDefaultUtil.swift */; };
+		BC04A6DC296FDEC100B60BCF /* KeyChainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC04A6DB296FDEC100B60BCF /* KeyChainManager.swift */; };
+		BC04A6DE296FF10100B60BCF /* TokenManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC04A6DD296FF10100B60BCF /* TokenManager.swift */; };
+		BC04A6E029700BD700B60BCF /* AppleSigninManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC04A6DF29700BD700B60BCF /* AppleSigninManager.swift */; };
+		BC04A6E329700DF400B60BCF /* KeyChainAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC04A6E229700DF400B60BCF /* KeyChainAccount.swift */; };
+		BC04A6E529700E1400B60BCF /* KeyChainError.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC04A6E429700E1400B60BCF /* KeyChainError.swift */; };
 		BC056C562962B29F00EDCA18 /* SignupCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC056C552962B29F00EDCA18 /* SignupCoordinator.swift */; };
 		BC056C5A2962B2B900EDCA18 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC056C592962B2B900EDCA18 /* LoginViewModel.swift */; };
 		BC056C5C2962B2C400EDCA18 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC056C5B2962B2C400EDCA18 /* LoginViewController.swift */; };
@@ -106,6 +111,11 @@
 		BC04A6D3296FBC5C00B60BCF /* SigninManagerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SigninManagerProtocol.swift; sourceTree = "<group>"; };
 		BC04A6D5296FBC6F00B60BCF /* KakaoSigninManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoSigninManager.swift; sourceTree = "<group>"; };
 		BC04A6D8296FBC8E00B60BCF /* UserDefaultUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultUtil.swift; sourceTree = "<group>"; };
+		BC04A6DB296FDEC100B60BCF /* KeyChainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyChainManager.swift; sourceTree = "<group>"; };
+		BC04A6DD296FF10100B60BCF /* TokenManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenManager.swift; sourceTree = "<group>"; };
+		BC04A6DF29700BD700B60BCF /* AppleSigninManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleSigninManager.swift; sourceTree = "<group>"; };
+		BC04A6E229700DF400B60BCF /* KeyChainAccount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyChainAccount.swift; sourceTree = "<group>"; };
+		BC04A6E429700E1400B60BCF /* KeyChainError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyChainError.swift; sourceTree = "<group>"; };
 		BC056C552962B29F00EDCA18 /* SignupCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupCoordinator.swift; sourceTree = "<group>"; };
 		BC056C592962B2B900EDCA18 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		BC056C5B2962B2C400EDCA18 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -212,6 +222,7 @@
 			children = (
 				BC04A6D3296FBC5C00B60BCF /* SigninManagerProtocol.swift */,
 				BC04A6D5296FBC6F00B60BCF /* KakaoSigninManager.swift */,
+				BC04A6DF29700BD700B60BCF /* AppleSigninManager.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -222,6 +233,25 @@
 				BC04A6D8296FBC8E00B60BCF /* UserDefaultUtil.swift */,
 			);
 			path = Utils;
+			sourceTree = "<group>";
+		};
+		BC04A6DA296FDE9900B60BCF /* Manager */ = {
+			isa = PBXGroup;
+			children = (
+				BC04A6E129700DD700B60BCF /* KeyChain */,
+				BC04A6DD296FF10100B60BCF /* TokenManager.swift */,
+			);
+			path = Manager;
+			sourceTree = "<group>";
+		};
+		BC04A6E129700DD700B60BCF /* KeyChain */ = {
+			isa = PBXGroup;
+			children = (
+				BC04A6DB296FDEC100B60BCF /* KeyChainManager.swift */,
+				BC04A6E229700DF400B60BCF /* KeyChainAccount.swift */,
+				BC04A6E429700E1400B60BCF /* KeyChainError.swift */,
+			);
+			path = KeyChain;
 			sourceTree = "<group>";
 		};
 		BC056C512962B03B00EDCA18 /* AuthScene */ = {
@@ -307,6 +337,7 @@
 		BC6EFB74293B9C3400AB3332 /* Domain */ = {
 			isa = PBXGroup;
 			children = (
+				BC04A6DA296FDE9900B60BCF /* Manager */,
 				F3219B5C29693FB2000024E4 /* Entities */,
 			);
 			path = Domain;
@@ -694,13 +725,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				F39EDDCC296D7A1800A4E655 /* CategoryCollectionView.swift in Sources */,
+				BC04A6E329700DF400B60BCF /* KeyChainAccount.swift in Sources */,
 				BC0D88592964641400CCB800 /* YearMonthPickerView.swift in Sources */,
 				F3219B7C2969D589000024E4 /* AddressSheetViewModel.swift in Sources */,
 				BC056C5E2962B2CF00EDCA18 /* NicknameViewModel.swift in Sources */,
+				BC04A6DC296FDEC100B60BCF /* KeyChainManager.swift in Sources */,
 				F38CCBD729582869000C16AF /* AppCoordinator.swift in Sources */,
+				BC04A6E529700E1400B60BCF /* KeyChainError.swift in Sources */,
 				BC056C602962B2D900EDCA18 /* NicknameViewController.swift in Sources */,
 				F38CCBE929582881000C16AF /* MapViewModel.swift in Sources */,
+				BC04A6E029700BD700B60BCF /* AppleSigninManager.swift in Sources */,
 				F39EDDBC296D5AE500A4E655 /* City.swift in Sources */,
+				BC04A6DE296FF10100B60BCF /* TokenManager.swift in Sources */,
 				F39EDDD0296D7BBF00A4E655 /* StoreCollectionView.swift in Sources */,
 				F39EDDC8296D748200A4E655 /* CityCollectionView.swift in Sources */,
 				F38CCBEA29582881000C16AF /* MapCoordinator.swift in Sources */,
