@@ -9,6 +9,7 @@ import UIKit
 
 import FindTownCore
 import FindTownUI
+import KakaoSDKUser
 import RxCocoa
 import RxSwift
 
@@ -141,24 +142,24 @@ final class LoginViewController: BaseViewController {
         kakaoButton.rx.tap
             .throttle(.milliseconds(300), scheduler: MainScheduler.instance)
             .bind { [weak self] in
-                // 임시
-                self?.viewModel?.goToNickname()
+                self?.viewModel?.input.kakaoSigninTrigger.onNext(())
             }
             .disposed(by: disposeBag)
         
         /// apple 로그인
         appleButton.rx.tap
             .throttle(.milliseconds(300), scheduler: MainScheduler.instance)
-            .bind {
-                
+            .bind { [weak self] in
+                self?.viewModel?.input.appleSigninTrigger.onNext(())
             }
             .disposed(by: disposeBag)
         
         /// 둘러보기
         anonymousTitleTapGesture.rx.event
             .throttle(.milliseconds(300), scheduler: MainScheduler.instance)
-            .bind { _ in
-                
+            .bind { [weak self] _ in
+                // userdefault type 익명으로 세팅하고 넘어가기
+                self?.viewModel?.input.anonymousTrigger.onNext(())
             }
             .disposed(by: disposeBag)
         
