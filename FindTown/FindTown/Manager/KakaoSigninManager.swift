@@ -12,12 +12,10 @@ import KakaoSDKAuth
 import KakaoSDKCommon
 import RxSwift
 
-// 수정
-enum BaseError: LocalizedError {
+// 네트워크 관련 세팅 끝나면 이동
+enum SocialLoginError: LocalizedError {
     case custom(String)
     case unknown
-    case timeout
-    case failDecoding
     case nilValue
     
     var errorDescription: String? {
@@ -26,19 +24,33 @@ enum BaseError: LocalizedError {
             return message
         case .unknown:
             return "error_unknown"
-        case .timeout:
-            return "http_error_timeout"
-        case .failDecoding:
-            return "error_failed_to_json"
         case .nilValue:
             return "error_value_is_nil"
         }
     }
 }
 
-final class KakaoSigninManager: SigninManagerProtocol {
+enum NetworkError: LocalizedError {
+    case timeout
+    case failDecoding
+    case network(statusCode: Int, message: String)
+    case invalidResponse
     
-    private var disposeBag = DisposeBag()
+    var errorDescription: String? {
+        switch self {
+        case .timeout:
+            return "http_error_timeout"
+        case .failDecoding:
+            return "error_failed_to_json"
+        case .network(let statusCode, let message):
+            return "error_network_\(statusCode)_\(message)"
+        case .invalidResponse:
+            return "error_invalid_response"
+        }
+    }
+}
+
+final class KakaoSigninManager: SigninManagerProtocol {
     
     private var publisher = PublishSubject<SigninRequest>()
     
@@ -98,23 +110,23 @@ final class KakaoSigninManager: SigninManagerProtocol {
                     if sdkError.isClientFailed {
                         switch sdkError.getClientError().reason {
                         case .Cancelled:
-                            self.publisher.onError(BaseError.custom("cancel"))
+                            self.publisher.onError(SocialLoginError.custom("cancel"))
                         default:
                             let errorMessage = sdkError.getApiError().info?.msg ?? ""
-                            let error = BaseError.custom(errorMessage)
+                            let error = SocialLoginError.custom(errorMessage)
                             
                             self.publisher.onError(error)
                         }
                     }
                 } else {
                     let signInError
-                    = BaseError.custom("error is not SdkError. (\(error.self))")
+                    = SocialLoginError.custom("error is not SdkError. (\(error.self))")
                     
                     self.publisher.onError(signInError)
                 }
             } else {
                 guard let authToken = authToken else {
-                    self.publisher.onError(BaseError.custom("authToken is nil"))
+                    self.publisher.onError(SocialLoginError.custom("authToken is nil"))
                     return
                 }
                 let request = SigninRequest(
@@ -136,23 +148,23 @@ final class KakaoSigninManager: SigninManagerProtocol {
                     if sdkError.isClientFailed {
                         switch sdkError.getClientError().reason {
                         case .Cancelled:
-                            self.publisher.onError(BaseError.custom("cancel"))
+                            self.publisher.onError(SocialLoginError.custom("cancel"))
                         default:
                             let errorMessage = sdkError.getApiError().info?.msg ?? ""
-                            let error = BaseError.custom(errorMessage)
+                            let error = SocialLoginError.custom(errorMessage)
                             
                             self.publisher.onError(error)
                         }
                     }
                 } else {
                     let signInError
-                    = BaseError.custom("error is not SdkError. (\(error.self))")
+                    = SocialLoginError.custom("error is not SdkError. (\(error.self))")
                     
                     self.publisher.onError(signInError)
                 }
             } else {
                 guard let authToken = authToken else {
-                    self.publisher.onError(BaseError.custom("authToken is nil"))
+                    self.publisher.onError(SocialLoginError.custom("authToken is nil"))
                     return
                 }
                 let request = SigninRequest(
