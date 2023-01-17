@@ -11,9 +11,7 @@ import RxSwift
 
 protocol SigninManagerProtocol {
     func signin() -> Observable<SigninRequest>
-    
     func signout() -> Observable<Void>
-    
     func logout() -> Observable<Void>
 }
 
@@ -25,51 +23,16 @@ struct SigninRequest {
     
     var params: [String : Any] {
         return [
-            "signinType": self.signinType.value,
+            "signinType": self.signinType.rawValue,
             "accessToken": self.accessToken,
             "refreshToken": self.refreshToken,
         ]
     }
 }
 
-// 따로 분리
-enum SigninType {
-    case kakao
-    case apple
-    case anonymous
+enum SigninType: String {
+    case kakao = "KAKAO"
+    case apple = "APPLE"
+    case anonymous = "ANONYMOUS"
     case unknown
-    
-    init(value: String) {
-        switch value {
-        case "KAKAO":
-            self = .kakao
-            
-        case "APPLE":
-            self = .apple
-            
-        case "ANONYMOUS":
-            self = .anonymous
-            
-        default:
-            self = .unknown
-        }
-    }
-}
-
-extension SigninType {
-    var value: String {
-        switch self {
-        case .kakao:
-            return "KAKAO"
-            
-        case .apple:
-            return "APPLE"
-            
-        case .anonymous:
-            return "ANONYMOUS"
-            
-        case .unknown:
-            return ""
-        }
-    }
 }
