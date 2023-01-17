@@ -6,102 +6,234 @@
 //
 
 import UIKit
+
 import FindTownCore
 import FindTownUI
+import RxCocoa
+import RxSwift
 
-class HomeViewController: BaseViewController {
-
-    var viewModel: HomeViewModel?
+final class HomeViewController: BaseViewController {
     
-    private let button: FTButton = {
-        let button = FTButton(style: .largeFilled)
-        button.setTitle("push", for: .normal)
+    // MARK: - Properties
+    
+    private let viewModel: HomeViewModel?
+    
+    // MARK: - Views
+    
+    private let tempLogo = FindTownLabel(text: "LOGO", font: .subtitle1, textColor: .primary)
+    private let searchIcon: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(named: "search"), for: .normal)
         return button
     }()
-    
-    private let button2: FTButton = {
-        let button = FTButton(style: .largeFilled)
-        button.setTitle("present", for: .normal)
-        return button
+    private let logoSearchStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .horizontal
+        return stackView
     }()
     
-    private let button3: FTButton = {
-        let button = FTButton(style: .largeFilled)
-        button.setTitle("dismiss", for: .normal)
-        return button
+    private let dongSearchTitle = FindTownLabel(text: "나에게 맞는 동네 찾기", font: .headLine3)
+    
+    private let filterResetButton = FTButton(style: .buttonFilterNormal)
+    private let filterButton = FTButton(style: .buttonFilter)
+    private let filterCollectionView = FilterCollectionView()
+    private let filterStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .horizontal
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        return stackView
     }()
     
-    private let button4: FTButton = {
-        let button = FTButton(style: .largeFilled)
-        button.setTitle("pop", for: .normal)
-        return button
+    private let backView = UIView()
+    
+    private let townRecommendationTitle = FindTownLabel(text: "동네 리스트", font: .subtitle2, textColor: .grey6)
+    private let townCountTitle = FindTownLabel(text: "", font: .label1, textColor: .grey6)
+    private let townListAndCountStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .horizontal
+        stackView.distribution = .equalSpacing
+        return stackView
     }()
     
-    private let button5: FTButton = {
-        let button = FTButton(style: .largeFilled)
-        button.setTitle("setVC", for: .normal)
-        return button
+    private let checkBox = CheckBox()
+    private let safetyTitle = FindTownLabel(text: "안전 점수가 높은", font: .label1, textColor: .grey6)
+    private let infoIcon = UIImageView(image: UIImage(systemName: "info.circle"))
+    private let safetyScoreStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .horizontal
+        stackView.spacing = 8
+        return stackView
     }()
+    
+    private let townTableView = TownTableView()
+    
+    // MARK: - Life Cycle
     
     init(viewModel: HomeViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
-
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        view.backgroundColor = FindTownColor.primary.color
-        
-        view.addSubview(button)
-        view.addSubview(button2)
-        view.addSubview(button3)
-        view.addSubview(button4)
-        view.addSubview(button5)
-        
-        button.topAnchor.constraint(equalTo: view.topAnchor, constant: 300).isActive = true
-        button.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        
-        button4.topAnchor.constraint(equalTo: button.topAnchor, constant: 100).isActive = true
-        button4.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        
-        button2.topAnchor.constraint(equalTo: button4.topAnchor, constant: 100).isActive = true
-        button2.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        
-        button3.topAnchor.constraint(equalTo: button2.topAnchor, constant: 100).isActive = true
-        button3.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        
-        button5.topAnchor.constraint(equalTo: button3.topAnchor, constant: 100).isActive = true
-        button5.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        
-        button.addTarget(self, action: #selector(action), for: .touchUpInside)
-        button2.addTarget(self, action: #selector(action2), for: .touchUpInside)
-        button3.addTarget(self, action: #selector(action3), for: .touchUpInside)
-        button4.addTarget(self, action: #selector(action4), for: .touchUpInside)
-        button5.addTarget(self, action: #selector(action5), for: .touchUpInside)
     }
     
-    @objc func action() {
-        viewModel?.push()
+    // MARK: - Functions
+    
+    override func addView() {
+        
+        [tempLogo, searchIcon].forEach {
+            logoSearchStackView.addArrangedSubview($0)
+        }
+        
+        [filterResetButton, filterButton, filterCollectionView].forEach {
+            filterStackView.addArrangedSubview($0)
+        }
+        
+        [townRecommendationTitle, townCountTitle].forEach {
+            townListAndCountStackView.addArrangedSubview($0)
+        }
+        
+        [checkBox, safetyTitle, infoIcon].forEach {
+            safetyScoreStackView.addArrangedSubview($0)
+        }
+        
+        [townListAndCountStackView, safetyScoreStackView, townTableView].forEach {
+            backView.addSubview($0)
+        }
+        
+        [logoSearchStackView, dongSearchTitle, filterStackView, backView].forEach {
+            view.addSubview($0)
+        }
     }
     
-    @objc func action4() {
-        viewModel?.pop()
-    }
-
-    @objc func action2() {
-        viewModel?.present()
-    }
-
-    @objc func action3() {
-        viewModel?.dismiss()
+    override func setLayout() {
+        NSLayoutConstraint.activate([
+            logoSearchStackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 22),
+            logoSearchStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            logoSearchStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16)
+        ])
+        
+        NSLayoutConstraint.activate([
+            dongSearchTitle.topAnchor.constraint(equalTo: logoSearchStackView.bottomAnchor, constant: 56),
+            dongSearchTitle.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            dongSearchTitle.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+        ])
+        
+        NSLayoutConstraint.activate([
+            filterStackView.topAnchor.constraint(equalTo: dongSearchTitle.bottomAnchor, constant: 16),
+            filterStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            filterStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+        ])
+        
+        backView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            backView.topAnchor.constraint(equalTo: filterStackView.bottomAnchor, constant: 72),
+            backView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            backView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            backView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+        ])
+        
+        NSLayoutConstraint.activate([
+            townListAndCountStackView.topAnchor.constraint(equalTo: backView.topAnchor, constant: 24),
+            townListAndCountStackView.leadingAnchor.constraint(equalTo: backView.leadingAnchor, constant: 16),
+            townListAndCountStackView.trailingAnchor.constraint(equalTo: backView.trailingAnchor, constant: -16)
+        ])
+        
+        NSLayoutConstraint.activate([
+            safetyScoreStackView.topAnchor.constraint(equalTo: townRecommendationTitle.bottomAnchor, constant: 16),
+            safetyScoreStackView.trailingAnchor.constraint(equalTo: backView.trailingAnchor, constant: -16),
+        ])
+        
+        NSLayoutConstraint.activate([
+            townTableView.topAnchor.constraint(equalTo: safetyScoreStackView.bottomAnchor, constant: 16),
+            townTableView.leadingAnchor.constraint(equalTo: backView.leadingAnchor, constant: 16),
+            townTableView.trailingAnchor.constraint(equalTo: backView.trailingAnchor, constant: -16),
+            townTableView.bottomAnchor.constraint(equalTo: backView.bottomAnchor)
+        ])
     }
     
-    @objc func action5() {
-        viewModel?.setViewController()
+    override func setupView() {
+        filterResetButton.setImage(UIImage(named: "reset"), for: .normal)
+        filterResetButton.setTitle("초기화", for: .normal)
+        filterResetButton.configuration?.contentInsets.leading = 12
+        filterResetButton.configuration?.contentInsets.trailing = 12
+        filterResetButton.setTitleColor(FindTownColor.black.color, for: .normal)
+        filterResetButton.isHidden = true
+        
+        filterButton.setImage(UIImage(named: "filter"), for: .normal)
+        filterButton.changesSelectionAsPrimaryAction = false
+        filterButton.setTitle("필터", for: .normal)
+        filterButton.configuration?.contentInsets.leading = 12
+        filterButton.configuration?.contentInsets.trailing = 12
+        filterButton.setTitleColor(FindTownColor.black.color, for: .normal)
+        
+        backView.backgroundColor = FindTownColor.back2.color
+    }
+    
+    override func bindViewModel() {
+        
+        // Input
+        
+        filterButton.rx.tap
+            .throttle(.milliseconds(300), scheduler: MainScheduler.instance)
+            .bind { [weak self] in
+                self?.viewModel?.input.filterButtonTrigger.onNext(())
+            }
+            .disposed(by: disposeBag)
+        
+        // Output
+        
+        viewModel?.output.searchFilterDataSource
+            .bind(to: filterCollectionView.rx.items) { collectionView, row, item in
+                let cell = collectionView.dequeueReusableCell(
+                    withReuseIdentifier: FillterCollectionViewCell.reuseIdentifier,
+                    for: IndexPath(row: row, section: 0)
+                ) as! FillterCollectionViewCell
+                
+                cell.setupCell(item, row)
+                
+                return cell
+            }
+            .disposed(by: disposeBag)
+        
+        viewModel?.output.searchTownTableDataSource
+            .bind(to: townTableView.rx.items) { tableView, row, item in
+                let cell = tableView.dequeueReusableCell(
+                    withIdentifier: TownTableViewCell.reuseIdentifier,
+                    for: IndexPath(row: row, section: 0)
+                ) as! TownTableViewCell
+                
+                cell.setupCell(item)
+                cell.selectionStyle = .none
+                
+                return cell
+            }
+            .disposed(by: disposeBag)
+        
+        viewModel?.output.searchTownTableDataSource
+            .bind { [weak self] in
+                self?.townCountTitle.text = "\($0.count)개 동네"
+            }
+            .disposed(by: disposeBag)
+    }
+    
+    func dismissBottomSheet() {
+        
+        // 초기화 버튼 보이고 + 필터버튼 안보이게
+        // 인프라, 교통에 선택한 요소로 변경
+        // 선택한 값들이 맞춰 테이블 뷰 새로 세팅
+        
+        filterResetButton.isHidden = false
+        filterButton.isHidden = true
+        
+        print("돌겠네 ㅋㅋ")
     }
 }

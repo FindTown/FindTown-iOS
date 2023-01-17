@@ -6,51 +6,76 @@
 //
 
 import Foundation
+
 import FindTownCore
+import RxSwift
+import RxRelay
 
 protocol HomeViewModelDelegate {
-    func push()
-    func present()
-    func pop()
-    func dismiss()
-    func setViewController()
+    func goToFilterBottomSheet()
 }
 
 protocol HomeViewModelType {
-    func push()
-    func present()
-    func pop()
-    func dismiss()
-    func setViewController()
+    func goToFilterBottomSheet()
+}
+
+// 임시
+struct townModelTest {
+    let image: String
+    let dong: String
+    let introduce: String
 }
 
 final class HomeViewModel: BaseViewModel {
+
+    struct Input {
+        let filterButtonTrigger = PublishSubject<Void>()
+    }
+    
+    struct Output {
+        var searchFilterDataSource = BehaviorRelay<[String]>(value: [])
+        var searchTownTableDataSource = BehaviorRelay<[townModelTest]>(value: [])
+    }
+    
+    let input = Input()
+    let output = Output()
     let delegate: HomeViewModelDelegate
     
     init(delegate: HomeViewModelDelegate) {
         self.delegate = delegate
+    
+        super.init()
+        self.bind()
+    }
+    
+    func bind() {
+        
+        self.input.filterButtonTrigger
+            .withLatestFrom(input.filterButtonTrigger)
+            .bind(onNext: goToFilterBottomSheet)
+            .disposed(by: disposeBag)
+        
+        // 임시
+        let searchCategoryModel = ["인프라", "교통"]
+        self.output.searchFilterDataSource.accept(searchCategoryModel)
+        self.output.searchTownTableDataSource.accept(returnTownTestData())
     }
 }
 
 extension HomeViewModel: HomeViewModelType {
     
-    func push() {
-        delegate.push()
+    func goToFilterBottomSheet() {
+        delegate.goToFilterBottomSheet()
     }
-    
-    func present() {
-        delegate.present()
-    }
-    
-    func pop() {
-        delegate.pop()
-    }
-    
-    func dismiss() {
-        delegate.dismiss()
-    }
-    
-    func setViewController() {
-        delegate.setViewController()
+}
+
+extension HomeViewModel {
+    func returnTownTestData() -> [townModelTest] {
+        let demoTown1 = townModelTest(image: "map", dong: "신림동", introduce: "자취생들이 많이 사는 동네")
+        let demoTown2 = townModelTest(image: "map", dong: "신림동", introduce: "자취생들이 많이 사는 동네")
+        let demoTown3 = townModelTest(image: "map", dong: "신림동", introduce: "자취생들이 많이 사는 동네")
+        
+        let towns = [demoTown1, demoTown2, demoTown3]
+        return towns
     }
 }
