@@ -112,10 +112,6 @@ final class TownTableViewCell: UITableViewCell {
             btnStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
             btnStackView.heightAnchor.constraint(equalToConstant: 40)
         ])
-        
-        NSLayoutConstraint.activate([
-            contentView.heightAnchor.constraint(equalToConstant: 150)
-        ])
     }
     
     private func setupView() {

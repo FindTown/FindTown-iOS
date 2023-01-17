@@ -176,6 +176,9 @@ final class HomeViewController: BaseViewController {
         filterButton.setTitleColor(FindTownColor.black.color, for: .normal)
         
         backView.backgroundColor = FindTownColor.back2.color
+        
+        townTableView.rowHeight = 150
+        townTableView.estimatedRowHeight = 150
     }
     
     override func bindViewModel() {
