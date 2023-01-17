@@ -42,6 +42,7 @@ final class HomeViewController: BaseViewController {
         let stackView = UIStackView()
         stackView.axis = .horizontal
         stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.spacing = 10
         return stackView
     }()
     

@@ -21,11 +21,6 @@ final class FilterCollectionViewFlowLayout: UICollectionViewFlowLayout {
     
     private func setupView() {
         scrollDirection = .horizontal
-        minimumLineSpacing = 10
-        sectionInset = UIEdgeInsets(top: 0.0,
-                                    left: 10.0,
-                                    bottom: 0.0,
-                                    right: 10.0)
         estimatedItemSize = UICollectionViewFlowLayout.automaticSize
     }
 }
