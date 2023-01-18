@@ -9,7 +9,9 @@ import Foundation
 
 enum KeyChainAccount {
     case accessToken
+    case accesstokenExpiredTime
     case refreshToken
+    case refreshTokenExpiredTime
     
     // 더 필요한 Account 추가
     
@@ -21,7 +23,11 @@ enum KeyChainAccount {
         switch self {
         case .accessToken:
             return kSecClassGenericPassword
+        case .accesstokenExpiredTime:
+            return kSecClassGenericPassword
         case .refreshToken:
+            return kSecClassGenericPassword
+        case .refreshTokenExpiredTime:
             return kSecClassGenericPassword
         }
     }
