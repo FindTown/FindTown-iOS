@@ -13,7 +13,7 @@ import RxSwift
 import RxRelay
 
 protocol NicknameViewModelType {
-    func goToLocationAndYears()
+    func goToLocationAndYears(_ signupUserModel: SignupUserModel)
 }
 
 enum NicknameStatus {
@@ -79,14 +79,17 @@ final class NicknameViewModel: BaseViewModel {
     private func setNickname(nickname: String) {
         // 1. nickname 임시로 set
         print("setNickname \(nickname)")
+
+        var signupUserModel = SignupUserModel()
+        signupUserModel.nickname = nickname
         
         // 2. after goToLocationAndYears
-        self.goToLocationAndYears()
+        self.goToLocationAndYears(signupUserModel)
     }
 }
 
 extension NicknameViewModel: NicknameViewModelType {
-    func goToLocationAndYears() {
-        delegate.goToLocationAndYears()
+    func goToLocationAndYears(_ signupUserModel: SignupUserModel) {
+        delegate.goToLocationAndYears(signupUserModel)
     }
 }
