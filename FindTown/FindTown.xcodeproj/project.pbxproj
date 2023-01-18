@@ -9,11 +9,13 @@
 /* Begin PBXBuildFile section */
 		2B718C182966A5930068884A /* MapCategoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B718C172966A5930068884A /* MapCategoryCollectionViewCell.swift */; };
 		2B718C1A2966A6000068884A /* MapCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B718C192966A6000068884A /* MapCategory.swift */; };
+		2BB226B829784855007BF757 /* TempTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BB226B729784855007BF757 /* TempTableViewCell.swift */; };
 		2BEE90C52977F90A002E7C3A /* Favorite1ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BEE90C42977F90A002E7C3A /* Favorite1ViewController.swift */; };
 		2BEE90C92977F93E002E7C3A /* Favorite1ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BEE90C82977F93E002E7C3A /* Favorite1ViewModel.swift */; };
 		2BEE90CC2977F975002E7C3A /* FavoriteCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BEE90CB2977F975002E7C3A /* FavoriteCoordinator.swift */; };
 		2BEE90CF2977FDFE002E7C3A /* AnonymousView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BEE90CE2977FDFE002E7C3A /* AnonymousView.swift */; };
 		2BEE90D129780640002E7C3A /* EmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BEE90D029780640002E7C3A /* EmptyView.swift */; };
+		2BEE90D32978111C002E7C3A /* FavoriteTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BEE90D22978111C002E7C3A /* FavoriteTableView.swift */; };
 		BC056C562962B29F00EDCA18 /* SignupCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC056C552962B29F00EDCA18 /* SignupCoordinator.swift */; };
 		BC056C5A2962B2B900EDCA18 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC056C592962B2B900EDCA18 /* LoginViewModel.swift */; };
 		BC056C5C2962B2C400EDCA18 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC056C5B2962B2C400EDCA18 /* LoginViewController.swift */; };
@@ -101,11 +103,13 @@
 /* Begin PBXFileReference section */
 		2B718C172966A5930068884A /* MapCategoryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapCategoryCollectionViewCell.swift; sourceTree = "<group>"; };
 		2B718C192966A6000068884A /* MapCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapCategory.swift; sourceTree = "<group>"; };
+		2BB226B729784855007BF757 /* TempTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempTableViewCell.swift; sourceTree = "<group>"; };
 		2BEE90C42977F90A002E7C3A /* Favorite1ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Favorite1ViewController.swift; sourceTree = "<group>"; };
 		2BEE90C82977F93E002E7C3A /* Favorite1ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Favorite1ViewModel.swift; sourceTree = "<group>"; };
 		2BEE90CB2977F975002E7C3A /* FavoriteCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteCoordinator.swift; sourceTree = "<group>"; };
 		2BEE90CE2977FDFE002E7C3A /* AnonymousView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnonymousView.swift; sourceTree = "<group>"; };
 		2BEE90D029780640002E7C3A /* EmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyView.swift; sourceTree = "<group>"; };
+		2BEE90D22978111C002E7C3A /* FavoriteTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteTableView.swift; sourceTree = "<group>"; };
 		BC056C552962B29F00EDCA18 /* SignupCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupCoordinator.swift; sourceTree = "<group>"; };
 		BC056C592962B2B900EDCA18 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		BC056C5B2962B2C400EDCA18 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -237,6 +241,8 @@
 			children = (
 				2BEE90CE2977FDFE002E7C3A /* AnonymousView.swift */,
 				2BEE90D029780640002E7C3A /* EmptyView.swift */,
+				2BEE90D22978111C002E7C3A /* FavoriteTableView.swift */,
+				2BB226B729784855007BF757 /* TempTableViewCell.swift */,
 			);
 			path = SubViews;
 			sourceTree = "<group>";
@@ -742,11 +748,13 @@
 				2B718C182966A5930068884A /* MapCategoryCollectionViewCell.swift in Sources */,
 				F38CCBD829582869000C16AF /* TabBarCoordinator.swift in Sources */,
 				F3219B692969432C000024E4 /* MapDetailComponentView.swift in Sources */,
+				2BEE90D32978111C002E7C3A /* FavoriteTableView.swift in Sources */,
 				F3219B7A2969D53D000024E4 /* AddressSheetCoordinator.swift in Sources */,
 				2B718C1A2966A6000068884A /* MapCategory.swift in Sources */,
 				F38CCBE12958287C000C16AF /* HomeCoordinator.swift in Sources */,
 				2BEE90C52977F90A002E7C3A /* Favorite1ViewController.swift in Sources */,
 				2BEE90CF2977FDFE002E7C3A /* AnonymousView.swift in Sources */,
+				2BB226B829784855007BF757 /* TempTableViewCell.swift in Sources */,
 				F39EDDCE296D7A6900A4E655 /* CategoryCollectionViewFlowLayout.swift in Sources */,
 				F3219B5E2969403F000024E4 /* MapData.swift in Sources */,
 				F3219B6E29699F88000024E4 /* Store.swift in Sources */,

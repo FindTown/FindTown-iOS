@@ -11,8 +11,14 @@ import FindTownUI
 final class AnonymousView: UIView {
     
     private let iconImageView = UIImageView()
-    private let titleLabel = UILabel()
-    private let subLabel = UILabel()
+    private let titleLabel = FindTownLabel(text: "찜 기능은 회원 가입 후 이용 가능해요.",
+                                           font: .body1,
+                                           textColor: .grey6,
+                                           textAlignment: .center)
+    private let subLabel = FindTownLabel(text: "로그인 / 가입 후 편리하게 동네를 찜해보세요!",
+                                         font: .body4,
+                                         textColor: .grey5,
+                                         textAlignment: .center)
     let signUpButton = FTButton(style: .mediumFilled)
     
     override init(frame: CGRect) {
@@ -62,15 +68,8 @@ private extension AnonymousView {
         self.backgroundColor = .clear
         
         iconImageView.image = UIImage(named: "anonymousIcon")
-        titleLabel.font = FindTownFont.body1.font
-        titleLabel.textColor = FindTownColor.grey6.color
-        titleLabel.text = "찜 기능은 회원 가입 후 이용 가능해요."
-        
-        subLabel.font = FindTownFont.body4.font
-        subLabel.textColor = FindTownColor.grey5.color
-        subLabel.text = "로그인 / 가입 후 편리하게 동네를 찜해보세요!"
-        
+        titleLabel.setLineHeight(lineHeight: 24.0)
+        subLabel.setLineHeight(lineHeight: 20.0)
         signUpButton.setTitle("로그인 / 회원가입하기", for: .normal)
     }
-
 }

@@ -10,12 +10,6 @@ import FindTownCore
 import FindTownUI
 import RxSwift
 
-enum favoriteViewStatus {
-    case anonymous /// 로그인하지 않은 사용자인 경우
-    case isEmpty   /// 찜한 동네가 없는 경우
-    case isPresent /// 찜한 동네가 있는 경우
-}
-
 class Favorite1ViewController: BaseViewController {
     
     // MARK: - Properties
@@ -23,8 +17,10 @@ class Favorite1ViewController: BaseViewController {
     var viewModel: Favorite1ViewModel?
     
     // MARK: - Views
+    
     let anonymousView = AnonymousView()
     let isEmptyView = EmptyView()
+    let favoriteTableView = FavoriteTableView()
 
     // MARK: - Life Cycle
     
@@ -47,7 +43,7 @@ class Favorite1ViewController: BaseViewController {
     override func addView() {
         super.addView()
         
-        [anonymousView, isEmptyView].forEach {
+        [anonymousView, isEmptyView, favoriteTableView].forEach {
             self.view.addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
@@ -67,17 +63,53 @@ class Favorite1ViewController: BaseViewController {
             isEmptyView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             isEmptyView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
         ])
+        
+        NSLayoutConstraint.activate([
+            favoriteTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            favoriteTableView.topAnchor.constraint(equalTo: view.topAnchor),
+            favoriteTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            favoriteTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+        ])
     }
     
     override func bindViewModel() {
-        // Output
+        
+        // MARK: ViewModel - Input
+        
+        self.anonymousView.signUpButton.rx.tap
+            .bind { [weak self] in
+                self?.viewModel?.input.signUpButtonTrigger.onNext(())
+            }
+            .disposed(by: disposeBag)
+        
+        self.isEmptyView.findOutButton.rx.tap
+            .bind { [weak self] in
+                /// 홈 탭으로 이동
+                self?.tabBarController?.selectedIndex = 0
+            }
+            .disposed(by: disposeBag)
+        
+        // MARK: ViewModel - Output
+        
         self.viewModel?.output.viewStatus
             .bind(to: self.rx.favoriteViewStatus)
             .disposed(by: disposeBag)
+        
+        self.viewModel?.output.favoriteDataSource
+            .observe(on: MainScheduler.instance)
+            .filter { !$0.isEmpty }
+            .bind(to: favoriteTableView.rx.items(cellIdentifier: TempTableViewCell.reuseIdentifier,
+                                                 cellType: TempTableViewCell.self)) {
+                index, item, cell in
+                cell.textLabel?.text = item.name
+            }
+            .disposed(by: disposeBag)
+
     }
 }
 
 extension Reactive where Base: Favorite1ViewController {
+    
     /// favoriteViewStatus에 따라 view 변경
     var favoriteViewStatus:Binder<favoriteViewStatus> {
         return Binder(self.base) { viewcontroller, staus in
@@ -85,10 +117,13 @@ extension Reactive where Base: Favorite1ViewController {
             case .anonymous:
                 viewcontroller.anonymousView.isHidden = false
                 viewcontroller.isEmptyView.isHidden = true
+                viewcontroller.favoriteTableView.isHidden = true
             case .isEmpty:
                 viewcontroller.isEmptyView.isHidden = false
                 viewcontroller.anonymousView.isHidden = true
+                viewcontroller.favoriteTableView.isHidden = true
             case .isPresent:
+                viewcontroller.favoriteTableView.isHidden = false
                 viewcontroller.anonymousView.isHidden = true
                 viewcontroller.isEmptyView.isHidden = true
             }

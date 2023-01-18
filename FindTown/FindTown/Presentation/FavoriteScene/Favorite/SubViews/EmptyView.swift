@@ -11,9 +11,15 @@ import FindTownUI
 final class EmptyView: UIView {
     
     private let iconImageView = UIImageView()
-    private let titleLabel = UILabel()
-    private let subLabel = UILabel()
-    let signUpButton = FTButton(style: .mediumFilled)
+    private let titleLabel = FindTownLabel(text: "찜한 동네가 아직 없어요.",
+                                           font: .body1,
+                                           textColor: .grey6,
+                                           textAlignment: .center)
+    private let subLabel = FindTownLabel(text: "나에게 맞는 동네를 찾아서 찜해보세요!",
+                                         font: .body4,
+                                         textColor: .grey5,
+                                         textAlignment: .center)
+    let findOutButton = FTButton(style: .mediumFilled)
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -29,7 +35,7 @@ final class EmptyView: UIView {
 private extension EmptyView {
     
     func setupLayout() {
-        [iconImageView, titleLabel, subLabel, signUpButton].forEach {
+        [iconImageView, titleLabel, subLabel, findOutButton].forEach {
             self.addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
@@ -50,27 +56,19 @@ private extension EmptyView {
         ])
         
         NSLayoutConstraint.activate([
-            signUpButton.topAnchor.constraint(equalTo: subLabel.bottomAnchor, constant: 24.0),
-            signUpButton.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            signUpButton.heightAnchor.constraint(equalToConstant: 44.0),
-            signUpButton.widthAnchor.constraint(equalToConstant: 152.0)
+            findOutButton.topAnchor.constraint(equalTo: subLabel.bottomAnchor, constant: 24.0),
+            findOutButton.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            findOutButton.heightAnchor.constraint(equalToConstant: 44.0),
+            findOutButton.widthAnchor.constraint(equalToConstant: 152.0)
         ])
-
     }
     
     func setupView() {
         self.backgroundColor = .clear
         
         iconImageView.image = UIImage(named: "emptyIcon")
-        titleLabel.font = FindTownFont.body1.font
-        titleLabel.textColor = FindTownColor.grey6.color
-        titleLabel.text = "찜한 동네가 아직 없어요."
-        
-        subLabel.font = FindTownFont.body4.font
-        subLabel.textColor = FindTownColor.grey5.color
-        subLabel.text = "나에게 맞는 동네를 찾아서 찜해보세요!"
-        
-        signUpButton.setTitle("나에게 맞는 동네 찾기", for: .normal)
+        titleLabel.setLineHeight(lineHeight: 24.0)
+        subLabel.setLineHeight(lineHeight: 20.0)
+        findOutButton.setTitle("나에게 맞는 동네 찾기", for: .normal)
     }
-
 }
