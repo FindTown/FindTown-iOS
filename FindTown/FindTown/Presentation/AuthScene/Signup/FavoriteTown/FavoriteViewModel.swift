@@ -15,16 +15,6 @@ protocol FavoriteViewModelType {
     func goToAgreePolicy(_ signupUserModel: SignupUserModel)
 }
 
-// 수정
-struct JachiguDong {
-    let jachigu: String
-    let dong: String
-    
-    init(jachigu: String = "", dong: String = "") {
-        self.jachigu = jachigu
-        self.dong = dong
-    }
-}
 
 final class FavoriteViewModel: BaseViewModel {
     

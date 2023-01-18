@@ -16,23 +16,6 @@ protocol NicknameViewModelType {
     func goToLocationAndYears(_ signupUserModel: SignupUserModel)
 }
 
-// 수정
-struct SignupUserModel {
-    var nickname: String
-    var dongYearMonth: DongYearMonth
-    var jachiguDong: JachiguDong
-    var townLikeText: String
-    
-    init(nickname: String = "", dongYearMonth: DongYearMonth = .init(),
-         jachiguDong: JachiguDong = .init(), townLikeText: String = ""
-    ) {
-        self.nickname = nickname
-        self.dongYearMonth = dongYearMonth
-        self.jachiguDong = jachiguDong
-        self.townLikeText = townLikeText
-    }
-}
-
 enum NicknameStatus {
     case none
     case complete
