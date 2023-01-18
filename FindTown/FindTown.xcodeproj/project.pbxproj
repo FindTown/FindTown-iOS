@@ -9,6 +9,11 @@
 /* Begin PBXBuildFile section */
 		2B718C182966A5930068884A /* MapCategoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B718C172966A5930068884A /* MapCategoryCollectionViewCell.swift */; };
 		2B718C1A2966A6000068884A /* MapCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B718C192966A6000068884A /* MapCategory.swift */; };
+		2BEE90C52977F90A002E7C3A /* Favorite1ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BEE90C42977F90A002E7C3A /* Favorite1ViewController.swift */; };
+		2BEE90C92977F93E002E7C3A /* Favorite1ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BEE90C82977F93E002E7C3A /* Favorite1ViewModel.swift */; };
+		2BEE90CC2977F975002E7C3A /* FavoriteCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BEE90CB2977F975002E7C3A /* FavoriteCoordinator.swift */; };
+		2BEE90CF2977FDFE002E7C3A /* AnonymousView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BEE90CE2977FDFE002E7C3A /* AnonymousView.swift */; };
+		2BEE90D129780640002E7C3A /* EmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BEE90D029780640002E7C3A /* EmptyView.swift */; };
 		BC056C562962B29F00EDCA18 /* SignupCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC056C552962B29F00EDCA18 /* SignupCoordinator.swift */; };
 		BC056C5A2962B2B900EDCA18 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC056C592962B2B900EDCA18 /* LoginViewModel.swift */; };
 		BC056C5C2962B2C400EDCA18 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC056C5B2962B2C400EDCA18 /* LoginViewController.swift */; };
@@ -96,6 +101,11 @@
 /* Begin PBXFileReference section */
 		2B718C172966A5930068884A /* MapCategoryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapCategoryCollectionViewCell.swift; sourceTree = "<group>"; };
 		2B718C192966A6000068884A /* MapCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapCategory.swift; sourceTree = "<group>"; };
+		2BEE90C42977F90A002E7C3A /* Favorite1ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Favorite1ViewController.swift; sourceTree = "<group>"; };
+		2BEE90C82977F93E002E7C3A /* Favorite1ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Favorite1ViewModel.swift; sourceTree = "<group>"; };
+		2BEE90CB2977F975002E7C3A /* FavoriteCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteCoordinator.swift; sourceTree = "<group>"; };
+		2BEE90CE2977FDFE002E7C3A /* AnonymousView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnonymousView.swift; sourceTree = "<group>"; };
+		2BEE90D029780640002E7C3A /* EmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyView.swift; sourceTree = "<group>"; };
 		BC056C552962B29F00EDCA18 /* SignupCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupCoordinator.swift; sourceTree = "<group>"; };
 		BC056C592962B2B900EDCA18 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		BC056C5B2962B2C400EDCA18 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -195,6 +205,42 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2BEE90BE2977F806002E7C3A /* FavoriteScene */ = {
+			isa = PBXGroup;
+			children = (
+				2BEE90CA2977F966002E7C3A /* Flows */,
+				2BEE90BF2977F82A002E7C3A /* Favorite */,
+			);
+			path = FavoriteScene;
+			sourceTree = "<group>";
+		};
+		2BEE90BF2977F82A002E7C3A /* Favorite */ = {
+			isa = PBXGroup;
+			children = (
+				2BEE90C42977F90A002E7C3A /* Favorite1ViewController.swift */,
+				2BEE90C82977F93E002E7C3A /* Favorite1ViewModel.swift */,
+				2BEE90CD2977FDE3002E7C3A /* SubViews */,
+			);
+			path = Favorite;
+			sourceTree = "<group>";
+		};
+		2BEE90CA2977F966002E7C3A /* Flows */ = {
+			isa = PBXGroup;
+			children = (
+				2BEE90CB2977F975002E7C3A /* FavoriteCoordinator.swift */,
+			);
+			path = Flows;
+			sourceTree = "<group>";
+		};
+		2BEE90CD2977FDE3002E7C3A /* SubViews */ = {
+			isa = PBXGroup;
+			children = (
+				2BEE90CE2977FDFE002E7C3A /* AnonymousView.swift */,
+				2BEE90D029780640002E7C3A /* EmptyView.swift */,
+			);
+			path = SubViews;
+			sourceTree = "<group>";
+		};
 		BC056C512962B03B00EDCA18 /* AuthScene */ = {
 			isa = PBXGroup;
 			children = (
@@ -289,6 +335,7 @@
 				BC056C512962B03B00EDCA18 /* AuthScene */,
 				F38CCBD92958287C000C16AF /* HomeScene */,
 				F38CCBE229582881000C16AF /* MapScene */,
+				2BEE90BE2977F806002E7C3A /* FavoriteScene */,
 				BC6EFB77293B9C4F00AB3332 /* Common */,
 			);
 			path = Presentation;
@@ -658,6 +705,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2BEE90CC2977F975002E7C3A /* FavoriteCoordinator.swift in Sources */,
 				F39EDDCC296D7A1800A4E655 /* CategoryCollectionView.swift in Sources */,
 				BC0D88592964641400CCB800 /* YearMonthPickerView.swift in Sources */,
 				F3219B7C2969D589000024E4 /* AddressSheetViewModel.swift in Sources */,
@@ -687,6 +735,7 @@
 				BC056C5A2962B2B900EDCA18 /* LoginViewModel.swift in Sources */,
 				BC7BCBCD29646EE1003BB4FF /* TownMoodViewController.swift in Sources */,
 				F3219B722969B346000024E4 /* StoreType.swift in Sources */,
+				2BEE90D129780640002E7C3A /* EmptyView.swift in Sources */,
 				BC056C562962B29F00EDCA18 /* SignupCoordinator.swift in Sources */,
 				BC9E86522966821C00AB4AE7 /* SignupViewModelDelegate.swift in Sources */,
 				F38CCBE829582881000C16AF /* MapViewController.swift in Sources */,
@@ -696,6 +745,8 @@
 				F3219B7A2969D53D000024E4 /* AddressSheetCoordinator.swift in Sources */,
 				2B718C1A2966A6000068884A /* MapCategory.swift in Sources */,
 				F38CCBE12958287C000C16AF /* HomeCoordinator.swift in Sources */,
+				2BEE90C52977F90A002E7C3A /* Favorite1ViewController.swift in Sources */,
+				2BEE90CF2977FDFE002E7C3A /* AnonymousView.swift in Sources */,
 				F39EDDCE296D7A6900A4E655 /* CategoryCollectionViewFlowLayout.swift in Sources */,
 				F3219B5E2969403F000024E4 /* MapData.swift in Sources */,
 				F3219B6E29699F88000024E4 /* Store.swift in Sources */,
@@ -704,6 +755,7 @@
 				F3219B6729694328000024E4 /* MapDetailCategoryView.swift in Sources */,
 				F38CCBE02958287C000C16AF /* HomeViewController.swift in Sources */,
 				BC9F4D5B296BE6060099473C /* FavoriteViewModel.swift in Sources */,
+				2BEE90C92977F93E002E7C3A /* Favorite1ViewModel.swift in Sources */,
 				BC0D88532963DD0D00CCB800 /* LocationAndYearsViewController.swift in Sources */,
 				F3219B762969D169000024E4 /* AddressSheetViewController.swift in Sources */,
 				F3219B6C29699B25000024E4 /* MapStoreCollectionViewCell.swift in Sources */,
