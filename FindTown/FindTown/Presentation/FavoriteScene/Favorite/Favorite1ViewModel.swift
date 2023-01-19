@@ -17,7 +17,7 @@ protocol FavoriteViewModelDelegate {
     func goToSignup()
 }
 
-enum favoriteViewStatus {
+enum FavoriteViewStatus {
     /// 로그인하지 않은 사용자인 경우
     case anonymous
     /// 찜한 동네가 없는 경우
@@ -35,7 +35,7 @@ final class Favorite1ViewModel: BaseViewModel {
     }
     
     struct Output {
-        let viewStatus = BehaviorSubject<favoriteViewStatus>(value: .anonymous)
+        let viewStatus = BehaviorSubject<FavoriteViewStatus>(value: .anonymous)
         let favoriteDataSource = BehaviorSubject<[Store]>(value: [])
     }
     
@@ -70,7 +70,7 @@ extension Favorite1ViewModel: Favorite1ViewModelType {
 
 extension Favorite1ViewModel {
     
-    func returnViewStatus() -> favoriteViewStatus {
+    func returnViewStatus() -> FavoriteViewStatus {
         return .isEmpty
     }
     

@@ -8,6 +8,7 @@
 import UIKit
 import FindTownUI
 
+/// 로그인하지 않은 사용자인 경우 View
 final class AnonymousView: UIView {
     
     private let iconImageView = UIImageView()

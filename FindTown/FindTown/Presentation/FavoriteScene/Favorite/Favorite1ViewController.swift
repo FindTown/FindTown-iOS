@@ -111,7 +111,7 @@ class Favorite1ViewController: BaseViewController {
 extension Reactive where Base: Favorite1ViewController {
     
     /// favoriteViewStatus에 따라 view 변경
-    var favoriteViewStatus:Binder<favoriteViewStatus> {
+    var favoriteViewStatus:Binder<FavoriteViewStatus> {
         return Binder(self.base) { viewcontroller, staus in
             switch staus {
             case .anonymous:

@@ -9,6 +9,7 @@ import Foundation
 import UIKit
 import FindTownUI
 
+/// 찜한 동네리스트를 보여주는 tableView
 final class FavoriteTableView: UITableView {
     
     override init(frame: CGRect, style: UITableView.Style) {

@@ -22,7 +22,6 @@ final class FavoriteCoordinator: FlowCoordinator {
         let favoriteViewModel = Favorite1ViewModel(delegate: self)
         return Favorite1ViewController(viewModel: favoriteViewModel)
     }
-    
 }
 
 extension FavoriteCoordinator: FavoriteViewModelDelegate {

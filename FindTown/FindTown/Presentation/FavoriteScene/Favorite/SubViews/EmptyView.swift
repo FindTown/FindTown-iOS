@@ -8,6 +8,7 @@
 import UIKit
 import FindTownUI
 
+/// 찜한 동네가 없는 경우의 View
 final class EmptyView: UIView {
     
     private let iconImageView = UIImageView()

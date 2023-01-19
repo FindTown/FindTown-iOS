@@ -7,6 +7,7 @@
 
 import UIKit
 
+/// 임시 cell, 추후 삭제 예정
 class TempTableViewCell: UITableViewCell {
     
     static let reuseIdentifier = "TempTableViewCell"
