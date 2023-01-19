@@ -9,7 +9,11 @@ import Foundation
 import FindTownCore
 import RxSwift
 
-protocol Favorite1ViewModelDelegate {
+protocol Favorite1ViewModelType {
+   func goToSignUp()
+}
+
+protocol FavoriteViewModelDelegate {
     func goToSignup()
 }
 
@@ -23,7 +27,8 @@ enum favoriteViewStatus {
 }
 
 final class Favorite1ViewModel: BaseViewModel {
-    let delegate: Favorite1ViewModelDelegate
+    
+    let delegate: FavoriteViewModelDelegate
     
     struct Input {
         let signUpButtonTrigger = PublishSubject<Void>()
@@ -37,7 +42,7 @@ final class Favorite1ViewModel: BaseViewModel {
     let output = Output()
     let input = Input()
     
-    init(delegate: Favorite1ViewModelDelegate) {
+    init(delegate: FavoriteViewModelDelegate) {
         self.delegate = delegate
         super.init()
         self.bind()
@@ -56,9 +61,9 @@ final class Favorite1ViewModel: BaseViewModel {
     }
 }
 
-extension Favorite1ViewModel: Favorite1ViewModelDelegate {
+extension Favorite1ViewModel: Favorite1ViewModelType {
     
-    func goToSignup() {
+    func goToSignUp() {
         delegate.goToSignup()
     }
 }
@@ -66,7 +71,7 @@ extension Favorite1ViewModel: Favorite1ViewModelDelegate {
 extension Favorite1ViewModel {
     
     func returnViewStatus() -> favoriteViewStatus {
-        return .isPresent
+        return .isEmpty
     }
     
     func returnStoreTestData() -> [Store] {

@@ -9,9 +9,10 @@ import UIKit
 import FindTownCore
 
 final class FavoriteCoordinator: FlowCoordinator {
-
+    
     var presentationStyle: PresentationStyle
     weak var navigationController: UINavigationController?
+    var delegate: FavoriteViewModelDelegate?
     
     init(presentationStyle: PresentationStyle) {
         self.presentationStyle = presentationStyle
@@ -24,12 +25,10 @@ final class FavoriteCoordinator: FlowCoordinator {
     
 }
 
-extension FavoriteCoordinator: Favorite1ViewModelDelegate {
+extension FavoriteCoordinator: FavoriteViewModelDelegate {
     
     func goToSignup() {
         guard let navigationController = navigationController else { return }
-        navigationController.isNavigationBarHidden = true
-        LoginCoordinator(presentationStyle: .push(navigationController: navigationController)).start()
-//        LoginCoordinator(presentationStyle: <#T##PresentationStyle#>)
+        AppCoordinator(navigationController: navigationController).start()
     }
 }
