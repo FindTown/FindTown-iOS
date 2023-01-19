@@ -51,7 +51,7 @@
 		BC99019C295F09720051CC9B /* NMapsMap in Frameworks */ = {isa = PBXBuildFile; productRef = BC99019B295F09720051CC9B /* NMapsMap */; };
 		BC9E86522966821C00AB4AE7 /* SignupViewModelDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC9E86512966821C00AB4AE7 /* SignupViewModelDelegate.swift */; };
 		BC9F4D59296BE5FC0099473C /* FavoriteTownViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC9F4D58296BE5FC0099473C /* FavoriteTownViewController.swift */; };
-		BC9F4D5B296BE6060099473C /* FavoriteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC9F4D5A296BE6060099473C /* FavoriteViewModel.swift */; };
+		BC9F4D5B296BE6060099473C /* FavoriteTownViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC9F4D5A296BE6060099473C /* FavoriteTownViewModel.swift */; };
 		BC9F4D5E296BF0C90099473C /* AgreePolicyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC9F4D5D296BF0C90099473C /* AgreePolicyViewController.swift */; };
 		BC9F4D60296BF0D30099473C /* AgreePolicyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC9F4D5F296BF0D30099473C /* AgreePolicyViewModel.swift */; };
 		BCE814F62967DAF200A6E3CB /* LoginCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCE814F52967DAF200A6E3CB /* LoginCoordinator.swift */; };
@@ -155,7 +155,7 @@
 		BC7BCBCE29646EEA003BB4FF /* TownMoodViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TownMoodViewModel.swift; sourceTree = "<group>"; };
 		BC9E86512966821C00AB4AE7 /* SignupViewModelDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupViewModelDelegate.swift; sourceTree = "<group>"; };
 		BC9F4D58296BE5FC0099473C /* FavoriteTownViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteTownViewController.swift; sourceTree = "<group>"; };
-		BC9F4D5A296BE6060099473C /* FavoriteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteViewModel.swift; sourceTree = "<group>"; };
+		BC9F4D5A296BE6060099473C /* FavoriteTownViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteTownViewModel.swift; sourceTree = "<group>"; };
 		BC9F4D5D296BF0C90099473C /* AgreePolicyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgreePolicyViewController.swift; sourceTree = "<group>"; };
 		BC9F4D5F296BF0D30099473C /* AgreePolicyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgreePolicyViewModel.swift; sourceTree = "<group>"; };
 		BCE814F52967DAF200A6E3CB /* LoginCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginCoordinator.swift; sourceTree = "<group>"; };
@@ -437,7 +437,7 @@
 			isa = PBXGroup;
 			children = (
 				BC9F4D58296BE5FC0099473C /* FavoriteTownViewController.swift */,
-				BC9F4D5A296BE6060099473C /* FavoriteViewModel.swift */,
+				BC9F4D5A296BE6060099473C /* FavoriteTownViewModel.swift */,
 			);
 			path = FavoriteTown;
 			sourceTree = "<group>";
@@ -862,7 +862,7 @@
 				F3219B602969407A000024E4 /* Category.swift in Sources */,
 				F3219B6729694328000024E4 /* MapDetailCategoryView.swift in Sources */,
 				F38CCBE02958287C000C16AF /* HomeViewController.swift in Sources */,
-				BC9F4D5B296BE6060099473C /* FavoriteViewModel.swift in Sources */,
+				BC9F4D5B296BE6060099473C /* FavoriteTownViewModel.swift in Sources */,
 				BC0D88532963DD0D00CCB800 /* LocationAndYearsViewController.swift in Sources */,
 				F3219B762969D169000024E4 /* AddressSheetViewController.swift in Sources */,
 				BC4C118729712F5100645AA7 /* Traffic.swift in Sources */,

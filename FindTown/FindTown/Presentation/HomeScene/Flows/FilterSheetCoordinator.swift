@@ -30,6 +30,5 @@ extension FilterSheetCoordinator: FilterBottomSheetViewModelDelegate {
         if let homeVC = navigationController.viewControllers.first as? HomeViewController {
             homeVC.dismissBottomSheet()
         }
-        navigationController.dismiss(animated: true)
     }
 }

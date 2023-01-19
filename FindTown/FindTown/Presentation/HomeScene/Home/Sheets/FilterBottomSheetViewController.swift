@@ -24,12 +24,14 @@ final class FilterBottonSheetViewController: BaseBottomSheetViewController {
     private let titleLabel = FindTownLabel(text: "필터", font: .subtitle4)
     
     private let infraLabel = FindTownLabel(text: "인프라", font: .subtitle4)
-    private let infraGuirdLabel = FindTownLabel(text: "원하는 인프라를 1개 선택해주세요.", font: .body3, textColor: .grey5)
+    private let infraGuirdLabel = FindTownLabel(text: "원하는 인프라를 1개 선택해주세요.",
+                                                font: .body3, textColor: .grey5)
     
     private let infraIconStackView = InfraIconStackView()
     
     private let trafficLabel = FindTownLabel(text: "교통", font: .subtitle4)
-    private let trafficGuirdLabel = FindTownLabel(text: "선호하는 지하철 노선을 최대 3개 선택해주세요.", font: .body3, textColor: .grey5)
+    private let trafficGuirdLabel = FindTownLabel(text: "선호하는 지하철 노선을 최대 3개 선택해주세요.",
+                                                  font: .body3, textColor: .grey5)
     
     private let trafficCollectionView = TrafficCollectionView()
     
@@ -124,6 +126,7 @@ final class FilterBottonSheetViewController: BaseBottomSheetViewController {
         
         confirmButton.rx.tap
             .bind { [weak self] in
+                self?.setBottomSheetStatus(to: .hide)
                 self?.viewModel?.input.completeButtonTrigger.onNext(())
             }
             .disposed(by: disposeBag)
@@ -136,11 +139,14 @@ final class FilterBottonSheetViewController: BaseBottomSheetViewController {
         
         trafficCollectionView.rx.itemSelected
             .bind { [weak self] indexPath in
-                if self!.selectedCells.count >= 3 {
-                    self?.trafficCollectionView.deselectItem(at: self!.selectedCells.removeFirst(), animated: true)
+                if self?.selectedCells.count ?? 0 >= 3 {
+                    self?.trafficCollectionView.deselectItem(
+                        at: self?.selectedCells.removeFirst() ?? IndexPath.init(),
+                        animated: true
+                    )
                 }
                 self?.selectedCells.append(indexPath)
-                self?.viewModel?.input.traffic.onNext(self!.selectedCells)
+                self?.viewModel?.input.traffic.onNext(self?.selectedCells ?? [IndexPath.init()])
             }
             .disposed(by: disposeBag)
         
@@ -151,17 +157,18 @@ final class FilterBottonSheetViewController: BaseBottomSheetViewController {
                 if let index = self?.selectedCells.firstIndex(where: {$0 == indexPath}) {
                     self?.selectedCells.remove(at: index)
                 }
-                self?.viewModel?.input.traffic.onNext(self!.selectedCells)
+                self?.viewModel?.input.traffic.onNext(self?.selectedCells ?? [IndexPath.init()])
             }
             .disposed(by: disposeBag)
         
         // Output
         
         viewModel?.output.trafficDataSource
-            .bind(to: trafficCollectionView.rx.items(cellIdentifier: TrafficCollectionViewCell.reuseIdentifier,
-                                                     cellType: TrafficCollectionViewCell.self)) { index, item, cell in
-                cell.setupCell(itemText: item.description)
-            }.disposed(by: disposeBag)
+            .bind(to: trafficCollectionView.rx.items(
+                cellIdentifier: TrafficCollectionViewCell.reuseIdentifier,
+                cellType: TrafficCollectionViewCell.self)) { index, item, cell in
+                    cell.setupCell(itemText: item.description)
+                }.disposed(by: disposeBag)
         
         viewModel?.output.buttonsSelected
             .distinctUntilChanged()
