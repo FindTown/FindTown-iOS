@@ -184,6 +184,9 @@ final class HomeViewController: BaseViewController {
     
     override func bindViewModel() {
         
+        filterCollectionView.rx.setDelegate(self)
+            .disposed(by: disposeBag)
+        
         // Input
         
         filterButton.rx.tap
@@ -193,9 +196,18 @@ final class HomeViewController: BaseViewController {
             }
             .disposed(by: disposeBag)
         
+        filterResetButton.rx.tap
+            .throttle(.milliseconds(300), scheduler: MainScheduler.instance)
+            .bind { [weak self] in
+                self?.FilterResetButtonHidden(true)
+                self?.viewModel?.input.resetButtonTrigger.onNext(())
+            }
+            .disposed(by: disposeBag)
+        
         // Output
         
         viewModel?.output.searchFilterDataSource
+            .observe(on: MainScheduler.instance)
             .bind(to: filterCollectionView.rx.items) { collectionView, row, item in
                 let cell = collectionView.dequeueReusableCell(
                     withReuseIdentifier: FillterCollectionViewCell.reuseIdentifier,
@@ -209,6 +221,7 @@ final class HomeViewController: BaseViewController {
             .disposed(by: disposeBag)
         
         viewModel?.output.searchTownTableDataSource
+            .observe(on: MainScheduler.instance)
             .bind(to: townTableView.rx.items) { tableView, row, item in
                 let cell = tableView.dequeueReusableCell(
                     withIdentifier: TownTableViewCell.reuseIdentifier,
@@ -223,21 +236,43 @@ final class HomeViewController: BaseViewController {
             .disposed(by: disposeBag)
         
         viewModel?.output.searchTownTableDataSource
+            .observe(on: MainScheduler.instance)
             .bind { [weak self] in
                 self?.townCountTitle.text = "\($0.count)개 동네"
             }
             .disposed(by: disposeBag)
     }
     
-    func dismissBottomSheet() {
+    func dismissBottomSheet(_ tempModel: TempFilterModel) {
         
-        // 초기화 버튼 보이고 + 필터버튼 안보이게
-        // 인프라, 교통에 선택한 요소로 변경
-        // 선택한 값들이 맞춰 테이블 뷰 새로 세팅
+        FilterResetButtonHidden(false)
         
-        filterResetButton.isHidden = false
-        filterButton.isHidden = true
+        let tempTrafiice = tempModel.traffic.isEmpty ? "교통" :
+        tempModel.traffic.count == 1 ? tempModel.traffic.first :
+        "\(tempModel.traffic.first ?? "") 외 \(tempModel.traffic.count-1)개"
+        guard let tempTrafiice else { return }
         
-        print("돌겠네 ㅋㅋ")
+        let tempInfra = tempModel.infra == "" ? "인프라" : tempModel.infra
+        
+        viewModel?.output.searchFilterDataSource.accept([tempInfra, tempTrafiice])
+    }
+    
+    private func FilterResetButtonHidden(_ isHidden: Bool) {
+        filterResetButton.isHidden = isHidden
+        filterButton.isHidden = !isHidden
+    }
+}
+
+extension HomeViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        sizeForItemAt indexPath: IndexPath)
+    -> CGSize {
+        if let filter = viewModel?.output.searchFilterDataSource.value[indexPath.row] {
+            return CGSize(width: filter.size(
+                withAttributes: [NSAttributedString.Key.font : UIFont.systemFont(ofSize: 14)]
+            ).width + 40, height: 40)
+        }
+        return CGSize(width: 100, height: 40)
     }
 }

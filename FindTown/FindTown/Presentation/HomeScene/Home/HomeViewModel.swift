@@ -29,6 +29,7 @@ struct townModelTest {
 final class HomeViewModel: BaseViewModel {
 
     struct Input {
+        let resetButtonTrigger = PublishSubject<Void>()
         let filterButtonTrigger = PublishSubject<Void>()
     }
     
@@ -49,6 +50,16 @@ final class HomeViewModel: BaseViewModel {
     }
     
     func bind() {
+        
+        self.input.resetButtonTrigger
+            .withLatestFrom(input.resetButtonTrigger)
+            .bind { [weak self] in
+                
+                // 초기화 세팅
+                let searchCategoryModel = ["인프라", "교통"]
+                self?.output.searchFilterDataSource.accept(searchCategoryModel)
+            }
+            .disposed(by: disposeBag)
         
         self.input.filterButtonTrigger
             .withLatestFrom(input.filterButtonTrigger)
