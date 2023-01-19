@@ -16,7 +16,7 @@ final class FavoriteViewController: BaseViewController {
     
     // MARK: - Properties
     
-    private let viewModel: FavoriteViewModel?
+    private let viewModel: FavoriteTownViewModel?
     
     // MARK: - Views
     
@@ -46,7 +46,7 @@ final class FavoriteViewController: BaseViewController {
     
     // MARK: - Life Cycle
     
-    init(viewModel: FavoriteViewModel) {
+    init(viewModel: FavoriteTownViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
