@@ -18,6 +18,8 @@ final class FilterBottonSheetViewController: BaseBottomSheetViewController {
     
     private var viewModel: FilterBottomSheetViewModel?
     private let screenWidth = UIScreen.main.bounds.width
+    private var selectedCells: [IndexPath] = []
+    private var selectedCellsString: [String] = []
     
     // MARK: - Views
     
@@ -117,10 +119,6 @@ final class FilterBottonSheetViewController: BaseBottomSheetViewController {
         confirmButton.isEnabled = false
     }
     
-    
-    var selectedCells: [IndexPath] = []
-    var selectedCellsString: [String] = []
-    
     override func bindViewModel() {
         
         // Input
@@ -149,7 +147,6 @@ final class FilterBottonSheetViewController: BaseBottomSheetViewController {
                 }
                 self?.selectedCells.append(indexPath)
                 self?.selectedCellsString.append(Traffic.allCases[indexPath.row].description)
-//                self?.viewModel?.input.traffic.onNext(self?.selectedCells ?? [IndexPath.init()])
                 self?.viewModel?.input.traffic.onNext(self?.selectedCellsString ?? [])
             }
             .disposed(by: disposeBag)
@@ -163,7 +160,6 @@ final class FilterBottonSheetViewController: BaseBottomSheetViewController {
                     self?.selectedCellsString.remove(at: index)
                 }
                 self?.viewModel?.input.traffic.onNext(self?.selectedCellsString ?? [])
-//                self?.viewModel?.input.traffic.onNext(self?.selectedCells ?? [IndexPath.init()])
             }
             .disposed(by: disposeBag)
         
