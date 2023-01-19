@@ -21,6 +21,5 @@ final class FilterCollectionViewFlowLayout: UICollectionViewFlowLayout {
     
     private func setupView() {
         scrollDirection = .horizontal
-        estimatedItemSize = UICollectionViewFlowLayout.automaticSize
     }
 }

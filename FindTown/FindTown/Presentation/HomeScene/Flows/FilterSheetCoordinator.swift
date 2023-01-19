@@ -25,10 +25,10 @@ final class FilterSheetCoordinator: FlowCoordinator {
 }
 
 extension FilterSheetCoordinator: FilterBottomSheetViewModelDelegate {
-    func dismiss(_ tempModel: String) {
+    func dismiss(_ tempModel: TempFilterModel) {
         guard let navigationController = navigationController else { return }
         if let homeVC = navigationController.viewControllers.first as? HomeViewController {
-            homeVC.dismissBottomSheet()
+            homeVC.dismissBottomSheet(tempModel)
         }
     }
 }

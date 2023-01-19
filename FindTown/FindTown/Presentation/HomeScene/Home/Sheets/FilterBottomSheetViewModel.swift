@@ -12,19 +12,24 @@ import RxSwift
 import RxRelay
 
 protocol FilterBottomSheetViewModelDelegate {
-    func dismiss(_ tempModel: String)
+    func dismiss(_ tempModel: TempFilterModel)
 }
 
 protocol FilterBottomSheetViewModelType {
-    func dismiss(_ tempModel: String)
+    func dismiss(_ tempModel: TempFilterModel)
+}
+
+// 임시
+struct TempFilterModel {
+    var infra: String = ""
+    var traffic: [String] = []
 }
 
 final class FilterBottomSheetViewModel: BaseViewModel {
-    let delegate: FilterBottomSheetViewModelDelegate
     
     struct Input {
         let infra = PublishSubject<String>()
-        let traffic = PublishSubject<[IndexPath]>()
+        let traffic = PublishSubject<[String]>()
         let completeButtonTrigger = PublishSubject<Void>()
     }
     
@@ -35,9 +40,12 @@ final class FilterBottomSheetViewModel: BaseViewModel {
     
     let input = Input()
     let output = Output()
+    let delegate: FilterBottomSheetViewModelDelegate
+    private var tempFilterModel: TempFilterModel?
     
     init(delegate: FilterBottomSheetViewModelDelegate) {
         self.delegate = delegate
+        self.tempFilterModel = TempFilterModel()
         
         super.init()
         self.bind()
@@ -46,16 +54,36 @@ final class FilterBottomSheetViewModel: BaseViewModel {
     func bind() {
         
         self.output.trafficDataSource.onNext(Traffic.allCases)
-        
+
         self.input.completeButtonTrigger
             .bind { [weak self] in
-                self?.dismiss("")
+                self?.dismiss(self?.tempFilterModel ?? TempFilterModel.init())
+            }
+            .disposed(by: disposeBag)
+        
+        self.input.infra
+            .map { [weak self] infra in
+                self?.tempFilterModel?.infra = infra
+                return infra != ""
+            }
+            .bind { [weak self] in
+                self?.output.buttonsSelected.accept($0)
+            }
+            .disposed(by: disposeBag)
+        
+        self.input.traffic
+            .map { [weak self] traffic in
+                self?.tempFilterModel?.traffic = traffic
+                return traffic.count != 0
+            }
+            .bind { [weak self] in
+                self?.output.buttonsSelected.accept($0)
             }
             .disposed(by: disposeBag)
         
         Observable.combineLatest(input.infra, input.traffic)
             .map { (infra, traffic) in
-                return (infra != "" && traffic.count == 3)
+                return (infra != "" || traffic.count != 0)
             }
             .bind { [weak self] in
                 self?.output.buttonsSelected.accept($0)
@@ -65,7 +93,7 @@ final class FilterBottomSheetViewModel: BaseViewModel {
 }
 
 extension FilterBottomSheetViewModel: FilterBottomSheetViewModelType {
-    func dismiss(_ tempModel: String) {
-        self.delegate.dismiss("tempModel")
+    func dismiss(_ inputData: TempFilterModel) {
+        self.delegate.dismiss(inputData)
     }
 }

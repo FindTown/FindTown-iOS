@@ -119,6 +119,7 @@ final class FilterBottonSheetViewController: BaseBottomSheetViewController {
     
     
     var selectedCells: [IndexPath] = []
+    var selectedCellsString: [String] = []
     
     override func bindViewModel() {
         
@@ -144,20 +145,25 @@ final class FilterBottonSheetViewController: BaseBottomSheetViewController {
                         at: self?.selectedCells.removeFirst() ?? IndexPath.init(),
                         animated: true
                     )
+                    _ = self?.selectedCellsString.removeFirst()
                 }
                 self?.selectedCells.append(indexPath)
-                self?.viewModel?.input.traffic.onNext(self?.selectedCells ?? [IndexPath.init()])
+                self?.selectedCellsString.append(Traffic.allCases[indexPath.row].description)
+//                self?.viewModel?.input.traffic.onNext(self?.selectedCells ?? [IndexPath.init()])
+                self?.viewModel?.input.traffic.onNext(self?.selectedCellsString ?? [])
             }
             .disposed(by: disposeBag)
-        
+
         trafficCollectionView.rx.itemDeselected
             .bind { [weak self] indexPath in
                 self?.trafficCollectionView.deselectItem(at: indexPath, animated: true)
                 
                 if let index = self?.selectedCells.firstIndex(where: {$0 == indexPath}) {
                     self?.selectedCells.remove(at: index)
+                    self?.selectedCellsString.remove(at: index)
                 }
-                self?.viewModel?.input.traffic.onNext(self?.selectedCells ?? [IndexPath.init()])
+                self?.viewModel?.input.traffic.onNext(self?.selectedCellsString ?? [])
+//                self?.viewModel?.input.traffic.onNext(self?.selectedCells ?? [IndexPath.init()])
             }
             .disposed(by: disposeBag)
         

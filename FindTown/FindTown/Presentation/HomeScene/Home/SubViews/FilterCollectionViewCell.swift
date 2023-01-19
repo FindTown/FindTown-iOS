@@ -39,6 +39,13 @@ final class FillterCollectionViewCell: UICollectionViewCell {
             searchCategoryBtn.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             searchCategoryBtn.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
         ])
+        
+        searchCategoryBtn.configuration?.contentInsets.leading = 12
+        searchCategoryBtn.configuration?.contentInsets.trailing = 12
+        searchCategoryBtn.setTitleColor(FindTownColor.black.color, for: .normal)
+        searchCategoryBtn.setTitleColor(FindTownColor.primary.color, for: .selected)
+        searchCategoryBtn.setSelectedImage(normalImage: UIImage(named: "arrowDown") ?? UIImage(),
+                                           selectedImage: UIImage(named: "arrowDown_selected") ?? UIImage())
     }
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -52,12 +59,12 @@ final class FillterCollectionViewCell: UICollectionViewCell {
     
     // MARK: Functions
 
-    func setupCell(_ model: Any, _ row: Int) {
-        searchCategoryBtn.configuration?.contentInsets.leading = 12
-        searchCategoryBtn.configuration?.contentInsets.trailing = 12
-        searchCategoryBtn.setTitleColor(FindTownColor.black.color, for: .normal)
-        searchCategoryBtn.setTitle(String(describing: model), for: .normal)
-        searchCategoryBtn.setSelectedImage(normalImage: UIImage(named: "arrowDown") ?? UIImage(),
-                                           selectedImage: UIImage(named: "arrowDown_selected") ?? UIImage())
+    func setupCell(_ filter: String, _ row: Int) {
+        searchCategoryBtn.setTitle(filter, for: .normal)
+        if filter == "인프라" || filter == "교통" {
+            searchCategoryBtn.isSelected = false
+        } else {
+            searchCategoryBtn.isSelected = true
+        }
     }
 }
