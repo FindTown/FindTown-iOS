@@ -77,6 +77,7 @@ class Favorite1ViewController: BaseViewController {
         // MARK: ViewModel - Input
         
         self.anonymousView.signUpButton.rx.tap
+            .throttle(.milliseconds(300), scheduler: MainScheduler.instance)
             .bind { [weak self] in
                 self?.viewModel?.input.signUpButtonTrigger.onNext(())
             }
