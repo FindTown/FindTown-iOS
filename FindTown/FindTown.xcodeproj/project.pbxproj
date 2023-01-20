@@ -269,6 +269,8 @@
 				2BB226B729784855007BF757 /* TempTableViewCell.swift */,
 			);
 			path = SubViews;
+            sourceTree = "<group>";
+        };
 		BC04A6D1296FBC3900B60BCF /* Manager */ = {
 			isa = PBXGroup;
 			children = (
