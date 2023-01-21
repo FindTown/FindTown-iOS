@@ -57,21 +57,20 @@ final class InfraIconStackView: UIStackView {
     
     func setupView() {
         shopFilterIcon.setTitle("편의시설", for: .normal)
-        shopFilterIcon.setSelectedImage(normalImage: UIImage(named: "shop") ?? UIImage(),
-                                        selectedImage: UIImage(named: "shop_selected") ?? UIImage())
+        shopFilterIcon.setImage(UIImage(named: "shop")?.withRenderingMode(.alwaysTemplate)
+                                ?? UIImage(), for: .normal)
         
         hospitalFilterIcon.setTitle("의료", for: .normal)
-        hospitalFilterIcon.setSelectedImage(normalImage: UIImage(named: "hospital") ?? UIImage(),
-                                            selectedImage: UIImage(named: "hospital_selected") ?? UIImage())
+        hospitalFilterIcon.setImage(UIImage(named: "hospital")?.withRenderingMode(.alwaysTemplate)
+                                    ?? UIImage(), for: .normal)
         
         healthFilterIcon.setTitle("운동", for: .normal)
-        healthFilterIcon.setSelectedImage(normalImage: UIImage(named: "health") ?? UIImage(),
-                                          selectedImage: UIImage(named: "health_selected") ?? UIImage())
+        healthFilterIcon.setImage(UIImage(named: "health")?.withRenderingMode(.alwaysTemplate)
+                                  ?? UIImage(), for: .normal)
         
         natureFilterIcon.setTitle("자연", for: .normal)
-        natureFilterIcon.setSelectedImage(normalImage: UIImage(named: "nature") ?? UIImage(),
-                                          selectedImage: UIImage(named: "nature_selected") ?? UIImage())
-        
+        natureFilterIcon.setImage(UIImage(named: "nature")?.withRenderingMode(.alwaysTemplate)
+                                  ?? UIImage(), for: .normal)
     }
     
     @objc func buttonAction(button: FTButton) {

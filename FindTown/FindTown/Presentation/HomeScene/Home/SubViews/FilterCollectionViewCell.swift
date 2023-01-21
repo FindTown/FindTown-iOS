@@ -40,8 +40,8 @@ final class FillterCollectionViewCell: UICollectionViewCell {
             searchCategoryBtn.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
         ])
         
-        searchCategoryBtn.configuration?.contentInsets.leading = 12
-        searchCategoryBtn.configuration?.contentInsets.trailing = 12
+        searchCategoryBtn.configuration?.contentInsets = NSDirectionalEdgeInsets(
+            top: 0.0, leading: 12.0, bottom: 0.0, trailing: 12.0)
         searchCategoryBtn.setTitleColor(FindTownColor.black.color, for: .normal)
         searchCategoryBtn.setTitleColor(FindTownColor.primary.color, for: .selected)
         searchCategoryBtn.setSelectedImage(normalImage: UIImage(named: "arrowDown") ?? UIImage(),
