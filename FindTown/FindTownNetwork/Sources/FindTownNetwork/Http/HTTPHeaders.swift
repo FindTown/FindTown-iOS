@@ -8,9 +8,9 @@
 import Foundation
 
 public struct HTTPHeaders {
-    let headers: [HTTPHeader]
+    internal let headers: [HTTPHeader]
     
-    init(_ headers: [HTTPHeader]) {
+    public init(_ headers: [HTTPHeader]) {
         self.headers = headers
     }
 }

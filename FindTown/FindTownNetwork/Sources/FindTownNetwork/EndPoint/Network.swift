@@ -7,16 +7,16 @@
 
 import Foundation
 
-protocol Providable {
+protocol Networkable {
     func request<T: Request>(target: T, cachePolicy: URLRequest.CachePolicy) async throws -> T.Response
 }
 
-public class Network: Providable {
+public class Network: Networkable {
     
-    static let shared = Network()
+    public static let shared = Network()
     
-    let session: Sessionable
-    let decoder: JSONDecoder
+    private let session: Sessionable
+    private let decoder: JSONDecoder
     
     private init(session: Session = Session(),
                  decoder: JSONDecoder = JSONDecoder()) {
@@ -24,7 +24,7 @@ public class Network: Providable {
         self.decoder = decoder
     }
     
-    func request<T: Request>(target: T, cachePolicy: URLRequest.CachePolicy) async throws -> T.Response {
+    public func request<T: Request>(target: T, cachePolicy: URLRequest.CachePolicy) async throws -> T.Response {
         let url = URL(target: target)
         var request = URLRequest(url: url, cachePolicy: cachePolicy)
         request.httpMethod = target.method.value
