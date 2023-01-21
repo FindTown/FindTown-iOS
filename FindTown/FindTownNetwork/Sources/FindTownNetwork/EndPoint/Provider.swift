@@ -7,7 +7,7 @@
 
 import Foundation
 
-class EndPoint<Request: RequestType> {
+class Provider<Request: RequestType> {
     
     let session: Session
     
