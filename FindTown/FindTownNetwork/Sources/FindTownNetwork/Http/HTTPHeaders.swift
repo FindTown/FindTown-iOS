@@ -7,10 +7,10 @@
 
 import Foundation
 
-struct HTTPHeaders {
-    public let headers: [HTTPHeader]
+public struct HTTPHeaders {
+    let headers: [HTTPHeader]
     
-    public init(_ headers: [HTTPHeader]) {
+    init(_ headers: [HTTPHeader]) {
         self.headers = headers
     }
 }

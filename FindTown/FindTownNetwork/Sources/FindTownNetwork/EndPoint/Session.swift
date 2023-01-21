@@ -7,7 +7,11 @@
 
 import Foundation
 
-class Session {
+protocol Sessionable {
+    func request(request: URLRequest) async throws -> Data
+}
+
+class Session: Sessionable {
     let session: URLSession
     
     init(configuration: URLSessionConfiguration = .default) {

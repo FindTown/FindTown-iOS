@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum HTTPHeaderField {
+public enum HTTPHeaderField {
     case contentType
     case accept
     case authorization

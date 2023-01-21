@@ -7,11 +7,11 @@
 
 import Foundation
 
-struct HTTPHeader {
-    public let name: HTTPHeaderField
-    public let value: String
+public struct HTTPHeader {
+    let name: HTTPHeaderField
+    let value: String
     
-    public init(name: HTTPHeaderField, value: String) {
+    init(name: HTTPHeaderField, value: String) {
         self.name = name
         self.value = value
     }

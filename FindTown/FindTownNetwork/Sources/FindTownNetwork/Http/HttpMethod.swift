@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum HttpMethod {
+public enum HttpMethod {
     case get
     case post
     case patch
