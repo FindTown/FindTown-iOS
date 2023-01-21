@@ -30,6 +30,7 @@ final class HomeViewController: BaseViewController {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .horizontal
+        stackView.distribution = .equalSpacing
         return stackView
     }()
     
@@ -46,8 +47,6 @@ final class HomeViewController: BaseViewController {
         return stackView
     }()
     
-    private let backView = UIView()
-    
     private let townRecommendationTitle = FindTownLabel(text: "동네 리스트", font: .subtitle2, textColor: .grey6)
     private let townCountTitle = FindTownLabel(text: "", font: .label1, textColor: .grey6)
     private let townListAndCountStackView: UIStackView = {
@@ -58,6 +57,7 @@ final class HomeViewController: BaseViewController {
         return stackView
     }()
     
+    private let emptyView = UIView()
     private let checkBox = CheckBox()
     private let safetyTitle = FindTownLabel(text: "안전 점수가 높은", font: .label1, textColor: .grey6)
     private let infoIcon = UIImageView(image: UIImage(systemName: "info.circle"))
@@ -70,6 +70,13 @@ final class HomeViewController: BaseViewController {
     }()
     
     private let townTableView = TownTableView()
+    
+    private let townListBackgroundView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .vertical
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        return stackView
+    }()
     
     // MARK: - Life Cycle
     
@@ -89,6 +96,7 @@ final class HomeViewController: BaseViewController {
     // MARK: - Functions
     
     override func addView() {
+        super.addView()
         
         [tempLogo, searchButton].forEach {
             logoSearchStackView.addArrangedSubview($0)
@@ -102,62 +110,47 @@ final class HomeViewController: BaseViewController {
             townListAndCountStackView.addArrangedSubview($0)
         }
         
-        [checkBox, safetyTitle, infoIcon].forEach {
+        [emptyView, checkBox, safetyTitle, infoIcon].forEach {
             safetyScoreStackView.addArrangedSubview($0)
         }
         
         [townListAndCountStackView, safetyScoreStackView, townTableView].forEach {
-            backView.addSubview($0)
+            townListBackgroundView.addArrangedSubview($0)
         }
         
-        [logoSearchStackView, dongSearchTitle, filterStackView, backView].forEach {
-            view.addSubview($0)
+        [logoSearchStackView, dongSearchTitle, filterStackView, townListBackgroundView].forEach {
+            self.stackView.addArrangedSubview($0)
         }
     }
     
     override func setLayout() {
-        NSLayoutConstraint.activate([
-            logoSearchStackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            logoSearchStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            logoSearchStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16)
-        ])
+        super.setLayout()
         
-        NSLayoutConstraint.activate([
-            dongSearchTitle.topAnchor.constraint(equalTo: logoSearchStackView.bottomAnchor, constant: 56),
-            dongSearchTitle.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            dongSearchTitle.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-        ])
+        stackView.setCustomSpacing(56, after: logoSearchStackView)
+        stackView.setCustomSpacing(16, after: dongSearchTitle)
+        stackView.setCustomSpacing(40, after: filterStackView)
         
-        NSLayoutConstraint.activate([
-            filterStackView.topAnchor.constraint(equalTo: dongSearchTitle.bottomAnchor, constant: 16),
-            filterStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            filterStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-        ])
+        townListBackgroundView.setCustomSpacing(16, after: townListAndCountStackView)
+        townListBackgroundView.setCustomSpacing(10, after: safetyScoreStackView)
         
-        backView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            backView.topAnchor.constraint(equalTo: filterStackView.bottomAnchor, constant: 40),
-            backView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            backView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            backView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-        ])
+        townListBackgroundView.layoutMargins = UIEdgeInsets(top: 24, left: 0, bottom: 16, right: 0)
+        townListBackgroundView.isLayoutMarginsRelativeArrangement = true
         
-        NSLayoutConstraint.activate([
-            townListAndCountStackView.topAnchor.constraint(equalTo: backView.topAnchor, constant: 24),
-            townListAndCountStackView.leadingAnchor.constraint(equalTo: backView.leadingAnchor, constant: 16),
-            townListAndCountStackView.trailingAnchor.constraint(equalTo: backView.trailingAnchor, constant: -16)
-        ])
+        [logoSearchStackView, filterStackView, townListAndCountStackView, safetyScoreStackView].forEach {
+            $0.layoutMargins = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
+            $0.isLayoutMarginsRelativeArrangement = true
+        }
         
+        dongSearchTitle.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            safetyScoreStackView.topAnchor.constraint(equalTo: townRecommendationTitle.bottomAnchor, constant: 16),
-            safetyScoreStackView.trailingAnchor.constraint(equalTo: backView.trailingAnchor, constant: -16),
+            dongSearchTitle.leadingAnchor.constraint(equalTo: stackView.leadingAnchor, constant: 16)
         ])
-        
+    }
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
         NSLayoutConstraint.activate([
-            townTableView.topAnchor.constraint(equalTo: safetyScoreStackView.bottomAnchor),
-            townTableView.leadingAnchor.constraint(equalTo: backView.leadingAnchor),
-            townTableView.trailingAnchor.constraint(equalTo: backView.trailingAnchor),
-            townTableView.bottomAnchor.constraint(equalTo: backView.bottomAnchor)
+            townTableView.heightAnchor.constraint(equalToConstant: townTableView.contentSize.height),
         ])
     }
     
@@ -176,7 +169,7 @@ final class HomeViewController: BaseViewController {
         filterButton.configuration?.contentInsets.trailing = 12
         filterButton.setTitleColor(FindTownColor.black.color, for: .normal)
         
-        backView.backgroundColor = FindTownColor.back2.color
+        townListBackgroundView.backgroundColor = FindTownColor.back2.color
         
         townTableView.rowHeight = 150
         townTableView.estimatedRowHeight = 150
