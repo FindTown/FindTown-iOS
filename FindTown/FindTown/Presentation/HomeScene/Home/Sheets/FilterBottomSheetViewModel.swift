@@ -60,24 +60,20 @@ final class FilterBottomSheetViewModel: BaseViewModel {
                 self?.dismiss(self?.tempFilterModel ?? TempFilterModel.init())
             }
             .disposed(by: disposeBag)
-        
+
         self.input.infra
-            .map { [weak self] infra in
-                self?.tempFilterModel?.infra = infra
-                return infra != ""
-            }
-            .bind { [weak self] in
-                self?.output.buttonsSelected.accept($0)
-            }
-            .disposed(by: disposeBag)
-        
+           .map { return ($0, $0 != "")}
+           .bind { [weak self] in
+               self?.tempFilterModel?.infra = $0.0
+               self?.output.buttonsSelected.accept($0.1)
+           }
+           .disposed(by: disposeBag)
+
         self.input.traffic
-            .map { [weak self] traffic in
-                self?.tempFilterModel?.traffic = traffic
-                return traffic.count != 0
-            }
+            .map { return ($0, $0.count != 0) }
             .bind { [weak self] in
-                self?.output.buttonsSelected.accept($0)
+                self?.tempFilterModel?.traffic = $0.0
+                self?.output.buttonsSelected.accept($0.1)
             }
             .disposed(by: disposeBag)
         

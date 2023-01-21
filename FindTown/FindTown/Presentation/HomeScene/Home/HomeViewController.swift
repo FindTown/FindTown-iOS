@@ -154,9 +154,9 @@ final class HomeViewController: BaseViewController {
         ])
         
         NSLayoutConstraint.activate([
-            townTableView.topAnchor.constraint(equalTo: safetyScoreStackView.bottomAnchor, constant: 16),
-            townTableView.leadingAnchor.constraint(equalTo: backView.leadingAnchor, constant: 16),
-            townTableView.trailingAnchor.constraint(equalTo: backView.trailingAnchor, constant: -16),
+            townTableView.topAnchor.constraint(equalTo: safetyScoreStackView.bottomAnchor),
+            townTableView.leadingAnchor.constraint(equalTo: backView.leadingAnchor),
+            townTableView.trailingAnchor.constraint(equalTo: backView.trailingAnchor),
             townTableView.bottomAnchor.constraint(equalTo: backView.bottomAnchor)
         ])
     }
@@ -208,17 +208,13 @@ final class HomeViewController: BaseViewController {
         
         viewModel?.output.searchFilterDataSource
             .observe(on: MainScheduler.instance)
-            .bind(to: filterCollectionView.rx.items) { collectionView, row, item in
-                let cell = collectionView.dequeueReusableCell(
-                    withReuseIdentifier: FillterCollectionViewCell.reuseIdentifier,
-                    for: IndexPath(row: row, section: 0)
-                ) as! FillterCollectionViewCell
-                
-                cell.setupCell(item, row)
-                
-                return cell
-            }
-            .disposed(by: disposeBag)
+            .bind(to: filterCollectionView.rx.items(
+                cellIdentifier: FillterCollectionViewCell.reuseIdentifier,
+                cellType: FillterCollectionViewCell.self)) { index, item, cell in
+                    
+                    cell.setupCell(item, index)
+                    
+                }.disposed(by: disposeBag)
         
         viewModel?.output.searchTownTableDataSource
             .observe(on: MainScheduler.instance)
@@ -247,14 +243,14 @@ final class HomeViewController: BaseViewController {
         
         FilterResetButtonHidden(false)
         
-        let tempTrafiice = tempModel.traffic.isEmpty ? "교통" :
-        tempModel.traffic.count == 1 ? tempModel.traffic.first :
-        "\(tempModel.traffic.first ?? "") 외 \(tempModel.traffic.count-1)개"
-        guard let tempTrafiice else { return }
+        var tempTraffic = "교통"
+        if let first = tempModel.traffic.first {
+            tempTraffic = tempModel.traffic.count == 1 ? first : first + " 외 \(tempModel.traffic.count - 1) 개"
+        }
         
         let tempInfra = tempModel.infra == "" ? "인프라" : tempModel.infra
         
-        viewModel?.output.searchFilterDataSource.accept([tempInfra, tempTrafiice])
+        viewModel?.output.searchFilterDataSource.accept([tempInfra, tempTraffic])
     }
     
     private func FilterResetButtonHidden(_ isHidden: Bool) {
