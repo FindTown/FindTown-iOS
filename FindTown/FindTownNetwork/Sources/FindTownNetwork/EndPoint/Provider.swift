@@ -7,15 +7,22 @@
 
 import Foundation
 
-class Provider<Request: RequestType> {
+protocol Providable {
+    func request<T: RequestType>(target: T, cachePolicy: URLRequest.CachePolicy) async throws -> T.Response
+}
+
+public class Provider: Providable {
     
-    let session: Session
+    let session: Sessionable
+    let decoder: JSONDecoder
     
-    init(session: Session) {
+    init(session: Sessionable,
+         decoder: JSONDecoder = JSONDecoder()) {
         self.session = session
+        self.decoder = decoder
     }
     
-    func request(target: Request, cachePolicy: URLRequest.CachePolicy) async throws -> Data {
+    func request<T: RequestType>(target: T, cachePolicy: URLRequest.CachePolicy) async throws -> T.Response {
         let url = URL(target: target)
         var request = URLRequest(url: url, cachePolicy: cachePolicy)
         request.httpMethod = target.method.value
@@ -24,16 +31,23 @@ class Provider<Request: RequestType> {
             request.setValue(header.value, forHTTPHeaderField: header.name.description)
         }
         
+        let responseData: Data
         switch target.task {
         case .requestPlain:
-            return try await session.request(request: request)
+            responseData = try await session.request(request: request)
         case .requestData(let data):
+            // 미완성
             request.httpBody = data
-            return try await session.request(request: request)
+            responseData = try await session.request(request: request)
         case .requestJSONEncodable(let encodable):
-            return try await session.request(request: request.encoded(encodable: encodable))
+            // 미완성
+            responseData = try await session.request(request: request.encoded(encodable: encodable))
         case .requestCustomJSONEncodable(let encodable, let encoder):
-            return try await session.request(request: request.encoded(encodable: encodable, encoder: encoder))
+            // 미완성
+            responseData = try await session.request(request: request.encoded(encodable: encodable, encoder: encoder))
         }
+        
+        let bodyData = try decoder.decode(BaseResponse.self, from: responseData).body
+        return try decoder.decode(T.Response.self, from: bodyData)
     }
 }
