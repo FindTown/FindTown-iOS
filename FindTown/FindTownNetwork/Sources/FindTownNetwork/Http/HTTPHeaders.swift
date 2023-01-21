@@ -8,11 +8,9 @@
 import Foundation
 
 struct HTTPHeaders {
-    public var headers: [HTTPHeader] = []
-    public let name: String
-    public let value: String
+    public let headers: [HTTPHeader]
     
     public init(_ headers: [HTTPHeader]) {
-        headers = headers
+        self.headers = headers
     }
 }
