@@ -21,7 +21,7 @@ final class HomeViewController: BaseViewController {
     // MARK: - Views
     
     private let tempLogo = FindTownLabel(text: "LOGO", font: .subtitle1, textColor: .primary)
-    private let searchIcon: UIButton = {
+    private let searchButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(named: "search"), for: .normal)
         return button
@@ -90,7 +90,7 @@ final class HomeViewController: BaseViewController {
     
     override func addView() {
         
-        [tempLogo, searchIcon].forEach {
+        [tempLogo, searchButton].forEach {
             logoSearchStackView.addArrangedSubview($0)
         }
         
@@ -117,7 +117,7 @@ final class HomeViewController: BaseViewController {
     
     override func setLayout() {
         NSLayoutConstraint.activate([
-            logoSearchStackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 22),
+            logoSearchStackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             logoSearchStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             logoSearchStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16)
         ])
@@ -136,7 +136,7 @@ final class HomeViewController: BaseViewController {
         
         backView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            backView.topAnchor.constraint(equalTo: filterStackView.bottomAnchor, constant: 72),
+            backView.topAnchor.constraint(equalTo: filterStackView.bottomAnchor, constant: 40),
             backView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             backView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             backView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
