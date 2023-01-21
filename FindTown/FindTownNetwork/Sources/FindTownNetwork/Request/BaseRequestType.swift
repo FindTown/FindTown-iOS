@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol BaseRequestType: RequestType { }
+protocol BaseRequestType: Request { }
 
 extension BaseRequestType {
     var baseURL: URL {

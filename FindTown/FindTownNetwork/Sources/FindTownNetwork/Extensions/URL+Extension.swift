@@ -8,7 +8,7 @@
 import Foundation
 
 extension URL {
-    init<T: RequestType>(target: T) {
+    init<T: Request>(target: T) {
         let targetPath = target.path
         if targetPath.isEmpty {
             self = target.baseURL

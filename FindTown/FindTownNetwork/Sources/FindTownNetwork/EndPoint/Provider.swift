@@ -8,7 +8,7 @@
 import Foundation
 
 protocol Providable {
-    func request<T: RequestType>(target: T, cachePolicy: URLRequest.CachePolicy) async throws -> T.Response
+    func request<T: Request>(target: T, cachePolicy: URLRequest.CachePolicy) async throws -> T.Response
 }
 
 public class Provider: Providable {
@@ -22,7 +22,7 @@ public class Provider: Providable {
         self.decoder = decoder
     }
     
-    func request<T: RequestType>(target: T, cachePolicy: URLRequest.CachePolicy) async throws -> T.Response {
+    func request<T: Request>(target: T, cachePolicy: URLRequest.CachePolicy) async throws -> T.Response {
         let url = URL(target: target)
         var request = URLRequest(url: url, cachePolicy: cachePolicy)
         request.httpMethod = target.method.value

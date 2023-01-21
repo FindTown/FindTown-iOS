@@ -7,7 +7,7 @@
 
 import Foundation
 
-public protocol RequestType {
+public protocol Request {
     associatedtype Response: Decodable
     
     var baseURL: URL { get }
