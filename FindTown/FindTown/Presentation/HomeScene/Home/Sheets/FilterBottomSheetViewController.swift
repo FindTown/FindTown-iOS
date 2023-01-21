@@ -153,8 +153,6 @@ final class FilterBottonSheetViewController: BaseBottomSheetViewController {
 
         trafficCollectionView.rx.itemDeselected
             .bind { [weak self] indexPath in
-                self?.trafficCollectionView.deselectItem(at: indexPath, animated: true)
-                
                 if let index = self?.selectedCells.firstIndex(where: {$0 == indexPath}) {
                     self?.selectedCells.remove(at: index)
                     self?.selectedCellsString.remove(at: index)
