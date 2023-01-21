@@ -66,7 +66,7 @@ final class TownTableViewCell: UITableViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 0, left: 0, bottom: 10, right: 0))
+        contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 16, left: 16, bottom: 0, right: 16))
     }
     
     // MARK: Functions
@@ -117,6 +117,13 @@ final class TownTableViewCell: UITableViewCell {
     private func setupView() {
         mapBtn.changesSelectionAsPrimaryAction = false
         mapBtn.isSelected = true
+        
+        contentView.layer.cornerRadius = 16
+        contentView.backgroundColor = FindTownColor.white.color
+        contentView.layer.addCustomShadow(shadowX: 0, shadowY: 2,
+                                          shadowColor: FindTownColor.black.color.withAlphaComponent(0.4),
+                                          blur: 10.0, spread: 0, alpha: 0.4)
+        
     }
     
     func setupCell(_ model: Any) {
@@ -126,11 +133,5 @@ final class TownTableViewCell: UITableViewCell {
         
         introduceBtn.setTitle("동네 소개", for: .normal)
         mapBtn.setTitle("동네 지도", for: .normal)
-        
-        contentView.layer.cornerRadius = 16
-        contentView.backgroundColor = FindTownColor.white.color
-        contentView.layer.addCustomShadow(shadowX: 0, shadowY: 4,
-                                          shadowColor: FindTownColor.black.color.withAlphaComponent(0.4),
-                                          blur: 10.0, spread: 0, alpha: 0.4)
     }
 }
