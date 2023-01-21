@@ -11,13 +11,15 @@ protocol Providable {
     func request<T: Request>(target: T, cachePolicy: URLRequest.CachePolicy) async throws -> T.Response
 }
 
-public class Provider: Providable {
+public class Network: Providable {
+    
+    static let shared = Network()
     
     let session: Sessionable
     let decoder: JSONDecoder
     
-    init(session: Sessionable,
-         decoder: JSONDecoder = JSONDecoder()) {
+    private init(session: Session = Session(),
+                 decoder: JSONDecoder = JSONDecoder()) {
         self.session = session
         self.decoder = decoder
     }
