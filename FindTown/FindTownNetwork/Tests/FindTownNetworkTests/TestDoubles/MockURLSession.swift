@@ -8,9 +8,15 @@
 @testable import FindTownNetwork
 import Foundation
 
-final class MockURLSession: URLSession {
+final class MockURLSession: URLSessionProtocol {
     
-    func data(with request: URLRequest) async throws -> (Data, URLResponse) {
+    var makeRequestFail: Bool
+    
+    init(makeRequestFail: Bool = false) {
+        self.makeRequestFail = makeRequestFail
+    }
+    
+    func data(for request: URLRequest, delegate: URLSessionTaskDelegate? = nil) async throws -> (Data, URLResponse) {
         let request = MockRequest()
         let url = URL(target: request)
         

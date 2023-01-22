@@ -12,14 +12,14 @@ protocol Sessionable {
 }
 
 class Session: Sessionable {
-    let session: URLSession
+    let session: URLSessionProtocol
     
-    init(configuration: URLSessionConfiguration = .default) {
-        self.session = URLSession(configuration: configuration)
+    init(session: URLSessionProtocol = URLSession(configuration: .default)) {
+        self.session = session
     }
     
     func request(request: URLRequest) async throws -> Data {
-        let (data, response) = try await self.session.data(for: request)
+        let (data, response) = try await self.session.data(for: request, delegate: nil)
         guard let httpResponse = response as? HTTPURLResponse else {
             throw NetworkError.invaildServerResponse
         }
