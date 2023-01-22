@@ -14,5 +14,5 @@ public protocol Request {
     var path: String { get }
     var method: HttpMethod { get }
     var headers: HTTPHeaders { get }
-    var task: Task { get }
+    var task: TaskType { get }
 }
