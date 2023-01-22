@@ -12,11 +12,11 @@ struct MockRequest: Request {
     typealias ResponseType = MockResponse
     
     var baseURL: URL {
-        guard let apiURL = URL(string: "18.182.80.111:8080") else { fatalError("URL is invalid") }
+        guard let apiURL = URL(string: "http://18.182.80.111:8080") else { fatalError("URL is invalid") }
         return apiURL
     }
     var path: String = "/health"
     var method: HttpMethod = .get
     var headers: HTTPHeaders = HTTPHeaders([.accept("*/*")])
-    var task: Task = .requestPlain
+    var task: TaskType = .requestPlain
 }
