@@ -8,7 +8,7 @@
 import Foundation
 
 protocol Networkable {
-    func request<T: Request>(target: T, cachePolicy: URLRequest.CachePolicy) async throws -> T.Response
+    func request<T: Request>(target: T, cachePolicy: URLRequest.CachePolicy) async throws -> T.ResponseType
 }
 
 public class Network: Networkable {
@@ -18,13 +18,13 @@ public class Network: Networkable {
     private let session: Sessionable
     private let decoder: JSONDecoder
     
-    private init(session: Session = Session(),
-                 decoder: JSONDecoder = JSONDecoder()) {
+    init(session: Sessionable = Session(),
+         decoder: JSONDecoder = JSONDecoder()) {
         self.session = session
         self.decoder = decoder
     }
     
-    public func request<T: Request>(target: T, cachePolicy: URLRequest.CachePolicy = .useProtocolCachePolicy) async throws -> T.Response {
+    public func request<T: Request>(target: T, cachePolicy: URLRequest.CachePolicy = .useProtocolCachePolicy) async throws -> T.ResponseType {
         let url = URL(target: target)
         var request = URLRequest(url: url, cachePolicy: cachePolicy)
         request.httpMethod = target.method.value
@@ -49,8 +49,8 @@ public class Network: Networkable {
             responseData = try await session.request(request: request.encoded(encodable: encodable, encoder: encoder))
         }
         
-        let bodyData = try responseData.decode(BaseResponse.self).body
+        let data = try responseData.decode(BaseResponse<T.ResponseType>.self).body
         
-        return try bodyData.decode(T.Response.self)
+        return data
     }
 }
