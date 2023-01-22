@@ -20,9 +20,19 @@ class Session: Sessionable {
     
     func request(request: URLRequest) async throws -> Data {
         let (data, response) = try await self.session.data(for: request)
-        guard let httpResponse = response as? HTTPURLResponse,
-              httpResponse.statusCode == 200 else {
+        guard let httpResponse = response as? HTTPURLResponse else {
             throw NetworkError.invaildServerResponse
+        }
+        
+        if 401 == httpResponse.statusCode {
+            throw NetworkError.unauthorized
+        }
+        if 400..<500 ~= httpResponse.statusCode {
+            throw NetworkError.client
+        }
+        
+        if 500..<600 ~= httpResponse.statusCode {
+            throw NetworkError.server
         }
         return data
     }

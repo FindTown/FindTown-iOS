@@ -9,6 +9,10 @@ import Foundation
 
 enum NetworkError: Error {
     case invaildServerResponse
+    case client
+    case server
+    
+    case unauthorized
     case noData
     case decode
     case encode
