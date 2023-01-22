@@ -49,7 +49,8 @@ public class Network: Networkable {
             responseData = try await session.request(request: request.encoded(encodable: encodable, encoder: encoder))
         }
         
-        let bodyData = try decoder.decode(BaseResponse.self, from: responseData).body
-        return try decoder.decode(T.Response.self, from: bodyData)
+        let bodyData = try responseData.decode(BaseResponse.self).body
+        
+        return try bodyData.decode(T.Response.self)
     }
 }
