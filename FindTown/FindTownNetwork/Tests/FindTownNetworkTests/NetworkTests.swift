@@ -10,7 +10,7 @@ import XCTest
 
 final class NetworkTests: XCTestCase {
 
-    var network: Network!
+    var network: Networkable!
     
     var mockSession: MockSession!
     var mockRequest: MockRequest!
@@ -33,7 +33,7 @@ final class NetworkTests: XCTestCase {
         mockSession.makeRequestFail = false
         
         // when
-        let data = try await network.request(target: mockRequest)
+        let data = try await network.request(target: mockRequest, cachePolicy: .useProtocolCachePolicy)
 
         // then
         XCTAssertEqual(data.test, "test")
@@ -45,7 +45,7 @@ final class NetworkTests: XCTestCase {
         
         // when
         do {
-            let data = try await network.request(target: mockRequest)
+            let data = try await network.request(target: mockRequest, cachePolicy: .useProtocolCachePolicy)
         } catch {
             // then
             XCTAssertEqual(error as! MockError, MockError.response)
