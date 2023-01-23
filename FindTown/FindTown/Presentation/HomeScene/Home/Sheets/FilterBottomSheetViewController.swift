@@ -67,33 +67,39 @@ final class FilterBottonSheetViewController: BaseBottomSheetViewController {
         super.setLayout()
         
         NSLayoutConstraint.activate([
-            titleLabel.topAnchor.constraint(equalTo: bottomSheetView.topAnchor, constant: 34),
+            titleLabel.topAnchor.constraint(equalTo: bottomSheetView.topAnchor,
+                                            constant: screenWidth * 0.055),
             titleLabel.centerXAnchor.constraint(equalTo: bottomSheetView.centerXAnchor)
         ])
         
         NSLayoutConstraint.activate([
-            infraLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 16),
+            infraLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor,
+                                            constant: screenWidth * 0.035),
             infraLabel.leadingAnchor.constraint(equalTo: bottomSheetView.leadingAnchor, constant: 16)
         ])
         
         NSLayoutConstraint.activate([
-            infraGuirdLabel.topAnchor.constraint(equalTo: infraLabel.bottomAnchor, constant: 24),
+            infraGuirdLabel.topAnchor.constraint(equalTo: infraLabel.bottomAnchor,
+                                                 constant: screenWidth * 0.040),
             infraGuirdLabel.leadingAnchor.constraint(equalTo: bottomSheetView.leadingAnchor, constant: 16)
         ])
         
         NSLayoutConstraint.activate([
-            infraIconStackView.topAnchor.constraint(equalTo: infraGuirdLabel.bottomAnchor, constant: 24),
+            infraIconStackView.topAnchor.constraint(equalTo: infraGuirdLabel.bottomAnchor,
+                                                    constant: screenWidth * 0.040),
             infraIconStackView.leadingAnchor.constraint(equalTo: bottomSheetView.leadingAnchor, constant: 32),
             infraIconStackView.trailingAnchor.constraint(equalTo: bottomSheetView.trailingAnchor, constant: -32)
         ])
         
         NSLayoutConstraint.activate([
-            trafficLabel.topAnchor.constraint(equalTo: infraIconStackView.bottomAnchor, constant: 46),
+            trafficLabel.topAnchor.constraint(equalTo: infraIconStackView.bottomAnchor,
+                                              constant: screenWidth * 0.055),
             trafficLabel.leadingAnchor.constraint(equalTo: bottomSheetView.leadingAnchor, constant: 16)
         ])
         
         NSLayoutConstraint.activate([
-            trafficGuirdLabel.topAnchor.constraint(equalTo: trafficLabel.bottomAnchor, constant: 24),
+            trafficGuirdLabel.topAnchor.constraint(equalTo: trafficLabel.bottomAnchor,
+                                                   constant: screenWidth * 0.040),
             trafficGuirdLabel.leadingAnchor.constraint(equalTo: bottomSheetView.leadingAnchor, constant: 16)
         ])
         
@@ -150,7 +156,7 @@ final class FilterBottonSheetViewController: BaseBottomSheetViewController {
                 self?.viewModel?.input.traffic.onNext(self?.selectedCellsString ?? [])
             }
             .disposed(by: disposeBag)
-
+        
         trafficCollectionView.rx.itemDeselected
             .bind { [weak self] indexPath in
                 if let index = self?.selectedCells.firstIndex(where: {$0 == indexPath}) {
