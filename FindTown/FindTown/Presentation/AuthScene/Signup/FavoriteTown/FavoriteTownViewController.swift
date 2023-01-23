@@ -141,7 +141,8 @@ final class FavoriteViewController: BaseViewController {
             .throttle(.milliseconds(300), scheduler: MainScheduler.instance)
             .bind { [weak self] in
                 let splitValue = $0?.split(separator: " ").first
-                self?.viewModel?.input.jachigu.onNext(String(splitValue ?? "자치구"))
+                guard let splitValue else { return }
+                self?.viewModel?.input.jachigu.onNext(String(splitValue))
             }
             .disposed(by:disposeBag)
         
@@ -149,7 +150,8 @@ final class FavoriteViewController: BaseViewController {
             .throttle(.milliseconds(300), scheduler: MainScheduler.instance)
             .bind { [weak self] in
                 let splitValue = $0?.split(separator: " ").first
-                self?.viewModel?.input.dong.onNext(String(splitValue ?? "동"))
+                guard let splitValue else { return }
+                self?.viewModel?.input.dong.onNext(String(splitValue))
             }
             .disposed(by:disposeBag)
         

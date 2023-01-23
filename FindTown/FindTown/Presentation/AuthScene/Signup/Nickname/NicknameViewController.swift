@@ -147,7 +147,8 @@ final class NicknameViewController: BaseViewController {
         duplicateButton.rx.tap
             .throttle(.milliseconds(300), scheduler: MainScheduler.instance)
             .bind { [weak self] in
-                self?.viewModel?.input.nickNameCheckTrigger.onNext(self?.nickNameTextField.text ?? "")
+                guard let nickName = self?.nickNameTextField.text else { return }
+                self?.viewModel?.input.nickNameCheckTrigger.onNext(nickName)
             }
             .disposed(by: disposeBag)
         
@@ -207,7 +208,8 @@ final class NicknameViewController: BaseViewController {
     }
     
     @objc private func keyboardWillHideSender(_ sender: Notification) {
-        self.view.frame.size.height += keyHeight ?? 0
+        guard let keyHeight else { return }
+        self.view.frame.size.height += keyHeight
     }
 }
 

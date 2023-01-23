@@ -57,7 +57,8 @@ final class FilterBottomSheetViewModel: BaseViewModel {
 
         self.input.completeButtonTrigger
             .bind { [weak self] in
-                self?.dismiss(self?.tempFilterModel ?? TempFilterModel.init())
+                guard let tempFilterModel = self?.tempFilterModel else { return }
+                self?.dismiss(tempFilterModel)
             }
             .disposed(by: disposeBag)
 

@@ -74,7 +74,8 @@ final class InfraIconStackView: UIStackView {
     }
     
     @objc func buttonAction(button: FTButton) {
-        delegate?.didSelectInfraIcon?(value: button.titleLabel?.text ?? "")
+        guard let buttonTitle = button.titleLabel?.text else { return }
+        delegate?.didSelectInfraIcon?(value: buttonTitle)
         changedButton(button: button)
     }
     

@@ -137,14 +137,17 @@ final class FilterBottonSheetViewController: BaseBottomSheetViewController {
             .disposed(by: disposeBag)
         
         infraIconStackView.rx.didSelectInfraIcon
-            .bind { [weak self] in
-                self?.viewModel?.input.infra.onNext($0 ?? "")
+            .bind { [weak self] infra in
+                guard let infra else { return }
+                self?.viewModel?.input.infra.onNext(infra)
             }
             .disposed(by: disposeBag)
         
         trafficCollectionView.rx.itemSelected
             .bind { [weak self] indexPath in
-                if self?.selectedCells.count ?? 0 >= 3 {
+                guard let selectedCells = self?.selectedCells else { return }
+                guard let selectedCellsString = self?.selectedCellsString else { return }
+                if selectedCells.count >= 3 {
                     self?.trafficCollectionView.deselectItem(
                         at: self?.selectedCells.removeFirst() ?? IndexPath.init(),
                         animated: true
@@ -153,17 +156,18 @@ final class FilterBottonSheetViewController: BaseBottomSheetViewController {
                 }
                 self?.selectedCells.append(indexPath)
                 self?.selectedCellsString.append(Traffic.allCases[indexPath.row].description)
-                self?.viewModel?.input.traffic.onNext(self?.selectedCellsString ?? [])
+                self?.viewModel?.input.traffic.onNext(selectedCellsString)
             }
             .disposed(by: disposeBag)
         
         trafficCollectionView.rx.itemDeselected
             .bind { [weak self] indexPath in
+                guard let selectedCellsString = self?.selectedCellsString else { return }
                 if let index = self?.selectedCells.firstIndex(where: {$0 == indexPath}) {
                     self?.selectedCells.remove(at: index)
                     self?.selectedCellsString.remove(at: index)
                 }
-                self?.viewModel?.input.traffic.onNext(self?.selectedCellsString ?? [])
+                self?.viewModel?.input.traffic.onNext(selectedCellsString)
             }
             .disposed(by: disposeBag)
         
