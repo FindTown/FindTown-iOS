@@ -68,7 +68,9 @@ public class DropDown: UIView {
         let view = UIView()
         view.layer.addCustomShadow(shadowX: 0,
                                    shadowY: 4,
-                                   shadowColor: UIColor(red: 194/255,green: 191/255,blue: 198/255,
+                                   shadowColor: UIColor(red: 194/255,
+                                                        green: 191/255,
+                                                        blue: 198/255,
                                                         alpha: 0.6),
                                    blur: 20.0,
                                    spread: 0.0,
@@ -83,7 +85,8 @@ public class DropDown: UIView {
         let tableView = UITableView()
         tableView.backgroundColor = FindTownColor.white.color
         tableView.layer.cornerRadius = 8
-        tableView.register(DropDownCell.self, forCellReuseIdentifier: DropDownCell.reuseIdentifier)
+        tableView.register(DropDownCell.self,
+                           forCellReuseIdentifier: DropDownCell.reuseIdentifier)
         tableView.delegate = self
         tableView.dataSource = self
         return tableView

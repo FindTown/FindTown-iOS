@@ -12,14 +12,11 @@ import KakaoSDKUser
 
 public final class AppCoordinator: Coordinator {
     var navigationController: UINavigationController
-    var userDefaults: UserDefaultUtil
     
     required init(
-        navigationController: UINavigationController,
-        userDefaults: UserDefaultUtil
+        navigationController: UINavigationController
     ) {
         self.navigationController = navigationController
-        self.userDefaults = userDefaults
     }
     
     public func start() {

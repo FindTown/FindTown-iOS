@@ -64,7 +64,7 @@ final class LoginViewModel: BaseViewModel {
                 self?.goToNickname()
                 
             },onError: { err in
-                let error = err as? BaseError
+                let error = err as? SocialLoginError
                 print("error \(error!)")
                 print("err \(err.localizedDescription)")
             })
