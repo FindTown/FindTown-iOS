@@ -11,10 +11,9 @@ import RxSwift
 import RxRelay
 import FindTownCore
 
-protocol FavoriteViewModelType {
+protocol FavoriteTownViewModelType {
     func goToAgreePolicy(_ signupUserModel: SignupUserModel)
 }
-
 
 final class FavoriteTownViewModel: BaseViewModel {
     
@@ -75,7 +74,7 @@ final class FavoriteTownViewModel: BaseViewModel {
     }
 }
 
-extension FavoriteTownViewModel: FavoriteViewModelType {
+extension FavoriteTownViewModel: FavoriteTownViewModelType {
     
     func goToAgreePolicy(_ signupUserModel: SignupUserModel) {
         delegate.goToAgreePolicy(signupUserModel)

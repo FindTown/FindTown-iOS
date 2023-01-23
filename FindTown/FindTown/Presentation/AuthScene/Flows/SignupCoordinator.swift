@@ -42,7 +42,7 @@ final class SignupCoordinator: FlowCoordinator {
     /// 회원가입 관심 있는 동네
     internal func signUpFavoriteTownScene(_ signupUserModel: SignupUserModel) -> UIViewController {
         let favoriteTownViewModel = FavoriteTownViewModel(delegate: self, signupUserModel: signupUserModel)
-        let favoriteTownViewController = FavoriteViewController(viewModel: favoriteTownViewModel)
+        let favoriteTownViewController = FavoriteTownViewController(viewModel: favoriteTownViewModel)
         return favoriteTownViewController
     }
     
