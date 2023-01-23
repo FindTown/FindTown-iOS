@@ -18,7 +18,7 @@ public class Network: Networkable {
     private let session: Sessionable
     private let decoder: JSONDecoder
     
-    init(session: Sessionable = Session(),
+    internal init(session: Sessionable = Session(),
          decoder: JSONDecoder = JSONDecoder()) {
         self.session = session
         self.decoder = decoder
