@@ -119,21 +119,20 @@ final class TownTableViewCell: UITableViewCell {
     private func setupView() {
         mapBtn.changesSelectionAsPrimaryAction = false
         mapBtn.isSelected = true
+        mapBtn.setTitle("동네 지도", for: .normal)
+        
+        introduceBtn.setTitle("동네 소개", for: .normal)
         
         contentView.layer.cornerRadius = 16
         contentView.backgroundColor = FindTownColor.white.color
         contentView.layer.addCustomShadow(shadowX: 0, shadowY: 2,
                                           shadowColor: FindTownColor.black.color.withAlphaComponent(0.4),
                                           blur: 10.0, spread: 0, alpha: 0.4)
-        
     }
     
     func setupCell(_ model: Any) {
         guard let model = model as? townModelTest else { return }
         townTitle.text = model.dong
         townIntroduceTitle.text = model.introduce
-        
-        introduceBtn.setTitle("동네 소개", for: .normal)
-        mapBtn.setTitle("동네 지도", for: .normal)
     }
 }

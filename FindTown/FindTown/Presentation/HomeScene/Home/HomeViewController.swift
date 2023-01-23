@@ -211,18 +211,13 @@ final class HomeViewController: BaseViewController {
         
         viewModel?.output.searchTownTableDataSource
             .observe(on: MainScheduler.instance)
-            .bind(to: townTableView.rx.items) { tableView, row, item in
-                let cell = tableView.dequeueReusableCell(
-                    withIdentifier: TownTableViewCell.reuseIdentifier,
-                    for: IndexPath(row: row, section: 0)
-                ) as! TownTableViewCell
-                
-                cell.setupCell(item)
-                cell.selectionStyle = .none
-                
-                return cell
-            }
-            .disposed(by: disposeBag)
+            .bind(to: townTableView.rx.items(
+                cellIdentifier: TownTableViewCell.reuseIdentifier,
+                cellType: TownTableViewCell.self)) { index, item, cell in
+                    
+                    cell.setupCell(item)
+                    
+                }.disposed(by: disposeBag)
         
         viewModel?.output.searchTownTableDataSource
             .observe(on: MainScheduler.instance)
@@ -238,7 +233,7 @@ final class HomeViewController: BaseViewController {
         
         var tempTraffic = "교통"
         if let first = tempModel.traffic.first {
-            tempTraffic = tempModel.traffic.count == 1 ? first : first + " 외 \(tempModel.traffic.count - 1) 개"
+            tempTraffic = tempModel.traffic.count == 1 ? first : first + " 외 \(tempModel.traffic.count - 1) 건"
         }
         
         let tempInfra = tempModel.infra == "" ? "인프라" : tempModel.infra
