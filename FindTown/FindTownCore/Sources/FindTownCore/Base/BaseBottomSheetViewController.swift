@@ -9,7 +9,7 @@ import UIKit
 
 open class BaseBottomSheetViewController: BaseViewController {
     
-    enum BottomSheetStatus {
+    public enum BottomSheetStatus {
         case show
         case hide
     }
@@ -102,7 +102,7 @@ open class BaseBottomSheetViewController: BaseViewController {
         view.addGestureRecognizer(swipeGesture)
     }
     
-    private func setBottomSheetStatus(to status: BottomSheetStatus) {
+    public func setBottomSheetStatus(to status: BottomSheetStatus) {
         let safeAreaHeight: CGFloat = view.safeAreaLayoutGuide.layoutFrame.height
         let bottomPadding: CGFloat = view.safeAreaInsets.bottom
         
@@ -129,11 +129,11 @@ open class BaseBottomSheetViewController: BaseViewController {
         }
     }
     
-    @objc private func dimmedViewTapped(_ tapRecognizer: UITapGestureRecognizer) {
+    @objc func dimmedViewTapped(_ tapRecognizer: UITapGestureRecognizer) {
         setBottomSheetStatus(to: .hide)
     }
     
-    @objc private func panGesture(_ recognizer: UISwipeGestureRecognizer) {
+    @objc func panGesture(_ recognizer: UISwipeGestureRecognizer) {
         if recognizer.state == .ended {
             switch recognizer.direction {
             case .down:

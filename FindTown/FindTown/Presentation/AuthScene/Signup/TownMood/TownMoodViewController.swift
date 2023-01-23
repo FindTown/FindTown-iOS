@@ -188,16 +188,17 @@ final class TownMoodViewController: BaseViewController {
     }
     
     @objc private func keyboardWillHideSender(_ sender: Notification) {
-        self.view.frame.size.height += keyHeight ?? 0
+        guard let keyHeight else { return }
+        self.view.frame.size.height += keyHeight
     }
 }
 
 extension TownMoodViewController: UITextViewDelegate {
     
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-        let currentText = textView.text ?? ""
+        guard let textViewText = textView.text else { return false }
+        let currentText = textViewText
         guard let stringRange = Range(range, in: currentText) else { return false }
-        
         let changedText = currentText.replacingCharacters(in: stringRange, with: text)
         textViewCountTitle.text = "\(changedText.count)/200"
         

@@ -11,7 +11,7 @@ import UIKit
 extension CALayer {
 
     // 피그마값으로 그림자 커스텀할 때 사용하는 함수
-    func addCustomShadow(shadowX: Int,
+    public func addCustomShadow(shadowX: Int,
                          shadowY: Int,
                          shadowColor: UIColor,
                          blur: CGFloat,

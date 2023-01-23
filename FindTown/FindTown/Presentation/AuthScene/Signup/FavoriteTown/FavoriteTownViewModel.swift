@@ -16,7 +16,7 @@ protocol FavoriteViewModelType {
 }
 
 
-final class FavoriteViewModel: BaseViewModel {
+final class FavoriteTownViewModel: BaseViewModel {
     
     struct Input {
         let jachigu = BehaviorSubject<String>(value: "자치구")
@@ -75,7 +75,7 @@ final class FavoriteViewModel: BaseViewModel {
     }
 }
 
-extension FavoriteViewModel: FavoriteViewModelType {
+extension FavoriteTownViewModel: FavoriteViewModelType {
     
     func goToAgreePolicy(_ signupUserModel: SignupUserModel) {
         delegate.goToAgreePolicy(signupUserModel)
