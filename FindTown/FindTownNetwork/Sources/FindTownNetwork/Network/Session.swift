@@ -21,18 +21,18 @@ class Session: Sessionable {
     func request(request: URLRequest) async throws -> Data {
         let (data, response) = try await self.session.data(for: request, delegate: nil)
         guard let httpResponse = response as? HTTPURLResponse else {
-            throw NetworkError.invaildServerResponse
+            throw FTNetworkError.invaildServerResponse
         }
         
         if 401 == httpResponse.statusCode {
-            throw NetworkError.unauthorized
+            throw FTNetworkError.unauthorized
         }
         if 400..<500 ~= httpResponse.statusCode {
-            throw NetworkError.client
+            throw FTNetworkError.client
         }
         
         if 500..<600 ~= httpResponse.statusCode {
-            throw NetworkError.server
+            throw FTNetworkError.server
         }
         return data
     }

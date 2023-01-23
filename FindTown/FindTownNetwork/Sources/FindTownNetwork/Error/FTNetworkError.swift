@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum NetworkError: Error {
+enum FTNetworkError: Error {
     case invaildServerResponse
     case client
     case server

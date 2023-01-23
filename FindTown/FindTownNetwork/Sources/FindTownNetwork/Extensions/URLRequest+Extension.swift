@@ -13,7 +13,7 @@ extension URLRequest {
             httpBody = try encoder.encode(encodable)
             return self
         } catch {
-            throw NetworkError.encode
+            throw FTNetworkError.encode
         }
     }
 }

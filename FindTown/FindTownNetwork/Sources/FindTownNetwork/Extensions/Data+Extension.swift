@@ -14,7 +14,7 @@ extension Data {
             let data = try jsonDecoder.decode(type, from: self)
             return data
         } catch {
-            throw NetworkError.decode
+            throw FTNetworkError.decode
         }
     }
 }
