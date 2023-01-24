@@ -128,6 +128,8 @@ final class TownTableViewCell: UITableViewCell {
         contentView.layer.addCustomShadow(shadowX: 0, shadowY: 2,
                                           shadowColor: FindTownColor.black.color.withAlphaComponent(0.4),
                                           blur: 10.0, spread: 0, alpha: 0.4)
+        
+        selectionStyle = .none
     }
     
     func setupCell(_ model: Any) {
