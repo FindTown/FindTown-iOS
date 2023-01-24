@@ -8,7 +8,8 @@
 import Foundation
 
 protocol Networkable {
-    func request<T: Request>(target: T, cachePolicy: URLRequest.CachePolicy) async throws -> T.ResponseType
+    func request<T: Request>(target: T,
+                             cachePolicy: URLRequest.CachePolicy) async throws -> T.ResponseType
 }
 
 public class Network: Networkable {
@@ -24,7 +25,9 @@ public class Network: Networkable {
         self.decoder = decoder
     }
     
-    public func request<T: Request>(target: T, cachePolicy: URLRequest.CachePolicy = .useProtocolCachePolicy) async throws -> T.ResponseType {
+    public func request<T: Request>(target: T,
+                                    cachePolicy: URLRequest.CachePolicy = .useProtocolCachePolicy
+    ) async throws -> T.ResponseType {
         let url = URL(target: target)
         var request = URLRequest(url: url, cachePolicy: cachePolicy)
         request.httpMethod = target.method.value
