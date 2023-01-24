@@ -10,7 +10,7 @@ import FindTownCore
 import FindTownUI
 import RxSwift
 
-class FavoriteViewController: BaseViewController {
+final class FavoriteViewController: BaseViewController {
     
     // MARK: - Properties
     

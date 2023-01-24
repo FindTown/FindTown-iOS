@@ -57,7 +57,6 @@ final class FavoriteViewModel: BaseViewModel {
             .disposed(by: disposeBag)
         
         self.output.favoriteDataSource.onNext(returnTownTestData())
-//        self.output.searchTownTableDataSource.accept(returnTownTestData())
         self.output.viewStatus.onNext(returnViewStatus())
     }
 }
