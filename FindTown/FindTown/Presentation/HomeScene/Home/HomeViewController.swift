@@ -182,6 +182,13 @@ final class HomeViewController: BaseViewController {
         
         // Input
         
+        searchButton.rx.tap
+            .throttle(.milliseconds(300), scheduler: MainScheduler.instance)
+            .bind { [weak self] in
+                self?.viewModel?.input.searchButtonTrigger.onNext(())
+            }
+            .disposed(by: disposeBag)
+        
         filterButton.rx.tap
             .throttle(.milliseconds(300), scheduler: MainScheduler.instance)
             .bind { [weak self] in

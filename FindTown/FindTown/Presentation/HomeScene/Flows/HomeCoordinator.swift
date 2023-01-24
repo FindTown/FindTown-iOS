@@ -31,4 +31,9 @@ extension HomeCoordinator: HomeViewModelDelegate {
         FilterSheetCoordinator(presentationStyle: .present(navigationController: navigationController,
                                                            modalPresentationStyle: .overFullScreen)).start()
     }
+    
+    func goToGuSearchView() {
+        guard let navigationController = navigationController else { return }
+        GuSearchCoordinator(presentationStyle: .push(navigationController: navigationController)).start()
+    }
 }
