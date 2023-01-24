@@ -8,7 +8,7 @@
 import Foundation
 
 extension URLRequest {
-    mutating func encoded(encodable: Encodable, encoder: JSONEncoder = JSONEncoder()) throws -> URLRequest {
+    mutating func encoded<T: Encodable>(encodable: T, encoder: JSONEncoder = JSONEncoder()) throws -> URLRequest {
         do {
             httpBody = try encoder.encode(encodable)
             return self

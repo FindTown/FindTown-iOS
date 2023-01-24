@@ -10,6 +10,6 @@ import Foundation
 public enum TaskType {
     case requestPlain
     case requestData(Data)
-    case requestJSONEncodable(Encodable)
-    case requestCustomJSONEncodable(Encodable, encoder: JSONEncoder)
+    case requestJSONEncodable(encodable: Encodable)
+    case requestCustomJSONEncodable(encodable: Encodable, encoder: JSONEncoder)
 }
