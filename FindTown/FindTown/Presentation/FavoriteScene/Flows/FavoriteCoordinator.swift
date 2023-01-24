@@ -19,8 +19,8 @@ final class FavoriteCoordinator: FlowCoordinator {
     }
     
     internal func initScene() -> UIViewController {
-        let favoriteViewModel = Favorite1ViewModel(delegate: self)
-        return Favorite1ViewController(viewModel: favoriteViewModel)
+        let favoriteViewModel = FavoriteViewModel(delegate: self)
+        return FavoriteViewController(viewModel: favoriteViewModel)
     }
 }
 
