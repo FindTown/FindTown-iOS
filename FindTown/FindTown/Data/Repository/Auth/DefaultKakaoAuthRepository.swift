@@ -14,7 +14,6 @@ final class DefaultKakaoAuthRepository {
     
     /// 카카오톡 어플이 설치되어있는지 확인하는 로직
     func isKakaoTalkLoginAvailable() async throws -> String {
-        
         if UserApi.isKakaoTalkLoginAvailable() {
             return try await self.loginWithKakaoTalk()
         } else {
@@ -32,13 +31,15 @@ private extension DefaultKakaoAuthRepository {
     func loginWithKakaoTalk() async throws -> String {
         
         return try await withCheckedThrowingContinuation { continuation in
-            UserApi.shared.loginWithKakaoTalk {(oauthToken, error) in
-                guard let authToken = oauthToken else { return }
-                
-                if let error = error {
-                    continuation.resume(throwing: error)
-                } else {
-                    continuation.resume(returning: authToken.accessToken)
+            DispatchQueue.main.async {
+                UserApi.shared.loginWithKakaoTalk {(oauthToken, error) in
+                    guard let authToken = oauthToken else { return }
+                    
+                    if let error = error {
+                        continuation.resume(throwing: error)
+                    } else {
+                        continuation.resume(returning: authToken.accessToken)
+                    }
                 }
             }
         }
@@ -47,13 +48,15 @@ private extension DefaultKakaoAuthRepository {
     /// 카카오톡 어플이 없는 경우, 카카오톡 계정을 통해 로그인합니다.
     func loginWithKakaoAccount() async throws -> String {
         return try await withCheckedThrowingContinuation { continuation in
-            UserApi.shared.loginWithKakaoAccount {(oauthToken, error) in
-                guard let authToken = oauthToken else { return }
-                
-                if let error = error {
-                    continuation.resume(throwing: error)
-                } else {
-                    continuation.resume(returning: authToken.accessToken)
+            DispatchQueue.main.async {
+                UserApi.shared.loginWithKakaoAccount {(oauthToken, error) in
+                    guard let authToken = oauthToken else { return }
+                    
+                    if let error = error {
+                        continuation.resume(throwing: error)
+                    } else {
+                        continuation.resume(returning: authToken.accessToken)
+                    }
                 }
             }
         }
