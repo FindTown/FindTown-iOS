@@ -300,13 +300,6 @@
 			path = SubViews;
 			sourceTree = "<group>";
 		};
-		BC04A6DA296FDE9900B60BCF /* Manager */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Manager;
-			sourceTree = "<group>";
-		};
 		BC04A6E129700DD700B60BCF /* KeyChain */ = {
 			isa = PBXGroup;
 			children = (
@@ -423,8 +416,8 @@
 			isa = PBXGroup;
 			children = (
 				F38AA7FC2981258100EF66F2 /* UseCase */,
-				BC04A6DA296FDE9900B60BCF /* Manager */,
 				F3219B5C29693FB2000024E4 /* Entities */,
+				F38AA80A2981771E00EF66F2 /* Enumerations */,
 			);
 			path = Domain;
 			sourceTree = "<group>";
@@ -517,17 +510,12 @@
 		F3219B5C29693FB2000024E4 /* Entities */ = {
 			isa = PBXGroup;
 			children = (
-				2B718C192966A6000068884A /* MapCategory.swift */,
 				F3219B5D2969403F000024E4 /* MapData.swift */,
 				F3219B5F29694079000024E4 /* Category.swift */,
 				F3219B612969408C000024E4 /* DetailCategory.swift */,
 				F3219B6D29699F88000024E4 /* Store.swift */,
 				F3219B6F2969B32F000024E4 /* Thema.swift */,
-				F3219B712969B346000024E4 /* StoreType.swift */,
-				F3219B732969B351000024E4 /* StoreDetailType.swift */,
 				F39EDDBB296D5AE500A4E655 /* City.swift */,
-				F39EDDC1296D635100A4E655 /* CityType.swift */,
-				F39EDDC3296D667800A4E655 /* County.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -702,6 +690,18 @@
 				BC04A6DD296FF10100B60BCF /* TokenManager.swift */,
 			);
 			path = Token;
+			sourceTree = "<group>";
+		};
+		F38AA80A2981771E00EF66F2 /* Enumerations */ = {
+			isa = PBXGroup;
+			children = (
+				F39EDDC1296D635100A4E655 /* CityType.swift */,
+				F3219B732969B351000024E4 /* StoreDetailType.swift */,
+				F3219B712969B346000024E4 /* StoreType.swift */,
+				F39EDDC3296D667800A4E655 /* County.swift */,
+				2B718C192966A6000068884A /* MapCategory.swift */,
+			);
+			path = Enumerations;
 			sourceTree = "<group>";
 		};
 		F38CCBD429582869000C16AF /* Flow */ = {
