@@ -15,4 +15,10 @@ final class DefaultAuthRepository {
         let data = try await Network.shared.request(target: AuthLoginReqeust(task: .requestJSONEncodable(encodable: memberInformation)))
         print(data.header.code, data.header.message)
     }
+    
+    func nickNameDuplicateCheck(_ nickName: String) async throws {
+        let parameters = [URLQueryItem(name: "nickname", value: nickName)]
+        let data = try await Network.shared.request(target: NickNameCheckRequest(parameters: parameters))
+        print(data.body.existConfirm)
+    }
 }

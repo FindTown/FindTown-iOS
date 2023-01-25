@@ -20,6 +20,7 @@ struct AuthLoginReqeust: BaseRequest {
     var headers: FindTownNetwork.HTTPHeaders = HTTPHeaders([.accept("*/*"),
                                                             .contentType("application/json")])
     var task: FindTownNetwork.TaskType
+    var parameters: [URLQueryItem]? = nil
 }
 
 /// 임시
