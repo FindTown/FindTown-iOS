@@ -10,9 +10,10 @@ import Foundation
 public protocol Request {
     associatedtype ResponseType: Response
     
-    var baseURL: URL { get }
+    var baseURL: String { get }
     var path: String { get }
     var method: HttpMethod { get }
     var headers: HTTPHeaders { get }
     var task: TaskType { get }
+    var parameters: [URLQueryItem]? { get }
 }

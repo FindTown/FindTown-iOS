@@ -28,7 +28,16 @@ public class Network: Networkable {
     public func request<T: Request>(target: T,
                                     cachePolicy: URLRequest.CachePolicy = .useProtocolCachePolicy
     ) async throws -> BaseResponse<T.ResponseType> {
-        let url = URL(target: target)
+        
+        let url: URL
+        if let queryParameters = target.parameters {
+            var component = URLComponents(target: target)
+            component.queryItems = queryParameters
+            guard let componentUrl = component.url else { throw FTNetworkError.url }
+            url = componentUrl
+        } else {
+            url = URL(target: target)
+        }
         var request = URLRequest(url: url, cachePolicy: cachePolicy)
         request.httpMethod = target.method.value
         
