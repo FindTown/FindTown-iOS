@@ -22,7 +22,7 @@ final class GuSelectViewController: BaseViewController {
     // MARK: - Views
     
     private let recentlySearchTitle = FindTownLabel(text: "최근 검색한 동네", font: .subtitle5)
-    private let allRemoveTitle = FindTownLabel(text: "전체삭제", font: .label1, textColor: .grey5)
+    fileprivate let allRemoveTitle = FindTownLabel(text: "전체삭제", font: .label1, textColor: .grey5)
     private let recentlySearchTitleStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -31,9 +31,9 @@ final class GuSelectViewController: BaseViewController {
         return stackView
     }()
     
-    private let notSearchRecentlyTitle = FindTownLabel(text: "검색 내역이 없습니다.", font: .body4, textColor: .grey5)
+    fileprivate let notSearchRecentlyTitle = FindTownLabel(text: "검색 내역이 없습니다.", font: .body4, textColor: .grey5)
     
-    private let recentlyGuCollectionView = RecentlyGuCollectionView()
+    fileprivate let recentlyGuCollectionView = RecentlyGuCollectionView()
     
     private let selectJachiguTitle = FindTownLabel(text: "자치구를 선택해주세요.", font: .subtitle5)
     
@@ -53,7 +53,7 @@ final class GuSelectViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
     }
-
+    
     // MARK: - Functions
     
     override func addView() {
@@ -130,22 +130,22 @@ final class GuSelectViewController: BaseViewController {
         
         countyCollectionView.rx.modelSelected(County.self)
             .throttle(.milliseconds(300), scheduler: MainScheduler.instance)
-            .subscribe(onNext: { county in
-                self.viewModel?.input.selectedCounty.onNext(county)
-            })
+            .bind { [weak self] country in
+                self?.viewModel?.input.selectedCounty.onNext(country.rawValue)
+            }
             .disposed(by: disposeBag)
         
         recentlyGuCollectionView.rx.modelSelected(String.self)
             .throttle(.milliseconds(300), scheduler: MainScheduler.instance)
-            .bind { [weak self] in
-                print("tap \($0)")
-                self?.viewModel?.goToGuSelectDong(selectGuData: $0)
+            .bind { [weak self] country in
+                self?.viewModel?.input.selectedCounty.onNext(country)
             }
             .disposed(by: disposeBag)
         
         // Output
         
         viewModel?.output.searchFilterDataSource
+            .observe(on: MainScheduler.instance)
             .bind(to: recentlyGuCollectionView.rx.items(
                 cellIdentifier: RecentlyGuCollectionViewCell.reuseIdentifier,
                 cellType: RecentlyGuCollectionViewCell.self)) { index, item, cell in
@@ -156,6 +156,7 @@ final class GuSelectViewController: BaseViewController {
                 }.disposed(by: disposeBag)
         
         viewModel?.output.countyDataSource
+            .observe(on: MainScheduler.instance)
             .bind(to: countyCollectionView.rx.items(
                 cellIdentifier: CityCollectionViewCell.reuseIdentifier,
                 cellType: CityCollectionViewCell.self)) { index, item, cell in
@@ -166,26 +167,8 @@ final class GuSelectViewController: BaseViewController {
         
         viewModel?.output.searchFilterDataSource
             .asDriver(onErrorJustReturn: [])
-            .drive { [weak self] in
-                if $0.count == 0 {
-                    self?.caseFirst()
-                } else {
-                    self?.caseSecond()
-                }
-            }
+            .drive(self.rx.searchFilterStatus)
             .disposed(by: disposeBag)
-    }
-    
-    private func caseFirst() {
-        notSearchRecentlyTitle.isHidden = false
-        allRemoveTitle.isHidden = true
-        recentlyGuCollectionView.isHidden = true
-    }
-    
-    private func caseSecond() {
-        notSearchRecentlyTitle.isHidden = true
-        allRemoveTitle.isHidden = false
-        recentlyGuCollectionView.isHidden = false
     }
 }
 
@@ -207,4 +190,19 @@ extension GuSelectViewController: RecentlyGuCollectionViewCellDelegate {
     }
 }
 
-
+extension Reactive where Base: GuSelectViewController {
+    
+    var searchFilterStatus:Binder<[String]> {
+        return Binder(self.base) { viewcontroller, guValues in
+            if guValues.count == 0 {
+                viewcontroller.notSearchRecentlyTitle.isHidden = false
+                viewcontroller.allRemoveTitle.isHidden = true
+                viewcontroller.recentlyGuCollectionView.isHidden = true
+            } else {
+                viewcontroller.notSearchRecentlyTitle.isHidden = true
+                viewcontroller.allRemoveTitle.isHidden = false
+                viewcontroller.recentlyGuCollectionView.isHidden = false
+            }
+        }
+    }
+}

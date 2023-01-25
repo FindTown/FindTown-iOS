@@ -22,7 +22,7 @@ protocol GuSelectViewModelType {
 final class GuSelectViewModel: BaseViewModel {
     
     struct Input {
-        let selectedCounty = PublishSubject<County>()
+        let selectedCounty = PublishSubject<String>()
         let removedCounty =  PublishSubject<String>()
         let allDeleteTrigger = PublishSubject<Void>()
     }
@@ -50,9 +50,9 @@ final class GuSelectViewModel: BaseViewModel {
         self.input.selectedCounty
             .bind { [weak self] in
                 var tempDataSource = self?.output.searchFilterDataSource.value
-                tempDataSource?.insert($0.rawValue, at: 0)
+                tempDataSource?.insert($0, at: 0)
                 self?.output.searchFilterDataSource.accept(tempDataSource ?? [])
-                self?.goToGuSelectDong(selectGuData: $0.rawValue)
+                self?.goToGuSelectDong(selectGuData: $0)
             }
             .disposed(by: disposeBag)
         
