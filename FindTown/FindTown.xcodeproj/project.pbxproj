@@ -90,6 +90,8 @@
 		F38AA7FE2981259200EF66F2 /* AuthUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = F38AA7FD2981259200EF66F2 /* AuthUseCase.swift */; };
 		F38AA800298125FB00EF66F2 /* DefaultAppleAuthRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = F38AA7FF298125FB00EF66F2 /* DefaultAppleAuthRepository.swift */; };
 		F38AA80629816C4700EF66F2 /* MemberInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = F38AA80529816C4700EF66F2 /* MemberInformation.swift */; };
+		F38AA80D29817E2000EF66F2 /* NickNameCheckRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F38AA80C29817E2000EF66F2 /* NickNameCheckRequest.swift */; };
+		F38AA80F29817F1600EF66F2 /* NickCheckResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = F38AA80E29817F1600EF66F2 /* NickCheckResponse.swift */; };
 		F38CCBD729582869000C16AF /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F38CCBD529582869000C16AF /* AppCoordinator.swift */; };
 		F38CCBD829582869000C16AF /* TabBarCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F38CCBD629582869000C16AF /* TabBarCoordinator.swift */; };
 		F38CCBDF2958287C000C16AF /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F38CCBDB2958287C000C16AF /* HomeViewModel.swift */; };
@@ -207,6 +209,8 @@
 		F38AA7FD2981259200EF66F2 /* AuthUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthUseCase.swift; sourceTree = "<group>"; };
 		F38AA7FF298125FB00EF66F2 /* DefaultAppleAuthRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultAppleAuthRepository.swift; sourceTree = "<group>"; };
 		F38AA80529816C4700EF66F2 /* MemberInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberInformation.swift; sourceTree = "<group>"; };
+		F38AA80C29817E2000EF66F2 /* NickNameCheckRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NickNameCheckRequest.swift; sourceTree = "<group>"; };
+		F38AA80E29817F1600EF66F2 /* NickCheckResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NickCheckResponse.swift; sourceTree = "<group>"; };
 		F38CCBD529582869000C16AF /* AppCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		F38CCBD629582869000C16AF /* TabBarCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarCoordinator.swift; sourceTree = "<group>"; };
 		F38CCBDB2958287C000C16AF /* HomeViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
@@ -621,6 +625,7 @@
 		F38AA7F72981245D00EF66F2 /* Requests */ = {
 			isa = PBXGroup;
 			children = (
+				F38AA80B29817DEC00EF66F2 /* Member */,
 				F38AA7F82981247600EF66F2 /* Auth */,
 			);
 			path = Requests;
@@ -672,6 +677,7 @@
 		F38AA80429816C3A00EF66F2 /* Reponse */ = {
 			isa = PBXGroup;
 			children = (
+				F38AA80E29817F1600EF66F2 /* NickCheckResponse.swift */,
 			);
 			path = Reponse;
 			sourceTree = "<group>";
@@ -702,6 +708,14 @@
 				2B718C192966A6000068884A /* MapCategory.swift */,
 			);
 			path = Enumerations;
+			sourceTree = "<group>";
+		};
+		F38AA80B29817DEC00EF66F2 /* Member */ = {
+			isa = PBXGroup;
+			children = (
+				F38AA80C29817E2000EF66F2 /* NickNameCheckRequest.swift */,
+			);
+			path = Member;
 			sourceTree = "<group>";
 		};
 		F38CCBD429582869000C16AF /* Flow */ = {
@@ -939,6 +953,7 @@
 			files = (
 				2BEE90CC2977F975002E7C3A /* FavoriteCoordinator.swift in Sources */,
 				F39EDDCC296D7A1800A4E655 /* CategoryCollectionView.swift in Sources */,
+				F38AA80F29817F1600EF66F2 /* NickCheckResponse.swift in Sources */,
 				BC04A6E329700DF400B60BCF /* KeyChainAccount.swift in Sources */,
 				BC0D88592964641400CCB800 /* YearMonthPickerView.swift in Sources */,
 				F3219B7C2969D589000024E4 /* AddressSheetViewModel.swift in Sources */,
@@ -1015,6 +1030,7 @@
 				F38AA7FA298124AD00EF66F2 /* AuthLoginRequest.swift in Sources */,
 				BC0D88532963DD0D00CCB800 /* LocationAndYearsViewController.swift in Sources */,
 				F3219B762969D169000024E4 /* AddressSheetViewController.swift in Sources */,
+				F38AA80D29817E2000EF66F2 /* NickNameCheckRequest.swift in Sources */,
 				BC4C118729712F5100645AA7 /* Traffic.swift in Sources */,
 				F3219B6C29699B25000024E4 /* MapStoreCollectionViewCell.swift in Sources */,
 				F3891E21293B8393003CE8AD /* SceneDelegate.swift in Sources */,
