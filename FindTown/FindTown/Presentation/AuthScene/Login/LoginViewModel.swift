@@ -33,15 +33,20 @@ final class LoginViewModel: BaseViewModel {
     let delegate: LoginViewModelDelegate
     var userDefaults: UserDefaultUtil
     let kakaoManager: SigninManagerProtocol
+    let authUseCase: AuthUseCase
+    
+    private var loginTask: Task<Void, Error>?
     
     init(
         delegate: LoginViewModelDelegate,
         userDefaults: UserDefaultUtil,
-        kakaoManager: SigninManagerProtocol
+        kakaoManager: SigninManagerProtocol,
+        authUseCase: AuthUseCase
     ) {
         self.delegate = delegate
         self.userDefaults = userDefaults
         self.kakaoManager = kakaoManager
+        self.authUseCase = authUseCase
         
         super.init()
         
@@ -51,24 +56,30 @@ final class LoginViewModel: BaseViewModel {
     func bind() {
         
         self.input.kakaoSigninTrigger
-            .flatMapLatest { self.kakaoManager.signin() }
-            .subscribe(onNext: { [weak self] signinRequest in
-                
-                TokenManager.shared.createTokens(accessToken: signinRequest.accessToken,
-                                                 refreshToken: signinRequest.refreshToken)
-                
-                // 유저 정보가 있으면
-//                self?.goToTabBar()
-                
-                // 없으면
-                self?.goToNickname()
-                
-            },onError: { err in
-                let error = err as? SocialLoginError
-                print("error \(error!)")
-                print("err \(err.localizedDescription)")
+            .subscribe(onNext: {
+                self.loginWithKakao()
             })
             .disposed(by: disposeBag)
+        
+//        self.input.kakaoSigninTrigger
+//            .flatMapLatest { self.kakaoManager.signin() }
+//            .subscribe(onNext: { [weak self] signinRequest in
+//
+//                TokenManager.shared.createTokens(accessToken: signinRequest.accessToken,
+//                                                 refreshToken: signinRequest.refreshToken)
+//
+//                // 유저 정보가 있으면
+////                self?.goToTabBar()
+//
+//                // 없으면
+//                self?.goToNickname()
+//
+//            },onError: { err in
+//                let error = err as? SocialLoginError
+//                print("error \(error!)")
+//                print("err \(err.localizedDescription)")
+//            })
+//            .disposed(by: disposeBag)
         
         self.input.appleSigninTrigger
             .bind {
@@ -81,6 +92,20 @@ final class LoginViewModel: BaseViewModel {
                 print("anonymousTrigger")
             }
             .disposed(by: disposeBag)
+    }
+}
+
+// MARK: - Network
+
+extension LoginViewModel {
+    func loginWithKakao() {
+        Task {
+            do {
+                try await self.authUseCase.login(authType: .kakao)
+            } catch (let error) {
+                print(error)
+            }
+        }
     }
 }
 
