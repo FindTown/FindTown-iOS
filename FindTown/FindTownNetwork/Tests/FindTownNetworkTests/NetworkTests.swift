@@ -36,7 +36,7 @@ final class NetworkTests: XCTestCase {
         let data = try await network.request(target: mockRequest, cachePolicy: .useProtocolCachePolicy)
 
         // then
-        XCTAssertEqual(data.test, "test")
+        XCTAssertEqual(data.body.test, "test")
     }
     
     func test_request메서드_실패() async throws {
