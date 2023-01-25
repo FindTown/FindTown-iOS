@@ -24,28 +24,22 @@ final class LoginViewModel: BaseViewModel {
     }
     
     struct Output {
-        let signinOutput = PublishSubject<SigninRequest>()
+//        let signinOutput = PublishSubject<SigninRequest>()
     }
     
     let input = Input()
     var output = Output()
     
     let delegate: LoginViewModelDelegate
-    var userDefaults: UserDefaultUtil
-    let kakaoManager: SigninManagerProtocol
     let authUseCase: AuthUseCase
     
     private var loginTask: Task<Void, Error>?
     
     init(
         delegate: LoginViewModelDelegate,
-        userDefaults: UserDefaultUtil,
-        kakaoManager: SigninManagerProtocol,
         authUseCase: AuthUseCase
     ) {
         self.delegate = delegate
-        self.userDefaults = userDefaults
-        self.kakaoManager = kakaoManager
         self.authUseCase = authUseCase
         
         super.init()

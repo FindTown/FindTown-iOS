@@ -20,8 +20,6 @@ final class LoginCoordinator: FlowCoordinator {
     
     internal func initScene() -> UIViewController {
         let loginViewModel = LoginViewModel(delegate: self,
-                                            userDefaults: UserDefaultUtil(),
-                                            kakaoManager: KakaoSigninManager(),
                                             authUseCase:  AuthUseCase())
         let loginViewController = LoginViewController(viewModel: loginViewModel)
         return loginViewController
