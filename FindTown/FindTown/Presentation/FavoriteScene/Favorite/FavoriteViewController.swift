@@ -18,9 +18,9 @@ final class FavoriteViewController: BaseViewController {
     
     // MARK: - Views
     
-    let anonymousView = AnonymousView()
-    let isEmptyView = EmptyView()
-    let favoriteTableView = FavoriteTableView()
+    fileprivate let anonymousView = AnonymousView()
+    fileprivate let isEmptyView = EmptyView()
+    fileprivate let favoriteTableView = FavoriteTableView()
 
     // MARK: - Life Cycle
     
