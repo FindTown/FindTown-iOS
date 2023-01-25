@@ -7,14 +7,14 @@
 
 import Foundation
 
-struct BaseResponse<ResponseType: Response>: Response {
-    let header: Header
-    let body: ResponseType
+public struct BaseResponse<ResponseType: Response>: Response {
+    public let header: Header
+    public let body: ResponseType
 }
 
-struct Header: Response {
-    let code: Int
-    let message: String
+public struct Header: Response {
+    public let code: Int
+    public let message: String
 }
 
 
