@@ -34,6 +34,6 @@ extension HomeCoordinator: HomeViewModelDelegate {
     
     func goToGuSearchView() {
         guard let navigationController = navigationController else { return }
-        GuSearchCoordinator(presentationStyle: .push(navigationController: navigationController)).start()
+        SearchCountyCoordinator(presentationStyle: .push(navigationController: navigationController)).start()
     }
 }

@@ -11,7 +11,7 @@ import FindTownCore
 import RxSwift
 import RxRelay
 
-final class GuSelectDongViewModel: BaseViewModel {
+final class ShowDongListViewModel: BaseViewModel {
 
     struct Input {
         
@@ -36,7 +36,7 @@ final class GuSelectDongViewModel: BaseViewModel {
     }
 }
 
-extension GuSelectDongViewModel {
+extension ShowDongListViewModel {
     func returnTownTestData() -> [townModelTest] {
         let demoTown1 = townModelTest(image: "map", dong: "신림동", introduce: "자취생들이 많이 사는 동네")
         let demoTown2 = townModelTest(image: "map", dong: "신림동", introduce: "자취생들이 많이 사는 동네")

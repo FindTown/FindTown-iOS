@@ -12,11 +12,11 @@ import RxCocoa
 import FindTownUI
 import FindTownCore
 
-final class GuSelectViewController: BaseViewController {
+final class SelectCountyViewController: BaseViewController {
     
     // MARK: - Properties
     
-    private let viewModel: GuSelectViewModel?
+    private let viewModel: SelectCountyViewModel?
     private let allRemoveLabelTapGesture = UITapGestureRecognizer()
     
     // MARK: - Views
@@ -27,7 +27,7 @@ final class GuSelectViewController: BaseViewController {
     
     // MARK: - Life Cycle
     
-    init(viewModel: GuSelectViewModel?) {
+    init(viewModel: SelectCountyViewModel?) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
@@ -104,7 +104,7 @@ final class GuSelectViewController: BaseViewController {
     }
 }
 
-extension GuSelectViewController: UICollectionViewDelegateFlowLayout {
+extension SelectCountyViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath)

@@ -11,15 +11,15 @@ import FindTownCore
 import RxSwift
 import RxRelay
 
-protocol GuSelectViewModelDelegate {
-    func goToGuSelectDong(selectGuData: String)
+protocol SelectCountyViewModelDelegate {
+    func goToShowDongList(selectCountyData: String)
 }
 
-protocol GuSelectViewModelType {
-    func goToGuSelectDong(selectGuData: String)
+protocol SelectCountyViewModelType {
+    func goToShowDongList(selectCountyData: String)
 }
 
-final class GuSelectViewModel: BaseViewModel {
+final class SelectCountyViewModel: BaseViewModel {
     
     struct Input {
         let selectedCounty = PublishSubject<String>()
@@ -34,9 +34,9 @@ final class GuSelectViewModel: BaseViewModel {
     
     let input = Input()
     let output = Output()
-    let delegate: GuSelectViewModelDelegate
+    let delegate: SelectCountyViewModelDelegate
     
-    init(delegate: GuSelectViewModelDelegate) {
+    init(delegate: SelectCountyViewModelDelegate) {
         self.delegate = delegate
     
         super.init()
@@ -52,7 +52,7 @@ final class GuSelectViewModel: BaseViewModel {
                 var tempDataSource = self?.output.searchFilterDataSource.value
                 tempDataSource?.insert($0, at: 0)
                 self?.output.searchFilterDataSource.accept(tempDataSource ?? [])
-                self?.goToGuSelectDong(selectGuData: $0)
+                self?.goToShowDongList(selectCountyData: $0)
             }
             .disposed(by: disposeBag)
         
@@ -74,8 +74,8 @@ final class GuSelectViewModel: BaseViewModel {
     }
 }
 
-extension GuSelectViewModel: GuSelectViewModelType {
-    func goToGuSelectDong(selectGuData: String) {
-        delegate.goToGuSelectDong(selectGuData: selectGuData)
+extension SelectCountyViewModel: SelectCountyViewModelType {
+    func goToShowDongList(selectCountyData: String) {
+        delegate.goToShowDongList(selectCountyData: selectCountyData)
     }
 }

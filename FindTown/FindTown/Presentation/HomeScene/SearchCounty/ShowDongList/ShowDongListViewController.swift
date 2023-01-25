@@ -12,18 +12,18 @@ import FindTownCore
 import RxCocoa
 import RxSwift
 
-final class GuSelectDongViewController: BaseViewController {
+final class ShowDongListViewController: BaseViewController {
     
     // MARK: - Properties
     
-    private let viewModel: GuSelectDongViewModel?
-    private let selectGuData: String?
+    private let viewModel: ShowDongListViewModel?
+    private let selectCountyData: String?
     
     // MARK: - Views
     
     private let topEmptyView = UIView()
     
-    private let selectGuTitle = FindTownLabel(text: "", font: .subtitle5)
+    private let selectCountyTitle = FindTownLabel(text: "", font: .subtitle5)
     private let townCountTitle = FindTownLabel(text: "", font: .label1, textColor: .grey6)
     private let townListAndCountStackView: UIStackView = {
         let stackView = UIStackView()
@@ -56,9 +56,9 @@ final class GuSelectDongViewController: BaseViewController {
     
     // MARK: - Life Cycle
     
-    init(viewModel: GuSelectDongViewModel?, selectGuData: String?) {
+    init(viewModel: ShowDongListViewModel?, selectCountyData: String?) {
         self.viewModel = viewModel
-        self.selectGuData = selectGuData
+        self.selectCountyData = selectCountyData
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -75,7 +75,7 @@ final class GuSelectDongViewController: BaseViewController {
     override func addView() {
         super.addView()
         
-        [selectGuTitle, townCountTitle].forEach {
+        [selectCountyTitle, townCountTitle].forEach {
             townListAndCountStackView.addArrangedSubview($0)
         }
         
@@ -119,8 +119,8 @@ final class GuSelectDongViewController: BaseViewController {
         view.backgroundColor = FindTownColor.white.color
         townListBackgroundView.backgroundColor = FindTownColor.back2.color
         
-        guard let selectGuData = self.selectGuData else { return }
-        selectGuTitle.text = "서울시 \(selectGuData)"
+        guard let selectCountyData = self.selectCountyData else { return }
+        selectCountyTitle.text = "서울시 \(selectCountyData)"
         
         townTableView.rowHeight = 150
         townTableView.estimatedRowHeight = 150
