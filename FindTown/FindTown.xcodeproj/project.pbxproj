@@ -46,9 +46,6 @@
 		BC1CE29A2975634800F89B81 /* FilterSheetCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC1CE2992975634800F89B81 /* FilterSheetCoordinator.swift */; };
 		BC42D352297FA89D00A2F487 /* GuSelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC42D351297FA89D00A2F487 /* GuSelectViewController.swift */; };
 		BC42D354297FA8B200A2F487 /* GuSelectViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC42D353297FA8B200A2F487 /* GuSelectViewModel.swift */; };
-		BC42D358297FAC5E00A2F487 /* RecentlyGuCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC42D357297FAC5E00A2F487 /* RecentlyGuCollectionView.swift */; };
-		BC42D35A297FAC6700A2F487 /* RecentlyGuCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC42D359297FAC6700A2F487 /* RecentlyGuCollectionViewCell.swift */; };
-		BC42D35C297FAC7000A2F487 /* RecentlyGuCollectionViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC42D35B297FAC7000A2F487 /* RecentlyGuCollectionViewFlowLayout.swift */; };
 		BC4C117C297124E700645AA7 /* FilterCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC4C117B297124E700645AA7 /* FilterCollectionView.swift */; };
 		BC4C117E297124F900645AA7 /* FilterCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC4C117D297124F900645AA7 /* FilterCollectionViewCell.swift */; };
 		BC4C11802971256300645AA7 /* TownTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC4C117F2971256300645AA7 /* TownTableView.swift */; };
@@ -171,9 +168,6 @@
 		BC1CE2992975634800F89B81 /* FilterSheetCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterSheetCoordinator.swift; sourceTree = "<group>"; };
 		BC42D351297FA89D00A2F487 /* GuSelectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuSelectViewController.swift; sourceTree = "<group>"; };
 		BC42D353297FA8B200A2F487 /* GuSelectViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuSelectViewModel.swift; sourceTree = "<group>"; };
-		BC42D357297FAC5E00A2F487 /* RecentlyGuCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentlyGuCollectionView.swift; sourceTree = "<group>"; };
-		BC42D359297FAC6700A2F487 /* RecentlyGuCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentlyGuCollectionViewCell.swift; sourceTree = "<group>"; };
-		BC42D35B297FAC7000A2F487 /* RecentlyGuCollectionViewFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentlyGuCollectionViewFlowLayout.swift; sourceTree = "<group>"; };
 		BC4C117B297124E700645AA7 /* FilterCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterCollectionView.swift; sourceTree = "<group>"; };
 		BC4C117D297124F900645AA7 /* FilterCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterCollectionViewCell.swift; sourceTree = "<group>"; };
 		BC4C117F2971256300645AA7 /* TownTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TownTableView.swift; sourceTree = "<group>"; };
@@ -388,7 +382,6 @@
 			children = (
 				BC42D351297FA89D00A2F487 /* GuSelectViewController.swift */,
 				BC42D353297FA8B200A2F487 /* GuSelectViewModel.swift */,
-				BC42D355297FAC3A00A2F487 /* SubViews */,
 			);
 			path = GuSelect;
 			sourceTree = "<group>";
@@ -409,16 +402,6 @@
 				BC103D8E297FD68200A709EC /* GuSelectDong */,
 			);
 			path = GuSearch;
-			sourceTree = "<group>";
-		};
-		BC42D355297FAC3A00A2F487 /* SubViews */ = {
-			isa = PBXGroup;
-			children = (
-				BC42D357297FAC5E00A2F487 /* RecentlyGuCollectionView.swift */,
-				BC42D359297FAC6700A2F487 /* RecentlyGuCollectionViewCell.swift */,
-				BC42D35B297FAC7000A2F487 /* RecentlyGuCollectionViewFlowLayout.swift */,
-			);
-			path = SubViews;
 			sourceTree = "<group>";
 		};
 		BC4C117A297124C900645AA7 /* SubViews */ = {
@@ -969,7 +952,6 @@
 				BC056C562962B29F00EDCA18 /* SignupCoordinator.swift in Sources */,
 				BCB554B32977AEA8007E1BBA /* SignupUserModel.swift in Sources */,
 				BC199C42297FE96E00C2A89B /* GuSelectDongViewModel.swift in Sources */,
-				BC42D35C297FAC7000A2F487 /* RecentlyGuCollectionViewFlowLayout.swift in Sources */,
 				BC9E86522966821C00AB4AE7 /* SignupViewModelDelegate.swift in Sources */,
 				F38CCBE829582881000C16AF /* MapViewController.swift in Sources */,
 				2B718C182966A5930068884A /* MapCategoryCollectionViewCell.swift in Sources */,
@@ -997,14 +979,12 @@
 				BC9F4D5B296BE6060099473C /* FavoriteTownViewModel.swift in Sources */,
 				BC42D354297FA8B200A2F487 /* GuSelectViewModel.swift in Sources */,
 				2BEE90C92977F93E002E7C3A /* Favorite1ViewModel.swift in Sources */,
-				BC42D35A297FAC6700A2F487 /* RecentlyGuCollectionViewCell.swift in Sources */,
 				BC0D88532963DD0D00CCB800 /* LocationAndYearsViewController.swift in Sources */,
 				F3219B762969D169000024E4 /* AddressSheetViewController.swift in Sources */,
 				BC199C40297FE95F00C2A89B /* GuSelectDongViewController.swift in Sources */,
 				BC4C118729712F5100645AA7 /* Traffic.swift in Sources */,
 				F3219B6C29699B25000024E4 /* MapStoreCollectionViewCell.swift in Sources */,
 				F3891E21293B8393003CE8AD /* SceneDelegate.swift in Sources */,
-				BC42D358297FAC5E00A2F487 /* RecentlyGuCollectionView.swift in Sources */,
 				F39EDDC4296D667800A4E655 /* County.swift in Sources */,
 				F3219B742969B351000024E4 /* StoreDetailType.swift in Sources */,
 				BC1CE29429753F9E00F89B81 /* InfraIconStackView.swift in Sources */,
