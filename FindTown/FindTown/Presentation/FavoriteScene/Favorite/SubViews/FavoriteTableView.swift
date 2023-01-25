@@ -26,19 +26,22 @@ final class FavoriteTableView: UITableView {
 private extension FavoriteTableView {
     
     func setupView() {
+        self.translatesAutoresizingMaskIntoConstraints = false
+        self.separatorStyle = .none
         self.backgroundColor = .clear
         self.showsVerticalScrollIndicator = false
-        self.tableHeaderView = returnTableHeaderView()
         self.automaticallyAdjustsScrollIndicatorInsets = false
-        self.register(TempTableViewCell.self,
-                      forCellReuseIdentifier: TempTableViewCell.reuseIdentifier)
+        self.rowHeight = 142 + 16
+        self.tableHeaderView = returnTableHeaderView()
+        self.register(TownTableViewCell.self,
+                      forCellReuseIdentifier: TownTableViewCell.reuseIdentifier)
     }
     
     func returnTableHeaderView() -> UIView {
         let headerView = UIView(frame: CGRect(x: 0,
                                               y: 0,
                                               width: self.bounds.width,
-                                              height: 68.0))
+                                              height: 60.0))
         
         let titleLabel = FindTownLabel(text: "내가 찜한 동네",
                                        font: .subtitle2,
@@ -51,7 +54,8 @@ private extension FavoriteTableView {
         NSLayoutConstraint.activate([
             titleLabel.leadingAnchor.constraint(equalTo: headerView.leadingAnchor,
                                                 constant: 16.0),
-            titleLabel.centerYAnchor.constraint(equalTo: headerView.centerYAnchor)
+            titleLabel.topAnchor.constraint(equalTo: headerView.topAnchor,
+                                            constant: 24.0)
         ])
         return headerView
     }

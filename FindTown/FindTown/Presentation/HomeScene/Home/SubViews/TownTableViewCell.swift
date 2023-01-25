@@ -19,19 +19,13 @@ final class TownTableViewCell: UITableViewCell {
     
     // MARK: Views
     
-    private let townIcon: UIImageView = {
-        let imageView = UIImageView()
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.image = UIImage(systemName: "circle.fill")
-        return imageView
-    }()
-    
+    private let townIconView = UIView()
+    private let townIconImageView = UIImageView()
     private let townTitle = FindTownLabel(text: "", font: .subtitle4)
     private let townIntroduceTitle = FindTownLabel(text: "", font: .body3, textColor: .grey5)
     
     private let heartIcon: UIButton = {
         let button = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
         button.changesSelectionAsPrimaryAction = true
         button.setImage(UIImage(named: "favorite"), for: .normal)
         button.setImage(UIImage(named: "favorite_selected"), for: .selected)
@@ -40,10 +34,9 @@ final class TownTableViewCell: UITableViewCell {
     
     private let btnStackView: UIStackView = {
         let stackView = UIStackView()
-        stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .horizontal
         stackView.distribution = .fillEqually
-        stackView.spacing = 10
+        stackView.spacing = 7
         return stackView
     }()
     
@@ -66,57 +59,70 @@ final class TownTableViewCell: UITableViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        contentView.frame = contentView.frame.inset(
-            by: UIEdgeInsets(top: 8, left: 16, bottom: 8, right: 16)
-        )
+        contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 8,
+                                                                     left: 16,
+                                                                     bottom: 8,
+                                                                     right: 16))
     }
     
     // MARK: Functions
     
     private func addView() {
-        self.backgroundColor = FindTownColor.back2.color
         [introduceBtn, mapBtn].forEach {
             btnStackView.addArrangedSubview($0)
         }
-        [townIcon, townTitle, townIntroduceTitle, heartIcon, btnStackView].forEach {
+        
+        [townIconView, townTitle, townIntroduceTitle, heartIcon, btnStackView].forEach {
             contentView.addSubview($0)
+            $0.translatesAutoresizingMaskIntoConstraints = false
         }
+        
+        townIconView.addSubview(townIconImageView)
+        townIconImageView.translatesAutoresizingMaskIntoConstraints = false
     }
     
     private func setLayout() {
         NSLayoutConstraint.activate([
-            townIcon.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20),
-            townIcon.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
-            townIcon.widthAnchor.constraint(equalToConstant: 40),
-            townIcon.heightAnchor.constraint(equalToConstant: 40),
+            townIconView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
+            townIconView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            townIconView.widthAnchor.constraint(equalToConstant: 48),
+            townIconView.heightAnchor.constraint(equalToConstant: 48),
+            townIconImageView.centerXAnchor.constraint(equalTo: townIconView.centerXAnchor),
+            townIconImageView.centerYAnchor.constraint(equalTo: townIconView.centerYAnchor)
         ])
         
         NSLayoutConstraint.activate([
-            townTitle.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20),
-            townTitle.leadingAnchor.constraint(equalTo: townIcon.trailingAnchor, constant: 16)
+            townTitle.topAnchor.constraint(equalTo: townIconView.topAnchor),
+            townTitle.leadingAnchor.constraint(equalTo: townIconView.trailingAnchor, constant: 16),
+            townIntroduceTitle.topAnchor.constraint(equalTo: townTitle.bottomAnchor, constant: 4),
+            townIntroduceTitle.leadingAnchor.constraint(equalTo: townTitle.leadingAnchor)
         ])
         
         NSLayoutConstraint.activate([
-            townIntroduceTitle.topAnchor.constraint(equalTo: townTitle.bottomAnchor, constant: 5),
-            townIntroduceTitle.leadingAnchor.constraint(equalTo: townIcon.trailingAnchor, constant: 16)
+            heartIcon.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 14),
+            heartIcon.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -14),
+            heartIcon.widthAnchor.constraint(equalToConstant: 24),
+            heartIcon.heightAnchor.constraint(equalToConstant: 24)
         ])
         
         NSLayoutConstraint.activate([
-            heartIcon.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20),
-            heartIcon.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
-            heartIcon.widthAnchor.constraint(equalToConstant: 25),
-            heartIcon.heightAnchor.constraint(equalToConstant: 25)
-        ])
-        
-        NSLayoutConstraint.activate([
-            btnStackView.topAnchor.constraint(equalTo: townIntroduceTitle.bottomAnchor, constant: 20),
-            btnStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
-            btnStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
-            btnStackView.heightAnchor.constraint(equalToConstant: 40)
+            btnStackView.topAnchor.constraint(equalTo: townIntroduceTitle.bottomAnchor, constant: 16),
+            btnStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            btnStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+            btnStackView.heightAnchor.constraint(equalToConstant: 44),
+            btnStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -16)
         ])
     }
     
     private func setupView() {
+        self.backgroundColor = FindTownColor.back2.color
+        
+        townIconView.backgroundColor = FindTownColor.white.color
+        townIconView.layer.cornerRadius = 24
+        townIconView.layer.borderWidth = 1.0
+        townIconView.layer.borderColor = FindTownColor.grey3.color.cgColor
+        townIconImageView.image = UIImage(named: "hospital")
+                
         mapBtn.changesSelectionAsPrimaryAction = false
         mapBtn.isSelected = true
         mapBtn.setTitle("동네 지도", for: .normal)

@@ -10,21 +10,21 @@ import FindTownCore
 import FindTownUI
 import RxSwift
 
-class Favorite1ViewController: BaseViewController {
+final class FavoriteViewController: BaseViewController {
     
     // MARK: - Properties
     
-    var viewModel: Favorite1ViewModel?
+    var viewModel: FavoriteViewModel?
     
     // MARK: - Views
     
-    let anonymousView = AnonymousView()
-    let isEmptyView = EmptyView()
-    let favoriteTableView = FavoriteTableView()
+    fileprivate let anonymousView = AnonymousView()
+    fileprivate let isEmptyView = EmptyView()
+    fileprivate let favoriteTableView = FavoriteTableView()
 
     // MARK: - Life Cycle
     
-    init(viewModel: Favorite1ViewModel) {
+    init(viewModel: FavoriteViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
@@ -99,17 +99,17 @@ class Favorite1ViewController: BaseViewController {
         self.viewModel?.output.favoriteDataSource
             .observe(on: MainScheduler.instance)
             .filter { !$0.isEmpty }
-            .bind(to: favoriteTableView.rx.items(cellIdentifier: TempTableViewCell.reuseIdentifier,
-                                                 cellType: TempTableViewCell.self)) {
+            .bind(to: favoriteTableView.rx.items(cellIdentifier: TownTableViewCell.reuseIdentifier,
+                                                 cellType: TownTableViewCell.self)) {
                 index, item, cell in
-                cell.textLabel?.text = item.name
+                cell.setupCell(item)
             }
             .disposed(by: disposeBag)
 
     }
 }
 
-extension Reactive where Base: Favorite1ViewController {
+extension Reactive where Base: FavoriteViewController {
     
     /// favoriteViewStatus에 따라 view 변경
     var favoriteViewStatus:Binder<FavoriteViewStatus> {
