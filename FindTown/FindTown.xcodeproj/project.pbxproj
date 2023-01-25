@@ -88,6 +88,12 @@
 		F3891E39293B8394003CE8AD /* FindTownTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3891E38293B8394003CE8AD /* FindTownTests.swift */; };
 		F3891E43293B8394003CE8AD /* FindTownUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3891E42293B8394003CE8AD /* FindTownUITests.swift */; };
 		F3891E45293B8394003CE8AD /* FindTownUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3891E44293B8394003CE8AD /* FindTownUITestsLaunchTests.swift */; };
+		F38AA7F429811F0600EF66F2 /* DefaultKakaoAuthRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = F38AA7F329811F0600EF66F2 /* DefaultKakaoAuthRepository.swift */; };
+		F38AA7F6298121EE00EF66F2 /* DefaultAuthRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = F38AA7F5298121EE00EF66F2 /* DefaultAuthRepository.swift */; };
+		F38AA7FA298124AD00EF66F2 /* AuthLoginRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F38AA7F9298124AD00EF66F2 /* AuthLoginRequest.swift */; };
+		F38AA7FE2981259200EF66F2 /* AuthUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = F38AA7FD2981259200EF66F2 /* AuthUseCase.swift */; };
+		F38AA800298125FB00EF66F2 /* DefaultAppleAuthRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = F38AA7FF298125FB00EF66F2 /* DefaultAppleAuthRepository.swift */; };
+		F38AA80629816C4700EF66F2 /* MemberInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = F38AA80529816C4700EF66F2 /* MemberInformation.swift */; };
 		F38CCBD729582869000C16AF /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F38CCBD529582869000C16AF /* AppCoordinator.swift */; };
 		F38CCBD829582869000C16AF /* TabBarCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F38CCBD629582869000C16AF /* TabBarCoordinator.swift */; };
 		F38CCBDF2958287C000C16AF /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F38CCBDB2958287C000C16AF /* HomeViewModel.swift */; };
@@ -203,6 +209,12 @@
 		F3891E3E293B8394003CE8AD /* FindTownUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FindTownUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F3891E42293B8394003CE8AD /* FindTownUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindTownUITests.swift; sourceTree = "<group>"; };
 		F3891E44293B8394003CE8AD /* FindTownUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindTownUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		F38AA7F329811F0600EF66F2 /* DefaultKakaoAuthRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultKakaoAuthRepository.swift; sourceTree = "<group>"; };
+		F38AA7F5298121EE00EF66F2 /* DefaultAuthRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultAuthRepository.swift; sourceTree = "<group>"; };
+		F38AA7F9298124AD00EF66F2 /* AuthLoginRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthLoginRequest.swift; sourceTree = "<group>"; };
+		F38AA7FD2981259200EF66F2 /* AuthUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthUseCase.swift; sourceTree = "<group>"; };
+		F38AA7FF298125FB00EF66F2 /* DefaultAppleAuthRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultAppleAuthRepository.swift; sourceTree = "<group>"; };
+		F38AA80529816C4700EF66F2 /* MemberInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberInformation.swift; sourceTree = "<group>"; };
 		F38CCBD529582869000C16AF /* AppCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		F38CCBD629582869000C16AF /* TabBarCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarCoordinator.swift; sourceTree = "<group>"; };
 		F38CCBDB2958287C000C16AF /* HomeViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
@@ -438,6 +450,7 @@
 		BC6EFB74293B9C3400AB3332 /* Domain */ = {
 			isa = PBXGroup;
 			children = (
+				F38AA7FC2981258100EF66F2 /* UseCase */,
 				BC04A6DA296FDE9900B60BCF /* Manager */,
 				F3219B5C29693FB2000024E4 /* Entities */,
 			);
@@ -604,6 +617,7 @@
 				BC6EFB7A293BA31D00AB3332 /* Resource */,
 				BC6EFB75293B9C3800AB3332 /* Presentation */,
 				BC6EFB74293B9C3400AB3332 /* Domain */,
+				F38AA7F129811ED800EF66F2 /* Data */,
 				BC6EFB73293B9C2A00AB3332 /* Application */,
 			);
 			path = FindTown;
@@ -624,6 +638,82 @@
 				F3891E44293B8394003CE8AD /* FindTownUITestsLaunchTests.swift */,
 			);
 			path = FindTownUITests;
+			sourceTree = "<group>";
+		};
+		F38AA7F129811ED800EF66F2 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				F38AA7FB2981250300EF66F2 /* DataMapping */,
+				F38AA7F72981245D00EF66F2 /* Requests */,
+				F38AA7F229811EE400EF66F2 /* Repository */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		F38AA7F229811EE400EF66F2 /* Repository */ = {
+			isa = PBXGroup;
+			children = (
+				F38AA801298125FF00EF66F2 /* Auth */,
+			);
+			path = Repository;
+			sourceTree = "<group>";
+		};
+		F38AA7F72981245D00EF66F2 /* Requests */ = {
+			isa = PBXGroup;
+			children = (
+				F38AA7F82981247600EF66F2 /* Auth */,
+			);
+			path = Requests;
+			sourceTree = "<group>";
+		};
+		F38AA7F82981247600EF66F2 /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				F38AA7F9298124AD00EF66F2 /* AuthLoginRequest.swift */,
+			);
+			path = Auth;
+			sourceTree = "<group>";
+		};
+		F38AA7FB2981250300EF66F2 /* DataMapping */ = {
+			isa = PBXGroup;
+			children = (
+				F38AA80429816C3A00EF66F2 /* Reponse */,
+				F38AA80329816C1C00EF66F2 /* Request */,
+			);
+			path = DataMapping;
+			sourceTree = "<group>";
+		};
+		F38AA7FC2981258100EF66F2 /* UseCase */ = {
+			isa = PBXGroup;
+			children = (
+				F38AA7FD2981259200EF66F2 /* AuthUseCase.swift */,
+			);
+			path = UseCase;
+			sourceTree = "<group>";
+		};
+		F38AA801298125FF00EF66F2 /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				F38AA7F329811F0600EF66F2 /* DefaultKakaoAuthRepository.swift */,
+				F38AA7F5298121EE00EF66F2 /* DefaultAuthRepository.swift */,
+				F38AA7FF298125FB00EF66F2 /* DefaultAppleAuthRepository.swift */,
+			);
+			path = Auth;
+			sourceTree = "<group>";
+		};
+		F38AA80329816C1C00EF66F2 /* Request */ = {
+			isa = PBXGroup;
+			children = (
+				F38AA80529816C4700EF66F2 /* MemberInformation.swift */,
+			);
+			path = Request;
+			sourceTree = "<group>";
+		};
+		F38AA80429816C3A00EF66F2 /* Reponse */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Reponse;
 			sourceTree = "<group>";
 		};
 		F38CCBD429582869000C16AF /* Flow */ = {
@@ -870,6 +960,7 @@
 				BC04A6E529700E1400B60BCF /* KeyChainError.swift in Sources */,
 				BC056C602962B2D900EDCA18 /* NicknameViewController.swift in Sources */,
 				F38CCBE929582881000C16AF /* MapViewModel.swift in Sources */,
+				F38AA80629816C4700EF66F2 /* MemberInformation.swift in Sources */,
 				BC04A6E029700BD700B60BCF /* AppleSigninManager.swift in Sources */,
 				F39EDDBC296D5AE500A4E655 /* City.swift in Sources */,
 				BC04A6DE296FF10100B60BCF /* TokenManager.swift in Sources */,
@@ -884,6 +975,7 @@
 				BCE814F62967DAF200A6E3CB /* LoginCoordinator.swift in Sources */,
 				BC9F4D5E296BF0C90099473C /* AgreePolicyViewController.swift in Sources */,
 				BC0D88552963DD1D00CCB800 /* KakaoAddressViewController.swift in Sources */,
+				F38AA7FE2981259200EF66F2 /* AuthUseCase.swift in Sources */,
 				BC056C5C2962B2C400EDCA18 /* LoginViewController.swift in Sources */,
 				BC7508E62975275300D0CAFA /* FilterBottomSheetViewController.swift in Sources */,
 				BCE99668297693D100AACD02 /* TrafficCollectionViewFlowLayout.swift in Sources */,
@@ -906,7 +998,9 @@
 				BC1CE29629753FB800F89B81 /* TrafficCollectionView.swift in Sources */,
 				2BEE90D129780640002E7C3A /* EmptyView.swift in Sources */,
 				BC056C562962B29F00EDCA18 /* SignupCoordinator.swift in Sources */,
+				F38AA800298125FB00EF66F2 /* DefaultAppleAuthRepository.swift in Sources */,
 				BCB554B32977AEA8007E1BBA /* SignupUserModel.swift in Sources */,
+				F38AA7F6298121EE00EF66F2 /* DefaultAuthRepository.swift in Sources */,
 				BC9E86522966821C00AB4AE7 /* SignupViewModelDelegate.swift in Sources */,
 				F38CCBE829582881000C16AF /* MapViewController.swift in Sources */,
 				2B718C182966A5930068884A /* MapCategoryCollectionViewCell.swift in Sources */,
@@ -925,6 +1019,7 @@
 				BC4C11822971256D00645AA7 /* TownTableViewCell.swift in Sources */,
 				F3219B5E2969403F000024E4 /* MapData.swift in Sources */,
 				F3219B6E29699F88000024E4 /* Store.swift in Sources */,
+				F38AA7F429811F0600EF66F2 /* DefaultKakaoAuthRepository.swift in Sources */,
 				F3219B702969B32F000024E4 /* Thema.swift in Sources */,
 				F3219B602969407A000024E4 /* Category.swift in Sources */,
 				F3219B6729694328000024E4 /* MapDetailCategoryView.swift in Sources */,
@@ -932,6 +1027,7 @@
 				BC9F4D5B296BE6060099473C /* FavoriteTownViewModel.swift in Sources */,
 				BC9F4D5B296BE6060099473C /* FavoriteTownViewModel.swift in Sources */,
 				2BEE90C92977F93E002E7C3A /* FavoriteViewModel.swift in Sources */,
+				F38AA7FA298124AD00EF66F2 /* AuthLoginRequest.swift in Sources */,
 				BC0D88532963DD0D00CCB800 /* LocationAndYearsViewController.swift in Sources */,
 				F3219B762969D169000024E4 /* AddressSheetViewController.swift in Sources */,
 				BC4C118729712F5100645AA7 /* Traffic.swift in Sources */,
@@ -1110,7 +1206,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = F92UQYH2RA;
+				DEVELOPMENT_TEAM = CADXU3X8JU;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = FindTown/Resource/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -1139,7 +1235,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = F92UQYH2RA;
+				DEVELOPMENT_TEAM = CADXU3X8JU;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = FindTown/Resource/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
