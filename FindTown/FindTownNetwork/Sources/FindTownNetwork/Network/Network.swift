@@ -9,7 +9,7 @@ import Foundation
 
 protocol Networkable {
     func request<T: Request>(target: T,
-                             cachePolicy: URLRequest.CachePolicy) async throws -> T.ResponseType
+                             cachePolicy: URLRequest.CachePolicy) async throws -> BaseResponse<T.ResponseType>
 }
 
 public class Network: Networkable {
@@ -27,7 +27,7 @@ public class Network: Networkable {
     
     public func request<T: Request>(target: T,
                                     cachePolicy: URLRequest.CachePolicy = .useProtocolCachePolicy
-    ) async throws -> T.ResponseType {
+    ) async throws -> BaseResponse<T.ResponseType> {
         let url = URL(target: target)
         var request = URLRequest(url: url, cachePolicy: cachePolicy)
         request.httpMethod = target.method.value
@@ -47,12 +47,9 @@ public class Network: Networkable {
         case .requestJSONEncodable(let encodable):
             // 미완성
             responseData = try await session.request(request: request.encoded(encodable: encodable))
-        case .requestCustomJSONEncodable(let encodable, let encoder):
-            // 미완성
-            responseData = try await session.request(request: request.encoded(encodable: encodable, encoder: encoder))
         }
         
-        let data = try responseData.decode(BaseResponse<T.ResponseType>.self).body
+        let data = try responseData.decode(BaseResponse<T.ResponseType>.self)
         
         return data
     }
