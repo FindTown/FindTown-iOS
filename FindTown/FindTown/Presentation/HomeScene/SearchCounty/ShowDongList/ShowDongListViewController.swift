@@ -17,7 +17,6 @@ final class ShowDongListViewController: BaseViewController {
     // MARK: - Properties
     
     private let viewModel: ShowDongListViewModel?
-    private let selectCountyData: String?
     
     // MARK: - Views
     
@@ -56,9 +55,8 @@ final class ShowDongListViewController: BaseViewController {
     
     // MARK: - Life Cycle
     
-    init(viewModel: ShowDongListViewModel?, selectCountyData: String?) {
+    init(viewModel: ShowDongListViewModel?) {
         self.viewModel = viewModel
-        self.selectCountyData = selectCountyData
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -119,7 +117,7 @@ final class ShowDongListViewController: BaseViewController {
         view.backgroundColor = FindTownColor.white.color
         townListBackgroundView.backgroundColor = FindTownColor.back2.color
         
-        guard let selectCountyData = self.selectCountyData else { return }
+        guard let selectCountyData = self.viewModel?.selectCountyData else { return }
         selectCountyTitle.text = "서울시 \(selectCountyData)"
         
         townTableView.rowHeight = 150

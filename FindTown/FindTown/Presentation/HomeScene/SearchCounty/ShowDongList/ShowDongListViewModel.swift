@@ -23,8 +23,10 @@ final class ShowDongListViewModel: BaseViewModel {
     
     let input = Input()
     let output = Output()
+    let selectCountyData: String?
     
-    override init() {
+    init(selectCountyData: String?) {
+        self.selectCountyData = selectCountyData
         super.init()
         self.bind()
     }

@@ -25,9 +25,8 @@ final class SearchCountyCoordinator: FlowCoordinator {
     }
     
     internal func showDongListScene(selectCountyData: String) -> UIViewController {
-        let showDongListViewModel = ShowDongListViewModel()
-        let showDongListViewController = ShowDongListViewController(viewModel: showDongListViewModel,
-                                                                    selectCountyData: selectCountyData)
+        let showDongListViewModel = ShowDongListViewModel(selectCountyData: selectCountyData)
+        let showDongListViewController = ShowDongListViewController(viewModel: showDongListViewModel)
         return showDongListViewController
     }
 }
