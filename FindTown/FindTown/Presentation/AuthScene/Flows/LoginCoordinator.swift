@@ -13,6 +13,7 @@ final class LoginCoordinator: FlowCoordinator {
     
     var presentationStyle: PresentationStyle
     weak var navigationController: UINavigationController?
+    let authUseCase = AuthUseCase()
     
     init(presentationStyle: PresentationStyle) {
         self.presentationStyle = presentationStyle
@@ -20,7 +21,7 @@ final class LoginCoordinator: FlowCoordinator {
     
     internal func initScene() -> UIViewController {
         let loginViewModel = LoginViewModel(delegate: self,
-                                            authUseCase:  AuthUseCase())
+                                            authUseCase: authUseCase)
         let loginViewController = LoginViewController(viewModel: loginViewModel)
         return loginViewController
     }
