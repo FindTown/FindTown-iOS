@@ -17,7 +17,7 @@ final class SelectCountyViewController: BaseViewController {
     // MARK: - Properties
     
     private let viewModel: SelectCountyViewModel?
-    private let allRemoveLabelTapGesture = UITapGestureRecognizer()
+    private let removeEveryLabelTapGesture = UITapGestureRecognizer()
     
     // MARK: - Views
     
@@ -71,7 +71,7 @@ final class SelectCountyViewController: BaseViewController {
         
         // Input
         
-        allRemoveLabelTapGesture.rx.event
+        removeEveryLabelTapGesture.rx.event
             .throttle(.milliseconds(300), scheduler: MainScheduler.instance)
             .bind { [weak self] _ in
                 self?.showAlertSuccessCancelPopUp(
