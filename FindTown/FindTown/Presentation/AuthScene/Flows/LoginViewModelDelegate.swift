@@ -8,6 +8,6 @@
 import Foundation
 
 protocol LoginViewModelDelegate {
-    func goToNickname()
+    func goToNickname(userId: String, providerType: ProviderType)
     func goToTabBar()
 }

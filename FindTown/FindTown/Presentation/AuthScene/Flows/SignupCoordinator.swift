@@ -14,15 +14,23 @@ final class SignupCoordinator: FlowCoordinator {
     var presentationStyle: PresentationStyle
     weak var navigationController: UINavigationController?
     let authUseCase: AuthUseCase
+    var signupUserModel = SignupUserModel()
     
-    init(presentationStyle: PresentationStyle, authUseCase: AuthUseCase) {
+    init(presentationStyle: PresentationStyle,
+         authUseCase: AuthUseCase,
+         userId: String,
+         providerType: ProviderType) {
         self.presentationStyle = presentationStyle
         self.authUseCase = authUseCase
+        self.signupUserModel.memberId = userId
+        self.signupUserModel.providerType = providerType
     }
     
     /// 회원가입 닉네임 설정 화면
     internal func initScene() -> UIViewController {
-        let nicknameViewModel = NicknameViewModel(delegate: self, authUseCase: authUseCase)
+        let nicknameViewModel = NicknameViewModel(delegate: self,
+                                                  authUseCase: authUseCase,
+                                                  signupUserModel: signupUserModel)
         let nicknameViewController = NicknameViewController(viewModel: nicknameViewModel)
         return nicknameViewController
     }

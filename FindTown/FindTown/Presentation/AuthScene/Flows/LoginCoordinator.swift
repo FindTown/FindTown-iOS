@@ -35,10 +35,12 @@ extension LoginCoordinator: LoginViewModelDelegate {
         TabBarCoordinator(presentationStyle: .push(navigationController: navigationController)).start()
     }
     
-    func goToNickname() {
+    func goToNickname(userId: String, providerType: ProviderType) {
         guard let navigationController = navigationController else { return }
         navigationController.isNavigationBarHidden = false
         SignupCoordinator(presentationStyle: .push(navigationController: navigationController),
-                                                   authUseCase: authUseCase).start()
+                                                   authUseCase: authUseCase,
+                                                   userId: userId,
+                                                   providerType: providerType).start()
     }
 }
