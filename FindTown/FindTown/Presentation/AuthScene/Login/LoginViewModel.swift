@@ -55,26 +55,6 @@ final class LoginViewModel: BaseViewModel {
             })
             .disposed(by: disposeBag)
         
-//        self.input.kakaoSigninTrigger
-//            .flatMapLatest { self.kakaoManager.signin() }
-//            .subscribe(onNext: { [weak self] signinRequest in
-//
-//                TokenManager.shared.createTokens(accessToken: signinRequest.accessToken,
-//                                                 refreshToken: signinRequest.refreshToken)
-//
-//                // 유저 정보가 있으면
-////                self?.goToTabBar()
-//
-//                // 없으면
-//                self?.goToNickname()
-//
-//            },onError: { err in
-//                let error = err as? SocialLoginError
-//                print("error \(error!)")
-//                print("err \(err.localizedDescription)")
-//            })
-//            .disposed(by: disposeBag)
-        
         self.input.appleSigninTrigger
             .bind {
                 print("appleSigninTrigger")
@@ -83,7 +63,7 @@ final class LoginViewModel: BaseViewModel {
         
         self.input.anonymousTrigger
             .bind {
-                print("anonymousTrigger")
+                self.goToTabBar()
             }
             .disposed(by: disposeBag)
     }
