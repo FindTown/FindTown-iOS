@@ -6,3 +6,7 @@
 //
 
 import Foundation
+
+enum ProviderType {
+    case kakao, apple
+}

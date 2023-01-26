@@ -8,10 +8,6 @@
 import Foundation
 import AuthenticationServices
 
-enum AuthType {
-    case kakao, apple
-}
-
 final class AuthUseCase {
     
     let kakaoAuthRepository: DefaultKakaoAuthRepository
@@ -24,16 +20,17 @@ final class AuthUseCase {
         self.authRepository = DefaultAuthRepository()
     }
     
-    func login(authType: AuthType) async throws -> String {
+    func login(authType: ProviderType) async throws -> (message: String, userId: String) {
         switch authType {
         case .kakao:
             let _ = try await kakaoAuthRepository.isKakaoTalkLoginAvailable()
             let userId = try await kakaoAuthRepository.getUserInformation()
-            return try await authRepository.login(memberId: String(userId))
+            let message = try await authRepository.login(memberId: userId)
+            return (message, userId)
         case .apple:
             let userId = try await appleAuthRespository.loginWithApple()
             print(userId)
-            return ""
+            return ("", "")
         }
     }
     
