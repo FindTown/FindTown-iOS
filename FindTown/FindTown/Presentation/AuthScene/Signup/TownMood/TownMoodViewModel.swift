@@ -57,10 +57,7 @@ final class TownMoodViewModel: BaseViewModel {
     }
     
     private func settownLikeText(townLikeText: String) {
-        // 1. townLikeText 임시로 set
-        print("townLikeText \(townLikeText)")
-        
-        // after goToFavorite
+        signupUserModel.resident.residentReview = townLikeText
         self.goToFavorite(signupUserModel)
     }
 }

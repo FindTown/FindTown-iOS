@@ -38,9 +38,9 @@ struct SignupUserModel {
 }
 
 struct Resident {
-    let residentReview: String
-    let residentYear: Int
-    let residentMonth: Int
+    var residentReview: String
+    var residentYear: Int
+    var residentMonth: Int
     
     init(residentReview: String = "",
          residentYear: Int = 0,

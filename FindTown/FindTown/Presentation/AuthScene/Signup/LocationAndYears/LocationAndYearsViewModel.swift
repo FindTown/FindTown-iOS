@@ -57,22 +57,23 @@ final class LocationAndYearsViewModel: BaseViewModel {
             .disposed(by: disposeBag)
         
         Observable.combineLatest(input.address, input.year, input.month)
-            .bind { [weak self] (dong, year, month) in
+            .bind { [weak self] (address, year, month) in
                 self?.output.nextButtonEnabled.accept(true)
-                let model = DongYearMonth(dong: dong, year: year, month: month)
+                let model = DongYearMonth(dong: address, year: year, month: month)
                 self?.input.dongYearMonth.onNext(model)
             }
             .disposed(by: disposeBag)
     }
     
     private func setDongYearMonth(dongYearMonth: DongYearMonth) {
-        // 1. dongYearMonth 임시로 set
-        print("dongYearMonth \(dongYearMonth)")
+
+        // TODO: address
+        signupUserModel.resident.residentYear = dongYearMonth.year
+        signupUserModel.resident.residentMonth = dongYearMonth.month
         
         if dongYearMonth.dong == "" {
             self.output.nextButtonEnabled.accept(false)
         } else {
-            // 2. after goToTwonMood
             self.goToTownMood(signupUserModel)
         }
     }

@@ -165,7 +165,7 @@ extension LocationAndYearsViewController: LocationAndYearsDelegate {
         dongButton.setImage(UIImage(named: "MapPinIcon"), for: .normal)
         dongButton.setTitle(address, for: .normal)
         
-        viewModel?.input.dong.onNext(address)
+        viewModel?.input.address.onNext(address)
     }
 }
 
