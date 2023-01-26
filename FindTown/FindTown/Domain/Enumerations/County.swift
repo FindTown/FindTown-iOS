@@ -26,33 +26,33 @@ enum County: String, CaseIterable {
     var villages: [String] {
         switch self {
         case .gangnam:
-            return ["역삼1동", "논현1동"]
+            return Village.GangnamVillages.allCases.map { $0.rawValue }
         case .gangseo:
-            return ["가양1동", "화곡1동"]
+            return Village.GangseoVillages.allCases.map { $0.rawValue }
         case .gwanak:
-            return ["청룡동", "신사동", "행운동", "대학동", "신림동", "서원동", "인헌동", "서림동", "낙성대동"]
+            return Village.GwanakVillages.allCases.map { $0.rawValue }
         case .gwangjin:
-            return ["화양동"]
+            return Village.GwangjinVillages.allCases.map { $0.rawValue }
         case .guro:
-            return ["구로3동"]
+            return Village.GuroVillages.allCases.map { $0.rawValue }
         case .geumcheon:
-            return ["가산동"]
+            return Village.GeumcheonVillages.allCases.map { $0.rawValue }
         case .dongdaemun:
-            return ["이문1동"]
+            return Village.DongdaemunVillages.allCases.map { $0.rawValue }
         case .dongjak:
-            return ["상도1동"]
+            return Village.DongjakVillages.allCases.map { $0.rawValue }
         case .mapo:
-            return ["서교동"]
+            return Village.MapoVillages.allCases.map { $0.rawValue }
         case .seodaemun:
-            return ["신촌동"]
+            return Village.SeodaemunVillages.allCases.map { $0.rawValue }
         case .seongbuk:
-            return ["안암동"]
+            return Village.SeongbukVillages.allCases.map { $0.rawValue }
         case .songpa:
-            return ["잠실본동"]
+            return Village.SongpaVillages.allCases.map { $0.rawValue }
         case .yeongdeungpo:
-            return ["영등포동", "당산2동", "신길1동"]
+            return Village.YeongdeungpoVillages.allCases.map { $0.rawValue }
         case .jongno:
-            return ["혜화동"]
+            return Village.JongnoVillages.allCases.map { $0.rawValue }
         }
     }
 }
