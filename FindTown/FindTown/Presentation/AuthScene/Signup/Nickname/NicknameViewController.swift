@@ -41,16 +41,11 @@ final class NicknameViewController: BaseViewController {
 
     private let nextButton = FTButton(style: .largeFilled)
     
-    // MARK: - UseCase
-    
-    let authUseCase: AuthUseCase
-    
     // MARK: - Life Cycle
     
-    init(viewModel: NicknameViewModel,
-         authUseCase: AuthUseCase) {
+    init(viewModel: NicknameViewModel) {
         self.viewModel = viewModel
-        self.authUseCase = authUseCase
+        
         super.init(nibName: nil, bundle: nil)
     }
     

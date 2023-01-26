@@ -38,6 +38,7 @@ extension LoginCoordinator: LoginViewModelDelegate {
     func goToNickname() {
         guard let navigationController = navigationController else { return }
         navigationController.isNavigationBarHidden = false
-        SignupCoordinator(presentationStyle: .push(navigationController: navigationController)).start()
+        SignupCoordinator(presentationStyle: .push(navigationController: navigationController),
+                                                   authUseCase: authUseCase).start()
     }
 }

@@ -31,6 +31,9 @@ final class LoginViewModel: BaseViewModel {
     var output = Output()
     
     let delegate: LoginViewModelDelegate
+    
+    // MARK: - UseCase
+    
     let authUseCase: AuthUseCase
     
     private var loginTask: Task<Void, Error>?

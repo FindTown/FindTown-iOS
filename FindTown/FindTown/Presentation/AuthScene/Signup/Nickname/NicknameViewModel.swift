@@ -39,10 +39,16 @@ final class NicknameViewModel: BaseViewModel {
     let output = Output()
     let delegate: SignupViewModelDelegate
     
+    // MARK: - UseCase
+    
+    let authUseCase: AuthUseCase
+    
     init(
-        delegate: SignupViewModelDelegate
+        delegate: SignupViewModelDelegate,
+        authUseCase: AuthUseCase
     ) {
         self.delegate = delegate
+        self.authUseCase = authUseCase
         
         super.init()
         self.bind()
