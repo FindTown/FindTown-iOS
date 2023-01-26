@@ -43,12 +43,18 @@ final class NicknameViewModel: BaseViewModel {
     
     let authUseCase: AuthUseCase
     
+    // MARK: - Model
+    
+    var signupUserModel: SignupUserModel
+    
     init(
         delegate: SignupViewModelDelegate,
-        authUseCase: AuthUseCase
+        authUseCase: AuthUseCase,
+        signupUserModel: SignupUserModel
     ) {
         self.delegate = delegate
         self.authUseCase = authUseCase
+        self.signupUserModel = signupUserModel
         
         super.init()
         self.bind()
@@ -82,13 +88,7 @@ final class NicknameViewModel: BaseViewModel {
     }
     
     private func setNickname(nickname: String) {
-        // 1. nickname 임시로 set
-        print("setNickname \(nickname)")
-
-        var signupUserModel = SignupUserModel()
-        signupUserModel.nickname = nickname
-        
-        // 2. after goToLocationAndYears
+        self.signupUserModel.nickname = nickname
         self.goToLocationAndYears(signupUserModel)
     }
 }
@@ -104,6 +104,7 @@ extension NicknameViewModel {
                     self.output.nickNameStatus.accept(.duplicate)
                 } else {
                     self.output.nickNameStatus.accept(.complete)
+                    self.setNickname(nickname: nickname)
                 }
             } catch (let error) {
                 print(error)

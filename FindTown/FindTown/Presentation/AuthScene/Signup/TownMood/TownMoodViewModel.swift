@@ -61,7 +61,6 @@ final class TownMoodViewModel: BaseViewModel {
         print("townLikeText \(townLikeText)")
         
         // after goToFavorite
-        signupUserModel.townLikeText = townLikeText
         self.goToFavorite(signupUserModel)
     }
 }

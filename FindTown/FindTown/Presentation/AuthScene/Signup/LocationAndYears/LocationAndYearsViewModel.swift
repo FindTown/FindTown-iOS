@@ -18,7 +18,7 @@ protocol LocationAndYearsViewModelType {
 final class LocationAndYearsViewModel: BaseViewModel {
     
     struct Input {
-        let dong = PublishSubject<String>()
+        let address = PublishSubject<String>()
         let year = BehaviorSubject<Int>(value: 0)
         let month = BehaviorSubject<Int>(value: 1)
         
@@ -56,7 +56,7 @@ final class LocationAndYearsViewModel: BaseViewModel {
             .bind(onNext: setDongYearMonth)
             .disposed(by: disposeBag)
         
-        Observable.combineLatest(input.dong, input.year, input.month)
+        Observable.combineLatest(input.address, input.year, input.month)
             .bind { [weak self] (dong, year, month) in
                 self?.output.nextButtonEnabled.accept(true)
                 let model = DongYearMonth(dong: dong, year: year, month: month)
@@ -73,7 +73,6 @@ final class LocationAndYearsViewModel: BaseViewModel {
             self.output.nextButtonEnabled.accept(false)
         } else {
             // 2. after goToTwonMood
-            signupUserModel.dongYearMonth = dongYearMonth
             self.goToTownMood(signupUserModel)
         }
     }

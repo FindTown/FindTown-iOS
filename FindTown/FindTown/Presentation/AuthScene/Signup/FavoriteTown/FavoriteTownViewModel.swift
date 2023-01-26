@@ -68,8 +68,7 @@ final class FavoriteTownViewModel: BaseViewModel {
         print("jachigu \(jachiguDong.jachigu)")
         print("dong \(jachiguDong.dong)")
         
-        // 2. after goToLocationAndYears
-        signupUserModel.jachiguDong = jachiguDong
+        // 2. after goToLocationAndYears]
         self.goToAgreePolicy(signupUserModel)
     }
 }
