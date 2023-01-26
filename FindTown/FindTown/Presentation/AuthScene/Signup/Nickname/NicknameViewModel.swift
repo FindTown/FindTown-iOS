@@ -72,7 +72,9 @@ final class NicknameViewModel: BaseViewModel {
         
         self.input.nextButtonTrigger
             .withLatestFrom(self.input.nickname)
-            .bind(onNext: self.setNickname(nickname:))
+            .bind(onNext: { [weak self] nickName in
+                self?.setNickname(nickname: nickName)
+            })
             .disposed(by: disposeBag)
     }
     
