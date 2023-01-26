@@ -16,9 +16,9 @@ final class DefaultAuthRepository {
         return data.header.message
     }
     
-    func nickNameDuplicateCheck(_ nickName: String) async throws {
+    func checkNickNameDuplicate(_ nickName: String) async throws -> Bool {
         let parameters = [URLQueryItem(name: "nickname", value: nickName)]
         let data = try await Network.shared.request(target: NickNameCheckRequest(parameters: parameters))
-        print(data.body.existConfirm)
+        return data.body.existConfirm.existence
     }
 }

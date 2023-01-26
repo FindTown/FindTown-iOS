@@ -66,10 +66,7 @@ final class NicknameViewModel: BaseViewModel {
             .bind { [weak self] nickName in
                 // 특수문자 없으면 + 공백이 아니면 닉네임 체크
                 if nickName.isValidNickname() {
-                    
-                    // 닉네임 중복 체크 들어갈 자리
-                    self?.output.nickNameStatus.accept(.complete)
-                    
+                    self?.checkNicknameDuplicate(nickname: nickName)
                 } else {
                     self?.output.nickNameStatus.accept(.includeSpecialChar)
                 }
@@ -93,6 +90,25 @@ final class NicknameViewModel: BaseViewModel {
         
         // 2. after goToLocationAndYears
         self.goToLocationAndYears(signupUserModel)
+    }
+}
+
+// MARK: - Network
+
+extension NicknameViewModel {
+    func checkNicknameDuplicate(nickname: String) {
+        Task {
+            do {
+                let existence = try await self.authUseCase.checkNicknameDuplicate(nickName: nickname)
+                if existence {
+                    self.output.nickNameStatus.accept(.duplicate)
+                } else {
+                    self.output.nickNameStatus.accept(.complete)
+                }
+            } catch (let error) {
+                print(error)
+            }
+        }
     }
 }
 

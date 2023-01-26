@@ -37,8 +37,8 @@ final class AuthUseCase {
         }
     }
     
-    func nicknameDuplicateCheck(nickName: String) async throws {
-        try await authRepository.nickNameDuplicateCheck(nickName)
+    func checkNicknameDuplicate(nickName: String) async throws -> Bool {
+       return try await authRepository.checkNickNameDuplicate(nickName)
     }
     
     func getAppleAuthorizationController() -> ASAuthorizationController {
