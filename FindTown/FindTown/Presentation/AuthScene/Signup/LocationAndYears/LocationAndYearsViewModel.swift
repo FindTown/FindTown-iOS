@@ -70,6 +70,7 @@ final class LocationAndYearsViewModel: BaseViewModel {
         // TODO: address
         signupUserModel.resident.residentYear = dongYearMonth.year
         signupUserModel.resident.residentMonth = dongYearMonth.month
+        signupUserModel.resident.residentAddress = dongYearMonth.dong
         
         if dongYearMonth.dong == "" {
             self.output.nextButtonEnabled.accept(false)

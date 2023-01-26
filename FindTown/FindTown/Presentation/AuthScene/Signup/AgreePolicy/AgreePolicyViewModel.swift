@@ -34,7 +34,7 @@ final class AgreePolicyViewModel: BaseViewModel {
     let input = Input()
     let output = Output()
     let delegate: SignupViewModelDelegate
-    let signupUserModel: SignupUserModel
+    var signupUserModel: SignupUserModel
     
     init(
         delegate: SignupViewModelDelegate,
@@ -62,7 +62,9 @@ final class AgreePolicyViewModel: BaseViewModel {
             .disposed(by: disposeBag)
         
         Observable.combineLatest(input.policy, input.personalInfo)
-            .map { (policy, personalInfo) in
+            .map { [weak self] (policy, personalInfo) in
+                self?.signupUserModel.useAgreeYn = policy
+                self?.signupUserModel.privaxyAgreeYn = personalInfo
                 return policy && personalInfo
             }
             .bind { [weak self] in

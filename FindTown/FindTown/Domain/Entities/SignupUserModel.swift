@@ -12,19 +12,19 @@ struct SignupUserModel {
     var email: String?
     var providerType: ProviderType
     var nickname: String
-    var objectId: Int
+    var objectId: Int?
     var resident: Resident
-    var useAgreeYn: String
-    var privaxyAgreeYn: String
+    var useAgreeYn: Bool
+    var privaxyAgreeYn: Bool
     
     init(memberId: String = "",
          email: String? = nil,
          providerType: ProviderType = .kakao,
          nickname: String = "",
-         objectId: Int = 0,
+         objectId: Int? = nil,
          resident: Resident = Resident(),
-         useAgreeYn: String = "",
-         privaxyAgreeYn: String = ""
+         useAgreeYn: Bool = false,
+         privaxyAgreeYn: Bool = false
     ) {
         self.memberId = memberId
         self.email = email
@@ -41,23 +41,16 @@ struct Resident {
     var residentReview: String
     var residentYear: Int
     var residentMonth: Int
+    var residentAddress: String
     
     init(residentReview: String = "",
          residentYear: Int = 0,
-         residentMonth: Int = 0) {
+         residentMonth: Int = 0,
+         residentAddress: String = "") {
         self.residentReview = residentReview
         self.residentYear = residentYear
         self.residentMonth = residentMonth
-    }
-}
-
-struct JachiguDong {
-    let jachigu: String
-    let dong: String
-
-    init(jachigu: String = "", dong: String = "") {
-        self.jachigu = jachigu
-        self.dong = dong
+        self.residentAddress = residentAddress
     }
 }
 
