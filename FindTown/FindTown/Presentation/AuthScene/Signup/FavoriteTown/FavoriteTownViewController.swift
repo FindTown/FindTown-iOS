@@ -27,12 +27,8 @@ final class FavoriteTownViewController: BaseViewController {
     private let favoriteSubTitle = FindTownLabel(text: "동네 지도에서 인프라를 바로 확인할 수 있어요.",
                                                  font: .body4, textColor: .grey6)
     
-    // 임시
-    var jachiguDropDown = DropDown(data: ["자치구 (선택)", "강남구", "강남구", "강남구", "강남구",
-                                    "강남구", "강남구", "강남구", "강남구", "강남구", "강남구",
-                                    "강남구", "강남구"])
-    var dongDropDown = DropDown(data: ["동 (선택)", "강남구", "강남구", "강남구", "강남구", "강남구",
-                                    "강남구", "강남구", "강남구", "강남구", "강남구", "강남구", "강남구"])
+    var countyDropDown = DropDown(data: ["자치구 (선택)"] + County.allCases.map { $0.rawValue })
+    lazy var dongDropDown = DropDown(data: ["동 (선택)"])
     
     private let dropDownStackView: UIStackView = {
         let stackView = UIStackView()
@@ -60,7 +56,7 @@ final class FavoriteTownViewController: BaseViewController {
     }
     
     override func addView() {
-        dropDownStackView.addArrangedSubview(jachiguDropDown)
+        dropDownStackView.addArrangedSubview(countyDropDown)
         dropDownStackView.addArrangedSubview(dongDropDown)
         
         [nowStatusPogressView, favoriteTitle, favoriteSubTitle, dropDownStackView, nextButton].forEach {
@@ -137,12 +133,14 @@ final class FavoriteTownViewController: BaseViewController {
             }
             .disposed(by: disposeBag)
         
-        jachiguDropDown.rx.didSelectDropDown
+        countyDropDown.rx.didSelectDropDown
             .throttle(.milliseconds(300), scheduler: MainScheduler.instance)
             .bind { [weak self] in
                 let splitValue = $0?.split(separator: " ").first
-                guard let splitValue else { return }
-                self?.viewModel?.input.jachigu.onNext(String(splitValue))
+                guard let splitValue ,
+                let county = County(rawValue: String(splitValue)) else { return }
+                self?.viewModel?.input.county.onNext(county)
+                self?.dongDropDown.reloadData(data: ["동 (선택)"] + county.villages.map { $0.rawValue })
             }
             .disposed(by:disposeBag)
         
@@ -151,9 +149,9 @@ final class FavoriteTownViewController: BaseViewController {
             .bind { [weak self] in
                 let splitValue = $0?.split(separator: " ").first
                 guard let splitValue else { return }
-                self?.viewModel?.input.dong.onNext(String(splitValue))
+                self?.viewModel?.input.village.onNext(Village(rawValue: String(splitValue)))
             }
-            .disposed(by:disposeBag)
+            .disposed(by: disposeBag)
         
         // Output
         
@@ -178,7 +176,7 @@ final class FavoriteTownViewController: BaseViewController {
     @objc private func backViewTapped(_ tapRecognizer: UITapGestureRecognizer) {
         let backViewTappedLocation = tapRecognizer.location(in: self.dropDownStackView)
         if dropDownStackView.point(inside: backViewTappedLocation, with: nil) == false {
-            jachiguDropDown.dismiss()
+            countyDropDown.dismiss()
             dongDropDown.dismiss()
         }
     }

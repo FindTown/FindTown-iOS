@@ -74,7 +74,7 @@ final class AddressSheetViewController: BaseBottomSheetViewController {
         viewModel?.output.villageDataSource
             .bind(to: villageCollectionView.rx.items(cellIdentifier: CityCollectionViewCell.reuseIdentifier,
                                               cellType: CityCollectionViewCell.self)) { index, item, cell in
-                cell.setupCell(itemText: item.village)
+                cell.setupCell(itemText: item.village.rawValue)
             }.disposed(by: disposeBag)
         
         countyCollectionView.rx.modelSelected(County.self)
