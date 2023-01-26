@@ -26,13 +26,7 @@ final class HomeViewController: BaseViewController {
         button.setImage(UIImage(named: "search"), for: .normal)
         return button
     }()
-    private let logoSearchStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.axis = .horizontal
-        stackView.distribution = .equalSpacing
-        return stackView
-    }()
+    private let topEmptyView = UIView()
     
     private let dongSearchTitle = FindTownLabel(text: "나에게 맞는 동네 찾기", font: .headLine3)
     
@@ -57,7 +51,7 @@ final class HomeViewController: BaseViewController {
         return stackView
     }()
     
-    private let emptyView = UIView()
+    private let safetyEmptyView = UIView()
     private let checkBox = CheckBox()
     private let safetyTitle = FindTownLabel(text: "안전 점수가 높은", font: .label1, textColor: .grey6)
     private let infoIcon = UIImageView(image: UIImage(systemName: "info.circle"))
@@ -98,10 +92,6 @@ final class HomeViewController: BaseViewController {
     override func addView() {
         super.addView()
         
-        [tempLogo, searchButton].forEach {
-            logoSearchStackView.addArrangedSubview($0)
-        }
-        
         [filterResetButton, filterButton, filterCollectionView].forEach {
             filterStackView.addArrangedSubview($0)
         }
@@ -110,7 +100,7 @@ final class HomeViewController: BaseViewController {
             townListAndCountStackView.addArrangedSubview($0)
         }
         
-        [emptyView, checkBox, safetyTitle, infoIcon].forEach {
+        [safetyEmptyView, checkBox, safetyTitle, infoIcon].forEach {
             safetyScoreStackView.addArrangedSubview($0)
         }
         
@@ -118,7 +108,7 @@ final class HomeViewController: BaseViewController {
             townListBackgroundView.addArrangedSubview($0)
         }
         
-        [logoSearchStackView, dongSearchTitle, filterStackView, townListBackgroundView].forEach {
+        [topEmptyView, dongSearchTitle, filterStackView, townListBackgroundView].forEach {
             self.stackView.addArrangedSubview($0)
         }
     }
@@ -126,7 +116,9 @@ final class HomeViewController: BaseViewController {
     override func setLayout() {
         super.setLayout()
         
-        stackView.setCustomSpacing(56, after: logoSearchStackView)
+        stackView.layoutMargins = UIEdgeInsets(top: 46, left: 0, bottom: 0, right: 0)
+        stackView.isLayoutMarginsRelativeArrangement = true
+        
         stackView.setCustomSpacing(16, after: dongSearchTitle)
         stackView.setCustomSpacing(40, after: filterStackView)
         
@@ -136,7 +128,7 @@ final class HomeViewController: BaseViewController {
         townListBackgroundView.layoutMargins = UIEdgeInsets(top: 24, left: 0, bottom: 16, right: 0)
         townListBackgroundView.isLayoutMarginsRelativeArrangement = true
         
-        [logoSearchStackView, filterStackView, townListAndCountStackView, safetyScoreStackView].forEach {
+        [filterStackView, townListAndCountStackView, safetyScoreStackView].forEach {
             $0.layoutMargins = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
             $0.isLayoutMarginsRelativeArrangement = true
         }
@@ -155,6 +147,9 @@ final class HomeViewController: BaseViewController {
     }
     
     override func setupView() {
+        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: tempLogo)
+        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: searchButton)
+        
         filterResetButton.setImage(UIImage(named: "reset"), for: .normal)
         filterResetButton.setTitle("초기화", for: .normal)
         filterResetButton.configuration?.contentInsets.leading = 12
@@ -181,6 +176,13 @@ final class HomeViewController: BaseViewController {
             .disposed(by: disposeBag)
         
         // Input
+        
+        searchButton.rx.tap
+            .throttle(.milliseconds(300), scheduler: MainScheduler.instance)
+            .bind { [weak self] in
+                self?.viewModel?.input.searchButtonTrigger.onNext(())
+            }
+            .disposed(by: disposeBag)
         
         filterButton.rx.tap
             .throttle(.milliseconds(300), scheduler: MainScheduler.instance)

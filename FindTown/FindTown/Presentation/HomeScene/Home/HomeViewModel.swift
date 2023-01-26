@@ -13,10 +13,12 @@ import RxRelay
 
 protocol HomeViewModelDelegate {
     func goToFilterBottomSheet()
+    func goToGuSearchView()
 }
 
 protocol HomeViewModelType {
     func goToFilterBottomSheet()
+    func goToGuSearchView()
 }
 
 // 임시
@@ -31,6 +33,7 @@ final class HomeViewModel: BaseViewModel {
     struct Input {
         let resetButtonTrigger = PublishSubject<Void>()
         let filterButtonTrigger = PublishSubject<Void>()
+        let searchButtonTrigger = PublishSubject<Void>()
     }
     
     struct Output {
@@ -50,6 +53,10 @@ final class HomeViewModel: BaseViewModel {
     }
     
     func bind() {
+        
+        self.input.searchButtonTrigger
+            .bind(onNext: goToGuSearchView)
+            .disposed(by: disposeBag)
         
         self.input.resetButtonTrigger
             .withLatestFrom(input.resetButtonTrigger)
@@ -77,6 +84,10 @@ extension HomeViewModel: HomeViewModelType {
     
     func goToFilterBottomSheet() {
         delegate.goToFilterBottomSheet()
+    }
+    
+    func goToGuSearchView() {
+        delegate.goToGuSearchView()
     }
 }
 
