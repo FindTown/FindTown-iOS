@@ -92,6 +92,7 @@
 		F38AA80629816C4700EF66F2 /* MemberInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = F38AA80529816C4700EF66F2 /* MemberInformation.swift */; };
 		F38AA80D29817E2000EF66F2 /* NickNameCheckRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F38AA80C29817E2000EF66F2 /* NickNameCheckRequest.swift */; };
 		F38AA80F29817F1600EF66F2 /* NickCheckResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = F38AA80E29817F1600EF66F2 /* NickCheckResponse.swift */; };
+		F38AA8112982766400EF66F2 /* ProviderType.swift in Sources */ = {isa = PBXBuildFile; fileRef = F38AA8102982766400EF66F2 /* ProviderType.swift */; };
 		F38CCBD729582869000C16AF /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F38CCBD529582869000C16AF /* AppCoordinator.swift */; };
 		F38CCBD829582869000C16AF /* TabBarCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F38CCBD629582869000C16AF /* TabBarCoordinator.swift */; };
 		F38CCBDF2958287C000C16AF /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F38CCBDB2958287C000C16AF /* HomeViewModel.swift */; };
@@ -211,6 +212,7 @@
 		F38AA80529816C4700EF66F2 /* MemberInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberInformation.swift; sourceTree = "<group>"; };
 		F38AA80C29817E2000EF66F2 /* NickNameCheckRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NickNameCheckRequest.swift; sourceTree = "<group>"; };
 		F38AA80E29817F1600EF66F2 /* NickCheckResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NickCheckResponse.swift; sourceTree = "<group>"; };
+		F38AA8102982766400EF66F2 /* ProviderType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProviderType.swift; sourceTree = "<group>"; };
 		F38CCBD529582869000C16AF /* AppCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		F38CCBD629582869000C16AF /* TabBarCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarCoordinator.swift; sourceTree = "<group>"; };
 		F38CCBDB2958287C000C16AF /* HomeViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
@@ -317,7 +319,6 @@
 		BC056C512962B03B00EDCA18 /* AuthScene */ = {
 			isa = PBXGroup;
 			children = (
-				BCB554B12977AD64007E1BBA /* Entities */,
 				BC5DA80A296696D500BF5C3D /* Signup */,
 				BC056C532962B06100EDCA18 /* Login */,
 				BC056C522962B05900EDCA18 /* Flows */,
@@ -485,14 +486,6 @@
 			path = AgreePolicy;
 			sourceTree = "<group>";
 		};
-		BCB554B12977AD64007E1BBA /* Entities */ = {
-			isa = PBXGroup;
-			children = (
-				BCB554B22977AEA8007E1BBA /* SignupUserModel.swift */,
-			);
-			path = Entities;
-			sourceTree = "<group>";
-		};
 		BCE9966429768E8B00AACD02 /* SubViews */ = {
 			isa = PBXGroup;
 			children = (
@@ -514,6 +507,7 @@
 		F3219B5C29693FB2000024E4 /* Entities */ = {
 			isa = PBXGroup;
 			children = (
+				BCB554B22977AEA8007E1BBA /* SignupUserModel.swift */,
 				F3219B5D2969403F000024E4 /* MapData.swift */,
 				F3219B5F29694079000024E4 /* Category.swift */,
 				F3219B612969408C000024E4 /* DetailCategory.swift */,
@@ -706,6 +700,7 @@
 				F3219B712969B346000024E4 /* StoreType.swift */,
 				F39EDDC3296D667800A4E655 /* County.swift */,
 				2B718C192966A6000068884A /* MapCategory.swift */,
+				F38AA8102982766400EF66F2 /* ProviderType.swift */,
 			);
 			path = Enumerations;
 			sourceTree = "<group>";
@@ -1001,6 +996,7 @@
 				BC056C562962B29F00EDCA18 /* SignupCoordinator.swift in Sources */,
 				F38AA800298125FB00EF66F2 /* DefaultAppleAuthRepository.swift in Sources */,
 				BCB554B32977AEA8007E1BBA /* SignupUserModel.swift in Sources */,
+				F38AA8112982766400EF66F2 /* ProviderType.swift in Sources */,
 				F38AA7F6298121EE00EF66F2 /* DefaultAuthRepository.swift in Sources */,
 				BC9E86522966821C00AB4AE7 /* SignupViewModelDelegate.swift in Sources */,
 				F38CCBE829582881000C16AF /* MapViewController.swift in Sources */,
