@@ -9,20 +9,20 @@ import Foundation
 
 enum CityMapping: Equatable {
     
-    case gangnam(Village.GangnamVillages)
-    case gangseo(Village.GangseoVillages)
-    case gwanak(Village.GwanakVillages)
-    case gwangjin(Village.GwangjinVillages)
-    case guro(Village.GuroVillages)
-    case geumcheon(Village.GeumcheonVillages)
-    case dongdaemun(Village.DongdaemunVillages)
-    case dongjak(Village.DongjakVillages)
-    case mapo(Village.MapoVillages)
-    case seodaemun(Village.SeodaemunVillages)
-    case seongbuk(Village.SeongbukVillages)
-    case songpa(Village.SongpaVillages)
-    case yeongdeungpo(Village.YeongdeungpoVillages)
-    case jongno(Village.JongnoVillages)
+    case gangnam(Village)
+    case gangseo(Village)
+    case gwanak(Village)
+    case gwangjin(Village)
+    case guro(Village)
+    case geumcheon(Village)
+    case dongdaemun(Village)
+    case dongjak(Village)
+    case mapo(Village)
+    case seodaemun(Village)
+    case seongbuk(Village)
+    case songpa(Village)
+    case yeongdeungpo(Village)
+    case jongno(Village)
     
     var county: County {
         switch self {
@@ -57,7 +57,7 @@ enum CityMapping: Equatable {
         }
     }
     
-    var village: any Villages {
+    var village: Village {
         switch self {
         case .gangnam(let gangnamVillages):
             return gangnamVillages

@@ -12,9 +12,9 @@ enum CityCode: Int, CaseIterable {
     case code02 = 02
     case code03 = 03
     
-    init?(county: CityMapping) {
+    init?(county: County, village: Village) {
         for value in CityCode.allCases
-        where value.cityModel == county {
+        where value.county == county && value.village == village {
             self = value
             return
         }
@@ -25,7 +25,7 @@ enum CityCode: Int, CaseIterable {
         return self.cityModel.county
     }
     
-    var village: any Villages {
+    var village: Village {
         return self.cityModel.village
     }
     

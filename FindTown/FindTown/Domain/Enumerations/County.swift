@@ -23,36 +23,36 @@ enum County: String, CaseIterable {
     case yeongdeungpo = "영등포구"
     case jongno = "종로구"
     
-    var villages: [String] {
+    var villages: [Village] {
         switch self {
         case .gangnam:
-            return Village.GangnamVillages.allCases.map { $0.rawValue }
+            return [.yeoksam1, .nonhyeon]
         case .gangseo:
-            return Village.GangseoVillages.allCases.map { $0.rawValue }
+            return [.gayang1, .hwagok]
         case .gwanak:
-            return Village.GwanakVillages.allCases.map { $0.rawValue }
+            return [.cheongnyong, .sinsa, .haengun, . sillim, .seowon, .inheon, .nakseongdae]
         case .gwangjin:
-            return Village.GwangjinVillages.allCases.map { $0.rawValue }
+            return [.hwayang]
         case .guro:
-            return Village.GuroVillages.allCases.map { $0.rawValue }
+            return [.guro3]
         case .geumcheon:
-            return Village.GeumcheonVillages.allCases.map { $0.rawValue }
+            return [.gasan]
         case .dongdaemun:
-            return Village.DongdaemunVillages.allCases.map { $0.rawValue }
+            return [.imun]
         case .dongjak:
-            return Village.DongjakVillages.allCases.map { $0.rawValue }
+            return [.sando1]
         case .mapo:
-            return Village.MapoVillages.allCases.map { $0.rawValue }
+            return [.seogyo]
         case .seodaemun:
-            return Village.SeodaemunVillages.allCases.map { $0.rawValue }
+            return [.sinchon]
         case .seongbuk:
-            return Village.SeongbukVillages.allCases.map { $0.rawValue }
+            return [.anam]
         case .songpa:
-            return Village.SongpaVillages.allCases.map { $0.rawValue }
+            return [.jamsilbon]
         case .yeongdeungpo:
-            return Village.YeongdeungpoVillages.allCases.map { $0.rawValue }
+            return [.yeongdeungpo, .dangsan2, .singil1]
         case .jongno:
-            return Village.JongnoVillages.allCases.map { $0.rawValue }
+            return [.hyehwa]
         }
     }
 }
