@@ -100,12 +100,13 @@ extension NicknameViewModel {
         Task {
             do {
                 let existence = try await self.authUseCase.checkNicknameDuplicate(nickName: nickname)
-                if existence {
-                    self.output.nickNameStatus.accept(.duplicate)
-                } else {
-                    self.output.nickNameStatus.accept(.complete)
-                    self.setNickname(nickname: nickname)
-                }
+                await MainActor.run(body: {
+                    if existence {
+                        self.output.nickNameStatus.accept(.duplicate)
+                    } else {
+                        self.output.nickNameStatus.accept(.complete)
+                    }
+                })
             } catch (let error) {
                 print(error)
             }
