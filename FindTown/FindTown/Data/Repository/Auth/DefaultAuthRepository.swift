@@ -10,10 +10,10 @@ import FindTownNetwork
 
 final class DefaultAuthRepository {
     
-    func login(memberId: String) async throws {
+    func login(memberId: String) async throws -> String {
         let memberInformation = MemberInformation(memberId: memberId)
         let data = try await Network.shared.request(target: AuthLoginReqeust(task: .requestJSONEncodable(encodable: memberInformation)))
-        print(data.header.code, data.header.message)
+        return data.header.message
     }
     
     func nickNameDuplicateCheck(_ nickName: String) async throws {
