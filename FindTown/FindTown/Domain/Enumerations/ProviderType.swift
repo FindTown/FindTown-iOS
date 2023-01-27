@@ -7,6 +7,6 @@
 
 import Foundation
 
-enum ProviderType {
+enum ProviderType: Encodable {
     case kakao, apple
 }

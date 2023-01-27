@@ -1,8 +1,8 @@
 //
-//  SignupUserModel.swift
+//  SingupUserModel.swift
 //  FindTown
 //
-//  Created by 김성훈 on 2023/01/18.
+//  Created by 이호영 on 2023/01/27.
 //
 
 import Foundation
@@ -35,6 +35,17 @@ struct SignupUserModel {
         self.useAgreeYn = useAgreeYn
         self.privaxyAgreeYn = privaxyAgreeYn
     }
+    
+    func toData() -> UserRegisterDTO {
+        return UserRegisterDTO(memberId: memberId,
+                               email: email,
+                               providerType: providerType,
+                               nickname: nickname,
+                               objectId: objectId,
+                               resident: resident.toData(),
+                               useAgreeYn: useAgreeYn,
+                               privaxyAgreeYn: privaxyAgreeYn)
+    }
 }
 
 struct Resident {
@@ -52,16 +63,11 @@ struct Resident {
         self.residentMonth = residentMonth
         self.residentAddress = residentAddress
     }
-}
-
-struct DongYearMonth {
-    let dong: String
-    let year: Int
-    let month: Int
-
-    init(dong: String = "", year: Int = 0, month: Int = 0) {
-        self.dong = dong
-        self.year = year
-        self.month = month
+    
+    func toData() -> ResidentDTO {
+        return ResidentDTO(residentReview: residentReview,
+                           residentYear: residentYear,
+                           residentMonth: residentMonth,
+                           residentAddress: residentAddress)
     }
 }
