@@ -36,6 +36,8 @@ final class LoginViewModel: BaseViewModel {
     
     let authUseCase: AuthUseCase
     
+    // MARK: - Task
+    
     private var loginTask: Task<Void, Error>?
     
     init(

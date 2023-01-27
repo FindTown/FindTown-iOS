@@ -40,6 +40,10 @@ final class AgreePolicyViewModel: BaseViewModel {
     
     let authUseCase: AuthUseCase
     
+    // MARK: - Task
+    
+    private var registerTask: Task<Void, Error>?
+    
     init(
         delegate: SignupViewModelDelegate,
         signupUserModel: SignupUserModel,
@@ -86,7 +90,7 @@ final class AgreePolicyViewModel: BaseViewModel {
 
 extension AgreePolicyViewModel {
     func register(signupUserModel: SignupUserModel) {
-        Task {
+        self.registerTask = Task {
             do {
                 let token = try await self.authUseCase.register(signupUerModel: signupUserModel)
                 await MainActor.run {
@@ -96,6 +100,8 @@ extension AgreePolicyViewModel {
                 print(error)
             }
         }
+        
+        registerTask?.cancel()
     }
 }
 

@@ -47,6 +47,10 @@ final class NicknameViewModel: BaseViewModel {
     
     var signupUserModel: SignupUserModel
     
+    // MARK: - Task
+    
+    private var nicknameCheckTask: Task<Void, Error>?
+    
     init(
         delegate: SignupViewModelDelegate,
         authUseCase: AuthUseCase,
@@ -98,7 +102,7 @@ final class NicknameViewModel: BaseViewModel {
 
 extension NicknameViewModel {
     func checkNicknameDuplicate(nickname: String) {
-        Task {
+        self.nicknameCheckTask = Task {
             do {
                 let existence = try await self.authUseCase.checkNicknameDuplicate(nickName: nickname)
                 await MainActor.run(body: {
@@ -112,6 +116,7 @@ extension NicknameViewModel {
                 print(error)
             }
         }
+        nicknameCheckTask?.cancel()
     }
 }
 
