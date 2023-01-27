@@ -13,7 +13,7 @@ enum Village: String {
     // MARK: - Gangnam
     
     case yeoksam1 = "역삼1동"
-    case nonhyeon = "논현1동"
+    case nonhyeon1 = "논현1동"
 
     // MARK: - Gangseo
     
@@ -52,7 +52,7 @@ enum Village: String {
     
     case sando1 = "상도1동"
 
-    // MARK: - Geumcheo
+    // MARK: - Mapo
     
     case seogyo = "서교동"
     

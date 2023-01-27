@@ -26,7 +26,7 @@ enum County: String, CaseIterable {
     var villages: [Village] {
         switch self {
         case .gangnam:
-            return [.yeoksam1, .nonhyeon]
+            return [.yeoksam1, .nonhyeon1]
         case .gangseo:
             return [.gayang1, .hwagok]
         case .gwanak:
