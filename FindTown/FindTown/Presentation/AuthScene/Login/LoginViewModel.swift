@@ -76,7 +76,7 @@ final class LoginViewModel: BaseViewModel {
 
 extension LoginViewModel {
     func loginWithKakao() {
-        Task {
+        loginTask = Task {
             do {
                 let (message, userId) = try await self.authUseCase.login(authType: .kakao)
                 await MainActor.run {
@@ -87,9 +87,10 @@ extension LoginViewModel {
                     }
                 }
             } catch (let error) {
-                print(error)
+                Log.error(error)
             }
         }
+        loginTask?.cancel()
     }
 }
 
