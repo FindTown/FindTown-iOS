@@ -7,8 +7,6 @@
 
 import Foundation
 
-protocol Villages: CaseIterable { }
-
 enum Village: String {
     // MARK: - Gangnam
     
