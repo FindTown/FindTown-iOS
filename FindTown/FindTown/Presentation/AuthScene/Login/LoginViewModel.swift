@@ -54,13 +54,13 @@ final class LoginViewModel: BaseViewModel {
         
         self.input.kakaoSigninTrigger
             .subscribe(onNext: { [weak self] _ in
-                self?.loginWithKakao()
+                self?.login(providerType: .kakao)
             })
             .disposed(by: disposeBag)
         
         self.input.appleSigninTrigger
             .bind { [weak self] _ in
-                print("appleSigninTrigger")
+                self?.login(providerType: .apple)
             }
             .disposed(by: disposeBag)
         
@@ -75,10 +75,10 @@ final class LoginViewModel: BaseViewModel {
 // MARK: - Network
 
 extension LoginViewModel {
-    func loginWithKakao() {
+    func login(providerType: ProviderType) {
         loginTask = Task {
             do {
-                let (message, userId) = try await self.authUseCase.login(authType: .kakao)
+                let (message, userId) = try await self.authUseCase.login(authType: providerType)
                 await MainActor.run {
                     if message == "비회원 계정입니다." {
                         self.goToNickname(userId: userId, providerType: .kakao)
