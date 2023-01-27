@@ -72,7 +72,8 @@ final class NicknameViewModel: BaseViewModel {
             .bind { [weak self] nickName in
                 // 특수문자 없으면 + 공백이 아니면 닉네임 체크
                 if nickName.isValidNickname() {
-                    self?.checkNicknameDuplicate(nickname: nickName)
+                    self?.output.nickNameStatus.accept(.complete)
+//                    self?.checkNicknameDuplicate(nickname: nickName)
                 } else {
                     self?.output.nickNameStatus.accept(.includeSpecialChar)
                 }

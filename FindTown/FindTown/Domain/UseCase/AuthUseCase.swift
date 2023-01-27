@@ -25,12 +25,13 @@ final class AuthUseCase {
         case .kakao:
             let _ = try await kakaoAuthRepository.isKakaoTalkLoginAvailable()
             let userId = try await kakaoAuthRepository.getUserInformation()
-            let message = try await authRepository.login(memberId: userId)
-            return (message, userId)
+//            let message = try await authRepository.login(memberId: userId)
+            return ("비회원 계정입니다.", userId)
         case .apple:
             let userId = try await appleAuthRespository.loginWithApple()
+//            let message = try await authRepository.login(memberId: userId)
             print(userId)
-            return ("", "")
+            return ("비회원 계정입니다.", userId)
         }
     }
     
