@@ -11,7 +11,7 @@ import FindTownNetwork
 
 final class DefaultAppleAuthRespository: NSObject {
     
-    private var authcontinuation: CheckedContinuation<String, Error>?
+    private var authcontinuation: CheckedContinuation<SigninUserModel, Error>?
     
     lazy var authorizationController: ASAuthorizationController = {
         let appleIDProvider = ASAuthorizationAppleIDProvider()
@@ -22,7 +22,7 @@ final class DefaultAppleAuthRespository: NSObject {
         return authorizationController
     }()
      
-    func loginWithApple() async throws -> String {
+    func loginWithApple() async throws -> SigninUserModel {
         return try await withCheckedThrowingContinuation { continuation in
             authcontinuation = continuation
             authorizationController.performRequests()
@@ -55,7 +55,8 @@ final class DefaultAppleAuthRespository: NSObject {
 extension DefaultAppleAuthRespository: ASAuthorizationControllerDelegate {
     func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
         if let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential {
-            authcontinuation?.resume(returning: appleIDCredential.user)
+            let signinUserModel = SigninUserModel(userId: appleIDCredential.user, email: appleIDCredential.email)
+            authcontinuation?.resume(returning: signinUserModel)
         } else {
             authcontinuation?.resume(throwing: FTNetworkError.apple)
         }

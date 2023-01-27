@@ -12,7 +12,7 @@ import RxSwift
 
 protocol LoginViewModelType {
     func goToTabBar()
-    func goToNickname(userId: String, providerType: ProviderType)
+    func goToNickname(userData: SigninUserModel, providerType: ProviderType)
 }
 
 final class LoginViewModel: BaseViewModel {
@@ -78,10 +78,10 @@ extension LoginViewModel {
     func login(providerType: ProviderType) {
         loginTask = Task {
             do {
-                let (message, userId) = try await self.authUseCase.login(authType: providerType)
+                let (message, userData) = try await self.authUseCase.login(authType: providerType)
                 await MainActor.run {
                     if message == "비회원 계정입니다." {
-                        self.goToNickname(userId: userId, providerType: .kakao)
+                        self.goToNickname(userData: userData, providerType: .kakao)
                     } else {
                         self.goToTabBar()
                     }
@@ -98,7 +98,7 @@ extension LoginViewModel: LoginViewModelType {
     func goToTabBar() {
         delegate.goToTabBar()
     }
-    func goToNickname(userId: String, providerType: ProviderType) {
-        delegate.goToNickname(userId: userId, providerType: providerType)
+    func goToNickname(userData: SigninUserModel, providerType: ProviderType) {
+        delegate.goToNickname(userData: userData, providerType: providerType)
     }
 }

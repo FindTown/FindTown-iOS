@@ -99,6 +99,7 @@
 		F38AA81C2983912E00EF66F2 /* RegisterRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F38AA81B2983912E00EF66F2 /* RegisterRequest.swift */; };
 		F38AA8202983966A00EF66F2 /* SingupUserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F38AA81F2983966A00EF66F2 /* SingupUserModel.swift */; };
 		F38AA822298396D300EF66F2 /* UserRegisterDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = F38AA821298396D300EF66F2 /* UserRegisterDTO.swift */; };
+		F38AA82B29842C2D00EF66F2 /* SigninUserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F38AA82A29842C2D00EF66F2 /* SigninUserModel.swift */; };
 		F38CCBD729582869000C16AF /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F38CCBD529582869000C16AF /* AppCoordinator.swift */; };
 		F38CCBD829582869000C16AF /* TabBarCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F38CCBD629582869000C16AF /* TabBarCoordinator.swift */; };
 		F38CCBDF2958287C000C16AF /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F38CCBDB2958287C000C16AF /* HomeViewModel.swift */; };
@@ -226,6 +227,7 @@
 		F38AA81F2983966A00EF66F2 /* SingupUserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingupUserModel.swift; sourceTree = "<group>"; };
 		F38AA821298396D300EF66F2 /* UserRegisterDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRegisterDTO.swift; sourceTree = "<group>"; };
 		F38AA8272983E2A700EF66F2 /* FindTown.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = FindTown.entitlements; sourceTree = "<group>"; };
+		F38AA82A29842C2D00EF66F2 /* SigninUserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SigninUserModel.swift; sourceTree = "<group>"; };
 		F38CCBD529582869000C16AF /* AppCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		F38CCBD629582869000C16AF /* TabBarCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarCoordinator.swift; sourceTree = "<group>"; };
 		F38CCBDB2958287C000C16AF /* HomeViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
@@ -528,6 +530,7 @@
 				F3219B6D29699F88000024E4 /* Store.swift */,
 				F3219B6F2969B32F000024E4 /* Thema.swift */,
 				F39EDDBB296D5AE500A4E655 /* City.swift */,
+				F38AA82A29842C2D00EF66F2 /* SigninUserModel.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -1046,6 +1049,7 @@
 				F38AA822298396D300EF66F2 /* UserRegisterDTO.swift in Sources */,
 				F39EDDCE296D7A6900A4E655 /* CategoryCollectionViewFlowLayout.swift in Sources */,
 				BC4C11822971256D00645AA7 /* TownTableViewCell.swift in Sources */,
+				F38AA82B29842C2D00EF66F2 /* SigninUserModel.swift in Sources */,
 				F3219B5E2969403F000024E4 /* MapData.swift in Sources */,
 				F3219B6E29699F88000024E4 /* Store.swift in Sources */,
 				F38AA7F429811F0600EF66F2 /* DefaultKakaoAuthRepository.swift in Sources */,

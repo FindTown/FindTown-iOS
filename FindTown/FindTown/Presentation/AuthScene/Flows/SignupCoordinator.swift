@@ -18,11 +18,12 @@ final class SignupCoordinator: FlowCoordinator {
     
     init(presentationStyle: PresentationStyle,
          authUseCase: AuthUseCase,
-         userId: String,
+         userData: SigninUserModel,
          providerType: ProviderType) {
         self.presentationStyle = presentationStyle
         self.authUseCase = authUseCase
-        self.signupUserModel.memberId = userId
+        self.signupUserModel.memberId = userData.userId
+        self.signupUserModel.email = userData.email
         self.signupUserModel.providerType = providerType
     }
     

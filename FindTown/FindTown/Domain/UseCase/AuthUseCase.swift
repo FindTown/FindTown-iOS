@@ -20,18 +20,18 @@ final class AuthUseCase {
         self.authRepository = DefaultAuthRepository()
     }
     
-    func login(authType: ProviderType) async throws -> (message: String, userId: String) {
+    func login(authType: ProviderType) async throws -> (message: String, userId: SigninUserModel) {
         switch authType {
         case .kakao:
             let _ = try await kakaoAuthRepository.isKakaoTalkLoginAvailable()
-            let userId = try await kakaoAuthRepository.getUserInformation()
+            let userData = try await kakaoAuthRepository.getUserInformation()
 //            let message = try await authRepository.login(memberId: userId)
-            return ("비회원 계정입니다.", userId)
+            return ("비회원 계정입니다.", userData)
         case .apple:
-            let userId = try await appleAuthRespository.loginWithApple()
+            let userData = try await appleAuthRespository.loginWithApple()
 //            let message = try await authRepository.login(memberId: userId)
-            print(userId)
-            return ("비회원 계정입니다.", userId)
+            print(userData)
+            return ("비회원 계정입니다.", userData)
         }
     }
     

@@ -68,7 +68,7 @@ private extension DefaultKakaoAuthRepository {
 extension DefaultKakaoAuthRepository {
 
     /// 카카오톡 유저 id를 반환합니다.
-    func getUserInformation() async throws -> String {
+    func getUserInformation() async throws -> SigninUserModel {
         return try await withCheckedThrowingContinuation { continuation in
             UserApi.shared.me { user, error in
                 if let error = error {
@@ -78,7 +78,9 @@ extension DefaultKakaoAuthRepository {
                     guard let userId = user?.id else {
                         return
                     }
-                    continuation.resume(returning: String(userId))
+                    
+                    let signinUsermodel = SigninUserModel(userId: String(userId), email: user?.kakaoAccount?.email)
+                    continuation.resume(returning: signinUsermodel)
                 }
             }
         }
