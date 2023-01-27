@@ -20,8 +20,7 @@ final class FavoriteTownViewModel: BaseViewModel {
     struct Input {
         let county = BehaviorSubject<County?>(value: nil)
         let village = BehaviorSubject<Village?>(value: nil)
-//
-        let cityCode = PublishSubject<Int>()
+        let cityCode = BehaviorSubject<Int?>(value: nil)
         let nextButtonTrigger = PublishSubject<Void>()
     }
     
@@ -66,9 +65,11 @@ final class FavoriteTownViewModel: BaseViewModel {
             .disposed(by: disposeBag)
     }
     
-    private func setFavorite(cityCode: Int) {
-        signupUserModel.objectId = cityCode
-        
+    private func setFavorite(cityCode: Int?) {
+        if let cityCode = cityCode {
+            signupUserModel.objectId = cityCode
+        }
+    
         self.goToAgreePolicy(signupUserModel)
     }
 }

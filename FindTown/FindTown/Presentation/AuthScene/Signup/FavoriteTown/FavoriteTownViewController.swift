@@ -182,6 +182,7 @@ final class FavoriteTownViewController: BaseViewController {
     }
     
     @objc private func didTapSkipButton() {
+        viewModel?.input.cityCode.onNext(nil)
         viewModel?.input.nextButtonTrigger.onNext(())
     }
 }
