@@ -225,6 +225,7 @@
 		F38AA81B2983912E00EF66F2 /* RegisterRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterRequest.swift; sourceTree = "<group>"; };
 		F38AA81F2983966A00EF66F2 /* SingupUserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingupUserModel.swift; sourceTree = "<group>"; };
 		F38AA821298396D300EF66F2 /* UserRegisterDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRegisterDTO.swift; sourceTree = "<group>"; };
+		F38AA8272983E2A700EF66F2 /* FindTown.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = FindTown.entitlements; sourceTree = "<group>"; };
 		F38CCBD529582869000C16AF /* AppCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		F38CCBD629582869000C16AF /* TabBarCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarCoordinator.swift; sourceTree = "<group>"; };
 		F38CCBDB2958287C000C16AF /* HomeViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
@@ -583,6 +584,7 @@
 		F3891E1D293B8393003CE8AD /* FindTown */ = {
 			isa = PBXGroup;
 			children = (
+				F38AA8272983E2A700EF66F2 /* FindTown.entitlements */,
 				BC6EFB7A293BA31D00AB3332 /* Resource */,
 				BC6EFB75293B9C3800AB3332 /* Presentation */,
 				BC6EFB74293B9C3400AB3332 /* Domain */,
@@ -1232,6 +1234,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = FindTown/FindTown.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = CADXU3X8JU;
@@ -1261,6 +1264,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = FindTown/FindTown.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = CADXU3X8JU;
