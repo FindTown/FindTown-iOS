@@ -88,11 +88,11 @@ extension LoginViewModel {
                         self.goToTabBar()
                     }
                 }
+                loginTask?.cancel()
             } catch (let error) {
                 Log.error(error)
             }
         }
-        loginTask?.cancel()
     }
 }
 

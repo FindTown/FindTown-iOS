@@ -74,10 +74,8 @@ final class NicknameViewModel: BaseViewModel {
         
         self.input.nickNameCheckTrigger
             .bind { [weak self] nickName in
-                // 특수문자 없으면 + 공백이 아니면 닉네임 체크
                 if nickName.isValidNickname() {
-                    self?.output.nickNameStatus.accept(.complete)
-//                    self?.checkNicknameDuplicate(nickname: nickName)
+                    self?.checkNicknameDuplicate(nickname: nickName)
                 } else {
                     self?.output.nickNameStatus.accept(.includeSpecialChar)
                 }
@@ -112,11 +110,11 @@ extension NicknameViewModel {
                         self.output.nickNameStatus.accept(.complete)
                     }
                 })
+                nicknameCheckTask?.cancel()
             } catch (let error) {
                 print(error)
             }
         }
-        nicknameCheckTask?.cancel()
     }
 }
 
