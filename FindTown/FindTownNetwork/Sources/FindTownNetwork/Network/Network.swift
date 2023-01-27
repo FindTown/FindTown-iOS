@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import FindTownCore
 
 protocol Networkable {
     func request<T: Request>(target: T,
@@ -45,19 +46,16 @@ public class Network: Networkable {
             request.setValue(header.value, forHTTPHeaderField: header.name.description)
         }
         
-        let responseData: Data
         switch target.task {
         case .requestPlain:
-            responseData = try await session.request(request: request)
+            break
         case .requestData(let data):
-            // 미완성
             request.httpBody = data
-            responseData = try await session.request(request: request)
         case .requestJSONEncodable(let encodable):
-            // 미완성
-            responseData = try await session.request(request: request.encoded(encodable: encodable))
+            request = try request.encoded(encodable: encodable)
         }
         
+        let responseData = try await session.request(request: request)
         let data = try responseData.decode(BaseResponse<T.ResponseType>.self)
         
         return data
