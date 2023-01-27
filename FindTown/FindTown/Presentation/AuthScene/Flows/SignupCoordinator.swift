@@ -58,7 +58,7 @@ final class SignupCoordinator: FlowCoordinator {
     
     /// 이용약관
     internal func signUpAgreePolicyScene(_ signupUserModel: SignupUserModel) -> UIViewController {
-        let agreePolicyViewModel = AgreePolicyViewModel(delegate: self, signupUserModel: signupUserModel)
+        let agreePolicyViewModel = AgreePolicyViewModel(delegate: self, signupUserModel: signupUserModel, authUseCase: authUseCase)
         let agreePolicyViewController = AgreePolicyViewController(viewModel: agreePolicyViewModel)
         agreePolicyViewController.modalPresentationStyle = .overFullScreen
         return agreePolicyViewController

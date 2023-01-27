@@ -36,12 +36,18 @@ final class AgreePolicyViewModel: BaseViewModel {
     let delegate: SignupViewModelDelegate
     var signupUserModel: SignupUserModel
     
+    // MARK: - UseCase
+    
+    let authUseCase: AuthUseCase
+    
     init(
         delegate: SignupViewModelDelegate,
-        signupUserModel: SignupUserModel
+        signupUserModel: SignupUserModel,
+        authUseCase: AuthUseCase
     ) {
         self.delegate = delegate
         self.signupUserModel = signupUserModel
+        self.authUseCase = authUseCase
         
         super.init()
         self.bind()
@@ -73,6 +79,23 @@ final class AgreePolicyViewModel: BaseViewModel {
                 self?.output.confirmButtonEnabled.accept($0)
             }
             .disposed(by: disposeBag)
+    }
+}
+
+// MARK: - Network
+
+extension AgreePolicyViewModel {
+    func register(signupUserModel: SignupUserModel) {
+        Task {
+            do {
+                let token = try await self.authUseCase.register(signupUerModel: signupUserModel)
+                await MainActor.run {
+                    self.goToTabBar()
+                }
+            } catch (let error) {
+                print(error)
+            }
+        }
     }
 }
 
