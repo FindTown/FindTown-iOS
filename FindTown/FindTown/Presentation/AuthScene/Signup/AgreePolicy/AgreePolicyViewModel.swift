@@ -58,7 +58,9 @@ final class AgreePolicyViewModel: BaseViewModel {
             .disposed(by: disposeBag)
         
         self.input.confirmButtonTrigger
-            .bind(onNext: self.goToTabBar)
+            .bind { [weak self] in
+                self?.goToTabBar()
+            }
             .disposed(by: disposeBag)
         
         Observable.combineLatest(input.policy, input.personalInfo)

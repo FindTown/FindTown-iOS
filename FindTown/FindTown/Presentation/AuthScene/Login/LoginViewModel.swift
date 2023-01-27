@@ -53,20 +53,20 @@ final class LoginViewModel: BaseViewModel {
     func bind() {
         
         self.input.kakaoSigninTrigger
-            .subscribe(onNext: {
-                self.loginWithKakao()
+            .subscribe(onNext: { [weak self] _ in
+                self?.loginWithKakao()
             })
             .disposed(by: disposeBag)
         
         self.input.appleSigninTrigger
-            .bind {
+            .bind { [weak self] _ in
                 print("appleSigninTrigger")
             }
             .disposed(by: disposeBag)
         
         self.input.anonymousTrigger
-            .bind {
-                self.goToTabBar()
+            .bind { [weak self] _ in
+                self?.goToTabBar()
             }
             .disposed(by: disposeBag)
     }
