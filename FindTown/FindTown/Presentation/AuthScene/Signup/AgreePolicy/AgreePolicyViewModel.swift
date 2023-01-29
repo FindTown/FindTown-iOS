@@ -100,9 +100,8 @@ extension AgreePolicyViewModel {
             } catch (let error) {
                 print(error)
             }
+            registerTask?.cancel()
         }
-        
-        registerTask?.cancel()
     }
 }
 

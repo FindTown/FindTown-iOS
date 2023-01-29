@@ -39,7 +39,7 @@ struct SignupUserModel {
     func toData() -> MemberSignupDTO {
         return MemberSignupDTO(memberId: memberId,
                                email: email,
-                               providerType: providerType,
+                               providerType: providerType.description,
                                nickname: nickname,
                                objectId: objectId,
                                resident: resident.toData(),

@@ -90,6 +90,8 @@ extension SignupCoordinator: SignupViewModelDelegate {
     }
     
     func goToTabBar() {
-        print("goToTabBar")
+        guard let navigationController = navigationController else { return }
+        navigationController.isNavigationBarHidden = true
+        TabBarCoordinator(presentationStyle: .push(navigationController: navigationController)).start()
     }
 }

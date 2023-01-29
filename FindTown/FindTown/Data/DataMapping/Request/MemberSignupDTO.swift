@@ -10,7 +10,7 @@ import Foundation
 struct MemberSignupDTO: Encodable {
     var memberId: String
     var email: String?
-    var providerType: ProviderType
+    var providerType: String
     var nickname: String
     var objectId: Int?
     var resident: ResidentDTO

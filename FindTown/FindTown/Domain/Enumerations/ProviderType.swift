@@ -7,6 +7,15 @@
 
 import Foundation
 
-enum ProviderType: Encodable {
+enum ProviderType {
     case kakao, apple
+    
+    var description: String {
+        switch self {
+        case .kakao:
+            return "KAKAO"
+        case .apple:
+            return "APPLE"
+        }
+    }
 }
