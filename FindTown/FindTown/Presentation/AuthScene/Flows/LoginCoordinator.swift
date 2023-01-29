@@ -38,9 +38,11 @@ extension LoginCoordinator: LoginViewModelDelegate {
     func goToNickname(userData: SigninUserModel, providerType: ProviderType) {
         guard let navigationController = navigationController else { return }
         navigationController.isNavigationBarHidden = false
-        SignupCoordinator(presentationStyle: .push(navigationController: navigationController),
-                                                   authUseCase: authUseCase,
-                                                   userData: userData,
-                                                   providerType: providerType).start()
+        SignupCoordinator(presentationStyle: .presentFlow(navigationController: navigationController,
+                                                          modalPresentationStyle: .overFullScreen),
+                                                          parentCoordinator: self,
+                                                          authUseCase: authUseCase,
+                                                          userData: userData,
+                                                          providerType: providerType).start()
     }
 }

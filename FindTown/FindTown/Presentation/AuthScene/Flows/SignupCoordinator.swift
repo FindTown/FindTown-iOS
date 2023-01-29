@@ -15,8 +15,10 @@ final class SignupCoordinator: FlowCoordinator {
     weak var navigationController: UINavigationController?
     let authUseCase: AuthUseCase
     var signupUserModel = SignupUserModel()
+    var parentCoordinator: FlowCoordinator
     
     init(presentationStyle: PresentationStyle,
+         parentCoordinator: FlowCoordinator,
          authUseCase: AuthUseCase,
          userData: SigninUserModel,
          providerType: ProviderType) {
@@ -25,6 +27,7 @@ final class SignupCoordinator: FlowCoordinator {
         self.signupUserModel.memberId = userData.userId
         self.signupUserModel.email = userData.email
         self.signupUserModel.providerType = providerType
+        self.parentCoordinator = parentCoordinator
     }
     
     /// 회원가입 닉네임 설정 화면
@@ -70,7 +73,6 @@ extension SignupCoordinator: SignupViewModelDelegate {
     
     func goToLocationAndYears(_ signupUserModel: SignupUserModel) {
         guard let navigationController = navigationController else { return }
-        navigationController.isNavigationBarHidden = false
         navigationController.pushViewController(signUpInputLocationAndYearsScene(signupUserModel), animated: true)
     }
     
@@ -89,9 +91,24 @@ extension SignupCoordinator: SignupViewModelDelegate {
         navigationController.present(signUpAgreePolicyScene(signupUserModel), animated: false)
     }
     
+    /// Legacy
     func goToTabBar() {
         guard let navigationController = navigationController else { return }
         navigationController.isNavigationBarHidden = true
         TabBarCoordinator(presentationStyle: .push(navigationController: navigationController)).start()
+    }
+    
+    func dismiss() {
+        guard let navigationController = navigationController else { return }
+        navigationController.dismiss(animated: true)
+    }
+    
+    func dismissAndGoToTapBar() {
+        guard let navigationController = navigationController else { return }
+        navigationController.dismiss(animated: true) {
+            if let parentCoordinator = self.parentCoordinator as? LoginCoordinator {
+                parentCoordinator.goToTabBar()
+            }
+        }
     }
 }
