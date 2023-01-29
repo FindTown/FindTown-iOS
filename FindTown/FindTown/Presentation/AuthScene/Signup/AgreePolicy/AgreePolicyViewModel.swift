@@ -69,7 +69,8 @@ final class AgreePolicyViewModel: BaseViewModel {
         
         self.input.confirmButtonTrigger
             .bind { [weak self] in
-                self?.goToTabBar()
+                guard let signupUserModel = self?.signupUserModel else { return }
+                self?.signup(signupUserModel: signupUserModel)
             }
             .disposed(by: disposeBag)
         
@@ -89,7 +90,7 @@ final class AgreePolicyViewModel: BaseViewModel {
 // MARK: - Network
 
 extension AgreePolicyViewModel {
-    func register(signupUserModel: SignupUserModel) {
+    func signup(signupUserModel: SignupUserModel) {
         self.registerTask = Task {
             do {
                 let token = try await self.authUseCase.signup(signupUerModel: signupUserModel)
