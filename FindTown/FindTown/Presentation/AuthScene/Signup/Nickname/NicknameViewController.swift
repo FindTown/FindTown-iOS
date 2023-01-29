@@ -22,13 +22,9 @@ final class NicknameViewController: BaseViewController {
     // MARK: - Views
     
     private let nowStatusPogressView = UIProgressView(progressViewStyle: .bar)
-    
     private let inputNickNameTitle = FindTownLabel(text: "닉네임을 입력해주세요", font: .subtitle4)
-    
     private let nickNameTextField = FindTownTextField()
-    
     private let duplicateButton = FTButton(style: .mediumTintedWithRadius)
-    
     private let nickNameTextStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -36,15 +32,18 @@ final class NicknameViewController: BaseViewController {
         stackView.spacing = 8
         return stackView
     }()
-    
     private let nickNameStatusLabel = FindTownLabel(text: "", font: .label3)
-
+    private let closeButton = UIBarButtonItem(image: UIImage(named: "close"),
+                                         style: .plain,
+                                         target: nil,
+                                         action: nil)
     private let nextButton = FTButton(style: .largeFilled)
     
     // MARK: - Life Cycle
     
     init(viewModel: NicknameViewModel) {
         self.viewModel = viewModel
+        
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -109,6 +108,8 @@ final class NicknameViewController: BaseViewController {
     override func setupView() {
         view.backgroundColor = .white
         
+        self.navigationItem.rightBarButtonItem = closeButton
+        
         nowStatusPogressView.trackTintColor = FindTownColor.grey2.color
         nowStatusPogressView.progressTintColor = FindTownColor.primary.color
         nowStatusPogressView.progress = Float(1) / 4.0
@@ -136,6 +137,13 @@ final class NicknameViewController: BaseViewController {
     override func bindViewModel() {
         
         // input
+        
+        closeButton.rx.tap
+            .throttle(.seconds(10), scheduler: MainScheduler.instance)
+            .subscribe(onNext: {
+                self.viewModel?.dismiss()
+            })
+            .disposed(by: disposeBag)
         
         nickNameTextField.rx.text.orEmpty
             .distinctUntilChanged()

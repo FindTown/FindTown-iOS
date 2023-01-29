@@ -13,6 +13,7 @@ final class LoginCoordinator: FlowCoordinator {
     
     var presentationStyle: PresentationStyle
     weak var navigationController: UINavigationController?
+    let authUseCase = AuthUseCase()
     
     init(presentationStyle: PresentationStyle) {
         self.presentationStyle = presentationStyle
@@ -20,8 +21,7 @@ final class LoginCoordinator: FlowCoordinator {
     
     internal func initScene() -> UIViewController {
         let loginViewModel = LoginViewModel(delegate: self,
-                                            userDefaults: UserDefaultUtil(),
-                                            kakaoManager: KakaoSigninManager())
+                                            authUseCase: authUseCase)
         let loginViewController = LoginViewController(viewModel: loginViewModel)
         return loginViewController
     }
@@ -35,8 +35,14 @@ extension LoginCoordinator: LoginViewModelDelegate {
         TabBarCoordinator(presentationStyle: .push(navigationController: navigationController)).start()
     }
     
-    func goToNickname() {
+    func goToNickname(userData: SigninUserModel, providerType: ProviderType) {
         guard let navigationController = navigationController else { return }
-        SignupCoordinator(presentationStyle: .push(navigationController: navigationController)).start()
+        navigationController.isNavigationBarHidden = false
+        SignupCoordinator(presentationStyle: .presentFlow(navigationController: navigationController,
+                                                          modalPresentationStyle: .overFullScreen),
+                                                          parentCoordinator: self,
+                                                          authUseCase: authUseCase,
+                                                          userData: userData,
+                                                          providerType: providerType).start()
     }
 }

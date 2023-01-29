@@ -14,6 +14,7 @@ import RxRelay
 
 protocol NicknameViewModelType {
     func goToLocationAndYears(_ signupUserModel: SignupUserModel)
+    func dismiss()
 }
 
 enum NicknameStatus {
@@ -39,10 +40,26 @@ final class NicknameViewModel: BaseViewModel {
     let output = Output()
     let delegate: SignupViewModelDelegate
     
+    // MARK: - UseCase
+    
+    let authUseCase: AuthUseCase
+    
+    // MARK: - Model
+    
+    var signupUserModel: SignupUserModel
+    
+    // MARK: - Task
+    
+    private var nicknameCheckTask: Task<Void, Error>?
+    
     init(
-        delegate: SignupViewModelDelegate
+        delegate: SignupViewModelDelegate,
+        authUseCase: AuthUseCase,
+        signupUserModel: SignupUserModel
     ) {
         self.delegate = delegate
+        self.authUseCase = authUseCase
+        self.signupUserModel = signupUserModel
         
         super.init()
         self.bind()
@@ -58,12 +75,8 @@ final class NicknameViewModel: BaseViewModel {
         
         self.input.nickNameCheckTrigger
             .bind { [weak self] nickName in
-                // 특수문자 없으면 + 공백이 아니면 닉네임 체크
                 if nickName.isValidNickname() {
-                    
-                    // 닉네임 중복 체크 들어갈 자리
-                    self?.output.nickNameStatus.accept(.complete)
-                    
+                    self?.checkNicknameDuplicate(nickname: nickName)
                 } else {
                     self?.output.nickNameStatus.accept(.includeSpecialChar)
                 }
@@ -72,23 +85,45 @@ final class NicknameViewModel: BaseViewModel {
         
         self.input.nextButtonTrigger
             .withLatestFrom(self.input.nickname)
-            .bind(onNext: self.setNickname(nickname:))
+            .bind(onNext: { [weak self] nickName in
+                self?.setNickname(nickname: nickName)
+            })
             .disposed(by: disposeBag)
     }
     
     private func setNickname(nickname: String) {
-        // 1. nickname 임시로 set
-        print("setNickname \(nickname)")
-
-        var signupUserModel = SignupUserModel()
-        signupUserModel.nickname = nickname
-        
-        // 2. after goToLocationAndYears
+        self.signupUserModel.nickname = nickname
         self.goToLocationAndYears(signupUserModel)
     }
 }
 
+// MARK: - Network
+
+extension NicknameViewModel {
+    func checkNicknameDuplicate(nickname: String) {
+        self.nicknameCheckTask = Task {
+            do {
+                let existence = try await self.authUseCase.checkNicknameDuplicate(nickName: nickname)
+                await MainActor.run(body: {
+                    if existence {
+                        self.output.nickNameStatus.accept(.duplicate)
+                    } else {
+                        self.output.nickNameStatus.accept(.complete)
+                    }
+                })
+                nicknameCheckTask?.cancel()
+            } catch (let error) {
+                print(error)
+            }
+        }
+    }
+}
+
 extension NicknameViewModel: NicknameViewModelType {
+    func dismiss() {
+        delegate.dismiss()
+    }
+    
     func goToLocationAndYears(_ signupUserModel: SignupUserModel) {
         delegate.goToLocationAndYears(signupUserModel)
     }

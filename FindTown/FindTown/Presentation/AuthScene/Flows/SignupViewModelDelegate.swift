@@ -13,4 +13,6 @@ protocol SignupViewModelDelegate {
     func goToFavorite(_ signupUserModel: SignupUserModel)
     func goToAgreePolicy(_ signupUserModel: SignupUserModel)
     func goToTabBar()
+    func dismiss()
+    func dismissAndGoToTapBar()
 }

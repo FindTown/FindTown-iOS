@@ -165,6 +165,7 @@ final class AgreePolicyViewController: BaseBottomSheetViewController {
         confirmButton.rx.tap
             .throttle(.milliseconds(300), scheduler: MainScheduler.instance)
             .bind { [weak self] in
+                self?.setBottomSheetStatus(to: .hide)
                 self?.viewModel?.input.confirmButtonTrigger.onNext(())
             }
             .disposed(by: disposeBag)

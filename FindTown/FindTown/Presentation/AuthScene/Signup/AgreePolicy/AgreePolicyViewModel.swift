@@ -14,6 +14,8 @@ import RxRelay
 
 protocol AgreePolicyViewModelType {
     func goToTabBar()
+    func dismiss()
+    func dismissAndGoToTabBar()
 }
 
 final class AgreePolicyViewModel: BaseViewModel {
@@ -34,14 +36,24 @@ final class AgreePolicyViewModel: BaseViewModel {
     let input = Input()
     let output = Output()
     let delegate: SignupViewModelDelegate
-    let signupUserModel: SignupUserModel
+    var signupUserModel: SignupUserModel
+    
+    // MARK: - UseCase
+    
+    let authUseCase: AuthUseCase
+    
+    // MARK: - Task
+    
+    private var registerTask: Task<Void, Error>?
     
     init(
         delegate: SignupViewModelDelegate,
-        signupUserModel: SignupUserModel
+        signupUserModel: SignupUserModel,
+        authUseCase: AuthUseCase
     ) {
         self.delegate = delegate
         self.signupUserModel = signupUserModel
+        self.authUseCase = authUseCase
         
         super.init()
         self.bind()
@@ -58,11 +70,16 @@ final class AgreePolicyViewModel: BaseViewModel {
             .disposed(by: disposeBag)
         
         self.input.confirmButtonTrigger
-            .bind(onNext: self.goToTabBar)
+            .bind { [weak self] in
+                guard let signupUserModel = self?.signupUserModel else { return }
+                self?.signup(signupUserModel: signupUserModel)
+            }
             .disposed(by: disposeBag)
         
         Observable.combineLatest(input.policy, input.personalInfo)
-            .map { (policy, personalInfo) in
+            .map { [weak self] (policy, personalInfo) in
+                self?.signupUserModel.useAgreeYn = policy
+                self?.signupUserModel.privaxyAgreeYn = personalInfo
                 return policy && personalInfo
             }
             .bind { [weak self] in
@@ -72,10 +89,37 @@ final class AgreePolicyViewModel: BaseViewModel {
     }
 }
 
+// MARK: - Network
+
+extension AgreePolicyViewModel {
+    func signup(signupUserModel: SignupUserModel) {
+        self.registerTask = Task {
+            do {
+                let token = try await self.authUseCase.signup(signupUerModel: signupUserModel)
+                await MainActor.run {
+                    self.dismissAndGoToTabBar()
+                }
+            } catch (let error) {
+                await MainActor.run(body: {
+                    self.dismiss()
+                })
+            }
+            registerTask?.cancel()
+        }
+    }
+}
+
 extension AgreePolicyViewModel: AgreePolicyViewModelType {
     
     func goToTabBar() {
-        print("signupUserModel \(signupUserModel)")
         delegate.goToTabBar()
+    }
+    
+    func dismiss() {
+        delegate.dismiss()
+    }
+    
+    func dismissAndGoToTabBar() {
+        delegate.dismissAndGoToTapBar()
     }
 }

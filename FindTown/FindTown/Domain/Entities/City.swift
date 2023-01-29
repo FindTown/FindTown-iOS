@@ -9,5 +9,5 @@ import Foundation
 
 struct City {
     let county: County
-    let village: String
+    let village: Village
 }

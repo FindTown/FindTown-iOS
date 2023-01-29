@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum FTNetworkError: Error {
+public enum FTNetworkError: Error {
     case invaildServerResponse
     case client
     case server
@@ -17,4 +17,7 @@ enum FTNetworkError: Error {
     case decode
     case encode
     case url
+    
+    case kakao
+    case apple
 }

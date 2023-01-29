@@ -13,14 +13,28 @@ final class SignupCoordinator: FlowCoordinator {
     
     var presentationStyle: PresentationStyle
     weak var navigationController: UINavigationController?
+    let authUseCase: AuthUseCase
+    var signupUserModel = SignupUserModel()
+    var parentCoordinator: FlowCoordinator
     
-    init(presentationStyle: PresentationStyle) {
+    init(presentationStyle: PresentationStyle,
+         parentCoordinator: FlowCoordinator,
+         authUseCase: AuthUseCase,
+         userData: SigninUserModel,
+         providerType: ProviderType) {
         self.presentationStyle = presentationStyle
+        self.authUseCase = authUseCase
+        self.signupUserModel.memberId = userData.userId
+        self.signupUserModel.email = userData.email
+        self.signupUserModel.providerType = providerType
+        self.parentCoordinator = parentCoordinator
     }
     
     /// 회원가입 닉네임 설정 화면
     internal func initScene() -> UIViewController {
-        let nicknameViewModel = NicknameViewModel(delegate: self)
+        let nicknameViewModel = NicknameViewModel(delegate: self,
+                                                  authUseCase: authUseCase,
+                                                  signupUserModel: signupUserModel)
         let nicknameViewController = NicknameViewController(viewModel: nicknameViewModel)
         return nicknameViewController
     }
@@ -48,7 +62,7 @@ final class SignupCoordinator: FlowCoordinator {
     
     /// 이용약관
     internal func signUpAgreePolicyScene(_ signupUserModel: SignupUserModel) -> UIViewController {
-        let agreePolicyViewModel = AgreePolicyViewModel(delegate: self, signupUserModel: signupUserModel)
+        let agreePolicyViewModel = AgreePolicyViewModel(delegate: self, signupUserModel: signupUserModel, authUseCase: authUseCase)
         let agreePolicyViewController = AgreePolicyViewController(viewModel: agreePolicyViewModel)
         agreePolicyViewController.modalPresentationStyle = .overFullScreen
         return agreePolicyViewController
@@ -59,7 +73,6 @@ extension SignupCoordinator: SignupViewModelDelegate {
     
     func goToLocationAndYears(_ signupUserModel: SignupUserModel) {
         guard let navigationController = navigationController else { return }
-        navigationController.isNavigationBarHidden = false
         navigationController.pushViewController(signUpInputLocationAndYearsScene(signupUserModel), animated: true)
     }
     
@@ -78,7 +91,24 @@ extension SignupCoordinator: SignupViewModelDelegate {
         navigationController.present(signUpAgreePolicyScene(signupUserModel), animated: false)
     }
     
+    /// Legacy
     func goToTabBar() {
-        print("goToTabBar")
+        guard let navigationController = navigationController else { return }
+        navigationController.isNavigationBarHidden = true
+        TabBarCoordinator(presentationStyle: .push(navigationController: navigationController)).start()
+    }
+    
+    func dismiss() {
+        guard let navigationController = navigationController else { return }
+        navigationController.dismiss(animated: true)
+    }
+    
+    func dismissAndGoToTapBar() {
+        guard let navigationController = navigationController else { return }
+        navigationController.dismiss(animated: true) {
+            if let parentCoordinator = self.parentCoordinator as? LoginCoordinator {
+                parentCoordinator.goToTabBar()
+            }
+        }
     }
 }

@@ -10,10 +10,11 @@ import Foundation
 extension URL {
     init<T: Request>(target: T) {
         let targetPath = target.path
+        guard let url = URL(string: target.baseURL) else { fatalError() }
         if targetPath.isEmpty {
-            self = target.baseURL
+            self = url
         } else {
-            self = target.baseURL.appendingPathComponent(targetPath)
+            self = url.appendingPathComponent(targetPath)
         }
     }
 }
