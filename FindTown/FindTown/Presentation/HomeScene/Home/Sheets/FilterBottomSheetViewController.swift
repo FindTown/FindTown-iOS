@@ -138,7 +138,7 @@ final class FilterBottonSheetViewController: BaseBottomSheetViewController {
         
         infraIconStackView.rx.didSelectInfraIcon
             .bind { [weak self] infra in
-                guard let infra else { return }
+                guard let infra = infra else { return }
                 self?.viewModel?.input.infra.onNext(infra)
             }
             .disposed(by: disposeBag)

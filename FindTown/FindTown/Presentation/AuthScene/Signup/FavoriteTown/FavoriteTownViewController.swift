@@ -141,7 +141,7 @@ final class FavoriteTownViewController: BaseViewController {
             .throttle(.milliseconds(300), scheduler: MainScheduler.instance)
             .bind { [weak self] in
                 let splitValue = $0?.split(separator: " ").first
-                guard let splitValue else { return }
+                guard let splitValue = splitValue else { return }
                 self?.viewModel?.input.jachigu.onNext(String(splitValue))
             }
             .disposed(by:disposeBag)
@@ -150,7 +150,7 @@ final class FavoriteTownViewController: BaseViewController {
             .throttle(.milliseconds(300), scheduler: MainScheduler.instance)
             .bind { [weak self] in
                 let splitValue = $0?.split(separator: " ").first
-                guard let splitValue else { return }
+                guard let splitValue = splitValue else { return }
                 self?.viewModel?.input.dong.onNext(String(splitValue))
             }
             .disposed(by:disposeBag)

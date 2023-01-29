@@ -208,7 +208,7 @@ final class NicknameViewController: BaseViewController {
     }
     
     @objc private func keyboardWillHideSender(_ sender: Notification) {
-        guard let keyHeight else { return }
+        guard let keyHeight = keyHeight else { return }
         self.view.frame.size.height += keyHeight
     }
 }
