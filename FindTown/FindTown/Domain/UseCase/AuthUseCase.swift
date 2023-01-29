@@ -43,9 +43,9 @@ final class AuthUseCase {
         return appleAuthRespository.authorizationController
     }
     
-    func register(signupUerModel: SignupUserModel) async throws -> String {
+    func signup(signupUerModel: SignupUserModel) async throws -> String {
         // keychain에 token 넣기
-        return try await authRepository.register(userRegister: signupUerModel.toData())
+        return try await authRepository.signup(memberSignupDTO: signupUerModel.toData())
     }
     
 }

@@ -22,8 +22,8 @@ final class DefaultAuthRepository {
         return data.body.existConfirm.existence
     }
     
-    func register(userRegister: UserRegisterDTO) async throws -> String {
-        let data = try await Network.shared.request(target: RegisterRequest(task: .requestJSONEncodable(encodable: userRegister)))
+    func signup(memberSignupDTO: MemberSignupDTO) async throws -> String {
+        let data = try await Network.shared.request(target: SignupRequest(task: .requestJSONEncodable(encodable: memberSignupDTO)))
         return data.header.message
     }
 }

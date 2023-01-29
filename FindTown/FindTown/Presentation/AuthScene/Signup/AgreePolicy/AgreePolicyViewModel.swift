@@ -92,7 +92,7 @@ extension AgreePolicyViewModel {
     func register(signupUserModel: SignupUserModel) {
         self.registerTask = Task {
             do {
-                let token = try await self.authUseCase.register(signupUerModel: signupUserModel)
+                let token = try await self.authUseCase.signup(signupUerModel: signupUserModel)
                 await MainActor.run {
                     self.goToTabBar()
                 }

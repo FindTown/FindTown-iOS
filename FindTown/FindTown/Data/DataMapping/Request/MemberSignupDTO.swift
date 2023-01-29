@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct UserRegisterDTO: Encodable {
+struct MemberSignupDTO: Encodable {
     var memberId: String
     var email: String?
     var providerType: ProviderType

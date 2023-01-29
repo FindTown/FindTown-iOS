@@ -96,9 +96,9 @@
 		F38AA8142982877300EF66F2 /* CityMapping.swift in Sources */ = {isa = PBXBuildFile; fileRef = F38AA8132982877300EF66F2 /* CityMapping.swift */; };
 		F38AA81729829A9300EF66F2 /* Village.swift in Sources */ = {isa = PBXBuildFile; fileRef = F38AA81629829A9300EF66F2 /* Village.swift */; };
 		F38AA81929829BED00EF66F2 /* CityCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = F38AA81829829BED00EF66F2 /* CityCode.swift */; };
-		F38AA81C2983912E00EF66F2 /* RegisterRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F38AA81B2983912E00EF66F2 /* RegisterRequest.swift */; };
+		F38AA81C2983912E00EF66F2 /* SignupRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F38AA81B2983912E00EF66F2 /* SignupRequest.swift */; };
 		F38AA8202983966A00EF66F2 /* SingupUserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F38AA81F2983966A00EF66F2 /* SingupUserModel.swift */; };
-		F38AA822298396D300EF66F2 /* UserRegisterDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = F38AA821298396D300EF66F2 /* UserRegisterDTO.swift */; };
+		F38AA822298396D300EF66F2 /* MemberSignupDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = F38AA821298396D300EF66F2 /* MemberSignupDTO.swift */; };
 		F38AA82B29842C2D00EF66F2 /* SigninUserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F38AA82A29842C2D00EF66F2 /* SigninUserModel.swift */; };
 		F38CCBD729582869000C16AF /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F38CCBD529582869000C16AF /* AppCoordinator.swift */; };
 		F38CCBD829582869000C16AF /* TabBarCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F38CCBD629582869000C16AF /* TabBarCoordinator.swift */; };
@@ -223,9 +223,9 @@
 		F38AA8132982877300EF66F2 /* CityMapping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityMapping.swift; sourceTree = "<group>"; };
 		F38AA81629829A9300EF66F2 /* Village.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Village.swift; sourceTree = "<group>"; };
 		F38AA81829829BED00EF66F2 /* CityCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityCode.swift; sourceTree = "<group>"; };
-		F38AA81B2983912E00EF66F2 /* RegisterRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterRequest.swift; sourceTree = "<group>"; };
+		F38AA81B2983912E00EF66F2 /* SignupRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupRequest.swift; sourceTree = "<group>"; };
 		F38AA81F2983966A00EF66F2 /* SingupUserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingupUserModel.swift; sourceTree = "<group>"; };
-		F38AA821298396D300EF66F2 /* UserRegisterDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRegisterDTO.swift; sourceTree = "<group>"; };
+		F38AA821298396D300EF66F2 /* MemberSignupDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberSignupDTO.swift; sourceTree = "<group>"; };
 		F38AA8272983E2A700EF66F2 /* FindTown.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = FindTown.entitlements; sourceTree = "<group>"; };
 		F38AA82A29842C2D00EF66F2 /* SigninUserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SigninUserModel.swift; sourceTree = "<group>"; };
 		F38CCBD529582869000C16AF /* AppCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
@@ -647,7 +647,6 @@
 			isa = PBXGroup;
 			children = (
 				F38AA7F9298124AD00EF66F2 /* AuthLoginRequest.swift */,
-				F38AA81B2983912E00EF66F2 /* RegisterRequest.swift */,
 			);
 			path = Auth;
 			sourceTree = "<group>";
@@ -683,7 +682,7 @@
 			isa = PBXGroup;
 			children = (
 				F38AA80529816C4700EF66F2 /* MemberInformation.swift */,
-				F38AA821298396D300EF66F2 /* UserRegisterDTO.swift */,
+				F38AA821298396D300EF66F2 /* MemberSignupDTO.swift */,
 			);
 			path = Request;
 			sourceTree = "<group>";
@@ -732,6 +731,7 @@
 			isa = PBXGroup;
 			children = (
 				F38AA80C29817E2000EF66F2 /* NickNameCheckRequest.swift */,
+				F38AA81B2983912E00EF66F2 /* SignupRequest.swift */,
 			);
 			path = Member;
 			sourceTree = "<group>";
@@ -1012,7 +1012,7 @@
 				F3219B622969408C000024E4 /* DetailCategory.swift in Sources */,
 				F39EDDD2296D7C0E00A4E655 /* StoreCollectionViewFlowLayout.swift in Sources */,
 				BC4C11802971256300645AA7 /* TownTableView.swift in Sources */,
-				F38AA81C2983912E00EF66F2 /* RegisterRequest.swift in Sources */,
+				F38AA81C2983912E00EF66F2 /* SignupRequest.swift in Sources */,
 				F38CCBDF2958287C000C16AF /* HomeViewModel.swift in Sources */,
 				BC0D88512963DCF300CCB800 /* LocationAndYearsViewModel.swift in Sources */,
 				F3891E1F293B8393003CE8AD /* AppDelegate.swift in Sources */,
@@ -1046,7 +1046,7 @@
 				F38CCBE12958287C000C16AF /* HomeCoordinator.swift in Sources */,
 				2BEE90C52977F90A002E7C3A /* FavoriteViewController.swift in Sources */,
 				2BEE90CF2977FDFE002E7C3A /* AnonymousView.swift in Sources */,
-				F38AA822298396D300EF66F2 /* UserRegisterDTO.swift in Sources */,
+				F38AA822298396D300EF66F2 /* MemberSignupDTO.swift in Sources */,
 				F39EDDCE296D7A6900A4E655 /* CategoryCollectionViewFlowLayout.swift in Sources */,
 				BC4C11822971256D00645AA7 /* TownTableViewCell.swift in Sources */,
 				F38AA82B29842C2D00EF66F2 /* SigninUserModel.swift in Sources */,

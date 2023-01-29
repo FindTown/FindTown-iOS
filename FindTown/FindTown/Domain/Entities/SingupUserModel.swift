@@ -36,8 +36,8 @@ struct SignupUserModel {
         self.privaxyAgreeYn = privaxyAgreeYn
     }
     
-    func toData() -> UserRegisterDTO {
-        return UserRegisterDTO(memberId: memberId,
+    func toData() -> MemberSignupDTO {
+        return MemberSignupDTO(memberId: memberId,
                                email: email,
                                providerType: providerType,
                                nickname: nickname,

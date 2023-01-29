@@ -8,7 +8,7 @@
 import Foundation
 import FindTownNetwork
 
-struct RegisterRequest: BaseRequest {
+struct SignupRequest: BaseRequest {
     
     init(task: FindTownNetwork.TaskType) {
         self.task = task
@@ -16,7 +16,7 @@ struct RegisterRequest: BaseRequest {
     
     // 임시
     typealias ResponseType = BodyNull
-    var path: String = "/auth/register"
+    var path: String = "/app/members/signup"
     var method: FindTownNetwork.HttpMethod = .post
     var headers: FindTownNetwork.HTTPHeaders = HTTPHeaders([.accept("*/*"),
                                                             .contentType("application/json")])
