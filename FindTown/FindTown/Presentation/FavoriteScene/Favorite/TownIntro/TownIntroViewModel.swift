@@ -36,7 +36,7 @@ final class TownIntroViewModel: BaseViewModel {
 // 임시 데이터
 extension TownIntroViewModel {
     func returnTownMoodData() -> [TownMood] {
-        let data =  ["배달시키기 좋은", "항상 사람이 많은", "교통정체가 심한", "번잡한","편의시설이 많은", "물가가 저렴한" ,"배달시키기 좋은", "번잡한"]
+        let data =  ["배달시키기 좋은", "항상 사람이 많은"]
         var townMoodArray: [TownMood] = []
         
         for mood in data {
@@ -64,12 +64,12 @@ extension TownIntroViewModel {
     }
     
     func returnTownRankData() -> [(String,Any)] {
-        let test = Essential()
+        let test = TownRankData()
         return test.toArray()
     }
 }
 
-struct Essential: Encodable {
+struct TownRankData: Encodable {
     var test1 = "1"
     var test2 = "1"
     var test3 = "1"
