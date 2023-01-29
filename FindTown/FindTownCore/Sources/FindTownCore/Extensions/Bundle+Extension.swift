@@ -24,4 +24,12 @@ extension Bundle {
         
         return key
     }
+    
+    public var FIND_TOWN_SERVER_URL: String {
+        guard let file = self.path(forResource: "APIKeyInfo", ofType: "plist") else { return "" }
+        guard let resource = NSDictionary(contentsOfFile: file) else { return "" }
+        guard let key = resource["FindTownServerUrl"] as? String else { fatalError("FindTownServerUrl error") }
+        
+        return key
+    }
 }

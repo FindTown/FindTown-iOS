@@ -100,6 +100,7 @@
 		F38AA8202983966A00EF66F2 /* SingupUserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F38AA81F2983966A00EF66F2 /* SingupUserModel.swift */; };
 		F38AA822298396D300EF66F2 /* MemberSignupDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = F38AA821298396D300EF66F2 /* MemberSignupDTO.swift */; };
 		F38AA82B29842C2D00EF66F2 /* SigninUserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F38AA82A29842C2D00EF66F2 /* SigninUserModel.swift */; };
+		F38AA8322986267D00EF66F2 /* BaseRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F38AA8312986267D00EF66F2 /* BaseRequest.swift */; };
 		F38CCBD729582869000C16AF /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F38CCBD529582869000C16AF /* AppCoordinator.swift */; };
 		F38CCBD829582869000C16AF /* TabBarCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F38CCBD629582869000C16AF /* TabBarCoordinator.swift */; };
 		F38CCBDF2958287C000C16AF /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F38CCBDB2958287C000C16AF /* HomeViewModel.swift */; };
@@ -228,6 +229,7 @@
 		F38AA821298396D300EF66F2 /* MemberSignupDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberSignupDTO.swift; sourceTree = "<group>"; };
 		F38AA8272983E2A700EF66F2 /* FindTown.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = FindTown.entitlements; sourceTree = "<group>"; };
 		F38AA82A29842C2D00EF66F2 /* SigninUserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SigninUserModel.swift; sourceTree = "<group>"; };
+		F38AA8312986267D00EF66F2 /* BaseRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseRequest.swift; sourceTree = "<group>"; };
 		F38CCBD529582869000C16AF /* AppCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		F38CCBD629582869000C16AF /* TabBarCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarCoordinator.swift; sourceTree = "<group>"; };
 		F38CCBDB2958287C000C16AF /* HomeViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
@@ -654,6 +656,7 @@
 		F38AA7FB2981250300EF66F2 /* DataMapping */ = {
 			isa = PBXGroup;
 			children = (
+				F38AA82C2986266A00EF66F2 /* Common */,
 				F38AA80429816C3A00EF66F2 /* Reponse */,
 				F38AA80329816C1C00EF66F2 /* Request */,
 			);
@@ -742,6 +745,14 @@
 				F38AA8132982877300EF66F2 /* CityMapping.swift */,
 			);
 			path = Mapping;
+			sourceTree = "<group>";
+		};
+		F38AA82C2986266A00EF66F2 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				F38AA8312986267D00EF66F2 /* BaseRequest.swift */,
+			);
+			path = Common;
 			sourceTree = "<group>";
 		};
 		F38CCBD429582869000C16AF /* Flow */ = {
@@ -987,6 +998,7 @@
 				BC04A6DC296FDEC100B60BCF /* KeyChainManager.swift in Sources */,
 				F38CCBD729582869000C16AF /* AppCoordinator.swift in Sources */,
 				BC04A6E529700E1400B60BCF /* KeyChainError.swift in Sources */,
+				F38AA8322986267D00EF66F2 /* BaseRequest.swift in Sources */,
 				BC056C602962B2D900EDCA18 /* NicknameViewController.swift in Sources */,
 				F38CCBE929582881000C16AF /* MapViewModel.swift in Sources */,
 				F38AA80629816C4700EF66F2 /* MemberInformation.swift in Sources */,

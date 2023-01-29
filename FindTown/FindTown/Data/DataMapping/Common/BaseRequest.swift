@@ -6,11 +6,12 @@
 //
 
 import Foundation
+import FindTownNetwork
 
 public protocol BaseRequest: Request { }
 
 public extension BaseRequest {
     var baseURL: String {
-        return "http://18.182.80.111:8080"
+        return Bundle.main.FIND_TOWN_SERVER_URL
     }
 }
