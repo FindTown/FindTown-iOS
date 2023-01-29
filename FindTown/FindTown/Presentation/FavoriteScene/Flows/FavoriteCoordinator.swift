@@ -30,4 +30,9 @@ extension FavoriteCoordinator: FavoriteViewModelDelegate {
         guard let navigationController = navigationController else { return }
         AppCoordinator(navigationController: navigationController).start()
     }
+    
+    func goToTownIntro() {
+        guard let navigationController = navigationController else { return }
+        navigationController.pushViewController(TownIntroViewController(viewModel: TownIntroViewModel()), animated: true)
+    }
 }

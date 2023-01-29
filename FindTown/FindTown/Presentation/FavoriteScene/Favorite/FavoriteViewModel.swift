@@ -10,11 +10,13 @@ import FindTownCore
 import RxSwift
 
 protocol FavoriteViewModelType {
-   func goToSignUp()
+    func goToSignUp()
+    func goToTownIntro()
 }
 
 protocol FavoriteViewModelDelegate {
     func goToSignup()
+    func goToTownIntro()
 }
 
 enum FavoriteViewStatus {
@@ -32,6 +34,7 @@ final class FavoriteViewModel: BaseViewModel {
     
     struct Input {
         let signUpButtonTrigger = PublishSubject<Void>()
+        let townIntroButtonTrigger = PublishSubject<Void>()
     }
     
     struct Output {
@@ -56,6 +59,12 @@ final class FavoriteViewModel: BaseViewModel {
             })
             .disposed(by: disposeBag)
         
+        self.input.townIntroButtonTrigger
+            .subscribe(onNext: { [weak self] in
+                self?.delegate.goToTownIntro()
+            })
+            .disposed(by: disposeBag)
+        
         self.output.favoriteDataSource.onNext(returnTownTestData())
         self.output.viewStatus.onNext(returnViewStatus())
     }
@@ -65,6 +74,10 @@ extension FavoriteViewModel: FavoriteViewModelType {
     
     func goToSignUp() {
         delegate.goToSignup()
+    }
+    
+    func goToTownIntro() {
+        delegate.goToTownIntro()
     }
 }
 
