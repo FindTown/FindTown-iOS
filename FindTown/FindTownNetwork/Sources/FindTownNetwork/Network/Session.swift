@@ -43,8 +43,7 @@ class Session: Sessionable {
     func log(request: URLRequest) {
         Log.debug("reqeust 👇", ["url : \(String(describing: request.url))",
                                    "method : \(String(describing: request.httpMethod))",
-                                   "header : \(String(describing: request.allHTTPHeaderFields))",
-                                   "body : \(String(describing: request.httpBody)) "])
+                                   "header : \(String(describing: request.allHTTPHeaderFields))"])
     }
     
     func log(response: HTTPURLResponse) {

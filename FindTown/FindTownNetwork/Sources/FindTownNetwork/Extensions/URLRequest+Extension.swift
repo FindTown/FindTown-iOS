@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import FindTownCore
 
 extension URLRequest {
     mutating func encoded(encodable: Encodable,
@@ -13,8 +14,9 @@ extension URLRequest {
     ) throws -> URLRequest {
         do {
             let encodable = AnyEncodable(encodable)
-            httpBody = try encoder.encode(encodable)
-
+            let body = try encoder.encode(encodable)
+            Log.info(String(data: body, encoding: .utf8))
+            httpBody = body
             return self
         } catch {
             throw FTNetworkError.encode

@@ -50,6 +50,7 @@ public class Network: Networkable {
         case .requestPlain:
             break
         case .requestData(let data):
+            Log.info(String(data: data, encoding: .utf8))
             request.httpBody = data
         case .requestJSONEncodable(let encodable):
             request = try request.encoded(encodable: encodable)
