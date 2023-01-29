@@ -89,9 +89,9 @@
 		F38AA7FA298124AD00EF66F2 /* AuthLoginRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F38AA7F9298124AD00EF66F2 /* AuthLoginRequest.swift */; };
 		F38AA7FE2981259200EF66F2 /* AuthUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = F38AA7FD2981259200EF66F2 /* AuthUseCase.swift */; };
 		F38AA800298125FB00EF66F2 /* DefaultAppleAuthRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = F38AA7FF298125FB00EF66F2 /* DefaultAppleAuthRepository.swift */; };
-		F38AA80629816C4700EF66F2 /* MemberInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = F38AA80529816C4700EF66F2 /* MemberInformation.swift */; };
+		F38AA80629816C4700EF66F2 /* MemberInformationDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = F38AA80529816C4700EF66F2 /* MemberInformationDTO.swift */; };
 		F38AA80D29817E2000EF66F2 /* NickNameCheckRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F38AA80C29817E2000EF66F2 /* NickNameCheckRequest.swift */; };
-		F38AA80F29817F1600EF66F2 /* NickCheckResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = F38AA80E29817F1600EF66F2 /* NickCheckResponse.swift */; };
+		F38AA80F29817F1600EF66F2 /* NickCheckResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = F38AA80E29817F1600EF66F2 /* NickCheckResponseDTO.swift */; };
 		F38AA8112982766400EF66F2 /* ProviderType.swift in Sources */ = {isa = PBXBuildFile; fileRef = F38AA8102982766400EF66F2 /* ProviderType.swift */; };
 		F38AA8142982877300EF66F2 /* CityMapping.swift in Sources */ = {isa = PBXBuildFile; fileRef = F38AA8132982877300EF66F2 /* CityMapping.swift */; };
 		F38AA81729829A9300EF66F2 /* Village.swift in Sources */ = {isa = PBXBuildFile; fileRef = F38AA81629829A9300EF66F2 /* Village.swift */; };
@@ -217,9 +217,9 @@
 		F38AA7F9298124AD00EF66F2 /* AuthLoginRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthLoginRequest.swift; sourceTree = "<group>"; };
 		F38AA7FD2981259200EF66F2 /* AuthUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthUseCase.swift; sourceTree = "<group>"; };
 		F38AA7FF298125FB00EF66F2 /* DefaultAppleAuthRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultAppleAuthRepository.swift; sourceTree = "<group>"; };
-		F38AA80529816C4700EF66F2 /* MemberInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberInformation.swift; sourceTree = "<group>"; };
+		F38AA80529816C4700EF66F2 /* MemberInformationDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberInformationDTO.swift; sourceTree = "<group>"; };
 		F38AA80C29817E2000EF66F2 /* NickNameCheckRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NickNameCheckRequest.swift; sourceTree = "<group>"; };
-		F38AA80E29817F1600EF66F2 /* NickCheckResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NickCheckResponse.swift; sourceTree = "<group>"; };
+		F38AA80E29817F1600EF66F2 /* NickCheckResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NickCheckResponseDTO.swift; sourceTree = "<group>"; };
 		F38AA8102982766400EF66F2 /* ProviderType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProviderType.swift; sourceTree = "<group>"; };
 		F38AA8132982877300EF66F2 /* CityMapping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityMapping.swift; sourceTree = "<group>"; };
 		F38AA81629829A9300EF66F2 /* Village.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Village.swift; sourceTree = "<group>"; };
@@ -684,7 +684,7 @@
 		F38AA80329816C1C00EF66F2 /* Request */ = {
 			isa = PBXGroup;
 			children = (
-				F38AA80529816C4700EF66F2 /* MemberInformation.swift */,
+				F38AA80529816C4700EF66F2 /* MemberInformationDTO.swift */,
 				F38AA821298396D300EF66F2 /* MemberSignupDTO.swift */,
 			);
 			path = Request;
@@ -693,7 +693,7 @@
 		F38AA80429816C3A00EF66F2 /* Reponse */ = {
 			isa = PBXGroup;
 			children = (
-				F38AA80E29817F1600EF66F2 /* NickCheckResponse.swift */,
+				F38AA80E29817F1600EF66F2 /* NickCheckResponseDTO.swift */,
 			);
 			path = Reponse;
 			sourceTree = "<group>";
@@ -990,7 +990,7 @@
 			files = (
 				2BEE90CC2977F975002E7C3A /* FavoriteCoordinator.swift in Sources */,
 				F39EDDCC296D7A1800A4E655 /* CategoryCollectionView.swift in Sources */,
-				F38AA80F29817F1600EF66F2 /* NickCheckResponse.swift in Sources */,
+				F38AA80F29817F1600EF66F2 /* NickCheckResponseDTO.swift in Sources */,
 				BC04A6E329700DF400B60BCF /* KeyChainAccount.swift in Sources */,
 				BC0D88592964641400CCB800 /* YearMonthPickerView.swift in Sources */,
 				F3219B7C2969D589000024E4 /* AddressSheetViewModel.swift in Sources */,
@@ -1001,7 +1001,7 @@
 				F38AA8322986267D00EF66F2 /* BaseRequest.swift in Sources */,
 				BC056C602962B2D900EDCA18 /* NicknameViewController.swift in Sources */,
 				F38CCBE929582881000C16AF /* MapViewModel.swift in Sources */,
-				F38AA80629816C4700EF66F2 /* MemberInformation.swift in Sources */,
+				F38AA80629816C4700EF66F2 /* MemberInformationDTO.swift in Sources */,
 				F39EDDBC296D5AE500A4E655 /* City.swift in Sources */,
 				BC04A6DE296FF10100B60BCF /* TokenManager.swift in Sources */,
 				BC1CE29A2975634800F89B81 /* FilterSheetCoordinator.swift in Sources */,

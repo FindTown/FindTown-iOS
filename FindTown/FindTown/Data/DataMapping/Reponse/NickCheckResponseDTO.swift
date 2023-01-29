@@ -8,14 +8,14 @@
 import Foundation
 import FindTownNetwork
 
-struct NickCheckResponse: Response {
-    let existConfirm: ExistConfirm
+struct NickCheckResponseDTO: Response {
+    let existConfirm: ExistConfirmDTO
     
     enum CodingKeys: String, CodingKey {
         case existConfirm = "exist_confirm"
     }
 }
 
-struct ExistConfirm: Response {
+struct ExistConfirmDTO: Response {
     let existence: Bool
 }

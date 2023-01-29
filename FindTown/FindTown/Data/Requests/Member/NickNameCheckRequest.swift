@@ -14,7 +14,7 @@ struct NickNameCheckRequest: BaseRequest {
         self.parameters = parameters
     }
     
-    typealias ResponseType = NickCheckResponse
+    typealias ResponseType = NickCheckResponseDTO
     var path: String = "/app/members/check/nickname"
     var method: FindTownNetwork.HttpMethod = .get
     var headers: FindTownNetwork.HTTPHeaders = HTTPHeaders([.accept("*/*")])
