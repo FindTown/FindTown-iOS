@@ -14,6 +14,8 @@ import RxRelay
 
 protocol AgreePolicyViewModelType {
     func goToTabBar()
+    func dismiss()
+    func dismissAndGoToTabBar()
 }
 
 final class AgreePolicyViewModel: BaseViewModel {
@@ -95,10 +97,12 @@ extension AgreePolicyViewModel {
             do {
                 let token = try await self.authUseCase.signup(signupUerModel: signupUserModel)
                 await MainActor.run {
-                    self.goToTabBar()
+                    self.dismissAndGoToTabBar()
                 }
             } catch (let error) {
-                print(error)
+                await MainActor.run(body: {
+                    self.dismiss()
+                })
             }
             registerTask?.cancel()
         }
@@ -108,7 +112,14 @@ extension AgreePolicyViewModel {
 extension AgreePolicyViewModel: AgreePolicyViewModelType {
     
     func goToTabBar() {
-        print("signupUserModel \(signupUserModel)")
         delegate.goToTabBar()
+    }
+    
+    func dismiss() {
+        delegate.dismiss()
+    }
+    
+    func dismissAndGoToTabBar() {
+        delegate.dismissAndGoToTapBar()
     }
 }

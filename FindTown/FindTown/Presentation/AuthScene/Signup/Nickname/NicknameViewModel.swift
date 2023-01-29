@@ -14,6 +14,7 @@ import RxRelay
 
 protocol NicknameViewModelType {
     func goToLocationAndYears(_ signupUserModel: SignupUserModel)
+    func dismiss()
 }
 
 enum NicknameStatus {
@@ -119,6 +120,10 @@ extension NicknameViewModel {
 }
 
 extension NicknameViewModel: NicknameViewModelType {
+    func dismiss() {
+        delegate.dismiss()
+    }
+    
     func goToLocationAndYears(_ signupUserModel: SignupUserModel) {
         delegate.goToLocationAndYears(signupUserModel)
     }
