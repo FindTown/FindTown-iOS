@@ -28,6 +28,14 @@ public extension FlowCoordinator {
             let initScene = initScene()
             initScene.modalPresentationStyle = modalPresentationStyle
             self.navigationController?.present(initScene, animated: true, completion: nil)
+        case .presentFlow(navigationController: let navigationController, modalPresentationStyle: let modalPresentationStyle):
+            self.navigationController = navigationController
+            let initScene = initScene()
+            let modalNavigationController = BaseNavigationController(rootViewController: initScene)
+            modalNavigationController.modalPresentationStyle = modalPresentationStyle
+            self.navigationController?.present(modalNavigationController, animated: true) {
+                self.navigationController = modalNavigationController
+            }
         case .setViewController(navigationController: let navigationController):
             self.navigationController?.viewControllers = []
             let newNavigation = BaseNavigationController(rootViewController: initScene())
