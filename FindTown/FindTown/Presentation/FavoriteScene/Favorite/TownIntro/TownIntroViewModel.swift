@@ -14,6 +14,7 @@ final class TownIntroViewModel: BaseViewModel {
     struct Output {
         var townMoodDataSource = BehaviorSubject<[TownMood]>(value: [])
         var trafficDataSource = BehaviorSubject<[Traffic]>(value: [])
+        var hotPlaceDataSource = BehaviorSubject<[String]>(value: [])
     }
     
     let output = Output()
@@ -25,12 +26,14 @@ final class TownIntroViewModel: BaseViewModel {
     
     func bind() {
         
-        // 임시 데이터
+
         self.output.townMoodDataSource.onNext(returnTownMoodData())
         self.output.trafficDataSource.onNext(returnTrafficData())
+        self.output.hotPlaceDataSource.onNext(returnHotPlaceData())
     }
 }
 
+// 임시 데이터
 extension TownIntroViewModel {
     func returnTownMoodData() -> [TownMood] {
         let data =  ["배달시키기 좋은", "항상 사람이 많은", "교통정체가 심한", "번잡한","편의시설이 많은", "물가가 저렴한" ,"배달시키기 좋은", "번잡한"]
@@ -54,5 +57,9 @@ extension TownIntroViewModel {
             }
         }
         return trafficArray
+    }
+    
+    func returnHotPlaceData() -> [String] {
+        return ["타임 스트림", "신림 순대타운"]
     }
 }

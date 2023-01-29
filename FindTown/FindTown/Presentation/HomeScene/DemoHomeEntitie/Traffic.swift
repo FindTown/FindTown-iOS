@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum Traffic: String, CaseIterable {
+enum Traffic: CaseIterable {
     case one
     case two
     case three
