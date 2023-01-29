@@ -11,9 +11,9 @@ import FindTownUI
 final class TrafficTipView: UIView {
     
     private let trafficLabel = FindTownLabel(text: "1",
-                                      font: .body3,
-                                      textColor: .white,
-                                      textAlignment: .center)
+                                             font: .body3,
+                                             textColor: .white,
+                                             textAlignment: .center)
     
     convenience init(type: Traffic) {
         self.init(frame: .zero)

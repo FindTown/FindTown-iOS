@@ -20,25 +20,31 @@ final class TownIntroViewController: BaseViewController, UIScrollViewDelegate {
     
     // MARK: - Views
     
+    /// 소개
     private let townIntroView = UIView()
     private let townIntroTitleLabel = FindTownLabel(text: "어떤 동네인가요?", font: .subtitle4)
     private let townIntroLabel = FindTownLabel(text: "", font: .body4, textColor: .grey6, textAlignment: .left)
     
+    /// 동네 분위기
     private let townMoodView = UIView()
     private let townMoodTitleLabel = FindTownLabel(text: "동네 분위기", font: .subtitle4)
     private let townMoodCollectionView = TownMoodCollectionView()
     
+    /// 교통
     private let trafficView = UIView()
     private let trafficTitleLabel = FindTownLabel(text: "교통", font: .subtitle4)
     private let trafficNearLabel = FindTownLabel(text: "주변 지하철 노선", font: .body4)
     private let trafficTipStackView = UIStackView()
     
+    /// 숫자로 보는 동네
     private let townRankView = UIView()
     private let townRankTitleLabel = FindTownLabel(text: "숫자로 보는 동네", font: .subtitle4)
     private let townRankInfoButton = UIButton()
     private let townRankScrollView = UIScrollView()
     private let townRankStackView = UIStackView()
+    private let townRankInfoImageView = UIImageView()
     
+    /// 근처 핫플레이스
     private let hotPlaceView = UIView()
     private let hotPlaceTitleLabel = FindTownLabel(text: "근처 핫플레이스", font: .subtitle4)
     private let hotPlaceCollectionView = HotPlaceCollectionView()
@@ -56,20 +62,18 @@ final class TownIntroViewController: BaseViewController, UIScrollViewDelegate {
     
     // MARK: - Functions
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+    }
+    
     override func setupView() {
-        self.title = "관악구 신림동"
         self.view.backgroundColor = FindTownColor.grey1.color
         self.stackView.spacing = 11
         
         [townIntroView, townMoodView, trafficView, townRankView, hotPlaceView].forEach {
             $0.backgroundColor = FindTownColor.white.color
         }
-        
-//        [townRankView].forEach {
-//            $0.heightAnchor.constraint(equalToConstant: 200).isActive = true
-//        }
-        
-        townIntroLabel.text = "신림동은 20대 1인가구가 많이 살고 있어요."
+    
         townRankInfoButton.setImage(UIImage(named: "Icon_Information"), for: .normal)
         townRankInfoButton.addTarget(self, action: #selector(tapTownRankInfoBtn), for: .touchUpInside)
         
@@ -79,6 +83,13 @@ final class TownIntroViewController: BaseViewController, UIScrollViewDelegate {
         townRankScrollView.showsHorizontalScrollIndicator = false
         townRankStackView.axis = .horizontal
         townRankStackView.spacing = 12
+        townRankInfoImageView.image = UIImage(named: "townRankToolTip")
+        townRankInfoImageView.isHidden = true
+        townRankInfoButton.changesSelectionAsPrimaryAction = true
+        
+        /// 임시 텍스트
+        self.title = "관악구 신림동"
+        townIntroLabel.text = "신림동은 20대 1인가구가 많이 살고 있어요."
     }
     
     override func addView() {
@@ -104,7 +115,7 @@ final class TownIntroViewController: BaseViewController, UIScrollViewDelegate {
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
         
-        [townRankTitleLabel, townRankInfoButton, townRankScrollView].forEach {
+        [townRankTitleLabel, townRankInfoButton, townRankScrollView, townRankInfoImageView].forEach {
             townRankView.addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
@@ -166,6 +177,9 @@ final class TownIntroViewController: BaseViewController, UIScrollViewDelegate {
             townRankStackView.leadingAnchor.constraint(equalTo: townRankScrollView.contentLayoutGuide.leadingAnchor),
             townRankStackView.trailingAnchor.constraint(equalTo: townRankScrollView.contentLayoutGuide.trailingAnchor),
             townRankStackView.bottomAnchor.constraint(equalTo: townRankScrollView.contentLayoutGuide.bottomAnchor),
+            
+            townRankInfoImageView.topAnchor.constraint(equalTo: townRankInfoButton.bottomAnchor, constant: 4.0),
+            townRankInfoImageView.leadingAnchor.constraint(equalTo: townRankTitleLabel.leadingAnchor)
         ])
         
         NSLayoutConstraint.activate([
@@ -177,10 +191,6 @@ final class TownIntroViewController: BaseViewController, UIScrollViewDelegate {
             hotPlaceCollectionView.trailingAnchor.constraint(equalTo: hotPlaceView.trailingAnchor, constant: -16.0),
             hotPlaceCollectionView.bottomAnchor.constraint(equalTo: hotPlaceView.bottomAnchor, constant: -32.0)
         ])
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
     }
     
     override func bindViewModel() {
@@ -226,7 +236,8 @@ final class TownIntroViewController: BaseViewController, UIScrollViewDelegate {
 }
 
 private extension TownIntroViewController {
+    
     @objc func tapTownRankInfoBtn() {
-        
+        townRankInfoImageView.isHidden = !townRankInfoButton.isSelected
     }
 }
