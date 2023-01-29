@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum Traffic: CaseIterable {
+enum Traffic: String, CaseIterable {
     case one
     case two
     case three
@@ -57,5 +57,44 @@ enum Traffic: CaseIterable {
         case .uisinseol:
             return "우이신설"
         }
+    }
+    
+    var shortDescription: String {
+        switch self {
+        case .one:
+            return "1"
+        case .two:
+            return "2"
+        case .three:
+            return "3"
+        case .four:
+            return "4"
+        case .five:
+            return "5"
+        case .six:
+            return "6"
+        case .seven:
+            return "7"
+        case .eight:
+            return "8"
+        case .nine:
+            return "9"
+        case .gyeonguijungang:
+            return "경의중앙"
+        case .gonghangcheoldo:
+            return "공항철도"
+        case .suinbundang:
+            return "수인분당"
+        case .sinrimseon:
+            return "신림선"
+        case .sinbundang:
+            return "신분당"
+        case .uisinseol:
+            return "우이신설"
+        }
+    }
+    
+    static func returnTrafficType(_ traffic: String) -> Traffic? {
+        return self.allCases.first { $0.shortDescription == traffic }
     }
 }
