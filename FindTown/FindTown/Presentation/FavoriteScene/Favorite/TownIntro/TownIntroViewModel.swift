@@ -15,6 +15,7 @@ final class TownIntroViewModel: BaseViewModel {
         var townMoodDataSource = BehaviorSubject<[TownMood]>(value: [])
         var trafficDataSource = BehaviorSubject<[Traffic]>(value: [])
         var hotPlaceDataSource = BehaviorSubject<[String]>(value: [])
+        var townRankDataSource = BehaviorSubject<[(String,Any)]>(value: [])
     }
     
     let output = Output()
@@ -25,11 +26,10 @@ final class TownIntroViewModel: BaseViewModel {
     }
     
     func bind() {
-        
-
         self.output.townMoodDataSource.onNext(returnTownMoodData())
         self.output.trafficDataSource.onNext(returnTrafficData())
         self.output.hotPlaceDataSource.onNext(returnHotPlaceData())
+        self.output.townRankDataSource.onNext(returnTownRankData())
     }
 }
 
@@ -61,5 +61,37 @@ extension TownIntroViewModel {
     
     func returnHotPlaceData() -> [String] {
         return ["타임 스트림", "신림 순대타운"]
+    }
+    
+    func returnTownRankData() -> [(String,Any)] {
+        let test = Essential()
+        return test.toArray()
+    }
+}
+
+struct Essential: Encodable {
+    var test1 = "1"
+    var test2 = "1"
+    var test3 = "1"
+    var test4 = "1"
+    var test5 = ["30대 1인가구","2"]
+    var test6 = "TOP 10"
+    var test7 = "안심보안관 활동지"
+    
+    func toArray() -> [(String, Any)] {
+        var array = [(String, Any)]()
+        let otherSelf = Mirror(reflecting: self)
+        
+        for child in otherSelf.children {
+            if let key = child.label {
+                switch child.value {
+                case Optional<Any>.some(let value):
+                    array.append((key, value))
+                default:
+                    continue
+                }
+            }
+        }
+        return array
     }
 }

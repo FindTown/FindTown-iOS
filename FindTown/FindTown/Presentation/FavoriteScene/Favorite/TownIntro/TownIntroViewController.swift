@@ -36,6 +36,8 @@ final class TownIntroViewController: BaseViewController, UIScrollViewDelegate {
     private let townRankView = UIView()
     private let townRankTitleLabel = FindTownLabel(text: "숫자로 보는 동네", font: .subtitle4)
     private let townRankInfoButton = UIButton()
+    private let townRankScrollView = UIScrollView()
+    private let townRankStackView = UIStackView()
     
     private let hotPlaceView = UIView()
     private let hotPlaceTitleLabel = FindTownLabel(text: "근처 핫플레이스", font: .subtitle4)
@@ -63,9 +65,9 @@ final class TownIntroViewController: BaseViewController, UIScrollViewDelegate {
             $0.backgroundColor = FindTownColor.white.color
         }
         
-        [townRankView].forEach {
-            $0.heightAnchor.constraint(equalToConstant: 200).isActive = true
-        }
+//        [townRankView].forEach {
+//            $0.heightAnchor.constraint(equalToConstant: 200).isActive = true
+//        }
         
         townIntroLabel.text = "신림동은 20대 1인가구가 많이 살고 있어요."
         townRankInfoButton.setImage(UIImage(named: "Icon_Information"), for: .normal)
@@ -73,6 +75,10 @@ final class TownIntroViewController: BaseViewController, UIScrollViewDelegate {
         
         trafficTipStackView.axis = .horizontal
         trafficTipStackView.spacing = 4
+        
+        townRankScrollView.showsHorizontalScrollIndicator = false
+        townRankStackView.axis = .horizontal
+        townRankStackView.spacing = 12
     }
     
     override func addView() {
@@ -98,10 +104,13 @@ final class TownIntroViewController: BaseViewController, UIScrollViewDelegate {
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
         
-        [townRankTitleLabel, townRankInfoButton].forEach {
+        [townRankTitleLabel, townRankInfoButton, townRankScrollView].forEach {
             townRankView.addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
+        
+        townRankScrollView.addSubview(townRankStackView)
+        townRankStackView.translatesAutoresizingMaskIntoConstraints = false
         
         [hotPlaceTitleLabel, hotPlaceCollectionView].forEach {
             hotPlaceView.addSubview($0)
@@ -145,7 +154,18 @@ final class TownIntroViewController: BaseViewController, UIScrollViewDelegate {
             townRankTitleLabel.topAnchor.constraint(equalTo: townRankView.topAnchor, constant: 33),
             townRankTitleLabel.leadingAnchor.constraint(equalTo: townRankView.leadingAnchor, constant: 16.0),
             townRankInfoButton.leadingAnchor.constraint(equalTo: townRankTitleLabel.trailingAnchor, constant: 8.0),
-            townRankInfoButton.centerYAnchor.constraint(equalTo: townRankTitleLabel.centerYAnchor)
+            townRankInfoButton.centerYAnchor.constraint(equalTo: townRankTitleLabel.centerYAnchor),
+            townRankScrollView.topAnchor.constraint(equalTo: townRankTitleLabel.bottomAnchor, constant: 12.0),
+            townRankScrollView.leadingAnchor.constraint(equalTo: townRankTitleLabel.leadingAnchor),
+            townRankScrollView.centerXAnchor.constraint(equalTo: townRankView.centerXAnchor),
+            townRankScrollView.heightAnchor.constraint(equalToConstant: 118.0),
+            townRankScrollView.bottomAnchor.constraint(equalTo: townRankView.bottomAnchor, constant: -32.0),
+            
+            townRankStackView.heightAnchor.constraint(equalTo: townRankScrollView.frameLayoutGuide.heightAnchor),
+            townRankStackView.topAnchor.constraint(equalTo: townRankScrollView.contentLayoutGuide.topAnchor),
+            townRankStackView.leadingAnchor.constraint(equalTo: townRankScrollView.contentLayoutGuide.leadingAnchor),
+            townRankStackView.trailingAnchor.constraint(equalTo: townRankScrollView.contentLayoutGuide.trailingAnchor),
+            townRankStackView.bottomAnchor.constraint(equalTo: townRankScrollView.contentLayoutGuide.bottomAnchor),
         ])
         
         NSLayoutConstraint.activate([
@@ -179,7 +199,6 @@ final class TownIntroViewController: BaseViewController, UIScrollViewDelegate {
         viewModel?.output.trafficDataSource
             .observe(on: MainScheduler.instance)
             .subscribe(onNext: { traffics in
-                
                 for traffic in traffics {
                     let trafficTip = TrafficTipView(type: traffic)
                     self.trafficTipStackView.addArrangedSubview(trafficTip)
@@ -192,6 +211,16 @@ final class TownIntroViewController: BaseViewController, UIScrollViewDelegate {
             .bind(to: hotPlaceCollectionView.rx.items(cellIdentifier: HotPlaceCollectionViewCell.reuseIdentifier, cellType: HotPlaceCollectionViewCell.self)) { index, item, cell in
                 cell.setupCell(item)
             }
+            .disposed(by: disposeBag)
+        
+        viewModel?.output.townRankDataSource
+            .observe(on: MainScheduler.instance)
+            .subscribe(onNext:  { dataList in
+                for data in dataList {
+                    let rankView = TownRankView(data: data)
+                    self.townRankStackView.addArrangedSubview(rankView)
+                }
+            })
             .disposed(by: disposeBag)
     }
 }
