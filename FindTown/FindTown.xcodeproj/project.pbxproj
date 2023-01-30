@@ -348,6 +348,14 @@
 			path = TownRank;
 			sourceTree = "<group>";
 		};
+		2B628DF62987803100A90D9A /* TownIntroScene */ = {
+			isa = PBXGroup;
+			children = (
+				2B628DD32986507B00A90D9A /* TownIntro */,
+			);
+			path = TownIntroScene;
+			sourceTree = "<group>";
+		};
 		2BEE90BE2977F806002E7C3A /* FavoriteScene */ = {
 			isa = PBXGroup;
 			children = (
@@ -362,7 +370,6 @@
 			children = (
 				2BEE90C42977F90A002E7C3A /* FavoriteViewController.swift */,
 				2BEE90C82977F93E002E7C3A /* FavoriteViewModel.swift */,
-				2B628DD32986507B00A90D9A /* TownIntro */,
 				2BEE90CD2977FDE3002E7C3A /* SubViews */,
 			);
 			path = Favorite;
@@ -564,6 +571,7 @@
 		BC6EFB75293B9C3800AB3332 /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				2B628DF62987803100A90D9A /* TownIntroScene */,
 				BC04A6D7296FBC7900B60BCF /* Utils */,
 				BC056C512962B03B00EDCA18 /* AuthScene */,
 				F38CCBD92958287C000C16AF /* HomeScene */,
