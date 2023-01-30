@@ -22,12 +22,6 @@ final class FavoriteCoordinator: FlowCoordinator {
         let favoriteViewModel = FavoriteViewModel(delegate: self)
         return FavoriteViewController(viewModel: favoriteViewModel)
     }
-    
-    internal func goToTownIntroScene() -> UIViewController {
-        let townIntroViewModel = TownIntroViewModel()
-        let townIntroController = TownIntroViewController(viewModel: townIntroViewModel)
-        return townIntroController
-    }
 }
 
 extension FavoriteCoordinator: FavoriteViewModelDelegate {
@@ -39,6 +33,6 @@ extension FavoriteCoordinator: FavoriteViewModelDelegate {
     
     func goToTownIntro() {
         guard let navigationController = navigationController else { return }
-        navigationController.pushViewController(goToTownIntroScene(), animated: true)
+        TownIntroCoordinator(presentationStyle: .push(navigationController: navigationController)).start()
     }
 }
