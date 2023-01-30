@@ -33,6 +33,6 @@ extension FavoriteCoordinator: FavoriteViewModelDelegate {
     
     func goToTownIntro() {
         guard let navigationController = navigationController else { return }
-        navigationController.pushViewController(TownIntroViewController(viewModel: TownIntroViewModel()), animated: true)
+        TownIntroCoordinator(presentationStyle: .push(navigationController: navigationController)).start()
     }
 }

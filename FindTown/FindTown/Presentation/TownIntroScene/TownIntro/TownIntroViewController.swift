@@ -67,7 +67,7 @@ final class TownIntroViewController: BaseViewController, UIScrollViewDelegate {
     }
     
     override func setupView() {
-        self.view.backgroundColor = FindTownColor.grey1.color
+        self.stackView.backgroundColor = FindTownColor.grey1.color
         self.stackView.spacing = 11
         
         [townIntroView, townMoodView, trafficView, townRankView, hotPlaceView].forEach {

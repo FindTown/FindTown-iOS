@@ -9,7 +9,13 @@ import Foundation
 import FindTownCore
 import RxSwift
 
+protocol TownIntroViewModelDelegate {
+
+}
+
 final class TownIntroViewModel: BaseViewModel {
+    
+    let delegate: TownIntroViewModelDelegate
     
     struct Output {
         var townMoodDataSource = BehaviorSubject<[TownMood]>(value: [])
@@ -20,7 +26,8 @@ final class TownIntroViewModel: BaseViewModel {
     
     let output = Output()
     
-    override init() {    
+    init(delegate: TownIntroViewModelDelegate) {
+        self.delegate = delegate
         super.init()
         self.bind()
     }
