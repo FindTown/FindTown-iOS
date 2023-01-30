@@ -19,6 +19,7 @@
 		2B628DE92986909700A90D9A /* HotPlaceCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B628DE82986909700A90D9A /* HotPlaceCollectionViewLayout.swift */; };
 		2B628DEB298690A800A90D9A /* HotPlaceCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B628DEA298690A800A90D9A /* HotPlaceCollectionViewCell.swift */; };
 		2B628DF529869F0C00A90D9A /* TownRankView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B628DF429869F0B00A90D9A /* TownRankView.swift */; };
+		2B628DF82987853300A90D9A /* TownRank.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B628DF72987853300A90D9A /* TownRank.swift */; };
 		2B718C182966A5930068884A /* MapCategoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B718C172966A5930068884A /* MapCategoryCollectionViewCell.swift */; };
 		2B718C1A2966A6000068884A /* MapCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B718C192966A6000068884A /* MapCategory.swift */; };
 		2BEE90C52977F90A002E7C3A /* FavoriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BEE90C42977F90A002E7C3A /* FavoriteViewController.swift */; };
@@ -154,6 +155,7 @@
 		2B628DE82986909700A90D9A /* HotPlaceCollectionViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotPlaceCollectionViewLayout.swift; sourceTree = "<group>"; };
 		2B628DEA298690A800A90D9A /* HotPlaceCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotPlaceCollectionViewCell.swift; sourceTree = "<group>"; };
 		2B628DF429869F0B00A90D9A /* TownRankView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TownRankView.swift; sourceTree = "<group>"; };
+		2B628DF72987853300A90D9A /* TownRank.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TownRank.swift; sourceTree = "<group>"; };
 		2B718C172966A5930068884A /* MapCategoryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapCategoryCollectionViewCell.swift; sourceTree = "<group>"; };
 		2B718C192966A6000068884A /* MapCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapCategory.swift; sourceTree = "<group>"; };
 		2BEE90C42977F90A002E7C3A /* FavoriteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteViewController.swift; sourceTree = "<group>"; };
@@ -670,6 +672,7 @@
 				F39EDDC1296D635100A4E655 /* CityType.swift */,
 				F39EDDC3296D667800A4E655 /* County.swift */,
 				2B628DE3298675C400A90D9A /* TownMood.swift */,
+				2B628DF72987853300A90D9A /* TownRank.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -988,6 +991,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2B628DEB298690A800A90D9A /* HotPlaceCollectionViewCell.swift in Sources */,
+				2B628DF82987853300A90D9A /* TownRank.swift in Sources */,
 				2B628DE72986908600A90D9A /* HotPlaceCollectionView.swift in Sources */,
 				2BEE90CC2977F975002E7C3A /* FavoriteCoordinator.swift in Sources */,
 				F39EDDCC296D7A1800A4E655 /* CategoryCollectionView.swift in Sources */,

@@ -17,53 +17,31 @@ final class TownRankView: UIView {
     private let leftTextLabel = FindTownLabel(text: "", font: .body3, textColor: .grey6)
     private let rightTextLabel = FindTownLabel(text: "등급", font: .body2, textColor: .grey7)
     
-    convenience init(data: (String,Any)) {
+    convenience init(data: (TownRank,Any)) {
         self.init(frame: .zero)
+        rankImageView.image = data.0.image
+        rankTitleLabel.text = data.0.description
         
         switch data.0 {
-        /// 생활 안전 지수
-        case "test1":
-            rankImageView.image = UIImage(named: "Policy")
-            rankTitleLabel.text = "생활 안전 지수"
+        case .lifeSafety:
             numberLabel.text = "\(data.1)"
-        /// 범죄 지수
-        case "test2":
-            rankImageView.image = UIImage(named: "Warning")
-            rankTitleLabel.text = "범죄 지수"
+        case .crime:
             numberLabel.text = "\(data.1)"
-        /// 교통 지수
-        case "test3":
-            rankImageView.image = UIImage(named: "Local taxi")
-            rankTitleLabel.text = "교통 지수"
+        case .traffic:
             numberLabel.text = "\(data.1)"
-        ///  살기 좋은 동네
-        case "test4":
-            rankImageView.image = UIImage(named: "Emoji emotions")
-            rankTitleLabel.text = "살기 좋은 동네"
+        case .livable:
+            numberLabel.text = "\(data.1)"
             rightTextLabel.text = "순위"
-            numberLabel.text = "\(data.1)"
-        ///  인기 동네
-        case "test5":
-            rankImageView.image = UIImage(named: "Home work")
-            rankTitleLabel.text = "인기 동네"
+        case .popular:
             rightTextLabel.text = "위"
-            
             guard let dic = data.1 as? [String] else { return }
             leftTextLabel.text = dic[0]
             numberLabel.text = dic[1]
-        /// 청결도
-        case "test6":
-            rankImageView.image = UIImage(named: "Eco")
-            rankTitleLabel.text = "청결도"
+        case .clean:
             numberLabel.text = "\(data.1)"
             rightTextLabel.text = ""
-        /// 치안
-        case "test7":
-            rankImageView.image = UIImage(named: "Policy-2")
-            rankTitleLabel.text = "치안"
+        case .safety:
             rightTextLabel.text = "\(data.1)"
-        default:
-            print("nothing matches")
         }
     }
     
