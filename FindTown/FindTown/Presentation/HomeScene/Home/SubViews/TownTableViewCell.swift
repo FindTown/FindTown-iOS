@@ -17,6 +17,8 @@ final class TownTableViewCell: UITableViewCell {
         return String(describing: self)
     }
     
+    var introduceBtnAction: (() -> ())?
+    
     // MARK: Views
     
     private let townIconView = UIView()
@@ -42,6 +44,7 @@ final class TownTableViewCell: UITableViewCell {
     
     private let introduceBtn = FTButton(style: .mediumFilled)
     private let mapBtn = FTButton(style: .mediumTintedWithRadius)
+    
     
     // MARK: - Life Cycle
     
@@ -136,11 +139,17 @@ final class TownTableViewCell: UITableViewCell {
                                           blur: 10.0, spread: 0, alpha: 0.4)
         
         selectionStyle = .none
+        
+        introduceBtn.addTarget(self, action: #selector(tapIntroduceBtn), for: .touchUpInside)
     }
     
     func setupCell(_ model: Any) {
         guard let model = model as? townModelTest else { return }
         townTitle.text = model.dong
         townIntroduceTitle.text = model.introduce
+    }
+    
+    @objc func tapIntroduceBtn() {
+        introduceBtnAction?()
     }
 }

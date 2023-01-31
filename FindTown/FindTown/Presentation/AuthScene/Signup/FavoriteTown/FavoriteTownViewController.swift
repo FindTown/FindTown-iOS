@@ -137,7 +137,7 @@ final class FavoriteTownViewController: BaseViewController {
             .throttle(.milliseconds(300), scheduler: MainScheduler.instance)
             .bind { [weak self] in
                 let splitValue = $0?.split(separator: " ").first
-                guard let splitValue ,
+                guard let splitValue = splitValue,
                 let county = County(rawValue: String(splitValue)) else { return }
                 self?.viewModel?.input.county.onNext(county)
                 self?.dongDropDown.reloadData(data: ["동 (선택)"] + county.villages.map { $0.rawValue })
@@ -148,7 +148,7 @@ final class FavoriteTownViewController: BaseViewController {
             .throttle(.milliseconds(300), scheduler: MainScheduler.instance)
             .bind { [weak self] in
                 let splitValue = $0?.split(separator: " ").first
-                guard let splitValue else { return }
+                guard let splitValue = splitValue else { return }
                 self?.viewModel?.input.village.onNext(Village(rawValue: String(splitValue)))
             }
             .disposed(by: disposeBag)
