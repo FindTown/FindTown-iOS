@@ -20,13 +20,19 @@ final class HomeViewController: BaseViewController {
     
     // MARK: - Views
     
+    private let tableViewHeaderView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .vertical
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        return stackView
+    }()
+    
     private let tempLogo = FindTownLabel(text: "LOGO", font: .subtitle1, textColor: .primary)
     private let searchButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(named: "search"), for: .normal)
         return button
     }()
-    private let topEmptyView = UIView()
     
     private let dongSearchTitle = FindTownLabel(text: "나에게 맞는 동네 찾기", font: .headLine3)
     
@@ -63,14 +69,15 @@ final class HomeViewController: BaseViewController {
         return stackView
     }()
     
-    private let townTableView = TownTableView()
-    
-    private let townListBackgroundView: UIStackView = {
+    private let townListTitleAndSafeScoreView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
         stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.spacing = 10
         return stackView
     }()
+    
+    private let townTableView = TownTableView()
     
     // MARK: - Life Cycle
     
@@ -90,8 +97,6 @@ final class HomeViewController: BaseViewController {
     // MARK: - Functions
     
     override func addView() {
-        super.addView()
-        
         [filterResetButton, filterButton, filterCollectionView].forEach {
             filterStackView.addArrangedSubview($0)
         }
@@ -104,46 +109,52 @@ final class HomeViewController: BaseViewController {
             safetyScoreStackView.addArrangedSubview($0)
         }
         
-        [townListAndCountStackView, safetyScoreStackView, townTableView].forEach {
-            townListBackgroundView.addArrangedSubview($0)
+        [townListAndCountStackView, safetyScoreStackView].forEach {
+            townListTitleAndSafeScoreView.addArrangedSubview($0)
         }
         
-        [topEmptyView, dongSearchTitle, filterStackView, townListBackgroundView].forEach {
-            self.stackView.addArrangedSubview($0)
+        [dongSearchTitle, filterStackView, townListTitleAndSafeScoreView].forEach {
+            self.tableViewHeaderView.addArrangedSubview($0)
         }
+        
+        view.addSubview(townTableView)
+        townTableView.tableHeaderView = tableViewHeaderView
     }
     
     override func setLayout() {
-        super.setLayout()
-        
-        stackView.layoutMargins = UIEdgeInsets(top: 46, left: 0, bottom: 0, right: 0)
-        stackView.isLayoutMarginsRelativeArrangement = true
-        
-        stackView.setCustomSpacing(16, after: dongSearchTitle)
-        stackView.setCustomSpacing(40, after: filterStackView)
-        
-        townListBackgroundView.setCustomSpacing(16, after: townListAndCountStackView)
-        townListBackgroundView.setCustomSpacing(10, after: safetyScoreStackView)
-        
-        townListBackgroundView.layoutMargins = UIEdgeInsets(top: 24, left: 0, bottom: 16, right: 0)
-        townListBackgroundView.isLayoutMarginsRelativeArrangement = true
-        
-        [filterStackView, townListAndCountStackView, safetyScoreStackView].forEach {
-            $0.layoutMargins = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
-            $0.isLayoutMarginsRelativeArrangement = true
-        }
-        
-        dongSearchTitle.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            dongSearchTitle.leadingAnchor.constraint(equalTo: stackView.leadingAnchor, constant: 16)
+            tableViewHeaderView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            tableViewHeaderView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
-    }
-    
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
+        
         NSLayoutConstraint.activate([
-            townTableView.heightAnchor.constraint(equalToConstant: townTableView.contentSize.height),
+            dongSearchTitle.topAnchor.constraint(equalTo: tableViewHeaderView.topAnchor, constant: 56),
+            dongSearchTitle.leadingAnchor.constraint(equalTo: tableViewHeaderView.leadingAnchor, constant: 16)
         ])
+        
+        NSLayoutConstraint.activate([
+            filterStackView.leadingAnchor.constraint(equalTo: tableViewHeaderView.leadingAnchor, constant: 16),
+            filterStackView.trailingAnchor.constraint(equalTo: tableViewHeaderView.trailingAnchor, constant: -16),
+        ])
+        
+        NSLayoutConstraint.activate([
+            townListTitleAndSafeScoreView.leadingAnchor.constraint(equalTo: tableViewHeaderView.leadingAnchor),
+            townListTitleAndSafeScoreView.trailingAnchor.constraint(equalTo: tableViewHeaderView.trailingAnchor),
+        ])
+        
+        tableViewHeaderView.setCustomSpacing(16, after: dongSearchTitle)
+        tableViewHeaderView.setCustomSpacing(40, after: filterStackView)
+        
+        townListTitleAndSafeScoreView.layoutMargins = UIEdgeInsets(top: 24, left: 16, bottom: 0, right: 16)
+        townListTitleAndSafeScoreView.isLayoutMarginsRelativeArrangement = true
+        
+        NSLayoutConstraint.activate([
+            townTableView.topAnchor.constraint(equalTo: view.topAnchor),
+            townTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            townTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            townTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+        ])
+        tableViewHeaderView.layoutIfNeeded()
     }
     
     override func setupView() {
@@ -164,7 +175,7 @@ final class HomeViewController: BaseViewController {
         filterButton.configuration?.contentInsets.trailing = 12
         filterButton.setTitleColor(FindTownColor.black.color, for: .normal)
         
-        townListBackgroundView.backgroundColor = FindTownColor.back2.color
+        townListTitleAndSafeScoreView.backgroundColor = FindTownColor.back2.color
         
         townTableView.rowHeight = 150
         townTableView.estimatedRowHeight = 150
@@ -174,6 +185,14 @@ final class HomeViewController: BaseViewController {
         
         filterCollectionView.rx.setDelegate(self)
             .disposed(by: disposeBag)
+        
+        //        viewModel?.input.nextPageTrigger.onNext(())
+        
+        //        townTableView.rx.reachedBottom(offset: 60)
+        //            .bind {
+        //                self.viewModel?.input.nextPageTrigger.onNext(())
+        //            }
+        //            .disposed(by: disposeBag)
         
         // Input
         
@@ -212,8 +231,8 @@ final class HomeViewController: BaseViewController {
                 }.disposed(by: disposeBag)
         
         viewModel?.output.searchTownTableDataSource
-            .observe(on: MainScheduler.instance)
-            .bind(to: townTableView.rx.items(
+            .asDriver(onErrorJustReturn: [])
+            .drive(townTableView.rx.items(
                 cellIdentifier: TownTableViewCell.reuseIdentifier,
                 cellType: TownTableViewCell.self)) { index, item, cell in
                     
@@ -222,8 +241,8 @@ final class HomeViewController: BaseViewController {
                 }.disposed(by: disposeBag)
         
         viewModel?.output.searchTownTableDataSource
-            .observe(on: MainScheduler.instance)
-            .bind { [weak self] in
+            .asDriver(onErrorJustReturn: [])
+            .drive { [weak self] in
                 self?.townCountTitle.text = "\($0.count)개 동네"
             }
             .disposed(by: disposeBag)
@@ -260,5 +279,20 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout {
             ).width + 40, height: 40)
         }
         return CGSize(width: 100, height: 40)
+    }
+}
+
+extension Reactive where Base: UIScrollView {
+    func reachedBottom(offset: CGFloat = 0.0) -> ControlEvent<Void> {
+        let source = contentOffset.map { contentOffset in
+            let visibleHeight = self.base.frame.height - self.base.contentInset.top - self.base.contentInset.bottom
+            let y = contentOffset.y + self.base.contentInset.top
+            let threshold = max(offset, self.base.contentSize.height - visibleHeight)
+            return y >= threshold
+        }
+            .distinctUntilChanged()
+            .filter { $0 }
+            .map { _ in () }
+        return ControlEvent(events: source)
     }
 }
