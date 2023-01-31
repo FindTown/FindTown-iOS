@@ -121,10 +121,11 @@ open class BaseBottomSheetViewController: BaseViewController {
             UIView.animate(withDuration: 0.25, delay: 0, options: .curveEaseIn, animations: {
                 self.dimmedBackView.alpha = 0.0
                 self.view.layoutIfNeeded()
+            }) { _ in
                 if self.presentingViewController != nil {
                     self.dismiss(animated: false, completion: nil)
                 }
-            })
+            }
         }
     }
     
