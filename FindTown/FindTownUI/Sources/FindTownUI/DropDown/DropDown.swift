@@ -151,6 +151,13 @@ extension DropDown: UITableViewDelegate, UITableViewDataSource {
         
         shadowView.alpha = 0
     }
+    
+    public func reloadData(data: [String]) {
+        DispatchQueue.main.async {
+            self.dataSource = data
+            self.tableView.reloadData()
+        }
+    }
 }
 
 

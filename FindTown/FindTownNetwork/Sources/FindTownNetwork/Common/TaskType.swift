@@ -11,5 +11,4 @@ public enum TaskType {
     case requestPlain
     case requestData(Data)
     case requestJSONEncodable(encodable: Encodable)
-    case requestCustomJSONEncodable(encodable: Encodable, encoder: JSONEncoder)
 }

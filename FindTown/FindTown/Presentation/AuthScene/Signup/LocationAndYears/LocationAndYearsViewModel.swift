@@ -18,7 +18,7 @@ protocol LocationAndYearsViewModelType {
 final class LocationAndYearsViewModel: BaseViewModel {
     
     struct Input {
-        let dong = PublishSubject<String>()
+        let address = PublishSubject<String>()
         let year = BehaviorSubject<Int>(value: 0)
         let month = BehaviorSubject<Int>(value: 1)
         
@@ -56,24 +56,25 @@ final class LocationAndYearsViewModel: BaseViewModel {
             .bind(onNext: setDongYearMonth)
             .disposed(by: disposeBag)
         
-        Observable.combineLatest(input.dong, input.year, input.month)
-            .bind { [weak self] (dong, year, month) in
+        Observable.combineLatest(input.address, input.year, input.month)
+            .bind { [weak self] (address, year, month) in
                 self?.output.nextButtonEnabled.accept(true)
-                let model = DongYearMonth(dong: dong, year: year, month: month)
+                let model = DongYearMonth(dong: address, year: year, month: month)
                 self?.input.dongYearMonth.onNext(model)
             }
             .disposed(by: disposeBag)
     }
     
     private func setDongYearMonth(dongYearMonth: DongYearMonth) {
-        // 1. dongYearMonth 임시로 set
-        print("dongYearMonth \(dongYearMonth)")
+
+        // TODO: address
+        signupUserModel.resident.residentYear = dongYearMonth.year
+        signupUserModel.resident.residentMonth = dongYearMonth.month
+        signupUserModel.resident.residentAddress = dongYearMonth.dong
         
         if dongYearMonth.dong == "" {
             self.output.nextButtonEnabled.accept(false)
         } else {
-            // 2. after goToTwonMood
-            signupUserModel.dongYearMonth = dongYearMonth
             self.goToTownMood(signupUserModel)
         }
     }

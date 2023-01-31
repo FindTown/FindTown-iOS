@@ -18,10 +18,9 @@ protocol FavoriteTownViewModelType {
 final class FavoriteTownViewModel: BaseViewModel {
     
     struct Input {
-        let jachigu = BehaviorSubject<String>(value: "자치구")
-        let dong = BehaviorSubject<String>(value: "동")
-        
-        let jachiguDong = PublishSubject<JachiguDong>()
+        let county = BehaviorSubject<County?>(value: nil)
+        let village = BehaviorSubject<Village?>(value: nil)
+        let cityCode = BehaviorSubject<Int?>(value: nil)
         let nextButtonTrigger = PublishSubject<Void>()
     }
     
@@ -48,28 +47,29 @@ final class FavoriteTownViewModel: BaseViewModel {
     func bind() {
         
         self.input.nextButtonTrigger
-            .withLatestFrom(input.jachiguDong)
+            .withLatestFrom(input.cityCode)
             .bind(onNext: setFavorite)
             .disposed(by: disposeBag)
         
-        Observable.combineLatest(input.jachigu, input.dong)
-            .map { (jachigu, dong) in
-                self.input.jachiguDong.onNext(JachiguDong(jachigu: jachigu, dong: dong))
-                return (jachigu != "자치구" && dong != "동")
-            }
-            .bind { [weak self] in
-                self?.output.buttonsSelected.accept($0)
+        Observable.combineLatest(input.county, input.village)
+            .bind { [weak self] (county, village) in
+                if let county = county,
+                      let village = village,
+                      let cityCode = CityCode(county: county, village: village)?.rawValue {
+                    self?.input.cityCode.onNext(cityCode)
+                    self?.output.buttonsSelected.accept(true)
+                } else {
+                    self?.output.buttonsSelected.accept(false)
+                }
             }
             .disposed(by: disposeBag)
     }
     
-    private func setFavorite(jachiguDong: JachiguDong) {
-        // 1. favorite 임시로 set
-        print("jachigu \(jachiguDong.jachigu)")
-        print("dong \(jachiguDong.dong)")
-        
-        // 2. after goToLocationAndYears
-        signupUserModel.jachiguDong = jachiguDong
+    private func setFavorite(cityCode: Int?) {
+        if let cityCode = cityCode {
+            signupUserModel.objectId = cityCode
+        }
+    
         self.goToAgreePolicy(signupUserModel)
     }
 }

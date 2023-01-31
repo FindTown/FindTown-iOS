@@ -12,7 +12,7 @@ import RxSwift
 
 protocol LoginViewModelType {
     func goToTabBar()
-    func goToNickname()
+    func goToNickname(userData: SigninUserModel, providerType: ProviderType)
 }
 
 final class LoginViewModel: BaseViewModel {
@@ -24,24 +24,28 @@ final class LoginViewModel: BaseViewModel {
     }
     
     struct Output {
-        let signinOutput = PublishSubject<SigninRequest>()
+//        let signinOutput = PublishSubject<SigninRequest>()
     }
     
     let input = Input()
     var output = Output()
     
     let delegate: LoginViewModelDelegate
-    var userDefaults: UserDefaultUtil
-    let kakaoManager: SigninManagerProtocol
+    
+    // MARK: - UseCase
+    
+    let authUseCase: AuthUseCase
+    
+    // MARK: - Task
+    
+    private var loginTask: Task<Void, Error>?
     
     init(
         delegate: LoginViewModelDelegate,
-        userDefaults: UserDefaultUtil,
-        kakaoManager: SigninManagerProtocol
+        authUseCase: AuthUseCase
     ) {
         self.delegate = delegate
-        self.userDefaults = userDefaults
-        self.kakaoManager = kakaoManager
+        self.authUseCase = authUseCase
         
         super.init()
         
@@ -51,36 +55,44 @@ final class LoginViewModel: BaseViewModel {
     func bind() {
         
         self.input.kakaoSigninTrigger
-            .flatMapLatest { self.kakaoManager.signin() }
-            .subscribe(onNext: { [weak self] signinRequest in
-                
-                TokenManager.shared.createTokens(accessToken: signinRequest.accessToken,
-                                                 refreshToken: signinRequest.refreshToken)
-                
-                // 유저 정보가 있으면
-//                self?.goToTabBar()
-                
-                // 없으면
-                self?.goToNickname()
-                
-            },onError: { err in
-                let error = err as? SocialLoginError
-                print("error \(error!)")
-                print("err \(err.localizedDescription)")
+            .subscribe(onNext: { [weak self] _ in
+                self?.login(providerType: .kakao)
             })
             .disposed(by: disposeBag)
         
         self.input.appleSigninTrigger
-            .bind {
-                print("appleSigninTrigger")
+            .bind { [weak self] _ in
+                self?.login(providerType: .apple)
             }
             .disposed(by: disposeBag)
         
         self.input.anonymousTrigger
-            .bind {
-                print("anonymousTrigger")
+            .bind { [weak self] _ in
+                self?.goToTabBar()
             }
             .disposed(by: disposeBag)
+    }
+}
+
+// MARK: - Network
+
+extension LoginViewModel {
+    func login(providerType: ProviderType) {
+        loginTask = Task {
+            do {
+                let (message, userData) = try await self.authUseCase.login(authType: providerType)
+                await MainActor.run {
+                    if message == "비회원 계정입니다." {
+                        self.goToNickname(userData: userData, providerType: .kakao)
+                    } else {
+                        self.goToTabBar()
+                    }
+                }
+                loginTask?.cancel()
+            } catch (let error) {
+                Log.error(error)
+            }
+        }
     }
 }
 
@@ -88,7 +100,7 @@ extension LoginViewModel: LoginViewModelType {
     func goToTabBar() {
         delegate.goToTabBar()
     }
-    func goToNickname() {
-        delegate.goToNickname()
+    func goToNickname(userData: SigninUserModel, providerType: ProviderType) {
+        delegate.goToNickname(userData: userData, providerType: providerType)
     }
 }

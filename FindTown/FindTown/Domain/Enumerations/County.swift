@@ -23,36 +23,36 @@ enum County: String, CaseIterable {
     case yeongdeungpo = "영등포구"
     case jongno = "종로구"
     
-    var villages: [String] {
+    var villages: [Village] {
         switch self {
         case .gangnam:
-            return ["역삼1동", "논현1동"]
+            return [.yeoksam1, .nonhyeon1]
         case .gangseo:
-            return ["가양1동", "화곡1동"]
+            return [.gayang1, .hwagok]
         case .gwanak:
-            return ["청룡동", "신사동", "행운동", "대학동", "신림동", "서원동", "인헌동", "서림동", "낙성대동"]
+            return [.cheongnyong, .sinsa, .haengun, . sillim, .seowon, .inheon, .nakseongdae]
         case .gwangjin:
-            return ["화양동"]
+            return [.hwayang]
         case .guro:
-            return ["구로3동"]
+            return [.guro3]
         case .geumcheon:
-            return ["가산동"]
+            return [.gasan]
         case .dongdaemun:
-            return ["이문1동"]
+            return [.imun]
         case .dongjak:
-            return ["상도1동"]
+            return [.sando1]
         case .mapo:
-            return ["서교동"]
+            return [.seogyo]
         case .seodaemun:
-            return ["신촌동"]
+            return [.sinchon]
         case .seongbuk:
-            return ["안암동"]
+            return [.anam]
         case .songpa:
-            return ["잠실본동"]
+            return [.jamsilbon]
         case .yeongdeungpo:
-            return ["영등포동", "당산2동", "신길1동"]
+            return [.yeongdeungpo, .dangsan2, .singil1]
         case .jongno:
-            return ["혜화동"]
+            return [.hyehwa]
         }
     }
 }

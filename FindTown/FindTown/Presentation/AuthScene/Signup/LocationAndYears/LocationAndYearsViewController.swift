@@ -136,10 +136,10 @@ final class LocationAndYearsViewController: BaseViewController {
         
         dongButton.rx.tap
             .throttle(.milliseconds(300), scheduler: MainScheduler.instance)
-            .bind {
+            .bind { [weak self] _ in
                 let kakaoAddress = KakaoAddressViewController()
                 kakaoAddress.delegate = self
-                self.present(kakaoAddress, animated: true)
+                self?.present(kakaoAddress, animated: true)
             }
             .disposed(by: disposeBag)
         
@@ -165,7 +165,7 @@ extension LocationAndYearsViewController: LocationAndYearsDelegate {
         dongButton.setImage(UIImage(named: "MapPinIcon"), for: .normal)
         dongButton.setTitle(address, for: .normal)
         
-        viewModel?.input.dong.onNext(address)
+        viewModel?.input.address.onNext(address)
     }
 }
 

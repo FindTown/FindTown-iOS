@@ -12,6 +12,7 @@ import FindTownUI
 import KakaoSDKUser
 import RxCocoa
 import RxSwift
+import AuthenticationServices
 
 final class LoginViewController: BaseViewController {
     
@@ -164,5 +165,11 @@ final class LoginViewController: BaseViewController {
         
         // Output
         
+    }
+}
+
+extension LoginViewController: ASAuthorizationControllerPresentationContextProviding {
+    func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
+        self.view.window!
     }
 }
