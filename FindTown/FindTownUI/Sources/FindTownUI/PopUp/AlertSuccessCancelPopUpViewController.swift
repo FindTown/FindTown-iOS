@@ -36,6 +36,15 @@ public class AlertSuccessCancelPopUpViewController: UIViewController {
                                   font: .body1,
                                   textColor: .black,
                                   textAlignment: .center)
+        label.numberOfLines = 0
+        let attrString = NSMutableAttributedString(string: label.text ?? "")
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.lineSpacing = 4
+        attrString.addAttribute(NSAttributedString.Key.paragraphStyle,
+                                value: paragraphStyle,
+                                range: NSMakeRange(0, attrString.length))
+        label.attributedText = attrString
+        label.textAlignment = .center
         return label
     }()
     
@@ -130,7 +139,7 @@ private extension AlertSuccessCancelPopUpViewController {
         ])
         
         NSLayoutConstraint.activate([
-            messageLabel.topAnchor.constraint(equalTo: titleLabel.topAnchor, constant: 24.0),
+            messageLabel.topAnchor.constraint(equalTo: titleLabel.topAnchor, constant: 28.0),
             messageLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20.0),
             messageLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor)
         ])
