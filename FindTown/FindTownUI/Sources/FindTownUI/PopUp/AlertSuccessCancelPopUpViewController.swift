@@ -25,7 +25,7 @@ public class AlertSuccessCancelPopUpViewController: UIViewController {
     
     private lazy var titleLabel: FindTownLabel = {
         let label = FindTownLabel(text: titleText,
-                                  font: .body1,
+                                  font: .subtitle4,
                                   textColor: .black,
                                   textAlignment: .center)
         return label
@@ -33,7 +33,7 @@ public class AlertSuccessCancelPopUpViewController: UIViewController {
     
     private lazy var messageLabel: FindTownLabel = {
         let label = FindTownLabel(text: messageText,
-                                  font: .label1,
+                                  font: .body1,
                                   textColor: .black,
                                   textAlignment: .center)
         return label
