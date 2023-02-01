@@ -114,14 +114,15 @@ extension MyPageViewController: UICollectionViewDataSource {
                 ofKind: UICollectionView.elementKindSectionHeader,
                 withReuseIdentifier: DividerView.reuseIdentifier,
                 for: indexPath
-            ) as? DividerView ?? UICollectionReusableView()
+            ) as! DividerView
             return dividerView
         case UICollectionView.elementKindSectionFooter:
             let collectionHeaderView = collectionView.dequeueReusableSupplementaryView(
                 ofKind: UICollectionView.elementKindSectionFooter,
                 withReuseIdentifier: CollectionHeaderView.reuseIdentifier,
                 for: indexPath
-            ) as? CollectionHeaderView ?? UICollectionReusableView()
+            ) as! CollectionHeaderView
+            collectionHeaderView.viewModel = viewModel
             return collectionHeaderView
         default:
             return UICollectionReusableView()

@@ -12,17 +12,20 @@ import RxSwift
 import RxRelay
 
 protocol MyPageViewModelDelegate {
-    
+    func goToChangeNickname()
+    func goToMyTownReview()
 }
 
 protocol MyPageViewModelType {
-    
+    func goToChangeNickname()
+    func goToMyTownReview()
 }
 
 final class MyPageViewModel: BaseViewModel {
     
     struct Input {
-        
+        let changeNicknameButtonTrigger = PublishSubject<Void>()
+        let reviewButtonTrigger = PublishSubject<Void>()
     }
     
     struct Output {
@@ -43,7 +46,27 @@ final class MyPageViewModel: BaseViewModel {
     }
     
     func bind() {
+        self.input.changeNicknameButtonTrigger
+            .bind { [weak self] in
+                self?.goToChangeNickname()
+            }
+            .disposed(by: disposeBag)
         
+        self.input.reviewButtonTrigger
+            .bind {[weak self] in
+                self?.goToMyTownReview()
+            }
+            .disposed(by: disposeBag)
+    }
+}
+
+extension MyPageViewModel: MyPageViewModelType {
+    func goToChangeNickname() {
+        delegate.goToChangeNickname()
+    }
+    
+    func goToMyTownReview() {
+        delegate.goToMyTownReview()
     }
 }
 
