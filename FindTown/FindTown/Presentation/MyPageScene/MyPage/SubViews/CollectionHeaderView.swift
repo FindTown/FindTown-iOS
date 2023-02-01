@@ -9,6 +9,8 @@ import UIKit
 
 import FindTownCore
 import FindTownUI
+import RxSwift
+import RxCocoa
 
 // 마이페이지 최상단 뷰
 final class CollectionHeaderView: UICollectionReusableView {
@@ -18,6 +20,8 @@ final class CollectionHeaderView: UICollectionReusableView {
     static var reuseIdentifier: String {
         return String(describing: self)
     }
+    private let disposeBag = DisposeBag()
+    var viewModel: MyPageViewModel?
     
     // MARK: - Views
     
@@ -37,6 +41,7 @@ final class CollectionHeaderView: UICollectionReusableView {
         addView()
         setLayout()
         setupView()
+        bindViewModel()
     }
     
     required init?(coder: NSCoder) {
@@ -83,6 +88,20 @@ final class CollectionHeaderView: UICollectionReusableView {
         
         reviewButton.changesSelectionAsPrimaryAction = false
         reviewButton.isSelected = true
-        reviewButton.setTitle("내가 쓴 동네후기", for: .normal)
+        reviewButton.setTitle("내가 쓴 동네 후기", for: .normal)
+    }
+    
+    private func bindViewModel() {
+        nickNameChangeButton.rx.tap
+            .bind { [weak self] in
+                self?.viewModel?.input.changeNicknameButtonTrigger.onNext(())
+            }
+            .disposed(by: disposeBag)
+        
+        reviewButton.rx.tap
+            .bind { [weak self] in
+                self?.viewModel?.input.reviewButtonTrigger.onNext(())
+            }
+            .disposed(by: disposeBag)
     }
 }
