@@ -12,9 +12,14 @@ final class TabBarCoordinator: FlowCoordinator {
     
     var presentationStyle: PresentationStyle
     weak var navigationController: UINavigationController?
+    let authUseCase: AuthUseCase
     
-    init(presentationStyle: PresentationStyle) {
+    init(
+        presentationStyle: PresentationStyle,
+        authUseCase: AuthUseCase
+    ) {
         self.presentationStyle = presentationStyle
+        self.authUseCase = authUseCase
     }
     
     func initScene() -> UIViewController {
@@ -39,7 +44,8 @@ final class TabBarCoordinator: FlowCoordinator {
         favoriteViewController.tabBarItem = UITabBarItem(title: "찜", image: UIImage(named: "favoriteIcon"), tag: 2)
         
         /// 마이페이지 탭
-        let myPageCoordinator = MyPageCoordinator(presentationStyle: .none)
+        let myPageCoordinator = MyPageCoordinator(presentationStyle: .none,
+                                                  authUseCase: authUseCase)
         myPageCoordinator.start()
         guard let myPageViewController = myPageCoordinator.navigationController else { return UIViewController() }
         myPageViewController.tabBarItem = UITabBarItem(title: "마이", image: UIImage(named: "myPageIcon"), tag: 3)

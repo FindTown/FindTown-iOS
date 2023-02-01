@@ -12,6 +12,7 @@ import KakaoSDKUser
 
 public final class AppCoordinator: Coordinator {
     var navigationController: UINavigationController
+    let authUseCase = AuthUseCase()
     
     required init(
         navigationController: UINavigationController
@@ -43,6 +44,7 @@ public final class AppCoordinator: Coordinator {
     
     private func goToTabBar() {
         navigationController.isNavigationBarHidden = true
-        TabBarCoordinator(presentationStyle: .push(navigationController: navigationController)).start()
+        TabBarCoordinator(presentationStyle: .push(navigationController: navigationController),
+                          authUseCase: authUseCase).start()
     }
 }
