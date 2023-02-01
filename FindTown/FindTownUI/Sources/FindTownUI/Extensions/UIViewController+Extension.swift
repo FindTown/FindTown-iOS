@@ -19,24 +19,18 @@ extension UIViewController {
     }
     
     /// select, cancel 버튼을 가지는 PopUp 띄워 줌
-    public func showAlertSuccessCancelPopUp(title: String = "", message: String = "", successTitle: String,
-                                            cancelTitle: String , buttonAction: @escaping () -> Void)
-    {
-        let alert = UIAlertController(title: title == "" ? nil : title,
-                                      message: message == "" ? nil : message,
-                                      preferredStyle: .alert)
+    public func showAlertSuccessCancelPopUp(title: String, message: String = "", successButtonText: String, cancelButtonText: String, successButtonAction: @escaping () -> Void, cancelButtonAction: @escaping () -> Void = { }) {
         
-        let alertSuccessBtn = UIAlertAction(title: successTitle, style: .default) { (action) in
-            buttonAction()
-        }
-        let alertCaccelBtn = UIAlertAction(title: cancelTitle, style: .default) { (action) in }
-
-        alertSuccessBtn.setValue(FindTownColor.primary.color, forKey: "titleTextColor")
-        alertCaccelBtn.setValue(FindTownColor.grey5.color, forKey: "titleTextColor")
+        let dismissAction: () -> Void = { self.dismiss(animated: false, completion: nil) }
+        let finalCancelButtonAction = cancelButtonAction() == { }() ? dismissAction : cancelButtonAction
         
-        alert.addAction(alertCaccelBtn)
-        alert.addAction(alertSuccessBtn)
+        let alertPopUp = AlertSuccessCancelPopUpViewController(titleText: title,
+                                                               messageText: message,
+                                                               successButtonText: successButtonText,
+                                                               cancelButtonText: cancelButtonText,
+                                                               successButtonAction: successButtonAction,
+                                                               cancelButtonAction: finalCancelButtonAction)
         
-        present(alert, animated: false, completion: nil)
+        present(alertPopUp, animated: false)
     }
 }
