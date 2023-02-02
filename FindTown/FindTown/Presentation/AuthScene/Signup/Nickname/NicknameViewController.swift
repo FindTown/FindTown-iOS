@@ -108,7 +108,7 @@ final class NicknameViewController: BaseViewController {
     override func setupView() {
         view.backgroundColor = .white
         
-        self.navigationItem.rightBarButtonItem = closeButton
+        self.navigationItem.leftBarButtonItem = closeButton
         
         nowStatusPogressView.trackTintColor = FindTownColor.grey2.color
         nowStatusPogressView.progressTintColor = FindTownColor.primary.color
