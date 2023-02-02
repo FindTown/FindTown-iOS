@@ -88,21 +88,23 @@ extension MyPageViewController: UICollectionViewDataSource {
         case .topHeader(_):
             let cell = collectionView.dequeueReusableCell(
                 withReuseIdentifier: SupprotSectionCollectionViewCell.reuseIdentifier, for: indexPath
-            ) as? SupprotSectionCollectionViewCell ?? SupprotSectionCollectionViewCell()
+            ) as! SupprotSectionCollectionViewCell
             return cell
         case let .support(supports):
             let cell = collectionView.dequeueReusableCell(
                 withReuseIdentifier: SupprotSectionCollectionViewCell.reuseIdentifier, for: indexPath
-            ) as? SupprotSectionCollectionViewCell ?? SupprotSectionCollectionViewCell()
+            ) as! SupprotSectionCollectionViewCell
             let item = supports[indexPath.item]
             cell.setupCell(model: item)
+            cell.viewModel = viewModel
             return cell
         case let .info(infomations):
             let cell = collectionView.dequeueReusableCell(
                 withReuseIdentifier: InfoSectionCollectionViewCell.reuseIdentifier, for: indexPath
-            ) as? InfoSectionCollectionViewCell ?? InfoSectionCollectionViewCell()
+            ) as! InfoSectionCollectionViewCell
             let item = infomations[indexPath.item]
             cell.setupCell(model: item)
+            cell.viewModel = viewModel
             return cell
         }
     }
