@@ -23,14 +23,9 @@ final class LoginViewController: BaseViewController {
     private let anonymousTitleTapGesture = UITapGestureRecognizer()
     
     // MARK: - Views
-    
-    // 추후에 수정
-    
-    private let tempLogo = FindTownLabel(text: "LOGO", font: .headLine1, textColor: .primary)
-    
-    private let subTitle = FindTownLabel(text: "내가 찾던 동네", font: .headLine3)
-    
-    private let introduceTitle = FindTownLabel(text: "동네 인프라부터 후기까지,\n나에게 맞는 동네를 찾아봐요!", font: .body3)
+
+    private let subTitle = FindTownLabel(text: "동네의 모든 정보를 한번에", font: .body1)
+    private let logo = UIImageView(image: UIImage(named: "logo"))
     
     private let kakaoButton: UIButton = {
         var configuration = UIButton.Configuration.filled()
@@ -42,7 +37,6 @@ final class LoginViewController: BaseViewController {
         configuration.attributedTitle?.font = FindTownFont.body1.font
         
         let button = UIButton(configuration: configuration)
-        button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
     
@@ -56,7 +50,6 @@ final class LoginViewController: BaseViewController {
         configuration.attributedTitle?.font = FindTownFont.body1.font
         
         let button = UIButton(configuration: configuration)
-        button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
     
@@ -80,31 +73,31 @@ final class LoginViewController: BaseViewController {
     // MARK: - Functions
     
     override func addView() {
-        [tempLogo, subTitle, introduceTitle, kakaoButton, appleButton, anonymousTitle].forEach {
+        [logo, subTitle, kakaoButton, appleButton, anonymousTitle].forEach {
             view.addSubview($0)
+            $0.translatesAutoresizingMaskIntoConstraints = false
         }
     }
     
     override func setLayout() {
-        NSLayoutConstraint.activate([
-            tempLogo.topAnchor.constraint(equalTo: view.topAnchor,
-                                          constant: UIScreen.main.bounds.size.height / 3.5),
-            tempLogo.centerXAnchor.constraint(equalTo: view.centerXAnchor)
-        ])
+        let screenBounds = UIScreen.main.bounds
         
         NSLayoutConstraint.activate([
-            subTitle.topAnchor.constraint(equalTo: tempLogo.bottomAnchor, constant: 32),
+            subTitle.bottomAnchor.constraint(equalTo: logo.topAnchor, constant: -4),
             subTitle.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
         
         NSLayoutConstraint.activate([
-            introduceTitle.topAnchor.constraint(equalTo: subTitle.bottomAnchor, constant: 20),
-            introduceTitle.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+            logo.widthAnchor.constraint(equalToConstant: 152),
+            logo.heightAnchor.constraint(equalToConstant: 34),
+            logo.topAnchor.constraint(equalTo: view.topAnchor,
+                                      constant: screenBounds.height / 2.4),
+            logo.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
         
         NSLayoutConstraint.activate([
-            kakaoButton.topAnchor.constraint(equalTo: introduceTitle.bottomAnchor,
-                                             constant: UIScreen.main.bounds.size.height / 6),
+            kakaoButton.topAnchor.constraint(equalTo: subTitle.bottomAnchor,
+                                             constant: screenBounds.height / 3.4),
             kakaoButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             kakaoButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             kakaoButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
@@ -120,16 +113,13 @@ final class LoginViewController: BaseViewController {
         ])
         
         NSLayoutConstraint.activate([
-            anonymousTitle.topAnchor.constraint(equalTo: appleButton.bottomAnchor, constant: 34),
+            anonymousTitle.topAnchor.constraint(equalTo: appleButton.bottomAnchor, constant: 48),
             anonymousTitle.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
     }
     
     override func setupView() {
         view.backgroundColor = .white
-        
-        introduceTitle.numberOfLines = 2
-        introduceTitle.textAlignment = .center
         
         anonymousTitle.addGestureRecognizer(anonymousTitleTapGesture)
         anonymousTitle.isUserInteractionEnabled = true
