@@ -26,6 +26,12 @@ final class LoginViewController: BaseViewController {
 
     private let subTitle = FindTownLabel(text: "동네의 모든 정보를 한번에", font: .body1)
     private let logo = UIImageView(image: UIImage(named: "logo"))
+    private let tooltip = ToolTip(text: "👋🏻  가입 후 서비스를 자유롭게 이용해보세요!",
+                                  viewColor: .white,
+                                  textColor: .grey7,
+                                  tipLocation: .bottom,
+                                  width: 236,
+                                  height: 32)
     
     private let kakaoButton: UIButton = {
         var configuration = UIButton.Configuration.filled()
@@ -73,7 +79,7 @@ final class LoginViewController: BaseViewController {
     // MARK: - Functions
     
     override func addView() {
-        [logo, subTitle, kakaoButton, appleButton, anonymousTitle].forEach {
+        [logo, subTitle, tooltip, kakaoButton, appleButton, anonymousTitle].forEach {
             view.addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
@@ -93,6 +99,11 @@ final class LoginViewController: BaseViewController {
             logo.topAnchor.constraint(equalTo: view.topAnchor,
                                       constant: screenBounds.height / 2.4),
             logo.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+        ])
+        
+        NSLayoutConstraint.activate([
+            tooltip.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            tooltip.bottomAnchor.constraint(equalTo: kakaoButton.topAnchor, constant: -30)
         ])
         
         NSLayoutConstraint.activate([
