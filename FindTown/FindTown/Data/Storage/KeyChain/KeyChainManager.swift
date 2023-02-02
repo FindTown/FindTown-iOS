@@ -32,7 +32,7 @@ final class KeyChainManager {
         }
     }
     
-    func read(account: KeyChainAccount) throws -> String? {
+    func read(account: KeyChainAccount) throws -> String {
         let query = [
             kSecClass: account.keyChainClass,
             kSecAttrService: KeyChainManager.serviceName,
