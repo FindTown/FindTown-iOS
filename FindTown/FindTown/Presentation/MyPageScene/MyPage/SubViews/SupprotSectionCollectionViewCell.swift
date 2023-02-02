@@ -15,6 +15,8 @@ final class SupprotSectionCollectionViewCell: UICollectionViewCell {
         return String(describing: self)
     }
     
+    var viewModel: MyPageViewModel?
+    
     private var model: MyPageSection.Support?
     
     private let titleLabel = FindTownLabel(text: "", font: .body1)
@@ -68,8 +70,8 @@ final class SupprotSectionCollectionViewCell: UICollectionViewCell {
                                                 action: #selector(cellTap(sender:)))
         contentView.addGestureRecognizer(tapGesture)
     }
-
+    
     @objc func cellTap(sender: UITapGestureRecognizer) {
-        model?.action()
+        
     }
 }

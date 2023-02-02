@@ -15,6 +15,8 @@ final class InfoSectionCollectionViewCell: UICollectionViewCell {
         return String(describing: self)
     }
     
+    var viewModel: MyPageViewModel?
+    
     private var model: MyPageSection.Info?
     
     private let titleLabel: FindTownLabel = FindTownLabel(text: "", font: .body1)
@@ -40,11 +42,21 @@ final class InfoSectionCollectionViewCell: UICollectionViewCell {
         self.model = model
         let index = model.index
         
-        if index == 0 || index == 4 || index == 5 {
+        titleLabel.text = model.title
+        
+        switch index {
+        case 0, 4, 5: // 정보, 로그아웃, 회원탈퇴
             titleLabel.font = FindTownFont.body3.font
             titleLabel.textColor = FindTownColor.grey5.color
+        case 3: // 앱버전
+            let versionString = Bundle.main.infoDictionary?["CFBundleShortVersionString"]
+            let attributedStr = NSMutableAttributedString(string: titleLabel.text!)
+            attributedStr.addAttribute(.font, value: FindTownFont.body4.font,
+                                       range: (model.title as NSString).range(of: versionString as? String ?? ""))
+            titleLabel.attributedText = attributedStr
+        default:
+            break
         }
-        titleLabel.text = model.title
         
         let tapGesture = UITapGestureRecognizer(target: self,
                                                 action: #selector(cellTap(sender:)))
@@ -52,6 +64,14 @@ final class InfoSectionCollectionViewCell: UICollectionViewCell {
     }
     
     @objc func cellTap(sender: UITapGestureRecognizer) {
-        model?.action()
+        
+        switch model?.title {
+        case "로그아웃":
+            viewModel?.delegate.popUpSignout()
+        case "회원탈퇴":
+            viewModel?.delegate.popUpWithDraw()
+        default:
+            break
+        }
     }
 }
