@@ -12,6 +12,7 @@ import RxSwift
 import RxRelay
 
 protocol MyPageViewModelDelegate {
+    func goToLogin()
     func goToChangeNickname()
     func goToMyTownReview()
     func popUpSignout()

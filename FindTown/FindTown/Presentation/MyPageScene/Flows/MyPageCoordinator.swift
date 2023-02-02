@@ -26,6 +26,11 @@ final class MyPageCoordinator: FlowCoordinator {
         let myPageViewModel = MyPageViewModel(delegate: self)
         let myPageViewController = MyPageViewController(viewModel: myPageViewModel)
         return myPageViewController
+        
+        // 익명 로그인 일 때
+        // let myPageViewModel = MyPageAnonymousViewModel(delegate: self)
+        // let myPageViewController = MyPageAnonymousViewController(viewModel: myPageViewModel)
+        // return myPageViewController
     }
     
     /// 닉네임 수정 화면
@@ -47,6 +52,12 @@ final class MyPageCoordinator: FlowCoordinator {
 }
 
 extension MyPageCoordinator: MyPageViewModelDelegate {
+    func goToLogin() {
+        guard let navigationController = navigationController else { return }
+        navigationController.isNavigationBarHidden = true
+        LoginCoordinator(presentationStyle: .push(navigationController: navigationController)).start()
+    }
+    
     func goToChangeNickname() {
         guard let navigationController = navigationController else { return }
         navigationController.pushViewController(changeNicknameScene(), animated: true)
