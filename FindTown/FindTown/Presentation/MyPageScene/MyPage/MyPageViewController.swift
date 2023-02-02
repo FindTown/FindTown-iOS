@@ -20,9 +20,9 @@ final class MyPageViewController: BaseViewController {
     private let dataSource = MyPageDemoData.dataSource
     
     // MARK: - Views
-
+    
     lazy var collectionView = MyPageCollectionView()
- 
+    
     // MARK: - Life Cycle
     
     init(viewModel: MyPageViewModel) {
@@ -72,7 +72,8 @@ extension MyPageViewController: UICollectionViewDataSource {
         self.dataSource.count
     }
     
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func collectionView(_ collectionView: UICollectionView,
+                        numberOfItemsInSection section: Int) -> Int {
         switch self.dataSource[section] {
         case .topHeader(_):
             return 0
@@ -83,49 +84,61 @@ extension MyPageViewController: UICollectionViewDataSource {
         }
     }
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    func collectionView(_ collectionView: UICollectionView,
+                        cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         switch self.dataSource[indexPath.section] {
         case .topHeader(_):
-            let cell = collectionView.dequeueReusableCell(
-                withReuseIdentifier: SupprotSectionCollectionViewCell.reuseIdentifier, for: indexPath
-            ) as! SupprotSectionCollectionViewCell
-            return cell
+            return UICollectionViewCell()
         case let .support(supports):
             let cell = collectionView.dequeueReusableCell(
                 withReuseIdentifier: SupprotSectionCollectionViewCell.reuseIdentifier, for: indexPath
-            ) as! SupprotSectionCollectionViewCell
-            let item = supports[indexPath.item]
-            cell.setupCell(model: item)
-            cell.viewModel = viewModel
-            return cell
+            ) as? SupprotSectionCollectionViewCell
+            if let cell {
+                let item = supports[indexPath.item]
+                cell.setupCell(model: item)
+                cell.viewModel = viewModel
+                return cell
+            }
+            return UICollectionViewCell()
         case let .info(infomations):
             let cell = collectionView.dequeueReusableCell(
                 withReuseIdentifier: InfoSectionCollectionViewCell.reuseIdentifier, for: indexPath
-            ) as! InfoSectionCollectionViewCell
-            let item = infomations[indexPath.item]
-            cell.setupCell(model: item)
-            cell.viewModel = viewModel
-            return cell
+            ) as? InfoSectionCollectionViewCell
+            if let cell {
+                let item = infomations[indexPath.item]
+                cell.setupCell(model: item)
+                cell.viewModel = viewModel
+                return cell
+            }
+            return UICollectionViewCell()
         }
     }
     
-    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+    func collectionView(_ collectionView: UICollectionView,
+                        viewForSupplementaryElementOfKind kind: String,
+                        at indexPath: IndexPath) -> UICollectionReusableView {
         switch kind {
         case UICollectionView.elementKindSectionHeader:
             let dividerView = collectionView.dequeueReusableSupplementaryView(
                 ofKind: UICollectionView.elementKindSectionHeader,
                 withReuseIdentifier: DividerView.reuseIdentifier,
                 for: indexPath
-            ) as! DividerView
-            return dividerView
+            ) as? DividerView
+            if let dividerView {
+                return dividerView
+            }
+            return UICollectionReusableView()
         case UICollectionView.elementKindSectionFooter:
             let collectionHeaderView = collectionView.dequeueReusableSupplementaryView(
                 ofKind: UICollectionView.elementKindSectionFooter,
                 withReuseIdentifier: CollectionHeaderView.reuseIdentifier,
                 for: indexPath
-            ) as! CollectionHeaderView
-            collectionHeaderView.viewModel = viewModel
-            return collectionHeaderView
+            ) as? CollectionHeaderView
+            collectionHeaderView?.viewModel = viewModel
+            if let collectionHeaderView {
+                return collectionHeaderView
+            }
+            return UICollectionReusableView()
         default:
             return UICollectionReusableView()
         }
