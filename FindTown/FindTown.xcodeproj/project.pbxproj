@@ -670,11 +670,9 @@
 		BCF8258E2988C8D900AC00BB /* MyPageScene */ = {
 			isa = PBXGroup;
 			children = (
-				BC853DFC298C04AF0033AF20 /* Anonymous */,
 				BC853DF9298BA1D70033AF20 /* Tests */,
+				BC853DFC298C04AF0033AF20 /* Anonymous */,
 				BC853DF6298B99A50033AF20 /* DemoMyPageEntitie */,
-				BC8B638B298A4B18004E1116 /* MyTownReview */,
-				BC8B638A298A4B0A004E1116 /* ChangeNickname */,
 				BCF825902988C8F500AC00BB /* Flows */,
 				BCF8258F2988C8EC00AC00BB /* MyPage */,
 			);
@@ -684,6 +682,8 @@
 		BCF8258F2988C8EC00AC00BB /* MyPage */ = {
 			isa = PBXGroup;
 			children = (
+				BC8B638B298A4B18004E1116 /* MyTownReview */,
+				BC8B638A298A4B0A004E1116 /* ChangeNickname */,
 				BCF825972988DFEC00AC00BB /* SubViews */,
 				BCF825932988C91500AC00BB /* MyPageViewModel.swift */,
 				BCF825912988C90C00AC00BB /* MyPageViewController.swift */,
