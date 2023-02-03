@@ -12,11 +12,11 @@ import RxSwift
 import RxRelay
 
 protocol SelectCountyViewModelDelegate {
-    func goToShowDongList(selectCountyData: String)
+    func goToShowVillageList(selectCountyData: String)
 }
 
 protocol SelectCountyViewModelType {
-    func goToShowDongList(selectCountyData: String)
+    func goToShowVillageList(selectCountyData: String)
 }
 
 final class SelectCountyViewModel: BaseViewModel {
@@ -52,7 +52,7 @@ final class SelectCountyViewModel: BaseViewModel {
                 var tempDataSource = self?.output.searchFilterDataSource.value
                 tempDataSource?.insert($0, at: 0)
                 self?.output.searchFilterDataSource.accept(tempDataSource ?? [])
-                self?.goToShowDongList(selectCountyData: $0)
+                self?.goToShowVillageList(selectCountyData: $0)
             }
             .disposed(by: disposeBag)
         
@@ -75,7 +75,7 @@ final class SelectCountyViewModel: BaseViewModel {
 }
 
 extension SelectCountyViewModel: SelectCountyViewModelType {
-    func goToShowDongList(selectCountyData: String) {
-        delegate.goToShowDongList(selectCountyData: selectCountyData)
+    func goToShowVillageList(selectCountyData: String) {
+        delegate.goToShowVillageList(selectCountyData: selectCountyData)
     }
 }

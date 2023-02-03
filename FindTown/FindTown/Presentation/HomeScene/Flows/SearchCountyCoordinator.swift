@@ -24,16 +24,16 @@ final class SearchCountyCoordinator: FlowCoordinator {
         return selectCountyViewController
     }
     
-    internal func showDongListScene(selectCountyData: String) -> UIViewController {
-        let showDongListViewModel = ShowDongListViewModel(selectCountyData: selectCountyData)
-        let showDongListViewController = ShowDongListViewController(viewModel: showDongListViewModel)
-        return showDongListViewController
+    internal func showVillageListScene(selectCountyData: String) -> UIViewController {
+        let showVillageListViewModel = ShowVillageListViewModel(selectCountyData: selectCountyData)
+        let showVillageListViewController = ShowVillageListViewController(viewModel: showVillageListViewModel)
+        return showVillageListViewController
     }
 }
 
 extension SearchCountyCoordinator: SelectCountyViewModelDelegate {
-    func goToShowDongList(selectCountyData: String) {
+    func goToShowVillageList(selectCountyData: String) {
         guard let navigationController = navigationController else { return }
-        navigationController.pushViewController(showDongListScene(selectCountyData: selectCountyData), animated: true)
+        navigationController.pushViewController(showVillageListScene(selectCountyData: selectCountyData), animated: true)
     }
 }

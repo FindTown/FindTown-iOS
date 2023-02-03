@@ -12,11 +12,11 @@ import FindTownCore
 import RxCocoa
 import RxSwift
 
-final class ShowDongListViewController: BaseViewController {
+final class ShowVillageListViewController: BaseViewController {
     
     // MARK: - Properties
     
-    private let viewModel: ShowDongListViewModel?
+    private let viewModel: ShowVillageListViewModel?
     
     // MARK: - Views
     
@@ -55,7 +55,7 @@ final class ShowDongListViewController: BaseViewController {
     
     // MARK: - Life Cycle
     
-    init(viewModel: ShowDongListViewModel?) {
+    init(viewModel: ShowVillageListViewModel?) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }

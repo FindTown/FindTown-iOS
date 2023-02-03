@@ -19,7 +19,7 @@ final class ReviewTableViewCell: UITableViewCell {
     
     // MARK: Views
     
-    private let dongTitle = FindTownLabel(text: "", font: .subtitle4)
+    private let villageTitle = FindTownLabel(text: "", font: .subtitle4)
     
     private let period = FindTownLabel(text: "", font: .label1, textColor: .grey6)
     
@@ -52,19 +52,19 @@ final class ReviewTableViewCell: UITableViewCell {
     // MARK: Functions
     
     private func addView() {
-        [dongTitle, period, guideIntroduceTitle, introduce].forEach {
+        [villageTitle, period, guideIntroduceTitle, introduce].forEach {
             contentView.addSubview($0)
         }
     }
     
     private func setLayout() {
         NSLayoutConstraint.activate([
-            dongTitle.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20),
-            dongTitle.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20)
+            villageTitle.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20),
+            villageTitle.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20)
         ])
         
         NSLayoutConstraint.activate([
-            period.topAnchor.constraint(equalTo: dongTitle.bottomAnchor, constant: 4),
+            period.topAnchor.constraint(equalTo: villageTitle.bottomAnchor, constant: 4),
             period.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20)
         ])
         
@@ -97,7 +97,7 @@ final class ReviewTableViewCell: UITableViewCell {
     func setupCell(_ model: Any) {
         guard let model = model as? reviewModelTest else { return }
         
-        dongTitle.text = model.dong
+        villageTitle.text = model.village
         
         period.text = model.period
         

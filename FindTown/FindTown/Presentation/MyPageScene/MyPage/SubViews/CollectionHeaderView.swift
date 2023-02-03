@@ -29,7 +29,7 @@ final class CollectionHeaderView: UICollectionReusableView {
     
     private let nickNameChangeButton = FTButton(style: .mediumTintedWithOpacity)
     
-    private let dongPeriod = FindTownLabel(text: "신림동 거주, 2년 6개월", font: .label1, textColor: .grey6)
+    private let villagePeriod = FindTownLabel(text: "신림동 거주, 2년 6개월", font: .label1, textColor: .grey6)
     
     private let reviewButton = FTButton(style: .largeTinted)
     
@@ -51,7 +51,7 @@ final class CollectionHeaderView: UICollectionReusableView {
     // MARK: - Functions
     
     private func addView() {
-        [nickName, nickNameChangeButton, dongPeriod, reviewButton].forEach {
+        [nickName, nickNameChangeButton, villagePeriod, reviewButton].forEach {
             addSubview($0)
         }
     }
@@ -68,12 +68,12 @@ final class CollectionHeaderView: UICollectionReusableView {
         ])
         
         NSLayoutConstraint.activate([
-            dongPeriod.topAnchor.constraint(equalTo: nickName.bottomAnchor, constant: 4),
-            dongPeriod.leadingAnchor.constraint(equalTo: super.leadingAnchor, constant: 16),
+            villagePeriod.topAnchor.constraint(equalTo: nickName.bottomAnchor, constant: 4),
+            villagePeriod.leadingAnchor.constraint(equalTo: super.leadingAnchor, constant: 16),
         ])
         
         NSLayoutConstraint.activate([
-            reviewButton.topAnchor.constraint(equalTo: dongPeriod.bottomAnchor, constant: 32),
+            reviewButton.topAnchor.constraint(equalTo: villagePeriod.bottomAnchor, constant: 32),
             reviewButton.leadingAnchor.constraint(equalTo: super.leadingAnchor, constant: 16),
             reviewButton.trailingAnchor.constraint(equalTo: super.trailingAnchor, constant: -16),
         ])

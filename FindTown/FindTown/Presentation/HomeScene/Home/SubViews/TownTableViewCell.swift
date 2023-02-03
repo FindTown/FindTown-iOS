@@ -140,7 +140,7 @@ final class TownTableViewCell: UITableViewCell {
     
     func setupCell(_ model: Any) {
         guard let model = model as? townModelTest else { return }
-        townTitle.text = model.dong
+        townTitle.text = model.village
         townIntroduceTitle.text = model.introduce
     }
 }

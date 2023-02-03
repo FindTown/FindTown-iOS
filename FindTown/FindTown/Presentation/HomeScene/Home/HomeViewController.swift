@@ -34,7 +34,7 @@ final class HomeViewController: BaseViewController {
         return button
     }()
     
-    private let dongSearchTitle = FindTownLabel(text: "나에게 맞는 동네 찾기", font: .headLine3)
+    private let villageSearchTitle = FindTownLabel(text: "나에게 맞는 동네 찾기", font: .headLine3)
     
     private let filterResetButton = FTButton(style: .buttonFilterNormal)
     private let filterButton = FTButton(style: .buttonFilter)
@@ -113,7 +113,7 @@ final class HomeViewController: BaseViewController {
             townListTitleAndSafeScoreView.addArrangedSubview($0)
         }
         
-        [dongSearchTitle, filterStackView, townListTitleAndSafeScoreView].forEach {
+        [villageSearchTitle, filterStackView, townListTitleAndSafeScoreView].forEach {
             self.tableViewHeaderView.addArrangedSubview($0)
         }
         
@@ -128,8 +128,8 @@ final class HomeViewController: BaseViewController {
         ])
         
         NSLayoutConstraint.activate([
-            dongSearchTitle.topAnchor.constraint(equalTo: tableViewHeaderView.topAnchor, constant: 56),
-            dongSearchTitle.leadingAnchor.constraint(equalTo: tableViewHeaderView.leadingAnchor, constant: 16)
+            villageSearchTitle.topAnchor.constraint(equalTo: tableViewHeaderView.topAnchor, constant: 56),
+            villageSearchTitle.leadingAnchor.constraint(equalTo: tableViewHeaderView.leadingAnchor, constant: 16)
         ])
         
         NSLayoutConstraint.activate([
@@ -142,7 +142,7 @@ final class HomeViewController: BaseViewController {
             townListTitleAndSafeScoreView.trailingAnchor.constraint(equalTo: tableViewHeaderView.trailingAnchor),
         ])
         
-        tableViewHeaderView.setCustomSpacing(16, after: dongSearchTitle)
+        tableViewHeaderView.setCustomSpacing(16, after: villageSearchTitle)
         tableViewHeaderView.setCustomSpacing(40, after: filterStackView)
         
         townListTitleAndSafeScoreView.layoutMargins = UIEdgeInsets(top: 24, left: 16, bottom: 0, right: 16)
