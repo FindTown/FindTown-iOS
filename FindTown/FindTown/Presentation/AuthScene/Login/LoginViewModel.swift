@@ -24,7 +24,7 @@ final class LoginViewModel: BaseViewModel {
     }
     
     struct Output {
-//        let signinOutput = PublishSubject<SigninRequest>()
+        let errorNotice = PublishSubject<Void>()
     }
     
     let input = Input()
@@ -56,7 +56,7 @@ final class LoginViewModel: BaseViewModel {
         
         self.input.kakaoSigninTrigger
             .subscribe(onNext: { [weak self] _ in
-                self?.login(providerType: .kakao)
+                self?.output.errorNotice.onNext(())
             })
             .disposed(by: disposeBag)
         
@@ -71,6 +71,7 @@ final class LoginViewModel: BaseViewModel {
                 self?.goToTabBar()
             }
             .disposed(by: disposeBag)
+        
     }
 }
 
@@ -90,6 +91,7 @@ extension LoginViewModel {
                 }
                 loginTask?.cancel()
             } catch (let error) {
+                self.output.errorNotice.onNext(())
                 Log.error(error)
             }
         }

@@ -39,4 +39,10 @@ extension UIViewController {
         
         present(alert, animated: false, completion: nil)
     }
+    
+    /// AlertPopUpVC 띄워 줌
+    public func showErrorNoticeAlertPopUp(message: String, buttonText: String, buttonAction: (() -> Void)? = nil) {
+        let alertPopUp = NoticeAlertPopUpViewController(titleText: "", messageText: message, confirmButtonText: buttonText, confirmButtonAction: buttonAction)
+        present(alertPopUp, animated: false)
+    }
 }
