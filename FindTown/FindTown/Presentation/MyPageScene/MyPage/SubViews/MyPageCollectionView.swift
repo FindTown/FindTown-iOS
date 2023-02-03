@@ -27,8 +27,8 @@ final class MyPageCollectionView: UICollectionView {
         
         translatesAutoresizingMaskIntoConstraints = false
         
-        register(SupprotSectionCollectionViewCell.self,
-                 forCellWithReuseIdentifier: SupprotSectionCollectionViewCell.reuseIdentifier)
+        register(SupportSectionCollectionViewCell.self,
+                 forCellWithReuseIdentifier: SupportSectionCollectionViewCell.reuseIdentifier)
         register(InfoSectionCollectionViewCell.self,
                  forCellWithReuseIdentifier: InfoSectionCollectionViewCell.reuseIdentifier)
         register(DividerView.self,

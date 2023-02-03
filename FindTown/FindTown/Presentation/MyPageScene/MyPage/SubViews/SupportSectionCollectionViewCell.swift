@@ -9,7 +9,7 @@ import UIKit
 
 import FindTownUI
 
-final class SupprotSectionCollectionViewCell: UICollectionViewCell {
+final class SupportSectionCollectionViewCell: UICollectionViewCell {
     
     static var reuseIdentifier: String {
         return String(describing: self)

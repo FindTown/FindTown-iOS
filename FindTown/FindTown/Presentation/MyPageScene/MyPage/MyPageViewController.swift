@@ -91,8 +91,8 @@ extension MyPageViewController: UICollectionViewDataSource {
             return UICollectionViewCell()
         case let .support(supports):
             let cell = collectionView.dequeueReusableCell(
-                withReuseIdentifier: SupprotSectionCollectionViewCell.reuseIdentifier, for: indexPath
-            ) as? SupprotSectionCollectionViewCell
+                withReuseIdentifier: SupportSectionCollectionViewCell.reuseIdentifier, for: indexPath
+            ) as? SupportSectionCollectionViewCell
             if let cell {
                 let item = supports[indexPath.item]
                 cell.setupCell(model: item)
