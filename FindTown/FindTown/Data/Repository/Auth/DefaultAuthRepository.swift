@@ -26,4 +26,11 @@ final class DefaultAuthRepository {
         let data = try await Network.shared.request(target: SignupRequest(task: .requestJSONEncodable(encodable: memberSignupDTO)))
         return data.body
     }
+    
+    func reissue(accessToken: String) async throws -> TokenInformationDTO {
+        let HTTPHeaders = HTTPHeaders([.accept("*/*"),
+                                       .authorization(bearerToken: accessToken)])
+        let data = try await Network.shared.request(target: ReissueRequest(HTTPHeaders: HTTPHeaders))
+        return data.body
+    }
 }

@@ -8,6 +8,8 @@
 import Foundation
 import AuthenticationServices
 
+import FindTownNetwork
+
 final class AuthUseCase {
     
     let kakaoAuthRepository: DefaultKakaoAuthRepository
@@ -50,13 +52,15 @@ final class AuthUseCase {
         try await tokenRepository.createTokens(tokenData: tokenData)
     }
     
-    func reissue() async throws -> String {
-        let (refreshToken, refreshTokenExpiredTime) = try await tokenRepository.readAccessToken()
+    func reissue(accessToken: String) async throws -> String {
+        let (_, refreshTokenExpiredTime) = try await tokenRepository.readRefreshToken()
         
         if refreshTokenExpiredTime < Date() {
-            
+            let tokenData = try await authRepository.reissue(accessToken: accessToken)
+            try await tokenRepository.createTokens(tokenData: tokenData)
+            return tokenData.accessToken
         } else {
-            return ""
+            throw FTNetworkError.unauthorized
         }
     }
     
@@ -65,8 +69,7 @@ final class AuthUseCase {
         if accessTokenExpiredTime < Date() {
             return accessToken
         } else {
-            reissue()
-            return ""
+            return try await reissue(accessToken: accessToken)
         }
     }
     
