@@ -49,6 +49,8 @@ final class AddressSheetViewController: BaseBottomSheetViewController {
     override func bindViewModel() {
         super.bindViewModel()
         
+        guard let viewModel = viewModel else { return }
+        
         completeButton.rx.tap
             .throttle(.milliseconds(300), scheduler: MainScheduler.instance)
             .bind { [weak self] _ in
@@ -65,13 +67,19 @@ final class AddressSheetViewController: BaseBottomSheetViewController {
             }
             .disposed(by: disposeBag)
         
-        viewModel?.output.countyDataSource
+        viewModel.input.didTapCompleteButton.withLatestFrom(viewModel.input.selectedCity)
+            .subscribe { [weak self] city in
+                self?.setBottomSheetStatus(to: .hide)
+            }
+            .disposed(by: disposeBag)
+        
+        viewModel.output.countyDataSource
             .bind(to: countyCollectionView.rx.items(cellIdentifier: CityCollectionViewCell.reuseIdentifier,
                                               cellType: CityCollectionViewCell.self)) { index, item, cell in
                 cell.setupCell(itemText: item.rawValue)
             }.disposed(by: disposeBag)
         
-        viewModel?.output.villageDataSource
+        viewModel.output.villageDataSource
             .bind(to: villageCollectionView.rx.items(cellIdentifier: CityCollectionViewCell.reuseIdentifier,
                                               cellType: CityCollectionViewCell.self)) { index, item, cell in
                 cell.setupCell(itemText: item.village.rawValue)

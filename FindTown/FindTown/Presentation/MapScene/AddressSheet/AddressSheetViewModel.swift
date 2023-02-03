@@ -44,11 +44,7 @@ final class AddressSheetViewModel: BaseViewModel {
     func bind() {
         self.output.countyDataSource.onNext(County.allCases)
         
-        self.input.didTapCompleteButton.withLatestFrom(self.input.selectedCity)
-            .subscribe { city in
-                self.dismiss(city)
-            }
-            .disposed(by: disposeBag)
+        
     }
 }
 
