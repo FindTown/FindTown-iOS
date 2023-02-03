@@ -15,12 +15,12 @@ final class KeyChainManager {
     
     private init() { }
     
-    func create(account: KeyChainAccount, data: String) throws {
+    func create(account: KeyChainAccount, data: Any) throws {
         let query = [
             kSecClass: account.keyChainClass,
             kSecAttrService: KeyChainManager.serviceName,
             kSecAttrAccount: account.description,
-            kSecValueData: data.data(using: .utf8, allowLossyConversion: false)!
+            kSecValueData: (data as AnyObject).data(using: String.Encoding.utf8.rawValue) as Any
         ] as CFDictionary
         
         SecItemDelete(query as CFDictionary)
@@ -32,7 +32,7 @@ final class KeyChainManager {
         }
     }
     
-    func read(account: KeyChainAccount) throws -> String {
+    func read(account: KeyChainAccount) throws -> Any {
         let query = [
             kSecClass: account.keyChainClass,
             kSecAttrService: KeyChainManager.serviceName,

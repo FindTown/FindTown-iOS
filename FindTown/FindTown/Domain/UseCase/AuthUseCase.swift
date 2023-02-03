@@ -13,11 +13,13 @@ final class AuthUseCase {
     let kakaoAuthRepository: DefaultKakaoAuthRepository
     let appleAuthRespository: DefaultAppleAuthRespository
     let authRepository: DefaultAuthRepository
+    let tokenRepository: DefaultTokenRepository
     
     init() {
         self.kakaoAuthRepository = DefaultKakaoAuthRepository()
         self.appleAuthRespository = DefaultAppleAuthRespository()
         self.authRepository = DefaultAuthRepository()
+        self.tokenRepository = DefaultTokenRepository()
     }
     
     func login(authType: ProviderType) async throws -> (message: String, userId: SigninUserModel) {
@@ -43,9 +45,29 @@ final class AuthUseCase {
         return appleAuthRespository.authorizationController
     }
     
-    func signup(signupUerModel: SignupUserModel) async throws -> String {
-        // keychain에 token 넣기
-        return try await authRepository.signup(memberSignupDTO: signupUerModel.toData())
+    func signup(signupUerModel: SignupUserModel) async throws {
+        let tokenData = try await authRepository.signup(memberSignupDTO: signupUerModel.toData())
+        try await tokenRepository.createTokens(tokenData: tokenData)
+    }
+    
+    func reissue() async throws -> String {
+        let (refreshToken, refreshTokenExpiredTime) = try await tokenRepository.readAccessToken()
+        
+        if refreshTokenExpiredTime < Date() {
+            
+        } else {
+            return ""
+        }
+    }
+    
+    func getTokenData() async throws -> String {
+        let (accessToken, accessTokenExpiredTime) = try await tokenRepository.readAccessToken()
+        if accessTokenExpiredTime < Date() {
+            return accessToken
+        } else {
+            reissue()
+            return ""
+        }
     }
     
 }
