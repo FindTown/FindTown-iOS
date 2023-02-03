@@ -56,7 +56,7 @@ final class LoginViewModel: BaseViewModel {
         
         self.input.kakaoSigninTrigger
             .subscribe(onNext: { [weak self] _ in
-                self?.output.errorNotice.onNext(())
+                self?.login(providerType: .kakao)
             })
             .disposed(by: disposeBag)
         
@@ -95,7 +95,9 @@ extension LoginViewModel {
                 }
                 loginTask?.cancel()
             } catch (let error) {
-                self.output.errorNotice.onNext(())
+                await MainActor.run {
+                    self.output.errorNotice.onNext(())
+                }
                 Log.error(error)
             }
         }
