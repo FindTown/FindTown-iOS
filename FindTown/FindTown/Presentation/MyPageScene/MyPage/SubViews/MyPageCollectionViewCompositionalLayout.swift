@@ -21,14 +21,15 @@ final class MyPageCollectionViewCompositionalLayout: UICollectionViewLayout {
         let layout = UICollectionViewCompositionalLayout { (sectionIndex: Int,
                                                             layoutEnvironment: NSCollectionLayoutEnvironment
         ) -> NSCollectionLayoutSection? in
-            let dataSource = MyPageDemoData.dataSource
-            switch dataSource[sectionIndex] {
-            case .topHeader:
+            switch sectionIndex {
+            case 0:
                 return self.getLayoutTopHeaderSection()
-            case .support:
+            case 1:
                 return self.getLayoutSupportSection()
-            case .info:
+            case 2:
                 return self.getLayoutInfomationSection()
+            default:
+                return nil
             }
         }
         return layout
