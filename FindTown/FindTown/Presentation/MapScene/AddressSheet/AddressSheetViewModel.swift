@@ -44,7 +44,16 @@ final class AddressSheetViewModel: BaseViewModel {
     func bind() {
         self.output.countyDataSource.onNext(County.allCases)
         
-        
+        self.input.didTapCompleteButton.withLatestFrom(self.input.selectedCity)
+        .subscribe { [weak self] city in
+            let code = CityCode(county: city.county, village: city.village)
+            
+            // 네트워크
+            print(code?.description)
+            
+            self?.dismiss(city)
+        }
+        .disposed(by: disposeBag)
     }
 }
 
