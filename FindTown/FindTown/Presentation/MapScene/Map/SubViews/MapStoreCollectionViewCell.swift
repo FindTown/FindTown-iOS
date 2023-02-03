@@ -43,8 +43,17 @@ final class MapStoreCollectionViewCell: UICollectionViewCell {
     private let titleStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
-        stackView.distribution = .equalSpacing
-        stackView.spacing = 0
+        stackView.distribution = .fill
+        stackView.spacing = 2
+        return stackView
+    }()
+    
+    private let contentStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .horizontal
+        stackView.distribution = .fill
+        stackView.alignment = .leading
+        stackView.spacing = 6
         return stackView
     }()
     
@@ -63,8 +72,20 @@ final class MapStoreCollectionViewCell: UICollectionViewCell {
                                   font: .label1,
                                   textColor: .grey5)
         label.numberOfLines = 0
-        label.adjustsFontSizeToFitWidth = true
+        label.lineBreakMode = .byCharWrapping
         return label
+    }()
+    
+    private let copyButton: FTButton = {
+        let button = FTButton(style: .copy)
+        button.setSelectedImage(normalImage: UIImage(named: "copy"), selectedImage: UIImage(named: "copy"))
+        button.setTitle("복사", for: .normal)
+        return button
+    }()
+    
+    private let addressEmptyView: UIView = {
+        let view = UIView()
+        return view
     }()
     
     private let bottomStackView: UIStackView = {
@@ -133,14 +154,19 @@ private extension MapStoreCollectionViewCell {
             containerStackView.addArrangedSubview($0)
         }
         
-        [nameLabel, addressLabel].forEach {
+        [typeImageView, typeNameLabel].forEach {
+            $0.translatesAutoresizingMaskIntoConstraints = false
+            typeStackView.addArrangedSubview($0)
+        }
+        
+        [nameLabel, contentStackView].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
             titleStackView.addArrangedSubview($0)
         }
         
-        [typeImageView, typeNameLabel].forEach {
+        [addressLabel, copyButton, addressEmptyView].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
-            typeStackView.addArrangedSubview($0)
+            contentStackView.addArrangedSubview($0)
         }
         
         [emptyView, informationUpdateButton].forEach {
@@ -159,8 +185,18 @@ private extension MapStoreCollectionViewCell {
             typeImageView.heightAnchor.constraint(equalToConstant: 24.0),
             nameLabel.heightAnchor.constraint(equalToConstant: 24.0),
             
+            titleStackView.topAnchor.constraint(equalTo: typeImageView.bottomAnchor, constant: 4),
+            
+            contentStackView.widthAnchor.constraint(equalToConstant: 258.0),
+            contentStackView.heightAnchor.constraint(equalToConstant: 41.0),
+            
+            copyButton.widthAnchor.constraint(equalToConstant: 45),
+            copyButton.heightAnchor.constraint(equalToConstant: 18),
+            
             informationUpdateButton.widthAnchor.constraint(equalToConstant: 78),
             informationUpdateButton.heightAnchor.constraint(equalToConstant: 24)
         ])
+        
+        addressLabel.setContentCompressionResistancePriority(.required, for: .horizontal)
     }
 }

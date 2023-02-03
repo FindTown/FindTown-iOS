@@ -198,4 +198,17 @@ extension FTButtonStyle {
         imagePlacement: .top,
         imagePadding: 10
     )
+    
+    /// copy Button
+    public static let copy = FTButtonStyle (
+        isSelectedButton: true,
+        configuration: .tinted(),
+        titleFont: FindTownFont.label2.font,
+        selectedColorSet: [FindTownColor.white.color, FindTownColor.secondary.color],
+        nonSelectedColorSet: [FindTownColor.white.color, FindTownColor.secondary.color],
+        topBottomInset: 1,
+        cornerRadius: 0,
+        imagePlacement: .leading,
+        imagePadding: 4
+    )
 }
