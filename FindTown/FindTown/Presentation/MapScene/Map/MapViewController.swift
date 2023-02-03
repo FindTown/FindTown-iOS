@@ -111,6 +111,10 @@ final class MapViewController: BaseViewController {
             })
             .disposed(by: disposeBag)
         
+        viewModel?.output.isFavoriteCity
+            .bind(to: rx.isFavoriteCity)
+            .disposed(by: disposeBag)
+        
     }
 
     override func addView() {
@@ -266,7 +270,7 @@ extension Reactive where Base: MapViewController {
             } else {
                 viewController.favoriteButton.tintColor = .black
             }
-            viewController.viewModel?.input.isFavoriteCity.onNext(isSelect)
+            viewController.viewModel?.input.didTapFavoriteButton.onNext(isSelect)
         }
     }
 }

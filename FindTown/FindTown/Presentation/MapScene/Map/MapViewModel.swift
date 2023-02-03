@@ -28,13 +28,14 @@ final class MapViewModel: BaseViewModel {
     
     struct Input {
         let segmentIndex = BehaviorRelay<Int>(value: 0)
-        let isFavoriteCity = PublishSubject<Bool>()
+        let didTapFavoriteButton = PublishSubject<Bool>()
     }
     
     struct Output {
         var categoryDataSource = BehaviorSubject<[Category]>(value: [])
         var storeDataSource = BehaviorSubject<[Store]>(value: [])
         var city = PublishSubject<City>()
+        var isFavoriteCity = PublishSubject<Bool>()
     }
     
     let input = Input()
@@ -59,7 +60,7 @@ final class MapViewModel: BaseViewModel {
             }
             .disposed(by: disposeBag)
         
-        Observable.combineLatest(self.input.isFavoriteCity, self.output.city)
+        Observable.combineLatest(self.input.didTapFavoriteButton, self.output.city)
             .subscribe { [weak self] isFavorite, city in
                 if isFavorite {
                     self?.addFavoriteCity(city)
