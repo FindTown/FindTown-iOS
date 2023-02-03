@@ -143,6 +143,10 @@ private extension MapStoreCollectionViewCell {
         contentView.layer.borderWidth = 1
         contentView.layer.cornerRadius = 16
         contentView.layer.masksToBounds = true
+        
+        contentView.layer.shadowRadius = 10
+        contentView.layer.shadowOpacity = 1
+        contentView.layer.shadowColor = FindTownColor.grey4.color.cgColor
     }
     
     func setupLayout() {
