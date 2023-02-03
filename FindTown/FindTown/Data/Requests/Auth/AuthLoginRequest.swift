@@ -14,15 +14,11 @@ struct AuthLoginReqeust: BaseRequest {
         self.task = task
     }
     
-    typealias ResponseType = BodyNull
+    typealias ResponseType = TokenInformationDTO
     var path: String = "/auth/login"
     var method: FindTownNetwork.HttpMethod = .post
     var headers: FindTownNetwork.HTTPHeaders = HTTPHeaders([.accept("*/*"),
                                                             .contentType("application/json")])
     var task: FindTownNetwork.TaskType
     var parameters: [URLQueryItem]? = nil
-}
-
-/// 임시
-struct BodyNull: Response {
 }

@@ -14,8 +14,7 @@ struct SignupRequest: BaseRequest {
         self.task = task
     }
     
-    // 임시
-    typealias ResponseType = BodyNull
+    typealias ResponseType = TokenInformationDTO
     var path: String = "/app/members/signup"
     var method: FindTownNetwork.HttpMethod = .post
     var headers: FindTownNetwork.HTTPHeaders = HTTPHeaders([.accept("*/*"),
