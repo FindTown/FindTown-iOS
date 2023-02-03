@@ -7,7 +7,7 @@
 
 import UIKit
 
-enum MyPageDemoData {
+enum MyPageSections {
     static let dataSource = [
         MyPageSection.topHeader([ ]),
         MyPageSection.support(

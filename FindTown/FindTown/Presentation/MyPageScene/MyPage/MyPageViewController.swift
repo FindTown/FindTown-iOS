@@ -17,7 +17,7 @@ final class MyPageViewController: BaseViewController {
     // MARK: - Properties
     
     private let viewModel: MyPageViewModel?
-    private let dataSource = MyPageDemoData.dataSource
+    private let dataSource = MyPageSections.dataSource
     
     // MARK: - Views
     
