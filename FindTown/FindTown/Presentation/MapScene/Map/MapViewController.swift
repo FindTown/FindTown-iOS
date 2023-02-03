@@ -22,7 +22,7 @@ final class MapViewController: BaseViewController {
     
     private let mapView = NMFMapView()
     private let naviBarSubView = UIView()
-    private let favoriteButton = UIBarButtonItem(image: UIImage(named: "favoriteBtn"),
+    fileprivate let favoriteButton = UIBarButtonItem(image: UIImage(named: "favoriteBtn"),
                                          style: .plain,
                                          target: nil,
                                          action: nil)
@@ -59,10 +59,10 @@ final class MapViewController: BaseViewController {
         // MARK: Input
         
         favoriteButton.rx.tap
-            .throttle(.seconds(10), scheduler: MainScheduler.instance)
-            .subscribe(onNext: {
-                print("rightBarButton tapped")
-            })
+            .scan(false) { (lastState, newValue) in
+                  !lastState
+               }
+            .bind(to: rx.isFavoriteCity)
             .disposed(by: disposeBag)
         
         addressButton.rx.tap
@@ -256,6 +256,17 @@ extension Reactive where Base: MapViewController {
                 viewController.detailCategoryView.isHidden = true
             }
             viewController.viewModel?.input.segmentIndex.accept(index)
+        }
+    }
+    
+    var isFavoriteCity: Binder<Bool> {
+        return Binder(self.base) { (viewController, isSelect) in
+            if isSelect {
+                viewController.favoriteButton.tintColor = .red
+            } else {
+                viewController.favoriteButton.tintColor = .black
+            }
+            viewController.viewModel?.input.isFavoriteCity.onNext(isSelect)
         }
     }
 }

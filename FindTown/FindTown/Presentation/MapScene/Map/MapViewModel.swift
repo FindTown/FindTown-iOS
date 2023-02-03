@@ -28,6 +28,7 @@ final class MapViewModel: BaseViewModel {
     
     struct Input {
         let segmentIndex = BehaviorRelay<Int>(value: 0)
+        let isFavoriteCity = PublishSubject<Bool>()
     }
     
     struct Output {
@@ -58,9 +59,32 @@ final class MapViewModel: BaseViewModel {
             }
             .disposed(by: disposeBag)
         
+        Observable.combineLatest(self.input.isFavoriteCity, self.output.city)
+            .subscribe { [weak self] isFavorite, city in
+                if isFavorite {
+                    self?.addFavoriteCity(city)
+                } else {
+                    self?.removeFavoriteCity(city)
+                }
+            }
+            .disposed(by: disposeBag)
+        
         self.output.storeDataSource.onNext(returnStoreTestData())
     }
 }
+
+// MARK: - Network
+
+extension MapViewModel {
+    func addFavoriteCity(_ city: City) {
+        
+    }
+    
+    func removeFavoriteCity(_ city: City) {
+        
+    }
+}
+
 
 extension MapViewModel: MapViewModelType {
     
