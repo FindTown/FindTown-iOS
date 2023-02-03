@@ -14,9 +14,7 @@ final class InfoSectionCollectionViewCell: UICollectionViewCell {
     static var reuseIdentifier: String {
         return String(describing: self)
     }
-    
-    var viewModel: MyPageViewModel?
-    
+
     private var model: MyPageSection.Info?
     
     private let titleLabel: FindTownLabel = FindTownLabel(text: "", font: .body1)
@@ -54,22 +52,6 @@ final class InfoSectionCollectionViewCell: UICollectionViewCell {
             attributedStr.addAttribute(.font, value: FindTownFont.body4.font,
                                        range: (model.title as NSString).range(of: versionString as? String ?? ""))
             titleLabel.attributedText = attributedStr
-        default:
-            break
-        }
-        
-        let tapGesture = UITapGestureRecognizer(target: self,
-                                                action: #selector(cellTap(sender:)))
-        contentView.addGestureRecognizer(tapGesture)
-    }
-    
-    @objc func cellTap(sender: UITapGestureRecognizer) {
-        
-        switch model?.title {
-        case "로그아웃":
-            viewModel?.delegate.popUpSignout()
-        case "회원탈퇴":
-            viewModel?.delegate.popUpWithDraw()
         default:
             break
         }

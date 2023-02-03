@@ -62,7 +62,11 @@ final class MyPageViewController: BaseViewController {
     }
     
     override func bindViewModel() {
-        
+        collectionView.rx.itemSelected
+            .bind { [weak self] in
+                self?.navigateToPage($0)
+            }
+            .disposed(by: disposeBag)
     }
 }
 
@@ -96,7 +100,6 @@ extension MyPageViewController: UICollectionViewDataSource {
             if let cell {
                 let item = supports[indexPath.item]
                 cell.setupCell(model: item)
-                cell.viewModel = viewModel
                 return cell
             }
             return UICollectionViewCell()
@@ -107,7 +110,6 @@ extension MyPageViewController: UICollectionViewDataSource {
             if let cell {
                 let item = infomations[indexPath.item]
                 cell.setupCell(model: item)
-                cell.viewModel = viewModel
                 return cell
             }
             return UICollectionViewCell()
@@ -141,6 +143,28 @@ extension MyPageViewController: UICollectionViewDataSource {
             return UICollectionReusableView()
         default:
             return UICollectionReusableView()
+        }
+    }
+}
+
+extension MyPageViewController {
+    func navigateToPage(_ indexPath: IndexPath) {
+        
+        let sectionIndex = indexPath[0]
+        let itemIndex = indexPath[1]
+        
+        switch sectionIndex {
+        case 1:
+            break
+        case 2:
+            if itemIndex == 4 {
+                viewModel?.input.signoutTapTrigger.onNext(())
+            } else if itemIndex == 5 {
+                viewModel?.input.withDrawTapTrigger.onNext(())
+            }
+            break
+        default:
+            break
         }
     }
 }

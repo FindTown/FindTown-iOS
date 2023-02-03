@@ -31,6 +31,8 @@ final class MyPageViewModel: BaseViewModel {
     struct Input {
         let changeNicknameButtonTrigger = PublishSubject<Void>()
         let reviewButtonTrigger = PublishSubject<Void>()
+        let signoutTapTrigger = PublishSubject<Void>()
+        let withDrawTapTrigger = PublishSubject<Void>()
     }
     
     struct Output {
@@ -60,6 +62,18 @@ final class MyPageViewModel: BaseViewModel {
         self.input.reviewButtonTrigger
             .bind {[weak self] in
                 self?.goToMyTownReview()
+            }
+            .disposed(by: disposeBag)
+        
+        self.input.signoutTapTrigger
+            .bind {[weak self] in
+                self?.popUpSignout()
+            }
+            .disposed(by: disposeBag)
+        
+        self.input.withDrawTapTrigger
+            .bind {[weak self] in
+                self?.popUpWithDraw()
             }
             .disposed(by: disposeBag)
     }
