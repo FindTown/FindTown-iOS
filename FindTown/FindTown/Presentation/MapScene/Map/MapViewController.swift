@@ -104,6 +104,13 @@ final class MapViewController: BaseViewController {
             })
             .disposed(by: disposeBag)
         
+        viewModel?.output.city
+            .subscribe(onNext: { [weak self] city in
+                let cityString = "서울시 \(city.county.rawValue) \(city.village.rawValue)"
+                self?.addressButton.setTitle(cityString, for: .normal)
+            })
+            .disposed(by: disposeBag)
+        
     }
 
     override func addView() {

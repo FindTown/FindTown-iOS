@@ -15,6 +15,7 @@ import RxCocoa
 protocol MapViewModelDelegate {
     func gotoIntroduce()
     func presentAddressSheet()
+    func setCityData(_ city: City)
 }
 
 protocol MapViewModelType {
@@ -32,6 +33,7 @@ final class MapViewModel: BaseViewModel {
     struct Output {
         var categoryDataSource = BehaviorSubject<[Category]>(value: [])
         var storeDataSource = BehaviorSubject<[Store]>(value: [])
+        var city = PublishSubject<City>()
     }
     
     let input = Input()

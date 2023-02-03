@@ -46,11 +46,6 @@ final class AddressSheetViewModel: BaseViewModel {
         
         self.input.didTapCompleteButton.withLatestFrom(self.input.selectedCity)
         .subscribe { [weak self] city in
-            let code = CityCode(county: city.county, village: city.village)
-            
-            // 네트워크
-            print(code?.description)
-            
             self?.dismiss(city)
         }
         .disposed(by: disposeBag)
