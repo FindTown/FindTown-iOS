@@ -18,7 +18,7 @@ final class LoginViewController: BaseViewController {
     
     // MARK: - Properties
     
-    private let viewModel: LoginViewModel?
+    let viewModel: LoginViewModel?
     
     private let anonymousTitleTapGesture = UITapGestureRecognizer()
     

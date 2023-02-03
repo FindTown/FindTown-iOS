@@ -15,4 +15,5 @@ protocol SignupViewModelDelegate {
     func goToTabBar()
     func dismiss()
     func dismissAndGoToTapBar()
+    func dismissAndShowError()
 }

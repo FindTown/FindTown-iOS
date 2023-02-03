@@ -73,6 +73,10 @@ final class LoginViewModel: BaseViewModel {
             .disposed(by: disposeBag)
         
     }
+    
+    func showErrorNoticeAlert() {
+        self.output.errorNotice.onNext(())
+    }
 }
 
 // MARK: - Network

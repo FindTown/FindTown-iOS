@@ -16,6 +16,7 @@ protocol AgreePolicyViewModelType {
     func goToTabBar()
     func dismiss()
     func dismissAndGoToTabBar()
+    func dismissAndShowError()
 }
 
 final class AgreePolicyViewModel: BaseViewModel {
@@ -100,8 +101,9 @@ extension AgreePolicyViewModel {
                     self.dismissAndGoToTabBar()
                 }
             } catch (let error) {
+                Log.error(error)
                 await MainActor.run(body: {
-                    self.dismiss()
+                    self.dismissAndShowError()
                 })
             }
             registerTask?.cancel()
@@ -117,6 +119,10 @@ extension AgreePolicyViewModel: AgreePolicyViewModelType {
     
     func dismiss() {
         delegate.dismiss()
+    }
+    
+    func dismissAndShowError() {
+        delegate.dismissAndShowError()
     }
     
     func dismissAndGoToTabBar() {

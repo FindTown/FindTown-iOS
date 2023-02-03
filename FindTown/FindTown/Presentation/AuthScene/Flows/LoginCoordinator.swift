@@ -8,6 +8,7 @@
 import UIKit
 
 import FindTownCore
+import FindTownUI
 
 final class LoginCoordinator: FlowCoordinator {
     
@@ -44,5 +45,12 @@ extension LoginCoordinator: LoginViewModelDelegate {
                                                           authUseCase: authUseCase,
                                                           userData: userData,
                                                           providerType: providerType).start()
+    }
+    
+    func showErrorNoticeAlert() {
+        guard let navigationController = navigationController else { return }
+        if let loginViewController = navigationController.topViewController as? LoginViewController {
+            loginViewController.viewModel?.showErrorNoticeAlert()
+        }
     }
 }
