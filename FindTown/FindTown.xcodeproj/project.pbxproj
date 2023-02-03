@@ -1422,6 +1422,7 @@
 				DEVELOPMENT_TEAM = CADXU3X8JU;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = FindTown/Resource/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "동네한입";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
@@ -1452,6 +1453,7 @@
 				DEVELOPMENT_TEAM = CADXU3X8JU;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = FindTown/Resource/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "동네한입";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
