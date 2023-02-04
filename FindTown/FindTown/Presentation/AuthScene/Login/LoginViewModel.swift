@@ -8,6 +8,7 @@
 import Foundation
 
 import FindTownCore
+import FindTownNetwork
 import RxSwift
 
 protocol LoginViewModelType {
@@ -39,6 +40,7 @@ final class LoginViewModel: BaseViewModel {
     // MARK: - Task
     
     private var loginTask: Task<Void, Error>?
+    private var signupTask: Task<Void, Error>?
     
     init(
         delegate: LoginViewModelDelegate,
@@ -90,6 +92,28 @@ extension LoginViewModel {
                     self.goToTabBar()
                 }
                 loginTask?.cancel()
+            } catch (let error) {
+                if let error = error as? FTNetworkError,
+                   FTNetworkError.isUnauthorized(error: error) {
+                    self.goToSignup(providerType: providerType)
+                } else {
+                    await MainActor.run {
+                        self.output.errorNotice.onNext(())
+                    }
+                    Log.error(error)
+                }
+            }
+        }
+    }
+    
+    func goToSignup(providerType: ProviderType) {
+        signupTask = Task {
+            do {
+                let userData = try await self.authUseCase.getUserData()
+                await MainActor.run {
+                    self.goToNickname(userData: userData, providerType: providerType)
+                }
+                signupTask?.cancel()
             } catch (let error) {
                 await MainActor.run {
                     self.output.errorNotice.onNext(())
