@@ -9,6 +9,9 @@ import UIKit
 
 public final class ImageButton: UIButton {
     
+    public override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
+        return bounds.insetBy(dx: -20, dy: -20).contains(point)
+    }
     
     public init(imageText: String, tintColor: FindTownColor) {
         super.init(frame: .zero)
