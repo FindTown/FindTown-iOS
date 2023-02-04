@@ -54,22 +54,30 @@ final class AuthUseCase {
     func reissue(accessToken: String) async throws -> String {
         let (_, refreshTokenExpiredTime) = try await tokenRepository.readRefreshToken()
         
-        if refreshTokenExpiredTime < Date() {
+        if refreshTokenExpiredTime - Date().timeIntervalSince1970 < 600 {
+            // 만료
+            throw FTNetworkError.unauthorized
+        } else {
+            // 만료 안됨
             let tokenData = try await authRepository.reissue(accessToken: accessToken)
             try await tokenRepository.createTokens(tokenData: tokenData)
             return tokenData.accessToken
-        } else {
-            throw FTNetworkError.unauthorized
         }
     }
     
     func getTokenData() async throws -> String {
         let (accessToken, accessTokenExpiredTime) = try await tokenRepository.readAccessToken()
-        if accessTokenExpiredTime < Date() {
-            return accessToken
-        } else {
+        if accessTokenExpiredTime - Date().timeIntervalSince1970 < 600 {
+            // 만료 시 재발급
             return try await reissue(accessToken: accessToken)
+        } else {
+            // 만료 안됨
+            return accessToken
         }
+    }
+    
+    func getUserData() async throws -> SigninUserModel {
+        return try await kakaoAuthRepository.getUserInformation()
     }
     
 }

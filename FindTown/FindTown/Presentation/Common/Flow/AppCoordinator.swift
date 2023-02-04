@@ -22,18 +22,18 @@ public final class AppCoordinator: Coordinator {
     public func start() {
         
         // 자동 로그인
-        
-        if TokenManager.shared.readAccessToken() == nil {
-            // 로그인 필요
-            goToAuth()
-        } else {
-            // 1. server로 부터 유저정보 확인
-            // 2. 유저정보가 있으면 goToTabBar()
-            // 3. 없으면 goToAuth()
-
-//            goToAuth()
-            goToTabBar()
-        }
+        goToAuth()
+//        if TokenManager.shared.readAccessToken() == nil {
+//            // 로그인 필요
+//            
+//        } else {
+//            // 1. server로 부터 유저정보 확인
+//            // 2. 유저정보가 있으면 goToTabBar()
+//            // 3. 없으면 goToAuth()
+//
+////            goToAuth()
+//            goToTabBar()
+//        }
     }
     
     private func goToAuth() {

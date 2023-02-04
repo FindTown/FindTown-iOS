@@ -18,25 +18,19 @@ final class DefaultTokenRepository {
         try KeyChainManager.shared.create(account: .refreshTokenExpiredTime, data: String(tokenData.refreshTokenExpiredTime))
     }
     
-    func readAccessToken() async throws -> (String, Date) {
+    func readAccessToken() async throws -> (String, TimeInterval) {
         let accessToken = try KeyChainManager.shared.read(account: .accessToken)
-        let accessTokenExpiredTime = try KeyChainManager.shared.read(account: .accesstokenExpiredTime)
+        let accessTokenExpiredTimeString = try KeyChainManager.shared.read(account: .accesstokenExpiredTime)
         
-        guard let accessToken = accessToken as? String,
-              let accessTokenExpiredTime = accessTokenExpiredTime as? Date else {
-            throw FTNetworkError.noData
-        }
+        let accessTokenExpiredTime = try Double(accessTokenExpiredTimeString, format: .number)
         return (accessToken, accessTokenExpiredTime)
     }
     
-    func readRefreshToken() async throws -> (String, Date) {
+    func readRefreshToken() async throws -> (String, TimeInterval) {
         let refreshToken = try KeyChainManager.shared.read(account: .refreshToken)
-        let refreshTokenExpiredTime = try KeyChainManager.shared.read(account: .refreshTokenExpiredTime)
+        let refreshTokenExpiredTimeString = try KeyChainManager.shared.read(account: .refreshTokenExpiredTime)
         
-        guard let refreshToken = refreshToken as? String,
-              let refreshTokenExpiredTime = refreshTokenExpiredTime as? Date else {
-            throw FTNetworkError.noData
-        }
+        let refreshTokenExpiredTime = try Double(refreshTokenExpiredTimeString, format: .number)
         return (refreshToken, refreshTokenExpiredTime)
     }
     
