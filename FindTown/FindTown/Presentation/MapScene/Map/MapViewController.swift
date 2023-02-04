@@ -221,7 +221,7 @@ extension MapViewController: MapStoreCollectionViewCellDelegate {
     }
     
     func didTapCopyButton(text: String) {
-        print("copy tap")
+        UIPasteboard.general.string = text
     }
 }
 
