@@ -80,4 +80,9 @@ final class AuthUseCase {
         return try await kakaoAuthRepository.getUserInformation()
     }
     
+    func memberConfirm(accessToken: String) async throws -> String {
+        let userData = try await authRepository.loginConfirm(accessToken: accessToken)
+        return userData.memberId
+    }
+    
 }

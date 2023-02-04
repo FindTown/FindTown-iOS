@@ -33,4 +33,11 @@ final class DefaultAuthRepository {
         let data = try await Network.shared.request(target: ReissueRequest(HTTPHeaders: HTTPHeaders))
         return data.body
     }
+    
+    func loginConfirm(accessToken: String) async throws -> LoginConfirmReponseDTO {
+        let HTTPHeaders = HTTPHeaders([.accept("*/*"),
+                                       .authorization(bearerToken: accessToken)])
+        let data = try await Network.shared.request(target: LoginConfirmRequest(HTTPHeaders: HTTPHeaders))
+        return data.body
+    }
 }

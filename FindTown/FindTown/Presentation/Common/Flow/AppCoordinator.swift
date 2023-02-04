@@ -10,8 +10,13 @@ import FindTownCore
 import KakaoSDKAuth
 import KakaoSDKUser
 
+import FindTownNetwork
+
 public final class AppCoordinator: Coordinator {
     var navigationController: UINavigationController
+    let authUseCase = AuthUseCase()
+    
+    private var autoSignTask: Task<Void, Error>?
     
     required init(
         navigationController: UINavigationController
@@ -21,18 +26,27 @@ public final class AppCoordinator: Coordinator {
     
     public func start() {
         
+        self.goToAuth()
+        
         // 자동 로그인
-        goToAuth()
-//        if TokenManager.shared.readAccessToken() == nil {
-//            // 로그인 필요
-//            
-//        } else {
-//            // 1. server로 부터 유저정보 확인
-//            // 2. 유저정보가 있으면 goToTabBar()
-//            // 3. 없으면 goToAuth()
-//
-////            goToAuth()
-//            goToTabBar()
+//        autoSignTask = Task {
+//            do {
+//                let accessToken = try await self.authUseCase.getTokenData()
+//                let userId = try await self.authUseCase.memberConfirm(accessToken: accessToken)
+//                await MainActor.run {
+//                    self.goToTabBar()
+//                }
+//                autoSignTask?.cancel()
+//            } catch (let error) {
+//                if let error = error as? FTNetworkError,
+//                   FTNetworkError.isUnauthorized(error: error) {
+//                    await MainActor.run {
+//                        self.goToAuth()
+//                    }
+//                } else {
+//                    Log.error(error)
+//                }
+//            }
 //        }
     }
     
