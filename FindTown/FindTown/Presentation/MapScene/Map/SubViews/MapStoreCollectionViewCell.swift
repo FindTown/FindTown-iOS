@@ -10,6 +10,11 @@ import FindTownUI
 
 import RxSwift
 
+protocol MapStoreCollectionViewCellDelegate: AnyObject {
+    func didTapInformationUpdateButton()
+    func didTapCopyButton(text: String)
+}
+
 final class MapStoreCollectionViewCell: UICollectionViewCell {
     
     static var reuseIdentifier: String {
@@ -111,6 +116,8 @@ final class MapStoreCollectionViewCell: UICollectionViewCell {
         return button
     }()
     
+    weak var delegate: MapStoreCollectionViewCellDelegate?
+    
     override func prepareForReuse() {
         super.prepareForReuse()
         
@@ -121,6 +128,11 @@ final class MapStoreCollectionViewCell: UICollectionViewCell {
         super.init(frame: frame)
         setupView()
         setupLayout()
+        
+        let copyTap = UITapGestureRecognizer(target: self, action: #selector(copyAction))
+        copyButton.addGestureRecognizer(copyTap)
+        let updateTap = UITapGestureRecognizer(target: self, action: #selector(updateAction))
+        informationUpdateButton.addGestureRecognizer(updateTap)
     }
     
     required init?(coder: NSCoder) {
@@ -132,6 +144,15 @@ final class MapStoreCollectionViewCell: UICollectionViewCell {
         typeNameLabel.text = store.thema.storeDetailType.description
         nameLabel.text = store.name
         addressLabel.text = store.address
+    }
+    
+    @objc func copyAction() {
+        guard let addressText = self.addressLabel.text else { return }
+        self.delegate?.didTapCopyButton(text: addressText)
+    }
+    
+    @objc func updateAction() {
+        self.delegate?.didTapInformationUpdateButton()
     }
 }
 

@@ -92,6 +92,7 @@ final class MapViewController: BaseViewController {
             .bind(to: storeCollectionView.rx.items(cellIdentifier: MapStoreCollectionViewCell.reuseIdentifier,
                                               cellType: MapStoreCollectionViewCell.self)) { index, item, cell in
                 cell.setupCell(store: item)
+                cell.delegate = self
             }.disposed(by: disposeBag)
         
         /// 선택한 iconCell에 맞는 detailCategoryView 데이터 보여주게 함
@@ -211,6 +212,16 @@ private extension MapViewController {
             detailCategoryView.topAnchor.constraint(equalTo: categoryCollectionView.bottomAnchor, constant: 16.0),
             detailCategoryView.leadingAnchor.constraint(equalTo: mapView.leadingAnchor, constant: 16.0)
         ])
+    }
+}
+
+extension MapViewController: MapStoreCollectionViewCellDelegate {
+    func didTapInformationUpdateButton() {
+        print("informationUpdate tap")
+    }
+    
+    func didTapCopyButton(text: String) {
+        print("copy tap")
     }
 }
 
