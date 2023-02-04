@@ -22,7 +22,7 @@ final class MapViewController: BaseViewController {
     
     private let mapView = NMFMapView()
     private let naviBarSubView = UIView()
-    fileprivate let favoriteButton = UIBarButtonItem(image: UIImage(named: "favoriteBtn"),
+    fileprivate let favoriteButton = UIBarButtonItem(image: UIImage(named: "favorite.nonselect"),
                                          style: .plain,
                                          target: nil,
                                          action: nil)
@@ -142,6 +142,7 @@ final class MapViewController: BaseViewController {
         naviBarSubView.backgroundColor = FindTownColor.white.color
         self.navigationItem.rightBarButtonItem = favoriteButton
         self.storeCollectionView.delegate = self
+        favoriteButton.tintColor = FindTownColor.grey4.color
     }
 
     override func setLayout() {
@@ -277,9 +278,11 @@ extension Reactive where Base: MapViewController {
     var isFavoriteCity: Binder<Bool> {
         return Binder(self.base) { (viewController, isSelect) in
             if isSelect {
-                viewController.favoriteButton.tintColor = .red
+                viewController.favoriteButton.image = UIImage(named: "favorite.select")
+                viewController.favoriteButton.tintColor = FindTownColor.orange.color
             } else {
-                viewController.favoriteButton.tintColor = .black
+                viewController.favoriteButton.image = UIImage(named: "favorite.nonselect")
+                viewController.favoriteButton.tintColor = FindTownColor.grey4.color
             }
             viewController.viewModel?.input.didTapFavoriteButton.onNext(isSelect)
         }
