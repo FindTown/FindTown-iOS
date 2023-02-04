@@ -85,13 +85,9 @@ extension LoginViewModel {
     func login(providerType: ProviderType) {
         loginTask = Task {
             do {
-                let (message, userData) = try await self.authUseCase.login(authType: providerType)
+                try await self.authUseCase.login(authType: providerType)
                 await MainActor.run {
-                    if message == "비회원 계정입니다." {
-                        self.goToNickname(userData: userData, providerType: .kakao)
-                    } else {
-                        self.goToTabBar()
-                    }
+                    self.goToTabBar()
                 }
                 loginTask?.cancel()
             } catch (let error) {

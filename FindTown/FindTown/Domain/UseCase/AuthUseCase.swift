@@ -24,18 +24,17 @@ final class AuthUseCase {
         self.tokenRepository = DefaultTokenRepository()
     }
     
-    func login(authType: ProviderType) async throws -> (message: String, userId: SigninUserModel) {
+    func login(authType: ProviderType) async throws {
         switch authType {
         case .kakao:
             let _ = try await kakaoAuthRepository.isKakaoTalkLoginAvailable()
             let userData = try await kakaoAuthRepository.getUserInformation()
-            print(userData.userId)
-            let message = try await authRepository.login(memberId: userData.userId)
-            return (message, userData)
+            let tokenData = try await authRepository.login(memberId: userData.userId)
+            try await tokenRepository.createTokens(tokenData: tokenData)
         case .apple:
             let userData = try await appleAuthRespository.loginWithApple()
-            let message = try await authRepository.login(memberId: userData.userId)
-            return (message, userData)
+            let tokenData = try await authRepository.login(memberId: userData.userId)
+            try await tokenRepository.createTokens(tokenData: tokenData)
         }
     }
     

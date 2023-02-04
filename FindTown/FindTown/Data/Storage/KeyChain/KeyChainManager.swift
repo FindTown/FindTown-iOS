@@ -11,11 +11,11 @@ import Security
 final class KeyChainManager {
     
     static let shared = KeyChainManager()
-    static let serviceName = "서비스이름"
+    static let serviceName = "kr.findtown.com"
     
     private init() { }
     
-    func create(account: KeyChainAccount, data: Any) throws {
+    func create(account: KeyChainAccount, data: String) throws {
         let query = [
             kSecClass: account.keyChainClass,
             kSecAttrService: KeyChainManager.serviceName,
@@ -32,7 +32,7 @@ final class KeyChainManager {
         }
     }
     
-    func read(account: KeyChainAccount) throws -> Any {
+    func read(account: KeyChainAccount) throws -> String {
         let query = [
             kSecClass: account.keyChainClass,
             kSecAttrService: KeyChainManager.serviceName,

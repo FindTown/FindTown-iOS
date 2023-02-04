@@ -13,9 +13,9 @@ final class DefaultTokenRepository {
     
     func createTokens(tokenData: TokenInformationDTO) async throws {
         try KeyChainManager.shared.create(account: .accessToken, data: tokenData.accessToken)
-        try KeyChainManager.shared.create(account: .accesstokenExpiredTime, data: tokenData.accessTokenExpiredTime)
+        try KeyChainManager.shared.create(account: .accesstokenExpiredTime, data: String(tokenData.accessTokenExpiredTime))
         try KeyChainManager.shared.create(account: .refreshToken, data: tokenData.refreshToken)
-        try KeyChainManager.shared.create(account: .refreshTokenExpiredTime, data: tokenData.refreshTokenExpiredTime)
+        try KeyChainManager.shared.create(account: .refreshTokenExpiredTime, data: String(tokenData.refreshTokenExpiredTime))
     }
     
     func readAccessToken() async throws -> (String, Date) {
