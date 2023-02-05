@@ -98,6 +98,7 @@
 		F3356EEA298D4D59002B9FFD /* ReissueRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3356EE9298D4D59002B9FFD /* ReissueRequest.swift */; };
 		F3356EFA298EB918002B9FFD /* LoginConfirmRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3356EF9298EB918002B9FFD /* LoginConfirmRequest.swift */; };
 		F3356EFC298EB980002B9FFD /* LoginConfirmReponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3356EFB298EB980002B9FFD /* LoginConfirmReponseDTO.swift */; };
+		F3356EFE298F8784002B9FFD /* ReissueResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3356EFD298F8784002B9FFD /* ReissueResponseDTO.swift */; };
 		F3891E1F293B8393003CE8AD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3891E1E293B8393003CE8AD /* AppDelegate.swift */; };
 		F3891E21293B8393003CE8AD /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3891E20293B8393003CE8AD /* SceneDelegate.swift */; };
 		F3891E2B293B8394003CE8AD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F3891E2A293B8394003CE8AD /* Assets.xcassets */; };
@@ -244,6 +245,7 @@
 		F3356EE9298D4D59002B9FFD /* ReissueRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReissueRequest.swift; sourceTree = "<group>"; };
 		F3356EF9298EB918002B9FFD /* LoginConfirmRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginConfirmRequest.swift; sourceTree = "<group>"; };
 		F3356EFB298EB980002B9FFD /* LoginConfirmReponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginConfirmReponseDTO.swift; sourceTree = "<group>"; };
+		F3356EFD298F8784002B9FFD /* ReissueResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReissueResponseDTO.swift; sourceTree = "<group>"; };
 		F3891E1B293B8393003CE8AD /* FindTown.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FindTown.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F3891E1E293B8393003CE8AD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F3891E20293B8393003CE8AD /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -845,6 +847,7 @@
 				F38AA80E29817F1600EF66F2 /* NickCheckResponseDTO.swift */,
 				F3356EE1298CEA4B002B9FFD /* TokenInformationDTO.swift */,
 				F3356EFB298EB980002B9FFD /* LoginConfirmReponseDTO.swift */,
+				F3356EFD298F8784002B9FFD /* ReissueResponseDTO.swift */,
 			);
 			path = Reponse;
 			sourceTree = "<group>";
@@ -1175,6 +1178,7 @@
 				BC42D352297FA89D00A2F487 /* SelectCountyViewController.swift in Sources */,
 				F39EDDC2296D635100A4E655 /* CityType.swift in Sources */,
 				BC4C117C297124E700645AA7 /* FilterCollectionView.swift in Sources */,
+				F3356EFE298F8784002B9FFD /* ReissueResponseDTO.swift in Sources */,
 				BCE814F62967DAF200A6E3CB /* LoginCoordinator.swift in Sources */,
 				BC9F4D5E296BF0C90099473C /* AgreePolicyViewController.swift in Sources */,
 				F38AA81729829A9300EF66F2 /* Village.swift in Sources */,

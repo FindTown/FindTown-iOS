@@ -21,5 +21,3 @@ struct LoginConfirmReponseDTO: Response {
 struct AuthoritiesDTO: Response {
     let authority: String
 }
-
-
