@@ -97,7 +97,7 @@ extension MyPageViewController: UICollectionViewDataSource {
             let cell = collectionView.dequeueReusableCell(
                 withReuseIdentifier: SupportSectionCollectionViewCell.reuseIdentifier, for: indexPath
             ) as? SupportSectionCollectionViewCell
-            if let cell {
+            if let cell = cell {
                 let item = supports[indexPath.item]
                 cell.setupCell(model: item)
                 return cell
@@ -107,7 +107,7 @@ extension MyPageViewController: UICollectionViewDataSource {
             let cell = collectionView.dequeueReusableCell(
                 withReuseIdentifier: InfoSectionCollectionViewCell.reuseIdentifier, for: indexPath
             ) as? InfoSectionCollectionViewCell
-            if let cell {
+            if let cell = cell {
                 let item = infomations[indexPath.item]
                 cell.setupCell(model: item)
                 return cell
@@ -126,7 +126,7 @@ extension MyPageViewController: UICollectionViewDataSource {
                 withReuseIdentifier: DividerView.reuseIdentifier,
                 for: indexPath
             ) as? DividerView
-            if let dividerView {
+            if let dividerView = dividerView {
                 return dividerView
             }
             return UICollectionReusableView()
@@ -137,7 +137,7 @@ extension MyPageViewController: UICollectionViewDataSource {
                 for: indexPath
             ) as? CollectionHeaderView
             collectionHeaderView?.viewModel = viewModel
-            if let collectionHeaderView {
+            if let collectionHeaderView = collectionHeaderView {
                 return collectionHeaderView
             }
             return UICollectionReusableView()
