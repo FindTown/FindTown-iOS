@@ -530,20 +530,20 @@
 			path = SelectCounty;
 			sourceTree = "<group>";
 		};
-		BC103D8E297FD68200A709EC /* ShowDongList */ = {
+		BC103D8E297FD68200A709EC /* ShowVillageList */ = {
 			isa = PBXGroup;
 			children = (
 				BC199C3F297FE95F00C2A89B /* ShowVillageListViewController.swift */,
 				BC199C41297FE96E00C2A89B /* ShowVillageListViewModel.swift */,
 			);
-			path = ShowDongList;
+			path = ShowVillageList;
 			sourceTree = "<group>";
 		};
 		BC42D350297FA53400A2F487 /* SearchCounty */ = {
 			isa = PBXGroup;
 			children = (
 				BC103D8D297FD60100A709EC /* SelectCounty */,
-				BC103D8E297FD68200A709EC /* ShowDongList */,
+				BC103D8E297FD68200A709EC /* ShowVillageList */,
 			);
 			path = SearchCounty;
 			sourceTree = "<group>";
