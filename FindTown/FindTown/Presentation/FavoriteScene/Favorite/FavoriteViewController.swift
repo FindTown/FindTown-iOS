@@ -103,9 +103,11 @@ final class FavoriteViewController: BaseViewController {
                                                  cellType: TownTableViewCell.self)) {
                 index, item, cell in
                 cell.setupCell(item)
+                cell.introduceBtnAction = { [unowned self] in
+                    self.viewModel?.input.townIntroButtonTrigger.onNext(())
+                }
             }
             .disposed(by: disposeBag)
-
     }
 }
 
