@@ -102,12 +102,6 @@ final class ReviewTableViewCell: UITableViewCell {
         period.text = model.period
         
         introduce.text = model.introduce
-        
-        guard let introduceText = introduce.text else { return }
-        let attrString = NSMutableAttributedString(string: introduceText)
-        let paragraphStyle = NSMutableParagraphStyle()
-        paragraphStyle.lineSpacing = 4
-        attrString.addAttribute(NSAttributedString.Key.paragraphStyle, value: paragraphStyle, range: NSMakeRange(0, attrString.length))
-        introduce.attributedText = attrString
+        introduce.setLineHeight(lineHeight: 18)
     }
 }
