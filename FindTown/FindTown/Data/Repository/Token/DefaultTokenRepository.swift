@@ -18,6 +18,10 @@ final class DefaultTokenRepository {
         try KeyChainManager.shared.create(account: .refreshTokenExpiredTime, data: String(tokenData.refreshTokenExpiredTime))
     }
     
+    func updateAccessToken(aceessToken: String) async throws {
+        try KeyChainManager.shared.create(account: .accessToken, data: aceessToken)
+    }
+    
     func readAccessToken() async throws -> (String, TimeInterval) {
         let accessToken = try KeyChainManager.shared.read(account: .accessToken)
         let accessTokenExpiredTimeString = try KeyChainManager.shared.read(account: .accesstokenExpiredTime)

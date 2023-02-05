@@ -60,8 +60,8 @@ final class AuthUseCase {
         } else {
             // 만료 안됨
             let tokenData = try await authRepository.reissue(accessToken: accessToken)
-            try await tokenRepository.createTokens(tokenData: tokenData)
-            return tokenData.accessToken
+            try await tokenRepository.updateAccessToken(aceessToken: tokenData.accessTokenData.token)
+            return tokenData.accessTokenData.token
         }
     }
     

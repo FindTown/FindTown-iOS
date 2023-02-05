@@ -14,7 +14,7 @@ struct ReissueRequest: BaseRequest {
         self.headers = HTTPHeaders
     }
     
-    typealias ResponseType = TokenInformationDTO
+    typealias ResponseType = ReissueResponseDTO
     var path: String = "/auth/reissue/token"
     var method: FindTownNetwork.HttpMethod = .post
     var headers: FindTownNetwork.HTTPHeaders

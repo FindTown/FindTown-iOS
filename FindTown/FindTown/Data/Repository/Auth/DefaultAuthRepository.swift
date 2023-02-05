@@ -27,7 +27,7 @@ final class DefaultAuthRepository {
         return data.body
     }
     
-    func reissue(accessToken: String) async throws -> TokenInformationDTO {
+    func reissue(accessToken: String) async throws -> ReissueResponseDTO {
         let HTTPHeaders = HTTPHeaders([.accept("*/*"),
                                        .authorization(bearerToken: accessToken)])
         let data = try await Network.shared.request(target: ReissueRequest(HTTPHeaders: HTTPHeaders))
