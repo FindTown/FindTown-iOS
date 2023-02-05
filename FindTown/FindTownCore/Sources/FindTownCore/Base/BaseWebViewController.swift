@@ -25,6 +25,7 @@ open class BaseWebViewController: UIViewController {
         configuration.userContentController = contentController
         
         let webView = WKWebView(frame: self.view.bounds, configuration: configuration)
+        webView.scrollView.contentInsetAdjustmentBehavior = .never
         return webView
     }()
     
@@ -58,7 +59,7 @@ open class BaseWebViewController: UIViewController {
     private func setLayout() {
         webView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            webView.topAnchor.constraint(equalTo: view.topAnchor),
+            webView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             webView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             webView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             webView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
