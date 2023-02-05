@@ -61,13 +61,19 @@ final class MapViewController: BaseViewController {
         favoriteButton.rx.tap
             .scan(false) { (lastState, newValue) in
                   !lastState
-               }
-            .bind(to: rx.isFavoriteCity)
+            }
+            .subscribe(onNext: { [weak self] isFavorite in
+                self?.rx.isFavoriteCity.onNext(isFavorite)
+                self?.viewModel?.input.didTapFavoriteButton.onNext(isFavorite)
+                if isFavorite {
+                    self?.showToast(message: "찜 목록에 추가 되었어요")
+                }
+            })
             .disposed(by: disposeBag)
         
         addressButton.rx.tap
-            .subscribe(onNext: {
-                self.viewModel?.presentAddressSheet()
+            .subscribe(onNext: { [weak self] _ in
+                self?.viewModel?.presentAddressSheet()
             })
             .disposed(by: disposeBag)
  
@@ -278,15 +284,14 @@ extension Reactive where Base: MapViewController {
     
     var isFavoriteCity: Binder<Bool> {
         return Binder(self.base) { (viewController, isSelect) in
+            print(isSelect)
             if isSelect {
                 viewController.favoriteButton.image = UIImage(named: "favorite.select")
                 viewController.favoriteButton.tintColor = FindTownColor.orange.color
-                viewController.showToast(message: "찜 목록에 추가 되었어요")
             } else {
                 viewController.favoriteButton.image = UIImage(named: "favorite.nonselect")
                 viewController.favoriteButton.tintColor = FindTownColor.grey4.color
             }
-            viewController.viewModel?.input.didTapFavoriteButton.onNext(isSelect)
         }
     }
 }
