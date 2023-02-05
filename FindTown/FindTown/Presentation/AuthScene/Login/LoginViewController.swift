@@ -62,8 +62,8 @@ final class LoginViewController: BaseViewController {
     private let lookAroundButton: UIButton = {
         var button = UIButton()
         button.setTitle("둘러보기", for: .normal)
+        button.setTitleColor(FindTownColor.grey5.color, for: .normal)
         button.titleLabel?.font = FindTownFont.body3.font
-        button.titleLabel?.textColor = FindTownColor.grey5.color
         button.titleLabel?.textAlignment = .center
         button.backgroundColor = .clear
         return button
@@ -132,7 +132,7 @@ final class LoginViewController: BaseViewController {
         ])
         
         NSLayoutConstraint.activate([
-            lookAroundButton.topAnchor.constraint(equalTo: appleButton.bottomAnchor, constant: 48),
+            lookAroundButton.topAnchor.constraint(equalTo: appleButton.bottomAnchor, constant: 38),
             lookAroundButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             lookAroundButton.widthAnchor.constraint(equalToConstant: 70),
             lookAroundButton.heightAnchor.constraint(equalToConstant: 40)
