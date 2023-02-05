@@ -66,7 +66,7 @@ final class AuthUseCase {
         }
     }
     
-    func getTokenData() async throws -> String {
+    func getAccessToken() async throws -> String {
         let (accessToken, accessTokenExpiredTime) = try await tokenRepository.readAccessToken()
         if accessTokenExpiredTime - Date().timeIntervalSince1970 < 600 {
             // 만료 시 재발급
@@ -86,4 +86,8 @@ final class AuthUseCase {
         return userData.data.memberId
     }
     
+    func logout() async throws -> Bool {
+        let accessToken = try await getAccessToken()
+        return try await authRepository.logout(accessToken: accessToken).logout
+    }
 }

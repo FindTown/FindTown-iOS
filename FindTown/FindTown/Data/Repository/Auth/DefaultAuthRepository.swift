@@ -40,4 +40,11 @@ final class DefaultAuthRepository {
         let data = try await Network.shared.request(target: LoginConfirmRequest(HTTPHeaders: HTTPHeaders))
         return data.body
     }
+    
+    func logout(accessToken: String) async throws -> LogoutResponseDTO {
+        let HTTPHeaders = HTTPHeaders([.accept("*/*"),
+                                       .authorization(bearerToken: accessToken)])
+        let data = try await Network.shared.request(target: LogoutRequest(HTTPHeaders: HTTPHeaders))
+        return data.body
+    }
 }

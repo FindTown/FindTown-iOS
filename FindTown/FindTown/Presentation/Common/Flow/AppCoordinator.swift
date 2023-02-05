@@ -29,7 +29,7 @@ public final class AppCoordinator: Coordinator {
         // 자동 로그인
         autoSignTask = Task {
             do {
-                let accessToken = try await self.authUseCase.getTokenData()
+                let accessToken = try await self.authUseCase.getAccessToken()
                 let userId = try await self.authUseCase.memberConfirm(accessToken: accessToken)
                 await MainActor.run {
                     self.goToTabBar()
