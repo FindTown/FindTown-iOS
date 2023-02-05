@@ -29,11 +29,22 @@ final class SearchCountyCoordinator: FlowCoordinator {
         let showVillageListViewController = ShowVillageListViewController(viewModel: showVillageListViewModel)
         return showVillageListViewController
     }
+    
+    internal func showServiceMapScene() -> UIViewController {
+        let serviceMapPopUpViewController = ServiceMapPopUpViewController()
+        serviceMapPopUpViewController.modalPresentationStyle = .overFullScreen
+        return serviceMapPopUpViewController
+    }
 }
 
 extension SearchCountyCoordinator: SelectCountyViewModelDelegate {
     func goToShowVillageList(selectCountyData: String) {
         guard let navigationController = navigationController else { return }
         navigationController.pushViewController(showVillageListScene(selectCountyData: selectCountyData), animated: true)
+    }
+    
+    func popUpServiceMap() {
+        guard let navigationController = navigationController else { return }
+        navigationController.present(showServiceMapScene(), animated: false)
     }
 }

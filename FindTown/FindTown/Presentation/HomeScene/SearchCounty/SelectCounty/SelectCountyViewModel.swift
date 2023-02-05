@@ -13,10 +13,12 @@ import RxRelay
 
 protocol SelectCountyViewModelDelegate {
     func goToShowVillageList(selectCountyData: String)
+    func popUpServiceMap()
 }
 
 protocol SelectCountyViewModelType {
     func goToShowVillageList(selectCountyData: String)
+    func popUpServiceMap()
 }
 
 final class SelectCountyViewModel: BaseViewModel {
@@ -25,6 +27,7 @@ final class SelectCountyViewModel: BaseViewModel {
         let selectedCounty = PublishSubject<String>()
         let removedCounty =  PublishSubject<String>()
         let allDeleteTrigger = PublishSubject<Void>()
+        let serviceMapPopUpTrigger = PublishSubject<Void>()
     }
     
     struct Output {
@@ -71,11 +74,20 @@ final class SelectCountyViewModel: BaseViewModel {
                 self?.output.searchFilterDataSource.accept([])
             }
             .disposed(by: disposeBag)
+        
+        self.input.serviceMapPopUpTrigger
+            .bind { [weak self] in
+                self?.popUpServiceMap()
+            }
+            .disposed(by: disposeBag)
     }
 }
 
 extension SelectCountyViewModel: SelectCountyViewModelType {
     func goToShowVillageList(selectCountyData: String) {
         delegate.goToShowVillageList(selectCountyData: selectCountyData)
+    }
+    func popUpServiceMap() {
+        delegate.popUpServiceMap()
     }
 }
