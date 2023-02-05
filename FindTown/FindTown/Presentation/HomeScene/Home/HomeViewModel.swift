@@ -12,12 +12,12 @@ import RxSwift
 import RxRelay
 
 protocol HomeViewModelDelegate {
-    func goToFilterBottomSheet()
+    func goToFilterBottomSheet(filterSheetType: FilterSheetType, filterDataSource: TempFilterModel)
     func goToGuSearchView()
 }
 
 protocol HomeViewModelType {
-    func goToFilterBottomSheet()
+    func goToFilterBottomSheet(filterSheetType: FilterSheetType, filterDataSource: TempFilterModel)
     func goToGuSearchView()
 }
 
@@ -29,15 +29,16 @@ struct townModelTest {
 }
 
 final class HomeViewModel: BaseViewModel {
-
+    
     struct Input {
         let resetButtonTrigger = PublishSubject<Void>()
-        let filterButtonTrigger = PublishSubject<Void>()
+        let filterButtonTrigger = PublishSubject<FilterSheetType>()
         let searchButtonTrigger = PublishSubject<Void>()
     }
     
     struct Output {
-        var searchFilterDataSource = BehaviorRelay<[String]>(value: [])
+        var searchFilterStringDataSource = BehaviorRelay<[String]>(value: [])
+        var searchFilterModelDataSource = BehaviorRelay<TempFilterModel>(value: TempFilterModel.init())
         var searchTownTableDataSource = BehaviorRelay<[townModelTest]>(value: [])
     }
     
@@ -47,7 +48,7 @@ final class HomeViewModel: BaseViewModel {
     
     init(delegate: HomeViewModelDelegate) {
         self.delegate = delegate
-    
+        
         super.init()
         self.bind()
     }
@@ -64,26 +65,29 @@ final class HomeViewModel: BaseViewModel {
                 
                 // 초기화 세팅
                 let searchCategoryModel = ["인프라", "교통"]
-                self?.output.searchFilterDataSource.accept(searchCategoryModel)
+                self?.output.searchFilterStringDataSource.accept(searchCategoryModel)
+                self?.output.searchFilterModelDataSource.accept(TempFilterModel.init())
             }
             .disposed(by: disposeBag)
         
         self.input.filterButtonTrigger
             .withLatestFrom(input.filterButtonTrigger)
-            .bind(onNext: goToFilterBottomSheet)
+            .bind {
+                self.goToFilterBottomSheet(filterSheetType: $0, filterDataSource: self.output.searchFilterModelDataSource.value)
+            }
             .disposed(by: disposeBag)
         
         // 임시
         let searchCategoryModel = ["인프라", "교통"]
-        self.output.searchFilterDataSource.accept(searchCategoryModel)
+        self.output.searchFilterStringDataSource.accept(searchCategoryModel)
         self.output.searchTownTableDataSource.accept(returnTownTestData())
     }
 }
 
 extension HomeViewModel: HomeViewModelType {
     
-    func goToFilterBottomSheet() {
-        delegate.goToFilterBottomSheet()
+    func goToFilterBottomSheet(filterSheetType: FilterSheetType, filterDataSource: TempFilterModel) {
+        delegate.goToFilterBottomSheet(filterSheetType: filterSheetType, filterDataSource: filterDataSource)
     }
     
     func goToGuSearchView() {

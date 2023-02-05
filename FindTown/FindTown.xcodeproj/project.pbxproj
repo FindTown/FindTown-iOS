@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2B54C24B29801CB10095C8CA /* APIKeyInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2B54C24A29801CB10095C8CA /* APIKeyInfo.plist */; };
 		2B628DD52986508F00A90D9A /* TownIntroViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B628DD42986508F00A90D9A /* TownIntroViewController.swift */; };
 		2B628DD7298650CD00A90D9A /* TownIntroViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B628DD6298650CD00A90D9A /* TownIntroViewModel.swift */; };
 		2B628DDA29865DB400A90D9A /* TownMoodCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B628DD929865DB400A90D9A /* TownMoodCollectionView.swift */; };
@@ -55,6 +54,7 @@
 		BC1CE29629753FB800F89B81 /* TrafficCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC1CE29529753FB800F89B81 /* TrafficCollectionView.swift */; };
 		BC1CE298297545D600F89B81 /* TrafficCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC1CE297297545D600F89B81 /* TrafficCollectionViewCell.swift */; };
 		BC1CE29A2975634800F89B81 /* FilterSheetCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC1CE2992975634800F89B81 /* FilterSheetCoordinator.swift */; };
+		BC354705298F90100016FE4A /* FilterSheetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC354704298F90100016FE4A /* FilterSheetType.swift */; };
 		BC42D352297FA89D00A2F487 /* SelectCountyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC42D351297FA89D00A2F487 /* SelectCountyViewController.swift */; };
 		BC42D354297FA8B200A2F487 /* SelectCountyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC42D353297FA8B200A2F487 /* SelectCountyViewModel.swift */; };
 		BC4C117E297124F900645AA7 /* FilterCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC4C117D297124F900645AA7 /* FilterCollectionViewCell.swift */; };
@@ -181,7 +181,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		2B54C24A29801CB10095C8CA /* APIKeyInfo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = APIKeyInfo.plist; path = ../../../../../Downloads/APIKeyInfo.plist; sourceTree = "<group>"; };
 		2B628DD42986508F00A90D9A /* TownIntroViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TownIntroViewController.swift; sourceTree = "<group>"; };
 		2B628DD6298650CD00A90D9A /* TownIntroViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TownIntroViewModel.swift; sourceTree = "<group>"; };
 		2B628DD929865DB400A90D9A /* TownMoodCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TownMoodCollectionView.swift; sourceTree = "<group>"; };
@@ -226,6 +225,7 @@
 		BC1CE29529753FB800F89B81 /* TrafficCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrafficCollectionView.swift; sourceTree = "<group>"; };
 		BC1CE297297545D600F89B81 /* TrafficCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrafficCollectionViewCell.swift; sourceTree = "<group>"; };
 		BC1CE2992975634800F89B81 /* FilterSheetCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterSheetCoordinator.swift; sourceTree = "<group>"; };
+		BC354704298F90100016FE4A /* FilterSheetType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterSheetType.swift; sourceTree = "<group>"; };
 		BC42D351297FA89D00A2F487 /* SelectCountyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectCountyViewController.swift; sourceTree = "<group>"; };
 		BC42D353297FA8B200A2F487 /* SelectCountyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectCountyViewModel.swift; sourceTree = "<group>"; };
 		BC4C117D297124F900645AA7 /* FilterCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -565,6 +565,7 @@
 			children = (
 				BC4C118429712F3900645AA7 /* Infra.swift */,
 				BC4C118629712F5100645AA7 /* Traffic.swift */,
+				BC354704298F90100016FE4A /* FilterSheetType.swift */,
 			);
 			path = DemoHomeEntitie;
 			sourceTree = "<group>";
@@ -634,7 +635,6 @@
 			children = (
 				BCF8258E2988C8D900AC00BB /* MyPageScene */,
 				2B628DF62987803100A90D9A /* TownIntroScene */,
-				BC04A6D7296FBC7900B60BCF /* Utils */,
 				BC056C512962B03B00EDCA18 /* AuthScene */,
 				F38CCBD92958287C000C16AF /* HomeScene */,
 				F38CCBE229582881000C16AF /* MapScene */,
@@ -825,8 +825,6 @@
 				F3219B6D29699F88000024E4 /* Store.swift */,
 				F3219B6F2969B32F000024E4 /* Thema.swift */,
 				F39EDDBB296D5AE500A4E655 /* City.swift */,
-				F39EDDC1296D635100A4E655 /* CityType.swift */,
-				F39EDDC3296D667800A4E655 /* County.swift */,
 				2B628DE3298675C400A90D9A /* TownMood.swift */,
 				2B628DF72987853300A90D9A /* TownRank.swift */,
 				F38AA82A29842C2D00EF66F2 /* SigninUserModel.swift */,
@@ -1383,6 +1381,7 @@
 				2B628DE92986909700A90D9A /* HotPlaceCollectionViewLayout.swift in Sources */,
 				BC4C117E297124F900645AA7 /* FilterCollectionViewCell.swift in Sources */,
 				F38CCBD829582869000C16AF /* TabBarCoordinator.swift in Sources */,
+				BC354705298F90100016FE4A /* FilterSheetType.swift in Sources */,
 				F3219B692969432C000024E4 /* MapDetailComponentView.swift in Sources */,
 				2BEE90D32978111C002E7C3A /* FavoriteTableView.swift in Sources */,
 				F3219B7A2969D53D000024E4 /* AddressSheetCoordinator.swift in Sources */,
@@ -1428,7 +1427,6 @@
 				F3219B742969B351000024E4 /* StoreDetailType.swift in Sources */,
 				BC853DF8298B99DF0033AF20 /* Section.swift in Sources */,
 				BC1CE29429753F9E00F89B81 /* InfraIconStackView.swift in Sources */,
-				BC04A6D6296FBC6F00B60BCF /* KakaoSigninManager.swift in Sources */,
 				2B628DF529869F0C00A90D9A /* TownRankView.swift in Sources */,
 				F39EDDCA296D788800A4E655 /* CityCollectionViewFlowLayout.swift in Sources */,
 			);

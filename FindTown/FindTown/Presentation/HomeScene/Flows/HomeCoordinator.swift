@@ -26,10 +26,12 @@ final class HomeCoordinator: FlowCoordinator {
 
 extension HomeCoordinator: HomeViewModelDelegate {
     
-    func goToFilterBottomSheet() {
+    func goToFilterBottomSheet(filterSheetType: FilterSheetType, filterDataSource: TempFilterModel) {
         guard let navigationController = navigationController else { return }
         FilterSheetCoordinator(presentationStyle: .present(navigationController: navigationController,
-                                                           modalPresentationStyle: .overFullScreen)).start()
+                                                           modalPresentationStyle: .overFullScreen),
+                               filterSheetType: filterSheetType,
+                               filterDataSource: filterDataSource).start()
     }
     
     func goToGuSearchView() {
