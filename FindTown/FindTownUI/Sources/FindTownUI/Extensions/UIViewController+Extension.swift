@@ -33,4 +33,19 @@ extension UIViewController {
         
         present(alertPopUp, animated: false)
     }
+    
+    /// toast 메세지
+    public func showToast(message: String) {
+        let toastLabel = ToastLabel()
+        let screenWidth = self.view.frame.size.width
+        let toastLabelFrame = CGRect(x: 12, y: self.view.frame.size.height - 150, width: screenWidth-24, height: 44)
+        toastLabel.setMessage(text: message, font: FindTownFont.body3.font, frame: toastLabelFrame)
+        self.view.addSubview(toastLabel)
+        self.view.endEditing(true)
+        UIView.animate(withDuration: 2.0, delay: 2.0, options: .curveEaseOut, animations: {
+            toastLabel.alpha = 0.0
+        }, completion: { _ in
+            toastLabel.removeFromSuperview()
+        })
+    }
 }

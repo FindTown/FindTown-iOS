@@ -32,6 +32,13 @@ extension MapCoordinator: MapViewModelDelegate {
     
     func presentAddressSheet() {
         guard let navigationController = navigationController else { return }
-        AddressSheetCoordinator(presentationStyle: .present(navigationController: navigationController, modalPresentationStyle: .overFullScreen)).start()
+        AddressSheetCoordinator(presentationStyle: .present(navigationController: navigationController, modalPresentationStyle: .overFullScreen),       parentCoordinator: self).start()
+    }
+    
+    func setCityData(_ city: City) {
+        guard let navigationController = navigationController else { return }
+        if let mapViewController = navigationController.topViewController as? MapViewController {
+            mapViewController.viewModel?.output.city.onNext(city)
+        }
     }
 }

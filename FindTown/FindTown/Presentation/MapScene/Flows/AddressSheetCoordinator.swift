@@ -12,9 +12,12 @@ final class AddressSheetCoordinator: FlowCoordinator {
 
     var presentationStyle: PresentationStyle
     weak var navigationController: UINavigationController?
+    var parentCoordinator: FlowCoordinator
     
-    init(presentationStyle: PresentationStyle) {
+    init(presentationStyle: PresentationStyle,
+         parentCoordinator: FlowCoordinator) {
         self.presentationStyle = presentationStyle
+        self.parentCoordinator = parentCoordinator
     }
     
     internal func initScene() -> UIViewController {
@@ -27,6 +30,14 @@ final class AddressSheetCoordinator: FlowCoordinator {
 extension AddressSheetCoordinator: AddressSheetViewModelDelegate {
     func dismiss(_ city: City) {
         guard let navigationController = navigationController else { return }
-        navigationController.dismiss(animated: true) 
+        
+        if let addressSheetViewController = navigationController.visibleViewController as? AddressSheetViewController {
+            addressSheetViewController.setBottomSheetStatus(to: .hide)
+        
+            if let mapCoordinator = parentCoordinator as? MapCoordinator {
+                mapCoordinator.setCityData(city)
+            }
+        }
+        
     }
 }

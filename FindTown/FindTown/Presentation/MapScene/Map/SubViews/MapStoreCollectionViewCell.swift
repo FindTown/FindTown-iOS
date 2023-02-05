@@ -10,6 +10,11 @@ import FindTownUI
 
 import RxSwift
 
+protocol MapStoreCollectionViewCellDelegate: AnyObject {
+    func didTapInformationUpdateButton()
+    func didTapCopyButton(text: String)
+}
+
 final class MapStoreCollectionViewCell: UICollectionViewCell {
     
     static var reuseIdentifier: String {
@@ -43,8 +48,17 @@ final class MapStoreCollectionViewCell: UICollectionViewCell {
     private let titleStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
-        stackView.distribution = .equalSpacing
-        stackView.spacing = 0
+        stackView.distribution = .fill
+        stackView.spacing = 2
+        return stackView
+    }()
+    
+    private let contentStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .horizontal
+        stackView.distribution = .fill
+        stackView.alignment = .leading
+        stackView.spacing = 6
         return stackView
     }()
     
@@ -63,8 +77,20 @@ final class MapStoreCollectionViewCell: UICollectionViewCell {
                                   font: .label1,
                                   textColor: .grey5)
         label.numberOfLines = 0
-        label.adjustsFontSizeToFitWidth = true
+        label.lineBreakMode = .byCharWrapping
         return label
+    }()
+    
+    private let copyButton: FTButton = {
+        let button = FTButton(style: .copy)
+        button.setSelectedImage(normalImage: UIImage(named: "copy"), selectedImage: UIImage(named: "copy"))
+        button.setTitle("복사", for: .normal)
+        return button
+    }()
+    
+    private let addressEmptyView: UIView = {
+        let view = UIView()
+        return view
     }()
     
     private let bottomStackView: UIStackView = {
@@ -90,6 +116,8 @@ final class MapStoreCollectionViewCell: UICollectionViewCell {
         return button
     }()
     
+    weak var delegate: MapStoreCollectionViewCellDelegate?
+    
     override func prepareForReuse() {
         super.prepareForReuse()
         
@@ -100,17 +128,39 @@ final class MapStoreCollectionViewCell: UICollectionViewCell {
         super.init(frame: frame)
         setupView()
         setupLayout()
+        
+        let copyTap = UITapGestureRecognizer(target: self, action: #selector(copyAction))
+        copyButton.addGestureRecognizer(copyTap)
+        let updateTap = UITapGestureRecognizer(target: self, action: #selector(updateAction))
+        informationUpdateButton.addGestureRecognizer(updateTap)
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 10,
+                                                                     left: 0,
+                                                                     bottom: 10,
+                                                                     right: 0))
+    }
+    
     func setupCell(store: Store) {
-        typeImageView.image = UIImage(named: "martIcon")?.withRenderingMode(.alwaysTemplate) ?? UIImage()
+        typeImageView.image = store.thema.storeDetailType.image
         typeNameLabel.text = store.thema.storeDetailType.description
         nameLabel.text = store.name
         addressLabel.text = store.address
+    }
+    
+    @objc func copyAction() {
+        guard let addressText = self.addressLabel.text else { return }
+        self.delegate?.didTapCopyButton(text: addressText)
+    }
+    
+    @objc func updateAction() {
+        self.delegate?.didTapInformationUpdateButton()
     }
 }
 
@@ -122,6 +172,13 @@ private extension MapStoreCollectionViewCell {
         contentView.layer.borderWidth = 1
         contentView.layer.cornerRadius = 16
         contentView.layer.masksToBounds = true
+        
+        contentView.layer.addCustomShadow(shadowX: 0,
+                                          shadowY: 2,
+                                          shadowColor: FindTownColor.black.color.withAlphaComponent(0.4),
+                                          blur: 10.0,
+                                          spread: 0,
+                                          alpha: 0)
     }
     
     func setupLayout() {
@@ -133,14 +190,19 @@ private extension MapStoreCollectionViewCell {
             containerStackView.addArrangedSubview($0)
         }
         
-        [nameLabel, addressLabel].forEach {
+        [typeImageView, typeNameLabel].forEach {
+            $0.translatesAutoresizingMaskIntoConstraints = false
+            typeStackView.addArrangedSubview($0)
+        }
+        
+        [nameLabel, contentStackView].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
             titleStackView.addArrangedSubview($0)
         }
         
-        [typeImageView, typeNameLabel].forEach {
+        [addressLabel, copyButton, addressEmptyView].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
-            typeStackView.addArrangedSubview($0)
+            contentStackView.addArrangedSubview($0)
         }
         
         [emptyView, informationUpdateButton].forEach {
@@ -155,12 +217,22 @@ private extension MapStoreCollectionViewCell {
             containerStackView.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor, constant: -16),
             containerStackView.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 16),
             
-            typeImageView.widthAnchor.constraint(equalToConstant: 15.0),
-            typeImageView.heightAnchor.constraint(equalToConstant: 15.0),
+            typeImageView.widthAnchor.constraint(equalToConstant: 24.0),
+            typeImageView.heightAnchor.constraint(equalToConstant: 24.0),
             nameLabel.heightAnchor.constraint(equalToConstant: 24.0),
+            
+            titleStackView.topAnchor.constraint(equalTo: typeImageView.bottomAnchor, constant: 4),
+            
+            contentStackView.widthAnchor.constraint(equalToConstant: 258.0),
+            contentStackView.heightAnchor.constraint(equalToConstant: 41.0),
+            
+            copyButton.widthAnchor.constraint(equalToConstant: 45),
+            copyButton.heightAnchor.constraint(equalToConstant: 18),
             
             informationUpdateButton.widthAnchor.constraint(equalToConstant: 78),
             informationUpdateButton.heightAnchor.constraint(equalToConstant: 24)
         ])
+        
+        addressLabel.setContentCompressionResistancePriority(.required, for: .horizontal)
     }
 }

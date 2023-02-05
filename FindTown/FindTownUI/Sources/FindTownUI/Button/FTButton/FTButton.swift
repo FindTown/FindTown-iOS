@@ -40,7 +40,7 @@ public final class FTButton: UIButton {
         setTitle(selectedTitle, for: .selected)
     }
     
-    public func setSelectedImage(normalImage: UIImage, selectedImage: UIImage) {
+    public func setSelectedImage(normalImage: UIImage?, selectedImage: UIImage?) {
         setImage(normalImage, for: .normal)
         setImage(selectedImage, for: .selected)
     }

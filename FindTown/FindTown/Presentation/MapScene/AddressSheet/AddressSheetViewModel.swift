@@ -45,10 +45,10 @@ final class AddressSheetViewModel: BaseViewModel {
         self.output.countyDataSource.onNext(County.allCases)
         
         self.input.didTapCompleteButton.withLatestFrom(self.input.selectedCity)
-            .subscribe { city in
-                self.dismiss(city)
-            }
-            .disposed(by: disposeBag)
+        .subscribe { [weak self] city in
+            self?.dismiss(city)
+        }
+        .disposed(by: disposeBag)
     }
 }
 

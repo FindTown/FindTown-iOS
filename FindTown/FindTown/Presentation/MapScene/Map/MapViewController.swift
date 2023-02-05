@@ -22,7 +22,7 @@ final class MapViewController: BaseViewController {
     
     private let mapView = NMFMapView()
     private let naviBarSubView = UIView()
-    private let favoriteButton = UIBarButtonItem(image: UIImage(named: "favoriteBtn"),
+    fileprivate let favoriteButton = UIBarButtonItem(image: UIImage(named: "favorite.nonselect"),
                                          style: .plain,
                                          target: nil,
                                          action: nil)
@@ -59,15 +59,21 @@ final class MapViewController: BaseViewController {
         // MARK: Input
         
         favoriteButton.rx.tap
-            .throttle(.seconds(10), scheduler: MainScheduler.instance)
-            .subscribe(onNext: {
-                print("rightBarButton tapped")
+            .scan(false) { (lastState, newValue) in
+                  !lastState
+            }
+            .subscribe(onNext: { [weak self] isFavorite in
+                self?.rx.isFavoriteCity.onNext(isFavorite)
+                self?.viewModel?.input.didTapFavoriteButton.onNext(isFavorite)
+                if isFavorite {
+                    self?.showToast(message: "찜 목록에 추가 되었어요")
+                }
             })
             .disposed(by: disposeBag)
         
         addressButton.rx.tap
-            .subscribe(onNext: {
-                self.viewModel?.presentAddressSheet()
+            .subscribe(onNext: { [weak self] _ in
+                self?.viewModel?.presentAddressSheet()
             })
             .disposed(by: disposeBag)
  
@@ -92,6 +98,7 @@ final class MapViewController: BaseViewController {
             .bind(to: storeCollectionView.rx.items(cellIdentifier: MapStoreCollectionViewCell.reuseIdentifier,
                                               cellType: MapStoreCollectionViewCell.self)) { index, item, cell in
                 cell.setupCell(store: item)
+                cell.delegate = self
             }.disposed(by: disposeBag)
         
         /// 선택한 iconCell에 맞는 detailCategoryView 데이터 보여주게 함
@@ -102,6 +109,17 @@ final class MapViewController: BaseViewController {
             .subscribe(onNext: { detailCategories in
                 self.detailCategoryView.setStackView(data: detailCategories)
             })
+            .disposed(by: disposeBag)
+        
+        viewModel?.output.city
+            .subscribe(onNext: { [weak self] city in
+                let cityString = "서울시 \(city.county.rawValue) \(city.village.rawValue)"
+                self?.addressButton.setTitle(cityString, for: .normal)
+            })
+            .disposed(by: disposeBag)
+        
+        viewModel?.output.isFavoriteCity
+            .bind(to: rx.isFavoriteCity)
             .disposed(by: disposeBag)
         
     }
@@ -130,6 +148,7 @@ final class MapViewController: BaseViewController {
         naviBarSubView.backgroundColor = FindTownColor.white.color
         self.navigationItem.rightBarButtonItem = favoriteButton
         self.storeCollectionView.delegate = self
+        favoriteButton.tintColor = FindTownColor.grey4.color
     }
 
     override func setLayout() {
@@ -183,10 +202,10 @@ private extension MapViewController {
         ])
         
         NSLayoutConstraint.activate([
-            categoryCollectionView.topAnchor.constraint(equalTo: mapView.topAnchor, constant: 16.0),
+            categoryCollectionView.topAnchor.constraint(equalTo: mapView.topAnchor, constant: 6.0),
             categoryCollectionView.leadingAnchor.constraint(equalTo: mapView.leadingAnchor),
             categoryCollectionView.trailingAnchor.constraint(equalTo: mapView.trailingAnchor),
-            categoryCollectionView.heightAnchor.constraint(equalToConstant: 32.0)
+            categoryCollectionView.heightAnchor.constraint(equalToConstant: 57)
         ])
         
         NSLayoutConstraint.activate([
@@ -197,9 +216,20 @@ private extension MapViewController {
         ])
         
         NSLayoutConstraint.activate([
-            detailCategoryView.topAnchor.constraint(equalTo: categoryCollectionView.bottomAnchor, constant: 16.0),
+            detailCategoryView.topAnchor.constraint(equalTo: categoryCollectionView.bottomAnchor, constant: 1.0),
             detailCategoryView.leadingAnchor.constraint(equalTo: mapView.leadingAnchor, constant: 16.0)
         ])
+    }
+}
+
+extension MapViewController: MapStoreCollectionViewCellDelegate {
+    func didTapInformationUpdateButton() {
+        print("informationUpdate tap")
+    }
+    
+    func didTapCopyButton(text: String) {
+        UIPasteboard.general.string = text
+        self.showToast(message: "클립보드에 복사되었습니다.")
     }
 }
 
@@ -249,6 +279,19 @@ extension Reactive where Base: MapViewController {
                 viewController.detailCategoryView.isHidden = true
             }
             viewController.viewModel?.input.segmentIndex.accept(index)
+        }
+    }
+    
+    var isFavoriteCity: Binder<Bool> {
+        return Binder(self.base) { (viewController, isSelect) in
+            print(isSelect)
+            if isSelect {
+                viewController.favoriteButton.image = UIImage(named: "favorite.select")
+                viewController.favoriteButton.tintColor = FindTownColor.orange.color
+            } else {
+                viewController.favoriteButton.image = UIImage(named: "favorite.nonselect")
+                viewController.favoriteButton.tintColor = FindTownColor.grey4.color
+            }
         }
     }
 }

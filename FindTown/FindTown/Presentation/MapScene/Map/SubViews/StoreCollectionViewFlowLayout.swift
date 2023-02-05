@@ -26,6 +26,6 @@ final class StoreCollectionViewFlowLayout: UICollectionViewFlowLayout {
                                     left: 16.0,
                                     bottom: 0.0,
                                     right: 16.0)
-        itemSize = CGSize(width: 290, height: 142)
+        itemSize = CGSize(width: 290, height: 155)
     }
 }
