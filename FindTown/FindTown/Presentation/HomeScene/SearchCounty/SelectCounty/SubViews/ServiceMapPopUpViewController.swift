@@ -21,7 +21,8 @@ final class ServiceMapPopUpViewController: ContentPopUpViewController {
     // MARK: - Views
     
     private let mainTitleLabel = FindTownLabel(text: "현재 서비스 제공 지역 안내", font: .headLine3)
-    private let subTitleLabel = FindTownLabel(text: "서울특별시 자치구 25개 중 현재 14개의\n구별 27개 동 안내 서비스를 제공 중입니다.", font: .label1, textColor: .grey6, textAlignment: .center)
+    private let subTitleLabel = FindTownLabel(text: "서울특별시 자치구 25개 중 현재 14개의\n구별 27개 동 안내 서비스를 제공 중입니다.",
+                                              font: .label1, textColor: .grey6, textAlignment: .center)
     
     private let serviceMapImageView: UIImageView = {
         let imageView = UIImageView()
