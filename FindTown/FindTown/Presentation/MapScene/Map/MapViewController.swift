@@ -223,6 +223,7 @@ extension MapViewController: MapStoreCollectionViewCellDelegate {
     
     func didTapCopyButton(text: String) {
         UIPasteboard.general.string = text
+        self.showToast(message: "클립보드에 복사되었습니다.")
     }
 }
 
@@ -280,6 +281,7 @@ extension Reactive where Base: MapViewController {
             if isSelect {
                 viewController.favoriteButton.image = UIImage(named: "favorite.select")
                 viewController.favoriteButton.tintColor = FindTownColor.orange.color
+                viewController.showToast(message: "찜 목록에 추가 되었어요")
             } else {
                 viewController.favoriteButton.image = UIImage(named: "favorite.nonselect")
                 viewController.favoriteButton.tintColor = FindTownColor.grey4.color
