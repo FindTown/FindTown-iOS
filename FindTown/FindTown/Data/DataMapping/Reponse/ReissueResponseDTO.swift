@@ -14,7 +14,7 @@ struct ReissueResponseDTO: Response {
     
     enum CodingKeys: String, CodingKey {
         case accessTokenData = "access_token"
-        case expiredTokenClaims 
+        case expiredTokenClaims
     }
 }
 
@@ -27,5 +27,5 @@ struct AccessTokenDTO: Response {
 struct TokenClaimsDTO: Response {
     let sub: String
     let role: String
-    let exp: Int
+    let exp: TimeInterval
 }

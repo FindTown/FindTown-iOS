@@ -18,8 +18,9 @@ final class DefaultTokenRepository {
         try KeyChainManager.shared.create(account: .refreshTokenExpiredTime, data: String(tokenData.refreshTokenExpiredTime))
     }
     
-    func updateAccessToken(aceessToken: String) async throws {
+    func updateAccessToken(aceessToken: String, accesstokenExpiredTime: TimeInterval) async throws {
         try KeyChainManager.shared.create(account: .accessToken, data: aceessToken)
+        try KeyChainManager.shared.create(account: .accesstokenExpiredTime, data: String(accesstokenExpiredTime))
     }
     
     func readAccessToken() async throws -> (String, TimeInterval) {
@@ -45,5 +46,3 @@ final class DefaultTokenRepository {
         try KeyChainManager.shared.delete(account: .refreshTokenExpiredTime)
     }
 }
-
-
