@@ -9,13 +9,9 @@ import Foundation
 import FindTownNetwork
 
 struct NickCheckResponseDTO: Response {
-    let existConfirm: ExistConfirmDTO
+    let existConfirm: Bool
     
     enum CodingKeys: String, CodingKey {
         case existConfirm = "exist_confirm"
     }
-}
-
-struct ExistConfirmDTO: Response {
-    let existence: Bool
 }

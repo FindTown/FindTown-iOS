@@ -1,15 +1,15 @@
 //
-//  TownTableView.swift
+//  ReviewTableView.swift
 //  FindTown
 //
-//  Created by 김성훈 on 2023/01/13.
+//  Created by 김성훈 on 2023/02/01.
 //
 
 import UIKit
 
 import FindTownUI
 
-final class TownTableView: UITableView {
+final class ReviewTableView: UITableView {
     
     override init(frame: CGRect, style: UITableView.Style) {
         super.init(frame: frame, style: style)
@@ -23,8 +23,7 @@ final class TownTableView: UITableView {
     
     private func setupView() {
         translatesAutoresizingMaskIntoConstraints = false
-        backgroundColor = FindTownColor.white.color
         separatorStyle = .none
-        register(TownTableViewCell.self, forCellReuseIdentifier: TownTableViewCell.reuseIdentifier)
+        register(ReviewTableViewCell.self, forCellReuseIdentifier: ReviewTableViewCell.reuseIdentifier)
     }
 }

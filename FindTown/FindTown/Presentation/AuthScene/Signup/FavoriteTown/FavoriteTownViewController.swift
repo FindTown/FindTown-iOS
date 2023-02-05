@@ -28,7 +28,7 @@ final class FavoriteTownViewController: BaseViewController {
                                                  font: .body4, textColor: .grey6)
     
     var countyDropDown = DropDown(data: ["자치구 (선택)"] + County.allCases.map { $0.rawValue })
-    lazy var dongDropDown = DropDown(data: ["동 (선택)"])
+    lazy var villageDropDown = DropDown(data: ["동 (선택)"])
     
     private let dropDownStackView: UIStackView = {
         let stackView = UIStackView()
@@ -57,7 +57,7 @@ final class FavoriteTownViewController: BaseViewController {
     
     override func addView() {
         dropDownStackView.addArrangedSubview(countyDropDown)
-        dropDownStackView.addArrangedSubview(dongDropDown)
+        dropDownStackView.addArrangedSubview(villageDropDown)
         
         [nowStatusPogressView, favoriteTitle, favoriteSubTitle, dropDownStackView, nextButton].forEach {
             view.addSubview($0)
@@ -140,11 +140,11 @@ final class FavoriteTownViewController: BaseViewController {
                 guard let splitValue = splitValue,
                 let county = County(rawValue: String(splitValue)) else { return }
                 self?.viewModel?.input.county.onNext(county)
-                self?.dongDropDown.reloadData(data: ["동 (선택)"] + county.villages.map { $0.rawValue })
+                self?.villageDropDown.reloadData(data: ["동 (선택)"] + county.villages.map { $0.rawValue })
             }
             .disposed(by:disposeBag)
         
-        dongDropDown.rx.didSelectDropDown
+        villageDropDown.rx.didSelectDropDown
             .throttle(.milliseconds(300), scheduler: MainScheduler.instance)
             .bind { [weak self] in
                 let splitValue = $0?.split(separator: " ").first
@@ -177,7 +177,7 @@ final class FavoriteTownViewController: BaseViewController {
         let backViewTappedLocation = tapRecognizer.location(in: self.dropDownStackView)
         if dropDownStackView.point(inside: backViewTappedLocation, with: nil) == false {
             countyDropDown.dismiss()
-            dongDropDown.dismiss()
+            villageDropDown.dismiss()
         }
     }
     

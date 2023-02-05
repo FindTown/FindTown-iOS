@@ -76,9 +76,9 @@ final class SelectCountyViewController: BaseViewController {
             .bind { [weak self] _ in
                 self?.showAlertSuccessCancelPopUp(
                     title: "최근 검색한 동네를\n모두 삭제할까요?",
-                    successTitle: "삭제",
-                    cancelTitle: "취소",
-                    buttonAction: { self?.viewModel?.input.allDeleteTrigger.onNext(()) }
+                    successButtonText: "삭제",
+                    cancelButtonText: "취소",
+                    successButtonAction: { self?.viewModel?.input.allDeleteTrigger.onNext(()) }
                 )
             }
             .disposed(by: disposeBag)
