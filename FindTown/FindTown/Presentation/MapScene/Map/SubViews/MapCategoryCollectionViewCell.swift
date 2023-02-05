@@ -61,6 +61,14 @@ final class MapCategoryCollectionViewCell: UICollectionViewCell {
             }
         }
     }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 10,
+                                                                     left: 0,
+                                                                     bottom: 15,
+                                                                     right: 0))
+    }
 }
 
 private extension MapCategoryCollectionViewCell {
@@ -82,7 +90,7 @@ private extension MapCategoryCollectionViewCell {
         }
         
         NSLayoutConstraint.activate([
-            contentView.heightAnchor.constraint(equalToConstant: 32),
+            contentView.heightAnchor.constraint(equalToConstant: 57),
             
             imageView.widthAnchor.constraint(equalToConstant: 16.0),
             imageView.heightAnchor.constraint(equalToConstant: 16.0),

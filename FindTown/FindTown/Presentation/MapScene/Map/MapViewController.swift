@@ -196,10 +196,10 @@ private extension MapViewController {
         ])
         
         NSLayoutConstraint.activate([
-            categoryCollectionView.topAnchor.constraint(equalTo: mapView.topAnchor, constant: 16.0),
+            categoryCollectionView.topAnchor.constraint(equalTo: mapView.topAnchor, constant: 6.0),
             categoryCollectionView.leadingAnchor.constraint(equalTo: mapView.leadingAnchor),
             categoryCollectionView.trailingAnchor.constraint(equalTo: mapView.trailingAnchor),
-            categoryCollectionView.heightAnchor.constraint(equalToConstant: 32.0)
+            categoryCollectionView.heightAnchor.constraint(equalToConstant: 57)
         ])
         
         NSLayoutConstraint.activate([
@@ -210,7 +210,7 @@ private extension MapViewController {
         ])
         
         NSLayoutConstraint.activate([
-            detailCategoryView.topAnchor.constraint(equalTo: categoryCollectionView.bottomAnchor, constant: 16.0),
+            detailCategoryView.topAnchor.constraint(equalTo: categoryCollectionView.bottomAnchor, constant: 1.0),
             detailCategoryView.leadingAnchor.constraint(equalTo: mapView.leadingAnchor, constant: 16.0)
         ])
     }
