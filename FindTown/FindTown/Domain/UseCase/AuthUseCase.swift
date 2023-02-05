@@ -83,7 +83,7 @@ final class AuthUseCase {
     
     func memberConfirm(accessToken: String) async throws -> String {
         let userData = try await authRepository.loginConfirm(accessToken: accessToken)
-        return userData.memberId
+        return userData.data.memberId
     }
     
 }

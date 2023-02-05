@@ -9,7 +9,15 @@ import Foundation
 import FindTownNetwork
 
 struct LoginConfirmReponseDTO: Response {
-    let memberAuthorizeData: AuthoritiesDTO
+    let data: MemberAuthroize
+    
+    enum CodingKeys: String, CodingKey {
+        case data = ""
+    }
+}
+
+struct MemberAuthroize: Response {
+    let memberAuthorizeData: [AuthoritiesDTO]
     let memberId: String
     
     enum CodingKeys: String, CodingKey {
