@@ -59,7 +59,15 @@ final class LoginViewController: BaseViewController {
         return button
     }()
     
-    private let anonymousTitle = FindTownLabel(text: "둘러보기", font: .body3, textColor: .grey5)
+    private let lookAroundButton: UIButton = {
+        var button = UIButton()
+        button.setTitle("둘러보기", for: .normal)
+        button.titleLabel?.font = FindTownFont.body3.font
+        button.titleLabel?.textColor = FindTownColor.grey5.color
+        button.titleLabel?.textAlignment = .center
+        button.backgroundColor = .clear
+        return button
+    }()
     
     // MARK: - Life Cycle
     
@@ -79,7 +87,7 @@ final class LoginViewController: BaseViewController {
     // MARK: - Functions
     
     override func addView() {
-        [logo, subTitle, tooltip, kakaoButton, appleButton, anonymousTitle].forEach {
+        [logo, subTitle, tooltip, kakaoButton, appleButton, lookAroundButton].forEach {
             view.addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
@@ -124,16 +132,15 @@ final class LoginViewController: BaseViewController {
         ])
         
         NSLayoutConstraint.activate([
-            anonymousTitle.topAnchor.constraint(equalTo: appleButton.bottomAnchor, constant: 48),
-            anonymousTitle.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+            lookAroundButton.topAnchor.constraint(equalTo: appleButton.bottomAnchor, constant: 48),
+            lookAroundButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            lookAroundButton.widthAnchor.constraint(equalToConstant: 70),
+            lookAroundButton.heightAnchor.constraint(equalToConstant: 40)
         ])
     }
     
     override func setupView() {
         view.backgroundColor = .white
-        
-        anonymousTitle.addGestureRecognizer(anonymousTitleTapGesture)
-        anonymousTitle.isUserInteractionEnabled = true
     }
     
     override func bindViewModel() {
@@ -157,9 +164,9 @@ final class LoginViewController: BaseViewController {
             .disposed(by: disposeBag)
         
         /// 둘러보기
-        anonymousTitleTapGesture.rx.event
+        lookAroundButton.rx.tap
             .throttle(.milliseconds(300), scheduler: MainScheduler.instance)
-            .bind { [weak self] _ in
+            .bind { [weak self] in
                 self?.viewModel?.input.anonymousTrigger.onNext(())
             }
             .disposed(by: disposeBag)
