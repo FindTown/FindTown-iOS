@@ -26,28 +26,22 @@ public final class AppCoordinator: Coordinator {
     
     public func start() {
         
-        self.goToAuth()
-        
         // 자동 로그인
-//        autoSignTask = Task {
-//            do {
-//                let accessToken = try await self.authUseCase.getTokenData()
-//                let userId = try await self.authUseCase.memberConfirm(accessToken: accessToken)
-//                await MainActor.run {
-//                    self.goToTabBar()
-//                }
-//                autoSignTask?.cancel()
-//            } catch (let error) {
-//                if let error = error as? FTNetworkError,
-//                   FTNetworkError.isUnauthorized(error: error) {
-//                    await MainActor.run {
-//                        self.goToAuth()
-//                    }
-//                } else {
-//                    Log.error(error)
-//                }
-//            }
-//        }
+        autoSignTask = Task {
+            do {
+                let accessToken = try await self.authUseCase.getTokenData()
+                let userId = try await self.authUseCase.memberConfirm(accessToken: accessToken)
+                await MainActor.run {
+                    self.goToTabBar()
+                }
+                autoSignTask?.cancel()
+            } catch (let error) {
+                await MainActor.run {
+                    self.goToAuth()
+                }
+                Log.error(error)
+            }
+        }
     }
     
     private func goToAuth() {

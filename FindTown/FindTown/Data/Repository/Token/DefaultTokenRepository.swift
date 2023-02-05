@@ -13,9 +13,11 @@ final class DefaultTokenRepository {
     
     func createTokens(tokenData: TokenInformationDTO) async throws {
         try KeyChainManager.shared.create(account: .accessToken, data: tokenData.accessToken)
-        try KeyChainManager.shared.create(account: .accesstokenExpiredTime, data: String(tokenData.accessTokenExpiredTime))
+        let accessTokenExpiredTime = try await extractExpiredTime(token: tokenData.accessToken)
+        try KeyChainManager.shared.create(account: .accesstokenExpiredTime, data: String(accessTokenExpiredTime))
         try KeyChainManager.shared.create(account: .refreshToken, data: tokenData.refreshToken)
-        try KeyChainManager.shared.create(account: .refreshTokenExpiredTime, data: String(tokenData.refreshTokenExpiredTime))
+        let refreshTokenExpiredTime = try await extractExpiredTime(token: tokenData.refreshToken)
+        try KeyChainManager.shared.create(account: .refreshTokenExpiredTime, data: String(refreshTokenExpiredTime))
     }
     
     func updateAccessToken(aceessToken: String, accesstokenExpiredTime: TimeInterval) async throws {
@@ -44,5 +46,29 @@ final class DefaultTokenRepository {
         try KeyChainManager.shared.delete(account: .accesstokenExpiredTime)
         try KeyChainManager.shared.delete(account: .refreshToken)
         try KeyChainManager.shared.delete(account: .refreshTokenExpiredTime)
+    }
+    
+    func extractExpiredTime(token: String) async throws -> TimeInterval {
+        let tokenString = token.components(separatedBy: ".")
+        let toDecode = tokenString[1] as String
+
+        var stringtoDecode: String = toDecode.replacingOccurrences(of: "-", with: "+") // 62nd char of encoding
+        stringtoDecode = stringtoDecode.replacingOccurrences(of: "_", with: "/") // 63rd char of encoding
+        switch (stringtoDecode.utf16.count % 4) {
+        case 2: stringtoDecode = "\(stringtoDecode)=="
+        case 3: stringtoDecode = "\(stringtoDecode)="
+        default: // nothing to do stringtoDecode can stay the same
+            print("")
+        }
+        let dataToDecode = Data(base64Encoded: stringtoDecode, options: [])
+        let base64DecodedString = NSString(data: dataToDecode!, encoding: String.Encoding.utf8.rawValue)
+
+        guard let string = base64DecodedString,
+              let data = string.data(using: String.Encoding.utf8.rawValue, allowLossyConversion: true) else {
+            throw FTNetworkError.decode
+        }
+        
+        let tokenClaims = try JSONDecoder().decode(TokenPayloadDTO.self, from: data)
+        return tokenClaims.exp
     }
 }
