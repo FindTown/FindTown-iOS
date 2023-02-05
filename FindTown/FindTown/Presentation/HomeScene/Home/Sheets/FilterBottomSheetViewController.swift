@@ -16,6 +16,8 @@ final class FilterBottonSheetViewController: BaseBottomSheetViewController {
     
     // MARK: - Properties
     
+    private var filterSheetType: FilterSheetType?
+    private var filterDataSource: TempFilterModel?
     private var viewModel: FilterBottomSheetViewModel?
     private let screenWidth = UIScreen.main.bounds.width
     private var selectedCells: [IndexPath] = []
@@ -23,7 +25,14 @@ final class FilterBottonSheetViewController: BaseBottomSheetViewController {
     
     // MARK: - Views
     
-    private let titleLabel = FindTownLabel(text: "필터", font: .subtitle4)
+    private let filterStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .vertical
+        return stackView
+    }()
+    
+    private let titleLabel = FindTownLabel(text: "필터", font: .subtitle4, textAlignment: .center)
     
     private let infraLabel = FindTownLabel(text: "인프라", font: .subtitle4)
     private let infraGuirdLabel = FindTownLabel(text: "원하는 인프라를 1개 선택해주세요.",
@@ -41,9 +50,15 @@ final class FilterBottonSheetViewController: BaseBottomSheetViewController {
     
     // MARK: - Life Cycle
     
-    init(viewModel: FilterBottomSheetViewModel) {
-        super.init(bottomHeight: UIScreen.main.bounds.height * 0.85)
+    init(viewModel: FilterBottomSheetViewModel, filterSheetType: FilterSheetType, filterDataSource: TempFilterModel) {
+        self.filterSheetType = filterSheetType
+        self.filterDataSource = filterDataSource
         self.viewModel = viewModel
+        
+        self.viewModel?.input.infra.onNext(filterDataSource.infra)
+        self.viewModel?.input.traffic.onNext(filterDataSource.traffic)
+
+        super.init(bottomHeight: UIScreen.main.bounds.height * filterSheetType.height)
     }
     
     override init(bottomHeight: CGFloat) {
@@ -58,8 +73,28 @@ final class FilterBottonSheetViewController: BaseBottomSheetViewController {
         super.addView()
         
         [titleLabel, infraLabel, infraGuirdLabel, infraIconStackView,
-         trafficLabel, trafficGuirdLabel, trafficCollectionView, confirmButton].forEach {
+         trafficLabel, trafficGuirdLabel, trafficCollectionView].forEach {
+            filterStackView.addArrangedSubview($0)
+        }
+        
+        [filterStackView, confirmButton].forEach {
             bottomSheetView.addSubview($0)
+        }
+        
+        if filterSheetType == .Infra {
+            self.viewModel?.input.infra.onNext("")
+            titleLabel.text = ""
+            [trafficLabel, trafficGuirdLabel, trafficCollectionView].forEach {
+                $0.isHidden = true
+            }
+        }
+        
+        else if filterSheetType == .Traffic {
+            self.viewModel?.input.traffic.onNext([])
+            titleLabel.text = ""
+            [infraLabel, infraGuirdLabel, infraIconStackView].forEach {
+                $0.isHidden = true
+            }
         }
     }
     
@@ -67,47 +102,19 @@ final class FilterBottonSheetViewController: BaseBottomSheetViewController {
         super.setLayout()
         
         NSLayoutConstraint.activate([
-            titleLabel.topAnchor.constraint(equalTo: bottomSheetView.topAnchor,
+            filterStackView.topAnchor.constraint(equalTo: bottomSheetView.topAnchor),
+            filterStackView.leadingAnchor.constraint(equalTo: bottomSheetView.leadingAnchor, constant: 16),
+            filterStackView.trailingAnchor.constraint(equalTo: bottomSheetView.trailingAnchor, constant: -16)
+        ])
+        
+        NSLayoutConstraint.activate([
+            titleLabel.topAnchor.constraint(equalTo: filterStackView.topAnchor,
                                             constant: screenWidth * 0.055),
-            titleLabel.centerXAnchor.constraint(equalTo: bottomSheetView.centerXAnchor)
         ])
         
         NSLayoutConstraint.activate([
-            infraLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor,
-                                            constant: screenWidth * 0.035),
-            infraLabel.leadingAnchor.constraint(equalTo: bottomSheetView.leadingAnchor, constant: 16)
-        ])
-        
-        NSLayoutConstraint.activate([
-            infraGuirdLabel.topAnchor.constraint(equalTo: infraLabel.bottomAnchor,
-                                                 constant: screenWidth * 0.040),
-            infraGuirdLabel.leadingAnchor.constraint(equalTo: bottomSheetView.leadingAnchor, constant: 16)
-        ])
-        
-        NSLayoutConstraint.activate([
-            infraIconStackView.topAnchor.constraint(equalTo: infraGuirdLabel.bottomAnchor,
-                                                    constant: screenWidth * 0.040),
-            infraIconStackView.leadingAnchor.constraint(equalTo: bottomSheetView.leadingAnchor, constant: 32),
-            infraIconStackView.trailingAnchor.constraint(equalTo: bottomSheetView.trailingAnchor, constant: -32)
-        ])
-        
-        NSLayoutConstraint.activate([
-            trafficLabel.topAnchor.constraint(equalTo: infraIconStackView.bottomAnchor,
-                                              constant: screenWidth * 0.055),
-            trafficLabel.leadingAnchor.constraint(equalTo: bottomSheetView.leadingAnchor, constant: 16)
-        ])
-        
-        NSLayoutConstraint.activate([
-            trafficGuirdLabel.topAnchor.constraint(equalTo: trafficLabel.bottomAnchor,
-                                                   constant: screenWidth * 0.040),
-            trafficGuirdLabel.leadingAnchor.constraint(equalTo: bottomSheetView.leadingAnchor, constant: 16)
-        ])
-        
-        trafficCollectionView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            trafficCollectionView.topAnchor.constraint(equalTo: trafficGuirdLabel.bottomAnchor, constant: 24),
-            trafficCollectionView.leadingAnchor.constraint(equalTo: bottomSheetView.leadingAnchor, constant: 16),
-            trafficCollectionView.trailingAnchor.constraint(equalTo: bottomSheetView.trailingAnchor, constant: -16),
+            trafficCollectionView.leadingAnchor.constraint(equalTo: filterStackView.leadingAnchor),
+            trafficCollectionView.trailingAnchor.constraint(equalTo: filterStackView.trailingAnchor),
             trafficCollectionView.bottomAnchor.constraint(equalTo: confirmButton.topAnchor, constant: -16),
         ])
         
@@ -116,6 +123,16 @@ final class FilterBottonSheetViewController: BaseBottomSheetViewController {
             confirmButton.leadingAnchor.constraint(equalTo: bottomSheetView.leadingAnchor, constant: 16),
             confirmButton.trailingAnchor.constraint(equalTo: bottomSheetView.trailingAnchor, constant: -16),
         ])
+        
+        infraIconStackView.layoutMargins = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
+        infraIconStackView.isLayoutMarginsRelativeArrangement = true
+        
+        filterStackView.setCustomSpacing(screenWidth * 0.040, after: titleLabel)
+        filterStackView.setCustomSpacing(screenWidth * 0.040, after: infraLabel)
+        filterStackView.setCustomSpacing(screenWidth * 0.040, after: infraGuirdLabel)
+        filterStackView.setCustomSpacing(screenWidth * 0.055, after: infraIconStackView)
+        filterStackView.setCustomSpacing(screenWidth * 0.040, after: trafficLabel)
+        filterStackView.setCustomSpacing(24, after: trafficGuirdLabel)
     }
     
     override func setupView() {
