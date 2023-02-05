@@ -139,6 +139,14 @@ final class MapStoreCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 10,
+                                                                     left: 0,
+                                                                     bottom: 10,
+                                                                     right: 0))
+    }
+    
     func setupCell(store: Store) {
         typeImageView.image = store.thema.storeDetailType.image
         typeNameLabel.text = store.thema.storeDetailType.description
@@ -165,9 +173,12 @@ private extension MapStoreCollectionViewCell {
         contentView.layer.cornerRadius = 16
         contentView.layer.masksToBounds = true
         
-        contentView.layer.shadowRadius = 10
-        contentView.layer.shadowOpacity = 1
-        contentView.layer.shadowColor = FindTownColor.grey4.color.cgColor
+        contentView.layer.addCustomShadow(shadowX: 0,
+                                          shadowY: 2,
+                                          shadowColor: FindTownColor.black.color.withAlphaComponent(0.4),
+                                          blur: 10.0,
+                                          spread: 0,
+                                          alpha: 0)
     }
     
     func setupLayout() {
