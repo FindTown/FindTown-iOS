@@ -139,7 +139,8 @@ final class LocationAndYearsViewController: BaseViewController {
             .throttle(.milliseconds(300), scheduler: MainScheduler.instance)
             .bind { [weak self] _ in
                 let kakaoAddress = KakaoAddressViewController(webViewTitle: "카카오",
-                                                              url: self?.kakaoAddressUrlString)
+                                                              url: self?.kakaoAddressUrlString,
+                                                              callBackKey: "callBackHandler")
                 kakaoAddress.delegate = self
                 self?.present(kakaoAddress, animated: true)
             }

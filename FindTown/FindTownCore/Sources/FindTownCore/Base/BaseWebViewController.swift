@@ -12,13 +12,14 @@ open class BaseWebViewController: UIViewController {
     
     private var webViewTitle: String?
     private var url: String?
+    private var callBackKey: String?
     
     private lazy var webView: WKWebView = {
         let preferences = WKPreferences()
         preferences.javaScriptCanOpenWindowsAutomatically = true
         
         let contentController = WKUserContentController()
-        contentController.add(self, name: "callBackHandler")
+        contentController.add(self, name: self.callBackKey ?? "")
         
         let configuration = WKWebViewConfiguration()
         configuration.userContentController = contentController
@@ -29,9 +30,10 @@ open class BaseWebViewController: UIViewController {
     
     public let indicator = UIActivityIndicatorView(style: .medium)
     
-    public init(webViewTitle: String?, url: String?) {
+    public init(webViewTitle: String?, url: String?, callBackKey: String = "") {
         self.webViewTitle = webViewTitle
         self.url = url
+        self.callBackKey = callBackKey
         
         super.init(nibName: nil, bundle: nil)
     }
