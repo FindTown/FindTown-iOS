@@ -57,7 +57,7 @@ final class FilterBottonSheetViewController: BaseBottomSheetViewController {
         
         self.viewModel?.input.infra.onNext(filterDataSource.infra)
         self.viewModel?.input.traffic.onNext(filterDataSource.traffic)
-
+        
         super.init(bottomHeight: UIScreen.main.bounds.height * filterSheetType.height)
     }
     
@@ -79,22 +79,6 @@ final class FilterBottonSheetViewController: BaseBottomSheetViewController {
         
         [filterStackView, confirmButton].forEach {
             bottomSheetView.addSubview($0)
-        }
-        
-        if filterSheetType == .Infra {
-            self.viewModel?.input.infra.onNext("")
-            titleLabel.text = ""
-            [trafficLabel, trafficGuirdLabel, trafficCollectionView].forEach {
-                $0.isHidden = true
-            }
-        }
-        
-        else if filterSheetType == .Traffic {
-            self.viewModel?.input.traffic.onNext([])
-            titleLabel.text = ""
-            [infraLabel, infraGuirdLabel, infraIconStackView].forEach {
-                $0.isHidden = true
-            }
         }
     }
     
@@ -137,6 +121,22 @@ final class FilterBottonSheetViewController: BaseBottomSheetViewController {
     
     override func setupView() {
         super.setupView()
+        
+        if filterSheetType == .Infra {
+            self.viewModel?.input.infra.onNext("")
+            titleLabel.text = ""
+            [trafficLabel, trafficGuirdLabel, trafficCollectionView].forEach {
+                $0.isHidden = true
+            }
+        }
+        
+        else if filterSheetType == .Traffic {
+            self.viewModel?.input.traffic.onNext([])
+            titleLabel.text = ""
+            [infraLabel, infraGuirdLabel, infraIconStackView].forEach {
+                $0.isHidden = true
+            }
+        }
         
         confirmButton.setTitle("적용하기", for: .normal)
         confirmButton.isEnabled = false
