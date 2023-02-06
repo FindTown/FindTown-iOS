@@ -37,7 +37,7 @@ final class TownMoodViewController: BaseViewController {
     
     private let textViewCountTitle = FindTownLabel(text: "0/200", font: .label3)
     
-    private let textViewGuirdTitleStackView: UIStackView = {
+    private let textViewGuideTitleStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .horizontal
@@ -65,11 +65,11 @@ final class TownMoodViewController: BaseViewController {
     // MARK: - Functions
     
     override func addView() {
-        textViewGuirdTitleStackView.addArrangedSubview(afterTwentyTitle)
-        textViewGuirdTitleStackView.addArrangedSubview(textViewCountTitle)
+        textViewGuideTitleStackView.addArrangedSubview(afterTwentyTitle)
+        textViewGuideTitleStackView.addArrangedSubview(textViewCountTitle)
         
         [nowStatusPogressView, townLikeTitle, townLikeTextView,
-         textViewGuirdTitleStackView, nextButton].forEach {
+         textViewGuideTitleStackView, nextButton].forEach {
             view.addSubview($0)
         }
     }
@@ -96,9 +96,9 @@ final class TownMoodViewController: BaseViewController {
         ])
         
         NSLayoutConstraint.activate([
-            textViewGuirdTitleStackView.topAnchor.constraint(equalTo: townLikeTextView.bottomAnchor, constant: 8),
-            textViewGuirdTitleStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            textViewGuirdTitleStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+            textViewGuideTitleStackView.topAnchor.constraint(equalTo: townLikeTextView.bottomAnchor, constant: 8),
+            textViewGuideTitleStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            textViewGuideTitleStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
         ])
         
         NSLayoutConstraint.activate([
