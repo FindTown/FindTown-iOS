@@ -79,8 +79,16 @@ open class BaseWebViewController: UIViewController {
         
         guard let url = URL(string: url ?? "https://www.naver.com/") else { return }
         let request = URLRequest(url: url)
+        webView.scrollView.delegate = self
         webView.navigationDelegate = self
         webView.load(request)
+    }
+}
+
+extension BaseWebViewController: UIScrollViewDelegate {
+    
+    public func scrollViewWillBeginZooming(_ scrollView: UIScrollView, with view: UIView?) {
+        scrollView.pinchGestureRecognizer?.isEnabled = false
     }
 }
 
