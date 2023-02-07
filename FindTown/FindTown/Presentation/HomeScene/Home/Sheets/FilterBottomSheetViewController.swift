@@ -32,6 +32,7 @@ final class FilterBottonSheetViewController: BaseBottomSheetViewController {
         return stackView
     }()
     
+    private let spacingView = UIView()
     private let titleLabel = FindTownLabel(text: "필터", font: .subtitle4, textAlignment: .center)
     
     private let infraLabel = FindTownLabel(text: "인프라", font: .subtitle4)
@@ -72,7 +73,7 @@ final class FilterBottonSheetViewController: BaseBottomSheetViewController {
     override func addView() {
         super.addView()
         
-        [titleLabel, infraLabel, infraGuideLabel, infraIconStackView,
+        [spacingView, titleLabel, infraLabel, infraGuideLabel, infraIconStackView,
          trafficLabel, trafficGuideLabel, trafficCollectionView].forEach {
             filterStackView.addArrangedSubview($0)
         }
@@ -90,12 +91,7 @@ final class FilterBottonSheetViewController: BaseBottomSheetViewController {
             filterStackView.leadingAnchor.constraint(equalTo: bottomSheetView.leadingAnchor, constant: 16),
             filterStackView.trailingAnchor.constraint(equalTo: bottomSheetView.trailingAnchor, constant: -16)
         ])
-        
-        NSLayoutConstraint.activate([
-            titleLabel.topAnchor.constraint(equalTo: filterStackView.topAnchor,
-                                            constant: screenWidth * 0.055),
-        ])
-        
+
         NSLayoutConstraint.activate([
             trafficCollectionView.leadingAnchor.constraint(equalTo: filterStackView.leadingAnchor),
             trafficCollectionView.trailingAnchor.constraint(equalTo: filterStackView.trailingAnchor),
@@ -111,6 +107,7 @@ final class FilterBottonSheetViewController: BaseBottomSheetViewController {
         infraIconStackView.layoutMargins = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
         infraIconStackView.isLayoutMarginsRelativeArrangement = true
         
+        filterStackView.setCustomSpacing(24, after: spacingView)
         filterStackView.setCustomSpacing(screenWidth * 0.040, after: titleLabel)
         filterStackView.setCustomSpacing(screenWidth * 0.040, after: infraLabel)
         filterStackView.setCustomSpacing(screenWidth * 0.040, after: infraGuideLabel)
@@ -124,16 +121,16 @@ final class FilterBottonSheetViewController: BaseBottomSheetViewController {
         
         if filterSheetType == .Infra {
             self.viewModel?.input.infra.onNext("")
-            titleLabel.text = ""
-            [trafficLabel, trafficGuideLabel, trafficCollectionView].forEach {
+            titleLabel.text = " "
+            [spacingView, trafficLabel, trafficGuideLabel, trafficCollectionView].forEach {
                 $0.isHidden = true
             }
         }
         
         else if filterSheetType == .Traffic {
             self.viewModel?.input.traffic.onNext([])
-            titleLabel.text = ""
-            [infraLabel, infraGuideLabel, infraIconStackView].forEach {
+            titleLabel.text = " "
+            [spacingView, infraLabel, infraGuideLabel, infraIconStackView].forEach {
                 $0.isHidden = true
             }
         }
