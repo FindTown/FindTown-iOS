@@ -136,7 +136,7 @@ final class HomeViewController: BaseViewController {
         NSLayoutConstraint.activate([
             tableViewHeaderView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableViewHeaderView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            tableViewHeaderView.heightAnchor.constraint(equalToConstant: 250)
+            tableViewHeaderView.heightAnchor.constraint(equalToConstant: 280)
         ])
         
         spacingView.translatesAutoresizingMaskIntoConstraints = false
@@ -176,8 +176,6 @@ final class HomeViewController: BaseViewController {
     
     override func setupView() {
         townListImageView.image = UIImage(named: "townList")
-        
-        safetyScoreStackView.isHidden = true
         
         navigationItem.leftBarButtonItem = UIBarButtonItem(customView: homeLogo)
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: searchButton)
@@ -304,13 +302,8 @@ final class HomeViewController: BaseViewController {
             townRecommendationTitle.text = "필터로 찾은 동네"
         }
         
-        safetyScoreStackView.isHidden = isHidden
-        tableViewHeaderView.layoutIfNeeded()
-        
         filterResetButton.isHidden = isHidden
         filterButton.isHidden = !isHidden
-        
-        townTableView.reloadData()
     }
 }
 
