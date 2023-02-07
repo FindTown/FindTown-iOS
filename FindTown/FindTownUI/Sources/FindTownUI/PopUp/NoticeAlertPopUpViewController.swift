@@ -56,8 +56,7 @@ public class NoticeAlertPopUpViewController: UIViewController {
         button.titleLabel?.font = FindTownFont.body3.font
         button.setTitle(confirmButtonText, for: .normal)
         button.setTitleColor(FindTownColor.primary.color, for: .normal)
-//        button.addBorder(to: .top, in: FindTownColor.grey3.color, width: 1.0)
-//        button.addBorder(to: .left, in: FindTownColor.grey3.color, width: 0.5)
+        button.addBorder(to: .top, in: FindTownColor.grey3.color, width: 1.0)
         return button
     }()
 
