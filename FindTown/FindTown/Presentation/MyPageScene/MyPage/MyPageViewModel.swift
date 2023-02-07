@@ -15,6 +15,10 @@ protocol MyPageViewModelDelegate {
     func goToLogin()
     func goToChangeNickname()
     func goToMyTownReview()
+    func goToInquiry()
+    func goToPropose()
+    func goToTerms()
+    func goToPersonalInfo()
     func popUpSignout()
     func popUpWithDraw()
 }
@@ -22,6 +26,10 @@ protocol MyPageViewModelDelegate {
 protocol MyPageViewModelType {
     func goToChangeNickname()
     func goToMyTownReview()
+    func goToInquiry()
+    func goToPropose()
+    func goToTerms()
+    func goToPersonalInfo()
     func popUpSignout()
     func popUpWithDraw()
 }
@@ -31,6 +39,10 @@ final class MyPageViewModel: BaseViewModel {
     struct Input {
         let changeNicknameButtonTrigger = PublishSubject<Void>()
         let reviewButtonTrigger = PublishSubject<Void>()
+        let inquiryTapTrigger = PublishSubject<Void>()
+        let proposeTapTrigger = PublishSubject<Void>()
+        let termsTapTrigger = PublishSubject<Void>()
+        let personalInfoTapTrigger = PublishSubject<Void>()
         let signoutTapTrigger = PublishSubject<Void>()
         let withDrawTapTrigger = PublishSubject<Void>()
     }
@@ -65,6 +77,30 @@ final class MyPageViewModel: BaseViewModel {
             }
             .disposed(by: disposeBag)
         
+        self.input.inquiryTapTrigger
+            .bind {[weak self] in
+                self?.goToInquiry()
+            }
+            .disposed(by: disposeBag)
+        
+        self.input.proposeTapTrigger
+            .bind {[weak self] in
+                self?.goToPropose()
+            }
+            .disposed(by: disposeBag)
+        
+        self.input.termsTapTrigger
+            .bind {[weak self] in
+                self?.goToTerms()
+            }
+            .disposed(by: disposeBag)
+        
+        self.input.personalInfoTapTrigger
+            .bind {[weak self] in
+                self?.goToPersonalInfo()
+            }
+            .disposed(by: disposeBag)
+        
         self.input.signoutTapTrigger
             .bind {[weak self] in
                 self?.popUpSignout()
@@ -77,6 +113,32 @@ final class MyPageViewModel: BaseViewModel {
             }
             .disposed(by: disposeBag)
     }
+    
+    func navigateToPage(_ indexPath: IndexPath) {
+        let sectionIndex = indexPath[0]
+        let itemIndex = indexPath[1]
+        
+        switch sectionIndex {
+        case 1:
+            if itemIndex == 1 {
+                self.input.inquiryTapTrigger.onNext(())
+            } else if itemIndex == 2 {
+                self.input.proposeTapTrigger.onNext(())
+            }
+        case 2:
+            if itemIndex == 1 {
+                self.input.termsTapTrigger.onNext(())
+            } else if itemIndex == 2 {
+                self.input.personalInfoTapTrigger.onNext(())
+            } else if itemIndex == 4 {
+                self.input.signoutTapTrigger.onNext(())
+            } else if itemIndex == 5 {
+                self.input.withDrawTapTrigger.onNext(())
+            }
+        default:
+            break
+        }
+    }
 }
 
 extension MyPageViewModel: MyPageViewModelType {
@@ -86,6 +148,22 @@ extension MyPageViewModel: MyPageViewModelType {
     
     func goToMyTownReview() {
         delegate.goToMyTownReview()
+    }
+    
+    func goToInquiry() {
+        delegate.goToInquiry()
+    }
+    
+    func goToPropose() {
+        delegate.goToPropose()
+    }
+    
+    func goToTerms() {
+        delegate.goToTerms()
+    }
+    
+    func goToPersonalInfo() {
+        delegate.goToPersonalInfo()
     }
     
     func popUpSignout() {
