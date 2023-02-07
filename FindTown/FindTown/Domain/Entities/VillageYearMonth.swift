@@ -7,13 +7,13 @@
 
 import Foundation
 
-struct DongYearMonth {
-    let dong: String
+struct VillageYearMonth {
+    let village: String
     let year: Int
     let month: Int
 
-    init(dong: String = "", year: Int = 0, month: Int = 0) {
-        self.dong = dong
+    init(village: String = "", year: Int = 0, month: Int = 0) {
+        self.village = village
         self.year = year
         self.month = month
     }

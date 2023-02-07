@@ -30,6 +30,7 @@ final class CityCollectionViewFlowLayout: UICollectionViewFlowLayout {
         self.minimumLineSpacing = lineSpacing
         self.minimumInteritemSpacing = itemSpacing
         self.sectionInset = .zero
-        self.estimatedItemSize = CGSize(width: itemSizeWidth, height: itemSizeHeight)
+        self.itemSize = CGSize(width: itemSizeWidth, height: itemSizeHeight)
+        self.estimatedItemSize = .zero
     }
 }

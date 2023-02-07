@@ -19,25 +19,34 @@ extension UIViewController {
     }
     
     /// select, cancel 버튼을 가지는 PopUp 띄워 줌
-    public func showAlertSuccessCancelPopUp(title: String = "", message: String = "", successTitle: String,
-                                            cancelTitle: String , buttonAction: @escaping () -> Void)
-    {
-        let alert = UIAlertController(title: title == "" ? nil : title,
-                                      message: message == "" ? nil : message,
-                                      preferredStyle: .alert)
+    public func showAlertSuccessCancelPopUp(title: String, message: String = "", successButtonText: String, cancelButtonText: String, successButtonAction: @escaping () -> Void, cancelButtonAction: @escaping () -> Void = { }) {
         
-        let alertSuccessBtn = UIAlertAction(title: successTitle, style: .default) { (action) in
-            buttonAction()
-        }
-        let alertCaccelBtn = UIAlertAction(title: cancelTitle, style: .default) { (action) in }
-
-        alertSuccessBtn.setValue(FindTownColor.primary.color, forKey: "titleTextColor")
-        alertCaccelBtn.setValue(FindTownColor.grey5.color, forKey: "titleTextColor")
+        let dismissAction: () -> Void = { self.dismiss(animated: false, completion: nil) }
+        let finalCancelButtonAction = cancelButtonAction() == { }() ? dismissAction : cancelButtonAction
         
-        alert.addAction(alertCaccelBtn)
-        alert.addAction(alertSuccessBtn)
+        let alertPopUp = AlertSuccessCancelPopUpViewController(titleText: title,
+                                                               messageText: message,
+                                                               successButtonText: successButtonText,
+                                                               cancelButtonText: cancelButtonText,
+                                                               successButtonAction: successButtonAction,
+                                                               cancelButtonAction: finalCancelButtonAction)
         
-        present(alert, animated: false, completion: nil)
+        present(alertPopUp, animated: false)
+    }
+    
+    /// toast 메세지
+    public func showToast(message: String) {
+        let toastLabel = ToastLabel()
+        let screenWidth = self.view.frame.size.width
+        let toastLabelFrame = CGRect(x: 12, y: self.view.frame.size.height - 150, width: screenWidth-24, height: 44)
+        toastLabel.setMessage(text: message, font: FindTownFont.body3.font, frame: toastLabelFrame)
+        self.view.addSubview(toastLabel)
+        self.view.endEditing(true)
+        UIView.animate(withDuration: 2.0, delay: 2.0, options: .curveEaseOut, animations: {
+            toastLabel.alpha = 0.0
+        }, completion: { _ in
+            toastLabel.removeFromSuperview()
+        })
     }
     
     /// AlertPopUpVC 띄워 줌

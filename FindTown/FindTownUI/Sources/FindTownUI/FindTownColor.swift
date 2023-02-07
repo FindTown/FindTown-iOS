@@ -26,7 +26,12 @@ public enum FindTownColor {
     case grey7
     case primary
     case primary10
-    case secondary
+    case primary30
+    case primary40
+    case green
+    case blue
+    case pink
+    case orange
     case white
     case error
     case success
@@ -68,14 +73,24 @@ extension FindTownColor {
             return UIColor.findTownColor(named: "Primary")
         case .primary10:
             return UIColor.findTownColor(named: "Primary10")
-        case .secondary:
-            return UIColor.findTownColor(named: "Secondary")
+        case .green:
+            return UIColor.findTownColor(named: "Green")
         case .white:
             return UIColor.findTownColor(named: "White")
         case .error:
             return UIColor.findTownColor(named: "Error")
         case .success:
             return UIColor.findTownColor(named: "Success")
+        case .primary30:
+            return UIColor.findTownColor(named: "Primary30")
+        case .primary40:
+            return UIColor.findTownColor(named: "Primary40")
+        case .blue:
+            return UIColor.findTownColor(named: "Blue")
+        case .pink:
+            return UIColor.findTownColor(named: "Pink")
+        case .orange:
+            return UIColor.findTownColor(named: "Orange")
         }
     }
 }

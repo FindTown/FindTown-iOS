@@ -15,6 +15,7 @@ import RxCocoa
 protocol MapViewModelDelegate {
     func gotoIntroduce()
     func presentAddressSheet()
+    func setCityData(_ city: City)
 }
 
 protocol MapViewModelType {
@@ -27,11 +28,14 @@ final class MapViewModel: BaseViewModel {
     
     struct Input {
         let segmentIndex = BehaviorRelay<Int>(value: 0)
+        let didTapFavoriteButton = PublishSubject<Bool>()
     }
     
     struct Output {
         var categoryDataSource = BehaviorSubject<[Category]>(value: [])
         var storeDataSource = BehaviorSubject<[Store]>(value: [])
+        var city = PublishSubject<City>()
+        var isFavoriteCity = PublishSubject<Bool>()
     }
     
     let input = Input()
@@ -56,9 +60,32 @@ final class MapViewModel: BaseViewModel {
             }
             .disposed(by: disposeBag)
         
+        Observable.combineLatest(self.input.didTapFavoriteButton, self.output.city)
+            .subscribe { [weak self] isFavorite, city in
+                if isFavorite {
+                    self?.addFavoriteCity(city)
+                } else {
+                    self?.removeFavoriteCity(city)
+                }
+            }
+            .disposed(by: disposeBag)
+        
         self.output.storeDataSource.onNext(returnStoreTestData())
     }
 }
+
+// MARK: - Network
+
+extension MapViewModel {
+    func addFavoriteCity(_ city: City) {
+        
+    }
+    
+    func removeFavoriteCity(_ city: City) {
+        
+    }
+}
+
 
 extension MapViewModel: MapViewModelType {
     
@@ -153,16 +180,16 @@ extension MapViewModel {
     }
     
     func returnStoreTestData() -> [Store] {
-        let stores = [Store(name: "프레퍼스 다이어트 푸드", address: "서울 강서구 마곡중앙5로 6 마곡나루역", thema:
+        let stores = [Store(name: "프레퍼스 다이어트 푸드", address: "서울 강서구 마곡중앙5로", thema:
                                     Thema(storeType: .restaurent, storeDetailType: .fastFood)),
                           Store(name: "미정국수0410 멸치국수 잘하는집 신촌점", address: "서울 강서구 마곡중앙5로 6 마곡나루역 보타닉푸르지오시티 1층 114호", thema:
-                                    Thema(storeType: .restaurent, storeDetailType: .fastFood)),
+                                    Thema(storeType: .restaurent, storeDetailType: .chineseFood)),
                           Store(name: "프레퍼스 다이어트 푸드", address: "서울 강서구 마곡중앙5로 6 마곡나루역", thema:
-                                    Thema(storeType: .restaurent, storeDetailType: .fastFood)),
+                                    Thema(storeType: .restaurent, storeDetailType: .koreanFood)),
                           Store(name: "미정국수0410 멸치국수 잘하는집 신촌점", address: "서울 강서구 마곡중앙5로 6 마곡나루역 보타닉푸르지오시티 1층 114호", thema:
-                                    Thema(storeType: .restaurent, storeDetailType: .fastFood)),
+                                    Thema(storeType: .restaurent, storeDetailType: .westernFood)),
                           Store(name: "프레퍼스 다이어트 푸드", address: "서울 강서구 마곡중앙5로 6 마곡나루역", thema:
-                                    Thema(storeType: .restaurent, storeDetailType: .fastFood)),
+                                    Thema(storeType: .restaurent, storeDetailType: .worldFood)),
                           Store(name: "미정국수0410 멸치국수 잘하는집 신촌점", address: "서울 강서구 마곡중앙5로 6 마곡나루역 보타닉푸르지오시티 1층 114호", thema:
                                     Thema(storeType: .restaurent, storeDetailType: .fastFood)),
                           ]

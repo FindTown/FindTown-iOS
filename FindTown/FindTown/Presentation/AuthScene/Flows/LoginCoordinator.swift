@@ -33,7 +33,8 @@ extension LoginCoordinator: LoginViewModelDelegate {
     func goToTabBar() {
         guard let navigationController = navigationController else { return }
         navigationController.isNavigationBarHidden = true
-        TabBarCoordinator(presentationStyle: .push(navigationController: navigationController)).start()
+        TabBarCoordinator(presentationStyle: .push(navigationController: navigationController),
+                          authUseCase: authUseCase).start()
     }
     
     func goToNickname(userData: SigninUserModel, providerType: ProviderType) {

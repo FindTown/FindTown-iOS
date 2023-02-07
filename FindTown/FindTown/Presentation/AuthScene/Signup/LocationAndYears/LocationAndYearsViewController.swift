@@ -29,9 +29,9 @@ final class LocationAndYearsViewController: BaseViewController {
     
     private let whereIsNowTitle = FindTownLabel(text: "지금 어떤 동네에 살고 계신가요?", font: .subtitle4)
     
-    private let dongButton = FTButton(style: .largeTinted)
+    private let villageButton = FTButton(style: .largeTinted)
     
-    fileprivate let dongStatusLabel = FindTownLabel(text: "주소를 입력해주세요.", font: .label3, textColor: .error)
+    fileprivate let villageStatusLabel = FindTownLabel(text: "주소를 입력해주세요.", font: .label3, textColor: .error)
     
     private let howLongStayTitle = FindTownLabel(text: "얼마나 거주하셨나요?", font: .subtitle4)
     
@@ -58,7 +58,7 @@ final class LocationAndYearsViewController: BaseViewController {
     // MARK: - Functions
     
     override func addView() {
-        [nowStatusPogressView, whereIsNowTitle, dongButton, dongStatusLabel,
+        [nowStatusPogressView, whereIsNowTitle, villageButton, villageStatusLabel,
          howLongStayTitle, pickerView, nextButton].forEach {
             view.addSubview($0)
         }
@@ -79,18 +79,18 @@ final class LocationAndYearsViewController: BaseViewController {
         ])
         
         NSLayoutConstraint.activate([
-            dongButton.topAnchor.constraint(equalTo: whereIsNowTitle.bottomAnchor, constant: 16),
-            dongButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            dongButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+            villageButton.topAnchor.constraint(equalTo: whereIsNowTitle.bottomAnchor, constant: 16),
+            villageButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            villageButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
         ])
         
         NSLayoutConstraint.activate([
-            dongStatusLabel.topAnchor.constraint(equalTo: dongButton.bottomAnchor, constant: 8),
-            dongStatusLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            villageStatusLabel.topAnchor.constraint(equalTo: villageButton.bottomAnchor, constant: 8),
+            villageStatusLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
         ])
         
         NSLayoutConstraint.activate([
-            howLongStayTitle.topAnchor.constraint(equalTo: dongButton.bottomAnchor, constant: 68),
+            howLongStayTitle.topAnchor.constraint(equalTo: villageButton.bottomAnchor, constant: 68),
             howLongStayTitle.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
         ])
         
@@ -117,13 +117,13 @@ final class LocationAndYearsViewController: BaseViewController {
         nowStatusPogressView.progressTintColor = FindTownColor.primary.color
         nowStatusPogressView.progress = Float(2) / 4.0
         
-        dongButton.setTitle("살고 있는 동의 이름을 적어주세요. (ex 신사동)", for: .normal)
-        dongButton.contentHorizontalAlignment = .left
-        dongButton.configuration?.imagePadding = 10
-        dongButton.configuration?.contentInsets.leading = 16
-        dongButton.changesSelectionAsPrimaryAction = false
+        villageButton.setTitle("살고 있는 동의 이름을 적어주세요. (ex 신사동)", for: .normal)
+        villageButton.contentHorizontalAlignment = .left
+        villageButton.configuration?.imagePadding = 10
+        villageButton.configuration?.contentInsets.leading = 16
+        villageButton.changesSelectionAsPrimaryAction = false
         
-        dongStatusLabel.isHidden = true
+        villageStatusLabel.isHidden = true
         
         nextButton.setTitle("다음", for: .normal)
         nextButton.changesSelectionAsPrimaryAction = false
@@ -134,7 +134,7 @@ final class LocationAndYearsViewController: BaseViewController {
         
         // Input
         
-        dongButton.rx.tap
+        villageButton.rx.tap
             .throttle(.milliseconds(300), scheduler: MainScheduler.instance)
             .bind { [weak self] _ in
                 let kakaoAddress = KakaoAddressViewController()
@@ -161,9 +161,9 @@ final class LocationAndYearsViewController: BaseViewController {
 
 extension LocationAndYearsViewController: LocationAndYearsDelegate {
     func dismissKakaoAddressWebView(address: String) {
-        dongButton.configuration?.baseForegroundColor = FindTownColor.grey7.color
-        dongButton.setImage(UIImage(named: "MapPinIcon"), for: .normal)
-        dongButton.setTitle(address, for: .normal)
+        villageButton.configuration?.baseForegroundColor = FindTownColor.grey7.color
+        villageButton.setImage(UIImage(named: "MapPinIcon"), for: .normal)
+        villageButton.setTitle(address, for: .normal)
         
         viewModel?.input.address.onNext(address)
     }
@@ -174,7 +174,7 @@ extension Reactive where Base: LocationAndYearsViewController {
     var nextButtonIsSelected: Binder<Bool> {
         return Binder(self.base) { view, isEnabled in
             view.nextButton.isSelected = isEnabled
-            view.dongStatusLabel.isHidden = isEnabled
+            view.villageStatusLabel.isHidden = isEnabled
         }
     }
 }
