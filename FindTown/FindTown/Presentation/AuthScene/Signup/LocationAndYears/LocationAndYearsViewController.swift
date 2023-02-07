@@ -22,6 +22,7 @@ final class LocationAndYearsViewController: BaseViewController {
     // MARK: - Properties
     
     private let viewModel: LocationAndYearsViewModel?
+    private let kakaoAddressUrlString = "https://ungchun.github.io/Kakao-Postcode/"
     
     // MARK: - Views
     
@@ -137,7 +138,9 @@ final class LocationAndYearsViewController: BaseViewController {
         villageButton.rx.tap
             .throttle(.milliseconds(300), scheduler: MainScheduler.instance)
             .bind { [weak self] _ in
-                let kakaoAddress = KakaoAddressViewController()
+                let kakaoAddress = KakaoAddressViewController(webViewTitle: "카카오",
+                                                              url: self?.kakaoAddressUrlString,
+                                                              callBackKey: "callBackHandler")
                 kakaoAddress.delegate = self
                 self?.present(kakaoAddress, animated: true)
             }

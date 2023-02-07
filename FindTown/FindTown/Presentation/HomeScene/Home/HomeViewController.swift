@@ -154,10 +154,13 @@ final class HomeViewController: BaseViewController {
             townTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             townTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
+        
         tableViewHeaderView.layoutIfNeeded()
     }
     
     override func setupView() {
+        safetyScoreStackView.isHidden = true
+        
         navigationItem.leftBarButtonItem = UIBarButtonItem(customView: tempLogo)
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: searchButton)
         
@@ -206,21 +209,32 @@ final class HomeViewController: BaseViewController {
         filterButton.rx.tap
             .throttle(.milliseconds(300), scheduler: MainScheduler.instance)
             .bind { [weak self] in
-                self?.viewModel?.input.filterButtonTrigger.onNext(())
+                self?.viewModel?.input.filterButtonTrigger.onNext(.Filter)
             }
             .disposed(by: disposeBag)
         
         filterResetButton.rx.tap
             .throttle(.milliseconds(300), scheduler: MainScheduler.instance)
             .bind { [weak self] in
-                self?.FilterResetButtonHidden(true)
                 self?.viewModel?.input.resetButtonTrigger.onNext(())
+                self?.FilterResetButtonHidden(true)
+            }
+            .disposed(by: disposeBag)
+        
+        filterCollectionView.rx.itemSelected
+            .throttle(.milliseconds(300), scheduler: MainScheduler.instance)
+            .bind { [weak self] in
+                if $0.row == 0 { // 인프라
+                    self?.viewModel?.input.filterButtonTrigger.onNext(.Infra)
+                } else { // 교통
+                    self?.viewModel?.input.filterButtonTrigger.onNext(.Traffic)
+                }
             }
             .disposed(by: disposeBag)
         
         // Output
         
-        viewModel?.output.searchFilterDataSource
+        viewModel?.output.searchFilterStringDataSource
             .observe(on: MainScheduler.instance)
             .bind(to: filterCollectionView.rx.items(
                 cellIdentifier: FillterCollectionViewCell.reuseIdentifier,
@@ -259,12 +273,18 @@ final class HomeViewController: BaseViewController {
         
         let tempInfra = tempModel.infra == "" ? "인프라" : tempModel.infra
         
-        viewModel?.output.searchFilterDataSource.accept([tempInfra, tempTraffic])
+        viewModel?.output.searchFilterStringDataSource.accept([tempInfra, tempTraffic])
+        viewModel?.output.searchFilterModelDataSource.accept(tempModel)
     }
     
     private func FilterResetButtonHidden(_ isHidden: Bool) {
+        safetyScoreStackView.isHidden = isHidden
+        tableViewHeaderView.layoutIfNeeded()
+        
         filterResetButton.isHidden = isHidden
         filterButton.isHidden = !isHidden
+        
+        townTableView.reloadData()
     }
 }
 
@@ -273,7 +293,7 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout {
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath)
     -> CGSize {
-        if let filter = viewModel?.output.searchFilterDataSource.value[indexPath.row] {
+        if let filter = viewModel?.output.searchFilterStringDataSource.value[indexPath.row] {
             return CGSize(width: filter.size(
                 withAttributes: [NSAttributedString.Key.font : UIFont.systemFont(ofSize: 14)]
             ).width + 40, height: 40)

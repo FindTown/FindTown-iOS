@@ -29,6 +29,7 @@ final class TrafficCollectionView: UICollectionView {
     private func setupView() {
         self.backgroundColor = .clear
         self.showsHorizontalScrollIndicator = false
+        self.translatesAutoresizingMaskIntoConstraints = false
         self.allowsMultipleSelection = true
         self.register(
             TrafficCollectionViewCell.self,

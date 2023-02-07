@@ -52,38 +52,29 @@ final class FilterBottomSheetViewModel: BaseViewModel {
     }
     
     func bind() {
-        
-        self.output.trafficDataSource.onNext(Traffic.allCases)
 
+        self.output.trafficDataSource.onNext(Traffic.allCases)
+        
         self.input.completeButtonTrigger
             .bind { [weak self] in
                 guard let tempFilterModel = self?.tempFilterModel else { return }
                 self?.dismiss(tempFilterModel)
             }
             .disposed(by: disposeBag)
-
+        
         self.input.infra
-           .map { return ($0, $0 != "")}
-           .bind { [weak self] in
-               self?.tempFilterModel?.infra = $0.0
-               self?.output.buttonsSelected.accept($0.1)
-           }
-           .disposed(by: disposeBag)
-
+            .map { return ($0, $0 != "")}
+            .bind { [weak self] in
+                self?.tempFilterModel?.infra = $0.0
+                self?.output.buttonsSelected.accept($0.1)
+            }
+            .disposed(by: disposeBag)
+        
         self.input.traffic
             .map { return ($0, $0.count != 0) }
             .bind { [weak self] in
                 self?.tempFilterModel?.traffic = $0.0
                 self?.output.buttonsSelected.accept($0.1)
-            }
-            .disposed(by: disposeBag)
-        
-        Observable.combineLatest(input.infra, input.traffic)
-            .map { (infra, traffic) in
-                return (infra != "" || traffic.count != 0)
-            }
-            .bind { [weak self] in
-                self?.output.buttonsSelected.accept($0)
             }
             .disposed(by: disposeBag)
     }

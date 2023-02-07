@@ -12,15 +12,25 @@ import FindTownCore
 final class FilterSheetCoordinator: FlowCoordinator {
     
     var presentationStyle: PresentationStyle
+    var filterSheetType: FilterSheetType
+    var filterDataSource: TempFilterModel
     weak var navigationController: UINavigationController?
     
-    init(presentationStyle: PresentationStyle) {
+    init(
+        presentationStyle: PresentationStyle,
+        filterSheetType: FilterSheetType,
+        filterDataSource: TempFilterModel
+    ) {
         self.presentationStyle = presentationStyle
+        self.filterSheetType = filterSheetType
+        self.filterDataSource = filterDataSource
     }
     
     internal func initScene() -> UIViewController {
         let addressSheetViewModel = FilterBottomSheetViewModel(delegate: self)
-        return FilterBottonSheetViewController(viewModel: addressSheetViewModel)
+        return FilterBottonSheetViewController(viewModel: addressSheetViewModel,
+                                               filterSheetType: self.filterSheetType,
+                                               filterDataSource: self.filterDataSource)
     }
 }
 

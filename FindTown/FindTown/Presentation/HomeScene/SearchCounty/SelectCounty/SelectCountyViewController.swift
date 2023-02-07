@@ -38,6 +38,7 @@ final class SelectCountyViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        firstEnterCheck()
     }
     
     // MARK: - Functions
@@ -101,6 +102,12 @@ final class SelectCountyViewController: BaseViewController {
                     cell.setupCell(itemText: item.rawValue)
                     
                 }.disposed(by: disposeBag)
+    }
+    
+    private func firstEnterCheck() {
+        if !UserDefaults.standard.bool(forKey: "SearchFirstEnter") {
+            viewModel?.input.serviceMapPopUpTrigger.onNext(())
+        }
     }
 }
 
