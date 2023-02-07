@@ -20,12 +20,7 @@ final class HomeViewController: BaseViewController {
     
     // MARK: - Views
     
-    private let tableViewHeaderView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .vertical
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        return stackView
-    }()
+    private let spacingView = UIView()
     
     private let homeLogo = UIImageView(image: UIImage(named: "homeLogo"))
     private let searchButton: UIButton = {
@@ -47,7 +42,16 @@ final class HomeViewController: BaseViewController {
         return stackView
     }()
     
+    private let townListImageView = UIImageView()
     private let townRecommendationTitle = FindTownLabel(text: "동네 리스트", font: .subtitle2, textColor: .grey6)
+    private let townImageTitleStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .horizontal
+        stackView.spacing = 4
+        return stackView
+    }()
+    
     private let townCountTitle = FindTownLabel(text: "", font: .label1, textColor: .grey6)
     private let townListAndCountStackView: UIStackView = {
         let stackView = UIStackView()
@@ -77,6 +81,8 @@ final class HomeViewController: BaseViewController {
         return stackView
     }()
     
+    private let tableViewHeaderView = UIView()
+    
     private let townTableView = TownTableView()
     
     // MARK: - Life Cycle
@@ -101,7 +107,11 @@ final class HomeViewController: BaseViewController {
             filterStackView.addArrangedSubview($0)
         }
         
-        [townRecommendationTitle, townCountTitle].forEach {
+        [townListImageView, townRecommendationTitle].forEach {
+            townImageTitleStackView.addArrangedSubview($0)
+        }
+        
+        [townImageTitleStackView, townCountTitle].forEach {
             townListAndCountStackView.addArrangedSubview($0)
         }
         
@@ -113,8 +123,8 @@ final class HomeViewController: BaseViewController {
             townListTitleAndSafeScoreView.addArrangedSubview($0)
         }
         
-        [villageSearchTitle, filterStackView, townListTitleAndSafeScoreView].forEach {
-            self.tableViewHeaderView.addArrangedSubview($0)
+        [spacingView, villageSearchTitle, filterStackView, townListTitleAndSafeScoreView].forEach {
+            tableViewHeaderView.addSubview($0)
         }
         
         view.addSubview(townTableView)
@@ -122,34 +132,40 @@ final class HomeViewController: BaseViewController {
     }
     
     override func setLayout() {
+        tableViewHeaderView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             tableViewHeaderView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            tableViewHeaderView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+            tableViewHeaderView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            tableViewHeaderView.heightAnchor.constraint(equalToConstant: 250)
+        ])
+        
+        spacingView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            spacingView.topAnchor.constraint(equalTo: tableViewHeaderView.topAnchor, constant: 40),
         ])
         
         NSLayoutConstraint.activate([
-            villageSearchTitle.topAnchor.constraint(equalTo: tableViewHeaderView.topAnchor, constant: 56),
-            villageSearchTitle.leadingAnchor.constraint(equalTo: tableViewHeaderView.leadingAnchor, constant: 16)
+            villageSearchTitle.topAnchor.constraint(equalTo: spacingView.topAnchor, constant: 16),
+            villageSearchTitle.leftAnchor.constraint(equalTo: tableViewHeaderView.leftAnchor, constant: 16),
         ])
         
         NSLayoutConstraint.activate([
-            filterStackView.leadingAnchor.constraint(equalTo: tableViewHeaderView.leadingAnchor, constant: 16),
-            filterStackView.trailingAnchor.constraint(equalTo: tableViewHeaderView.trailingAnchor, constant: -16),
+            filterStackView.topAnchor.constraint(equalTo: villageSearchTitle.topAnchor, constant: 40),
+            filterStackView.leftAnchor.constraint(equalTo: tableViewHeaderView.leftAnchor, constant: 16),
+            filterStackView.trailingAnchor.constraint(equalTo: tableViewHeaderView.trailingAnchor),
         ])
         
         NSLayoutConstraint.activate([
+            townListTitleAndSafeScoreView.bottomAnchor.constraint(equalTo: tableViewHeaderView.bottomAnchor),
             townListTitleAndSafeScoreView.leadingAnchor.constraint(equalTo: tableViewHeaderView.leadingAnchor),
             townListTitleAndSafeScoreView.trailingAnchor.constraint(equalTo: tableViewHeaderView.trailingAnchor),
         ])
         
-        tableViewHeaderView.setCustomSpacing(16, after: villageSearchTitle)
-        tableViewHeaderView.setCustomSpacing(40, after: filterStackView)
-        
-        townListTitleAndSafeScoreView.layoutMargins = UIEdgeInsets(top: 24, left: 16, bottom: 0, right: 16)
+        townListTitleAndSafeScoreView.layoutMargins = UIEdgeInsets(top: 20, left: 16, bottom: 10, right: 16)
         townListTitleAndSafeScoreView.isLayoutMarginsRelativeArrangement = true
         
         NSLayoutConstraint.activate([
-            townTableView.topAnchor.constraint(equalTo: view.topAnchor),
+            townTableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             townTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             townTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             townTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
@@ -159,6 +175,8 @@ final class HomeViewController: BaseViewController {
     }
     
     override func setupView() {
+        townListImageView.image = UIImage(named: "townList")
+        
         safetyScoreStackView.isHidden = true
         
         navigationItem.leftBarButtonItem = UIBarButtonItem(customView: homeLogo)
@@ -278,6 +296,14 @@ final class HomeViewController: BaseViewController {
     }
     
     private func FilterResetButtonHidden(_ isHidden: Bool) {
+        if isHidden {
+            townListImageView.image = UIImage(named: "townList")
+            townRecommendationTitle.text = "동네 리스트"
+        } else {
+            townListImageView.image = UIImage(named: "townList_searched")
+            townRecommendationTitle.text = "필터로 찾은 동네"
+        }
+        
         safetyScoreStackView.isHidden = isHidden
         tableViewHeaderView.layoutIfNeeded()
         
