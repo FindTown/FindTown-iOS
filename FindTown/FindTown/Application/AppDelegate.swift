@@ -17,6 +17,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
+        // launch screen 1초 지연
+        Thread.sleep(forTimeInterval: 1.0)
+        
         // FindTownUI Package의 있는 Custom 폰트 등록 메소드 호출
         registerFonts()
         

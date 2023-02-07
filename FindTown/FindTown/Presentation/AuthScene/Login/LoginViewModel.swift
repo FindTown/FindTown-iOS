@@ -8,6 +8,7 @@
 import Foundation
 
 import FindTownCore
+import FindTownNetwork
 import RxSwift
 
 protocol LoginViewModelType {
@@ -24,7 +25,7 @@ final class LoginViewModel: BaseViewModel {
     }
     
     struct Output {
-//        let signinOutput = PublishSubject<SigninRequest>()
+        let errorNotice = PublishSubject<Void>()
     }
     
     let input = Input()
@@ -39,6 +40,7 @@ final class LoginViewModel: BaseViewModel {
     // MARK: - Task
     
     private var loginTask: Task<Void, Error>?
+    private var signupTask: Task<Void, Error>?
     
     init(
         delegate: LoginViewModelDelegate,
@@ -71,6 +73,11 @@ final class LoginViewModel: BaseViewModel {
                 self?.goToTabBar()
             }
             .disposed(by: disposeBag)
+        
+    }
+    
+    func showErrorNoticeAlert() {
+        self.output.errorNotice.onNext(())
     }
 }
 
@@ -80,16 +87,37 @@ extension LoginViewModel {
     func login(providerType: ProviderType) {
         loginTask = Task {
             do {
-                let (message, userData) = try await self.authUseCase.login(authType: providerType)
+                try await self.authUseCase.login(authType: providerType)
                 await MainActor.run {
-                    if message == "비회원 계정입니다." {
-                        self.goToNickname(userData: userData, providerType: .kakao)
-                    } else {
-                        self.goToTabBar()
-                    }
+                    self.goToTabBar()
                 }
                 loginTask?.cancel()
             } catch (let error) {
+                if let error = error as? FTNetworkError,
+                   FTNetworkError.isUnauthorized(error: error) {
+                    self.goToSignup(providerType: providerType)
+                } else {
+                    await MainActor.run {
+                        self.output.errorNotice.onNext(())
+                    }
+                    Log.error(error)
+                }
+            }
+        }
+    }
+    
+    func goToSignup(providerType: ProviderType) {
+        signupTask = Task {
+            do {
+                let userData = try await self.authUseCase.getUserData()
+                await MainActor.run {
+                    self.goToNickname(userData: userData, providerType: providerType)
+                }
+                signupTask?.cancel()
+            } catch (let error) {
+                await MainActor.run {
+                    self.output.errorNotice.onNext(())
+                }
                 Log.error(error)
             }
         }

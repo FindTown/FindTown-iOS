@@ -18,19 +18,20 @@ final class LoginViewController: BaseViewController {
     
     // MARK: - Properties
     
-    private let viewModel: LoginViewModel?
+    let viewModel: LoginViewModel?
     
     private let anonymousTitleTapGesture = UITapGestureRecognizer()
     
     // MARK: - Views
-    
-    // 추후에 수정
-    
-    private let tempLogo = FindTownLabel(text: "LOGO", font: .headLine1, textColor: .primary)
-    
-    private let subTitle = FindTownLabel(text: "내가 찾던 동네", font: .headLine3)
-    
-    private let introduceTitle = FindTownLabel(text: "동네 인프라부터 후기까지,\n나에게 맞는 동네를 찾아봐요!", font: .body3)
+
+    private let subTitle = FindTownLabel(text: "동네의 모든 정보를 한번에", font: .body1)
+    private let logo = UIImageView(image: UIImage(named: "logo"))
+    private let tooltip = ToolTip(text: "👋🏻  가입 후 서비스를 자유롭게 이용해보세요!",
+                                  viewColor: .white,
+                                  textColor: .grey7,
+                                  tipLocation: .bottom,
+                                  width: 236,
+                                  height: 32)
     
     private let kakaoButton: UIButton = {
         var configuration = UIButton.Configuration.filled()
@@ -42,7 +43,6 @@ final class LoginViewController: BaseViewController {
         configuration.attributedTitle?.font = FindTownFont.body1.font
         
         let button = UIButton(configuration: configuration)
-        button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
     
@@ -56,11 +56,18 @@ final class LoginViewController: BaseViewController {
         configuration.attributedTitle?.font = FindTownFont.body1.font
         
         let button = UIButton(configuration: configuration)
-        button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
     
-    private let anonymousTitle = FindTownLabel(text: "둘러보기", font: .body3, textColor: .grey5)
+    private let lookAroundButton: UIButton = {
+        var button = UIButton()
+        button.setTitle("둘러보기", for: .normal)
+        button.setTitleColor(FindTownColor.grey5.color, for: .normal)
+        button.titleLabel?.font = FindTownFont.body3.font
+        button.titleLabel?.textAlignment = .center
+        button.backgroundColor = .clear
+        return button
+    }()
     
     // MARK: - Life Cycle
     
@@ -80,31 +87,36 @@ final class LoginViewController: BaseViewController {
     // MARK: - Functions
     
     override func addView() {
-        [tempLogo, subTitle, introduceTitle, kakaoButton, appleButton, anonymousTitle].forEach {
+        [logo, subTitle, tooltip, kakaoButton, appleButton, lookAroundButton].forEach {
             view.addSubview($0)
+            $0.translatesAutoresizingMaskIntoConstraints = false
         }
     }
     
     override func setLayout() {
-        NSLayoutConstraint.activate([
-            tempLogo.topAnchor.constraint(equalTo: view.topAnchor,
-                                          constant: UIScreen.main.bounds.size.height / 3.5),
-            tempLogo.centerXAnchor.constraint(equalTo: view.centerXAnchor)
-        ])
+        let screenBounds = UIScreen.main.bounds
         
         NSLayoutConstraint.activate([
-            subTitle.topAnchor.constraint(equalTo: tempLogo.bottomAnchor, constant: 32),
+            subTitle.bottomAnchor.constraint(equalTo: logo.topAnchor, constant: -4),
             subTitle.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
         
         NSLayoutConstraint.activate([
-            introduceTitle.topAnchor.constraint(equalTo: subTitle.bottomAnchor, constant: 20),
-            introduceTitle.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+            logo.widthAnchor.constraint(equalToConstant: 152),
+            logo.heightAnchor.constraint(equalToConstant: 34),
+            logo.topAnchor.constraint(equalTo: view.topAnchor,
+                                      constant: screenBounds.height / 2.4),
+            logo.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
         
         NSLayoutConstraint.activate([
-            kakaoButton.topAnchor.constraint(equalTo: introduceTitle.bottomAnchor,
-                                             constant: UIScreen.main.bounds.size.height / 6),
+            tooltip.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            tooltip.bottomAnchor.constraint(equalTo: kakaoButton.topAnchor, constant: -30)
+        ])
+        
+        NSLayoutConstraint.activate([
+            kakaoButton.topAnchor.constraint(equalTo: subTitle.bottomAnchor,
+                                             constant: screenBounds.height / 3.4),
             kakaoButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             kakaoButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             kakaoButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
@@ -120,19 +132,15 @@ final class LoginViewController: BaseViewController {
         ])
         
         NSLayoutConstraint.activate([
-            anonymousTitle.topAnchor.constraint(equalTo: appleButton.bottomAnchor, constant: 34),
-            anonymousTitle.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+            lookAroundButton.topAnchor.constraint(equalTo: appleButton.bottomAnchor, constant: 38),
+            lookAroundButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            lookAroundButton.widthAnchor.constraint(equalToConstant: 70),
+            lookAroundButton.heightAnchor.constraint(equalToConstant: 40)
         ])
     }
     
     override func setupView() {
         view.backgroundColor = .white
-        
-        introduceTitle.numberOfLines = 2
-        introduceTitle.textAlignment = .center
-        
-        anonymousTitle.addGestureRecognizer(anonymousTitleTapGesture)
-        anonymousTitle.isUserInteractionEnabled = true
     }
     
     override func bindViewModel() {
@@ -156,14 +164,20 @@ final class LoginViewController: BaseViewController {
             .disposed(by: disposeBag)
         
         /// 둘러보기
-        anonymousTitleTapGesture.rx.event
+        lookAroundButton.rx.tap
             .throttle(.milliseconds(300), scheduler: MainScheduler.instance)
-            .bind { [weak self] _ in
+            .bind { [weak self] in
                 self?.viewModel?.input.anonymousTrigger.onNext(())
             }
             .disposed(by: disposeBag)
         
         // Output
+        
+        self.viewModel?.output.errorNotice
+            .subscribe { [weak self] _ in
+                self?.showErrorNoticeAlertPopUp(message: "네트워크 오류가 발생하였습니다.", buttonText: "확인")
+            }
+            .disposed(by: disposeBag)
         
     }
 }

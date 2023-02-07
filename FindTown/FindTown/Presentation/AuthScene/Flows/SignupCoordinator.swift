@@ -112,4 +112,13 @@ extension SignupCoordinator: SignupViewModelDelegate {
             }
         }
     }
+    
+    func dismissAndShowError() {
+        guard let navigationController = navigationController else { return }
+        navigationController.dismiss(animated: true) {
+            if let parentCoordinator = self.parentCoordinator as? LoginCoordinator {
+                parentCoordinator.goToTabBar()
+            }
+        }
+    }
 }

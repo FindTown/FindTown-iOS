@@ -11,7 +11,7 @@ import Security
 final class KeyChainManager {
     
     static let shared = KeyChainManager()
-    static let serviceName = "서비스이름"
+    static let serviceName = "kr.findtown.com"
     
     private init() { }
     
@@ -20,7 +20,7 @@ final class KeyChainManager {
             kSecClass: account.keyChainClass,
             kSecAttrService: KeyChainManager.serviceName,
             kSecAttrAccount: account.description,
-            kSecValueData: data.data(using: .utf8, allowLossyConversion: false)!
+            kSecValueData: (data as AnyObject).data(using: String.Encoding.utf8.rawValue) as Any
         ] as CFDictionary
         
         SecItemDelete(query as CFDictionary)
@@ -32,7 +32,7 @@ final class KeyChainManager {
         }
     }
     
-    func read(account: KeyChainAccount) throws -> String? {
+    func read(account: KeyChainAccount) throws -> String {
         let query = [
             kSecClass: account.keyChainClass,
             kSecAttrService: KeyChainManager.serviceName,

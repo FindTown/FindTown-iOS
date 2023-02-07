@@ -31,11 +31,11 @@ class Session: Sessionable {
             throw FTNetworkError.unauthorized
         }
         if 400..<500 ~= httpResponse.statusCode {
-            throw FTNetworkError.client
+            throw FTNetworkError.client(errorCode: httpResponse.statusCode)
         }
         
         if 500..<600 ~= httpResponse.statusCode {
-            throw FTNetworkError.server
+            throw FTNetworkError.server(errorCode: httpResponse.statusCode)
         }
         return data
     }
