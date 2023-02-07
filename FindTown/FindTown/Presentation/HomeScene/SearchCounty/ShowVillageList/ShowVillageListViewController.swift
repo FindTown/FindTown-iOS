@@ -32,18 +32,6 @@ final class ShowVillageListViewController: BaseViewController {
         return stackView
     }()
     
-    private let emptyView = UIView()
-    private let checkBox = CheckBox()
-    private let safetyTitle = FindTownLabel(text: "안전 점수가 높은", font: .label1, textColor: .grey6)
-    private let infoIcon = UIImageView(image: UIImage(systemName: "info.circle"))
-    private let safetyScoreStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.axis = .horizontal
-        stackView.spacing = 8
-        return stackView
-    }()
-    
     private let townTableView = TownTableView()
     
     private let townListBackgroundView: UIStackView = {
@@ -77,11 +65,7 @@ final class ShowVillageListViewController: BaseViewController {
             townListAndCountStackView.addArrangedSubview($0)
         }
         
-        [emptyView, checkBox, safetyTitle, infoIcon].forEach {
-            safetyScoreStackView.addArrangedSubview($0)
-        }
-        
-        [safetyScoreStackView, townTableView].forEach {
+        [townTableView].forEach {
             townListBackgroundView.addArrangedSubview($0)
         }
         
@@ -96,11 +80,10 @@ final class ShowVillageListViewController: BaseViewController {
         stackView.setCustomSpacing(24, after: topEmptyView)
         stackView.setCustomSpacing(16, after: townListAndCountStackView)
         
-        townListBackgroundView.setCustomSpacing(10, after: safetyScoreStackView)
         townListBackgroundView.layoutMargins = UIEdgeInsets(top: 24, left: 0, bottom: 16, right: 0)
         townListBackgroundView.isLayoutMarginsRelativeArrangement = true
         
-        [townListAndCountStackView, safetyScoreStackView].forEach {
+        [townListAndCountStackView].forEach {
             $0.layoutMargins = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
             $0.isLayoutMarginsRelativeArrangement = true
         }
