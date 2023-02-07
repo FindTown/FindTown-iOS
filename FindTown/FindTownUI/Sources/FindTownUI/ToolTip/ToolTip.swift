@@ -56,10 +56,12 @@ public class ToolTip: UIView {
     
     func setupView() {
         self.layer.insertSublayer(shape, at: 0)
-        self.layer.shadowOpacity = 1
-        self.layer.shadowRadius = 10
-        self.layer.shadowColor = FindTownColor.grey4.color.cgColor
-        self.layer.masksToBounds = false
+        self.layer.addCustomShadow(shadowX: 0,
+                                   shadowY: 2,
+                                   shadowColor: UIColor(red: 0.762, green: 0.75, blue: 0.737, alpha: 0.4),
+                                   blur: 10.0,
+                                   spread: 0,
+                                   alpha: 0.4)
         self.layer.cornerRadius = 8
         
         self.translatesAutoresizingMaskIntoConstraints = false
@@ -75,28 +77,6 @@ public class ToolTip: UIView {
             textLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 13),
         ])
     }
-    
-//    func drawPath(tipLocation: TipLocation, width: CGFloat, height: CGFloat) {
-//        let tipWidth = 13
-//        let tipHeight = 8
-//        let tipwidthCenter = width / 2
-//        let endXWidth = tipwidthCenter + 16
-//
-//        switch tipLocation {
-//        case .top:
-//            path.move(to: CGPoint(x: tipwidthCenter, y: tipHeight))
-//            path.addLine(to: CGPoint(x: tipwidthCenter + 6.6, y: tipHeight + 8))
-//            path.addLine(to: CGPoint(x: endXWidth, y: tipHeight))
-//            path.addLine(to: CGPoint(x: tipwidthCenter, y: 0))
-//        case .bottom:
-//            path.move(to: CGPoint(x: tipwidthCenter, y: 0))
-//            path.addLine(to: CGPoint(x: tipwidthCenter + 6.6, y: -8))
-//            path.addLine(to: CGPoint(x: endXWidth, y: 0))
-//            path.addLine(to: CGPoint(x: 0, y: 0))
-//        }
-//
-//
-//    }
     
     func drawPath(tipLocation: TipLocation, width: CGFloat, height: CGFloat) {
         let tipWidth = CGFloat(13)
