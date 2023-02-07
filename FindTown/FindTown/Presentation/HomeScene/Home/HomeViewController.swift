@@ -27,7 +27,7 @@ final class HomeViewController: BaseViewController {
         return stackView
     }()
     
-    private let tempLogo = FindTownLabel(text: "LOGO", font: .subtitle1, textColor: .primary)
+    private let homeLogo = UIImageView(image: UIImage(named: "homeLogo"))
     private let searchButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(named: "search"), for: .normal)
@@ -161,7 +161,7 @@ final class HomeViewController: BaseViewController {
     override func setupView() {
         safetyScoreStackView.isHidden = true
         
-        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: tempLogo)
+        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: homeLogo)
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: searchButton)
         
         filterResetButton.setImage(UIImage(named: "reset"), for: .normal)
