@@ -21,6 +21,8 @@ final class MyPageViewController: BaseViewController {
     
     // MARK: - Views
     
+    private let indicator = UIActivityIndicatorView(style: .medium)
+    
     lazy var collectionView = MyPageCollectionView()
     
     // MARK: - Life Cycle
@@ -42,9 +44,18 @@ final class MyPageViewController: BaseViewController {
     
     override func addView() {
         view.addSubview(collectionView)
+        view.addSubview(indicator)
     }
     
     override func setLayout() {
+        indicator.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            indicator.topAnchor.constraint(equalTo: view.topAnchor),
+            indicator.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            indicator.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            indicator.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+        ])
+        
         NSLayoutConstraint.activate([
             collectionView.topAnchor.constraint(equalTo: view.topAnchor),
             collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
@@ -57,11 +68,25 @@ final class MyPageViewController: BaseViewController {
         self.title = "마이"
         view.backgroundColor = FindTownColor.white.color
         
+        indicator.startAnimating()
+        
+        collectionView.isHidden = true
         collectionView.backgroundColor = FindTownColor.white.color
         collectionView.dataSource = self
     }
     
     override func bindViewModel() {
+        
+        viewModel?.fetchMemberInfo()
+        
+        viewModel?.input.fetchFinishTrigger
+            .bind { [weak self] in
+                self?.indicator.stopAnimating()
+                self?.indicator.isHidden = true
+                self?.collectionView.isHidden = false
+            }
+            .disposed(by: disposeBag)
+        
         collectionView.rx.itemSelected
             .bind { [weak self] in
                 self?.viewModel?.navigateToPage($0)
@@ -136,8 +161,10 @@ extension MyPageViewController: UICollectionViewDataSource {
                 withReuseIdentifier: CollectionHeaderView.reuseIdentifier,
                 for: indexPath
             ) as? CollectionHeaderView
-            collectionHeaderView?.viewModel = viewModel
+            
             if let collectionHeaderView = collectionHeaderView {
+                collectionHeaderView.viewModel = viewModel
+                collectionHeaderView.bindViewModel()
                 return collectionHeaderView
             }
             return UICollectionReusableView()

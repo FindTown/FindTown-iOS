@@ -37,6 +37,9 @@ protocol MyPageViewModelType {
 final class MyPageViewModel: BaseViewModel {
     
     struct Input {
+        let nickname = PublishSubject<String>()
+        let villagePeriod = PublishSubject<String>()
+        let fetchFinishTrigger = PublishSubject<Void>()
         let changeNicknameButtonTrigger = PublishSubject<Void>()
         let reviewButtonTrigger = PublishSubject<Void>()
         let inquiryTapTrigger = PublishSubject<Void>()
@@ -48,23 +51,46 @@ final class MyPageViewModel: BaseViewModel {
     }
     
     struct Output {
-        
+        let myNickname = PublishRelay<String>()
+        let myVillagePeriod = PublishRelay<String>()
     }
     
     let input = Input()
     let output = Output()
     let delegate: MyPageViewModelDelegate
     
+    // MARK: - UseCase
+    
+    let memberUseCase: MemberUseCase
+    
+    // MARK: - Task
+    
+    private var myInfoTask: Task<Void, Error>?
+    
     init(
-        delegate: MyPageViewModelDelegate
+        delegate: MyPageViewModelDelegate,
+        memberUseCase: MemberUseCase
     ) {
         self.delegate = delegate
+        self.memberUseCase = memberUseCase
         
         super.init()
         self.bind()
     }
     
     func bind() {
+        self.input.nickname
+            .bind { [weak self] in
+                self?.output.myNickname.accept($0)
+            }
+            .disposed(by: disposeBag)
+        
+        self.input.villagePeriod
+            .bind { [weak self] in
+                self?.output.myVillagePeriod.accept($0)
+            }
+            .disposed(by: disposeBag)
+        
         self.input.changeNicknameButtonTrigger
             .bind { [weak self] in
                 self?.goToChangeNickname()
@@ -137,6 +163,27 @@ final class MyPageViewModel: BaseViewModel {
             }
         default:
             break
+        }
+    }
+}
+
+// MARK: - Network
+
+extension MyPageViewModel {
+    func fetchMemberInfo() {
+        self.myInfoTask = Task {
+            do {
+                let memberInfo = try await self.memberUseCase.getMemberInfomation(bearerToken: KeyChainManager.shared.read(account: .accessToken))
+                await MainActor.run(body: {
+                    self.input.nickname.onNext(memberInfo.nickname)
+                    self.input.villagePeriod.onNext(memberInfo.resident.toVillagePeriod)
+                    
+                    self.input.fetchFinishTrigger.onNext(())
+                })
+                myInfoTask?.cancel()
+            } catch (let error) {
+                print(error)
+            }
         }
     }
 }
