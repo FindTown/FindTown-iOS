@@ -9,6 +9,12 @@ import UIKit
 
 import FindTownUI
 
+protocol TownTableViewCellDelegate: AnyObject {
+    func didTapGoToMapButton()
+    func didTapGoToIntroduceButton()
+    func didTapHeartButton()
+}
+
 final class TownTableViewCell: UITableViewCell {
     
     // MARK: Properties
@@ -17,7 +23,7 @@ final class TownTableViewCell: UITableViewCell {
         return String(describing: self)
     }
     
-    var introduceBtnAction: (() -> ())?
+    weak var delegate: TownTableViewCellDelegate?
     
     // MARK: Views
     
@@ -125,7 +131,7 @@ final class TownTableViewCell: UITableViewCell {
         townIconView.layer.borderWidth = 1.0
         townIconView.layer.borderColor = FindTownColor.grey3.color.cgColor
         townIconImageView.image = UIImage(named: "hospital")
-                
+        
         mapBtn.changesSelectionAsPrimaryAction = false
         mapBtn.isSelected = true
         mapBtn.setTitle("동네 지도", for: .normal)
@@ -140,7 +146,9 @@ final class TownTableViewCell: UITableViewCell {
         
         selectionStyle = .none
         
-        introduceBtn.addTarget(self, action: #selector(tapIntroduceBtn), for: .touchUpInside)
+        introduceBtn.addTarget(self, action: #selector(didTapGoToIntroduceButton), for: .touchUpInside)
+        mapBtn.addTarget(self, action: #selector(didTapGoToMapButton), for: .touchUpInside)
+        heartIcon.addTarget(self, action: #selector(didTapHeartButton), for: .touchUpInside)
     }
     
     func setupCell(_ model: Any) {
@@ -148,8 +156,18 @@ final class TownTableViewCell: UITableViewCell {
         townTitle.text = model.village
         townIntroduceTitle.text = model.introduce
     }
+}
+
+private extension TownTableViewCell {
+    @objc func didTapGoToMapButton() {
+        self.delegate?.didTapGoToMapButton()
+    }
     
-    @objc func tapIntroduceBtn() {
-        introduceBtnAction?()
+    @objc func didTapGoToIntroduceButton() {
+        self.delegate?.didTapGoToIntroduceButton()
+    }
+    
+    @objc func didTapHeartButton() {
+        self.delegate?.didTapHeartButton()
     }
 }

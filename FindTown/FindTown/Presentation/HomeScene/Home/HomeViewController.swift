@@ -267,6 +267,7 @@ final class HomeViewController: BaseViewController {
                 cellType: TownTableViewCell.self)) { index, item, cell in
                     
                     cell.setupCell(item)
+                    cell.delegate = self
                     
                 }.disposed(by: disposeBag)
         
@@ -278,7 +279,7 @@ final class HomeViewController: BaseViewController {
             .disposed(by: disposeBag)
     }
     
-    func dismissBottomSheet(_ tempModel: TempFilterModel) {
+    func dismissBottomSheet(_ tempModel: FilterModel) {
         
         FilterResetButtonHidden(false)
         
@@ -304,6 +305,20 @@ final class HomeViewController: BaseViewController {
         
         filterResetButton.isHidden = isHidden
         filterButton.isHidden = !isHidden
+    }
+}
+
+extension HomeViewController: TownTableViewCellDelegate {
+    func didTapGoToMapButton() {
+        print("didTapGoToMapButton")
+    }
+    
+    func didTapGoToIntroduceButton() {
+        print("didTapGoToMapButton")
+    }
+    
+    func didTapHeartButton() {
+        print("didTapGoToMapButton")
     }
 }
 
