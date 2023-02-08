@@ -31,5 +31,15 @@ struct MemberInfoDTO: Response {
         let residentReview: String
         let residentYear: Int
         let residentMonth: Int
+        
+        var toVillagePeriod: String {
+            return "\(residentAddress.split(separator: " ").last!) 거주 ・ \(residentYear)년 \(residentMonth)개월"
+        }
+        
+        var toReViewModel: ReviewModel {
+            return ReviewModel(village: residentAddress,
+                                   period: "\(residentYear)년 \(residentMonth)개월 거주",
+                                   introduce: residentReview)
+        }
     }
 }
