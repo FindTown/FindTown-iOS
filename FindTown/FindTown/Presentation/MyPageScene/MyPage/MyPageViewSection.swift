@@ -1,8 +1,8 @@
 //
-//  Section.swift
+//  MyPageViewSection.swift
 //  FindTown
 //
-//  Created by 김성훈 on 2023/02/02.
+//  Created by 김성훈 on 2023/02/08.
 //
 
 import UIKit

@@ -1,12 +1,28 @@
 //
-//  Traffic.swift
+//  FilterBottomSheetType.swift
 //  FindTown
 //
-//  Created by 김성훈 on 2023/01/13.
+//  Created by 김성훈 on 2023/02/08.
 //
 
-import Foundation
 import UIKit
+
+enum FilterSheetType {
+    case Filter
+    case Infra
+    case Traffic
+    
+    var height: Double {
+        switch self {
+        case .Filter:
+            return 0.87
+        case .Infra:
+            return 0.37
+        case .Traffic:
+            return 0.60
+        }
+    }
+}
 
 enum Traffic: CaseIterable {
     case one
@@ -130,9 +146,27 @@ enum Traffic: CaseIterable {
         }
     }
     
-    
-    
     static func returnTrafficType(_ traffic: String) -> Traffic? {
         return self.allCases.first { $0.shortDescription == traffic }
+    }
+}
+
+enum Infra: CaseIterable {
+    case amenities
+    case medical
+    case exercise
+    case nature
+    
+    var description: [String] {
+        switch self {
+        case .amenities:
+            return ["imageName", "편의시설"]
+        case .medical:
+            return ["imageName", "의료"]
+        case .exercise:
+            return ["imageName", "운동"]
+        case .nature:
+            return ["imageName", "자연"]
+        }
     }
 }

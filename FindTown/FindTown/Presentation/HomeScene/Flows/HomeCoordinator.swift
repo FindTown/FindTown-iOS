@@ -26,7 +26,7 @@ final class HomeCoordinator: FlowCoordinator {
 
 extension HomeCoordinator: HomeViewModelDelegate {
     
-    func goToFilterBottomSheet(filterSheetType: FilterSheetType, filterDataSource: TempFilterModel) {
+    func goToFilterBottomSheet(filterSheetType: FilterSheetType, filterDataSource: FilterModel) {
         guard let navigationController = navigationController else { return }
         FilterSheetCoordinator(presentationStyle: .present(navigationController: navigationController,
                                                            modalPresentationStyle: .overFullScreen),

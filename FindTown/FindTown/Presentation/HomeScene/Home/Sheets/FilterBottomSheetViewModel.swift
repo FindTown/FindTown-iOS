@@ -12,17 +12,11 @@ import RxSwift
 import RxRelay
 
 protocol FilterBottomSheetViewModelDelegate {
-    func dismiss(_ tempModel: TempFilterModel)
+    func dismiss(_ tempModel: FilterModel)
 }
 
 protocol FilterBottomSheetViewModelType {
-    func dismiss(_ tempModel: TempFilterModel)
-}
-
-// 임시
-struct TempFilterModel {
-    var infra: String = ""
-    var traffic: [String] = []
+    func dismiss(_ tempModel: FilterModel)
 }
 
 final class FilterBottomSheetViewModel: BaseViewModel {
@@ -41,11 +35,11 @@ final class FilterBottomSheetViewModel: BaseViewModel {
     let input = Input()
     let output = Output()
     let delegate: FilterBottomSheetViewModelDelegate
-    private var tempFilterModel: TempFilterModel?
+    private var tempFilterModel: FilterModel?
     
     init(delegate: FilterBottomSheetViewModelDelegate) {
         self.delegate = delegate
-        self.tempFilterModel = TempFilterModel()
+        self.tempFilterModel = FilterModel()
         
         super.init()
         self.bind()
@@ -81,7 +75,7 @@ final class FilterBottomSheetViewModel: BaseViewModel {
 }
 
 extension FilterBottomSheetViewModel: FilterBottomSheetViewModelType {
-    func dismiss(_ inputData: TempFilterModel) {
+    func dismiss(_ inputData: FilterModel) {
         self.delegate.dismiss(inputData)
     }
 }
