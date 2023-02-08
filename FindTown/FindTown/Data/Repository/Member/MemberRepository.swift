@@ -9,11 +9,11 @@ import Foundation
 import FindTownNetwork
 
 final class MemberRepository {
-
-    func getMemberInfomation(_ bearerToken: String) async throws -> String {
+    
+    func getMemberInfomation(_ bearerToken: String) async throws -> MemberInfoDTO {
         let HTTPHeaders = HTTPHeaders([.accept("*/*"),
-                         .authorization(bearerToken: bearerToken)])
+                                       .authorization(bearerToken: bearerToken)])
         let data = try await Network.shared.request(target: MemberInfomationRequest(HTTPHeaders: HTTPHeaders))
-        return data.body.memberInfo.nickname
+        return data.body.memberInfo
     }
 }
