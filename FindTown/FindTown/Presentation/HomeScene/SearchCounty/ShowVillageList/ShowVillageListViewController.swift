@@ -120,6 +120,7 @@ final class ShowVillageListViewController: BaseViewController {
                 cellType: TownTableViewCell.self)) { index, item, cell in
                     
                     cell.setupCell(item)
+                    cell.delegate = self
                     
                 }.disposed(by: disposeBag)
         
@@ -129,5 +130,19 @@ final class ShowVillageListViewController: BaseViewController {
                 self?.townCountTitle.text = "\($0.count)개 동네"
             }
             .disposed(by: disposeBag)
+    }
+}
+
+extension ShowVillageListViewController: TownTableViewCellDelegate {
+    func didTapGoToMapButton() {
+        print("didTapGoToMapButton")
+    }
+    
+    func didTapGoToIntroduceButton() {
+        print("didTapGoToIntroduceButton")
+    }
+    
+    func didTapHeartButton() {
+        print("didTapHeartButton")
     }
 }
