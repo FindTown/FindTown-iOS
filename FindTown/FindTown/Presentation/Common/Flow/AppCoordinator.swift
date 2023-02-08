@@ -15,6 +15,7 @@ import FindTownNetwork
 public final class AppCoordinator: Coordinator {
     var navigationController: UINavigationController
     let authUseCase = AuthUseCase()
+    let memberUseCase = MemberUseCase()
     
     private var autoSignTask: Task<Void, Error>?
     
@@ -52,6 +53,7 @@ public final class AppCoordinator: Coordinator {
     private func goToTabBar() {
         navigationController.isNavigationBarHidden = true
         TabBarCoordinator(presentationStyle: .push(navigationController: navigationController),
-                          authUseCase: authUseCase).start()
+                          authUseCase: authUseCase,
+                          memberUseCase: memberUseCase).start()
     }
 }

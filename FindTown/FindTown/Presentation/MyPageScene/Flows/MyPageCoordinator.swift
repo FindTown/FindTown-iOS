@@ -13,17 +13,21 @@ final class MyPageCoordinator: FlowCoordinator {
     var presentationStyle: PresentationStyle
     weak var navigationController: UINavigationController?
     let authUseCase: AuthUseCase
+    let memberUseCase: MemberUseCase
     
     init(
         presentationStyle: PresentationStyle,
-        authUseCase: AuthUseCase
+        authUseCase: AuthUseCase,
+        memberUseCase: MemberUseCase
     ) {
         self.presentationStyle = presentationStyle
         self.authUseCase = authUseCase
+        self.memberUseCase = memberUseCase
     }
     
     internal func initScene() -> UIViewController {
-        let myPageViewModel = MyPageViewModel(delegate: self)
+        let myPageViewModel = MyPageViewModel(delegate: self,
+                                              memberUseCase: memberUseCase)
         let myPageViewController = MyPageViewController(viewModel: myPageViewModel)
         return myPageViewController
         
@@ -44,7 +48,8 @@ final class MyPageCoordinator: FlowCoordinator {
     
     /// 내가 쓴 동네 후기 화면
     internal func myTownReviewScene() -> UIViewController {
-        let myTownReviewViewModel = MyTownReviewViewModel(delegate: self)
+        let myTownReviewViewModel = MyTownReviewViewModel(delegate: self,
+                                                          memberUseCase: memberUseCase)
         let myTownReviewViewController = MyTownReviewViewController(viewModel: myTownReviewViewModel)
         myTownReviewViewController.hidesBottomBarWhenPushed = true
         return myTownReviewViewController
