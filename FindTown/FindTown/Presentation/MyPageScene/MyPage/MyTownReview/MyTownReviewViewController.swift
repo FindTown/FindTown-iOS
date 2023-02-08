@@ -57,14 +57,10 @@ final class MyTownReviewViewController: BaseViewController, UIScrollViewDelegate
         reviewTableView.backgroundColor = FindTownColor.back1.color
         
         reviewTableView.rowHeight = UITableView.automaticDimension
-        reviewTableView.estimatedRowHeight = 150
+        reviewTableView.estimatedRowHeight = UITableView.automaticDimension
     }
     
     override func bindViewModel() {
-        
-        // Input
-        
-        // Output
         
         viewModel?.output.reviewTableDataSource
             .asDriver(onErrorJustReturn: [])
