@@ -12,29 +12,33 @@ final class MyPageCoordinator: FlowCoordinator {
     
     var presentationStyle: PresentationStyle
     weak var navigationController: UINavigationController?
+    let isAnonymous: Bool
     let authUseCase: AuthUseCase
     let memberUseCase: MemberUseCase
     
     init(
         presentationStyle: PresentationStyle,
+        isAnonymous: Bool,
         authUseCase: AuthUseCase,
         memberUseCase: MemberUseCase
     ) {
         self.presentationStyle = presentationStyle
+        self.isAnonymous = isAnonymous
         self.authUseCase = authUseCase
         self.memberUseCase = memberUseCase
     }
     
     internal func initScene() -> UIViewController {
-        let myPageViewModel = MyPageViewModel(delegate: self,
-                                              memberUseCase: memberUseCase)
-        let myPageViewController = MyPageViewController(viewModel: myPageViewModel)
-        return myPageViewController
-        
-        // 익명 로그인 일 때
-        // let myPageViewModel = MyPageAnonymousViewModel(delegate: self)
-        // let myPageViewController = MyPageAnonymousViewController(viewModel: myPageViewModel)
-        // return myPageViewController
+        if isAnonymous {
+            let myPageAnonymousViewModel = MyPageAnonymousViewModel(delegate: self)
+            let myPageAnonymousViewController = MyPageAnonymousViewController(viewModel: myPageAnonymousViewModel)
+            return myPageAnonymousViewController
+        } else {
+            let myPageViewModel = MyPageViewModel(delegate: self,
+                                                  memberUseCase: memberUseCase)
+            let myPageViewController = MyPageViewController(viewModel: myPageViewModel)
+            return myPageViewController
+        }
     }
     
     /// 닉네임 수정 화면

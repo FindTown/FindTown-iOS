@@ -31,10 +31,11 @@ final class LoginCoordinator: FlowCoordinator {
 
 extension LoginCoordinator: LoginViewModelDelegate {
     
-    func goToTabBar() {
+    func goToTabBar(isAnonymous: Bool = false) {
         guard let navigationController = navigationController else { return }
         navigationController.isNavigationBarHidden = true
         TabBarCoordinator(presentationStyle: .push(navigationController: navigationController),
+                          isAnonymous: isAnonymous,
                           authUseCase: authUseCase,
                           memberUseCase: memberUseCase).start()
     }

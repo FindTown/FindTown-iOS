@@ -12,15 +12,18 @@ final class TabBarCoordinator: FlowCoordinator {
     
     var presentationStyle: PresentationStyle
     weak var navigationController: UINavigationController?
+    let isAnonymous: Bool
     let authUseCase: AuthUseCase
     let memberUseCase: MemberUseCase
     
     init(
         presentationStyle: PresentationStyle,
+        isAnonymous: Bool = false,
         authUseCase: AuthUseCase,
         memberUseCase: MemberUseCase
     ) {
         self.presentationStyle = presentationStyle
+        self.isAnonymous = isAnonymous
         self.authUseCase = authUseCase
         self.memberUseCase = memberUseCase
     }
@@ -48,6 +51,7 @@ final class TabBarCoordinator: FlowCoordinator {
         
         /// 마이페이지 탭
         let myPageCoordinator = MyPageCoordinator(presentationStyle: .none,
+                                                  isAnonymous: isAnonymous,
                                                   authUseCase: authUseCase,
                                                   memberUseCase: memberUseCase)
         myPageCoordinator.start()

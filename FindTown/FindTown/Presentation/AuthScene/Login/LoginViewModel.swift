@@ -12,7 +12,7 @@ import FindTownNetwork
 import RxSwift
 
 protocol LoginViewModelType {
-    func goToTabBar()
+    func goToTabBar(isAnonymous: Bool)
     func goToNickname(userData: SigninUserModel, providerType: ProviderType)
 }
 
@@ -70,7 +70,7 @@ final class LoginViewModel: BaseViewModel {
         
         self.input.anonymousTrigger
             .bind { [weak self] _ in
-                self?.goToTabBar()
+                self?.goToTabBar(isAnonymous: true)
             }
             .disposed(by: disposeBag)
         
@@ -125,9 +125,10 @@ extension LoginViewModel {
 }
 
 extension LoginViewModel: LoginViewModelType {
-    func goToTabBar() {
-        delegate.goToTabBar()
+    func goToTabBar(isAnonymous: Bool = false) {
+        delegate.goToTabBar(isAnonymous: isAnonymous)
     }
+    
     func goToNickname(userData: SigninUserModel, providerType: ProviderType) {
         delegate.goToNickname(userData: userData, providerType: providerType)
     }
