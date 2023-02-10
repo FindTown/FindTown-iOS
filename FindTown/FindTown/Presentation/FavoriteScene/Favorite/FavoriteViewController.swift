@@ -106,6 +106,9 @@ final class FavoriteViewController: BaseViewController {
                 cell.introduceBtnAction = { [unowned self] in
                     self.viewModel?.input.townIntroButtonTrigger.onNext(())
                 }
+                cell.heartBtnAction = { [unowned self] in
+                    self.showToast(message: "찜 목록에서 삭제되었어요")
+                }
             }
             .disposed(by: disposeBag)
     }

@@ -18,6 +18,7 @@ final class TownTableViewCell: UITableViewCell {
     }
     
     var introduceBtnAction: (() -> ())?
+    var heartBtnAction: (() -> ())?
     
     // MARK: Views
     
@@ -141,6 +142,7 @@ final class TownTableViewCell: UITableViewCell {
         selectionStyle = .none
         
         introduceBtn.addTarget(self, action: #selector(tapIntroduceBtn), for: .touchUpInside)
+        heartIcon.addTarget(self, action: #selector(tapHeartButton), for: .touchUpInside)
     }
     
     func setupCell(_ model: Any) {
@@ -151,5 +153,11 @@ final class TownTableViewCell: UITableViewCell {
     
     @objc func tapIntroduceBtn() {
         introduceBtnAction?()
+    }
+    
+    @objc func tapHeartButton() {
+        if !heartIcon.isSelected {
+            heartBtnAction?()
+        }
     }
 }
