@@ -9,11 +9,20 @@ import Foundation
 import FindTownCore
 import RxSwift
          
+
+protocol TownIntroViewModelType {
+    func goToMap()
+}
+
 protocol TownIntroViewModelDelegate {
-    
+    func goToMap()
 }
 
 final class TownIntroViewModel: BaseViewModel {
+    
+    struct Input {
+        let moveToMapButtonTrigger = PublishSubject<Void>()
+    }
         
     struct Output {
         var townMoodDataSource = BehaviorSubject<[TownMood]>(value: [])
@@ -23,6 +32,7 @@ final class TownIntroViewModel: BaseViewModel {
     }
     
     let delegate: TownIntroViewModelDelegate
+    let input = Input()
     let output = Output()
 
     init(delegate: TownIntroViewModelDelegate) {
@@ -32,10 +42,23 @@ final class TownIntroViewModel: BaseViewModel {
     }
     
     func bind() {
+        
+        self.input.moveToMapButtonTrigger
+            .subscribe(onNext: { [weak self] in
+                self?.delegate.goToMap()
+            })
+            .disposed(by: disposeBag)
+      
         self.output.townMoodDataSource.onNext(returnTownMoodData())
         self.output.trafficDataSource.onNext(returnTrafficData())
         self.output.hotPlaceDataSource.onNext(returnHotPlaceData())
         self.output.townRankDataSource.onNext(returnTownRankData())
+    }
+}
+
+extension TownIntroViewModel: TownIntroViewModelType {
+    func goToMap() {
+        self.delegate.goToMap()
     }
 }
 

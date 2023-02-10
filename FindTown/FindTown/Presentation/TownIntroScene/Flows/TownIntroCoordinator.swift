@@ -24,6 +24,12 @@ final class TownIntroCoordinator: FlowCoordinator {
     }
  }
 
- extension TownIntroCoordinator: TownIntroViewModelDelegate {
-
+extension TownIntroCoordinator: TownIntroViewModelDelegate {
+    
+    func goToMap() {
+        guard let navigationController = navigationController else {
+            return
+        }
+        MapCoordinator(presentationStyle: .push(navigationController: navigationController)).start()
+    }
  }

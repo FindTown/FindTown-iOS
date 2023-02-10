@@ -51,6 +51,8 @@ final class TownIntroViewController: BaseViewController, UIScrollViewDelegate {
     private let hotPlaceTitleLabel = FindTownLabel(text: "근처 핫플레이스", font: .subtitle4)
     private let hotPlaceCollectionView = HotPlaceCollectionView()
     
+    private let moveToMapButton = FTButton(style: .round)
+    
     // MARK: - Life Cycle
     
     init(viewModel: TownIntroViewModel) {
@@ -88,6 +90,11 @@ final class TownIntroViewController: BaseViewController, UIScrollViewDelegate {
         townRankToolTip.isHidden = true
         townRankInfoButton.changesSelectionAsPrimaryAction = true
         townRankInfoButton.isSelected = false
+        
+        moveToMapButton.setTitle("동네지도로 이동", for: .normal)
+        moveToMapButton.setImage(UIImage(named: "map_icon"), for: .normal)
+        moveToMapButton.changesSelectionAsPrimaryAction = false
+        moveToMapButton.isSelected = true
         
         /// 임시 텍스트
         self.title = "관악구 신림동"
@@ -129,6 +136,8 @@ final class TownIntroViewController: BaseViewController, UIScrollViewDelegate {
             hotPlaceView.addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
+        
+        self.view.addSubview(moveToMapButton)
     }
     
     override func setLayout() {
@@ -193,6 +202,12 @@ final class TownIntroViewController: BaseViewController, UIScrollViewDelegate {
             hotPlaceCollectionView.trailingAnchor.constraint(equalTo: hotPlaceView.trailingAnchor, constant: -16.0),
             hotPlaceCollectionView.bottomAnchor.constraint(equalTo: hotPlaceView.bottomAnchor, constant: -105.0)
         ])
+        
+        NSLayoutConstraint.activate([
+            moveToMapButton.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+            moveToMapButton.widthAnchor.constraint(equalToConstant: 140.0),
+            moveToMapButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -24.0)
+        ])
     }
     
     override func bindViewModel() {
@@ -200,6 +215,17 @@ final class TownIntroViewController: BaseViewController, UIScrollViewDelegate {
         
         townMoodCollectionView.rx.setDelegate(self)
             .disposed(by: disposeBag)
+        
+        // Input
+        
+        moveToMapButton.rx.tap
+            .bind { [weak self] in
+                print("here3")
+                self?.viewModel?.input.moveToMapButtonTrigger.onNext(())
+            }
+            .disposed(by: disposeBag)
+        
+        // Output
         
         viewModel?.output.townMoodDataSource
             .observe(on: MainScheduler.instance)
