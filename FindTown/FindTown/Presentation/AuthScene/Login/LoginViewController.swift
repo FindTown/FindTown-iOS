@@ -29,7 +29,7 @@ final class LoginViewController: BaseViewController {
     private let tooltip = ToolTip(text: "👋🏻  가입 후 서비스를 자유롭게 이용해보세요!",
                                   viewColor: .white,
                                   textColor: .grey7,
-                                  tipLocation: .bottom,
+                                  tipLocation: .bottomCenter,
                                   width: 236,
                                   height: 32)
     
