@@ -87,9 +87,8 @@ final class TownIntroViewController: BaseViewController, UIScrollViewDelegate {
         townRankScrollView.showsHorizontalScrollIndicator = false
         townRankStackView.axis = .horizontal
         townRankStackView.spacing = 12
-        townRankToolTip.isHidden = true
-        townRankInfoButton.changesSelectionAsPrimaryAction = true
-        townRankInfoButton.isSelected = false
+        townRankToolTip.dismiss()
+        addTapGesture()
         
         moveToMapButton.setTitle("동네지도로 이동", for: .normal)
         moveToMapButton.setImage(UIImage(named: "map_icon"), for: .normal)
@@ -220,7 +219,6 @@ final class TownIntroViewController: BaseViewController, UIScrollViewDelegate {
         
         moveToMapButton.rx.tap
             .bind { [weak self] in
-                print("here3")
                 self?.viewModel?.input.moveToMapButtonTrigger.onNext(())
             }
             .disposed(by: disposeBag)
@@ -266,6 +264,19 @@ final class TownIntroViewController: BaseViewController, UIScrollViewDelegate {
 private extension TownIntroViewController {
     
     @objc func tapTownRankInfoBtn() {
-        townRankToolTip.isHidden = !townRankInfoButton.isSelected
+        townRankToolTip.alpha = 1.0
+    }
+    
+    func addTapGesture() {
+        let backViewTap = UITapGestureRecognizer(target: self, action: #selector(backViewTapped(_:)))
+        backViewTap.cancelsTouchesInView = false
+        view.addGestureRecognizer(backViewTap)
+    }
+    
+    @objc func backViewTapped(_ tapRecognizer: UITapGestureRecognizer) {
+        let backViewTappedLocation = tapRecognizer.location(in: self.townRankToolTip)
+        if townRankToolTip.point(inside: backViewTappedLocation, with: nil) == false {
+            townRankToolTip.dismiss()
+        }
     }
 }
