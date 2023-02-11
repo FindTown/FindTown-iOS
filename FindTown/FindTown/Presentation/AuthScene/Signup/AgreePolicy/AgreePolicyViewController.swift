@@ -48,7 +48,7 @@ final class AgreePolicyViewController: BaseBottomSheetViewController {
         var button = UIButton()
         button.setTitle("보기", for: .normal)
         button.setTitleColor(FindTownColor.grey5.color, for: .normal)
-        button.setUnderline(FindTownColor.grey5.color)
+        button.setUnderline()
         button.titleLabel?.font = FindTownFont.label2.font
         button.backgroundColor = .clear
         return button
@@ -69,7 +69,7 @@ final class AgreePolicyViewController: BaseBottomSheetViewController {
         var button = UIButton()
         button.setTitle("보기", for: .normal)
         button.setTitleColor(FindTownColor.grey5.color, for: .normal)
-        button.setUnderline(FindTownColor.grey5.color)
+        button.setUnderline()
         button.titleLabel?.font = FindTownFont.label2.font
         button.backgroundColor = .clear
         return button
