@@ -54,9 +54,7 @@ final class FavoriteTownViewController: BaseViewController {
     }
     
     override func addView() {
-//        dropDownStackView.addArrangedSubview(countyDropDown)
-//        dropDownStackView.addArrangedSubview(villageDropDown)
-        
+
         [nowStatusPogressView, favoriteTitle, favoriteSubTitle, dropDownsView, villageDropDown, nextButton].forEach {
             view.addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
