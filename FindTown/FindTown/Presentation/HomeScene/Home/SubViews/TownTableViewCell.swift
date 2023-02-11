@@ -17,8 +17,8 @@ final class TownTableViewCell: UITableViewCell {
         return String(describing: self)
     }
     
-    var introduceBtnAction: (() -> ())?
-    var heartBtnAction: (() -> ())?
+    var introduceButtonAction: (() -> ())?
+    var heartButtonAction: (() -> ())?
     
     // MARK: Views
     
@@ -35,7 +35,7 @@ final class TownTableViewCell: UITableViewCell {
         return button
     }()
     
-    private let btnStackView: UIStackView = {
+    private let buttonStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
         stackView.distribution = .fillEqually
@@ -43,8 +43,8 @@ final class TownTableViewCell: UITableViewCell {
         return stackView
     }()
     
-    private let introduceBtn = FTButton(style: .mediumFilled)
-    private let mapBtn = FTButton(style: .mediumTintedWithRadius)
+    private let introduceButton = FTButton(style: .mediumFilled)
+    private let mapButton = FTButton(style: .mediumTintedWithRadius)
     
     
     // MARK: - Life Cycle
@@ -72,11 +72,11 @@ final class TownTableViewCell: UITableViewCell {
     // MARK: Functions
     
     private func addView() {
-        [introduceBtn, mapBtn].forEach {
-            btnStackView.addArrangedSubview($0)
+        [introduceButton, mapButton].forEach {
+            buttonStackView.addArrangedSubview($0)
         }
         
-        [townIconView, townTitle, townIntroduceTitle, heartIcon, btnStackView].forEach {
+        [townIconView, townTitle, townIntroduceTitle, heartIcon, buttonStackView].forEach {
             contentView.addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
@@ -110,11 +110,11 @@ final class TownTableViewCell: UITableViewCell {
         ])
         
         NSLayoutConstraint.activate([
-            btnStackView.topAnchor.constraint(equalTo: townIntroduceTitle.bottomAnchor, constant: 16),
-            btnStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            btnStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
-            btnStackView.heightAnchor.constraint(equalToConstant: 44),
-            btnStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -16)
+            buttonStackView.topAnchor.constraint(equalTo: townIntroduceTitle.bottomAnchor, constant: 16),
+            buttonStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            buttonStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+            buttonStackView.heightAnchor.constraint(equalToConstant: 44),
+            buttonStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -16)
         ])
     }
     
@@ -127,11 +127,11 @@ final class TownTableViewCell: UITableViewCell {
         townIconView.layer.borderColor = FindTownColor.grey3.color.cgColor
         townIconImageView.image = UIImage(named: "hospital")
                 
-        mapBtn.changesSelectionAsPrimaryAction = false
-        mapBtn.isSelected = true
-        mapBtn.setTitle("동네 지도", for: .normal)
+        mapButton.changesSelectionAsPrimaryAction = false
+        mapButton.isSelected = true
+        mapButton.setTitle("동네 지도", for: .normal)
         
-        introduceBtn.setTitle("동네 소개", for: .normal)
+        introduceButton.setTitle("동네 소개", for: .normal)
         
         contentView.layer.cornerRadius = 16
         contentView.backgroundColor = FindTownColor.white.color
@@ -141,7 +141,7 @@ final class TownTableViewCell: UITableViewCell {
         
         selectionStyle = .none
         
-        introduceBtn.addTarget(self, action: #selector(tapIntroduceBtn), for: .touchUpInside)
+        introduceButton.addTarget(self, action: #selector(tapIntroduceButton), for: .touchUpInside)
         heartIcon.addTarget(self, action: #selector(tapHeartButton), for: .touchUpInside)
     }
     
@@ -151,13 +151,13 @@ final class TownTableViewCell: UITableViewCell {
         townIntroduceTitle.text = model.introduce
     }
     
-    @objc func tapIntroduceBtn() {
-        introduceBtnAction?()
+    @objc func tapIntroduceButton() {
+        introduceButtonAction?()
     }
     
     @objc func tapHeartButton() {
         if !heartIcon.isSelected {
-            heartBtnAction?()
+            heartButtonAction?()
         }
     }
 }
