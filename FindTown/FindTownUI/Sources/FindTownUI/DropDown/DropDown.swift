@@ -81,8 +81,8 @@ public class DropDown: UIView {
         return view
     }()
     
-    lazy var tableView: UITableView = {
-        let tableView = UITableView()
+    lazy var tableView: DropDownTableView = {
+        let tableView = DropDownTableView()
         tableView.backgroundColor = FindTownColor.white.color
         tableView.layer.cornerRadius = 8
         tableView.register(DropDownCell.self,
@@ -92,9 +92,12 @@ public class DropDown: UIView {
         return tableView
     }()
     
+    var contentHeight: Int?
+    
     /// data : 드롭다운에서 보여줄 텍스트 배열, 0번째에는 안내텍스트 ex: 자치구(선택) 이 들어감
-    public init(data: [String]) {
+    public init(data: [String], contentHeight: Int? = nil) {
         self.dataSource = data
+        self.contentHeight = contentHeight
         super.init(frame: .zero)
         
         self.backgroundColor = .clear
@@ -156,6 +159,24 @@ extension DropDown: UITableViewDelegate, UITableViewDataSource {
         DispatchQueue.main.async {
             self.dataSource = data
             self.tableView.reloadData()
+            self.tableView.performBatchUpdates { [weak self] in
+                guard let constraints = self?.tableView.constraints else { return }
+                guard var intrinsicContenttHeight = self?.tableView.intrinsicContentSize.height,
+                      let view = self?.shadowView,
+                      let contentHeight = self?.contentHeight else { return }
+                
+                if intrinsicContenttHeight > CGFloat(contentHeight) {
+                    intrinsicContenttHeight = CGFloat(contentHeight)
+                }
+                self?.tableView.removeConstraints(constraints)
+                
+                self?.tableView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+                self?.tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+                self?.tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+                self?.tableView.heightAnchor.constraint(equalToConstant: CGFloat(intrinsicContenttHeight)).isActive = true
+
+                self?.layoutIfNeeded()
+            }
         }
     }
 }
@@ -195,6 +216,9 @@ private extension DropDown {
 private extension DropDown {
     
     func setLayout() {
+        if let contentHeight = contentHeight {
+            tableView.heightAnchor.constraint(equalToConstant: CGFloat(contentHeight)).isActive = true
+        }
         
         [textView, shadowView].forEach {
             self.addSubview($0)

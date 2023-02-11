@@ -27,16 +27,14 @@ final class FavoriteTownViewController: BaseViewController {
     private let favoriteSubTitle = FindTownLabel(text: "동네 지도에서 인프라를 바로 확인할 수 있어요.",
                                                  font: .body4, textColor: .grey6)
     
-    var countyDropDown = DropDown(data: ["자치구 (선택)"] + County.allCases.map { $0.rawValue })
-    lazy var villageDropDown = DropDown(data: ["동 (선택)"])
-    
-    private let dropDownStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .horizontal
-        stackView.distribution = .fillEqually
-        stackView.spacing = 8
-        return stackView
+    var countyDropDown: DropDown = {
+        let dropdown = DropDown(data: ["자치구 (선택)"] + County.allCases.map { $0.rawValue }, contentHeight: 300)
+        return dropdown
     }()
+    
+    lazy var villageDropDown = DropDown(data: ["동 (선택)"], contentHeight: 300)
+
+    private let dropDownsView = UIView()
     
     private let nextButton = FTButton(style: .largeFilled)
     
@@ -56,11 +54,15 @@ final class FavoriteTownViewController: BaseViewController {
     }
     
     override func addView() {
-        dropDownStackView.addArrangedSubview(countyDropDown)
-        dropDownStackView.addArrangedSubview(villageDropDown)
-        
-        [nowStatusPogressView, favoriteTitle, favoriteSubTitle, dropDownStackView, nextButton].forEach {
+
+        [nowStatusPogressView, favoriteTitle, favoriteSubTitle, dropDownsView, villageDropDown, nextButton].forEach {
             view.addSubview($0)
+            $0.translatesAutoresizingMaskIntoConstraints = false
+        }
+        
+        [countyDropDown, villageDropDown].forEach {
+            dropDownsView.addSubview($0)
+            $0.translatesAutoresizingMaskIntoConstraints = false
         }
     }
     
@@ -90,12 +92,21 @@ final class FavoriteTownViewController: BaseViewController {
             nextButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
         ])
         
-        dropDownStackView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            dropDownStackView.topAnchor.constraint(equalTo: favoriteSubTitle.bottomAnchor, constant: 16),
-            dropDownStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            dropDownStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-            dropDownStackView.heightAnchor.constraint(equalToConstant: 300),
+            dropDownsView.topAnchor.constraint(equalTo: favoriteSubTitle.bottomAnchor, constant: 16),
+            dropDownsView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            dropDownsView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+            dropDownsView.heightAnchor.constraint(equalToConstant: 300),
+        ])
+        
+        NSLayoutConstraint.activate([
+            countyDropDown.topAnchor.constraint(equalTo: favoriteSubTitle.bottomAnchor, constant: 16),
+            countyDropDown.leadingAnchor.constraint(equalTo: dropDownsView.leadingAnchor),
+            countyDropDown.widthAnchor.constraint(equalToConstant: 164),
+            
+            villageDropDown.topAnchor.constraint(equalTo: countyDropDown.topAnchor),
+            villageDropDown.leadingAnchor.constraint(equalTo: countyDropDown.trailingAnchor, constant: 14),
+            villageDropDown.widthAnchor.constraint(equalToConstant: 164),
         ])
     }
     
@@ -174,8 +185,8 @@ final class FavoriteTownViewController: BaseViewController {
     }
     
     @objc private func backViewTapped(_ tapRecognizer: UITapGestureRecognizer) {
-        let backViewTappedLocation = tapRecognizer.location(in: self.dropDownStackView)
-        if dropDownStackView.point(inside: backViewTappedLocation, with: nil) == false {
+        let backViewTappedLocation = tapRecognizer.location(in: self.dropDownsView)
+        if dropDownsView.point(inside: backViewTappedLocation, with: nil) == false {
             countyDropDown.dismiss()
             villageDropDown.dismiss()
         }
