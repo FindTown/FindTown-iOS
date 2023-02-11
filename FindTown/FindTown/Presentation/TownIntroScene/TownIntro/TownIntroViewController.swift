@@ -79,7 +79,7 @@ final class TownIntroViewController: BaseViewController, UIScrollViewDelegate {
         }
     
         townRankInfoButton.setImage(UIImage(named: "Icon_Information"), for: .normal)
-        townRankInfoButton.addTarget(self, action: #selector(tapTownRankInfoBtn), for: .touchUpInside)
+        townRankInfoButton.addTarget(self, action: #selector(tapTownRankInfoButton), for: .touchUpInside)
         
         trafficTipStackView.axis = .horizontal
         trafficTipStackView.spacing = 4
@@ -263,7 +263,7 @@ final class TownIntroViewController: BaseViewController, UIScrollViewDelegate {
 
 private extension TownIntroViewController {
     
-    @objc func tapTownRankInfoBtn() {
+    @objc func tapTownRankInfoButton() {
         townRankToolTip.alpha = 1.0
     }
     
