@@ -178,7 +178,7 @@ extension FTButtonStyle {
         titleFont: FindTownFont.body4.font,
         selectedColorSet: [FindTownColor.white.color, FindTownColor.grey7.color],
         nonSelectedColorSet: [FindTownColor.black.color, FindTownColor.white.color],
-        strokeColorSet: [FindTownColor.black.color, FindTownColor.white.color],
+        strokeColorSet: [FindTownColor.grey3.color, FindTownColor.white.color],
         topBottomInset: 12,
         cornerRadius: 30,
         imagePlacement: .leading,
