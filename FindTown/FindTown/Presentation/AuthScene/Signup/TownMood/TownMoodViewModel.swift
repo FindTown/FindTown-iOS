@@ -50,8 +50,8 @@ final class TownMoodViewModel: BaseViewModel {
             .disposed(by: disposeBag)
         
         self.input.townLikeText
-            .bind { [weak self] in
-                self?.output.buttonsSelected.accept($0.count < 20 ? false : true)
+            .bind { [weak self] inputText in
+                self?.output.buttonsSelected.accept(inputText.count < 20 ? false : true)
             }
             .disposed(by: disposeBag)
     }

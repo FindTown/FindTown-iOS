@@ -145,9 +145,9 @@ final class TownMoodViewController: BaseViewController {
         
         townLikeTextView.rx.text.orEmpty
             .distinctUntilChanged()
-            .bind { [weak self] in
-                if $0 != self?.textViewPlaceHolder {
-                    self?.viewModel?.input.townLikeText.onNext($0)
+            .bind { [weak self] inputText in
+                if inputText != self?.textViewPlaceHolder {
+                    self?.viewModel?.input.townLikeText.onNext(inputText)
                     
                 }
             }
@@ -163,13 +163,13 @@ final class TownMoodViewController: BaseViewController {
         
         viewModel?.output.buttonsSelected
             .asDriver(onErrorJustReturn: false)
-            .drive { [weak self] in
-                self?.buttonIsSelectedChange(isSelected: $0)
+            .drive { [weak self] isSelected in
+                self?.buttonIsSelectedChange(isSelected)
             }
             .disposed(by: disposeBag)
     }
     
-    private func buttonIsSelectedChange(isSelected: Bool) {
+    private func buttonIsSelectedChange(_ isSelected: Bool) {
         if isSelected != nextButton.isSelected {
             nextButton.isSelected = isSelected
             nextButton.isEnabled = isSelected

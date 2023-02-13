@@ -21,14 +21,14 @@ final class FavoriteViewController: BaseViewController {
     fileprivate let anonymousView = AnonymousView()
     fileprivate let isEmptyView = EmptyView()
     fileprivate let favoriteTableView = FavoriteTableView()
-
+    
     // MARK: - Life Cycle
     
     init(viewModel: FavoriteViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
-
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -49,7 +49,7 @@ final class FavoriteViewController: BaseViewController {
         }
         
         let view = self.view.safeAreaLayoutGuide
-
+        
         NSLayoutConstraint.activate([
             anonymousView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             anonymousView.topAnchor.constraint(equalTo: view.topAnchor),
@@ -103,14 +103,14 @@ final class FavoriteViewController: BaseViewController {
                                                  cellType: TownTableViewCell.self)) {
                 index, item, cell in
                 cell.setupCell(item)
-                cell.introduceButtonAction = { [unowned self] in
-                    self.viewModel?.input.townIntroButtonTrigger.onNext(())
-                }
-                cell.heartButtonAction = { [unowned self] in
-                    self.showToast(message: "찜 목록에서 삭제되었어요")
-                }
-            }
-            .disposed(by: disposeBag)
+                
+                //cell.introduceButtonAction = { [unowned self] in
+                //    self.viewModel?.input.townIntroButtonTrigger.onNext(())
+                //}
+                //cell.heartButtonAction = { [unowned self] in
+                //    self.showToast(message: "찜 목록에서 삭제되었어요")
+                //}
+            }.disposed(by: disposeBag)
     }
 }
 

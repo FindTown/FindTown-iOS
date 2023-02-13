@@ -19,6 +19,7 @@ final class ReviewTableViewCell: UITableViewCell {
     
     // MARK: Views
     
+    private let emptyLabel = FindTownLabel(text: " ", font: .label1)
     private let villageTitle = FindTownLabel(text: "", font: .subtitle4)
     
     private let period = FindTownLabel(text: "", font: .label1, textColor: .grey6)
@@ -52,14 +53,20 @@ final class ReviewTableViewCell: UITableViewCell {
     // MARK: Functions
     
     private func addView() {
-        [villageTitle, period, guideIntroduceTitle, introduce].forEach {
+        [emptyLabel, villageTitle, period, guideIntroduceTitle, introduce].forEach {
             contentView.addSubview($0)
         }
     }
     
     private func setLayout() {
+        
         NSLayoutConstraint.activate([
-            villageTitle.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20),
+            emptyLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20),
+            emptyLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20)
+        ])
+        
+        NSLayoutConstraint.activate([
+            villageTitle.topAnchor.constraint(equalTo: emptyLabel.bottomAnchor),
             villageTitle.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20)
         ])
         
@@ -95,7 +102,7 @@ final class ReviewTableViewCell: UITableViewCell {
     }
     
     func setupCell(_ model: Any) {
-        guard let model = model as? reviewModelTest else { return }
+        guard let model = model as? ReviewModel else { return }
         
         villageTitle.text = model.village
         

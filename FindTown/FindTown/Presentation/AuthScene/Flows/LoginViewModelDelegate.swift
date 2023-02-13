@@ -9,5 +9,5 @@ import Foundation
 
 protocol LoginViewModelDelegate {
     func goToNickname(userData: SigninUserModel, providerType: ProviderType)
-    func goToTabBar()
+    func goToTabBar(isAnonymous: Bool)
 }

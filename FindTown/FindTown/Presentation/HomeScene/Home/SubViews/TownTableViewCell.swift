@@ -9,6 +9,12 @@ import UIKit
 
 import FindTownUI
 
+protocol TownTableViewCellDelegate: AnyObject {
+    func didTapGoToMapButton()
+    func didTapGoToIntroduceButton()
+    func didTapFavoriteButton()
+}
+
 final class TownTableViewCell: UITableViewCell {
     
     // MARK: Properties
@@ -17,8 +23,7 @@ final class TownTableViewCell: UITableViewCell {
         return String(describing: self)
     }
     
-    var introduceButtonAction: (() -> ())?
-    var heartButtonAction: (() -> ())?
+    weak var delegate: TownTableViewCellDelegate?
     
     // MARK: Views
     
@@ -27,7 +32,7 @@ final class TownTableViewCell: UITableViewCell {
     private let townTitle = FindTownLabel(text: "", font: .subtitle4)
     private let townIntroduceTitle = FindTownLabel(text: "", font: .body3, textColor: .grey5)
     
-    private let heartIcon: UIButton = {
+    private let favoriteIcon: UIButton = {
         let button = UIButton()
         button.changesSelectionAsPrimaryAction = true
         button.setImage(UIImage(named: "favorite"), for: .normal)
@@ -45,7 +50,6 @@ final class TownTableViewCell: UITableViewCell {
     
     private let introduceButton = FTButton(style: .mediumFilled)
     private let mapButton = FTButton(style: .mediumTintedWithRadius)
-    
     
     // MARK: - Life Cycle
     
@@ -76,7 +80,7 @@ final class TownTableViewCell: UITableViewCell {
             buttonStackView.addArrangedSubview($0)
         }
         
-        [townIconView, townTitle, townIntroduceTitle, heartIcon, buttonStackView].forEach {
+        [townIconView, townTitle, townIntroduceTitle, favoriteIcon, buttonStackView].forEach {
             contentView.addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
@@ -103,10 +107,10 @@ final class TownTableViewCell: UITableViewCell {
         ])
         
         NSLayoutConstraint.activate([
-            heartIcon.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 14),
-            heartIcon.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -14),
-            heartIcon.widthAnchor.constraint(equalToConstant: 24),
-            heartIcon.heightAnchor.constraint(equalToConstant: 24)
+            favoriteIcon.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 14),
+            favoriteIcon.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -14),
+            favoriteIcon.widthAnchor.constraint(equalToConstant: 24),
+            favoriteIcon.heightAnchor.constraint(equalToConstant: 24)
         ])
         
         NSLayoutConstraint.activate([
@@ -126,7 +130,7 @@ final class TownTableViewCell: UITableViewCell {
         townIconView.layer.borderWidth = 1.0
         townIconView.layer.borderColor = FindTownColor.grey3.color.cgColor
         townIconImageView.image = UIImage(named: "hospital")
-                
+        
         mapButton.changesSelectionAsPrimaryAction = false
         mapButton.isSelected = true
         mapButton.setTitle("동네 지도", for: .normal)
@@ -141,8 +145,9 @@ final class TownTableViewCell: UITableViewCell {
         
         selectionStyle = .none
         
-        introduceButton.addTarget(self, action: #selector(tapIntroduceButton), for: .touchUpInside)
-        heartIcon.addTarget(self, action: #selector(tapHeartButton), for: .touchUpInside)
+        introduceButton.addTarget(self, action: #selector(didTapGoToIntroduceButton), for: .touchUpInside)
+        mapButton.addTarget(self, action: #selector(didTapGoToMapButton), for: .touchUpInside)
+        favoriteIcon.addTarget(self, action: #selector(didTapFavoriteButton), for: .touchUpInside)
     }
     
     func setupCell(_ model: Any) {
@@ -150,14 +155,18 @@ final class TownTableViewCell: UITableViewCell {
         townTitle.text = model.village
         townIntroduceTitle.text = model.introduce
     }
-    
-    @objc func tapIntroduceButton() {
-        introduceButtonAction?()
+}
+
+private extension TownTableViewCell {
+    @objc func didTapGoToMapButton() {
+        self.delegate?.didTapGoToMapButton()
     }
     
-    @objc func tapHeartButton() {
-        if !heartIcon.isSelected {
-            heartButtonAction?()
-        }
+    @objc func didTapGoToIntroduceButton() {
+        self.delegate?.didTapGoToIntroduceButton()
+    }
+    
+    @objc func didTapFavoriteButton() {
+        self.delegate?.didTapFavoriteButton()
     }
 }

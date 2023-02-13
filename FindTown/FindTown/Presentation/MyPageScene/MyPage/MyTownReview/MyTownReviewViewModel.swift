@@ -13,13 +13,6 @@ import RxRelay
 
 protocol MyTownReviewViewModelType { }
 
-// 임시
-struct reviewModelTest {
-    let village: String
-    let period: String
-    let introduce: String
-}
-
 final class MyTownReviewViewModel: BaseViewModel {
     
     struct Input {
@@ -27,43 +20,64 @@ final class MyTownReviewViewModel: BaseViewModel {
     }
     
     struct Output {
-        var reviewTableDataSource = BehaviorRelay<[reviewModelTest]>(value: [])
+        var reviewTableDataSource = BehaviorRelay<[ReviewModel]>(value: [])
+        let errorNotice = PublishSubject<Void>()
     }
     
     let input = Input()
     let output = Output()
     let delegate: MyPageViewModelDelegate
     
+    // MARK: - UseCase
+    
+    let authUseCase: AuthUseCase
+    let memberUseCase: MemberUseCase
+    
+    // MARK: - Task
+    
+    private var reviewTask: Task<Void, Error>?
+    
     init(
-        delegate: MyPageViewModelDelegate
+        delegate: MyPageViewModelDelegate,
+        authUseCase: AuthUseCase,
+        memberUseCase: MemberUseCase
     ) {
         self.delegate = delegate
+        self.authUseCase = authUseCase
+        self.memberUseCase = memberUseCase
         
         super.init()
         self.bind()
     }
     
     func bind() {
-        self.output.reviewTableDataSource.accept(returnReviewTestData())
+        self.fetchReview()
+    }
+    
+    func showErrorNoticeAlert() {
+        self.output.errorNotice.onNext(())
     }
 }
 
+// MARK: - NetWork
+
 extension MyTownReviewViewModel {
-    func returnReviewTestData() -> [reviewModelTest] {
-        let demoReview1 = reviewModelTest(village: "서울시 관악구 신림동",
-                                          period: "2년 6개월 거주",
-                                          introduce: "집 앞에 산책 집 앞에 산책 집 앞에 산책 집 앞에 산책 집 앞에 산책 집 앞에 산책 집 앞에 산책 집 앞에 산책 집 앞에 산책 집 앞에 산책 집 앞에 산책 집 앞에 산책 집 앞에 산책 집 앞에 산책 집 앞에 산책 산책 집 앞에 산책 집 앞에 산책 집 앞에 산책 집 앞에 산책 집 앞에 산책 산책 집 앞에 산책 집 앞에 산책 집 앞에 산책 집 앞에 산책 집 앞에 산책 ")
-        let demoReview2 = reviewModelTest(village: "서울시 관악구 신림동",
-                                          period: "2년 6개월 거주",
-                                          introduce: "집 앞에 산책 집 앞에 산책 집 앞에 산책 집 앞에 산책 집 앞에 산책 집 앞에 산책 집 앞에 산책 집 앞에 산책 집 앞에 산책 집 앞에 산책 집 앞에 산책 집 앞에 산책 집 앞에 산책 집 앞에 산책 집 앞에 산책 ")
-        let demoReview3 = reviewModelTest(village: "서울시 관악구 신림동",
-                                          period: "2년 6개월 거주",
-                                          introduce: "집 앞에 산책 집 앞에 산책 집 앞에 산책 집 앞에 산책 집 앞에 산책 집 앞에 산책 집 앞에 산책 집 앞에 산책 집 앞에 산책 집 앞에 산책 집 앞에 산책 집 앞에 산책 집 앞에 산책 집 앞에 산책 집 앞에 산책 ")
-        let demoReview4 = reviewModelTest(village: "서울시 관악구 신림동",
-                                          period: "2년 6개월 거주",
-                                          introduce: "집 앞에 산책 집 앞에 산책 집 앞에 산책 집 앞에 산책 집 앞에 산책 집 앞에 산책 집 앞에 산책 집 앞에 산책 집 앞에 산책 집 앞에 산책 집 앞에 산책 집 앞에 산책 집 앞에 산책 집 앞에 산책 집 앞에 산책 ")
-        
-        let reviews = [demoReview1, demoReview2, demoReview3, demoReview4]
-        return reviews
+    func fetchReview() {
+        self.reviewTask = Task {
+            do {
+                let accessToken = try await authUseCase.getAccessToken()
+                let memberInfomation = try await self.memberUseCase.getMemberInfomation(accessToken: accessToken)
+                await MainActor.run(body: {
+                    self.output.reviewTableDataSource.accept([memberInfomation.resident.toEntity])
+                })
+                reviewTask?.cancel()
+            } catch (let error) {
+                Log.error(error)
+                await MainActor.run(body: {
+                    self.showErrorNoticeAlert()
+                })
+            }
+            reviewTask?.cancel()
+        }
     }
 }

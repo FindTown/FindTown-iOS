@@ -12,25 +12,34 @@ final class MyPageCoordinator: FlowCoordinator {
     
     var presentationStyle: PresentationStyle
     weak var navigationController: UINavigationController?
+    let isAnonymous: Bool
     let authUseCase: AuthUseCase
+    let memberUseCase: MemberUseCase
     
     init(
         presentationStyle: PresentationStyle,
-        authUseCase: AuthUseCase
+        isAnonymous: Bool,
+        authUseCase: AuthUseCase,
+        memberUseCase: MemberUseCase
     ) {
         self.presentationStyle = presentationStyle
+        self.isAnonymous = isAnonymous
         self.authUseCase = authUseCase
+        self.memberUseCase = memberUseCase
     }
     
     internal func initScene() -> UIViewController {
-        let myPageViewModel = MyPageViewModel(delegate: self)
-        let myPageViewController = MyPageViewController(viewModel: myPageViewModel)
-        return myPageViewController
-        
-        // 익명 로그인 일 때
-        // let myPageViewModel = MyPageAnonymousViewModel(delegate: self)
-        // let myPageViewController = MyPageAnonymousViewController(viewModel: myPageViewModel)
-        // return myPageViewController
+        if isAnonymous {
+            let myPageAnonymousViewModel = MyPageAnonymousViewModel(delegate: self)
+            let myPageAnonymousViewController = MyPageAnonymousViewController(viewModel: myPageAnonymousViewModel)
+            return myPageAnonymousViewController
+        } else {
+            let myPageViewModel = MyPageViewModel(delegate: self,
+                                                  authUseCase: authUseCase,
+                                                  memberUseCase: memberUseCase)
+            let myPageViewController = MyPageViewController(viewModel: myPageViewModel)
+            return myPageViewController
+        }
     }
     
     /// 닉네임 수정 화면
@@ -44,7 +53,9 @@ final class MyPageCoordinator: FlowCoordinator {
     
     /// 내가 쓴 동네 후기 화면
     internal func myTownReviewScene() -> UIViewController {
-        let myTownReviewViewModel = MyTownReviewViewModel(delegate: self)
+        let myTownReviewViewModel = MyTownReviewViewModel(delegate: self,
+                                                          authUseCase: authUseCase,
+                                                          memberUseCase: memberUseCase)
         let myTownReviewViewController = MyTownReviewViewController(viewModel: myTownReviewViewModel)
         myTownReviewViewController.hidesBottomBarWhenPushed = true
         return myTownReviewViewController
@@ -110,15 +121,5 @@ extension MyPageCoordinator: MyPageViewModelDelegate {
     func goToPersonalInfo() {
         guard let navigationController = navigationController else { return }
         navigationController.pushViewController(showPersonalInfo(), animated: true)
-    }
-    
-    func popUpSignout() {
-        guard let navigationController = navigationController else { return }
-        navigationController.showAlertSuccessCancelPopUp(title: "동네한입", message: "로그아웃 하시겠어요?", successButtonText: "로그아웃", cancelButtonText: "취소", successButtonAction: { print("로그아웃") })
-    }
-    
-    func popUpWithDraw() {
-        guard let navigationController = navigationController else { return }
-        navigationController.showAlertSuccessCancelPopUp(title: "회원탈퇴", message: "탈퇴 시 모든 정보는 삭제됩니다.\n(단, 동네후기는 제외)\n정말로 탈퇴하시겠어요?", successButtonText: "탈퇴", cancelButtonText: "취소", successButtonAction: { print("탈퇴" )})
     }
 }

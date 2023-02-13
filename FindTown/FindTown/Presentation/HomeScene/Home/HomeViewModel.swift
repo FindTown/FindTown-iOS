@@ -12,12 +12,12 @@ import RxSwift
 import RxRelay
 
 protocol HomeViewModelDelegate {
-    func goToFilterBottomSheet(filterSheetType: FilterSheetType, filterDataSource: TempFilterModel)
+    func goToFilterBottomSheet(filterSheetType: FilterSheetType, filterDataSource: FilterModel)
     func goToGuSearchView()
 }
 
 protocol HomeViewModelType {
-    func goToFilterBottomSheet(filterSheetType: FilterSheetType, filterDataSource: TempFilterModel)
+    func goToFilterBottomSheet(filterSheetType: FilterSheetType, filterDataSource: FilterModel)
     func goToGuSearchView()
 }
 
@@ -38,7 +38,7 @@ final class HomeViewModel: BaseViewModel {
     
     struct Output {
         var searchFilterStringDataSource = BehaviorRelay<[String]>(value: [])
-        var searchFilterModelDataSource = BehaviorRelay<TempFilterModel>(value: TempFilterModel.init())
+        var searchFilterModelDataSource = BehaviorRelay<FilterModel>(value: FilterModel.init())
         var searchTownTableDataSource = BehaviorRelay<[townModelTest]>(value: [])
     }
     
@@ -66,14 +66,16 @@ final class HomeViewModel: BaseViewModel {
                 // 초기화 세팅
                 let searchCategoryModel = ["인프라", "교통"]
                 self?.output.searchFilterStringDataSource.accept(searchCategoryModel)
-                self?.output.searchFilterModelDataSource.accept(TempFilterModel.init())
+                self?.output.searchFilterModelDataSource.accept(FilterModel.init())
             }
             .disposed(by: disposeBag)
         
         self.input.filterButtonTrigger
             .withLatestFrom(input.filterButtonTrigger)
-            .bind {
-                self.goToFilterBottomSheet(filterSheetType: $0, filterDataSource: self.output.searchFilterModelDataSource.value)
+            .bind { [weak self] filterType in
+                guard let dataSource = self?.output.searchFilterModelDataSource.value else { return }
+                self?.goToFilterBottomSheet(filterSheetType: filterType,
+                                            filterDataSource: dataSource)
             }
             .disposed(by: disposeBag)
         
@@ -86,7 +88,7 @@ final class HomeViewModel: BaseViewModel {
 
 extension HomeViewModel: HomeViewModelType {
     
-    func goToFilterBottomSheet(filterSheetType: FilterSheetType, filterDataSource: TempFilterModel) {
+    func goToFilterBottomSheet(filterSheetType: FilterSheetType, filterDataSource: FilterModel) {
         delegate.goToFilterBottomSheet(filterSheetType: filterSheetType, filterDataSource: filterDataSource)
     }
     
