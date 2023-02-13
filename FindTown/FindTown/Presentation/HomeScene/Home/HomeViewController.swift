@@ -314,11 +314,11 @@ extension HomeViewController: TownTableViewCellDelegate {
     }
     
     func didTapGoToIntroduceButton() {
-        print("didTapGoToMapButton")
+        print("didTapGoToIntroduceButton")
     }
     
     func didTapFavoriteButton() {
-        print("didTapGoToMapButton")
+        print("didTapFavoriteButton")
     }
 }
 

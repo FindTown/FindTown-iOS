@@ -51,7 +51,6 @@ final class TownTableViewCell: UITableViewCell {
     private let introduceButton = FTButton(style: .mediumFilled)
     private let mapButton = FTButton(style: .mediumTintedWithRadius)
     
-    
     // MARK: - Life Cycle
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -81,7 +80,7 @@ final class TownTableViewCell: UITableViewCell {
             buttonStackView.addArrangedSubview($0)
         }
         
-        [townIconView, townTitle, townIntroduceTitle, heartIcon, buttonStackView].forEach {
+        [townIconView, townTitle, townIntroduceTitle, favoriteIcon, buttonStackView].forEach {
             contentView.addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
@@ -146,7 +145,7 @@ final class TownTableViewCell: UITableViewCell {
         
         selectionStyle = .none
         
-        introduceBtn.addTarget(self, action: #selector(didTapGoToIntroduceButton), for: .touchUpInside)
+        introduceButton.addTarget(self, action: #selector(didTapGoToIntroduceButton), for: .touchUpInside)
         mapButton.addTarget(self, action: #selector(didTapGoToMapButton), for: .touchUpInside)
         favoriteIcon.addTarget(self, action: #selector(didTapFavoriteButton), for: .touchUpInside)
     }
