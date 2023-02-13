@@ -26,4 +26,8 @@ struct LocationInformationDTO: Response {
         case adminName = "adm_nm"
         case coordinates
     }
+    
+    func toEntity() -> VillageLocationInformation {
+        return VillageLocationInformation(cityCode: self.objectId, coordinate: self.coordinates)
+    }
 }

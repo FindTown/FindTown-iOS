@@ -6,9 +6,6 @@
 //
 
 import Foundation
-import AuthenticationServices
-
-import FindTownNetwork
 
 final class MapUseCase {
     
@@ -24,7 +21,7 @@ final class MapUseCase {
         return try await mapRepository.getVillageCoordinate(cityCode: cityCode).locationInfo.coordinates
     }
     
-    func getVillageCoordinate(cityCode: Int?, accessToken: String?) async throws -> [[Double]] {
-        return try await mapRepository.getVillageCoordinate(cityCode: cityCode, accessToken).locationInfo.coordinates
+    func getVillageCoordinate(cityCode: Int?, accessToken: String?) async throws -> VillageLocationInformation {
+        return try await mapRepository.getVillageCoordinate(cityCode: cityCode, accessToken).locationInfo.toEntity()
     }
 }
