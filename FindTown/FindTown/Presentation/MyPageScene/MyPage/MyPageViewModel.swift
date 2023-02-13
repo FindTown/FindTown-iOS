@@ -82,14 +82,14 @@ final class MyPageViewModel: BaseViewModel {
     
     func bind() {
         self.input.nickname
-            .bind { [weak self] in
-                self?.output.myNickname.accept($0)
+            .bind { [weak self] nickname in
+                self?.output.myNickname.accept(nickname)
             }
             .disposed(by: disposeBag)
         
         self.input.villagePeriod
-            .bind { [weak self] in
-                self?.output.myVillagePeriod.accept($0)
+            .bind { [weak self] villagePeriod in
+                self?.output.myVillagePeriod.accept(villagePeriod)
             }
             .disposed(by: disposeBag)
         

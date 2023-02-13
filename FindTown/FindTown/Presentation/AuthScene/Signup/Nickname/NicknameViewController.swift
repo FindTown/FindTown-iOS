@@ -147,8 +147,8 @@ final class NicknameViewController: BaseViewController {
         
         nickNameTextField.rx.text.orEmpty
             .distinctUntilChanged()
-            .bind { [weak self] in
-                self?.viewModel?.input.nickname.onNext($0)
+            .bind { [weak self] nickName in
+                self?.viewModel?.input.nickname.onNext(nickName)
             }
             .disposed(by: disposeBag)
         
@@ -171,13 +171,13 @@ final class NicknameViewController: BaseViewController {
         
         viewModel?.output.nickNameStatus
             .asDriver(onErrorJustReturn: .none)
-            .drive { [weak self] in
-                self?.nickNameStatusChange(nickNameStatus: $0)
+            .drive { [weak self] nickNameStatus in
+                self?.nickNameStatusChange(nickNameStatus)
             }
             .disposed(by: disposeBag)
     }
     
-    private func nickNameStatusChange(nickNameStatus: NicknameStatus) {
+    private func nickNameStatusChange(_ nickNameStatus: NicknameStatus) {
         switch nickNameStatus {
         case .none:
             nickNameStatusLabel.isHidden = true

@@ -90,8 +90,8 @@ final class MyPageViewController: BaseViewController {
             .disposed(by: disposeBag)
         
         collectionView.rx.itemSelected
-            .bind { [weak self] in
-                self?.viewModel?.navigateToPage($0)
+            .bind { [weak self] indexPath in
+                self?.viewModel?.navigateToPage(indexPath)
             }
             .disposed(by: disposeBag)
         

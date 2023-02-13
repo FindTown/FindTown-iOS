@@ -126,8 +126,8 @@ final class ShowVillageListViewController: BaseViewController {
         
         viewModel?.output.searchTownTableDataSource
             .observe(on: MainScheduler.instance)
-            .bind { [weak self] in
-                self?.townCountTitle.text = "\($0.count)개 동네"
+            .bind { [weak self] searchTown in
+                self?.townCountTitle.text = "\(searchTown.count)개 동네"
             }
             .disposed(by: disposeBag)
     }

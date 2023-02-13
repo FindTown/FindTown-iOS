@@ -51,21 +51,21 @@ final class SelectCountyViewModel: BaseViewModel {
         self.output.searchFilterDataSource.accept([])
         
         self.input.selectedCounty
-            .bind { [weak self] in
-                var tempDataSource = self?.output.searchFilterDataSource.value
-                tempDataSource?.insert($0, at: 0)
-                self?.output.searchFilterDataSource.accept(tempDataSource ?? [])
-                self?.goToShowVillageList(selectCountyData: $0)
+            .bind { [weak self] county in
+                var dataSource = self?.output.searchFilterDataSource.value
+                dataSource?.insert(county, at: 0)
+                self?.output.searchFilterDataSource.accept(dataSource ?? [])
+                self?.goToShowVillageList(selectCountyData: county)
             }
             .disposed(by: disposeBag)
         
         self.input.removedCounty
             .bind { [weak self] filter in
-                var tempDataSource = self?.output.searchFilterDataSource.value
-                if let index = tempDataSource?.firstIndex(where: {$0 == filter }) {
-                    tempDataSource?.remove(at: index)
+                var dataSource = self?.output.searchFilterDataSource.value
+                if let index = dataSource?.firstIndex(where: {$0 == filter }) {
+                    dataSource?.remove(at: index)
                 }
-                self?.output.searchFilterDataSource.accept(tempDataSource ?? [])
+                self?.output.searchFilterDataSource.accept(dataSource ?? [])
             }
             .disposed(by: disposeBag)
         

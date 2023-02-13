@@ -72,8 +72,10 @@ final class HomeViewModel: BaseViewModel {
         
         self.input.filterButtonTrigger
             .withLatestFrom(input.filterButtonTrigger)
-            .bind {
-                self.goToFilterBottomSheet(filterSheetType: $0, filterDataSource: self.output.searchFilterModelDataSource.value)
+            .bind { [weak self] filterType in
+                guard let dataSource = self?.output.searchFilterModelDataSource.value else { return }
+                self?.goToFilterBottomSheet(filterSheetType: filterType,
+                                            filterDataSource: dataSource)
             }
             .disposed(by: disposeBag)
         

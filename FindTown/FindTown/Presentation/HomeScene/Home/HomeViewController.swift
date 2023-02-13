@@ -273,8 +273,8 @@ final class HomeViewController: BaseViewController {
         
         viewModel?.output.searchTownTableDataSource
             .asDriver(onErrorJustReturn: [])
-            .drive { [weak self] in
-                self?.townCountTitle.text = "\($0.count)개 동네"
+            .drive { [weak self] searchTown in
+                self?.townCountTitle.text = "\(searchTown.count)개 동네"
             }
             .disposed(by: disposeBag)
     }
