@@ -17,11 +17,7 @@ final class MapUseCase {
         self.tokenRepository = DefaultTokenRepository()
     }
     
-    func getFirstVillageCoordinate(cityCode: Int?) async throws -> [[Double]] {
-        return try await mapRepository.getVillageCoordinate(cityCode: cityCode).locationInfo.coordinates
-    }
-    
-    func getVillageCoordinate(cityCode: Int?, accessToken: String?) async throws -> VillageLocationInformation {
-        return try await mapRepository.getVillageCoordinate(cityCode: cityCode, accessToken).locationInfo.toEntity()
+    func getVillageLocationInformation(cityCode: Int?, accessToken: String?) async throws -> VillageLocationInformation {
+        return try await mapRepository.getVillageLocationData(cityCode: cityCode, accessToken).locationInfo.toEntity()
     }
 }

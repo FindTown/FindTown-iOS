@@ -101,7 +101,7 @@ extension MapViewModel {
                     cityCode = CityCode(county: city.county, village: city.village)?.rawValue
                 }
                 let accessToken = try await self.authUseCase.getAccessToken()
-                let villageLocaionInformation = try await self.mapUseCase.getVillageCoordinate(cityCode: cityCode, accessToken: accessToken)
+                let villageLocaionInformation = try await self.mapUseCase.getVillageLocationInformation(cityCode: cityCode, accessToken: accessToken)
                 guard let cityCode = CityCode(rawValue: villageLocaionInformation.cityCode) else {
                     cityDataTask?.cancel()
                     return
@@ -115,7 +115,7 @@ extension MapViewModel {
             } catch (let error) {
                 if let error = error as? FTNetworkError,
                    FTNetworkError.isUnauthorized(error: error) {
-                    let villageLocaionInformation = try await self.mapUseCase.getVillageCoordinate(cityCode: nil, accessToken: nil)
+                    let villageLocaionInformation = try await self.mapUseCase.getVillageLocationInformation(cityCode: nil, accessToken: nil)
                     guard let cityCode = CityCode(rawValue: villageLocaionInformation.cityCode) else {
                         cityDataTask?.cancel()
                         return

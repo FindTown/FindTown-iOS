@@ -10,7 +10,7 @@ import FindTownNetwork
 
 final class DefaultMapRepository {
 
-    func getVillageCoordinate(cityCode: Int?, _ accessToken: String? = nil) async throws -> TownMapLocationDTO {
+    func getVillageLocationData(cityCode: Int?, _ accessToken: String? = nil) async throws -> TownMapLocationDTO {
         var httpHeaders: HTTPHeaders = HTTPHeaders([.accept("*/*")])
         var parameters: [URLQueryItem]? = nil
         

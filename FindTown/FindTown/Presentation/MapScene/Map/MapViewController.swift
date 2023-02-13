@@ -257,7 +257,7 @@ extension MapViewController {
         let interiorRingsCoordinates = boundaryCoordinates.map { coordinate in
             NMGLatLng(lat: coordinate[1], lng: coordinate[0])
         }
-        let villagePolygon = NMGPolygon(ring: NMGLineString(points: MapConstant.SeoulBoundaryPointsForPolygon), interiorRings: [NMGLineString(points: interiorRingsCoordinates)])
+        let villagePolygon = NMGPolygon(ring: NMGLineString(points: MapConstant.seoulBoundaryPointsForPolygon), interiorRings: [NMGLineString(points: interiorRingsCoordinates)])
         villagePolygonOverlay = NMFPolygonOverlay(villagePolygon as! NMGPolygon<AnyObject>)
         
         villagePolygonOverlay?.fillColor = UIColor(red: 26, green: 26, blue: 26).withAlphaComponent(0.2)
