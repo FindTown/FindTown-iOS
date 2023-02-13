@@ -142,7 +142,7 @@ extension ShowVillageListViewController: TownTableViewCellDelegate {
         print("didTapGoToIntroduceButton")
     }
     
-    func didTapHeartButton() {
-        print("didTapHeartButton")
+    func didTapFavoriteButton() {
+        print("didTapFavoriteButton")
     }
 }

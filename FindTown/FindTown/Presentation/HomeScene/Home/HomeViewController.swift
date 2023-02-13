@@ -317,7 +317,7 @@ extension HomeViewController: TownTableViewCellDelegate {
         print("didTapGoToMapButton")
     }
     
-    func didTapHeartButton() {
+    func didTapFavoriteButton() {
         print("didTapGoToMapButton")
     }
 }
