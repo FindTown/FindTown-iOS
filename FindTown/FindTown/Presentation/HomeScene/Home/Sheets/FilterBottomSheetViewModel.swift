@@ -12,11 +12,11 @@ import RxSwift
 import RxRelay
 
 protocol FilterBottomSheetViewModelDelegate {
-    func dismiss(_ tempModel: FilterModel)
+    func dismiss(_ filterModel: FilterModel)
 }
 
 protocol FilterBottomSheetViewModelType {
-    func dismiss(_ tempModel: FilterModel)
+    func dismiss(_ filterModel: FilterModel)
 }
 
 final class FilterBottomSheetViewModel: BaseViewModel {

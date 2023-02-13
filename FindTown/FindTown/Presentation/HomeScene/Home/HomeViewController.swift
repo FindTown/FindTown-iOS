@@ -279,19 +279,19 @@ final class HomeViewController: BaseViewController {
             .disposed(by: disposeBag)
     }
     
-    func dismissBottomSheet(_ tempModel: FilterModel) {
+    func dismissBottomSheet(_ filterModel: FilterModel) {
         
         FilterResetButtonHidden(false)
         
-        var tempTraffic = "교통"
-        if let first = tempModel.traffic.first {
-            tempTraffic = tempModel.traffic.count == 1 ? first : first + " 외 \(tempModel.traffic.count - 1) 건"
+        var traffic = "교통"
+        if let first = filterModel.traffic.first {
+            traffic = filterModel.traffic.count == 1 ? first : first + " 외 \(filterModel.traffic.count - 1) 건"
         }
         
-        let tempInfra = tempModel.infra == "" ? "인프라" : tempModel.infra
+        let infra = filterModel.infra == "" ? "인프라" : filterModel.infra
         
-        viewModel?.output.searchFilterStringDataSource.accept([tempInfra, tempTraffic])
-        viewModel?.output.searchFilterModelDataSource.accept(tempModel)
+        viewModel?.output.searchFilterStringDataSource.accept([infra, traffic])
+        viewModel?.output.searchFilterModelDataSource.accept(filterModel)
     }
     
     private func FilterResetButtonHidden(_ isHidden: Bool) {
