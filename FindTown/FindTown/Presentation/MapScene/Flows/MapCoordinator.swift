@@ -42,7 +42,7 @@ extension MapCoordinator: MapViewModelDelegate {
     func setCityData(_ city: City) {
         guard let navigationController = navigationController else { return }
         if let mapViewController = navigationController.topViewController as? MapViewController {
-            mapViewController.viewModel?.output.city.onNext(city)
+            mapViewController.viewModel?.setCity(city: city)
         }
     }
 }

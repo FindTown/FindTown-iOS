@@ -36,6 +36,7 @@ final class MapViewModel: BaseViewModel {
         var categoryDataSource = BehaviorSubject<[Category]>(value: [])
         var storeDataSource = BehaviorSubject<[Store]>(value: [])
         var city = PublishSubject<City>()
+        var cityBoundaryCoordinates = PublishSubject<[[Double]]>()
         var isFavoriteCity = PublishSubject<Bool>()
     }
     
@@ -63,7 +64,6 @@ final class MapViewModel: BaseViewModel {
     }
     
     func bind() {
-        getVillageCoordinate()
         self.input.segmentIndex
             .bind { [weak self] index in
                 if index == 0 {
@@ -91,29 +91,38 @@ final class MapViewModel: BaseViewModel {
 // MARK: - Network
 
 extension MapViewModel {
-    func getVillageCoordinate() {
+    func setCity(city: City? = nil) {
+        
         self.coordinateTask = Task {
             do {
+                var cityCode: Int? = nil
+                if let city = city {
+                    cityCode = CityCode(county: city.county, village: city.village)?.rawValue
+                }
                 let accessToken = try await self.authUseCase.getAccessToken()
-                let villageLocaionInformation = try await mapUseCase.getVillageCoordinate(cityCode: nil, accessToken: accessToken)
+                let villageLocaionInformation = try await self.mapUseCase.getVillageCoordinate(cityCode: cityCode, accessToken: accessToken)
                 guard let cityCode = CityCode(rawValue: villageLocaionInformation.cityCode) else {
                     coordinateTask?.cancel()
+                    return
                 }
                 await MainActor.run {
-                    print(cityCode.description)
-                    print(villageLocaionInformation.coordinate)
+                    let city = City(county: cityCode.county, village: cityCode.village)
+                    self.output.city.onNext(city)
+                    self.output.cityBoundaryCoordinates.onNext(villageLocaionInformation.coordinate)
                 }
                 coordinateTask?.cancel()
             } catch (let error) {
                 if let error = error as? FTNetworkError,
                    FTNetworkError.isUnauthorized(error: error) {
-                    let villageLocaionInformation = try await mapUseCase.getVillageCoordinate(cityCode: nil, accessToken: nil)
+                    let villageLocaionInformation = try await self.mapUseCase.getVillageCoordinate(cityCode: nil, accessToken: nil)
                     guard let cityCode = CityCode(rawValue: villageLocaionInformation.cityCode) else {
                         coordinateTask?.cancel()
+                        return
                     }
                     await MainActor.run {
-                        print(cityCode.description)
-                        print(villageLocaionInformation.coordinate)
+                        let city = City(county: cityCode.county, village: cityCode.village)
+                        self.output.city.onNext(city)
+                        self.output.cityBoundaryCoordinates.onNext(villageLocaionInformation.coordinate)
                     }
                 } else {
 //                    await MainActor.run {

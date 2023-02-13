@@ -28,7 +28,6 @@ final class MapViewController: BaseViewController {
                                          action: nil)
     private let addressButton: UIButton = {
         let button = UIButton()
-        button.setTitle("서울시 관악구 신림동", for: .normal)
         button.setTitleColor(FindTownColor.grey7.color, for: .normal)
         button.titleLabel?.font = FindTownFont.label1.font
         button.setImage(UIImage(named: "dropDown"), for: .normal)
@@ -41,6 +40,8 @@ final class MapViewController: BaseViewController {
     fileprivate let storeCollectionView = StoreCollectionView()
     
     var currentIndex: CGFloat = 0
+    
+    var polygonOverlay: NMFPolygonOverlay?
     
     // MARK: - Life Cycle
     
@@ -113,10 +114,16 @@ final class MapViewController: BaseViewController {
         
         viewModel?.output.city
             .subscribe(onNext: { [weak self] city in
-                let cityString = "서울시 \(city.county.rawValue) \(city.village.rawValue)"
-                self?.addressButton.setTitle(cityString, for: .normal)
+                self?.addressButton.setTitle(city.description, for: .normal)
             })
             .disposed(by: disposeBag)
+        
+        viewModel?.output.cityBoundaryCoordinates
+            .subscribe(onNext: { [weak self] boundaryCoordinates in
+                self?.setVillageCooridnateOverlay(boundaryCoordinates)
+            })
+            .disposed(by: disposeBag)
+            
         
         viewModel?.output.isFavoriteCity
             .bind(to: rx.isFavoriteCity)
@@ -149,6 +156,8 @@ final class MapViewController: BaseViewController {
         self.navigationItem.rightBarButtonItem = favoriteButton
         self.storeCollectionView.delegate = self
         favoriteButton.tintColor = FindTownColor.grey4.color
+        
+        self.viewModel?.setCity()
     }
 
     override func setLayout() {
@@ -220,6 +229,30 @@ private extension MapViewController {
             detailCategoryView.leadingAnchor.constraint(equalTo: mapView.leadingAnchor, constant: 16.0)
         ])
     }
+}
+
+// MARK: MapView
+
+extension MapViewController {
+    func setVillageCooridnateOverlay(_ boundaryCoordinates: [[Double]]) {
+        let cameraPosition = NMFCameraPosition(NMGLatLng(lat: boundaryCoordinates[0][1], lng: boundaryCoordinates[0][0]), zoom: 14, tilt: 0, heading: 0)
+        mapView.moveCamera(NMFCameraUpdate(position: cameraPosition))
+        
+        polygonOverlay?.mapView = nil
+        
+        let outerCoordinates = MapConstant.seoulCityBoundaryCoordinates.map { coordinate in
+            NMGLatLng(lat: coordinate[1], lng: coordinate[0])
+        }
+        let coords1 = boundaryCoordinates.map { coordinate in
+            NMGLatLng(lat: coordinate[1], lng: coordinate[0])
+        }
+        let polygon2 = NMGPolygon(ring: NMGLineString(points: outerCoordinates), interiorRings: [NMGLineString(points: coords1)])
+        polygonOverlay = NMFPolygonOverlay(polygon2 as! NMGPolygon<AnyObject>)
+        
+        polygonOverlay?.fillColor = .gray.withAlphaComponent(0.3)
+        polygonOverlay?.mapView = mapView
+    }
+
 }
 
 extension MapViewController: MapStoreCollectionViewCellDelegate {
