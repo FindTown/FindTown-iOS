@@ -86,15 +86,3 @@ enum InfraCategory: CaseIterable, MCategory {
         }
     }
 }
-//
-//enum InfraCategoryType {
-//    struct MartOrConvenienceStore: Decodable {
-//        let convenienceStore: [StoreType]
-//        let supermarket: [StoreType]
-//
-//        enum CodingKeys: String, CodingKey {
-//            case convenienceStore = "편의점"
-//            case supermarket=
-//        }
-//    }
-//}
