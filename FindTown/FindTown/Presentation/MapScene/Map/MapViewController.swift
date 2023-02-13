@@ -41,6 +41,8 @@ final class MapViewController: BaseViewController {
     
     var currentIndex: CGFloat = 0
     
+    // MARK: Map property
+    
     var polygonOverlay: NMFPolygonOverlay?
     
     // MARK: - Life Cycle
@@ -235,10 +237,10 @@ private extension MapViewController {
 
 extension MapViewController {
     func setVillageCooridnateOverlay(_ boundaryCoordinates: [[Double]]) {
+        polygonOverlay?.mapView = nil
+        
         let cameraPosition = NMFCameraPosition(NMGLatLng(lat: boundaryCoordinates[0][1], lng: boundaryCoordinates[0][0]), zoom: 14, tilt: 0, heading: 0)
         mapView.moveCamera(NMFCameraUpdate(position: cameraPosition))
-        
-        polygonOverlay?.mapView = nil
         
         let outerCoordinates = MapConstant.seoulCityBoundaryCoordinates.map { coordinate in
             NMGLatLng(lat: coordinate[1], lng: coordinate[0])
