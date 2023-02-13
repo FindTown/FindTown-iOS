@@ -102,4 +102,8 @@ enum CityCode: Int, CaseIterable {
             return .jongno(.hyehwa)
         }
     }
+    
+    var description: String {
+        return "서울시 \(self.cityModel.county.rawValue) \(self.cityModel.village.rawValue)"
+    }
 }

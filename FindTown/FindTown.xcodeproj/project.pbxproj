@@ -131,6 +131,7 @@
 		F363D15B299A17EA00606C7F /* DefaultMapRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = F363D15A299A17EA00606C7F /* DefaultMapRepository.swift */; };
 		F363D15E299A1A3800606C7F /* TownLocationRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F363D15D299A1A3800606C7F /* TownLocationRequest.swift */; };
 		F363D160299A1D4600606C7F /* TownMapLocationDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = F363D15F299A1D4600606C7F /* TownMapLocationDTO.swift */; };
+		F363D164299A2E1800606C7F /* VillageLocationInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = F363D163299A2E1800606C7F /* VillageLocationInformation.swift */; };
 		F3891E1F293B8393003CE8AD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3891E1E293B8393003CE8AD /* AppDelegate.swift */; };
 		F3891E21293B8393003CE8AD /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3891E20293B8393003CE8AD /* SceneDelegate.swift */; };
 		F3891E2B293B8394003CE8AD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F3891E2A293B8394003CE8AD /* Assets.xcassets */; };
@@ -310,6 +311,7 @@
 		F363D15A299A17EA00606C7F /* DefaultMapRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultMapRepository.swift; sourceTree = "<group>"; };
 		F363D15D299A1A3800606C7F /* TownLocationRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TownLocationRequest.swift; sourceTree = "<group>"; };
 		F363D15F299A1D4600606C7F /* TownMapLocationDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TownMapLocationDTO.swift; sourceTree = "<group>"; };
+		F363D163299A2E1800606C7F /* VillageLocationInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VillageLocationInformation.swift; sourceTree = "<group>"; };
 		F3891E1B293B8393003CE8AD /* FindTown.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FindTown.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F3891E1E293B8393003CE8AD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F3891E20293B8393003CE8AD /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -863,6 +865,7 @@
 				2B628DE3298675C400A90D9A /* TownMood.swift */,
 				2B628DF72987853300A90D9A /* TownRank.swift */,
 				F38AA82A29842C2D00EF66F2 /* SigninUserModel.swift */,
+				F363D163299A2E1800606C7F /* VillageLocationInformation.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -1498,6 +1501,7 @@
 				2B628DDE29865E3800A90D9A /* TownMoodCollectionViewLayout.swift in Sources */,
 				F3891E21293B8393003CE8AD /* SceneDelegate.swift in Sources */,
 				F3356F04298FA2C3002B9FFD /* LogoutResponseDTO.swift in Sources */,
+				F363D164299A2E1800606C7F /* VillageLocationInformation.swift in Sources */,
 				F39EDDC4296D667800A4E655 /* County.swift in Sources */,
 				F3219B742969B351000024E4 /* StoreDetailType.swift in Sources */,
 				BC354708298F9D010016FE4A /* ServiceMapPopUpViewController.swift in Sources */,
