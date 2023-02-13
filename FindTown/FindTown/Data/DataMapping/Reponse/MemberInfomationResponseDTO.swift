@@ -9,14 +9,14 @@ import Foundation
 import FindTownNetwork
 
 struct MemberInfomationResponseDTO: Response {
-    let memberInfo: MemberInfoDTO
+    let memberInfomation: MemberInfomationDTO
     
     enum CodingKeys: String, CodingKey {
-        case memberInfo = "member_info"
+        case memberInfomation = "member_info"
     }
 }
 
-struct MemberInfoDTO: Response {
+struct MemberInfomationDTO: Response {
     let memberId: String
     let email: String
     let nickname: String

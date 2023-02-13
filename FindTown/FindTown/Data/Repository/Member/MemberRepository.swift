@@ -10,10 +10,10 @@ import FindTownNetwork
 
 final class MemberRepository {
     
-    func getMemberInfomation(_ bearerToken: String) async throws -> MemberInfoDTO {
+    func getMemberInfomation(_ accessToken: String) async throws -> MemberInfomationDTO {
         let HTTPHeaders = HTTPHeaders([.accept("*/*"),
-                                       .authorization(bearerToken: bearerToken)])
+                                       .authorization(bearerToken: accessToken)])
         let data = try await Network.shared.request(target: MemberInfomationRequest(HTTPHeaders: HTTPHeaders))
-        return data.body.memberInfo
+        return data.body.memberInfomation
     }
 }
