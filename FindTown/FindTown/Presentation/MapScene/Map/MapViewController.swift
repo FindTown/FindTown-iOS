@@ -251,7 +251,7 @@ extension MapViewController {
         
         let polygon = NMGPolygon(ring: NMGLineString(points: MapConstant.gyeonggiBoundaryPointsForPolygon))
         let polygonOverlay = NMFPolygonOverlay(polygon as! NMGPolygon<AnyObject>)
-        polygonOverlay?.fillColor = .gray.withAlphaComponent(0.3)
+        polygonOverlay?.fillColor = UIColor(red: 26, green: 26, blue: 26).withAlphaComponent(0.2)
         polygonOverlay?.mapView = mapView
 
         let interiorRingsCoordinates = boundaryCoordinates.map { coordinate in
@@ -260,7 +260,7 @@ extension MapViewController {
         let villagePolygon = NMGPolygon(ring: NMGLineString(points: MapConstant.SeoulBoundaryPointsForPolygon), interiorRings: [NMGLineString(points: interiorRingsCoordinates)])
         villagePolygonOverlay = NMFPolygonOverlay(villagePolygon as! NMGPolygon<AnyObject>)
         
-        villagePolygonOverlay?.fillColor = .gray.withAlphaComponent(0.3)
+        villagePolygonOverlay?.fillColor = UIColor(red: 26, green: 26, blue: 26).withAlphaComponent(0.2)
         villagePolygonOverlay?.mapView = mapView
     }
 
