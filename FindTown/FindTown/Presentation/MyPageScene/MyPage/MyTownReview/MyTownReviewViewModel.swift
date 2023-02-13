@@ -11,9 +11,7 @@ import FindTownCore
 import RxSwift
 import RxRelay
 
-protocol MyTownReviewViewModelType {
-    func dismissAndShowError()
-}
+protocol MyTownReviewViewModelType { }
 
 final class MyTownReviewViewModel: BaseViewModel {
     
@@ -75,16 +73,10 @@ extension MyTownReviewViewModel {
             } catch (let error) {
                 Log.error(error)
                 await MainActor.run(body: {
-                    self.dismissAndShowError()
+                    self.showErrorNoticeAlert()
                 })
             }
             reviewTask?.cancel()
         }
-    }
-}
-
-extension MyTownReviewViewModel: MyTownReviewViewModelType {
-    func dismissAndShowError() {
-        delegate.showErrorNoticeAlert()
     }
 }

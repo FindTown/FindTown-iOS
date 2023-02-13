@@ -19,7 +19,6 @@ protocol MyPageViewModelDelegate {
     func goToPropose()
     func goToTerms()
     func goToPersonalInfo()
-    func showErrorNoticeAlert()
 }
 
 protocol MyPageViewModelType {

@@ -122,11 +122,4 @@ extension MyPageCoordinator: MyPageViewModelDelegate {
         guard let navigationController = navigationController else { return }
         navigationController.pushViewController(showPersonalInfo(), animated: true)
     }
-    
-    func showErrorNoticeAlert() {
-        guard let navigationController = navigationController else { return }
-        if let myTownReviewViewController = navigationController.topViewController as? MyTownReviewViewController {
-            myTownReviewViewController.viewModel?.showErrorNoticeAlert()
-        }
-    }
 }
