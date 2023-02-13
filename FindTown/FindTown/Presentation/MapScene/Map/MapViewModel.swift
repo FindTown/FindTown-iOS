@@ -33,11 +33,12 @@ final class MapViewModel: BaseViewModel {
     }
     
     struct Output {
-        var categoryDataSource = BehaviorSubject<[MCategory]>(value: [])
-        var storeDataSource = BehaviorSubject<[Store]>(value: [])
-        var city = PublishSubject<City>()
-        var cityBoundaryCoordinates = PublishSubject<[[Double]]>()
-        var isFavoriteCity = PublishSubject<Bool>()
+        let categoryDataSource = BehaviorSubject<[MCategory]>(value: [])
+        let storeDataSource = BehaviorSubject<[Store]>(value: [])
+        let city = PublishSubject<City>()
+        let cityBoundaryCoordinates = PublishSubject<[[Double]]>()
+        let isFavoriteCity = PublishSubject<Bool>()
+        let errorNotice = PublishSubject<Void>()
     }
     
     // MARK: - UseCase
@@ -125,13 +126,21 @@ extension MapViewModel {
                         self.output.cityBoundaryCoordinates.onNext(villageLocaionInformation.coordinate)
                     }
                 } else {
-//                    await MainActor.run {
-//                        self.output.errorNotice.onNext(())
-//                    }
+                    await MainActor.run {
+                        self.output.errorNotice.onNext(())
+                    }
                     Log.error(error)
                 }
             }
         }
+    }
+    
+    func getThemaData(category: ThemaCategory) {
+        
+    }
+    
+    func getInfraData(category: InfraCategory) {
+        
     }
     
     func addFavoriteCity(_ city: City) {

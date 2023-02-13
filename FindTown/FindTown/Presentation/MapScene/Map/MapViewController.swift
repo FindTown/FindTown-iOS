@@ -131,6 +131,12 @@ final class MapViewController: BaseViewController {
             .bind(to: rx.isFavoriteCity)
             .disposed(by: disposeBag)
         
+        viewModel?.output.errorNotice
+            .subscribe { [weak self] _ in
+                self?.showErrorNoticeAlertPopUp(message: "네트워크 오류가 발생하였습니다.", buttonText: "확인")
+            }
+            .disposed(by: disposeBag)
+        
     }
 
     override func addView() {
@@ -236,19 +242,22 @@ private extension MapViewController {
 // MARK: MapView
 
 extension MapViewController {
+    
     func setVillageCooridnateOverlay(_ boundaryCoordinates: [[Double]]) {
         villagePolygonOverlay?.mapView = nil
         
         let cameraPosition = NMFCameraPosition(NMGLatLng(lat: boundaryCoordinates[0][1], lng: boundaryCoordinates[0][0]), zoom: 14, tilt: 0, heading: 0)
         mapView.moveCamera(NMFCameraUpdate(position: cameraPosition))
         
-        let externalCoordinates = MapConstant.seoulCityBoundaryCoordinates.map { coordinate in
-            NMGLatLng(lat: coordinate[1], lng: coordinate[0])
-        }
+        let polygon = NMGPolygon(ring: NMGLineString(points: MapConstant.gyeonggiBoundaryPointsForPolygon))
+        let polygonOverlay = NMFPolygonOverlay(polygon as! NMGPolygon<AnyObject>)
+        polygonOverlay?.fillColor = .gray.withAlphaComponent(0.3)
+        polygonOverlay?.mapView = mapView
+
         let interiorRingsCoordinates = boundaryCoordinates.map { coordinate in
             NMGLatLng(lat: coordinate[1], lng: coordinate[0])
         }
-        let villagePolygon = NMGPolygon(ring: NMGLineString(points: externalCoordinates), interiorRings: [NMGLineString(points: interiorRingsCoordinates)])
+        let villagePolygon = NMGPolygon(ring: NMGLineString(points: MapConstant.SeoulBoundaryPointsForPolygon), interiorRings: [NMGLineString(points: interiorRingsCoordinates)])
         villagePolygonOverlay = NMFPolygonOverlay(villagePolygon as! NMGPolygon<AnyObject>)
         
         villagePolygonOverlay?.fillColor = .gray.withAlphaComponent(0.3)
