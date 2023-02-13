@@ -103,6 +103,13 @@ final class FavoriteViewController: BaseViewController {
                                                  cellType: TownTableViewCell.self)) {
                 index, item, cell in
                 cell.setupCell(item)
+                
+                //cell.introduceButtonAction = { [unowned self] in
+                //    self.viewModel?.input.townIntroButtonTrigger.onNext(())
+                //}
+                //cell.heartButtonAction = { [unowned self] in
+                //    self.showToast(message: "찜 목록에서 삭제되었어요")
+                //}
             }.disposed(by: disposeBag)
     }
 }

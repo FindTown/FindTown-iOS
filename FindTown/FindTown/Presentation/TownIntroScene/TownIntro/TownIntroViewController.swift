@@ -42,12 +42,16 @@ final class TownIntroViewController: BaseViewController, UIScrollViewDelegate {
     private let townRankInfoButton = UIButton()
     private let townRankScrollView = UIScrollView()
     private let townRankStackView = UIStackView()
-    private let townRankInfoImageView = UIImageView()
-    
+    private let townRankToolTip = ToolTip(text: "지역 안전지수, 사회 안전지수, 서울 도시청결도\n 평가를 토대로 제공하는 정보입니다.",
+                                          viewColor: .black, textColor: .white,
+                                          tipLocation: .topCustom(tipXPoint: 127.0), width: 238, height: 52)
+        
     /// 근처 핫플레이스
     private let hotPlaceView = UIView()
     private let hotPlaceTitleLabel = FindTownLabel(text: "근처 핫플레이스", font: .subtitle4)
     private let hotPlaceCollectionView = HotPlaceCollectionView()
+    
+    private let moveToMapButton = FTButton(style: .round)
     
     // MARK: - Life Cycle
     
@@ -75,7 +79,7 @@ final class TownIntroViewController: BaseViewController, UIScrollViewDelegate {
         }
     
         townRankInfoButton.setImage(UIImage(named: "Icon_Information"), for: .normal)
-        townRankInfoButton.addTarget(self, action: #selector(tapTownRankInfoBtn), for: .touchUpInside)
+        townRankInfoButton.addTarget(self, action: #selector(tapTownRankInfoButton), for: .touchUpInside)
         
         trafficTipStackView.axis = .horizontal
         trafficTipStackView.spacing = 4
@@ -83,9 +87,13 @@ final class TownIntroViewController: BaseViewController, UIScrollViewDelegate {
         townRankScrollView.showsHorizontalScrollIndicator = false
         townRankStackView.axis = .horizontal
         townRankStackView.spacing = 12
-        townRankInfoImageView.image = UIImage(named: "townRankToolTip")
-        townRankInfoImageView.isHidden = true
-        townRankInfoButton.changesSelectionAsPrimaryAction = true
+        townRankToolTip.dismiss()
+        addTapGesture()
+        
+        moveToMapButton.setTitle("동네지도로 이동", for: .normal)
+        moveToMapButton.setImage(UIImage(named: "map_icon"), for: .normal)
+        moveToMapButton.changesSelectionAsPrimaryAction = false
+        moveToMapButton.isSelected = true
         
         /// 임시 텍스트
         self.title = "관악구 신림동"
@@ -115,7 +123,7 @@ final class TownIntroViewController: BaseViewController, UIScrollViewDelegate {
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
         
-        [townRankTitleLabel, townRankInfoButton, townRankScrollView, townRankInfoImageView].forEach {
+        [townRankTitleLabel, townRankInfoButton, townRankScrollView, townRankToolTip].forEach {
             townRankView.addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
@@ -127,6 +135,8 @@ final class TownIntroViewController: BaseViewController, UIScrollViewDelegate {
             hotPlaceView.addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
+        
+        self.view.addSubview(moveToMapButton)
     }
     
     override func setLayout() {
@@ -178,8 +188,8 @@ final class TownIntroViewController: BaseViewController, UIScrollViewDelegate {
             townRankStackView.trailingAnchor.constraint(equalTo: townRankScrollView.contentLayoutGuide.trailingAnchor),
             townRankStackView.bottomAnchor.constraint(equalTo: townRankScrollView.contentLayoutGuide.bottomAnchor),
             
-            townRankInfoImageView.topAnchor.constraint(equalTo: townRankInfoButton.bottomAnchor, constant: 4.0),
-            townRankInfoImageView.leadingAnchor.constraint(equalTo: townRankTitleLabel.leadingAnchor)
+            townRankToolTip.topAnchor.constraint(equalTo: townRankInfoButton.bottomAnchor, constant: 10.0),
+            townRankToolTip.leadingAnchor.constraint(equalTo: townRankTitleLabel.leadingAnchor)
         ])
         
         NSLayoutConstraint.activate([
@@ -189,7 +199,13 @@ final class TownIntroViewController: BaseViewController, UIScrollViewDelegate {
             hotPlaceCollectionView.topAnchor.constraint(equalTo: hotPlaceTitleLabel.bottomAnchor, constant: 12.0),
             hotPlaceCollectionView.leadingAnchor.constraint(equalTo: hotPlaceTitleLabel.leadingAnchor),
             hotPlaceCollectionView.trailingAnchor.constraint(equalTo: hotPlaceView.trailingAnchor, constant: -16.0),
-            hotPlaceCollectionView.bottomAnchor.constraint(equalTo: hotPlaceView.bottomAnchor, constant: -32.0)
+            hotPlaceCollectionView.bottomAnchor.constraint(equalTo: hotPlaceView.bottomAnchor, constant: -105.0)
+        ])
+        
+        NSLayoutConstraint.activate([
+            moveToMapButton.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+            moveToMapButton.widthAnchor.constraint(equalToConstant: 140.0),
+            moveToMapButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -24.0)
         ])
     }
     
@@ -198,6 +214,16 @@ final class TownIntroViewController: BaseViewController, UIScrollViewDelegate {
         
         townMoodCollectionView.rx.setDelegate(self)
             .disposed(by: disposeBag)
+        
+        // Input
+        
+        moveToMapButton.rx.tap
+            .bind { [weak self] in
+                self?.viewModel?.input.moveToMapButtonTrigger.onNext(())
+            }
+            .disposed(by: disposeBag)
+        
+        // Output
         
         viewModel?.output.townMoodDataSource
             .observe(on: MainScheduler.instance)
@@ -237,7 +263,20 @@ final class TownIntroViewController: BaseViewController, UIScrollViewDelegate {
 
 private extension TownIntroViewController {
     
-    @objc func tapTownRankInfoBtn() {
-        townRankInfoImageView.isHidden = !townRankInfoButton.isSelected
+    @objc func tapTownRankInfoButton() {
+        townRankToolTip.alpha = 1.0
+    }
+    
+    func addTapGesture() {
+        let backViewTap = UITapGestureRecognizer(target: self, action: #selector(backViewTapped(_:)))
+        backViewTap.cancelsTouchesInView = false
+        view.addGestureRecognizer(backViewTap)
+    }
+    
+    @objc func backViewTapped(_ tapRecognizer: UITapGestureRecognizer) {
+        let backViewTappedLocation = tapRecognizer.location(in: self.townRankToolTip)
+        if townRankToolTip.point(inside: backViewTappedLocation, with: nil) == false {
+            townRankToolTip.dismiss()
+        }
     }
 }

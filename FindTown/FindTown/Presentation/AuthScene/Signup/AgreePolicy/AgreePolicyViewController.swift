@@ -21,7 +21,7 @@ final class AgreePolicyViewController: BaseBottomSheetViewController {
     
     // MARK: - Views
     
-    private let AgreePolicyTitle = FindTownLabel(text: "이용약관에 동의가 필요해요", font: .subtitle4)
+    private let agreePolicyTitle = FindTownLabel(text: "이용약관에 동의가 필요해요", font: .subtitle4)
     
     fileprivate let allAgreeCheckButton = CheckButton()
     private let allAgreeTitle = FindTownLabel(text: "모두 동의", font: .body3)
@@ -34,23 +34,45 @@ final class AgreePolicyViewController: BaseBottomSheetViewController {
     }()
     
     fileprivate let agreePolicyCheckButton = CheckButton()
-    private let agreePolicyTitle = FindTownLabel(text: "이용약관 필수", font: .body3)
+    private let agreePolicyLabel = FindTownLabel(text: "이용약관 필수", font: .body3)
     private let agreePolicyStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .horizontal
+        stackView.distribution = .fill
         stackView.spacing = 8
         return stackView
     }()
     
+    private let agreePolicyViewButton: UIButton = {
+        var button = UIButton()
+        button.setTitle("보기", for: .normal)
+        button.setTitleColor(FindTownColor.grey5.color, for: .normal)
+        button.setUnderline()
+        button.titleLabel?.font = FindTownFont.label2.font
+        button.backgroundColor = .clear
+        return button
+    }()
+    
     fileprivate let agreePersonalInfoCheckButton = CheckButton()
-    private let agreePersonalInfoTitle = FindTownLabel(text: "개인정보 수집 이용 동의", font: .body3)
-    private let agreePersonalInforStackView: UIStackView = {
+    private let agreePersonalInfoLabel = FindTownLabel(text: "개인정보 수집 이용 동의", font: .body3)
+    private let agreePersonalInfoStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .horizontal
+        stackView.distribution = .fill
         stackView.spacing = 8
         return stackView
+    }()
+    
+    private let agreePersonalInfoViewButton: UIButton = {
+        var button = UIButton()
+        button.setTitle("보기", for: .normal)
+        button.setTitleColor(FindTownColor.grey5.color, for: .normal)
+        button.setUnderline()
+        button.titleLabel?.font = FindTownFont.label2.font
+        button.backgroundColor = .clear
+        return button
     }()
     
     private let confirmButton = FTButton(style: .largeFilled)
@@ -74,44 +96,53 @@ final class AgreePolicyViewController: BaseBottomSheetViewController {
     // MARK: - Functions
     
     override func addView() {
-        
-        
         allAgreeStackView.addArrangedSubview(allAgreeCheckButton)
         allAgreeStackView.addArrangedSubview(allAgreeTitle)
         
         agreePolicyStackView.addArrangedSubview(agreePolicyCheckButton)
-        agreePolicyStackView.addArrangedSubview(agreePolicyTitle)
+        agreePolicyStackView.addArrangedSubview(agreePolicyLabel)
+        agreePolicyStackView.addArrangedSubview(agreePolicyViewButton)
         
-        agreePersonalInforStackView.addArrangedSubview(agreePersonalInfoCheckButton)
-        agreePersonalInforStackView.addArrangedSubview(agreePersonalInfoTitle)
+        agreePersonalInfoStackView.addArrangedSubview(agreePersonalInfoCheckButton)
+        agreePersonalInfoStackView.addArrangedSubview(agreePersonalInfoLabel)
+        agreePersonalInfoStackView.addArrangedSubview(agreePersonalInfoViewButton)
         
-        [AgreePolicyTitle, allAgreeStackView, agreePolicyStackView, agreePersonalInforStackView, confirmButton].forEach {
+        [agreePolicyTitle, allAgreeStackView, agreePolicyStackView, agreePersonalInfoStackView, confirmButton].forEach {
             bottomSheetView.addSubview($0)
         }
         super.addView()
     }
     
     override func setLayout() {
-        
-        
         NSLayoutConstraint.activate([
-            AgreePolicyTitle.topAnchor.constraint(equalTo: bottomSheetView.topAnchor, constant: 40),
-            AgreePolicyTitle.leadingAnchor.constraint(equalTo: bottomSheetView.leadingAnchor, constant: 16),
+            agreePolicyTitle.topAnchor.constraint(equalTo: bottomSheetView.topAnchor, constant: 40),
+            agreePolicyTitle.leadingAnchor.constraint(equalTo: bottomSheetView.leadingAnchor, constant: 16),
         ])
         
         NSLayoutConstraint.activate([
-            allAgreeStackView.topAnchor.constraint(equalTo: AgreePolicyTitle.bottomAnchor, constant: 34),
+            allAgreeCheckButton.widthAnchor.constraint(equalToConstant: 20),
+            allAgreeCheckButton.heightAnchor.constraint(equalToConstant: 20),
+            
+            allAgreeStackView.topAnchor.constraint(equalTo: agreePolicyTitle.bottomAnchor, constant: 34),
             allAgreeStackView.leadingAnchor.constraint(equalTo: bottomSheetView.leadingAnchor, constant: 18),
         ])
         
         NSLayoutConstraint.activate([
+            agreePolicyCheckButton.widthAnchor.constraint(equalToConstant: 20),
+            agreePolicyCheckButton.heightAnchor.constraint(equalToConstant: 20),
+            
             agreePolicyStackView.topAnchor.constraint(equalTo: allAgreeStackView.bottomAnchor, constant: 16),
             agreePolicyStackView.leadingAnchor.constraint(equalTo: bottomSheetView.leadingAnchor, constant: 18),
+            agreePolicyStackView.trailingAnchor.constraint(equalTo: bottomSheetView.trailingAnchor, constant: -16),
         ])
         
         NSLayoutConstraint.activate([
-            agreePersonalInforStackView.topAnchor.constraint(equalTo: agreePolicyStackView.bottomAnchor, constant: 16),
-            agreePersonalInforStackView.leadingAnchor.constraint(equalTo: bottomSheetView.leadingAnchor, constant: 18),
+            agreePersonalInfoCheckButton.widthAnchor.constraint(equalToConstant: 20),
+            agreePersonalInfoCheckButton.heightAnchor.constraint(equalToConstant: 20),
+            
+            agreePersonalInfoStackView.topAnchor.constraint(equalTo: agreePolicyStackView.bottomAnchor, constant: 16),
+            agreePersonalInfoStackView.leadingAnchor.constraint(equalTo: bottomSheetView.leadingAnchor, constant: 18),
+            agreePersonalInfoStackView.trailingAnchor.constraint(equalTo: bottomSheetView.trailingAnchor, constant: -16),
         ])
         
         NSLayoutConstraint.activate([
@@ -119,6 +150,9 @@ final class AgreePolicyViewController: BaseBottomSheetViewController {
             confirmButton.leadingAnchor.constraint(equalTo: bottomSheetView.leadingAnchor, constant: 16),
             confirmButton.trailingAnchor.constraint(equalTo: bottomSheetView.trailingAnchor, constant: -16),
         ])
+        
+        agreePolicyLabel.setContentCompressionResistancePriority(.required, for: .horizontal)
+        agreePersonalInfoLabel.setContentCompressionResistancePriority(.required, for: .horizontal)
         
         super.setLayout()
     }
@@ -154,11 +188,29 @@ final class AgreePolicyViewController: BaseBottomSheetViewController {
             }
             .disposed(by: disposeBag)
         
+        agreePolicyViewButton.rx.tap
+            .throttle(.milliseconds(300), scheduler: MainScheduler.instance)
+            .bind { _ in
+                if let url = URL(string: "https://yapp-workspace.notion.site/fec4a724526e4c11b5aea79884b9c966") {
+                    UIApplication.shared.open(url)
+                }
+            }
+            .disposed(by: disposeBag)
+        
         agreePersonalInfoCheckButton.rx.tap
             .throttle(.milliseconds(300), scheduler: MainScheduler.instance)
             .bind { [weak self] in
                 guard let isSeleted = self?.agreePersonalInfoCheckButton.isSelected else { return }
                 self?.viewModel?.input.personalInfo.onNext((isSeleted))
+            }
+            .disposed(by: disposeBag)
+        
+        agreePersonalInfoViewButton.rx.tap
+            .throttle(.milliseconds(300), scheduler: MainScheduler.instance)
+            .bind { _ in
+                if let url = URL(string: "https://yapp-workspace.notion.site/577e8340762440dd97ccb5ee16a57f8e") {
+                    UIApplication.shared.open(url)
+                }
             }
             .disposed(by: disposeBag)
         

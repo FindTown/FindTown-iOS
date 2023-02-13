@@ -8,7 +8,9 @@
 import UIKit
 
 public enum TipLocation {
-    case top, bottom
+    case topCenter, bottomCenter
+    case topCustom(tipXPoint: CGFloat)
+    case bottomCustom(tipXPoint: CGFloat)
 }
 
 public class ToolTip: UIView {
@@ -79,18 +81,33 @@ public class ToolTip: UIView {
     }
     
     func drawPath(tipLocation: TipLocation, width: CGFloat, height: CGFloat) {
+        
         let tipWidth = CGFloat(13)
         let tipHeight = CGFloat(8)
-        let tipwidthCenter = width / 2
-        let endXWidth = tipwidthCenter + tipWidth
+        var tipwidthCenter = width / 2
+        var endXWidth = tipwidthCenter + tipWidth
         
         switch tipLocation {
-        case .top:
+        case .topCenter:
             path.move(to: CGPoint(x: tipwidthCenter, y: 0))
             path.addLine(to: CGPoint(x: tipwidthCenter + tipWidth / 2, y: -tipHeight))
             path.addLine(to: CGPoint(x: endXWidth, y: 0))
             path.addLine(to: CGPoint(x: 0, y: 0))
-        case .bottom:
+        case .bottomCenter:
+            path.move(to: CGPoint(x: tipwidthCenter, y: height))
+            path.addLine(to: CGPoint(x: tipwidthCenter + tipWidth / 2, y: height + tipHeight))
+            path.addLine(to: CGPoint(x: endXWidth + tipWidth, y: tipHeight))
+            path.addLine(to: CGPoint(x: tipwidthCenter, y: 0))
+        case .topCustom(let point):
+            tipwidthCenter = point
+            endXWidth = point + tipWidth
+            path.move(to: CGPoint(x: tipwidthCenter, y: 0))
+            path.addLine(to: CGPoint(x: tipwidthCenter + tipWidth / 2, y: -tipHeight))
+            path.addLine(to: CGPoint(x: endXWidth, y: 0))
+            path.addLine(to: CGPoint(x: 0, y: 0))
+        case .bottomCustom(let point):
+            tipwidthCenter = point
+            endXWidth = point + tipWidth
             path.move(to: CGPoint(x: tipwidthCenter, y: height))
             path.addLine(to: CGPoint(x: tipwidthCenter + tipWidth / 2, y: height + tipHeight))
             path.addLine(to: CGPoint(x: endXWidth + tipWidth, y: tipHeight))
