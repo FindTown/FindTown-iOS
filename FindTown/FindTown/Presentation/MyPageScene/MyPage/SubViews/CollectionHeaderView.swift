@@ -105,15 +105,15 @@ final class CollectionHeaderView: UICollectionReusableView {
         
         viewModel?.output.myNickname
             .asDriver(onErrorJustReturn: "")
-            .drive { [weak self] in
-                self?.nickName.text = $0
+            .drive { [weak self] nickname in
+                self?.nickName.text = nickname
             }
             .disposed(by: disposeBag)
         
         viewModel?.output.myVillagePeriod
             .asDriver(onErrorJustReturn: "")
-            .drive { [weak self] in
-                self?.villagePeriod.text = $0
+            .drive { [weak self] villagePeriod in
+                self?.villagePeriod.text = villagePeriod
             }
             .disposed(by: disposeBag)
     }
