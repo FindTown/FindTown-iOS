@@ -21,7 +21,6 @@ final class CollectionHeaderView: UICollectionReusableView {
         return String(describing: self)
     }
     private let disposeBag = DisposeBag()
-    var viewModel: MyPageViewModel?
     
     // MARK: - Views
     
@@ -90,16 +89,16 @@ final class CollectionHeaderView: UICollectionReusableView {
         reviewButton.setTitle("내가 쓴 동네 후기", for: .normal)
     }
     
-    func bindViewModel() {
+    func bind(_ viewModel: MyPageViewModel?) {
         nickNameChangeButton.rx.tap
-            .bind { [weak self] in
-                self?.viewModel?.input.changeNicknameButtonTrigger.onNext(())
+            .bind {
+                viewModel?.input.changeNicknameButtonTrigger.onNext(())
             }
             .disposed(by: disposeBag)
         
         reviewButton.rx.tap
-            .bind { [weak self] in
-                self?.viewModel?.input.reviewButtonTrigger.onNext(())
+            .bind {
+                viewModel?.input.reviewButtonTrigger.onNext(())
             }
             .disposed(by: disposeBag)
         

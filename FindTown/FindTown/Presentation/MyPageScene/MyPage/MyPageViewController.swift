@@ -191,8 +191,7 @@ extension MyPageViewController: UICollectionViewDataSource {
             ) as? CollectionHeaderView
             
             if let collectionHeaderView = collectionHeaderView {
-                collectionHeaderView.viewModel = viewModel
-                collectionHeaderView.bindViewModel()
+                collectionHeaderView.bind(viewModel)
                 return collectionHeaderView
             }
             return UICollectionReusableView()
