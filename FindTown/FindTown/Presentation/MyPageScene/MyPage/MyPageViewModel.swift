@@ -175,8 +175,10 @@ extension MyPageViewModel {
             do {
                 let memberInfo = try await self.memberUseCase.getMemberInfomation(bearerToken: KeyChainManager.shared.read(account: .accessToken))
                 await MainActor.run(body: {
+                    let resident = memberInfo.resident
+                    let villagePeriod = "\(resident.residentAddress.split(separator: " ").last!) 거주 ・ \(resident.residentYear)년 \(resident.residentMonth)개월"
                     self.input.nickname.onNext(memberInfo.nickname)
-                    self.input.villagePeriod.onNext(memberInfo.resident.toVillagePeriod)
+                    self.input.villagePeriod.onNext(villagePeriod)
                     
                     self.input.fetchFinishTrigger.onNext(())
                 })

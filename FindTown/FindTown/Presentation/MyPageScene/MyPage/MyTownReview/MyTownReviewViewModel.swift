@@ -59,7 +59,7 @@ extension MyTownReviewViewModel {
             do {
                 let memberInfo = try await self.memberUseCase.getMemberInfomation(bearerToken: KeyChainManager.shared.read(account: .accessToken))
                 await MainActor.run(body: {
-                    self.output.reviewTableDataSource.accept([memberInfo.resident.toReViewModel])
+                    self.output.reviewTableDataSource.accept([memberInfo.resident.toEntity])
                 })
                 reviewTask?.cancel()
             } catch (let error) {
