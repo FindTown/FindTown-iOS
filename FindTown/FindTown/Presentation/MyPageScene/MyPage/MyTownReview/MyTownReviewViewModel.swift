@@ -23,6 +23,7 @@ final class MyTownReviewViewModel: BaseViewModel {
     
     struct Output {
         var reviewTableDataSource = BehaviorRelay<[ReviewModel]>(value: [])
+        let errorNotice = PublishSubject<Void>()
     }
     
     let input = Input()
@@ -50,6 +51,10 @@ final class MyTownReviewViewModel: BaseViewModel {
     
     func bind() {
         self.fetchReview()
+    }
+    
+    func showErrorNoticeAlert() {
+        self.output.errorNotice.onNext(())
     }
 }
 

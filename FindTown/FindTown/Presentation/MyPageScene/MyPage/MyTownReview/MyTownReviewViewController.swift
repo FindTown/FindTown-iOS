@@ -14,7 +14,7 @@ final class MyTownReviewViewController: BaseViewController, UIScrollViewDelegate
     
     // MARK: - Properties
     
-    private let viewModel: MyTownReviewViewModel?
+    let viewModel: MyTownReviewViewModel?
     
     // MARK: - Views
     
@@ -71,5 +71,15 @@ final class MyTownReviewViewController: BaseViewController, UIScrollViewDelegate
                     cell.setupCell(item)
                     
                 }.disposed(by: disposeBag)
+        
+        viewModel?.output.errorNotice
+            .subscribe { [weak self] _ in
+                self?.showErrorNoticeAlertPopUp(message: "네트워크 오류가 발생하였습니다.",
+                                                buttonText: "확인",
+                                                buttonAction: {
+                    self?.dismiss(animated: false)
+                    self?.navigationController?.popViewController(animated: true)})
+            }
+            .disposed(by: disposeBag)
     }
 }

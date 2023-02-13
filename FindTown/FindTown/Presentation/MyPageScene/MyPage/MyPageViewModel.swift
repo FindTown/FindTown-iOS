@@ -19,8 +19,6 @@ protocol MyPageViewModelDelegate {
     func goToPropose()
     func goToTerms()
     func goToPersonalInfo()
-    func popUpSignout()
-    func popUpWithDraw()
     func showErrorNoticeAlert()
 }
 
@@ -31,8 +29,6 @@ protocol MyPageViewModelType {
     func goToPropose()
     func goToTerms()
     func goToPersonalInfo()
-    func popUpSignout()
-    func popUpWithDraw()
 }
 
 final class MyPageViewModel: BaseViewModel {
@@ -54,6 +50,8 @@ final class MyPageViewModel: BaseViewModel {
     struct Output {
         let myNickname = PublishRelay<String>()
         let myVillagePeriod = PublishRelay<String>()
+        let signoutNotice = PublishSubject<Void>()
+        let withDrawNotice = PublishSubject<Void>()
         let errorNotice = PublishSubject<Void>()
     }
     
@@ -131,13 +129,13 @@ final class MyPageViewModel: BaseViewModel {
         
         self.input.signoutTapTrigger
             .bind {[weak self] in
-                self?.popUpSignout()
+                self?.output.signoutNotice.onNext(())
             }
             .disposed(by: disposeBag)
         
         self.input.withDrawTapTrigger
             .bind {[weak self] in
-                self?.popUpWithDraw()
+                self?.output.withDrawNotice.onNext(())
             }
             .disposed(by: disposeBag)
     }
@@ -223,13 +221,5 @@ extension MyPageViewModel: MyPageViewModelType {
     
     func goToPersonalInfo() {
         delegate.goToPersonalInfo()
-    }
-    
-    func popUpSignout() {
-        delegate.popUpSignout()
-    }
-    
-    func popUpWithDraw() {
-        delegate.popUpWithDraw()
     }
 }
