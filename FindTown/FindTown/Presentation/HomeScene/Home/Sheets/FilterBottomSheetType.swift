@@ -150,23 +150,3 @@ enum Traffic: CaseIterable {
         return self.allCases.first { $0.shortDescription == traffic }
     }
 }
-
-enum Infra: CaseIterable {
-    case amenities
-    case medical
-    case exercise
-    case nature
-    
-    var description: [String] {
-        switch self {
-        case .amenities:
-            return ["imageName", "편의시설"]
-        case .medical:
-            return ["imageName", "의료"]
-        case .exercise:
-            return ["imageName", "운동"]
-        case .nature:
-            return ["imageName", "자연"]
-        }
-    }
-}
