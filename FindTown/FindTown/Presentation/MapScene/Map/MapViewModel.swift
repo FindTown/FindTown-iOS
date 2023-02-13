@@ -47,7 +47,7 @@ final class MapViewModel: BaseViewModel {
     
     // MARK: - Task
     
-    private var coordinateTask: Task<Void, Error>?
+    private var cityDataTask: Task<Void, Error>?
     
     let input = Input()
     let output = Output()
@@ -93,7 +93,7 @@ final class MapViewModel: BaseViewModel {
 extension MapViewModel {
     func setCity(city: City? = nil) {
         
-        self.coordinateTask = Task {
+        self.cityDataTask = Task {
             do {
                 var cityCode: Int? = nil
                 if let city = city {
@@ -102,7 +102,7 @@ extension MapViewModel {
                 let accessToken = try await self.authUseCase.getAccessToken()
                 let villageLocaionInformation = try await self.mapUseCase.getVillageCoordinate(cityCode: cityCode, accessToken: accessToken)
                 guard let cityCode = CityCode(rawValue: villageLocaionInformation.cityCode) else {
-                    coordinateTask?.cancel()
+                    cityDataTask?.cancel()
                     return
                 }
                 await MainActor.run {
@@ -110,13 +110,13 @@ extension MapViewModel {
                     self.output.city.onNext(city)
                     self.output.cityBoundaryCoordinates.onNext(villageLocaionInformation.coordinate)
                 }
-                coordinateTask?.cancel()
+                cityDataTask?.cancel()
             } catch (let error) {
                 if let error = error as? FTNetworkError,
                    FTNetworkError.isUnauthorized(error: error) {
                     let villageLocaionInformation = try await self.mapUseCase.getVillageCoordinate(cityCode: nil, accessToken: nil)
                     guard let cityCode = CityCode(rawValue: villageLocaionInformation.cityCode) else {
-                        coordinateTask?.cancel()
+                        cityDataTask?.cancel()
                         return
                     }
                     await MainActor.run {
