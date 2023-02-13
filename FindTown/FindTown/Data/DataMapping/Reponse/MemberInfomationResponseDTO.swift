@@ -24,7 +24,7 @@ struct MemberInfoDTO: Response {
     let resident: Resident
     let useAgreeYn: Bool
     let privacyAgreeYn: Bool
-    let locationList: [String]
+    let locationList: [Location]
     
     struct Resident: Response {
         let residentAddress: String
@@ -38,8 +38,21 @@ struct MemberInfoDTO: Response {
         
         var toReViewModel: ReviewModel {
             return ReviewModel(village: residentAddress,
-                                   period: "\(residentYear)년 \(residentMonth)개월 거주",
-                                   introduce: residentReview)
+                               period: "\(residentYear)년 \(residentMonth)개월 거주",
+                               introduce: residentReview)
         }
+    }
+    
+    struct Location: Response {
+        let objectId: Int
+        let admNm: String
+        let admCd: String
+        let admCd2: String
+        let sido: String
+        let sidoNm: String
+        let sgg: String
+        let sggNm: String
+        let admCd8: String
+        let coordinates: String
     }
 }
