@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 import FindTownCore
+import FindTownNetwork
 
 import RxSwift
 import RxCocoa
@@ -38,18 +39,31 @@ final class MapViewModel: BaseViewModel {
         var isFavoriteCity = PublishSubject<Bool>()
     }
     
+    // MARK: - UseCase
+    
+    let authUseCase: AuthUseCase
+    let mapUseCase: MapUseCase
+    
+    // MARK: - Task
+    
+    private var coordinateTask: Task<Void, Error>?
+    
     let input = Input()
     let output = Output()
     
-    init(delegate: MapViewModelDelegate) {
+    init(delegate: MapViewModelDelegate,
+         authUseCase: AuthUseCase,
+         mapUseCase: MapUseCase) {
         self.delegate = delegate
+        self.authUseCase = authUseCase
+        self.mapUseCase = mapUseCase
         
         super.init()
         self.bind()
     }
     
     func bind() {
-        
+        getVillageCoordinate()
         self.input.segmentIndex
             .bind { [weak self] index in
                 if index == 0 {
@@ -77,6 +91,40 @@ final class MapViewModel: BaseViewModel {
 // MARK: - Network
 
 extension MapViewModel {
+    func getVillageCoordinate() {
+        self.coordinateTask = Task {
+            do {
+                let accessToken = try await self.authUseCase.getAccessToken()
+                let villageLocaionInformation = try await mapUseCase.getVillageCoordinate(cityCode: nil, accessToken: accessToken)
+                guard let cityCode = CityCode(rawValue: villageLocaionInformation.cityCode) else {
+                    coordinateTask?.cancel()
+                }
+                await MainActor.run {
+                    print(cityCode.description)
+                    print(villageLocaionInformation.coordinate)
+                }
+                coordinateTask?.cancel()
+            } catch (let error) {
+                if let error = error as? FTNetworkError,
+                   FTNetworkError.isUnauthorized(error: error) {
+                    let villageLocaionInformation = try await mapUseCase.getVillageCoordinate(cityCode: nil, accessToken: nil)
+                    guard let cityCode = CityCode(rawValue: villageLocaionInformation.cityCode) else {
+                        coordinateTask?.cancel()
+                    }
+                    await MainActor.run {
+                        print(cityCode.description)
+                        print(villageLocaionInformation.coordinate)
+                    }
+                } else {
+//                    await MainActor.run {
+//                        self.output.errorNotice.onNext(())
+//                    }
+                    Log.error(error)
+                }
+            }
+        }
+    }
+    
     func addFavoriteCity(_ city: City) {
         
     }
