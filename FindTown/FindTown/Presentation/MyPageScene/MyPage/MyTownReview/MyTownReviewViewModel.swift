@@ -65,9 +65,10 @@ extension MyTownReviewViewModel {
     func fetchReview() {
         self.reviewTask = Task {
             do {
-                let memberInfo = try await self.memberUseCase.getMemberInfomation(bearerToken: authUseCase.getAccessToken())
+                let accessToken = try await authUseCase.getAccessToken()
+                let memberInfomation = try await self.memberUseCase.getMemberInfomation(accessToken: accessToken)
                 await MainActor.run(body: {
-                    self.output.reviewTableDataSource.accept([memberInfo.resident.toEntity])
+                    self.output.reviewTableDataSource.accept([memberInfomation.resident.toEntity])
                 })
                 reviewTask?.cancel()
             } catch (let error) {

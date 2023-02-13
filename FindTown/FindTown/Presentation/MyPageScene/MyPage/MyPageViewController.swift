@@ -74,7 +74,7 @@ final class MyPageViewController: BaseViewController {
         collectionView.backgroundColor = FindTownColor.white.color
         collectionView.dataSource = self
         
-        viewModel?.fetchMemberInfo()
+        viewModel?.fetchMemberInfomation()
     }
     
     override func bindViewModel() {
