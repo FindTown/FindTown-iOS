@@ -43,7 +43,7 @@ final class MapViewController: BaseViewController {
     
     // MARK: Map property
     
-    var polygonOverlay: NMFPolygonOverlay?
+    var villagePolygonOverlay: NMFPolygonOverlay?
     
     // MARK: - Life Cycle
     
@@ -237,22 +237,22 @@ private extension MapViewController {
 
 extension MapViewController {
     func setVillageCooridnateOverlay(_ boundaryCoordinates: [[Double]]) {
-        polygonOverlay?.mapView = nil
+        villagePolygonOverlay?.mapView = nil
         
         let cameraPosition = NMFCameraPosition(NMGLatLng(lat: boundaryCoordinates[0][1], lng: boundaryCoordinates[0][0]), zoom: 14, tilt: 0, heading: 0)
         mapView.moveCamera(NMFCameraUpdate(position: cameraPosition))
         
-        let outerCoordinates = MapConstant.seoulCityBoundaryCoordinates.map { coordinate in
+        let externalCoordinates = MapConstant.seoulCityBoundaryCoordinates.map { coordinate in
             NMGLatLng(lat: coordinate[1], lng: coordinate[0])
         }
-        let coords1 = boundaryCoordinates.map { coordinate in
+        let interiorRingsCoordinates = boundaryCoordinates.map { coordinate in
             NMGLatLng(lat: coordinate[1], lng: coordinate[0])
         }
-        let polygon2 = NMGPolygon(ring: NMGLineString(points: outerCoordinates), interiorRings: [NMGLineString(points: coords1)])
-        polygonOverlay = NMFPolygonOverlay(polygon2 as! NMGPolygon<AnyObject>)
+        let villagePolygon = NMGPolygon(ring: NMGLineString(points: externalCoordinates), interiorRings: [NMGLineString(points: interiorRingsCoordinates)])
+        villagePolygonOverlay = NMFPolygonOverlay(villagePolygon as! NMGPolygon<AnyObject>)
         
-        polygonOverlay?.fillColor = .gray.withAlphaComponent(0.3)
-        polygonOverlay?.mapView = mapView
+        villagePolygonOverlay?.fillColor = .gray.withAlphaComponent(0.3)
+        villagePolygonOverlay?.mapView = mapView
     }
 
 }
