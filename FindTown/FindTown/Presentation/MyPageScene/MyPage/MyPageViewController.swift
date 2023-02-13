@@ -79,6 +79,8 @@ final class MyPageViewController: BaseViewController {
         
         viewModel?.fetchMemberInfo()
         
+        // Input
+        
         viewModel?.input.fetchFinishTrigger
             .bind { [weak self] in
                 self?.indicator.stopAnimating()
@@ -90,6 +92,15 @@ final class MyPageViewController: BaseViewController {
         collectionView.rx.itemSelected
             .bind { [weak self] in
                 self?.viewModel?.navigateToPage($0)
+            }
+            .disposed(by: disposeBag)
+        
+        // Output
+        
+        viewModel?.output.errorNotice
+            .subscribe { [weak self] _ in
+                self?.indicator.stopAnimating()
+                self?.viewModel?.delegate.showErrorNoticeAlert()
             }
             .disposed(by: disposeBag)
     }

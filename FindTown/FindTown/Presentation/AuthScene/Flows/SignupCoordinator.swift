@@ -121,7 +121,7 @@ extension SignupCoordinator: SignupViewModelDelegate {
         guard let navigationController = navigationController else { return }
         navigationController.dismiss(animated: true) {
             if let parentCoordinator = self.parentCoordinator as? LoginCoordinator {
-                parentCoordinator.goToTabBar()
+                parentCoordinator.showErrorNoticeAlert()
             }
         }
     }

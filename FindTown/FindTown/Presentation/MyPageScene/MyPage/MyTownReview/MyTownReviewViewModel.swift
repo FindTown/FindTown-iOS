@@ -11,12 +11,14 @@ import FindTownCore
 import RxSwift
 import RxRelay
 
-protocol MyTownReviewViewModelType { }
+protocol MyTownReviewViewModelType {
+    func dismissAndShowError()
+}
 
 final class MyTownReviewViewModel: BaseViewModel {
     
     struct Input {
-        //        let review = PublishSubject<reviewModelTest>()
+        
     }
     
     struct Output {
@@ -63,8 +65,18 @@ extension MyTownReviewViewModel {
                 })
                 reviewTask?.cancel()
             } catch (let error) {
-                print(error)
+                Log.error(error)
+                await MainActor.run(body: {
+                    self.dismissAndShowError()
+                })
             }
+            reviewTask?.cancel()
         }
+    }
+}
+
+extension MyTownReviewViewModel: MyTownReviewViewModelType {
+    func dismissAndShowError() {
+        delegate.showErrorNoticeAlert()
     }
 }

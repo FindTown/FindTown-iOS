@@ -130,4 +130,9 @@ extension MyPageCoordinator: MyPageViewModelDelegate {
         guard let navigationController = navigationController else { return }
         navigationController.showAlertSuccessCancelPopUp(title: "회원탈퇴", message: "탈퇴 시 모든 정보는 삭제됩니다.\n(단, 동네후기는 제외)\n정말로 탈퇴하시겠어요?", successButtonText: "탈퇴", cancelButtonText: "취소", successButtonAction: { print("탈퇴" )})
     }
+
+    func showErrorNoticeAlert() {
+        guard let navigationController = navigationController else { return }
+        navigationController.showErrorNoticeAlertPopUp(message: "네트워크 오류가 발생하였습니다.", buttonText: "확인")
+    }
 }

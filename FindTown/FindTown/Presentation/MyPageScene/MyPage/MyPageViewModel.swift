@@ -21,6 +21,7 @@ protocol MyPageViewModelDelegate {
     func goToPersonalInfo()
     func popUpSignout()
     func popUpWithDraw()
+    func showErrorNoticeAlert()
 }
 
 protocol MyPageViewModelType {
@@ -53,6 +54,7 @@ final class MyPageViewModel: BaseViewModel {
     struct Output {
         let myNickname = PublishRelay<String>()
         let myVillagePeriod = PublishRelay<String>()
+        let errorNotice = PublishSubject<Void>()
     }
     
     let input = Input()
@@ -165,6 +167,10 @@ final class MyPageViewModel: BaseViewModel {
             break
         }
     }
+    
+    func showErrorNoticeAlert() {
+        self.output.errorNotice.onNext(())
+    }
 }
 
 // MARK: - Network
@@ -184,8 +190,12 @@ extension MyPageViewModel {
                 })
                 myInfoTask?.cancel()
             } catch (let error) {
-                print(error)
+                Log.error(error)
+                await MainActor.run(body: {
+                    self.showErrorNoticeAlert()
+                })
             }
+            myInfoTask?.cancel()
         }
     }
 }
