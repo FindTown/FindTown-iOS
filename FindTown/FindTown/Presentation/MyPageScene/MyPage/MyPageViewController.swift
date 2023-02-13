@@ -73,11 +73,11 @@ final class MyPageViewController: BaseViewController {
         collectionView.isHidden = true
         collectionView.backgroundColor = FindTownColor.white.color
         collectionView.dataSource = self
+        
+        viewModel?.fetchMemberInfo()
     }
     
     override func bindViewModel() {
-        
-        viewModel?.fetchMemberInfo()
         
         // Input
         
