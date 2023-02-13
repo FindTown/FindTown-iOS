@@ -32,6 +32,7 @@ final class MyTownReviewViewModel: BaseViewModel {
     
     // MARK: - UseCase
     
+    let authUseCase: AuthUseCase
     let memberUseCase: MemberUseCase
     
     // MARK: - Task
@@ -40,9 +41,11 @@ final class MyTownReviewViewModel: BaseViewModel {
     
     init(
         delegate: MyPageViewModelDelegate,
+        authUseCase: AuthUseCase,
         memberUseCase: MemberUseCase
     ) {
         self.delegate = delegate
+        self.authUseCase = authUseCase
         self.memberUseCase = memberUseCase
         
         super.init()
@@ -64,7 +67,7 @@ extension MyTownReviewViewModel {
     func fetchReview() {
         self.reviewTask = Task {
             do {
-                let memberInfo = try await self.memberUseCase.getMemberInfomation(bearerToken: KeyChainManager.shared.read(account: .accessToken))
+                let memberInfo = try await self.memberUseCase.getMemberInfomation(bearerToken: authUseCase.getAccessToken())
                 await MainActor.run(body: {
                     self.output.reviewTableDataSource.accept([memberInfo.resident.toEntity])
                 })

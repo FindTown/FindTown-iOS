@@ -139,7 +139,7 @@
 		F38AA7FA298124AD00EF66F2 /* AuthLoginRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F38AA7F9298124AD00EF66F2 /* AuthLoginRequest.swift */; };
 		F38AA7FE2981259200EF66F2 /* AuthUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = F38AA7FD2981259200EF66F2 /* AuthUseCase.swift */; };
 		F38AA800298125FB00EF66F2 /* DefaultAppleAuthRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = F38AA7FF298125FB00EF66F2 /* DefaultAppleAuthRepository.swift */; };
-		F38AA80629816C4700EF66F2 /* MemberInformationDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = F38AA80529816C4700EF66F2 /* MemberInformationDTO.swift */; };
+		F38AA80629816C4700EF66F2 /* MemberIdDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = F38AA80529816C4700EF66F2 /* MemberIdDTO.swift */; };
 		F38AA80D29817E2000EF66F2 /* NickNameCheckRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F38AA80C29817E2000EF66F2 /* NickNameCheckRequest.swift */; };
 		F38AA80F29817F1600EF66F2 /* NickCheckResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = F38AA80E29817F1600EF66F2 /* NickCheckResponseDTO.swift */; };
 		F38AA8112982766400EF66F2 /* ProviderType.swift in Sources */ = {isa = PBXBuildFile; fileRef = F38AA8102982766400EF66F2 /* ProviderType.swift */; };
@@ -318,7 +318,7 @@
 		F38AA7F9298124AD00EF66F2 /* AuthLoginRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthLoginRequest.swift; sourceTree = "<group>"; };
 		F38AA7FD2981259200EF66F2 /* AuthUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthUseCase.swift; sourceTree = "<group>"; };
 		F38AA7FF298125FB00EF66F2 /* DefaultAppleAuthRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultAppleAuthRepository.swift; sourceTree = "<group>"; };
-		F38AA80529816C4700EF66F2 /* MemberInformationDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberInformationDTO.swift; sourceTree = "<group>"; };
+		F38AA80529816C4700EF66F2 /* MemberIdDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberIdDTO.swift; sourceTree = "<group>"; };
 		F38AA80C29817E2000EF66F2 /* NickNameCheckRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NickNameCheckRequest.swift; sourceTree = "<group>"; };
 		F38AA80E29817F1600EF66F2 /* NickCheckResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NickCheckResponseDTO.swift; sourceTree = "<group>"; };
 		F38AA8102982766400EF66F2 /* ProviderType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProviderType.swift; sourceTree = "<group>"; };
@@ -995,7 +995,7 @@
 		F38AA80329816C1C00EF66F2 /* Request */ = {
 			isa = PBXGroup;
 			children = (
-				F38AA80529816C4700EF66F2 /* MemberInformationDTO.swift */,
+				F38AA80529816C4700EF66F2 /* MemberIdDTO.swift */,
 				F38AA821298396D300EF66F2 /* MemberSignupDTO.swift */,
 			);
 			path = Request;
@@ -1336,7 +1336,7 @@
 				BC056C602962B2D900EDCA18 /* NicknameViewController.swift in Sources */,
 				BC8B6393298A66DD004E1116 /* MyTownReviewViewController.swift in Sources */,
 				F38CCBE929582881000C16AF /* MapViewModel.swift in Sources */,
-				F38AA80629816C4700EF66F2 /* MemberInformationDTO.swift in Sources */,
+				F38AA80629816C4700EF66F2 /* MemberIdDTO.swift in Sources */,
 				F39EDDBC296D5AE500A4E655 /* City.swift in Sources */,
 				BCF825942988C91500AC00BB /* MyPageViewModel.swift in Sources */,
 				BC1CE29A2975634800F89B81 /* FilterSheetCoordinator.swift in Sources */,

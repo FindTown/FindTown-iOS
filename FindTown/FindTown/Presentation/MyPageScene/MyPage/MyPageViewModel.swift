@@ -61,6 +61,7 @@ final class MyPageViewModel: BaseViewModel {
     
     // MARK: - UseCase
     
+    let authUseCase: AuthUseCase
     let memberUseCase: MemberUseCase
     
     // MARK: - Task
@@ -69,9 +70,11 @@ final class MyPageViewModel: BaseViewModel {
     
     init(
         delegate: MyPageViewModelDelegate,
+        authUseCase: AuthUseCase,
         memberUseCase: MemberUseCase
     ) {
         self.delegate = delegate
+        self.authUseCase = authUseCase
         self.memberUseCase = memberUseCase
         
         super.init()
@@ -177,7 +180,7 @@ extension MyPageViewModel {
     func fetchMemberInfo() {
         self.myInfoTask = Task {
             do {
-                let memberInfo = try await self.memberUseCase.getMemberInfomation(bearerToken: KeyChainManager.shared.read(account: .accessToken))
+                let memberInfo = try await self.memberUseCase.getMemberInfomation(bearerToken: authUseCase.getAccessToken())
                 await MainActor.run(body: {
                     let resident = memberInfo.resident
                     let villagePeriod = "\(resident.residentAddress.split(separator: " ").last!) 거주 ・ \(resident.residentYear)년 \(resident.residentMonth)개월"

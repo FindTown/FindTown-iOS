@@ -35,6 +35,7 @@ final class MyPageCoordinator: FlowCoordinator {
             return myPageAnonymousViewController
         } else {
             let myPageViewModel = MyPageViewModel(delegate: self,
+                                                  authUseCase: authUseCase,
                                                   memberUseCase: memberUseCase)
             let myPageViewController = MyPageViewController(viewModel: myPageViewModel)
             return myPageViewController
@@ -53,6 +54,7 @@ final class MyPageCoordinator: FlowCoordinator {
     /// 내가 쓴 동네 후기 화면
     internal func myTownReviewScene() -> UIViewController {
         let myTownReviewViewModel = MyTownReviewViewModel(delegate: self,
+                                                          authUseCase: authUseCase,
                                                           memberUseCase: memberUseCase)
         let myTownReviewViewController = MyTownReviewViewController(viewModel: myTownReviewViewModel)
         myTownReviewViewController.hidesBottomBarWhenPushed = true
