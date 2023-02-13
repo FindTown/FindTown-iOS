@@ -90,7 +90,7 @@ final class MapViewController: BaseViewController {
         viewModel?.output.categoryDataSource.observe(on: MainScheduler.instance)
             .bind(to: categoryCollectionView.rx.items(cellIdentifier: MapCategoryCollectionViewCell.reuseIdentifier,
                                               cellType: MapCategoryCollectionViewCell.self)) { index, item, cell in
-                cell.setupCell(image: item.image, title: item.title)
+                cell.setupCell(image: item.image, title: item.description)
                 if index == 0 {
                     self.selectFirstItem(item)
                 }
@@ -167,10 +167,10 @@ final class MapViewController: BaseViewController {
         setMapViewLayout()
     }
     
-    private func selectFirstItem(_ item: Category) {
+    private func selectFirstItem(_ item: MCategory) {
         DispatchQueue.main.async {
             self.categoryCollectionView.selectItem(at: IndexPath(item: 0, section: 0), animated: true, scrollPosition: .bottom)
-            self.detailCategoryView.setStackView(data: item.detailCategories)
+//            self.detailCategoryView.setStackView(data: item.detailCategories)
         }
     }
 }
