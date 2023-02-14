@@ -14,16 +14,19 @@ final class MapCoordinator: FlowCoordinator {
     weak var navigationController: UINavigationController?
     let authUseCase = AuthUseCase()
     let mapUseCase = MapUseCase()
+    let isAnonymous: Bool
     
-    init(presentationStyle: PresentationStyle) {
+    init(presentationStyle: PresentationStyle,
+         isAnonymous: Bool) {
         self.presentationStyle = presentationStyle
+        self.isAnonymous = isAnonymous
     }
     
     internal func initScene() -> UIViewController {
         let mapViewModel = MapViewModel(delegate: self,
                                         authUseCase: authUseCase,
                                         mapUseCase: mapUseCase)
-        return MapViewController(viewModel: mapViewModel, mapTransition: .tapBar)
+        return MapViewController(viewModel: mapViewModel, mapTransition: .tapBar, isAnonymous: isAnonymous)
     }
     
 }

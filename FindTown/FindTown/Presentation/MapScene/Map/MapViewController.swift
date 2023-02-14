@@ -49,6 +49,7 @@ final class MapViewController: BaseViewController {
     }()
     
     var currentIndex: CGFloat = 0
+    let isAnonymous: Bool
     
     // MARK: Map property
     
@@ -58,9 +59,10 @@ final class MapViewController: BaseViewController {
     
     // MARK: - Life Cycle
     
-    init(viewModel: MapViewModel, mapTransition: MapTransition) {
+    init(viewModel: MapViewModel, mapTransition: MapTransition, isAnonymous: Bool) {
         self.viewModel = viewModel
         self.mapTransition = mapTransition
+        self.isAnonymous = isAnonymous
         
         super.init(nibName: nil, bundle: nil)
     }
@@ -183,10 +185,12 @@ final class MapViewController: BaseViewController {
         view.backgroundColor = FindTownColor.back2.color
         
         naviBarSubView.backgroundColor = FindTownColor.white.color
-        self.navigationItem.rightBarButtonItem = favoriteButton
-        self.storeCollectionView.delegate = self
-        favoriteButton.tintColor = FindTownColor.grey4.color
+        if isAnonymous == false {
+            favoriteButton.tintColor = FindTownColor.grey4.color
+            self.navigationItem.rightBarButtonItem = favoriteButton
+        }
         
+        self.storeCollectionView.delegate = self
         self.viewModel?.setCity()
         setMapZoomLevel()
         setMapLayerGrounp()
