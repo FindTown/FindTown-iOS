@@ -11,7 +11,7 @@ import FindTownNetwork
 final class DefaultAuthRepository {
     
     func login(memberId: String) async throws -> TokenInformationDTO {
-        let memberInformation = MemberInformationDTO(memberId: memberId)
+        let memberInformation = MemberIdDTO(memberId: memberId)
         let data = try await Network.shared.request(target: AuthLoginReqeust(task: .requestJSONEncodable(encodable: memberInformation)))
         return data.body
     }

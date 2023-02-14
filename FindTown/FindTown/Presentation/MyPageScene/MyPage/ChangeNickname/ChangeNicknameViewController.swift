@@ -123,8 +123,8 @@ final class ChangeNicknameViewController: BaseViewController {
 
         nickNameTextField.rx.text.orEmpty
             .distinctUntilChanged()
-            .bind { [weak self] in
-                self?.viewModel?.input.nickname.onNext($0)
+            .bind { [weak self] nickname in
+                self?.viewModel?.input.nickname.onNext(nickname)
             }
             .disposed(by: disposeBag)
 
@@ -147,13 +147,13 @@ final class ChangeNicknameViewController: BaseViewController {
 
         viewModel?.output.nickNameStatus
             .asDriver(onErrorJustReturn: .none)
-            .drive { [weak self] in
-                self?.nickNameStatusChange(nickNameStatus: $0)
+            .drive { [weak self] nickNameStatus in
+                self?.nickNameStatusChange(nickNameStatus)
             }
             .disposed(by: disposeBag)
     }
     
-    private func nickNameStatusChange(nickNameStatus: NicknameStatus) {
+    private func nickNameStatusChange(_ nickNameStatus: NicknameStatus) {
         switch nickNameStatus {
         case .none:
             nickNameStatusLabel.isHidden = true
@@ -192,7 +192,7 @@ final class ChangeNicknameViewController: BaseViewController {
     }
     
     @objc private func keyboardWillHideSender(_ sender: Notification) {
-        guard let keyHeight else { return }
+        guard let keyHeight = keyHeight else { return }
         self.view.frame.size.height += keyHeight
     }
 }

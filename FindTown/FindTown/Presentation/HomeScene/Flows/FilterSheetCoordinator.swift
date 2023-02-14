@@ -13,13 +13,13 @@ final class FilterSheetCoordinator: FlowCoordinator {
     
     var presentationStyle: PresentationStyle
     var filterSheetType: FilterSheetType
-    var filterDataSource: TempFilterModel
+    var filterDataSource: FilterModel
     weak var navigationController: UINavigationController?
     
     init(
         presentationStyle: PresentationStyle,
         filterSheetType: FilterSheetType,
-        filterDataSource: TempFilterModel
+        filterDataSource: FilterModel
     ) {
         self.presentationStyle = presentationStyle
         self.filterSheetType = filterSheetType
@@ -35,10 +35,10 @@ final class FilterSheetCoordinator: FlowCoordinator {
 }
 
 extension FilterSheetCoordinator: FilterBottomSheetViewModelDelegate {
-    func dismiss(_ tempModel: TempFilterModel) {
+    func dismiss(_ filterModel: FilterModel) {
         guard let navigationController = navigationController else { return }
-        if let homeVC = navigationController.viewControllers.first as? HomeViewController {
-            homeVC.dismissBottomSheet(tempModel)
+        if let homeVC = navigationController.topViewController as? HomeViewController {
+            homeVC.dismissBottomSheet(filterModel)
         }
     }
 }

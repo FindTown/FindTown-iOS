@@ -21,15 +21,14 @@ final class CollectionHeaderView: UICollectionReusableView {
         return String(describing: self)
     }
     private let disposeBag = DisposeBag()
-    var viewModel: MyPageViewModel?
     
     // MARK: - Views
     
-    private let nickName = FindTownLabel(text: "닉네임", font: .subtitle2)
+    private let nickName = FindTownLabel(text: "", font: .subtitle2)
     
     private let nickNameChangeButton = FTButton(style: .mediumTintedWithOpacity)
     
-    private let villagePeriod = FindTownLabel(text: "신림동 거주, 2년 6개월", font: .label1, textColor: .grey6)
+    private let villagePeriod = FindTownLabel(text: "", font: .label1, textColor: .grey6)
     
     private let reviewButton = FTButton(style: .largeTinted)
     
@@ -41,7 +40,6 @@ final class CollectionHeaderView: UICollectionReusableView {
         addView()
         setLayout()
         setupView()
-        bindViewModel()
     }
     
     required init?(coder: NSCoder) {
@@ -91,16 +89,30 @@ final class CollectionHeaderView: UICollectionReusableView {
         reviewButton.setTitle("내가 쓴 동네 후기", for: .normal)
     }
     
-    private func bindViewModel() {
+    func bind(_ viewModel: MyPageViewModel?) {
         nickNameChangeButton.rx.tap
-            .bind { [weak self] in
-                self?.viewModel?.input.changeNicknameButtonTrigger.onNext(())
+            .bind {
+                viewModel?.input.changeNicknameButtonTrigger.onNext(())
             }
             .disposed(by: disposeBag)
         
         reviewButton.rx.tap
-            .bind { [weak self] in
-                self?.viewModel?.input.reviewButtonTrigger.onNext(())
+            .bind {
+                viewModel?.input.reviewButtonTrigger.onNext(())
+            }
+            .disposed(by: disposeBag)
+        
+        viewModel?.output.myNickname
+            .asDriver(onErrorJustReturn: "")
+            .drive { [weak self] nickname in
+                self?.nickName.text = nickname
+            }
+            .disposed(by: disposeBag)
+        
+        viewModel?.output.myVillagePeriod
+            .asDriver(onErrorJustReturn: "")
+            .drive { [weak self] villagePeriod in
+                self?.villagePeriod.text = villagePeriod
             }
             .disposed(by: disposeBag)
     }

@@ -63,10 +63,10 @@ final class AgreePolicyViewModel: BaseViewModel {
     func bind() {
         
         self.input.allAgree
-            .bind { [weak self] in
-                self?.input.policy.onNext($0)
-                self?.input.personalInfo.onNext($0)
-                self?.output.buttonsSelected.accept($0)
+            .bind { [weak self] isAgree in
+                self?.input.policy.onNext(isAgree)
+                self?.input.personalInfo.onNext(isAgree)
+                self?.output.buttonsSelected.accept(isAgree)
             }
             .disposed(by: disposeBag)
         
@@ -83,8 +83,8 @@ final class AgreePolicyViewModel: BaseViewModel {
                 self?.signupUserModel.privaxyAgreeYn = personalInfo
                 return policy && personalInfo
             }
-            .bind { [weak self] in
-                self?.output.confirmButtonEnabled.accept($0)
+            .bind { [weak self] isEnabled in
+                self?.output.confirmButtonEnabled.accept(isEnabled)
             }
             .disposed(by: disposeBag)
     }

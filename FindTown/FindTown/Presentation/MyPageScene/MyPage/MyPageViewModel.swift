@@ -19,8 +19,6 @@ protocol MyPageViewModelDelegate {
     func goToPropose()
     func goToTerms()
     func goToPersonalInfo()
-    func popUpSignout()
-    func popUpWithDraw()
 }
 
 protocol MyPageViewModelType {
@@ -30,13 +28,14 @@ protocol MyPageViewModelType {
     func goToPropose()
     func goToTerms()
     func goToPersonalInfo()
-    func popUpSignout()
-    func popUpWithDraw()
 }
 
 final class MyPageViewModel: BaseViewModel {
     
     struct Input {
+        let nickname = PublishSubject<String>()
+        let villagePeriod = PublishSubject<String>()
+        let fetchFinishTrigger = PublishSubject<Void>()
         let changeNicknameButtonTrigger = PublishSubject<Void>()
         let reviewButtonTrigger = PublishSubject<Void>()
         let inquiryTapTrigger = PublishSubject<Void>()
@@ -48,23 +47,52 @@ final class MyPageViewModel: BaseViewModel {
     }
     
     struct Output {
-        
+        let myNickname = PublishRelay<String>()
+        let myVillagePeriod = PublishRelay<String>()
+        let signoutNotice = PublishSubject<Void>()
+        let withDrawNotice = PublishSubject<Void>()
+        let errorNotice = PublishSubject<Void>()
     }
     
     let input = Input()
     let output = Output()
     let delegate: MyPageViewModelDelegate
     
+    // MARK: - UseCase
+    
+    let authUseCase: AuthUseCase
+    let memberUseCase: MemberUseCase
+    
+    // MARK: - Task
+    
+    private var myInfomationTask: Task<Void, Error>?
+    
     init(
-        delegate: MyPageViewModelDelegate
+        delegate: MyPageViewModelDelegate,
+        authUseCase: AuthUseCase,
+        memberUseCase: MemberUseCase
     ) {
         self.delegate = delegate
+        self.authUseCase = authUseCase
+        self.memberUseCase = memberUseCase
         
         super.init()
         self.bind()
     }
     
     func bind() {
+        self.input.nickname
+            .bind { [weak self] nickname in
+                self?.output.myNickname.accept(nickname)
+            }
+            .disposed(by: disposeBag)
+        
+        self.input.villagePeriod
+            .bind { [weak self] villagePeriod in
+                self?.output.myVillagePeriod.accept(villagePeriod)
+            }
+            .disposed(by: disposeBag)
+        
         self.input.changeNicknameButtonTrigger
             .bind { [weak self] in
                 self?.goToChangeNickname()
@@ -103,13 +131,13 @@ final class MyPageViewModel: BaseViewModel {
         
         self.input.signoutTapTrigger
             .bind {[weak self] in
-                self?.popUpSignout()
+                self?.output.signoutNotice.onNext(())
             }
             .disposed(by: disposeBag)
         
         self.input.withDrawTapTrigger
             .bind {[weak self] in
-                self?.popUpWithDraw()
+                self?.output.withDrawNotice.onNext(())
             }
             .disposed(by: disposeBag)
     }
@@ -139,6 +167,38 @@ final class MyPageViewModel: BaseViewModel {
             break
         }
     }
+    
+    func showErrorNoticeAlert() {
+        self.output.errorNotice.onNext(())
+    }
+}
+
+// MARK: - Network
+
+extension MyPageViewModel {
+    func fetchMemberInfomation() {
+        self.myInfomationTask = Task {
+            do {
+                let accessToken = try await authUseCase.getAccessToken()
+                let memberInfomation = try await self.memberUseCase.getMemberInfomation(accessToken: accessToken)
+                await MainActor.run(body: {
+                    let resident = memberInfomation.resident
+                    let villagePeriod = "\(resident.residentAddress.split(separator: " ").last!) 거주 ・ \(resident.residentYear)년 \(resident.residentMonth)개월"
+                    self.input.nickname.onNext(memberInfomation.nickname)
+                    self.input.villagePeriod.onNext(villagePeriod)
+                    
+                    self.input.fetchFinishTrigger.onNext(())
+                })
+                myInfomationTask?.cancel()
+            } catch (let error) {
+                Log.error(error)
+                await MainActor.run(body: {
+                    self.showErrorNoticeAlert()
+                })
+            }
+            myInfomationTask?.cancel()
+        }
+    }
 }
 
 extension MyPageViewModel: MyPageViewModelType {
@@ -164,13 +224,5 @@ extension MyPageViewModel: MyPageViewModelType {
     
     func goToPersonalInfo() {
         delegate.goToPersonalInfo()
-    }
-    
-    func popUpSignout() {
-        delegate.popUpSignout()
-    }
-    
-    func popUpWithDraw() {
-        delegate.popUpWithDraw()
     }
 }

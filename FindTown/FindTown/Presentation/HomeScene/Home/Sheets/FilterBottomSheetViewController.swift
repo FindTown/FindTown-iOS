@@ -17,7 +17,7 @@ final class FilterBottonSheetViewController: BaseBottomSheetViewController {
     // MARK: - Properties
     
     private var filterSheetType: FilterSheetType?
-    private var filterDataSource: TempFilterModel?
+    private var filterDataSource: FilterModel?
     private var viewModel: FilterBottomSheetViewModel?
     private let screenWidth = UIScreen.main.bounds.width
     private var selectedCells: [IndexPath] = []
@@ -51,7 +51,7 @@ final class FilterBottonSheetViewController: BaseBottomSheetViewController {
     
     // MARK: - Life Cycle
     
-    init(viewModel: FilterBottomSheetViewModel, filterSheetType: FilterSheetType, filterDataSource: TempFilterModel) {
+    init(viewModel: FilterBottomSheetViewModel, filterSheetType: FilterSheetType, filterDataSource: FilterModel) {
         self.filterSheetType = filterSheetType
         self.filterDataSource = filterDataSource
         self.viewModel = viewModel

@@ -7,6 +7,6 @@
 
 import Foundation
 
-struct MemberInformationDTO: Encodable {
+struct MemberIdDTO: Encodable {
     let memberId: String
 }

@@ -1,12 +1,28 @@
 //
-//  Traffic.swift
+//  FilterBottomSheetType.swift
 //  FindTown
 //
-//  Created by 김성훈 on 2023/01/13.
+//  Created by 김성훈 on 2023/02/08.
 //
 
-import Foundation
 import UIKit
+
+enum FilterSheetType {
+    case Filter
+    case Infra
+    case Traffic
+    
+    var height: Double {
+        switch self {
+        case .Filter:
+            return 0.87
+        case .Infra:
+            return 0.37
+        case .Traffic:
+            return 0.60
+        }
+    }
+}
 
 enum Traffic: CaseIterable {
     case one
@@ -129,8 +145,6 @@ enum Traffic: CaseIterable {
             return UIColor(red: 179, green: 199, blue: 62)
         }
     }
-    
-    
     
     static func returnTrafficType(_ traffic: String) -> Traffic? {
         return self.allCases.first { $0.shortDescription == traffic }
