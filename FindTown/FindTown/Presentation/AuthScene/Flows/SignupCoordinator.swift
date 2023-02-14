@@ -36,7 +36,7 @@ final class SignupCoordinator: FlowCoordinator {
     /// 회원가입 닉네임 설정 화면
     internal func initScene() -> UIViewController {
         let nicknameViewModel = NicknameViewModel(delegate: self,
-                                                  authUseCase: authUseCase,
+                                                  memberUseCase: memberUseCase,
                                                   signupUserModel: signupUserModel)
         let nicknameViewController = NicknameViewController(viewModel: nicknameViewModel)
         return nicknameViewController
@@ -65,7 +65,7 @@ final class SignupCoordinator: FlowCoordinator {
     
     /// 이용약관
     internal func signUpAgreePolicyScene(_ signupUserModel: SignupUserModel) -> UIViewController {
-        let agreePolicyViewModel = AgreePolicyViewModel(delegate: self, signupUserModel: signupUserModel, authUseCase: authUseCase)
+        let agreePolicyViewModel = AgreePolicyViewModel(delegate: self, signupUserModel: signupUserModel, memberUseCase: memberUseCase)
         let agreePolicyViewController = AgreePolicyViewController(viewModel: agreePolicyViewModel)
         agreePolicyViewController.modalPresentationStyle = .overFullScreen
         return agreePolicyViewController

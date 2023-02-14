@@ -42,7 +42,7 @@ final class NicknameViewModel: BaseViewModel {
     
     // MARK: - UseCase
     
-    let authUseCase: AuthUseCase
+    let memberUseCase: MemberUseCase
     
     // MARK: - Model
     
@@ -54,11 +54,11 @@ final class NicknameViewModel: BaseViewModel {
     
     init(
         delegate: SignupViewModelDelegate,
-        authUseCase: AuthUseCase,
+        memberUseCase: MemberUseCase,
         signupUserModel: SignupUserModel
     ) {
         self.delegate = delegate
-        self.authUseCase = authUseCase
+        self.memberUseCase = memberUseCase
         self.signupUserModel = signupUserModel
         
         super.init()
@@ -103,7 +103,7 @@ extension NicknameViewModel {
     func checkNicknameDuplicate(nickname: String) {
         self.nicknameCheckTask = Task {
             do {
-                let existence = try await self.authUseCase.checkNicknameDuplicate(nickName: nickname)
+                let existence = try await self.memberUseCase.checkNicknameDuplicate(nickName: nickname)
                 await MainActor.run(body: {
                     if existence {
                         self.output.nickNameStatus.accept(.duplicate)
