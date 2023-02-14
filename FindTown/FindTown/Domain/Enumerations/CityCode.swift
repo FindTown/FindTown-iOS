@@ -5,7 +5,7 @@
 //  Created by 이호영 on 2023/01/26.
 //
 
-import Foundation
+import UIKit
 
 enum CityCode: Int, CaseIterable {
     case code365 = 365
@@ -48,6 +48,10 @@ enum CityCode: Int, CaseIterable {
     
     var village: Village {
         return self.cityModel.village
+    }
+    
+    var countyIcon: UIImage {
+        return self.cityModel.countyIcon
     }
     
     var cityModel: CityMapping {
