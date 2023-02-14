@@ -57,6 +57,7 @@ enum Village: String {
     // MARK: - Seodaemun
     
     case sinchon = "신촌동"
+    case yeonhui = "연희동"
 
     // MARK: - Seongbuk
     

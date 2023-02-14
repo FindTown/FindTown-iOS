@@ -9,11 +9,13 @@ import UIKit
 
 enum CityCode: Int, CaseIterable {
     case code365 = 365
-    case code359 = 356
+    case code359 = 359
     case code251 = 251
     case code259 = 259
     case code336 = 336
-    case code358 = 358
+    case code333 = 333
+    case code329 = 329
+    case code328 = 328
     case code321 = 321
     case code330 = 330
     case code326 = 326
@@ -26,6 +28,7 @@ enum CityCode: Int, CaseIterable {
     case code305 = 305
     case code211 = 211
     case code205 = 205
+    case code206 = 206
     case code113 = 113
     case code399 = 399
     case code301 = 301
@@ -66,8 +69,12 @@ enum CityCode: Int, CaseIterable {
             return .gangseo(.hwagok)
         case .code336:
             return .gwanak(.cheongnyong)
-        case .code358:
+        case .code333:
+            return .gwanak(.daehak)
+        case .code329:
             return .gwanak(.sinsa)
+        case .code328:
+            return .gwanak(.seorim)
         case .code321:
             return .gwanak(.haengun)
         case .code330:
@@ -92,6 +99,8 @@ enum CityCode: Int, CaseIterable {
             return .mapo(.seogyo)
         case .code205:
             return .seodaemun(.sinchon)
+        case .code206:
+            return .seodaemun(.yeonhui)
         case .code113:
             return .seongbuk(.anam)
         case .code399:
