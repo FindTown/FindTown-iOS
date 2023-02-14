@@ -259,6 +259,7 @@ extension MapViewController {
     
     func setMapZoomLevel() {
         mapView.minZoomLevel = 10.0
+        mapView.maxZoomLevel = 18.0
                 
         // 서울 인근 카메라 제한
         mapView.extent = NMGLatLngBounds(southWestLat: 37.40, southWestLng: 126.70, northEastLat: 37.60, northEastLng: 127.10)
