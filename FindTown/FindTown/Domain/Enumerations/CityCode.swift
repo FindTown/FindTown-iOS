@@ -9,11 +9,11 @@ import Foundation
 
 enum CityCode: Int, CaseIterable {
     case code365 = 365
-    case code359 = 356
+    case code359 = 359
     case code251 = 251
     case code259 = 259
     case code336 = 336
-    case code358 = 358
+    case code329 = 329
     case code321 = 321
     case code330 = 330
     case code326 = 326
@@ -62,7 +62,7 @@ enum CityCode: Int, CaseIterable {
             return .gangseo(.hwagok)
         case .code336:
             return .gwanak(.cheongnyong)
-        case .code358:
+        case .code329:
             return .gwanak(.sinsa)
         case .code321:
             return .gwanak(.haengun)
