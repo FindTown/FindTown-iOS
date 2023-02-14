@@ -5,7 +5,7 @@
 //  Created by 이호영 on 2023/02/14.
 //
 
-import Foundation
+import UIKit
 
 protocol MCategory {
     var description: String { get }

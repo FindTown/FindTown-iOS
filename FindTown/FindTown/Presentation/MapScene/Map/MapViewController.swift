@@ -12,6 +12,8 @@ import NMapsMap
 import RxSwift
 import RxCocoa
 
+typealias Coordinates = [[Double]]
+
 final class MapViewController: BaseViewController {
     
     // MARK: - Properties
@@ -257,27 +259,18 @@ extension MapViewController {
         mapView.setLayerGroup(NMF_LAYER_GROUP_TRANSIT, isEnabled: true)
     }
     
-    func setVillageCooridnateOverlay(_ boundaryCoordinates: [[Double]]) {
+    func setVillageCooridnateOverlay(_ boundaryCoordinates: Coordinates) {
         villagePolygonOverlay?.mapView = nil
         
         let cameraPosition = NMFCameraPosition(NMGLatLng(lat: boundaryCoordinates[0][1], lng: boundaryCoordinates[0][0]), zoom: 14, tilt: 0, heading: 0)
         mapView.moveCamera(NMFCameraUpdate(position: cameraPosition))
-        
-        let polygon = NMGPolygon(ring: NMGLineString(points: MapConstant.gyeonggiBoundaryPointsForPolygon))
-        let polygonOverlay = NMFPolygonOverlay(polygon as! NMGPolygon<AnyObject>)
-        polygonOverlay?.fillColor = UIColor(red: 26, green: 26, blue: 26).withAlphaComponent(0.2)
-        polygonOverlay?.mapView = mapView
 
-        let interiorRingsCoordinates = boundaryCoordinates.map { coordinate in
-            NMGLatLng(lat: coordinate[1], lng: coordinate[0])
-        }
-        let villagePolygon = NMGPolygon(ring: NMGLineString(points: MapConstant.seoulBoundaryPointsForPolygon), interiorRings: [NMGLineString(points: interiorRingsCoordinates)])
+        let villagePolygon = NMGPolygon(ring: NMGLineString(points: MapConstant.koreaBoundaryCoordinates.convertNMLatLng()), interiorRings: [NMGLineString(points: boundaryCoordinates.convertNMLatLng())])
         villagePolygonOverlay = NMFPolygonOverlay(villagePolygon as! NMGPolygon<AnyObject>)
         
         villagePolygonOverlay?.fillColor = UIColor(red: 26, green: 26, blue: 26).withAlphaComponent(0.2)
         villagePolygonOverlay?.mapView = mapView
     }
-
 }
 
 extension MapViewController: MapStoreCollectionViewCellDelegate {
@@ -350,6 +343,14 @@ extension Reactive where Base: MapViewController {
                 viewController.favoriteButton.image = UIImage(named: "favorite.nonselect")
                 viewController.favoriteButton.tintColor = FindTownColor.grey4.color
             }
+        }
+    }
+}
+
+fileprivate extension Coordinates {
+    func convertNMLatLng() -> [NMGLatLng] {
+        return self.map { coordinate in
+            NMGLatLng(lat: coordinate[1], lng: coordinate[0])
         }
     }
 }
