@@ -46,6 +46,7 @@ final class MapViewController: BaseViewController {
     // MARK: Map property
     
     var villagePolygonOverlay: NMFPolygonOverlay?
+    var isFirstShowingVillage: Bool = true
     
     // MARK: - Life Cycle
     
@@ -124,7 +125,16 @@ final class MapViewController: BaseViewController {
         
         viewModel?.output.cityBoundaryCoordinates
             .subscribe(onNext: { [weak self] boundaryCoordinates in
-                self?.setVillageCooridnateOverlay(boundaryCoordinates)
+                guard let isFirstShowingVillage = self?.isFirstShowingVillage else {
+                    return
+                }
+                if isFirstShowingVillage {
+                    self?.setVillageCooridnateOverlay(boundaryCoordinates, animation: false)
+                } else {
+                    self?.setVillageCooridnateOverlay(boundaryCoordinates, animation: true)
+                }
+                
+                self?.isFirstShowingVillage = false
             })
             .disposed(by: disposeBag)
             
@@ -259,11 +269,17 @@ extension MapViewController {
         mapView.setLayerGroup(NMF_LAYER_GROUP_TRANSIT, isEnabled: true)
     }
     
-    func setVillageCooridnateOverlay(_ boundaryCoordinates: Coordinates) {
+    func setVillageCooridnateOverlay(_ boundaryCoordinates: Coordinates, animation: Bool = true) {
         villagePolygonOverlay?.mapView = nil
         
         let cameraPosition = NMFCameraPosition(NMGLatLng(lat: boundaryCoordinates[0][1], lng: boundaryCoordinates[0][0]), zoom: 14, tilt: 0, heading: 0)
-        mapView.moveCamera(NMFCameraUpdate(position: cameraPosition))
+        let cameraUpdate = NMFCameraUpdate(position: cameraPosition)
+        
+        if animation {
+            cameraUpdate.animation = .easeIn
+            cameraUpdate.animationDuration = 0.5
+        }
+        mapView.moveCamera(cameraUpdate)
 
         let villagePolygon = NMGPolygon(ring: NMGLineString(points: MapConstant.koreaBoundaryCoordinates.convertNMLatLng()), interiorRings: [NMGLineString(points: boundaryCoordinates.convertNMLatLng())])
         villagePolygonOverlay = NMFPolygonOverlay(villagePolygon as! NMGPolygon<AnyObject>)
