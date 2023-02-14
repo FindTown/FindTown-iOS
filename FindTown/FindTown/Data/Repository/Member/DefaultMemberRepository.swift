@@ -8,7 +8,7 @@
 import Foundation
 import FindTownNetwork
 
-final class MemberRepository {
+final class DefaultMemberRepository {
     
     func checkNickNameDuplicate(_ nickName: String) async throws -> Bool {
         let parameters = [URLQueryItem(name: "nickname", value: nickName)]
