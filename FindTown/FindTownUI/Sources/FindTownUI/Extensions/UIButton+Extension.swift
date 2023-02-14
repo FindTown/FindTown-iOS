@@ -17,4 +17,17 @@ public extension UIButton {
         )
         setAttributedTitle(attributedString, for: .normal)
     }
+    
+    func setUnderlineWithBottomPadding() {
+        let line = UIView()
+        line.translatesAutoresizingMaskIntoConstraints = false
+        line.backgroundColor = FindTownColor.grey6.color
+        addSubview(line)
+        NSLayoutConstraint.activate([
+            line.heightAnchor.constraint(equalToConstant: 2.0),
+            line.leadingAnchor.constraint(equalTo: leadingAnchor),
+            line.widthAnchor.constraint(equalToConstant: intrinsicContentSize.width),
+            line.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -2.0)
+        ])
+    }
 }

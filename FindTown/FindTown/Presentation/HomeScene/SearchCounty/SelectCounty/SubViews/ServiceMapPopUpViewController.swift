@@ -33,6 +33,15 @@ final class ServiceMapPopUpViewController: ContentPopUpViewController {
     
     private let confirmButton = FTButton(style: .largeFilled)
     
+    private let blockPopupButton: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitle("다시 보지 않기", for: .normal)
+        button.titleLabel?.font = FindTownFont.body4.font
+        button.setTitleColor(FindTownColor.grey5.color, for: .normal)
+        return button
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -40,6 +49,8 @@ final class ServiceMapPopUpViewController: ContentPopUpViewController {
         contentView.addSubview(subTitleLabel)
         contentView.addSubview(serviceMapImageView)
         contentView.addSubview(confirmButton)
+        
+        view.addSubview(blockPopupButton)
         
         NSLayoutConstraint.activate([
             mainTitleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 36),
@@ -65,6 +76,13 @@ final class ServiceMapPopUpViewController: ContentPopUpViewController {
             confirmButton.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
         ])
         
+        NSLayoutConstraint.activate([
+            blockPopupButton.topAnchor.constraint(equalTo: contentView.bottomAnchor, constant: 16),
+            blockPopupButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+        ])
+        
+        blockPopupButton.setUnderlineWithBottomPadding()
+        
         topLeftButton.isHidden = true
         
         subTitleLabel.numberOfLines = 0
@@ -74,6 +92,12 @@ final class ServiceMapPopUpViewController: ContentPopUpViewController {
         confirmButton.setTitle("확인했어요", for: .normal)
         
         confirmButton.rx.tap
+            .bind { [weak self] in
+                self?.dismiss(animated: false)
+            }
+            .disposed(by: disposeBag)
+        
+        blockPopupButton.rx.tap
             .bind { [weak self] in
                 UserDefaults.standard.set(true, forKey: "SearchFirstEnter")
                 self?.dismiss(animated: false)
