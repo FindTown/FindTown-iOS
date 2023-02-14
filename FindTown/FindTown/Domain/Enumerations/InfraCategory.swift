@@ -7,12 +7,6 @@
 
 import UIKit
 
-protocol MCategory {
-    var description: String { get }
-    var image: UIImage? { get }
-    var code: String { get }
-}
-
 enum InfraCategory: CaseIterable, MCategory {
     case martOrConvenienceStore
     case cafe
