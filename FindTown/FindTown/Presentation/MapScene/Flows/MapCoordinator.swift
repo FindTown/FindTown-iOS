@@ -12,13 +12,17 @@ final class MapCoordinator: FlowCoordinator {
 
     var presentationStyle: PresentationStyle
     weak var navigationController: UINavigationController?
+    let authUseCase = AuthUseCase()
+    let mapUseCase = MapUseCase()
     
     init(presentationStyle: PresentationStyle) {
         self.presentationStyle = presentationStyle
     }
     
     internal func initScene() -> UIViewController {
-        let mapViewModel = MapViewModel(delegate: self)
+        let mapViewModel = MapViewModel(delegate: self,
+                                        authUseCase: authUseCase,
+                                        mapUseCase: mapUseCase)
         return MapViewController(viewModel: mapViewModel)
     }
     
@@ -38,7 +42,7 @@ extension MapCoordinator: MapViewModelDelegate {
     func setCityData(_ city: City) {
         guard let navigationController = navigationController else { return }
         if let mapViewController = navigationController.topViewController as? MapViewController {
-            mapViewController.viewModel?.output.city.onNext(city)
+            mapViewController.viewModel?.setCity(city: city)
         }
     }
 }

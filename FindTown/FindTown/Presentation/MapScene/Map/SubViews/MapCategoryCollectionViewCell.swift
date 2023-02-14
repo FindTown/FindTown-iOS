@@ -47,8 +47,8 @@ final class MapCategoryCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setupCell(image: UIImage, title: String) {
-        imageView.image = returnColoredImage(image: image, color: FindTownColor.grey5.color)
+    func setupCell(image: UIImage?, title: String) {
+        imageView.image = image
         titleLabel.text = title
     }
     
