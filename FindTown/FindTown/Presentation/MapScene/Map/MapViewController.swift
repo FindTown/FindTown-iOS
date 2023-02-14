@@ -166,6 +166,8 @@ final class MapViewController: BaseViewController {
         favoriteButton.tintColor = FindTownColor.grey4.color
         
         self.viewModel?.setCity()
+        setMapZoomLevel()
+        setMapLayerGrounp()
     }
 
     override func setLayout() {
@@ -242,6 +244,18 @@ private extension MapViewController {
 // MARK: MapView
 
 extension MapViewController {
+    
+    func setMapZoomLevel() {
+        mapView.minZoomLevel = 10.0
+                
+        // 서울 인근 카메라 제한
+        mapView.extent = NMGLatLngBounds(southWestLat: 37.40, southWestLng: 126.70, northEastLat: 37.60, northEastLng: 127.10)
+    }
+    
+    func setMapLayerGrounp() {
+        mapView.setLayerGroup(NMF_LAYER_GROUP_MOUNTAIN, isEnabled: true)
+        mapView.setLayerGroup(NMF_LAYER_GROUP_TRANSIT, isEnabled: true)
+    }
     
     func setVillageCooridnateOverlay(_ boundaryCoordinates: [[Double]]) {
         villagePolygonOverlay?.mapView = nil
