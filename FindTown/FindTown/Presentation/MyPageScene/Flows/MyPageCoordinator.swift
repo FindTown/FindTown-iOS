@@ -45,7 +45,7 @@ final class MyPageCoordinator: FlowCoordinator {
     /// 닉네임 수정 화면
     internal func changeNicknameScene() -> UIViewController {
         let changeNicknameViewModel = ChangeNicknameViewModel(delegate: self,
-                                                              authUseCase: authUseCase)
+                                                              memberUseCase: memberUseCase)
         let changeNicknameViewController = ChangeNicknameViewController(viewModel: changeNicknameViewModel)
         changeNicknameViewController.hidesBottomBarWhenPushed = true
         return changeNicknameViewController

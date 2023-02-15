@@ -27,5 +27,9 @@ public struct HTTPHeader {
     public static func authorization(bearerToken: String) -> HTTPHeader {
         return HTTPHeader(name: .authorization, value: "Bearer \(bearerToken)")
     }
+    
+    public static func custom(headerString: String, _ value: String) -> HTTPHeader {
+        return HTTPHeader(name: .custom(headerString), value: value)
+    }
 
 }

@@ -38,28 +38,19 @@ final class AuthUseCase {
         }
     }
     
-    func checkNicknameDuplicate(nickName: String) async throws -> Bool {
-       return try await authRepository.checkNickNameDuplicate(nickName)
-    }
-    
     func getAppleAuthorizationController() -> ASAuthorizationController {
         return appleAuthRespository.authorizationController
     }
     
-    func signup(signupUerModel: SignupUserModel) async throws {
-        let tokenData = try await authRepository.signup(memberSignupDTO: signupUerModel.toData())
-        try await tokenRepository.createTokens(tokenData: tokenData)
-    }
-    
-    func reissue(accessToken: String) async throws -> String {
-        let (_, refreshTokenExpiredTime) = try await tokenRepository.readRefreshToken()
+    func reissue() async throws -> String {
+        let (refreshToken, refreshTokenExpiredTime) = try await tokenRepository.readRefreshToken()
         
         if refreshTokenExpiredTime - Date().timeIntervalSince1970 < 600 {
             // 만료
             throw FTNetworkError.unauthorized
         } else {
             // 만료 안됨
-            let tokenData = try await authRepository.reissue(accessToken: accessToken)
+            let tokenData = try await authRepository.reissue(refreshToken: refreshToken)
             try await tokenRepository.updateAccessToken(aceessToken: tokenData.accessTokenData.token,
                                                         accesstokenExpiredTime: tokenData.accessTokenData.tokenClaims.exp)
             return tokenData.accessTokenData.token
@@ -70,7 +61,7 @@ final class AuthUseCase {
         let (accessToken, accessTokenExpiredTime) = try await tokenRepository.readAccessToken()
         if accessTokenExpiredTime - Date().timeIntervalSince1970 < 600 {
             // 만료 시 재발급
-            return try await reissue(accessToken: accessToken)
+            return try await reissue()
         } else {
             // 만료 안됨
             return accessToken
@@ -84,10 +75,5 @@ final class AuthUseCase {
     func memberConfirm(accessToken: String) async throws -> String {
         let userData = try await authRepository.loginConfirm(accessToken: accessToken)
         return userData.data.memberId
-    }
-    
-    func logout() async throws -> Bool {
-        let accessToken = try await getAccessToken()
-        return try await authRepository.logout(accessToken: accessToken).logout
     }
 }

@@ -75,7 +75,7 @@
 		BC7BCBCD29646EE1003BB4FF /* TownMoodViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC7BCBCC29646EE1003BB4FF /* TownMoodViewController.swift */; };
 		BC7BCBCF29646EEA003BB4FF /* TownMoodViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC7BCBCE29646EEA003BB4FF /* TownMoodViewModel.swift */; };
 		BC853DED298B80DD0033AF20 /* MemberUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC853DEC298B80DD0033AF20 /* MemberUseCase.swift */; };
-		BC853DF0298B813C0033AF20 /* MemberRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC853DEF298B813C0033AF20 /* MemberRepository.swift */; };
+		BC853DF0298B813C0033AF20 /* DefaultMemberRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC853DEF298B813C0033AF20 /* DefaultMemberRepository.swift */; };
 		BC853DF2298B84F90033AF20 /* MemberInfomationResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC853DF1298B84F90033AF20 /* MemberInfomationResponseDTO.swift */; };
 		BC853DF5298B89830033AF20 /* MemberInfomationRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC853DF4298B89830033AF20 /* MemberInfomationRequest.swift */; };
 		BC853DFE298C04C20033AF20 /* MyPageAnonymousViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC853DFD298C04C20033AF20 /* MyPageAnonymousViewController.swift */; };
@@ -165,7 +165,7 @@
 		F38CCBE829582881000C16AF /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F38CCBE429582881000C16AF /* MapViewController.swift */; };
 		F38CCBE929582881000C16AF /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F38CCBE529582881000C16AF /* MapViewModel.swift */; };
 		F38CCBEA29582881000C16AF /* MapCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F38CCBE729582881000C16AF /* MapCoordinator.swift */; };
-		F391845B299A68F600CEF02E /* InfraCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = F391845A299A68F600CEF02E /* InfraCategory.swift */; };
+    F391845B299A68F600CEF02E /* InfraCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = F391845A299A68F600CEF02E /* InfraCategory.swift */; };
 		F391845F299A691500CEF02E /* ThemaCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = F391845E299A691500CEF02E /* ThemaCategory.swift */; };
 		F3918461299A693400CEF02E /* ThemaStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3918460299A693400CEF02E /* ThemaStore.swift */; };
 		F3918464299B5C4000CEF02E /* MCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3918463299B5C4000CEF02E /* MCategory.swift */; };
@@ -261,7 +261,7 @@
 		BC7BCBCC29646EE1003BB4FF /* TownMoodViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TownMoodViewController.swift; sourceTree = "<group>"; };
 		BC7BCBCE29646EEA003BB4FF /* TownMoodViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TownMoodViewModel.swift; sourceTree = "<group>"; };
 		BC853DEC298B80DD0033AF20 /* MemberUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberUseCase.swift; sourceTree = "<group>"; };
-		BC853DEF298B813C0033AF20 /* MemberRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberRepository.swift; sourceTree = "<group>"; };
+		BC853DEF298B813C0033AF20 /* DefaultMemberRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultMemberRepository.swift; sourceTree = "<group>"; };
 		BC853DF1298B84F90033AF20 /* MemberInfomationResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberInfomationResponseDTO.swift; sourceTree = "<group>"; };
 		BC853DF4298B89830033AF20 /* MemberInfomationRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberInfomationRequest.swift; sourceTree = "<group>"; };
 		BC853DFD298C04C20033AF20 /* MyPageAnonymousViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageAnonymousViewController.swift; sourceTree = "<group>"; };
@@ -355,7 +355,7 @@
 		F38CCBE429582881000C16AF /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		F38CCBE529582881000C16AF /* MapViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
 		F38CCBE729582881000C16AF /* MapCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapCoordinator.swift; sourceTree = "<group>"; };
-		F391845A299A68F600CEF02E /* InfraCategory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfraCategory.swift; sourceTree = "<group>"; };
+    F391845A299A68F600CEF02E /* InfraCategory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfraCategory.swift; sourceTree = "<group>"; };
 		F391845E299A691500CEF02E /* ThemaCategory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemaCategory.swift; sourceTree = "<group>"; };
 		F3918460299A693400CEF02E /* ThemaStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemaStore.swift; sourceTree = "<group>"; };
 		F3918463299B5C4000CEF02E /* MCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MCategory.swift; sourceTree = "<group>"; };
@@ -695,7 +695,7 @@
 			isa = PBXGroup;
 			children = (
 				F3891E2A293B8394003CE8AD /* Assets.xcassets */,
-				F363D153299945C300606C7F /* APIKeyInfo.plist */,
+        F363D153299945C300606C7F /* APIKeyInfo.plist */,
 				F3891E2F293B8394003CE8AD /* Info.plist */,
 				F3891E2C293B8394003CE8AD /* LaunchScreen.storyboard */,
 			);
@@ -716,7 +716,7 @@
 		BC853DEE298B812A0033AF20 /* Member */ = {
 			isa = PBXGroup;
 			children = (
-				BC853DEF298B813C0033AF20 /* MemberRepository.swift */,
+				BC853DEF298B813C0033AF20 /* DefaultMemberRepository.swift */,
 			);
 			path = Member;
 			sourceTree = "<group>";
@@ -1345,7 +1345,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F3891E2E293B8394003CE8AD /* LaunchScreen.storyboard in Resources */,
-				F363D154299945C300606C7F /* APIKeyInfo.plist in Resources */,
+        F363D154299945C300606C7F /* APIKeyInfo.plist in Resources */,
 				F3891E2B293B8394003CE8AD /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1422,7 +1422,7 @@
 				F363D156299A0ABD00606C7F /* MapUseCase.swift in Sources */,
 				BC9F4D5E296BF0C90099473C /* AgreePolicyViewController.swift in Sources */,
 				F38AA81729829A9300EF66F2 /* Village.swift in Sources */,
-				BC853DF0298B813C0033AF20 /* MemberRepository.swift in Sources */,
+				BC853DF0298B813C0033AF20 /* DefaultMemberRepository.swift in Sources */,
 				BC0D88552963DD1D00CCB800 /* KakaoAddressViewController.swift in Sources */,
 				F3356F00298F986A002B9FFD /* TokenPayloadDTO.swift in Sources */,
 				F3356EEA298D4D59002B9FFD /* ReissueRequest.swift in Sources */,
