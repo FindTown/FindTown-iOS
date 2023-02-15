@@ -20,6 +20,8 @@ final class HomeViewController: BaseViewController {
     
     // MARK: - Views
     
+    private let indicator = UIActivityIndicatorView(style: .medium)
+    
     private let spacingView = UIView()
     
     private let homeLogo = UIImageView(image: UIImage(named: "homeLogo"))
@@ -64,12 +66,14 @@ final class HomeViewController: BaseViewController {
     private let safetyEmptyView = UIView()
     private let checkBox = CheckBox()
     private let safetyTitle = FindTownLabel(text: "안전 점수가 높은", font: .label1, textColor: .grey6)
-    private let infoIcon = UIImageView(image: UIImage(systemName: "info.circle"))
+    private let infoIconBackView = UIView()
+    private let infoIcon = UIImageView(image: UIImage(named: "information"))
     private let safetyScoreStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .horizontal
         stackView.spacing = 8
+        stackView.alignment = .center
         return stackView
     }()
     
@@ -115,9 +119,11 @@ final class HomeViewController: BaseViewController {
             townListAndCountStackView.addArrangedSubview($0)
         }
         
-        [safetyEmptyView, checkBox, safetyTitle, infoIcon].forEach {
+        [safetyEmptyView, checkBox, safetyTitle, infoIconBackView].forEach {
             safetyScoreStackView.addArrangedSubview($0)
         }
+        
+        infoIconBackView.addSubview(infoIcon)
         
         [townListAndCountStackView, safetyScoreStackView].forEach {
             townListTitleAndSafeScoreView.addArrangedSubview($0)
@@ -127,11 +133,32 @@ final class HomeViewController: BaseViewController {
             tableViewHeaderView.addSubview($0)
         }
         
+        view.addSubview(indicator)
         view.addSubview(townTableView)
         townTableView.tableHeaderView = tableViewHeaderView
     }
     
     override func setLayout() {
+        indicator.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            indicator.topAnchor.constraint(equalTo: view.topAnchor),
+            indicator.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            indicator.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            indicator.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+        ])
+        
+        infoIconBackView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            infoIconBackView.widthAnchor.constraint(equalToConstant: 15),
+            infoIconBackView.heightAnchor.constraint(equalToConstant: 15)
+        ])
+        
+        infoIcon.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            infoIcon.centerXAnchor.constraint(equalTo: infoIconBackView.centerXAnchor),
+            infoIcon.centerYAnchor.constraint(equalTo: infoIconBackView.centerYAnchor),
+        ])
+        
         tableViewHeaderView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             tableViewHeaderView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
@@ -175,6 +202,8 @@ final class HomeViewController: BaseViewController {
     }
     
     override func setupView() {
+        indicator.startAnimating()
+        
         townListImageView.image = UIImage(named: "townList")
         
         navigationItem.leftBarButtonItem = UIBarButtonItem(customView: homeLogo)
@@ -196,8 +225,11 @@ final class HomeViewController: BaseViewController {
         
         townListTitleAndSafeScoreView.backgroundColor = FindTownColor.back2.color
         
+        townTableView.isHidden = true
         townTableView.rowHeight = 150
         townTableView.estimatedRowHeight = 150
+        
+        viewModel?.fetchTownInformation()
     }
     
     override func bindViewModel() {
@@ -205,15 +237,15 @@ final class HomeViewController: BaseViewController {
         filterCollectionView.rx.setDelegate(self)
             .disposed(by: disposeBag)
         
-        //        viewModel?.input.nextPageTrigger.onNext(())
-        
-        //        townTableView.rx.reachedBottom(offset: 60)
-        //            .bind {
-        //                self.viewModel?.input.nextPageTrigger.onNext(())
-        //            }
-        //            .disposed(by: disposeBag)
-        
         // Input
+        
+        checkBox.rx.tap
+            .throttle(.milliseconds(300), scheduler: MainScheduler.instance)
+            .bind { [weak self] in
+                // 안전 점수 sort
+                // checkBox.isSelected, searchFilterModelDataSource.safetyRate
+            }
+            .disposed(by: disposeBag)
         
         searchButton.rx.tap
             .throttle(.milliseconds(300), scheduler: MainScheduler.instance)
@@ -248,6 +280,14 @@ final class HomeViewController: BaseViewController {
             }
             .disposed(by: disposeBag)
         
+        viewModel?.input.fetchFinishTrigger
+            .bind { [weak self] in
+                self?.indicator.stopAnimating()
+                self?.indicator.isHidden = true
+                self?.townTableView.isHidden = false
+            }
+            .disposed(by: disposeBag)
+        
         // Output
         
         viewModel?.output.searchFilterStringDataSource
@@ -277,9 +317,18 @@ final class HomeViewController: BaseViewController {
                 self?.townCountTitle.text = "\(searchTown.count)개 동네"
             }
             .disposed(by: disposeBag)
+        
+        viewModel?.output.errorNotice
+            .bind { [weak self] in
+                self?.showErrorNoticeAlertPopUp(message: "네트워크 오류가 발생하였습니다.",
+                                                buttonText: "확인")
+            }
+            .disposed(by: disposeBag)
     }
     
     func dismissBottomSheet(_ filterModel: FilterModel) {
+        
+        // 필터 선택 끝났을 때
         
         FilterResetButtonHidden(false)
         

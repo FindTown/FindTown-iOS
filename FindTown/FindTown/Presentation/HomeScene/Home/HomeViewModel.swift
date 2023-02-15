@@ -8,6 +8,7 @@
 import Foundation
 
 import FindTownCore
+import FindTownNetwork
 import RxSwift
 import RxRelay
 
@@ -21,33 +22,45 @@ protocol HomeViewModelType {
     func goToGuSearchView()
 }
 
-// 임시
-struct townModelTest {
-    let image: String
-    let village: String
-    let introduce: String
-}
-
 final class HomeViewModel: BaseViewModel {
     
     struct Input {
         let resetButtonTrigger = PublishSubject<Void>()
         let filterButtonTrigger = PublishSubject<FilterSheetType>()
         let searchButtonTrigger = PublishSubject<Void>()
+        let fetchFinishTrigger = PublishSubject<Void>()
     }
     
     struct Output {
-        var searchFilterStringDataSource = BehaviorRelay<[String]>(value: [])
+        var searchFilterStringDataSource = BehaviorRelay<[String]>(value: ["인프라", "교통"])
         var searchFilterModelDataSource = BehaviorRelay<FilterModel>(value: FilterModel.init())
-        var searchTownTableDataSource = BehaviorRelay<[townModelTest]>(value: [])
+        var searchTownTableDataSource = BehaviorRelay<[TownTableModel]>(value: [])
+        let errorNotice = PublishSubject<Void>()
     }
     
     let input = Input()
     let output = Output()
     let delegate: HomeViewModelDelegate
     
-    init(delegate: HomeViewModelDelegate) {
+    private let searchCategoryData = ["인프라", "교통"]
+    
+    // MARK: - UseCase
+    
+    let authUseCase: AuthUseCase
+    let townUseCase: TownUseCase
+    
+    // MARK: - Task
+    
+    private var townTask: Task<Void, Error>?
+    
+    init(
+        delegate: HomeViewModelDelegate,
+        authUseCase: AuthUseCase,
+        townUseCase: TownUseCase
+    ) {
         self.delegate = delegate
+        self.authUseCase = authUseCase
+        self.townUseCase = townUseCase
         
         super.init()
         self.bind()
@@ -62,10 +75,8 @@ final class HomeViewModel: BaseViewModel {
         self.input.resetButtonTrigger
             .withLatestFrom(input.resetButtonTrigger)
             .bind { [weak self] in
-                
-                // 초기화 세팅
-                let searchCategoryModel = ["인프라", "교통"]
-                self?.output.searchFilterStringDataSource.accept(searchCategoryModel)
+                guard let searchCategoryData = self?.searchCategoryData else { return }
+                self?.output.searchFilterStringDataSource.accept(searchCategoryData)
                 self?.output.searchFilterModelDataSource.accept(FilterModel.init())
             }
             .disposed(by: disposeBag)
@@ -78,13 +89,39 @@ final class HomeViewModel: BaseViewModel {
                                             filterDataSource: dataSource)
             }
             .disposed(by: disposeBag)
-        
-        // 임시
-        let searchCategoryModel = ["인프라", "교통"]
-        self.output.searchFilterStringDataSource.accept(searchCategoryModel)
-        self.output.searchTownTableDataSource.accept(returnTownTestData())
     }
 }
+
+// MARK: - NetWork
+
+extension HomeViewModel {
+    func fetchTownInformation(filterStatus: String = "", subwayList: [String] = []) {
+        self.townTask = Task {
+            do {
+                let townInformation = try await self.townUseCase.getTownInfomation(filterStatus: filterStatus,
+                                                                                   subwayList: subwayList)
+                await MainActor.run(body: {
+                    let townTableModel = townInformation.toEntity
+                    self.setTownTableView(townTableModel)
+                })
+            } catch (let error) {
+                await MainActor.run {
+                    self.output.errorNotice.onNext(())
+                    let townTableMockData = TownTableMockData()
+                    self.setTownTableView([townTableMockData])
+                }
+                Log.error(error)
+            }
+            townTask?.cancel()
+        }
+    }
+    
+    private func setTownTableView(_ townTableModel: [TownTableModel]) {
+        self.output.searchTownTableDataSource.accept(townTableModel)
+        self.input.fetchFinishTrigger.onNext(())
+    }
+}
+
 
 extension HomeViewModel: HomeViewModelType {
     
@@ -94,20 +131,5 @@ extension HomeViewModel: HomeViewModelType {
     
     func goToGuSearchView() {
         delegate.goToGuSearchView()
-    }
-}
-
-extension HomeViewModel {
-    func returnTownTestData() -> [townModelTest] {
-        let demoTown1 = townModelTest(image: "map", village: "신림동", introduce: "자취생들이 많이 사는 동네")
-        let demoTown2 = townModelTest(image: "map", village: "신림동", introduce: "자취생들이 많이 사는 동네")
-        let demoTown3 = townModelTest(image: "map", village: "신림동", introduce: "자취생들이 많이 사는 동네")
-        let demoTown4 = townModelTest(image: "map", village: "신림동", introduce: "자취생들이 많이 사는 동네")
-        let demoTown5 = townModelTest(image: "map", village: "신림동", introduce: "자취생들이 많이 사는 동네")
-        let demoTown6 = townModelTest(image: "map", village: "신림동", introduce: "자취생들이 많이 사는 동네")
-        let demoTown7 = townModelTest(image: "map", village: "신림동", introduce: "자취생들이 많이 사는 동네")
-        
-        let towns = [demoTown1, demoTown2, demoTown3, demoTown4, demoTown5, demoTown6, demoTown7]
-        return towns
     }
 }

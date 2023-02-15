@@ -98,6 +98,12 @@
 		BCE814F82967DBAD00A6E3CB /* LoginViewModelDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCE814F72967DBAD00A6E3CB /* LoginViewModelDelegate.swift */; };
 		BCE996662976915A00AACD02 /* FilterCollectionViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCE996652976915A00AACD02 /* FilterCollectionViewFlowLayout.swift */; };
 		BCE99668297693D100AACD02 /* TrafficCollectionViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCE99667297693D100AACD02 /* TrafficCollectionViewFlowLayout.swift */; };
+		BCF68B50299BB16300E8D83E /* TownUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF68B4F299BB16300E8D83E /* TownUseCase.swift */; };
+		BCF68B53299BB1DF00E8D83E /* DefaultTownRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF68B52299BB1DF00E8D83E /* DefaultTownRepository.swift */; };
+		BCF68B56299BB25C00E8D83E /* TownFilterRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF68B55299BB25C00E8D83E /* TownFilterRequest.swift */; };
+		BCF68B58299BB2A000E8D83E /* TownFilterDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF68B57299BB2A000E8D83E /* TownFilterDTO.swift */; };
+		BCF68B5A299BB2B900E8D83E /* TownFilterResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF68B59299BB2B900E8D83E /* TownFilterResponseDTO.swift */; };
+		BCF68B5C299BDE3E00E8D83E /* TownTableModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF68B5B299BDE3E00E8D83E /* TownTableModel.swift */; };
 		BCF8258C2988C38D00AC00BB /* APIKeyInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = BCF8258B2988C38D00AC00BB /* APIKeyInfo.plist */; };
 		BCF825922988C90C00AC00BB /* MyPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF825912988C90C00AC00BB /* MyPageViewController.swift */; };
 		BCF825942988C91500AC00BB /* MyPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF825932988C91500AC00BB /* MyPageViewModel.swift */; };
@@ -273,6 +279,12 @@
 		BCE814F72967DBAD00A6E3CB /* LoginViewModelDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModelDelegate.swift; sourceTree = "<group>"; };
 		BCE996652976915A00AACD02 /* FilterCollectionViewFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterCollectionViewFlowLayout.swift; sourceTree = "<group>"; };
 		BCE99667297693D100AACD02 /* TrafficCollectionViewFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrafficCollectionViewFlowLayout.swift; sourceTree = "<group>"; };
+		BCF68B4F299BB16300E8D83E /* TownUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TownUseCase.swift; sourceTree = "<group>"; };
+		BCF68B52299BB1DF00E8D83E /* DefaultTownRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultTownRepository.swift; sourceTree = "<group>"; };
+		BCF68B55299BB25C00E8D83E /* TownFilterRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TownFilterRequest.swift; sourceTree = "<group>"; };
+		BCF68B57299BB2A000E8D83E /* TownFilterDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TownFilterDTO.swift; sourceTree = "<group>"; };
+		BCF68B59299BB2B900E8D83E /* TownFilterResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TownFilterResponseDTO.swift; sourceTree = "<group>"; };
+		BCF68B5B299BDE3E00E8D83E /* TownTableModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TownTableModel.swift; sourceTree = "<group>"; };
 		BCF8258B2988C38D00AC00BB /* APIKeyInfo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = APIKeyInfo.plist; path = ../../../../../../Downloads/APIKeyInfo.plist; sourceTree = "<group>"; };
 		BCF825912988C90C00AC00BB /* MyPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewController.swift; sourceTree = "<group>"; };
 		BCF825932988C91500AC00BB /* MyPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewModel.swift; sourceTree = "<group>"; };
@@ -773,6 +785,22 @@
 			path = SubViews;
 			sourceTree = "<group>";
 		};
+		BCF68B51299BB18B00E8D83E /* Town */ = {
+			isa = PBXGroup;
+			children = (
+				BCF68B52299BB1DF00E8D83E /* DefaultTownRepository.swift */,
+			);
+			path = Town;
+			sourceTree = "<group>";
+		};
+		BCF68B54299BB24C00E8D83E /* Town */ = {
+			isa = PBXGroup;
+			children = (
+				BCF68B55299BB25C00E8D83E /* TownFilterRequest.swift */,
+			);
+			path = Town;
+			sourceTree = "<group>";
+		};
 		BCF8258E2988C8D900AC00BB /* MyPageScene */ = {
 			isa = PBXGroup;
 			children = (
@@ -840,6 +868,7 @@
 				F38AA82A29842C2D00EF66F2 /* SigninUserModel.swift */,
 				BC47D639299381D000FE83D5 /* ReviewModel.swift */,
 				BC47D63D2993845800FE83D5 /* FilterModel.swift */,
+				BCF68B5B299BDE3E00E8D83E /* TownTableModel.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -938,6 +967,7 @@
 		F38AA7F229811EE400EF66F2 /* Repository */ = {
 			isa = PBXGroup;
 			children = (
+				BCF68B51299BB18B00E8D83E /* Town */,
 				BC853DEE298B812A0033AF20 /* Member */,
 				F38AA8092981759100EF66F2 /* Token */,
 				F38AA801298125FF00EF66F2 /* Auth */,
@@ -948,6 +978,7 @@
 		F38AA7F72981245D00EF66F2 /* Requests */ = {
 			isa = PBXGroup;
 			children = (
+				BCF68B54299BB24C00E8D83E /* Town */,
 				F38AA80B29817DEC00EF66F2 /* Member */,
 				F38AA7F82981247600EF66F2 /* Auth */,
 			);
@@ -978,6 +1009,7 @@
 			children = (
 				F38AA7FD2981259200EF66F2 /* AuthUseCase.swift */,
 				BC853DEC298B80DD0033AF20 /* MemberUseCase.swift */,
+				BCF68B4F299BB16300E8D83E /* TownUseCase.swift */,
 			);
 			path = UseCase;
 			sourceTree = "<group>";
@@ -997,6 +1029,7 @@
 			children = (
 				F38AA80529816C4700EF66F2 /* MemberIdDTO.swift */,
 				F38AA821298396D300EF66F2 /* MemberSignupDTO.swift */,
+				BCF68B57299BB2A000E8D83E /* TownFilterDTO.swift */,
 			);
 			path = Request;
 			sourceTree = "<group>";
@@ -1011,6 +1044,7 @@
 				F3356EFF298F986A002B9FFD /* TokenPayloadDTO.swift */,
 				F3356F03298FA2C3002B9FFD /* LogoutResponseDTO.swift */,
 				BC853DF1298B84F90033AF20 /* MemberInfomationResponseDTO.swift */,
+				BCF68B59299BB2B900E8D83E /* TownFilterResponseDTO.swift */,
 			);
 			path = Reponse;
 			sourceTree = "<group>";
@@ -1371,10 +1405,12 @@
 				F39EDDD2296D7C0E00A4E655 /* StoreCollectionViewFlowLayout.swift in Sources */,
 				BC4C11802971256300645AA7 /* TownTableView.swift in Sources */,
 				F38AA81C2983912E00EF66F2 /* SignupRequest.swift in Sources */,
+				BCF68B50299BB16300E8D83E /* TownUseCase.swift in Sources */,
 				F38CCBDF2958287C000C16AF /* HomeViewModel.swift in Sources */,
 				BC043A892989371D005FAE45 /* DividerView.swift in Sources */,
 				BC0D88512963DCF300CCB800 /* LocationAndYearsViewModel.swift in Sources */,
 				2B628DE229866A7800A90D9A /* TrafficTipView.swift in Sources */,
+				BCF68B53299BB1DF00E8D83E /* DefaultTownRepository.swift in Sources */,
 				F3891E1F293B8393003CE8AD /* AppDelegate.swift in Sources */,
 				BC8B638D298A4B4C004E1116 /* ChangeNicknameViewModel.swift in Sources */,
 				BC9F4D59296BE5FC0099473C /* FavoriteTownViewController.swift in Sources */,
@@ -1390,6 +1426,7 @@
 				BC689866298A8A4400668C86 /* FilterCollectionView.swift in Sources */,
 				F3219B722969B346000024E4 /* StoreType.swift in Sources */,
 				BC1CE29629753FB800F89B81 /* TrafficCollectionView.swift in Sources */,
+				BCF68B58299BB2A000E8D83E /* TownFilterDTO.swift in Sources */,
 				2BEE90D129780640002E7C3A /* EmptyView.swift in Sources */,
 				BC056C562962B29F00EDCA18 /* SignupCoordinator.swift in Sources */,
 				F38AA800298125FB00EF66F2 /* DefaultAppleAuthRepository.swift in Sources */,
@@ -1412,9 +1449,11 @@
 				F3219B692969432C000024E4 /* MapDetailComponentView.swift in Sources */,
 				2BEE90D32978111C002E7C3A /* FavoriteTableView.swift in Sources */,
 				F3219B7A2969D53D000024E4 /* AddressSheetCoordinator.swift in Sources */,
+				BCF68B5A299BB2B900E8D83E /* TownFilterResponseDTO.swift in Sources */,
 				2B718C1A2966A6000068884A /* MapCategory.swift in Sources */,
 				F38CCBE12958287C000C16AF /* HomeCoordinator.swift in Sources */,
 				2BEE90C52977F90A002E7C3A /* FavoriteViewController.swift in Sources */,
+				BCF68B5C299BDE3E00E8D83E /* TownTableModel.swift in Sources */,
 				2BEE90CF2977FDFE002E7C3A /* AnonymousView.swift in Sources */,
 				2B628DDC29865DD800A90D9A /* TownMoodCollectionViewCell.swift in Sources */,
 				F38AA822298396D300EF66F2 /* MemberSignupDTO.swift in Sources */,
@@ -1454,6 +1493,7 @@
 				F39EDDC4296D667800A4E655 /* County.swift in Sources */,
 				F3219B742969B351000024E4 /* StoreDetailType.swift in Sources */,
 				BC354708298F9D010016FE4A /* ServiceMapPopUpViewController.swift in Sources */,
+				BCF68B56299BB25C00E8D83E /* TownFilterRequest.swift in Sources */,
 				BC1CE29429753F9E00F89B81 /* InfraIconStackView.swift in Sources */,
 				2B628DF529869F0C00A90D9A /* TownRankView.swift in Sources */,
 				F39EDDCA296D788800A4E655 /* CityCollectionViewFlowLayout.swift in Sources */,
