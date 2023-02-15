@@ -42,13 +42,7 @@ struct MemberInfomationDTO: Response {
     struct Location: Response {
         let objectId: Int
         let admNm: String
-        let admCd: String
-        let admCd2: String
-        let sido: String
         let sidoNm: String
-        let sgg: String
         let sggNm: String
-        let admCd8: String
-        let coordinates: String
     }
 }
