@@ -90,7 +90,7 @@ final class HomeViewController: BaseViewController {
     }()
     
     private let tableViewHeaderView = UIView()
-    
+    private let tableViewFooterView = TownTableFooterView()
     private let townTableView = TownTableView()
     
     // MARK: - Life Cycle
@@ -140,6 +140,8 @@ final class HomeViewController: BaseViewController {
         view.addSubview(indicator)
         view.addSubview(townTableView)
         townTableView.tableHeaderView = tableViewHeaderView
+        townTableView.tableHeaderView?.backgroundColor = FindTownColor.white.color
+        townTableView.tableFooterView = tableViewFooterView
     }
     
     override func setLayout() {
@@ -173,6 +175,12 @@ final class HomeViewController: BaseViewController {
             tableViewHeaderView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableViewHeaderView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             tableViewHeaderView.heightAnchor.constraint(equalToConstant: 280)
+        ])
+        
+        tableViewFooterView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            tableViewFooterView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            tableViewFooterView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 100)
         ])
         
         spacingView.translatesAutoresizingMaskIntoConstraints = false
@@ -234,6 +242,7 @@ final class HomeViewController: BaseViewController {
         
         townListTitleAndSafeScoreView.backgroundColor = FindTownColor.back2.color
         
+        townTableView.tableFooterView?.isHidden = true
         townTableView.isHidden = true
         townTableView.rowHeight = 150
         townTableView.estimatedRowHeight = 150
@@ -282,8 +291,9 @@ final class HomeViewController: BaseViewController {
         filterResetButton.rx.tap
             .throttle(.milliseconds(300), scheduler: MainScheduler.instance)
             .bind { [weak self] in
+                self?.townTableView.backgroundColor = FindTownColor.back2.color
                 self?.viewModel?.input.resetButtonTrigger.onNext(())
-                self?.FilterResetButtonHidden(true)
+                self?.setupTableView(true)
             }
             .disposed(by: disposeBag)
         
@@ -303,6 +313,19 @@ final class HomeViewController: BaseViewController {
                 self?.indicator.stopAnimating()
                 self?.indicator.isHidden = true
                 self?.townTableView.isHidden = false
+                self?.townTableView.backgroundColor = FindTownColor.white.color
+            }
+            .disposed(by: disposeBag)
+        
+        viewModel?.input.setEmptyViewTrigger
+            .bind { [weak self] in
+                self?.setupTableViewFooterView(.FilterEmptyView)
+            }
+            .disposed(by: disposeBag)
+        
+        viewModel?.input.setNetworkErrorViewTrigger
+            .bind { [weak self] in
+                self?.setupTableViewFooterView(.NetworkErrorView)
             }
             .disposed(by: disposeBag)
         
@@ -346,9 +369,7 @@ final class HomeViewController: BaseViewController {
     
     func dismissBottomSheet(_ filterModel: FilterModel) {
         
-        // 필터 선택 끝났을 때
-        
-        FilterResetButtonHidden(false)
+        setupTableView(false)
         
         var traffic = "교통"
         if let first = filterModel.traffic.first {
@@ -359,9 +380,16 @@ final class HomeViewController: BaseViewController {
         
         viewModel?.output.searchFilterStringDataSource.accept([infra, traffic])
         viewModel?.output.searchFilterModelDataSource.accept(filterModel)
+        
+        viewModel?.fetchTownInformation(filterStatus: filterModel.toFilterStatus, subwayList: filterModel.traffic)
     }
     
-    private func FilterResetButtonHidden(_ isHidden: Bool) {
+    private func setupTableView(_ isHidden: Bool) {
+        safetyScoreStackView.isHidden = false
+        
+        townTableView.isScrollEnabled = true
+        townTableView.tableFooterView?.isHidden = true
+        
         if isHidden {
             townListImageView.image = UIImage(named: "townList")
             townRecommendationTitle.text = "동네 리스트"
@@ -372,6 +400,22 @@ final class HomeViewController: BaseViewController {
         
         filterResetButton.isHidden = isHidden
         filterButton.isHidden = !isHidden
+    }
+    
+    private func setupTableViewFooterView(_ footerType: FooterType) {
+        townTableView.isScrollEnabled = false
+        townTableView.backgroundColor = FindTownColor.back2.color
+        townTableView.tableFooterView?.isHidden = false
+        
+        footerType == .NetworkErrorView ? tableViewFooterView.setNetworkErrorView() : tableViewFooterView.setFilterEmptyView()
+        tableViewFooterView.layoutIfNeeded()
+        
+        safetyScoreStackView.isHidden = true
+    }
+    
+    enum FooterType {
+        case NetworkErrorView
+        case FilterEmptyView
     }
 }
 

@@ -29,6 +29,8 @@ final class HomeViewModel: BaseViewModel {
         let filterButtonTrigger = PublishSubject<FilterSheetType>()
         let searchButtonTrigger = PublishSubject<Void>()
         let fetchFinishTrigger = PublishSubject<Void>()
+        let setEmptyViewTrigger = PublishSubject<Void>()
+        let setNetworkErrorViewTrigger = PublishSubject<Void>()
         let safetySortTrigger = PublishSubject<Bool>()
     }
     
@@ -79,6 +81,7 @@ final class HomeViewModel: BaseViewModel {
                 guard let searchCategoryData = self?.searchCategoryData else { return }
                 self?.output.searchFilterStringDataSource.accept(searchCategoryData)
                 self?.output.searchFilterModelDataSource.accept(FilterModel.init())
+                self?.fetchTownInformation()
             }
             .disposed(by: disposeBag)
         
@@ -116,8 +119,7 @@ extension HomeViewModel {
             } catch (let error) {
                 await MainActor.run {
                     self.output.errorNotice.onNext(())
-                    let townTableMockData = TownTableMockData()
-                    self.setTownTableView([townTableMockData])
+                    self.setNetworkErrorTownTableView()
                 }
                 Log.error(error)
             }
@@ -126,11 +128,18 @@ extension HomeViewModel {
     }
     
     private func setTownTableView(_ townTableModel: [TownTableModel]) {
-        self.output.searchTownTableDataSource.accept(townTableModel)
         self.input.fetchFinishTrigger.onNext(())
+        if townTableModel.isEmpty {
+            self.input.setEmptyViewTrigger.onNext(())
+        }
+        self.output.searchTownTableDataSource.accept(townTableModel)
+    }
+    
+    private func setNetworkErrorTownTableView() {
+        self.input.fetchFinishTrigger.onNext(())
+        self.input.setNetworkErrorViewTrigger.onNext(())
     }
 }
-
 
 extension HomeViewModel: HomeViewModelType {
     

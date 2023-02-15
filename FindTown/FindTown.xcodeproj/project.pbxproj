@@ -53,6 +53,7 @@
 		BC1CE29629753FB800F89B81 /* TrafficCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC1CE29529753FB800F89B81 /* TrafficCollectionView.swift */; };
 		BC1CE298297545D600F89B81 /* TrafficCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC1CE297297545D600F89B81 /* TrafficCollectionViewCell.swift */; };
 		BC1CE29A2975634800F89B81 /* FilterSheetCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC1CE2992975634800F89B81 /* FilterSheetCoordinator.swift */; };
+		BC32F822299CE20B0038F0D6 /* TownTableFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC32F821299CE20B0038F0D6 /* TownTableFooterView.swift */; };
 		BC354708298F9D010016FE4A /* ServiceMapPopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC354707298F9D010016FE4A /* ServiceMapPopUpViewController.swift */; };
 		BC42D352297FA89D00A2F487 /* SelectCountyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC42D351297FA89D00A2F487 /* SelectCountyViewController.swift */; };
 		BC42D354297FA8B200A2F487 /* SelectCountyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC42D353297FA8B200A2F487 /* SelectCountyViewModel.swift */; };
@@ -239,6 +240,7 @@
 		BC1CE29529753FB800F89B81 /* TrafficCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrafficCollectionView.swift; sourceTree = "<group>"; };
 		BC1CE297297545D600F89B81 /* TrafficCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrafficCollectionViewCell.swift; sourceTree = "<group>"; };
 		BC1CE2992975634800F89B81 /* FilterSheetCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterSheetCoordinator.swift; sourceTree = "<group>"; };
+		BC32F821299CE20B0038F0D6 /* TownTableFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TownTableFooterView.swift; sourceTree = "<group>"; };
 		BC354707298F9D010016FE4A /* ServiceMapPopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceMapPopUpViewController.swift; sourceTree = "<group>"; };
 		BC42D351297FA89D00A2F487 /* SelectCountyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectCountyViewController.swift; sourceTree = "<group>"; };
 		BC42D353297FA8B200A2F487 /* SelectCountyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectCountyViewModel.swift; sourceTree = "<group>"; };
@@ -595,6 +597,7 @@
 				BC4C117F2971256300645AA7 /* TownTableView.swift */,
 				BC4C11812971256D00645AA7 /* TownTableViewCell.swift */,
 				BC689865298A8A4400668C86 /* FilterCollectionView.swift */,
+				BC32F821299CE20B0038F0D6 /* TownTableFooterView.swift */,
 			);
 			path = SubViews;
 			sourceTree = "<group>";
@@ -1443,6 +1446,7 @@
 				2B718C182966A5930068884A /* MapCategoryCollectionViewCell.swift in Sources */,
 				BC47D63E2993845800FE83D5 /* FilterModel.swift in Sources */,
 				2B628DE92986909700A90D9A /* HotPlaceCollectionViewLayout.swift in Sources */,
+				BC32F822299CE20B0038F0D6 /* TownTableFooterView.swift in Sources */,
 				BC4C117E297124F900645AA7 /* FilterCollectionViewCell.swift in Sources */,
 				BC47D63A299381D000FE83D5 /* ReviewModel.swift in Sources */,
 				F38CCBD829582869000C16AF /* TabBarCoordinator.swift in Sources */,
