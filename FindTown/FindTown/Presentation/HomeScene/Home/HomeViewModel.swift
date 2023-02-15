@@ -29,6 +29,7 @@ final class HomeViewModel: BaseViewModel {
         let filterButtonTrigger = PublishSubject<FilterSheetType>()
         let searchButtonTrigger = PublishSubject<Void>()
         let fetchFinishTrigger = PublishSubject<Void>()
+        let safetySortTrigger = PublishSubject<Bool>()
     }
     
     struct Output {
@@ -89,6 +90,14 @@ final class HomeViewModel: BaseViewModel {
                                             filterDataSource: dataSource)
             }
             .disposed(by: disposeBag)
+        
+        self.input.safetySortTrigger
+            .bind { [weak self] isSafetyHigh in
+                guard let dataSource = self?.output.searchTownTableDataSource.value else { return }
+                let sortedValue = dataSource.sorted { isSafetyHigh ? $0.safetyRate > $1.safetyRate : $0.safetyRate < $1.safetyRate}
+                self?.output.searchTownTableDataSource.accept(sortedValue)
+            }
+            .disposed(by: disposeBag)
     }
 }
 
@@ -99,7 +108,7 @@ extension HomeViewModel {
         self.townTask = Task {
             do {
                 let townInformation = try await self.townUseCase.getTownInformation(filterStatus: filterStatus,
-                                                                                   subwayList: subwayList)
+                                                                                    subwayList: subwayList)
                 await MainActor.run(body: {
                     let townTableModel = townInformation.toEntity
                     self.setTownTableView(townTableModel)

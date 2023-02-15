@@ -77,6 +77,10 @@ final class HomeViewController: BaseViewController {
         return stackView
     }()
     
+    private let safetyToolTip = ToolTip(text: "안전 점수는 동네별 범죄와 생활안전\n지수의 평균을 반영한 값입니다.",
+                                        viewColor: .black, textColor: .white,
+                                        tipLocation: .topCustom(tipXPoint: 100.0), width: 100, height: 52)
+    
     private let townListTitleAndSafeScoreView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
@@ -129,7 +133,7 @@ final class HomeViewController: BaseViewController {
             townListTitleAndSafeScoreView.addArrangedSubview($0)
         }
         
-        [spacingView, villageSearchTitle, filterStackView, townListTitleAndSafeScoreView].forEach {
+        [spacingView, villageSearchTitle, filterStackView, townListTitleAndSafeScoreView, safetyToolTip].forEach {
             tableViewHeaderView.addSubview($0)
         }
         
@@ -139,6 +143,11 @@ final class HomeViewController: BaseViewController {
     }
     
     override func setLayout() {
+        NSLayoutConstraint.activate([
+            safetyToolTip.topAnchor.constraint(equalTo: safetyScoreStackView.bottomAnchor, constant: 10.0),
+            safetyToolTip.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10.0)
+        ])
+        
         indicator.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             indicator.topAnchor.constraint(equalTo: view.topAnchor),
@@ -229,6 +238,15 @@ final class HomeViewController: BaseViewController {
         townTableView.rowHeight = 150
         townTableView.estimatedRowHeight = 150
         
+        safetyToolTip.dismiss()
+        addTapGesture()
+        
+        [safetyTitle, infoIconBackView].forEach {
+            let tap = UITapGestureRecognizer(target: self, action: #selector(tapSafetyTitleAndIcon))
+            $0.isUserInteractionEnabled = true
+            $0.addGestureRecognizer(tap)
+        }
+        
         viewModel?.fetchTownInformation()
     }
     
@@ -242,8 +260,8 @@ final class HomeViewController: BaseViewController {
         checkBox.rx.tap
             .throttle(.milliseconds(300), scheduler: MainScheduler.instance)
             .bind { [weak self] in
-                // 안전 점수 sort
-                // checkBox.isSelected, searchFilterModelDataSource.safetyRate
+                guard let isSafetyHigh = self?.checkBox.isSelected else { return }
+                self?.viewModel?.input.safetySortTrigger.onNext(isSafetyHigh)
             }
             .disposed(by: disposeBag)
         
@@ -385,17 +403,26 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout {
     }
 }
 
-extension Reactive where Base: UIScrollView {
-    func reachedBottom(offset: CGFloat = 0.0) -> ControlEvent<Void> {
-        let source = contentOffset.map { contentOffset in
-            let visibleHeight = self.base.frame.height - self.base.contentInset.top - self.base.contentInset.bottom
-            let y = contentOffset.y + self.base.contentInset.top
-            let threshold = max(offset, self.base.contentSize.height - visibleHeight)
-            return y >= threshold
+private extension HomeViewController {
+    
+    @objc func tapSafetyTitleAndIcon() {
+        if safetyToolTip.alpha == 1.0 {
+            safetyToolTip.dismiss()
+        } else {
+            safetyToolTip.alpha = 1.0
         }
-            .distinctUntilChanged()
-            .filter { $0 }
-            .map { _ in () }
-        return ControlEvent(events: source)
+    }
+    
+    func addTapGesture() {
+        let backViewTap = UITapGestureRecognizer(target: self, action: #selector(backViewTapped(_:)))
+        backViewTap.cancelsTouchesInView = false
+        view.addGestureRecognizer(backViewTap)
+    }
+    
+    @objc func backViewTapped(_ tapRecognizer: UITapGestureRecognizer) {
+        let backViewTappedLocation = tapRecognizer.location(in: self.safetyToolTip)
+        if safetyToolTip.point(inside: backViewTappedLocation, with: nil) == false {
+            safetyToolTip.dismiss()
+        }
     }
 }
