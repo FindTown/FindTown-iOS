@@ -98,7 +98,7 @@ extension HomeViewModel {
     func fetchTownInformation(filterStatus: String = "", subwayList: [String] = []) {
         self.townTask = Task {
             do {
-                let townInformation = try await self.townUseCase.getTownInfomation(filterStatus: filterStatus,
+                let townInformation = try await self.townUseCase.getTownInformation(filterStatus: filterStatus,
                                                                                    subwayList: subwayList)
                 await MainActor.run(body: {
                     let townTableModel = townInformation.toEntity

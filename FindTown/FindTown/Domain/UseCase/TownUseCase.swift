@@ -15,12 +15,12 @@ final class TownUseCase {
         self.defaultTownRepository = DefaultTownRepository()
     }
     
-    func getTownInfomation(filterStatus: String = "", subwayList: [String] = []) async throws -> TownFilterResponseDTO {
-        return try await defaultTownRepository.getTownInfomation(filterStatus: filterStatus,
+    func getTownInformation(filterStatus: String = "", subwayList: [String] = []) async throws -> TownFilterResponseDTO {
+        return try await defaultTownRepository.getTownInformation(filterStatus: filterStatus,
                                                                  subwayList: subwayList)
     }
     
-    func getSearchTownInfomation() {
+    func getSearchTownInformation() {
         
     }
 }

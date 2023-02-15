@@ -66,9 +66,9 @@ extension MyTownReviewViewModel {
         self.reviewTask = Task {
             do {
                 let accessToken = try await authUseCase.getAccessToken()
-                let memberInfomation = try await self.memberUseCase.getMemberInfomation(accessToken: accessToken)
+                let memberInformation = try await self.memberUseCase.getMemberInformation(accessToken: accessToken)
                 await MainActor.run(body: {
-                    self.output.reviewTableDataSource.accept([memberInfomation.resident.toEntity])
+                    self.output.reviewTableDataSource.accept([memberInformation.resident.toEntity])
                 })
                 reviewTask?.cancel()
             } catch (let error) {

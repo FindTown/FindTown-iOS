@@ -76,8 +76,8 @@
 		BC7BCBCF29646EEA003BB4FF /* TownMoodViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC7BCBCE29646EEA003BB4FF /* TownMoodViewModel.swift */; };
 		BC853DED298B80DD0033AF20 /* MemberUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC853DEC298B80DD0033AF20 /* MemberUseCase.swift */; };
 		BC853DF0298B813C0033AF20 /* MemberRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC853DEF298B813C0033AF20 /* MemberRepository.swift */; };
-		BC853DF2298B84F90033AF20 /* MemberInfomationResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC853DF1298B84F90033AF20 /* MemberInfomationResponseDTO.swift */; };
-		BC853DF5298B89830033AF20 /* MemberInfomationRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC853DF4298B89830033AF20 /* MemberInfomationRequest.swift */; };
+		BC853DF2298B84F90033AF20 /* MemberInformationResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC853DF1298B84F90033AF20 /* MemberInformationResponseDTO.swift */; };
+		BC853DF5298B89830033AF20 /* MemberInformationRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC853DF4298B89830033AF20 /* MemberInformationRequest.swift */; };
 		BC853DFE298C04C20033AF20 /* MyPageAnonymousViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC853DFD298C04C20033AF20 /* MyPageAnonymousViewController.swift */; };
 		BC853E00298C04D00033AF20 /* MyPageAnonymousViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC853DFF298C04D00033AF20 /* MyPageAnonymousViewModel.swift */; };
 		BC8B638729894EE1004E1116 /* MyPageCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC8B638629894EE1004E1116 /* MyPageCollectionView.swift */; };
@@ -258,8 +258,8 @@
 		BC7BCBCE29646EEA003BB4FF /* TownMoodViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TownMoodViewModel.swift; sourceTree = "<group>"; };
 		BC853DEC298B80DD0033AF20 /* MemberUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberUseCase.swift; sourceTree = "<group>"; };
 		BC853DEF298B813C0033AF20 /* MemberRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberRepository.swift; sourceTree = "<group>"; };
-		BC853DF1298B84F90033AF20 /* MemberInfomationResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberInfomationResponseDTO.swift; sourceTree = "<group>"; };
-		BC853DF4298B89830033AF20 /* MemberInfomationRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberInfomationRequest.swift; sourceTree = "<group>"; };
+		BC853DF1298B84F90033AF20 /* MemberInformationResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberInformationResponseDTO.swift; sourceTree = "<group>"; };
+		BC853DF4298B89830033AF20 /* MemberInformationRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberInformationRequest.swift; sourceTree = "<group>"; };
 		BC853DFD298C04C20033AF20 /* MyPageAnonymousViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageAnonymousViewController.swift; sourceTree = "<group>"; };
 		BC853DFF298C04D00033AF20 /* MyPageAnonymousViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageAnonymousViewModel.swift; sourceTree = "<group>"; };
 		BC8B638629894EE1004E1116 /* MyPageCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageCollectionView.swift; sourceTree = "<group>"; };
@@ -1043,7 +1043,7 @@
 				F3356EFD298F8784002B9FFD /* ReissueResponseDTO.swift */,
 				F3356EFF298F986A002B9FFD /* TokenPayloadDTO.swift */,
 				F3356F03298FA2C3002B9FFD /* LogoutResponseDTO.swift */,
-				BC853DF1298B84F90033AF20 /* MemberInfomationResponseDTO.swift */,
+				BC853DF1298B84F90033AF20 /* MemberInformationResponseDTO.swift */,
 				BCF68B59299BB2B900E8D83E /* TownFilterResponseDTO.swift */,
 			);
 			path = Reponse;
@@ -1084,7 +1084,7 @@
 		F38AA80B29817DEC00EF66F2 /* Member */ = {
 			isa = PBXGroup;
 			children = (
-				BC853DF4298B89830033AF20 /* MemberInfomationRequest.swift */,
+				BC853DF4298B89830033AF20 /* MemberInformationRequest.swift */,
 				F38AA80C29817E2000EF66F2 /* NickNameCheckRequest.swift */,
 				F38AA81B2983912E00EF66F2 /* SignupRequest.swift */,
 				F3356EF9298EB918002B9FFD /* LoginConfirmRequest.swift */,
@@ -1469,7 +1469,7 @@
 				F3356F02298FA270002B9FFD /* LogoutRequest.swift in Sources */,
 				BCF825992988DFF800AC00BB /* SupportSectionCollectionViewCell.swift in Sources */,
 				F3219B6729694328000024E4 /* MapDetailCategoryView.swift in Sources */,
-				BC853DF2298B84F90033AF20 /* MemberInfomationResponseDTO.swift in Sources */,
+				BC853DF2298B84F90033AF20 /* MemberInformationResponseDTO.swift in Sources */,
 				F38CCBE02958287C000C16AF /* HomeViewController.swift in Sources */,
 				F38AA8142982877300EF66F2 /* CityMapping.swift in Sources */,
 				BC47D6382993809A00FE83D5 /* MyPageViewSection.swift in Sources */,
@@ -1485,7 +1485,7 @@
 				F38AA80D29817E2000EF66F2 /* NickNameCheckRequest.swift in Sources */,
 				BCF825962988C93500AC00BB /* MyPageCoordinator.swift in Sources */,
 				BC199C40297FE95F00C2A89B /* ShowVillageListViewController.swift in Sources */,
-				BC853DF5298B89830033AF20 /* MemberInfomationRequest.swift in Sources */,
+				BC853DF5298B89830033AF20 /* MemberInformationRequest.swift in Sources */,
 				F3219B6C29699B25000024E4 /* MapStoreCollectionViewCell.swift in Sources */,
 				2B628DDE29865E3800A90D9A /* TownMoodCollectionViewLayout.swift in Sources */,
 				F3891E21293B8393003CE8AD /* SceneDelegate.swift in Sources */,

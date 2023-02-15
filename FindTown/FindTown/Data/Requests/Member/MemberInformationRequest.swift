@@ -8,13 +8,13 @@
 import Foundation
 import FindTownNetwork
 
-struct MemberInfomationRequest: BaseRequest {
+struct MemberInformationRequest: BaseRequest {
 
     init(HTTPHeaders: HTTPHeaders) {
         self.headers = HTTPHeaders
     }
     
-    typealias ResponseType = MemberInfomationResponseDTO
+    typealias ResponseType = MemberInformationResponseDTO
     var path: String = "/app/members/info"
     var method: FindTownNetwork.HttpMethod = .get
     var headers: FindTownNetwork.HTTPHeaders

@@ -10,7 +10,7 @@ import FindTownNetwork
 
 final class DefaultTownRepository {
     
-    func getTownInfomation(filterStatus: String = "", subwayList: [String] = []) async throws -> TownFilterResponseDTO {
+    func getTownInformation(filterStatus: String = "", subwayList: [String] = []) async throws -> TownFilterResponseDTO {
         let HTTPHeaders = HTTPHeaders([.accept("*/*"),
                                        .contentType("application/json")])
         let townFilter = TownFilterDTO(filterStatus: filterStatus, subwayList: subwayList)
@@ -19,7 +19,7 @@ final class DefaultTownRepository {
         return data.body
     }
     
-    func getSearchTownInfomation() {
+    func getSearchTownInformation() {
         
     }
 }

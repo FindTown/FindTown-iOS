@@ -27,7 +27,7 @@ final class MyPageCollectionViewCompositionalLayout: UICollectionViewLayout {
             case 1:
                 return self.getLayoutSupportSection()
             case 2:
-                return self.getLayoutInfomationSection()
+                return self.getLayoutInformationSection()
             default:
                 return nil
             }
@@ -105,7 +105,7 @@ private extension MyPageCollectionViewCompositionalLayout {
     }
     
     /// 정보 섹션
-    func getLayoutInfomationSection() -> NSCollectionLayoutSection {
+    func getLayoutInformationSection() -> NSCollectionLayoutSection {
         let itemSize = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(1.0),
             heightDimension: .absolute(50)

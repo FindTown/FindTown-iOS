@@ -15,7 +15,7 @@ final class MemberUseCase {
         self.memberRepository = MemberRepository()
     }
     
-    func getMemberInfomation(accessToken: String) async throws -> MemberInfomationDTO {
-        return try await memberRepository.getMemberInfomation(accessToken)
+    func getMemberInformation(accessToken: String) async throws -> MemberInformationDTO {
+        return try await memberRepository.getMemberInformation(accessToken)
     }
 }
