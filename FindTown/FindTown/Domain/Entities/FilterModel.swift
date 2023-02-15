@@ -10,4 +10,19 @@ import Foundation
 struct FilterModel {
     var infra: String = ""
     var traffic: [String] = []
+    
+    var toFilterStatus: String {
+        switch infra {
+        case "편의시설":
+            return "convenience"
+        case "의료":
+            return "medical"
+        case "운동":
+            return "exercise"
+        case "자연":
+            return "greenery"
+        default:
+            return ""
+        }
+    }
 }
