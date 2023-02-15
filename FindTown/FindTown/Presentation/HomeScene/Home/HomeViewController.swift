@@ -44,7 +44,6 @@ final class HomeViewController: BaseViewController {
         return stackView
     }()
     
-    private let townListImageView = UIImageView()
     private let townRecommendationTitle = FindTownLabel(text: "동네 리스트", font: .subtitle2, textColor: .grey6)
     private let townImageTitleStackView: UIStackView = {
         let stackView = UIStackView()
@@ -115,7 +114,7 @@ final class HomeViewController: BaseViewController {
             filterStackView.addArrangedSubview($0)
         }
         
-        [townListImageView, townRecommendationTitle].forEach {
+        [townRecommendationTitle].forEach {
             townImageTitleStackView.addArrangedSubview($0)
         }
         
@@ -221,7 +220,7 @@ final class HomeViewController: BaseViewController {
     override func setupView() {
         indicator.startAnimating()
         
-        townListImageView.image = UIImage(named: "townList")
+        setTownRecommendationTitle("townList", "동네 리스트")
         
         navigationItem.leftBarButtonItem = UIBarButtonItem(customView: homeLogo)
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: searchButton)
@@ -391,11 +390,9 @@ final class HomeViewController: BaseViewController {
         townTableView.tableFooterView?.isHidden = true
         
         if isHidden {
-            townListImageView.image = UIImage(named: "townList")
-            townRecommendationTitle.text = "동네 리스트"
+            setTownRecommendationTitle("townList", "동네 리스트")
         } else {
-            townListImageView.image = UIImage(named: "townList_searched")
-            townRecommendationTitle.text = "필터로 찾은 동네"
+            setTownRecommendationTitle("townList_searched", "필터로 찾은 동네")
         }
         
         filterResetButton.isHidden = isHidden
@@ -416,6 +413,11 @@ final class HomeViewController: BaseViewController {
     enum FooterType {
         case NetworkErrorView
         case FilterEmptyView
+    }
+    
+    enum TownTableType {
+        case List
+        case Filter
     }
 }
 
@@ -468,5 +470,21 @@ private extension HomeViewController {
         if safetyToolTip.point(inside: backViewTappedLocation, with: nil) == false {
             safetyToolTip.dismiss()
         }
+    }
+    
+    func setTownRecommendationTitle(_ imageNamed: String, _ labelText: String) {
+        let attributedString = NSMutableAttributedString(string: "")
+        let imageAttachment = NSTextAttachment()
+        let image = UIImage(named: imageNamed)
+        guard let image = image else { return }
+        imageAttachment.image = image
+        imageAttachment.bounds = CGRect(x: 0, y: (FindTownFont.subtitle2.font.capHeight - image.size.height) / 2, width: image.size.width, height: image.size.height)
+        let padding = " "
+        let paddingString = NSAttributedString(string: padding)
+        attributedString.append(NSAttributedString(attachment: imageAttachment))
+        attributedString.append(paddingString)
+        attributedString.append(NSAttributedString(string: labelText))
+        townRecommendationTitle.attributedText = attributedString
+        townRecommendationTitle.sizeToFit()
     }
 }
