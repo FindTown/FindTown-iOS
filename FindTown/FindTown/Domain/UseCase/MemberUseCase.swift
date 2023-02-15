@@ -35,6 +35,10 @@ final class MemberUseCase {
     }
     
     func resign(accessToken: String) async throws -> Bool {
-        return try await memberRepository.resign(accessToken: accessToken).resignMember
+        let isResign = try await memberRepository.resign(accessToken: accessToken).resignMember
+        if isResign {
+            try await tokenRepository.deleteTokens()
+        }
+        return isResign
     }
 }
