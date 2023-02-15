@@ -32,7 +32,7 @@ final class ChangeNicknameViewController: BaseViewController {
         return stackView
     }()
     private let nickNameStatusLabel = FindTownLabel(text: "", font: .label3)
-
+    
     private let confirmButton = FTButton(style: .largeFilled)
     
     // MARK: - Life Cycle
@@ -74,7 +74,7 @@ final class ChangeNicknameViewController: BaseViewController {
     }
     
     override func setLayout() {
-
+        
         NSLayoutConstraint.activate([
             inputNickNameTitle.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 40),
             inputNickNameTitle.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
@@ -124,14 +124,14 @@ final class ChangeNicknameViewController: BaseViewController {
     override func bindViewModel() {
         
         // input
-
+        
         nickNameTextField.rx.text.orEmpty
             .distinctUntilChanged()
             .bind { [weak self] nickname in
                 self?.viewModel?.input.nickname.onNext(nickname)
             }
             .disposed(by: disposeBag)
-
+        
         duplicateButton.rx.tap
             .throttle(.milliseconds(300), scheduler: MainScheduler.instance)
             .bind { [weak self] in
@@ -140,20 +140,31 @@ final class ChangeNicknameViewController: BaseViewController {
                 self?.viewModel?.input.nickNameCheckTrigger.onNext(nickName)
             }
             .disposed(by: disposeBag)
-
+        
         confirmButton.rx.tap
             .throttle(.milliseconds(300), scheduler: MainScheduler.instance)
             .bind { [weak self] in
                 self?.viewModel?.input.confirmButtonTrigger.onNext(())
             }
             .disposed(by: disposeBag)
-
+        
         // output
-
+        
         viewModel?.output.nickNameStatus
             .asDriver(onErrorJustReturn: .none)
             .drive { [weak self] nickNameStatus in
                 self?.nickNameStatusChange(nickNameStatus)
+            }
+            .disposed(by: disposeBag)
+        
+        viewModel?.output.errorNotice
+            .subscribe { [weak self] _ in
+                self?.showErrorNoticeAlertPopUp(message: "네트워크 오류가 발생하였습니다.",
+                                                buttonText: "확인",
+                                                buttonAction: {
+                    self?.dismiss(animated: false) {
+                        self?.navigationController?.popViewController(animated: true)
+                    }})
             }
             .disposed(by: disposeBag)
     }
