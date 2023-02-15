@@ -69,6 +69,7 @@ final class MyPageViewModel: BaseViewModel {
     
     private var myInfomationTask: Task<Void, Error>?
     private var resignTask: Task<Void, Error>?
+    private var logoutTask: Task<Void, Error>?
     
     init(
         delegate: MyPageViewModelDelegate,
@@ -200,6 +201,26 @@ extension MyPageViewModel {
                 })
             }
             myInfomationTask?.cancel()
+        }
+    }
+    
+    func logout() {
+        self.logoutTask = Task {
+            do {
+                let accessToken = try await authUseCase.getAccessToken()
+                let isLogout = try await self.memberUseCase.logout(accessToken: accessToken)
+                
+                await MainActor.run(body: {
+                    isLogout ? self.goToAuth() : self.showErrorNoticeAlert()
+                })
+                logoutTask?.cancel()
+            } catch (let error) {
+                Log.error(error)
+                await MainActor.run(body: {
+                    self.showErrorNoticeAlert()
+                })
+            }
+            logoutTask?.cancel()
         }
     }
     

@@ -101,7 +101,9 @@ final class MyPageViewController: BaseViewController {
             .subscribe { [weak self] _ in
                 self?.showAlertSuccessCancelPopUp(title: "동네한입", message: "로그아웃 하시겠어요?",
                                                   successButtonText: "로그아웃", cancelButtonText: "취소",
-                                                  successButtonAction: { })
+                                                  successButtonAction: {
+                    self?.viewModel?.logout()
+                })
             }
             .disposed(by: disposeBag)
         
