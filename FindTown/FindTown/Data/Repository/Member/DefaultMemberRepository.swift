@@ -34,4 +34,11 @@ final class DefaultMemberRepository {
         let data = try await Network.shared.request(target: LogoutRequest(HTTPHeaders: HTTPHeaders))
         return data.body
     }
+    
+    func resign(accessToken: String) async throws -> MemberResignDTO {
+        let HTTPHeaders = HTTPHeaders([.accept("*/*"),
+                                       .authorization(bearerToken: accessToken)])
+        let data = try await Network.shared.request(target: ResignRequest(HTTPHeaders: HTTPHeaders))
+        return data.body
+    }
 }

@@ -33,4 +33,8 @@ final class MemberUseCase {
     func logout(accessToken: String) async throws -> Bool {
         return try await memberRepository.logout(accessToken: accessToken).logout
     }
+    
+    func resign(accessToken: String) async throws -> Bool {
+        return try await memberRepository.resign(accessToken: accessToken).resignMember
+    }
 }
