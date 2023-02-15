@@ -23,7 +23,12 @@ struct TownFilterResponseDTO: Response {
             let wishTown = townInformation.wishTown
             let safetyRate = townInformation.safetyRate
             let townIntroduction = townInformation.townIntroduction
-            let tableModel = TownTableModel(objectId: townInformation.objectId, county: county, countyIcon: countyIcon, wishTown: wishTown, safetyRate: safetyRate, townIntroduction: townIntroduction)
+            let tableModel = TownTableModel(objectId: townInformation.objectId,
+                                            county: county,
+                                            countyIcon: countyIcon,
+                                            wishTown: wishTown,
+                                            safetyRate: safetyRate,
+                                            townIntroduction: townIntroduction)
             tableModels.append(tableModel)
         }
         return tableModels
