@@ -180,6 +180,13 @@ final class NicknameViewController: BaseViewController {
                 self?.nickNameStatusChange(nickNameStatus)
             }
             .disposed(by: disposeBag)
+        
+        viewModel?.output.errorNotice
+            .subscribe { [weak self] _ in
+                self?.showErrorNoticeAlertPopUp(message: "네트워크 오류가 발생하였습니다.",
+                                                buttonText: "확인")
+            }
+            .disposed(by: disposeBag)
     }
     
     private func nickNameStatusChange(_ nickNameStatus: NicknameStatus) {
