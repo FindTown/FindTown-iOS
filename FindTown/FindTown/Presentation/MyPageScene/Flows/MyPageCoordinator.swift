@@ -122,4 +122,9 @@ extension MyPageCoordinator: MyPageViewModelDelegate {
         guard let navigationController = navigationController else { return }
         navigationController.pushViewController(showPersonalInfo(), animated: true)
     }
+    
+    func goToAuth() {
+        guard let navigationController = navigationController else { return }
+        LoginCoordinator(presentationStyle: .setViewController(navigationController: navigationController)).start()
+    }
 }

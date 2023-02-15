@@ -41,7 +41,9 @@ public extension FlowCoordinator {
             let newNavigation = BaseNavigationController(rootViewController: initScene())
             newNavigation.modalTransitionStyle = .flipHorizontal
             newNavigation.modalPresentationStyle = .overFullScreen
-            navigationController.present(newNavigation, animated: true, completion: nil)
+            navigationController.present(newNavigation, animated: true) {
+                self.navigationController = newNavigation
+            }
         case .none:
             self.navigationController = BaseNavigationController(rootViewController: initScene())
         }

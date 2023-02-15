@@ -110,7 +110,9 @@ final class MyPageViewController: BaseViewController {
                 self?.showAlertSuccessCancelPopUp(title: "회원탈퇴",
                                                   message: "탈퇴 시 모든 정보는 삭제됩니다.\n(단, 동네후기는 제외)\n정말로 탈퇴하시겠어요?",
                                                   successButtonText: "탈퇴", cancelButtonText: "취소",
-                                                  successButtonAction: { })
+                                                  successButtonAction: {
+                    self?.viewModel?.resignMember()
+                })
             }
             .disposed(by: disposeBag)
         
