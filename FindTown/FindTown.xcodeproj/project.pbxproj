@@ -46,7 +46,6 @@
 		BC0D88532963DD0D00CCB800 /* LocationAndYearsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC0D88522963DD0D00CCB800 /* LocationAndYearsViewController.swift */; };
 		BC0D88552963DD1D00CCB800 /* KakaoAddressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC0D88542963DD1D00CCB800 /* KakaoAddressViewController.swift */; };
 		BC0D88592964641400CCB800 /* YearMonthPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC0D88582964641400CCB800 /* YearMonthPickerView.swift */; };
-		BC103D8C297FD0B200A709EC /* SearchCountyCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC103D8B297FD0B200A709EC /* SearchCountyCoordinator.swift */; };
 		BC199C40297FE95F00C2A89B /* ShowVillageListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC199C3F297FE95F00C2A89B /* ShowVillageListViewController.swift */; };
 		BC199C42297FE96E00C2A89B /* ShowVillageListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC199C41297FE96E00C2A89B /* ShowVillageListViewModel.swift */; };
 		BC1CE29429753F9E00F89B81 /* InfraIconStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC1CE29329753F9E00F89B81 /* InfraIconStackView.swift */; };
@@ -54,9 +53,10 @@
 		BC1CE298297545D600F89B81 /* TrafficCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC1CE297297545D600F89B81 /* TrafficCollectionViewCell.swift */; };
 		BC1CE29A2975634800F89B81 /* FilterSheetCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC1CE2992975634800F89B81 /* FilterSheetCoordinator.swift */; };
 		BC32F822299CE20B0038F0D6 /* TownTableFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC32F821299CE20B0038F0D6 /* TownTableFooterView.swift */; };
+		BC32F829299D48FC0038F0D6 /* SearchCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC32F828299D48FC0038F0D6 /* SearchCoordinator.swift */; };
+		BC32F82B299D49CC0038F0D6 /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC32F82A299D49CC0038F0D6 /* SearchViewModel.swift */; };
+		BC32F82D299D49D60038F0D6 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC32F82C299D49D60038F0D6 /* SearchViewController.swift */; };
 		BC354708298F9D010016FE4A /* ServiceMapPopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC354707298F9D010016FE4A /* ServiceMapPopUpViewController.swift */; };
-		BC42D352297FA89D00A2F487 /* SelectCountyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC42D351297FA89D00A2F487 /* SelectCountyViewController.swift */; };
-		BC42D354297FA8B200A2F487 /* SelectCountyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC42D353297FA8B200A2F487 /* SelectCountyViewModel.swift */; };
 		BC47D6382993809A00FE83D5 /* MyPageViewSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC47D6372993809A00FE83D5 /* MyPageViewSection.swift */; };
 		BC47D63A299381D000FE83D5 /* ReviewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC47D639299381D000FE83D5 /* ReviewModel.swift */; };
 		BC47D63C299383CA00FE83D5 /* FilterBottomSheetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC47D63B299383CA00FE83D5 /* FilterBottomSheetType.swift */; };
@@ -233,7 +233,6 @@
 		BC0D88522963DD0D00CCB800 /* LocationAndYearsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationAndYearsViewController.swift; sourceTree = "<group>"; };
 		BC0D88542963DD1D00CCB800 /* KakaoAddressViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoAddressViewController.swift; sourceTree = "<group>"; };
 		BC0D88582964641400CCB800 /* YearMonthPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YearMonthPickerView.swift; sourceTree = "<group>"; };
-		BC103D8B297FD0B200A709EC /* SearchCountyCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCountyCoordinator.swift; sourceTree = "<group>"; };
 		BC199C3F297FE95F00C2A89B /* ShowVillageListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowVillageListViewController.swift; sourceTree = "<group>"; };
 		BC199C41297FE96E00C2A89B /* ShowVillageListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowVillageListViewModel.swift; sourceTree = "<group>"; };
 		BC1CE29329753F9E00F89B81 /* InfraIconStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfraIconStackView.swift; sourceTree = "<group>"; };
@@ -241,9 +240,10 @@
 		BC1CE297297545D600F89B81 /* TrafficCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrafficCollectionViewCell.swift; sourceTree = "<group>"; };
 		BC1CE2992975634800F89B81 /* FilterSheetCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterSheetCoordinator.swift; sourceTree = "<group>"; };
 		BC32F821299CE20B0038F0D6 /* TownTableFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TownTableFooterView.swift; sourceTree = "<group>"; };
+		BC32F828299D48FC0038F0D6 /* SearchCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCoordinator.swift; sourceTree = "<group>"; };
+		BC32F82A299D49CC0038F0D6 /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
+		BC32F82C299D49D60038F0D6 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		BC354707298F9D010016FE4A /* ServiceMapPopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceMapPopUpViewController.swift; sourceTree = "<group>"; };
-		BC42D351297FA89D00A2F487 /* SelectCountyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectCountyViewController.swift; sourceTree = "<group>"; };
-		BC42D353297FA8B200A2F487 /* SelectCountyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectCountyViewModel.swift; sourceTree = "<group>"; };
 		BC47D6372993809A00FE83D5 /* MyPageViewSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewSection.swift; sourceTree = "<group>"; };
 		BC47D639299381D000FE83D5 /* ReviewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewModel.swift; sourceTree = "<group>"; };
 		BC47D63B299383CA00FE83D5 /* FilterBottomSheetType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterBottomSheetType.swift; sourceTree = "<group>"; };
@@ -553,16 +553,6 @@
 			path = Login;
 			sourceTree = "<group>";
 		};
-		BC103D8D297FD60100A709EC /* SelectCounty */ = {
-			isa = PBXGroup;
-			children = (
-				BC42D351297FA89D00A2F487 /* SelectCountyViewController.swift */,
-				BC42D353297FA8B200A2F487 /* SelectCountyViewModel.swift */,
-				BC354706298F96B10016FE4A /* SubViews */,
-			);
-			path = SelectCounty;
-			sourceTree = "<group>";
-		};
 		BC103D8E297FD68200A709EC /* ShowVillageList */ = {
 			isa = PBXGroup;
 			children = (
@@ -572,21 +562,40 @@
 			path = ShowVillageList;
 			sourceTree = "<group>";
 		};
+		BC32F825299D48B00038F0D6 /* SearchScene */ = {
+			isa = PBXGroup;
+			children = (
+				BC32F827299D48CC0038F0D6 /* Flows */,
+				BC32F826299D48C80038F0D6 /* Search */,
+			);
+			path = SearchScene;
+			sourceTree = "<group>";
+		};
+		BC32F826299D48C80038F0D6 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				BC32F82C299D49D60038F0D6 /* SearchViewController.swift */,
+				BC32F82A299D49CC0038F0D6 /* SearchViewModel.swift */,
+				BC354706298F96B10016FE4A /* SubViews */,
+				BC103D8E297FD68200A709EC /* ShowVillageList */,
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
+		BC32F827299D48CC0038F0D6 /* Flows */ = {
+			isa = PBXGroup;
+			children = (
+				BC32F828299D48FC0038F0D6 /* SearchCoordinator.swift */,
+			);
+			path = Flows;
+			sourceTree = "<group>";
+		};
 		BC354706298F96B10016FE4A /* SubViews */ = {
 			isa = PBXGroup;
 			children = (
 				BC354707298F9D010016FE4A /* ServiceMapPopUpViewController.swift */,
 			);
 			path = SubViews;
-			sourceTree = "<group>";
-		};
-		BC42D350297FA53400A2F487 /* SearchCounty */ = {
-			isa = PBXGroup;
-			children = (
-				BC103D8D297FD60100A709EC /* SelectCounty */,
-				BC103D8E297FD68200A709EC /* ShowVillageList */,
-			);
-			path = SearchCounty;
 			sourceTree = "<group>";
 		};
 		BC4C117A297124C900645AA7 /* SubViews */ = {
@@ -665,6 +674,7 @@
 		BC6EFB75293B9C3800AB3332 /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				BC32F825299D48B00038F0D6 /* SearchScene */,
 				BCF8258E2988C8D900AC00BB /* MyPageScene */,
 				2B628DF62987803100A90D9A /* TownIntroScene */,
 				BC056C512962B03B00EDCA18 /* AuthScene */,
@@ -1124,7 +1134,6 @@
 		F38CCBD92958287C000C16AF /* HomeScene */ = {
 			isa = PBXGroup;
 			children = (
-				BC42D350297FA53400A2F487 /* SearchCounty */,
 				F38CCBDD2958287C000C16AF /* Flows */,
 				F38CCBDA2958287C000C16AF /* Home */,
 			);
@@ -1147,7 +1156,6 @@
 			children = (
 				F38CCBDE2958287C000C16AF /* HomeCoordinator.swift */,
 				BC1CE2992975634800F89B81 /* FilterSheetCoordinator.swift */,
-				BC103D8B297FD0B200A709EC /* SearchCountyCoordinator.swift */,
 			);
 			path = Flows;
 			sourceTree = "<group>";
@@ -1364,7 +1372,6 @@
 				2B7AE8312987F59200DF19C8 /* TownIntroCoordinator.swift in Sources */,
 				F38CCBD729582869000C16AF /* AppCoordinator.swift in Sources */,
 				2B628DD7298650CD00A90D9A /* TownIntroViewModel.swift in Sources */,
-				BC103D8C297FD0B200A709EC /* SearchCountyCoordinator.swift in Sources */,
 				BC04A6E529700E1400B60BCF /* KeyChainError.swift in Sources */,
 				BC8B6391298A66D0004E1116 /* MyTownReviewViewModel.swift in Sources */,
 				F38AA8322986267D00EF66F2 /* BaseRequest.swift in Sources */,
@@ -1385,7 +1392,7 @@
 				BC853DED298B80DD0033AF20 /* MemberUseCase.swift in Sources */,
 				F38CCBEA29582881000C16AF /* MapCoordinator.swift in Sources */,
 				BC1CE298297545D600F89B81 /* TrafficCollectionViewCell.swift in Sources */,
-				BC42D352297FA89D00A2F487 /* SelectCountyViewController.swift in Sources */,
+				BC32F829299D48FC0038F0D6 /* SearchCoordinator.swift in Sources */,
 				BC8B638F298A4B5B004E1116 /* ChangeNicknameViewController.swift in Sources */,
 				F39EDDC2296D635100A4E655 /* CityType.swift in Sources */,
 				BC47D63C299383CA00FE83D5 /* FilterBottomSheetType.swift in Sources */,
@@ -1425,6 +1432,7 @@
 				BC9F4D60296BF0D30099473C /* AgreePolicyViewModel.swift in Sources */,
 				BC056C5A2962B2B900EDCA18 /* LoginViewModel.swift in Sources */,
 				F3356EE2298CEA4B002B9FFD /* TokenInformationDTO.swift in Sources */,
+				BC32F82D299D49D60038F0D6 /* SearchViewController.swift in Sources */,
 				BC7BCBCD29646EE1003BB4FF /* TownMoodViewController.swift in Sources */,
 				BC689866298A8A4400668C86 /* FilterCollectionView.swift in Sources */,
 				F3219B722969B346000024E4 /* StoreType.swift in Sources */,
@@ -1446,6 +1454,7 @@
 				2B718C182966A5930068884A /* MapCategoryCollectionViewCell.swift in Sources */,
 				BC47D63E2993845800FE83D5 /* FilterModel.swift in Sources */,
 				2B628DE92986909700A90D9A /* HotPlaceCollectionViewLayout.swift in Sources */,
+				BC32F82B299D49CC0038F0D6 /* SearchViewModel.swift in Sources */,
 				BC32F822299CE20B0038F0D6 /* TownTableFooterView.swift in Sources */,
 				BC4C117E297124F900645AA7 /* FilterCollectionViewCell.swift in Sources */,
 				BC47D63A299381D000FE83D5 /* ReviewModel.swift in Sources */,
@@ -1479,7 +1488,6 @@
 				BC47D6382993809A00FE83D5 /* MyPageViewSection.swift in Sources */,
 				BC9F4D5B296BE6060099473C /* FavoriteTownViewModel.swift in Sources */,
 				BC9F4D5B296BE6060099473C /* FavoriteTownViewModel.swift in Sources */,
-				BC42D354297FA8B200A2F487 /* SelectCountyViewModel.swift in Sources */,
 				2BEE90C92977F93E002E7C3A /* FavoriteViewModel.swift in Sources */,
 				BC8B638929894F00004E1116 /* MyPageCollectionViewCompositionalLayout.swift in Sources */,
 				2BEE90C92977F93E002E7C3A /* FavoriteViewModel.swift in Sources */,

@@ -12,11 +12,11 @@ import RxCocoa
 import FindTownUI
 import FindTownCore
 
-final class SelectCountyViewController: BaseViewController {
+final class SearchViewController: BaseViewController {
     
     // MARK: - Properties
     
-    private let viewModel: SelectCountyViewModel?
+    private let viewModel: SearchViewModel?
     private let removeEveryLabelTapGesture = UITapGestureRecognizer()
     
     // MARK: - Views
@@ -27,7 +27,7 @@ final class SelectCountyViewController: BaseViewController {
     
     // MARK: - Life Cycle
     
-    init(viewModel: SelectCountyViewModel?) {
+    init(viewModel: SearchViewModel?) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
@@ -111,7 +111,7 @@ final class SelectCountyViewController: BaseViewController {
     }
 }
 
-extension SelectCountyViewController: UICollectionViewDelegateFlowLayout {
+extension SearchViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath)

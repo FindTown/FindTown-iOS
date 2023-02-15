@@ -11,17 +11,17 @@ import FindTownCore
 import RxSwift
 import RxRelay
 
-protocol SelectCountyViewModelDelegate {
+protocol SearchViewModelDelegate {
     func goToShowVillageList(selectCountyData: String)
     func popUpServiceMap()
 }
 
-protocol SelectCountyViewModelType {
+protocol SearchViewModelType {
     func goToShowVillageList(selectCountyData: String)
     func popUpServiceMap()
 }
 
-final class SelectCountyViewModel: BaseViewModel {
+final class SearchViewModel: BaseViewModel {
     
     struct Input {
         let selectedCounty = PublishSubject<String>()
@@ -37,11 +37,11 @@ final class SelectCountyViewModel: BaseViewModel {
     
     let input = Input()
     let output = Output()
-    let delegate: SelectCountyViewModelDelegate
+    let delegate: SearchViewModelDelegate
     
-    init(delegate: SelectCountyViewModelDelegate) {
+    init(delegate: SearchViewModelDelegate) {
         self.delegate = delegate
-    
+        
         super.init()
         self.bind()
     }
@@ -83,7 +83,7 @@ final class SelectCountyViewModel: BaseViewModel {
     }
 }
 
-extension SelectCountyViewModel: SelectCountyViewModelType {
+extension SearchViewModel: SearchViewModelType {
     func goToShowVillageList(selectCountyData: String) {
         delegate.goToShowVillageList(selectCountyData: selectCountyData)
     }

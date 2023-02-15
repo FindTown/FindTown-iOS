@@ -9,7 +9,7 @@ import UIKit
 
 import FindTownCore
 
-final class SearchCountyCoordinator: FlowCoordinator {
+final class SearchCoordinator: FlowCoordinator {
     
     var presentationStyle: PresentationStyle
     weak var navigationController: UINavigationController?
@@ -19,9 +19,9 @@ final class SearchCountyCoordinator: FlowCoordinator {
     }
     
     internal func initScene() -> UIViewController {
-        let selectCountyViewModel = SelectCountyViewModel(delegate: self)
-        let selectCountyViewController = SelectCountyViewController(viewModel: selectCountyViewModel)
-        return selectCountyViewController
+        let searchViewModel = SearchViewModel(delegate: self)
+        let searchViewController = SearchViewController(viewModel: searchViewModel)
+        return searchViewController
     }
     
     internal func showVillageListScene(selectCountyData: String) -> UIViewController {
@@ -37,7 +37,7 @@ final class SearchCountyCoordinator: FlowCoordinator {
     }
 }
 
-extension SearchCountyCoordinator: SelectCountyViewModelDelegate {
+extension SearchCoordinator: SearchViewModelDelegate {
     func goToShowVillageList(selectCountyData: String) {
         guard let navigationController = navigationController else { return }
         navigationController.pushViewController(showVillageListScene(selectCountyData: selectCountyData), animated: true)
