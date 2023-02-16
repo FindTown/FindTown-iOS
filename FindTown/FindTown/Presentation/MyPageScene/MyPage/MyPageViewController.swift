@@ -102,6 +102,8 @@ final class MyPageViewController: BaseViewController {
                 self?.showAlertSuccessCancelPopUp(title: "동네한입", message: "로그아웃 하시겠어요?",
                                                   successButtonText: "로그아웃", cancelButtonText: "취소",
                                                   successButtonAction: {
+                    self?.indicator.startAnimating()
+                    self?.indicator.isHidden = false
                     self?.viewModel?.logout()
                 })
             }
@@ -113,6 +115,8 @@ final class MyPageViewController: BaseViewController {
                                                   message: "탈퇴 시 모든 정보는 삭제됩니다.\n(단, 동네후기는 제외)\n정말로 탈퇴하시겠어요?",
                                                   successButtonText: "탈퇴", cancelButtonText: "취소",
                                                   successButtonAction: {
+                    self?.indicator.startAnimating()
+                    self?.indicator.isHidden = false
                     self?.viewModel?.resignMember()
                 })
             }
@@ -121,6 +125,7 @@ final class MyPageViewController: BaseViewController {
         viewModel?.output.errorNotice
             .subscribe { [weak self] _ in
                 self?.indicator.stopAnimating()
+                self?.indicator.isHidden = true
                 self?.showErrorNoticeAlertPopUp(message: "네트워크 오류가 발생하였습니다.", buttonText: "확인")
             }
             .disposed(by: disposeBag)
