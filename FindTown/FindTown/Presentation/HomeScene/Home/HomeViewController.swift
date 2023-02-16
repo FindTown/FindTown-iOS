@@ -62,6 +62,7 @@ final class HomeViewController: BaseViewController {
         return stackView
     }()
     
+    private let safetyGuideView = UIView()
     private let safetyEmptyView = UIView()
     private let checkBox = CheckBox()
     private let safetyTitle = FindTownLabel(text: "안전 점수가 높은", font: .label1, textColor: .grey6)
@@ -122,7 +123,7 @@ final class HomeViewController: BaseViewController {
             townListAndCountStackView.addArrangedSubview($0)
         }
         
-        [safetyEmptyView, checkBox, safetyTitle, infoIconBackView].forEach {
+        [safetyEmptyView, safetyGuideView, checkBox, safetyTitle, infoIconBackView].forEach {
             safetyScoreStackView.addArrangedSubview($0)
         }
         
@@ -214,7 +215,14 @@ final class HomeViewController: BaseViewController {
             townTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
         
+        safetyEmptyView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            safetyEmptyView.heightAnchor.constraint(equalToConstant: 30),
+            safetyEmptyView.widthAnchor.constraint(equalToConstant: 30)
+        ])
+        
         tableViewHeaderView.layoutIfNeeded()
+        tableViewFooterView.layoutIfNeeded()
     }
     
     override func setupView() {
@@ -245,6 +253,8 @@ final class HomeViewController: BaseViewController {
         townTableView.isHidden = true
         townTableView.rowHeight = 150
         townTableView.estimatedRowHeight = 150
+        
+        tableViewFooterView.delegate = self
         
         safetyToolTip.dismiss()
         addTapGesture()
@@ -384,30 +394,31 @@ final class HomeViewController: BaseViewController {
     }
     
     private func setupTableView(_ isHidden: Bool) {
-        safetyScoreStackView.isHidden = false
-        
-        townTableView.isScrollEnabled = true
-        townTableView.tableFooterView?.isHidden = true
-        
+        setupTableViewSafetyView(false)
         if isHidden {
             setTownRecommendationTitle("townList", "동네 리스트")
         } else {
             setTownRecommendationTitle("townList_searched", "필터로 찾은 동네")
         }
-        
         filterResetButton.isHidden = isHidden
         filterButton.isHidden = !isHidden
     }
     
     private func setupTableViewFooterView(_ footerType: FooterType) {
-        townTableView.isScrollEnabled = false
-        townTableView.backgroundColor = FindTownColor.back2.color
-        townTableView.tableFooterView?.isHidden = false
-        
+        setupTableViewSafetyView(true)
         footerType == .NetworkErrorView ? tableViewFooterView.setNetworkErrorView() : tableViewFooterView.setFilterEmptyView()
-        tableViewFooterView.layoutIfNeeded()
+    }
+    
+    private func setupTableViewSafetyView(_ isHidden: Bool) {
+        if isHidden {
+            townTableView.backgroundColor = FindTownColor.back2.color
+        }
+        townTableView.isScrollEnabled = !isHidden
+        townTableView.tableFooterView?.isHidden = !isHidden
         
-        safetyScoreStackView.isHidden = true
+        checkBox.isHidden = isHidden
+        safetyTitle.isHidden = isHidden
+        infoIconBackView.isHidden = isHidden
     }
     
     enum FooterType {
@@ -432,6 +443,12 @@ extension HomeViewController: TownTableViewCellDelegate {
     
     func didTapFavoriteButton() {
         print("didTapFavoriteButton")
+    }
+}
+
+extension HomeViewController: TownTableFooterViewDelegate {
+    func didTapRetryButton() {
+        print("retry")
     }
 }
 
