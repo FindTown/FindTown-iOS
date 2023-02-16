@@ -125,6 +125,7 @@ extension MyPageCoordinator: MyPageViewModelDelegate {
     
     func goToAuth() {
         guard let navigationController = navigationController else { return }
-        LoginCoordinator(presentationStyle: .setViewController(navigationController: navigationController)).start()
+        LoginCoordinator(presentationStyle: .setViewController(navigationController: navigationController,                                                                      modalTransitionStyle: .crossDissolve,
+                                                               modalPresentationStyle: .overFullScreen)).start()
     }
 }
