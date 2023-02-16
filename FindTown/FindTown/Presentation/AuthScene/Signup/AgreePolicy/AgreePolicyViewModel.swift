@@ -41,7 +41,7 @@ final class AgreePolicyViewModel: BaseViewModel {
     
     // MARK: - UseCase
     
-    let authUseCase: AuthUseCase
+    let memberUseCase: MemberUseCase
     
     // MARK: - Task
     
@@ -50,11 +50,11 @@ final class AgreePolicyViewModel: BaseViewModel {
     init(
         delegate: SignupViewModelDelegate,
         signupUserModel: SignupUserModel,
-        authUseCase: AuthUseCase
+        memberUseCase: MemberUseCase
     ) {
         self.delegate = delegate
         self.signupUserModel = signupUserModel
-        self.authUseCase = authUseCase
+        self.memberUseCase = memberUseCase
         
         super.init()
         self.bind()
@@ -96,7 +96,7 @@ extension AgreePolicyViewModel {
     func signup(signupUserModel: SignupUserModel) {
         self.registerTask = Task {
             do {
-                try await self.authUseCase.signup(signupUerModel: signupUserModel)
+                try await self.memberUseCase.signup(signupUerModel: signupUserModel)
                 await MainActor.run {
                     self.dismissAndGoToTabBar()
                 }

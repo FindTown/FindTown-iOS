@@ -10,4 +10,8 @@ import Foundation
 struct City {
     let county: County
     let village: Village
+    
+    var description: String {
+        return "서울시 \(self.county.rawValue) \(self.village.rawValue)"
+    }
 }

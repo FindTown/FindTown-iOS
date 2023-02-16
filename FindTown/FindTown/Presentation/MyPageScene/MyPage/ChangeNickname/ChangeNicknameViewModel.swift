@@ -35,7 +35,7 @@ final class ChangeNicknameViewModel: BaseViewModel {
     
     // MARK: - UseCase
     
-    let authUseCase: AuthUseCase
+    let memberUseCase: MemberUseCase
     
     // MARK: - Task
     
@@ -43,10 +43,10 @@ final class ChangeNicknameViewModel: BaseViewModel {
     
     init(
         delegate: MyPageViewModelDelegate,
-        authUseCase: AuthUseCase
+        memberUseCase: MemberUseCase
     ) {
         self.delegate = delegate
-        self.authUseCase = authUseCase
+        self.memberUseCase = memberUseCase
         
         super.init()
         self.bind()
@@ -90,7 +90,7 @@ extension ChangeNicknameViewModel {
     func checkNicknameDuplicate(nickname: String) {
         self.nicknameCheckTask = Task {
             do {
-                let existence = try await self.authUseCase.checkNicknameDuplicate(nickName: nickname)
+                let existence = try await self.memberUseCase.checkNicknameDuplicate(nickName: nickname)
                 await MainActor.run(body: {
                     if existence {
                         self.output.nickNameStatus.accept(.duplicate)

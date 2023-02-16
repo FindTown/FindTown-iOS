@@ -217,7 +217,12 @@ private extension DropDown {
     
     func setLayout() {
         if let contentHeight = contentHeight {
-            tableView.heightAnchor.constraint(equalToConstant: CGFloat(contentHeight)).isActive = true
+            let intrinsicContenttHeight = self.tableView.intrinsicContentSize.height
+            if intrinsicContenttHeight < CGFloat(contentHeight) {
+                tableView.heightAnchor.constraint(equalToConstant: intrinsicContenttHeight).isActive = true
+            } else {
+                tableView.heightAnchor.constraint(equalToConstant: CGFloat(contentHeight)).isActive = true
+            }
         }
         
         [textView, shadowView].forEach {

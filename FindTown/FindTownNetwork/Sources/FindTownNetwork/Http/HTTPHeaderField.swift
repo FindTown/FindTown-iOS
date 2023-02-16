@@ -11,6 +11,7 @@ public enum HTTPHeaderField {
     case contentType
     case accept
     case authorization
+    case custom(String)
     
     var description: String {
         switch self {
@@ -20,6 +21,8 @@ public enum HTTPHeaderField {
             return "Accept"
         case .authorization:
             return "Authorization"
+        case .custom(let headerString):
+            return headerString
         }
     }
 }

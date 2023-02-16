@@ -4,15 +4,14 @@
 //
 //  Created by 김성훈 on 2023/02/02.
 //
-
 import Foundation
 import FindTownNetwork
 
 struct MemberInformationResponseDTO: Response {
-    let memberInformation: MemberInformationDTO
+    let memberInfomation: MemberInformationDTO
     
     enum CodingKeys: String, CodingKey {
-        case memberInformation = "member_info"
+        case memberInfomation = "member_info"
     }
 }
 

@@ -12,6 +12,8 @@ import NMapsMap
 import RxSwift
 import RxCocoa
 
+typealias Coordinates = [[Double]]
+
 final class MapViewController: BaseViewController {
     
     // MARK: - Properties
@@ -28,7 +30,6 @@ final class MapViewController: BaseViewController {
                                          action: nil)
     private let addressButton: UIButton = {
         let button = UIButton()
-        button.setTitle("서울시 관악구 신림동", for: .normal)
         button.setTitleColor(FindTownColor.grey7.color, for: .normal)
         button.titleLabel?.font = FindTownFont.label1.font
         button.setImage(UIImage(named: "dropDown"), for: .normal)
@@ -41,6 +42,11 @@ final class MapViewController: BaseViewController {
     fileprivate let storeCollectionView = StoreCollectionView()
     
     var currentIndex: CGFloat = 0
+    
+    // MARK: Map property
+    
+    var villagePolygonOverlay: NMFPolygonOverlay?
+    var isFirstShowingVillage: Bool = true
     
     // MARK: - Life Cycle
     
@@ -87,7 +93,7 @@ final class MapViewController: BaseViewController {
         viewModel?.output.categoryDataSource.observe(on: MainScheduler.instance)
             .bind(to: categoryCollectionView.rx.items(cellIdentifier: MapCategoryCollectionViewCell.reuseIdentifier,
                                               cellType: MapCategoryCollectionViewCell.self)) { index, item, cell in
-                cell.setupCell(image: item.image, title: item.title)
+                cell.setupCell(image: item.image, title: item.description)
                 if index == 0 {
                     self.selectFirstItem(item)
                 }
@@ -113,13 +119,34 @@ final class MapViewController: BaseViewController {
         
         viewModel?.output.city
             .subscribe(onNext: { [weak self] city in
-                let cityString = "서울시 \(city.county.rawValue) \(city.village.rawValue)"
-                self?.addressButton.setTitle(cityString, for: .normal)
+                self?.addressButton.setTitle(city.description, for: .normal)
             })
             .disposed(by: disposeBag)
         
+        viewModel?.output.cityBoundaryCoordinates
+            .subscribe(onNext: { [weak self] boundaryCoordinates in
+                guard let isFirstShowingVillage = self?.isFirstShowingVillage else {
+                    return
+                }
+                if isFirstShowingVillage {
+                    self?.setVillageCooridnateOverlay(boundaryCoordinates, animation: false)
+                } else {
+                    self?.setVillageCooridnateOverlay(boundaryCoordinates, animation: true)
+                }
+                
+                self?.isFirstShowingVillage = false
+            })
+            .disposed(by: disposeBag)
+            
+        
         viewModel?.output.isFavoriteCity
             .bind(to: rx.isFavoriteCity)
+            .disposed(by: disposeBag)
+        
+        viewModel?.output.errorNotice
+            .subscribe { [weak self] _ in
+                self?.showErrorNoticeAlertPopUp(message: "네트워크 오류가 발생하였습니다.", buttonText: "확인")
+            }
             .disposed(by: disposeBag)
         
     }
@@ -149,6 +176,10 @@ final class MapViewController: BaseViewController {
         self.navigationItem.rightBarButtonItem = favoriteButton
         self.storeCollectionView.delegate = self
         favoriteButton.tintColor = FindTownColor.grey4.color
+        
+        self.viewModel?.setCity()
+        setMapZoomLevel()
+        setMapLayerGrounp()
     }
 
     override func setLayout() {
@@ -156,10 +187,10 @@ final class MapViewController: BaseViewController {
         setMapViewLayout()
     }
     
-    private func selectFirstItem(_ item: Category) {
+    private func selectFirstItem(_ item: MCategory) {
         DispatchQueue.main.async {
             self.categoryCollectionView.selectItem(at: IndexPath(item: 0, section: 0), animated: true, scrollPosition: .bottom)
-            self.detailCategoryView.setStackView(data: item.detailCategories)
+//            self.detailCategoryView.setStackView(data: item.detailCategories)
         }
     }
 }
@@ -219,6 +250,43 @@ private extension MapViewController {
             detailCategoryView.topAnchor.constraint(equalTo: categoryCollectionView.bottomAnchor, constant: 1.0),
             detailCategoryView.leadingAnchor.constraint(equalTo: mapView.leadingAnchor, constant: 16.0)
         ])
+    }
+}
+
+// MARK: MapView
+
+extension MapViewController {
+    
+    func setMapZoomLevel() {
+        mapView.minZoomLevel = 10.0
+        mapView.maxZoomLevel = 18.0
+                
+        // 서울 인근 카메라 제한
+        mapView.extent = NMGLatLngBounds(southWestLat: 37.40, southWestLng: 126.70, northEastLat: 37.60, northEastLng: 127.10)
+    }
+    
+    func setMapLayerGrounp() {
+        mapView.setLayerGroup(NMF_LAYER_GROUP_MOUNTAIN, isEnabled: true)
+        mapView.setLayerGroup(NMF_LAYER_GROUP_TRANSIT, isEnabled: true)
+    }
+    
+    func setVillageCooridnateOverlay(_ boundaryCoordinates: Coordinates, animation: Bool = true) {
+        villagePolygonOverlay?.mapView = nil
+        
+        let cameraPosition = NMFCameraPosition(NMGLatLng(lat: boundaryCoordinates[0][1], lng: boundaryCoordinates[0][0]), zoom: 14, tilt: 0, heading: 0)
+        let cameraUpdate = NMFCameraUpdate(position: cameraPosition)
+        
+        if animation {
+            cameraUpdate.animation = .easeIn
+            cameraUpdate.animationDuration = 0.5
+        }
+        mapView.moveCamera(cameraUpdate)
+
+        let villagePolygon = NMGPolygon(ring: NMGLineString(points: MapConstant.koreaBoundaryCoordinates.convertNMLatLng()), interiorRings: [NMGLineString(points: boundaryCoordinates.convertNMLatLng())])
+        villagePolygonOverlay = NMFPolygonOverlay(villagePolygon as! NMGPolygon<AnyObject>)
+        
+        villagePolygonOverlay?.fillColor = UIColor(red: 26, green: 26, blue: 26).withAlphaComponent(0.2)
+        villagePolygonOverlay?.mapView = mapView
     }
 }
 
@@ -292,6 +360,14 @@ extension Reactive where Base: MapViewController {
                 viewController.favoriteButton.image = UIImage(named: "favorite.nonselect")
                 viewController.favoriteButton.tintColor = FindTownColor.grey4.color
             }
+        }
+    }
+}
+
+fileprivate extension Coordinates {
+    func convertNMLatLng() -> [NMGLatLng] {
+        return self.map { coordinate in
+            NMGLatLng(lat: coordinate[1], lng: coordinate[0])
         }
     }
 }
