@@ -90,7 +90,6 @@ final class HomeViewController: BaseViewController {
     }()
     
     private let tableViewHeaderView = UIView()
-    private let tableViewFooterView = TownTableFooterView()
     private let townTableView = TownTableView()
     
     // MARK: - Life Cycle
@@ -141,7 +140,6 @@ final class HomeViewController: BaseViewController {
         view.addSubview(townTableView)
         townTableView.tableHeaderView = tableViewHeaderView
         townTableView.tableHeaderView?.backgroundColor = FindTownColor.white.color
-        townTableView.tableFooterView = tableViewFooterView
     }
     
     override func setLayout() {
@@ -175,12 +173,6 @@ final class HomeViewController: BaseViewController {
             tableViewHeaderView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableViewHeaderView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             tableViewHeaderView.heightAnchor.constraint(equalToConstant: 280)
-        ])
-        
-        tableViewFooterView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            tableViewFooterView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            tableViewFooterView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 100)
         ])
         
         spacingView.translatesAutoresizingMaskIntoConstraints = false
@@ -222,7 +214,6 @@ final class HomeViewController: BaseViewController {
         ])
         
         tableViewHeaderView.layoutIfNeeded()
-        tableViewFooterView.layoutIfNeeded()
     }
     
     override func setupView() {
@@ -253,8 +244,6 @@ final class HomeViewController: BaseViewController {
         townTableView.isHidden = true
         townTableView.rowHeight = 150
         townTableView.estimatedRowHeight = 150
-        
-        tableViewFooterView.delegate = self
         
         safetyToolTip.dismiss()
         addTapGesture()
@@ -394,6 +383,7 @@ final class HomeViewController: BaseViewController {
     }
     
     private func setupTableView(_ isHidden: Bool) {
+        townTableView.tableFooterView = nil
         setupTableViewSafetyView(false)
         if isHidden {
             setTownRecommendationTitle("townList", "동네 리스트")
@@ -406,7 +396,19 @@ final class HomeViewController: BaseViewController {
     
     private func setupTableViewFooterView(_ footerType: FooterType) {
         setupTableViewSafetyView(true)
-        footerType == .NetworkErrorView ? tableViewFooterView.setNetworkErrorView() : tableViewFooterView.setFilterEmptyView()
+        
+        let townTableFooterView = TownTableFooterView()
+        townTableFooterView.delegate = self
+        townTableView.tableFooterView = townTableFooterView
+        townTableFooterView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            townTableFooterView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 200),
+            townTableFooterView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            townTableFooterView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            townTableFooterView.heightAnchor.constraint(equalToConstant: 300),
+        ])
+        
+        footerType == .NetworkErrorView ? townTableFooterView.setNetworkErrorView() : townTableFooterView.setFilterEmptyView()
     }
     
     private func setupTableViewSafetyView(_ isHidden: Bool) {
@@ -448,7 +450,8 @@ extension HomeViewController: TownTableViewCellDelegate {
 
 extension HomeViewController: TownTableFooterViewDelegate {
     func didTapRetryButton() {
-        print("retry")
+        viewModel?.input.resetButtonTrigger.onNext(())
+        setupTableView(true)
     }
 }
 
