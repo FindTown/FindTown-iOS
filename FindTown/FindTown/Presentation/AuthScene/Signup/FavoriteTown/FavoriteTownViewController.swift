@@ -67,6 +67,7 @@ final class FavoriteTownViewController: BaseViewController {
     }
     
     override func setLayout() {
+        let screenWidth = UIScreen.main.bounds.width
         
         nowStatusPogressView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -93,20 +94,20 @@ final class FavoriteTownViewController: BaseViewController {
         ])
         
         NSLayoutConstraint.activate([
-            dropDownsView.topAnchor.constraint(equalTo: favoriteSubTitle.bottomAnchor, constant: 16),
+            dropDownsView.topAnchor.constraint(equalTo: favoriteSubTitle.bottomAnchor, constant: 57),
             dropDownsView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             dropDownsView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
             dropDownsView.heightAnchor.constraint(equalToConstant: 300),
         ])
         
         NSLayoutConstraint.activate([
-            countyDropDown.topAnchor.constraint(equalTo: favoriteSubTitle.bottomAnchor, constant: 16),
+            countyDropDown.topAnchor.constraint(equalTo: dropDownsView.topAnchor),
             countyDropDown.leadingAnchor.constraint(equalTo: dropDownsView.leadingAnchor),
-            countyDropDown.widthAnchor.constraint(equalToConstant: 164),
+            countyDropDown.widthAnchor.constraint(equalToConstant: screenWidth * 0.45),
             
-            villageDropDown.topAnchor.constraint(equalTo: countyDropDown.topAnchor),
-            villageDropDown.leadingAnchor.constraint(equalTo: countyDropDown.trailingAnchor, constant: 14),
-            villageDropDown.widthAnchor.constraint(equalToConstant: 164),
+            villageDropDown.topAnchor.constraint(equalTo: dropDownsView.topAnchor),
+            villageDropDown.trailingAnchor.constraint(equalTo: dropDownsView.trailingAnchor),
+            villageDropDown.widthAnchor.constraint(equalToConstant: screenWidth * 0.45),
         ])
     }
     
