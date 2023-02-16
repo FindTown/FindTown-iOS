@@ -169,6 +169,7 @@
 		F391845F299A691500CEF02E /* ThemaCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = F391845E299A691500CEF02E /* ThemaCategory.swift */; };
 		F3918461299A693400CEF02E /* ThemaStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3918460299A693400CEF02E /* ThemaStore.swift */; };
 		F3918464299B5C4000CEF02E /* MCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3918463299B5C4000CEF02E /* MCategory.swift */; };
+		F391846A299BCE9200CEF02E /* MapTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3918469299BCE9200CEF02E /* MapTransition.swift */; };
 		F3918470299D3EB900CEF02E /* MemberResignDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = F391846F299D3EB900CEF02E /* MemberResignDTO.swift */; };
 		F3918472299D3F0600CEF02E /* ResignRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3918471299D3F0600CEF02E /* ResignRequest.swift */; };
 		F39EDDBC296D5AE500A4E655 /* City.swift in Sources */ = {isa = PBXBuildFile; fileRef = F39EDDBB296D5AE500A4E655 /* City.swift */; };
@@ -361,6 +362,7 @@
 		F391845E299A691500CEF02E /* ThemaCategory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemaCategory.swift; sourceTree = "<group>"; };
 		F3918460299A693400CEF02E /* ThemaStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemaStore.swift; sourceTree = "<group>"; };
 		F3918463299B5C4000CEF02E /* MCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MCategory.swift; sourceTree = "<group>"; };
+		F3918469299BCE9200CEF02E /* MapTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapTransition.swift; sourceTree = "<group>"; };
 		F391846F299D3EB900CEF02E /* MemberResignDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberResignDTO.swift; sourceTree = "<group>"; };
 		F3918471299D3F0600CEF02E /* ResignRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResignRequest.swift; sourceTree = "<group>"; };
 		F39EDDBB296D5AE500A4E655 /* City.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = City.swift; sourceTree = "<group>"; };
@@ -1102,6 +1104,7 @@
 				2B718C192966A6000068884A /* MapCategory.swift */,
 				F38AA8102982766400EF66F2 /* ProviderType.swift */,
 				F38AA81829829BED00EF66F2 /* CityCode.swift */,
+				F3918469299BCE9200CEF02E /* MapTransition.swift */,
 			);
 			path = Enumerations;
 			sourceTree = "<group>";
@@ -1440,6 +1443,7 @@
 				2B628DE4298675C400A90D9A /* TownMood.swift in Sources */,
 				BCE996662976915A00AACD02 /* FilterCollectionViewFlowLayout.swift in Sources */,
 				2B628DD52986508F00A90D9A /* TownIntroViewController.swift in Sources */,
+				F391846A299BCE9200CEF02E /* MapTransition.swift in Sources */,
 				F3219B622969408C000024E4 /* DetailCategory.swift in Sources */,
 				F39EDDD2296D7C0E00A4E655 /* StoreCollectionViewFlowLayout.swift in Sources */,
 				BC4C11802971256300645AA7 /* TownTableView.swift in Sources */,

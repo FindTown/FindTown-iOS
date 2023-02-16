@@ -23,7 +23,7 @@ final class MapCoordinator: FlowCoordinator {
         let mapViewModel = MapViewModel(delegate: self,
                                         authUseCase: authUseCase,
                                         mapUseCase: mapUseCase)
-        return MapViewController(viewModel: mapViewModel)
+        return MapViewController(viewModel: mapViewModel, mapTransition: .tapBar)
     }
     
 }

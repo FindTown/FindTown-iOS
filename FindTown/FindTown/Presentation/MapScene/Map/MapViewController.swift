@@ -40,6 +40,13 @@ final class MapViewController: BaseViewController {
     fileprivate let detailCategoryView = MapDetailCategoryView()
     private let categoryCollectionView = CategoryCollectionView()
     fileprivate let storeCollectionView = StoreCollectionView()
+    private let moveToIntroduceButton: FTButton = {
+        let button = FTButton(style: .round)
+        button.setTitle("동네 소개로 이동", for: .normal)
+        button.setImage(UIImage(named: "chip.chat"), for: .normal)
+        button.changesSelectionAsPrimaryAction = false
+        return button
+    }()
     
     var currentIndex: CGFloat = 0
     
@@ -47,11 +54,14 @@ final class MapViewController: BaseViewController {
     
     var villagePolygonOverlay: NMFPolygonOverlay?
     var isFirstShowingVillage: Bool = true
+    var mapTransition: MapTransition
     
     // MARK: - Life Cycle
     
-    init(viewModel: MapViewModel) {
+    init(viewModel: MapViewModel, mapTransition: MapTransition) {
         self.viewModel = viewModel
+        self.mapTransition = mapTransition
+        
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -152,7 +162,7 @@ final class MapViewController: BaseViewController {
     }
 
     override func addView() {
-        [mapView, naviBarSubView].forEach {
+        [mapView, naviBarSubView, moveToIntroduceButton].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
             self.view.addSubview($0)
         }
@@ -185,6 +195,7 @@ final class MapViewController: BaseViewController {
     override func setLayout() {
         setNaviBarLayout()
         setMapViewLayout()
+        setLayoutByTransition()
     }
     
     private func selectFirstItem(_ item: MCategory) {
@@ -240,15 +251,37 @@ private extension MapViewController {
         ])
         
         NSLayoutConstraint.activate([
+            detailCategoryView.topAnchor.constraint(equalTo: categoryCollectionView.bottomAnchor, constant: 1.0),
+            detailCategoryView.leadingAnchor.constraint(equalTo: mapView.leadingAnchor, constant: 16.0)
+        ])
+    }
+    
+    func setLayoutByTransition() {
+        let storeCollectionViewBottomConstraint: Int
+        let moveToIntroduceButtonBottomConstraint: Int
+        
+        switch mapTransition {
+        case .tapBar:
+            storeCollectionViewBottomConstraint = -84
+            moveToIntroduceButtonBottomConstraint = -24
+        case .push:
+            storeCollectionViewBottomConstraint = -107
+            moveToIntroduceButtonBottomConstraint = -47
+        }
+        
+        NSLayoutConstraint.activate([
             storeCollectionView.heightAnchor.constraint(equalToConstant: 142),
             storeCollectionView.leadingAnchor.constraint(equalTo: mapView.leadingAnchor),
             storeCollectionView.trailingAnchor.constraint(equalTo: mapView.trailingAnchor),
-            storeCollectionView.bottomAnchor.constraint(equalTo: mapView.bottomAnchor, constant: -32)
+            storeCollectionView.bottomAnchor.constraint(equalTo: mapView.bottomAnchor,
+                                                        constant: CGFloat(storeCollectionViewBottomConstraint))
         ])
         
         NSLayoutConstraint.activate([
-            detailCategoryView.topAnchor.constraint(equalTo: categoryCollectionView.bottomAnchor, constant: 1.0),
-            detailCategoryView.leadingAnchor.constraint(equalTo: mapView.leadingAnchor, constant: 16.0)
+            moveToIntroduceButton.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+            moveToIntroduceButton.widthAnchor.constraint(equalToConstant: 140.0),
+            moveToIntroduceButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor,
+                                                          constant: CGFloat(moveToIntroduceButtonBottomConstraint))
         ])
     }
 }
