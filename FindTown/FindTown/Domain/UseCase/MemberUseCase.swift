@@ -4,7 +4,6 @@
 //
 //  Created by 김성훈 on 2023/02/02.
 //
-
 import Foundation
 
 final class MemberUseCase {
@@ -17,8 +16,8 @@ final class MemberUseCase {
         self.tokenRepository = DefaultTokenRepository()
     }
     
-    func getMemberInfomation(accessToken: String) async throws -> MemberInfomationDTO {
-        return try await memberRepository.getMemberInfomation(accessToken)
+    func getMemberInformation(accessToken: String) async throws -> MemberInformationDTO {
+        return try await memberRepository.getMemberInformation(accessToken)
     }
     
     func checkNicknameDuplicate(nickName: String) async throws -> Bool {

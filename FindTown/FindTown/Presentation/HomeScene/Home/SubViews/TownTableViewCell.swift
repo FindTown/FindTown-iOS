@@ -8,6 +8,8 @@
 import UIKit
 
 import FindTownUI
+import RxCocoa
+import RxSwift
 
 protocol TownTableViewCellDelegate: AnyObject {
     func didTapGoToMapButton()
@@ -24,6 +26,10 @@ final class TownTableViewCell: UITableViewCell {
     }
     
     weak var delegate: TownTableViewCellDelegate?
+    
+    var townTableModel: TownTableModel?
+    
+    var disposeBag = DisposeBag()
     
     // MARK: Views
     
@@ -59,6 +65,7 @@ final class TownTableViewCell: UITableViewCell {
         addView()
         setLayout()
         setupView()
+        bind()
     }
     
     required init?(coder: NSCoder) {
@@ -147,13 +154,24 @@ final class TownTableViewCell: UITableViewCell {
         
         introduceButton.addTarget(self, action: #selector(didTapGoToIntroduceButton), for: .touchUpInside)
         mapButton.addTarget(self, action: #selector(didTapGoToMapButton), for: .touchUpInside)
-        favoriteIcon.addTarget(self, action: #selector(didTapFavoriteButton), for: .touchUpInside)
+    }
+    
+    private func bind() {
+        favoriteIcon.rx.tap
+            .throttle(.milliseconds(300), scheduler: MainScheduler.instance)
+            .bind { [weak self] in
+                self?.didTapFavoriteButton()
+            }
+            .disposed(by: disposeBag)
     }
     
     func setupCell(_ model: Any) {
-        guard let model = model as? townModelTest else { return }
-        townTitle.text = model.village
-        townIntroduceTitle.text = model.introduce
+        guard let model = model as? TownTableModel else { return }
+        townTableModel = model
+        
+        townTitle.text = model.county
+        townIntroduceTitle.text = model.townIntroduction
+        townIconImageView.image = model.countyIcon
     }
 }
 
@@ -166,7 +184,7 @@ private extension TownTableViewCell {
         self.delegate?.didTapGoToIntroduceButton()
     }
     
-    @objc func didTapFavoriteButton() {
+    func didTapFavoriteButton() {
         self.delegate?.didTapFavoriteButton()
     }
 }

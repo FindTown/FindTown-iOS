@@ -74,7 +74,7 @@ final class MyPageViewController: BaseViewController {
         collectionView.backgroundColor = FindTownColor.white.color
         collectionView.dataSource = self
         
-        viewModel?.fetchMemberInfomation()
+        viewModel?.fetchMemberInformation()
     }
     
     override func bindViewModel() {
@@ -145,8 +145,8 @@ extension MyPageViewController: UICollectionViewDataSource {
             return 0
         case let .support(supports):
             return supports.count
-        case let.info(infomations):
-            return infomations.count
+        case let.info(informations):
+            return informations.count
         }
     }
     
@@ -165,12 +165,12 @@ extension MyPageViewController: UICollectionViewDataSource {
                 return cell
             }
             return UICollectionViewCell()
-        case let .info(infomations):
+        case let .info(informations):
             let cell = collectionView.dequeueReusableCell(
                 withReuseIdentifier: InfoSectionCollectionViewCell.reuseIdentifier, for: indexPath
             ) as? InfoSectionCollectionViewCell
             if let cell = cell {
-                let item = infomations[indexPath.item]
+                let item = informations[indexPath.item]
                 cell.setupCell(model: item)
                 return cell
             }

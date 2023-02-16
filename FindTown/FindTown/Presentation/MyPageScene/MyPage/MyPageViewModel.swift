@@ -67,9 +67,9 @@ final class MyPageViewModel: BaseViewModel {
     
     // MARK: - Task
     
-    private var myInfomationTask: Task<Void, Error>?
     private var resignTask: Task<Void, Error>?
     private var logoutTask: Task<Void, Error>?
+    private var myInformationTask: Task<Void, Error>?
     
     init(
         delegate: MyPageViewModelDelegate,
@@ -180,27 +180,27 @@ final class MyPageViewModel: BaseViewModel {
 // MARK: - Network
 
 extension MyPageViewModel {
-    func fetchMemberInfomation() {
-        self.myInfomationTask = Task {
+    func fetchMemberInformation() {
+        self.myInformationTask = Task {
             do {
                 let accessToken = try await authUseCase.getAccessToken()
-                let memberInfomation = try await self.memberUseCase.getMemberInfomation(accessToken: accessToken)
+                let memberInformation = try await self.memberUseCase.getMemberInformation(accessToken: accessToken)
                 await MainActor.run(body: {
-                    let resident = memberInfomation.resident
+                    let resident = memberInformation.resident
                     let villagePeriod = "\(resident.residentAddress.split(separator: " ").last!) 거주 ・ \(resident.residentYear)년 \(resident.residentMonth)개월"
-                    self.input.nickname.onNext(memberInfomation.nickname)
+                    self.input.nickname.onNext(memberInformation.nickname)
                     self.input.villagePeriod.onNext(villagePeriod)
                     
                     self.input.fetchFinishTrigger.onNext(())
                 })
-                myInfomationTask?.cancel()
+                myInformationTask?.cancel()
             } catch (let error) {
                 Log.error(error)
                 await MainActor.run(body: {
                     self.showErrorNoticeAlert()
                 })
             }
-            myInfomationTask?.cancel()
+            myInformationTask?.cancel()
         }
     }
     

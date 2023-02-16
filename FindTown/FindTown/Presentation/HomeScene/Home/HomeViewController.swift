@@ -20,6 +20,8 @@ final class HomeViewController: BaseViewController {
     
     // MARK: - Views
     
+    private let indicator = UIActivityIndicatorView(style: .medium)
+    
     private let spacingView = UIView()
     
     private let homeLogo = UIImageView(image: UIImage(named: "homeLogo"))
@@ -42,7 +44,6 @@ final class HomeViewController: BaseViewController {
         return stackView
     }()
     
-    private let townListImageView = UIImageView()
     private let townRecommendationTitle = FindTownLabel(text: "동네 리스트", font: .subtitle2, textColor: .grey6)
     private let townImageTitleStackView: UIStackView = {
         let stackView = UIStackView()
@@ -61,17 +62,24 @@ final class HomeViewController: BaseViewController {
         return stackView
     }()
     
+    private let safetyGuideView = UIView()
     private let safetyEmptyView = UIView()
     private let checkBox = CheckBox()
     private let safetyTitle = FindTownLabel(text: "안전 점수가 높은", font: .label1, textColor: .grey6)
-    private let infoIcon = UIImageView(image: UIImage(systemName: "info.circle"))
+    private let infoIconBackView = UIView()
+    private let infoIcon = UIImageView(image: UIImage(named: "information"))
     private let safetyScoreStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .horizontal
         stackView.spacing = 8
+        stackView.alignment = .center
         return stackView
     }()
+    
+    private let safetyToolTip = ToolTip(text: "안전 점수는 동네별 범죄와 생활안전\n지수의 평균을 반영한 값입니다.",
+                                        viewColor: .black, textColor: .white,
+                                        tipLocation: .topCustom(tipXPoint: 100.0), width: 100, height: 52)
     
     private let townListTitleAndSafeScoreView: UIStackView = {
         let stackView = UIStackView()
@@ -82,7 +90,6 @@ final class HomeViewController: BaseViewController {
     }()
     
     private let tableViewHeaderView = UIView()
-    
     private let townTableView = TownTableView()
     
     // MARK: - Life Cycle
@@ -107,7 +114,7 @@ final class HomeViewController: BaseViewController {
             filterStackView.addArrangedSubview($0)
         }
         
-        [townListImageView, townRecommendationTitle].forEach {
+        [townRecommendationTitle].forEach {
             townImageTitleStackView.addArrangedSubview($0)
         }
         
@@ -115,23 +122,52 @@ final class HomeViewController: BaseViewController {
             townListAndCountStackView.addArrangedSubview($0)
         }
         
-        [safetyEmptyView, checkBox, safetyTitle, infoIcon].forEach {
+        [safetyEmptyView, safetyGuideView, checkBox, safetyTitle, infoIconBackView].forEach {
             safetyScoreStackView.addArrangedSubview($0)
         }
+        
+        infoIconBackView.addSubview(infoIcon)
         
         [townListAndCountStackView, safetyScoreStackView].forEach {
             townListTitleAndSafeScoreView.addArrangedSubview($0)
         }
         
-        [spacingView, villageSearchTitle, filterStackView, townListTitleAndSafeScoreView].forEach {
+        [spacingView, villageSearchTitle, filterStackView, townListTitleAndSafeScoreView, safetyToolTip].forEach {
             tableViewHeaderView.addSubview($0)
         }
         
+        view.addSubview(indicator)
         view.addSubview(townTableView)
         townTableView.tableHeaderView = tableViewHeaderView
+        townTableView.tableHeaderView?.backgroundColor = FindTownColor.white.color
     }
     
     override func setLayout() {
+        NSLayoutConstraint.activate([
+            safetyToolTip.topAnchor.constraint(equalTo: safetyScoreStackView.bottomAnchor, constant: 10.0),
+            safetyToolTip.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10.0)
+        ])
+        
+        indicator.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            indicator.topAnchor.constraint(equalTo: view.topAnchor),
+            indicator.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            indicator.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            indicator.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+        ])
+        
+        infoIconBackView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            infoIconBackView.widthAnchor.constraint(equalToConstant: 15),
+            infoIconBackView.heightAnchor.constraint(equalToConstant: 15)
+        ])
+        
+        infoIcon.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            infoIcon.centerXAnchor.constraint(equalTo: infoIconBackView.centerXAnchor),
+            infoIcon.centerYAnchor.constraint(equalTo: infoIconBackView.centerYAnchor),
+        ])
+        
         tableViewHeaderView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             tableViewHeaderView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
@@ -171,11 +207,19 @@ final class HomeViewController: BaseViewController {
             townTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
         
+        safetyEmptyView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            safetyEmptyView.heightAnchor.constraint(equalToConstant: 30),
+            safetyEmptyView.widthAnchor.constraint(equalToConstant: 30)
+        ])
+        
         tableViewHeaderView.layoutIfNeeded()
     }
     
     override func setupView() {
-        townListImageView.image = UIImage(named: "townList")
+        indicator.startAnimating()
+        
+        setTownRecommendationTitle("townList", "동네 리스트")
         
         navigationItem.leftBarButtonItem = UIBarButtonItem(customView: homeLogo)
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: searchButton)
@@ -196,8 +240,21 @@ final class HomeViewController: BaseViewController {
         
         townListTitleAndSafeScoreView.backgroundColor = FindTownColor.back2.color
         
+        townTableView.tableFooterView?.isHidden = true
+        townTableView.isHidden = true
         townTableView.rowHeight = 150
         townTableView.estimatedRowHeight = 150
+        
+        safetyToolTip.dismiss()
+        addTapGesture()
+        
+        [safetyTitle, infoIconBackView].forEach {
+            let tap = UITapGestureRecognizer(target: self, action: #selector(tapSafetyTitleAndIcon))
+            $0.isUserInteractionEnabled = true
+            $0.addGestureRecognizer(tap)
+        }
+        
+        viewModel?.fetchTownInformation()
     }
     
     override func bindViewModel() {
@@ -205,15 +262,15 @@ final class HomeViewController: BaseViewController {
         filterCollectionView.rx.setDelegate(self)
             .disposed(by: disposeBag)
         
-        //        viewModel?.input.nextPageTrigger.onNext(())
-        
-        //        townTableView.rx.reachedBottom(offset: 60)
-        //            .bind {
-        //                self.viewModel?.input.nextPageTrigger.onNext(())
-        //            }
-        //            .disposed(by: disposeBag)
-        
         // Input
+        
+        checkBox.rx.tap
+            .throttle(.milliseconds(300), scheduler: MainScheduler.instance)
+            .bind { [weak self] in
+                guard let isSafetyHigh = self?.checkBox.isSelected else { return }
+                self?.viewModel?.input.safetySortTrigger.onNext(isSafetyHigh)
+            }
+            .disposed(by: disposeBag)
         
         searchButton.rx.tap
             .throttle(.milliseconds(300), scheduler: MainScheduler.instance)
@@ -232,8 +289,9 @@ final class HomeViewController: BaseViewController {
         filterResetButton.rx.tap
             .throttle(.milliseconds(300), scheduler: MainScheduler.instance)
             .bind { [weak self] in
+                self?.townTableView.backgroundColor = FindTownColor.back2.color
                 self?.viewModel?.input.resetButtonTrigger.onNext(())
-                self?.FilterResetButtonHidden(true)
+                self?.setupTableView(true)
             }
             .disposed(by: disposeBag)
         
@@ -245,6 +303,27 @@ final class HomeViewController: BaseViewController {
                 } else { // 교통
                     self?.viewModel?.input.filterButtonTrigger.onNext(.Traffic)
                 }
+            }
+            .disposed(by: disposeBag)
+        
+        viewModel?.input.fetchFinishTrigger
+            .bind { [weak self] in
+                self?.indicator.stopAnimating()
+                self?.indicator.isHidden = true
+                self?.townTableView.isHidden = false
+                self?.townTableView.backgroundColor = FindTownColor.white.color
+            }
+            .disposed(by: disposeBag)
+        
+        viewModel?.input.setEmptyViewTrigger
+            .bind { [weak self] in
+                self?.setupTableViewFooterView(.FilterEmptyView)
+            }
+            .disposed(by: disposeBag)
+        
+        viewModel?.input.setNetworkErrorViewTrigger
+            .bind { [weak self] in
+                self?.setupTableViewFooterView(.NetworkErrorView)
             }
             .disposed(by: disposeBag)
         
@@ -277,11 +356,18 @@ final class HomeViewController: BaseViewController {
                 self?.townCountTitle.text = "\(searchTown.count)개 동네"
             }
             .disposed(by: disposeBag)
+        
+        viewModel?.output.errorNotice
+            .bind { [weak self] in
+                self?.showErrorNoticeAlertPopUp(message: "네트워크 오류가 발생하였습니다.",
+                                                buttonText: "확인")
+            }
+            .disposed(by: disposeBag)
     }
     
     func dismissBottomSheet(_ filterModel: FilterModel) {
         
-        FilterResetButtonHidden(false)
+        setupTableView(false)
         
         var traffic = "교통"
         if let first = filterModel.traffic.first {
@@ -292,19 +378,59 @@ final class HomeViewController: BaseViewController {
         
         viewModel?.output.searchFilterStringDataSource.accept([infra, traffic])
         viewModel?.output.searchFilterModelDataSource.accept(filterModel)
+        
+        viewModel?.fetchTownInformation(filterStatus: filterModel.toFilterStatus, subwayList: filterModel.traffic)
     }
     
-    private func FilterResetButtonHidden(_ isHidden: Bool) {
+    private func setupTableView(_ isHidden: Bool) {
+        townTableView.tableFooterView = nil
+        setupTableViewSafetyView(false)
         if isHidden {
-            townListImageView.image = UIImage(named: "townList")
-            townRecommendationTitle.text = "동네 리스트"
+            setTownRecommendationTitle("townList", "동네 리스트")
         } else {
-            townListImageView.image = UIImage(named: "townList_searched")
-            townRecommendationTitle.text = "필터로 찾은 동네"
+            setTownRecommendationTitle("townList_searched", "필터로 찾은 동네")
         }
-        
         filterResetButton.isHidden = isHidden
         filterButton.isHidden = !isHidden
+    }
+    
+    private func setupTableViewFooterView(_ footerType: FooterType) {
+        setupTableViewSafetyView(true)
+        
+        let townTableFooterView = TownTableFooterView()
+        townTableFooterView.delegate = self
+        townTableView.tableFooterView = townTableFooterView
+        townTableFooterView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            townTableFooterView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 200),
+            townTableFooterView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            townTableFooterView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            townTableFooterView.heightAnchor.constraint(equalToConstant: 300),
+        ])
+        
+        footerType == .NetworkErrorView ? townTableFooterView.setNetworkErrorView() : townTableFooterView.setFilterEmptyView()
+    }
+    
+    private func setupTableViewSafetyView(_ isHidden: Bool) {
+        if isHidden {
+            townTableView.backgroundColor = FindTownColor.back2.color
+        }
+        townTableView.isScrollEnabled = !isHidden
+        townTableView.tableFooterView?.isHidden = !isHidden
+        
+        checkBox.isHidden = isHidden
+        safetyTitle.isHidden = isHidden
+        infoIconBackView.isHidden = isHidden
+    }
+    
+    enum FooterType {
+        case NetworkErrorView
+        case FilterEmptyView
+    }
+    
+    enum TownTableType {
+        case List
+        case Filter
     }
 }
 
@@ -322,6 +448,13 @@ extension HomeViewController: TownTableViewCellDelegate {
     }
 }
 
+extension HomeViewController: TownTableFooterViewDelegate {
+    func didTapRetryButton() {
+        viewModel?.input.resetButtonTrigger.onNext(())
+        setupTableView(true)
+    }
+}
+
 extension HomeViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
@@ -336,17 +469,42 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout {
     }
 }
 
-extension Reactive where Base: UIScrollView {
-    func reachedBottom(offset: CGFloat = 0.0) -> ControlEvent<Void> {
-        let source = contentOffset.map { contentOffset in
-            let visibleHeight = self.base.frame.height - self.base.contentInset.top - self.base.contentInset.bottom
-            let y = contentOffset.y + self.base.contentInset.top
-            let threshold = max(offset, self.base.contentSize.height - visibleHeight)
-            return y >= threshold
+private extension HomeViewController {
+    
+    @objc func tapSafetyTitleAndIcon() {
+        if safetyToolTip.alpha == 1.0 {
+            safetyToolTip.dismiss()
+        } else {
+            safetyToolTip.alpha = 1.0
         }
-            .distinctUntilChanged()
-            .filter { $0 }
-            .map { _ in () }
-        return ControlEvent(events: source)
+    }
+    
+    func addTapGesture() {
+        let backViewTap = UITapGestureRecognizer(target: self, action: #selector(backViewTapped(_:)))
+        backViewTap.cancelsTouchesInView = false
+        view.addGestureRecognizer(backViewTap)
+    }
+    
+    @objc func backViewTapped(_ tapRecognizer: UITapGestureRecognizer) {
+        let backViewTappedLocation = tapRecognizer.location(in: self.safetyToolTip)
+        if safetyToolTip.point(inside: backViewTappedLocation, with: nil) == false {
+            safetyToolTip.dismiss()
+        }
+    }
+    
+    func setTownRecommendationTitle(_ imageNamed: String, _ labelText: String) {
+        let attributedString = NSMutableAttributedString(string: "")
+        let imageAttachment = NSTextAttachment()
+        let image = UIImage(named: imageNamed)
+        guard let image = image else { return }
+        imageAttachment.image = image
+        imageAttachment.bounds = CGRect(x: 0, y: (FindTownFont.subtitle2.font.capHeight - image.size.height) / 2, width: image.size.width, height: image.size.height)
+        let padding = " "
+        let paddingString = NSAttributedString(string: padding)
+        attributedString.append(NSAttributedString(attachment: imageAttachment))
+        attributedString.append(paddingString)
+        attributedString.append(NSAttributedString(string: labelText))
+        townRecommendationTitle.attributedText = attributedString
+        townRecommendationTitle.sizeToFit()
     }
 }

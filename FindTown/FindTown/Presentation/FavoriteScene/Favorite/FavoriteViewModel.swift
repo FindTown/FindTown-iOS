@@ -81,6 +81,13 @@ extension FavoriteViewModel: FavoriteViewModelType {
     }
 }
 
+// 임시
+struct townModelTest {
+    let image: String
+    let village: String
+    let introduce: String
+}
+
 extension FavoriteViewModel {
     
     func returnViewStatus() -> FavoriteViewStatus {

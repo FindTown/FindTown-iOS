@@ -9,16 +9,26 @@ import UIKit
 import FindTownCore
 
 final class HomeCoordinator: FlowCoordinator {
-
+    
     var presentationStyle: PresentationStyle
     weak var navigationController: UINavigationController?
+    let authUseCase: AuthUseCase
+    let townUseCase: TownUseCase
     
-    init(presentationStyle: PresentationStyle) {
+    init(
+        presentationStyle: PresentationStyle,
+        authUseCase: AuthUseCase,
+        townUseCase: TownUseCase
+    ) {
         self.presentationStyle = presentationStyle
+        self.authUseCase = authUseCase
+        self.townUseCase = townUseCase
     }
     
     internal func initScene() -> UIViewController {
-        let homeViewModel = HomeViewModel(delegate: self)
+        let homeViewModel = HomeViewModel(delegate: self,
+                                          authUseCase: authUseCase,
+                                          townUseCase: townUseCase)
         let homeViewController = HomeViewController(viewModel: homeViewModel)
         return homeViewController
     }
@@ -36,6 +46,6 @@ extension HomeCoordinator: HomeViewModelDelegate {
     
     func goToGuSearchView() {
         guard let navigationController = navigationController else { return }
-        SearchCountyCoordinator(presentationStyle: .push(navigationController: navigationController)).start()
+        SearchCoordinator(presentationStyle: .push(navigationController: navigationController)).start()
     }
 }

@@ -21,10 +21,10 @@ final class DefaultMemberRepository {
         return data.body
     }
     
-    func getMemberInfomation(_ accessToken: String) async throws -> MemberInfomationDTO {
+    func getMemberInformation(_ accessToken: String) async throws -> MemberInformationDTO {
         let HTTPHeaders = HTTPHeaders([.accept("*/*"),
                                        .authorization(bearerToken: accessToken)])
-        let data = try await Network.shared.request(target: MemberInfomationRequest(HTTPHeaders: HTTPHeaders))
+        let data = try await Network.shared.request(target: MemberInformationRequest(HTTPHeaders: HTTPHeaders))
         return data.body.memberInfomation
     }
     

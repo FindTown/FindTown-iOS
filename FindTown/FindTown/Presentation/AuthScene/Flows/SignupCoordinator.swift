@@ -15,18 +15,21 @@ final class SignupCoordinator: FlowCoordinator {
     weak var navigationController: UINavigationController?
     let authUseCase: AuthUseCase
     let memberUseCase: MemberUseCase
+    let townUseCase: TownUseCase
     var signupUserModel = SignupUserModel()
     var parentCoordinator: FlowCoordinator
     
     init(presentationStyle: PresentationStyle,
          parentCoordinator: FlowCoordinator,
          authUseCase: AuthUseCase,
-         userData: SigninUserModel,
          memberUseCase: MemberUseCase,
+         townUseCase: TownUseCase,
+         userData: SigninUserModel,
          providerType: ProviderType) {
         self.presentationStyle = presentationStyle
         self.authUseCase = authUseCase
         self.memberUseCase = memberUseCase
+        self.townUseCase = townUseCase
         self.signupUserModel.memberId = userData.userId
         self.signupUserModel.email = userData.email
         self.signupUserModel.providerType = providerType
@@ -100,7 +103,8 @@ extension SignupCoordinator: SignupViewModelDelegate {
         navigationController.isNavigationBarHidden = true
         TabBarCoordinator(presentationStyle: .push(navigationController: navigationController),
                           authUseCase: authUseCase,
-                          memberUseCase: memberUseCase).start()
+                          memberUseCase: memberUseCase,
+                          townUseCase: townUseCase).start()
     }
     
     func dismiss() {

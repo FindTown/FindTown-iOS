@@ -26,6 +26,7 @@ final class ChangeNicknameViewModel: BaseViewModel {
     
     struct Output {
         let nickNameStatus = PublishRelay<NicknameStatus>()
+        let errorNotice = PublishSubject<Void>()
     }
     
     let input = Input()
@@ -97,10 +98,13 @@ extension ChangeNicknameViewModel {
                         self.output.nickNameStatus.accept(.complete)
                     }
                 })
-                nicknameCheckTask?.cancel()
             } catch (let error) {
-                print(error)
+                Log.error(error)
+                await MainActor.run(body: {
+                    self.output.errorNotice.onNext(())
+                })
             }
+            nicknameCheckTask?.cancel()
         }
     }
 }
