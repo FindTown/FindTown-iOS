@@ -24,6 +24,7 @@ final class FilterBottomSheetViewModel: BaseViewModel {
     struct Input {
         let infra = PublishSubject<String>()
         let traffic = PublishSubject<[String]>()
+        let trafficIndexPath = PublishSubject<[IndexPath]>()
         let completeButtonTrigger = PublishSubject<Void>()
     }
     
@@ -46,7 +47,7 @@ final class FilterBottomSheetViewModel: BaseViewModel {
     }
     
     func bind() {
-
+        
         self.output.trafficDataSource.onNext(Traffic.allCases)
         
         self.input.completeButtonTrigger
@@ -65,12 +66,28 @@ final class FilterBottomSheetViewModel: BaseViewModel {
             .disposed(by: disposeBag)
         
         self.input.traffic
-            .map { return (data: $0, count: $0.count != 0)}
+            .map { return (data: $0, isSelected: $0.count != 0)}
             .bind { [weak self] traffic in
                 self?.filterModel?.traffic = traffic.data
-                self?.output.buttonsSelected.accept(traffic.count)
+                self?.output.buttonsSelected.accept(traffic.isSelected)
             }
             .disposed(by: disposeBag)
+        
+        self.input.trafficIndexPath
+            .bind { [weak self] in
+                self?.filterModel?.trafficIndexPath = $0
+            }
+            .disposed(by: disposeBag)
+        
+        Observable.combineLatest(
+            self.input.infra.map { $0 != "" },
+            self.input.traffic.map { $0.count != 0 }
+        )
+        .bind { [weak self] infraSelected, trafficSelected in
+            let isEitherSelected = infraSelected || trafficSelected
+            self?.output.buttonsSelected.accept(isEitherSelected)
+        }
+        .disposed(by: disposeBag)
     }
 }
 

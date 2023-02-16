@@ -10,6 +10,7 @@ import Foundation
 struct FilterModel {
     var infra: String = ""
     var traffic: [String] = []
+    var trafficIndexPath: [IndexPath] = []
     
     var toFilterStatus: String {
         switch infra {

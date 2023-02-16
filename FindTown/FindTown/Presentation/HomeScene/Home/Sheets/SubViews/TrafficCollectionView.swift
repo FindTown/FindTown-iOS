@@ -30,7 +30,6 @@ final class TrafficCollectionView: UICollectionView {
         self.backgroundColor = .clear
         self.showsHorizontalScrollIndicator = false
         self.translatesAutoresizingMaskIntoConstraints = false
-        self.allowsMultipleSelection = true
         self.register(
             TrafficCollectionViewCell.self,
             forCellWithReuseIdentifier: TrafficCollectionViewCell.reuseIdentifier)
