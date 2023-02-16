@@ -92,7 +92,7 @@ public class AlertSuccessCancelPopUpViewController: UIViewController {
         self.successButtonText = successButtonText
         self.cancelButtonText = cancelButtonText
         self.successButton.addAction(for: .touchUpInside) { _ in
-            self.dismiss(animated: true) {
+            self.dismiss(animated: false) {
                 successButtonAction?()
             }
         }
