@@ -25,10 +25,11 @@ final class FavoriteCoordinator: FlowCoordinator {
 }
 
 extension FavoriteCoordinator: FavoriteViewModelDelegate {
-    
-    func goToSignup() {
+
+    func goToLogin() {
         guard let navigationController = navigationController else { return }
-        AppCoordinator(navigationController: navigationController).start()
+        navigationController.isNavigationBarHidden = true
+        LoginCoordinator(presentationStyle: .push(navigationController: navigationController)).start()
     }
     
     func goToTownIntro() {
