@@ -40,8 +40,8 @@ struct MemberInformationDTO: Response {
     
     struct Location: Response {
         let objectId: Int
-        let admNm: String
         let sidoNm: String
         let sggNm: String
+        let admNm: String
     }
 }
