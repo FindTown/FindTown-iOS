@@ -30,6 +30,7 @@ final class AuthUseCase {
             let _ = try await kakaoAuthRepository.isKakaoTalkLoginAvailable()
             let userData = try await kakaoAuthRepository.getUserInformation()
             let tokenData = try await authRepository.login(memberId: userData.userId)
+            print("\(tokenData.accessToken)")
             try await tokenRepository.createTokens(tokenData: tokenData)
         case .apple:
             let userData = try await appleAuthRespository.loginWithApple()

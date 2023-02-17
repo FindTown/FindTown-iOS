@@ -70,7 +70,6 @@ final class LoginViewModel: BaseViewModel {
         
         self.input.anonymousTrigger
             .bind { [weak self] _ in
-                GlobalSettings.isAnonymous = true
                 self?.goToTabBar(isAnonymous: true)
             }
             .disposed(by: disposeBag)
@@ -127,6 +126,7 @@ extension LoginViewModel {
 
 extension LoginViewModel: LoginViewModelType {
     func goToTabBar(isAnonymous: Bool = false) {
+        GlobalSettings.isAnonymous = isAnonymous
         delegate.goToTabBar(isAnonymous: isAnonymous)
     }
     
