@@ -8,6 +8,7 @@
 import UIKit
 
 import FindTownCore
+import FindTownNetwork
 import RxSwift
 import RxRelay
 
@@ -190,17 +191,28 @@ extension MyPageViewModel {
                     let villagePeriod = "\(resident.residentAddress.split(separator: " ").last!) 거주 ・ \(resident.residentYear)년 \(resident.residentMonth)개월"
                     self.input.nickname.onNext(memberInformation.nickname)
                     self.input.villagePeriod.onNext(villagePeriod)
-                    
                     self.input.fetchFinishTrigger.onNext(())
                 })
                 myInformationTask?.cancel()
             } catch (let error) {
+                if let error = error as? FTNetworkError,
+                   FTNetworkError.isUnauthorized(error: error) {
+                    await MainActor.run (body: {
+                        self.input.nickname.onNext("닉네임")
+                        self.input.villagePeriod.onNext("거주 ・ 년 개월")
+                        self.input.fetchFinishTrigger.onNext(())
+                    })
+                } else {
+                    await MainActor.run(body: {
+                        self.showErrorNoticeAlert()
+                        self.input.nickname.onNext("닉네임")
+                        self.input.villagePeriod.onNext("거주 ・ 년 개월")
+                        self.input.fetchFinishTrigger.onNext(())
+                    })
+                }
                 Log.error(error)
-                await MainActor.run(body: {
-                    self.showErrorNoticeAlert()
-                })
+                myInformationTask?.cancel()
             }
-            myInformationTask?.cancel()
         }
     }
     
