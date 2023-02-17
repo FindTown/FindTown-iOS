@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2B42E970299F83DB0093FB0A /* UserDefaultsWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B42E96F299F83DB0093FB0A /* UserDefaultsWrapper.swift */; };
+		2B42E972299F85200093FB0A /* GlobalSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B42E971299F85200093FB0A /* GlobalSettings.swift */; };
+		2B564932299F828400B63317 /* APIKeyInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2B564931299F828400B63317 /* APIKeyInfo.plist */; };
 		2B628DD52986508F00A90D9A /* TownIntroViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B628DD42986508F00A90D9A /* TownIntroViewController.swift */; };
 		2B628DD7298650CD00A90D9A /* TownIntroViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B628DD6298650CD00A90D9A /* TownIntroViewModel.swift */; };
 		2B628DDA29865DB400A90D9A /* TownMoodCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B628DD929865DB400A90D9A /* TownMoodCollectionView.swift */; };
@@ -58,7 +61,6 @@
 		BC32F82D299D49D60038F0D6 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC32F82C299D49D60038F0D6 /* SearchViewController.swift */; };
 		BC32F835299EA3870038F0D6 /* MemberInfomationRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC32F834299EA3870038F0D6 /* MemberInfomationRequest.swift */; };
 		BC32F837299EA3A80038F0D6 /* MemberInfomationResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC32F836299EA3A80038F0D6 /* MemberInfomationResponseDTO.swift */; };
-		BC32F839299EA4D90038F0D6 /* APIKeyInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = BC32F838299EA4D90038F0D6 /* APIKeyInfo.plist */; };
 		BC354708298F9D010016FE4A /* ServiceMapPopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC354707298F9D010016FE4A /* ServiceMapPopUpViewController.swift */; };
 		BC47D6382993809A00FE83D5 /* MyPageViewSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC47D6372993809A00FE83D5 /* MyPageViewSection.swift */; };
 		BC47D63A299381D000FE83D5 /* ReviewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC47D639299381D000FE83D5 /* ReviewModel.swift */; };
@@ -209,6 +211,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2B42E96F299F83DB0093FB0A /* UserDefaultsWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsWrapper.swift; sourceTree = "<group>"; };
+		2B42E971299F85200093FB0A /* GlobalSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalSettings.swift; sourceTree = "<group>"; };
+		2B564931299F828400B63317 /* APIKeyInfo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = APIKeyInfo.plist; path = ../../../../APIKeyInfo.plist; sourceTree = "<group>"; };
 		2B628DD42986508F00A90D9A /* TownIntroViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TownIntroViewController.swift; sourceTree = "<group>"; };
 		2B628DD6298650CD00A90D9A /* TownIntroViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TownIntroViewModel.swift; sourceTree = "<group>"; };
 		2B628DD929865DB400A90D9A /* TownMoodCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TownMoodCollectionView.swift; sourceTree = "<group>"; };
@@ -257,7 +262,6 @@
 		BC32F82C299D49D60038F0D6 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		BC32F834299EA3870038F0D6 /* MemberInfomationRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberInfomationRequest.swift; sourceTree = "<group>"; };
 		BC32F836299EA3A80038F0D6 /* MemberInfomationResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberInfomationResponseDTO.swift; sourceTree = "<group>"; };
-		BC32F838299EA4D90038F0D6 /* APIKeyInfo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = APIKeyInfo.plist; path = ../../../../../../Downloads/APIKeyInfo.plist; sourceTree = "<group>"; };
 		BC354707298F9D010016FE4A /* ServiceMapPopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceMapPopUpViewController.swift; sourceTree = "<group>"; };
 		BC47D6372993809A00FE83D5 /* MyPageViewSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewSection.swift; sourceTree = "<group>"; };
 		BC47D639299381D000FE83D5 /* ReviewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewModel.swift; sourceTree = "<group>"; };
@@ -427,6 +431,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2B42E96E299F83CB0093FB0A /* UserDefaults */ = {
+			isa = PBXGroup;
+			children = (
+				2B42E96F299F83DB0093FB0A /* UserDefaultsWrapper.swift */,
+				2B42E971299F85200093FB0A /* GlobalSettings.swift */,
+			);
+			path = UserDefaults;
+			sourceTree = "<group>";
+		};
 		2B628DD32986507B00A90D9A /* TownIntro */ = {
 			isa = PBXGroup;
 			children = (
@@ -725,7 +738,7 @@
 			isa = PBXGroup;
 			children = (
 				F3891E2A293B8394003CE8AD /* Assets.xcassets */,
-				BC32F838299EA4D90038F0D6 /* APIKeyInfo.plist */,
+				2B564931299F828400B63317 /* APIKeyInfo.plist */,
 				F3891E2F293B8394003CE8AD /* Info.plist */,
 				F3891E2C293B8394003CE8AD /* LaunchScreen.storyboard */,
 			);
@@ -1124,6 +1137,7 @@
 		F38AA8072981752300EF66F2 /* Storage */ = {
 			isa = PBXGroup;
 			children = (
+				2B42E96E299F83CB0093FB0A /* UserDefaults */,
 				BC04A6E129700DD700B60BCF /* KeyChain */,
 			);
 			path = Storage;
@@ -1398,7 +1412,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F3891E2E293B8394003CE8AD /* LaunchScreen.storyboard in Resources */,
-				BC32F839299EA4D90038F0D6 /* APIKeyInfo.plist in Resources */,
+				2B564932299F828400B63317 /* APIKeyInfo.plist in Resources */,
 				F3891E2B293B8394003CE8AD /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1565,6 +1579,7 @@
 				F3356F02298FA270002B9FFD /* LogoutRequest.swift in Sources */,
 				BCF825992988DFF800AC00BB /* SupportSectionCollectionViewCell.swift in Sources */,
 				F3219B6729694328000024E4 /* MapDetailCategoryView.swift in Sources */,
+				2B42E970299F83DB0093FB0A /* UserDefaultsWrapper.swift in Sources */,
 				F38CCBE02958287C000C16AF /* HomeViewController.swift in Sources */,
 				F363D15E299A1A3800606C7F /* TownLocationRequest.swift in Sources */,
 				F38AA8142982877300EF66F2 /* CityMapping.swift in Sources */,
@@ -1576,6 +1591,7 @@
 				2BEE90C92977F93E002E7C3A /* FavoriteViewModel.swift in Sources */,
 				F38AA7FA298124AD00EF66F2 /* AuthLoginRequest.swift in Sources */,
 				BC0D88532963DD0D00CCB800 /* LocationAndYearsViewController.swift in Sources */,
+				2B42E972299F85200093FB0A /* GlobalSettings.swift in Sources */,
 				F3219B762969D169000024E4 /* AddressSheetViewController.swift in Sources */,
 				F38AA80D29817E2000EF66F2 /* NickNameCheckRequest.swift in Sources */,
 				BCF825962988C93500AC00BB /* MyPageCoordinator.swift in Sources */,
