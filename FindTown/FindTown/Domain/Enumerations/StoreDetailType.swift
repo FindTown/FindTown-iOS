@@ -7,7 +7,7 @@
 
 import UIKit
 
-enum StoreDetailType: CustomStringConvertible {
+enum StoreDetailType: CustomStringConvertible, CaseIterable {
     case fastFood
     case koreanFood
     case westernFood
@@ -16,6 +16,15 @@ enum StoreDetailType: CustomStringConvertible {
     case simpleFood
     case worldFood
     case cafe
+    
+    init?(description: String) {
+        for value in StoreDetailType.allCases
+        where value.description == description {
+            self = value
+            return
+        }
+        return nil
+    }
     
     var description: String {
         switch self {
