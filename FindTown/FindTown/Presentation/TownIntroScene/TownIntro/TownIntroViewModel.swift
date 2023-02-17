@@ -34,10 +34,6 @@ final class TownIntroViewModel: BaseViewModel {
     let delegate: TownIntroViewModelDelegate
     let input = Input()
     let output = Output()
-    
-    // MARK: - Task
-    
-    private var townIntroDataTask: Task<Void, Error>?
 
     init(delegate: TownIntroViewModelDelegate) {
         self.delegate = delegate
@@ -65,22 +61,6 @@ extension TownIntroViewModel: TownIntroViewModelType {
         self.delegate.goToMap()
     }
 }
-
-// MARK: Network
-
-extension TownIntroViewModel {
-    func getTownIntroData(cityCode: Int?) {
-        self.townIntroDataTask = Task {
-            do {
-                
-            } catch(let error) {
-                
-            }
-        }
-    }
-}
-
-
 
 // 임시 데이터
 extension TownIntroViewModel {
@@ -118,6 +98,7 @@ extension TownIntroViewModel {
     }
 }
 
+// 임시 데이터
 struct TownRankData: Encodable {
     var lifeSafety = "1"
     var crime = "1"
