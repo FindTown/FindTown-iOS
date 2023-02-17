@@ -7,7 +7,7 @@
 
 import UIKit
 
-enum ThemaCategory: CaseIterable, MCategory {
+enum ThemaCategory: CaseIterable, Category {
     case restaurantForEatingAlone
     case cafeForStudy
     

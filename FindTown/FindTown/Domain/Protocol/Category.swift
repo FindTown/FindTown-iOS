@@ -7,7 +7,7 @@
 
 import UIKit
 
-protocol MCategory {
+protocol Category {
     var description: String { get }
     var image: UIImage? { get }
     var code: String { get }
