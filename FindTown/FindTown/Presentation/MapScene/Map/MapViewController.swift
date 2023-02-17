@@ -75,6 +75,9 @@ final class MapViewController: BaseViewController {
     
     override func bindViewModel() {
         // MARK: Input
+        guard let viewModel = viewModel else {
+            return
+        }
         
         favoriteButton.rx.tap
             .scan(false) { (lastState, newValue) in
@@ -102,7 +105,7 @@ final class MapViewController: BaseViewController {
         // MARK: Output
         
         /// iconCollectionView 데이터 바인딩
-        viewModel?.output.categoryDataSource.observe(on: MainScheduler.instance)
+        viewModel.output.categoryDataSource.observe(on: MainScheduler.instance)
             .bind(to: categoryCollectionView.rx.items(cellIdentifier: MapCategoryCollectionViewCell.reuseIdentifier,
                                               cellType: MapCategoryCollectionViewCell.self)) { index, item, cell in
                 cell.setupCell(image: item.image, title: item.description)
@@ -112,7 +115,7 @@ final class MapViewController: BaseViewController {
             }.disposed(by: disposeBag)
         
         /// iconCollectionView 데이터 바인딩
-        viewModel?.output.storeDataSource.observe(on: MainScheduler.instance)
+        viewModel.output.storeDataSource.observe(on: MainScheduler.instance)
             .bind(to: storeCollectionView.rx.items(cellIdentifier: MapStoreCollectionViewCell.reuseIdentifier,
                                               cellType: MapStoreCollectionViewCell.self)) { index, item, cell in
                 cell.setupCell(store: item)
@@ -120,22 +123,25 @@ final class MapViewController: BaseViewController {
             }.disposed(by: disposeBag)
         
         /// 선택한 iconCell에 맞는 detailCategoryView 데이터 보여주게 함
-        categoryCollectionView.rx.modelSelected(Category.self)
-            .map { category in
-                return category.detailCategories
-            }
-            .subscribe(onNext: { detailCategories in
-                self.detailCategoryView.setStackView(data: detailCategories)
+        Observable.combineLatest(categoryCollectionView.rx.modelSelected(Category.self), viewModel.output.city)
+            .subscribe(onNext: { [weak self] categoty, city in
+                if let infraCategory = categoty as? InfraCategory {
+                    print(infraCategory)
+                    print(city)
+                } else if let themaCategory = categoty as? ThemaCategory {
+                    self?.viewModel?.getThemaData(category: themaCategory, city: city)
+                }
+//                self.detailCategoryView.setStackView(data: [])
             })
             .disposed(by: disposeBag)
         
-        viewModel?.output.city
+        viewModel.output.city
             .subscribe(onNext: { [weak self] city in
                 self?.addressButton.setTitle(city.description, for: .normal)
             })
             .disposed(by: disposeBag)
         
-        viewModel?.output.cityBoundaryCoordinates
+        viewModel.output.cityBoundaryCoordinates
             .subscribe(onNext: { [weak self] boundaryCoordinates in
                 guard let isFirstShowingVillage = self?.isFirstShowingVillage else {
                     return
@@ -150,12 +156,21 @@ final class MapViewController: BaseViewController {
             })
             .disposed(by: disposeBag)
             
+        viewModel.input.segmentIndex
+            .bind { [weak self] index in
+                if index == 0 {
+                    self?.viewModel?.output.categoryDataSource.onNext(InfraCategory.allCases)
+                } else {
+                    self?.viewModel?.output.categoryDataSource.onNext(ThemaCategory.allCases)
+                }
+            }
+            .disposed(by: disposeBag)
         
-        viewModel?.output.isFavoriteCity
+        viewModel.output.isFavoriteCity
             .bind(to: rx.isFavoriteCity)
             .disposed(by: disposeBag)
         
-        viewModel?.output.errorNotice
+        viewModel.output.errorNotice
             .subscribe { [weak self] _ in
                 self?.showErrorNoticeAlertPopUp(message: "네트워크 오류가 발생하였습니다.", buttonText: "확인")
             }
@@ -202,7 +217,7 @@ final class MapViewController: BaseViewController {
         setLayoutByTransition()
     }
     
-    private func selectFirstItem(_ item: MCategory) {
+    private func selectFirstItem(_ item: Category) {
         DispatchQueue.main.async {
             self.categoryCollectionView.selectItem(at: IndexPath(item: 0, section: 0), animated: true, scrollPosition: .bottom)
 //            self.detailCategoryView.setStackView(data: item.detailCategories)
