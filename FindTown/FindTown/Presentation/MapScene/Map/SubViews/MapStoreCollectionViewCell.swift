@@ -147,9 +147,9 @@ final class MapStoreCollectionViewCell: UICollectionViewCell {
                                                                      right: 0))
     }
     
-    func setupCell(store: Store) {
-        typeImageView.image = store.thema.storeDetailType.image
-        typeNameLabel.text = store.thema.storeDetailType.description
+    func setupCell(store: ThemaStore) {
+        typeImageView.image = store.subCategory.image
+        typeNameLabel.text = store.foodCategory
         nameLabel.text = store.name
         addressLabel.text = store.address
     }

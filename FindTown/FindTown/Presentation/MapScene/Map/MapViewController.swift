@@ -56,6 +56,7 @@ final class MapViewController: BaseViewController {
     var villagePolygonOverlay: NMFPolygonOverlay?
     var isFirstShowingVillage: Bool = true
     var mapTransition: MapTransition
+    var markers: [NMFMarker] = []
     
     // MARK: - Life Cycle
     
@@ -121,6 +122,12 @@ final class MapViewController: BaseViewController {
                 cell.setupCell(store: item)
                 cell.delegate = self
             }.disposed(by: disposeBag)
+        
+        viewModel.output.storeDataSource.subscribe { [weak self] stores in
+            print(stores)
+            self?.setStoreMarker(selectIndex: 0, stores)
+        }
+        .disposed(by: disposeBag)
         
         /// 선택한 iconCell에 맞는 detailCategoryView 데이터 보여주게 함
         Observable.combineLatest(categoryCollectionView.rx.modelSelected(Category.self), viewModel.output.city)
@@ -309,6 +316,17 @@ private extension MapViewController {
 
 extension MapViewController {
     
+    func setCameraPosition(latitude: Double, longitude: Double, zoomLevel: Double, animation: Bool) {
+        let cameraPosition = NMFCameraPosition(NMGLatLng(lat: latitude, lng: longitude), zoom: zoomLevel, tilt: 0, heading: 0)
+        let cameraUpdate = NMFCameraUpdate(position: cameraPosition)
+        
+        if animation {
+            cameraUpdate.animation = .easeIn
+            cameraUpdate.animationDuration = 0.2
+        }
+        mapView.moveCamera(cameraUpdate)
+    }
+    
     func setMapZoomLevel() {
         mapView.minZoomLevel = 10.0
         mapView.maxZoomLevel = 18.0
@@ -325,20 +343,55 @@ extension MapViewController {
     func setVillageCooridnateOverlay(_ boundaryCoordinates: Coordinates, animation: Bool = true) {
         villagePolygonOverlay?.mapView = nil
         
-        let cameraPosition = NMFCameraPosition(NMGLatLng(lat: boundaryCoordinates[0][1], lng: boundaryCoordinates[0][0]), zoom: 14, tilt: 0, heading: 0)
-        let cameraUpdate = NMFCameraUpdate(position: cameraPosition)
-        
-        if animation {
-            cameraUpdate.animation = .easeIn
-            cameraUpdate.animationDuration = 0.5
-        }
-        mapView.moveCamera(cameraUpdate)
+        setCameraPosition(latitude: boundaryCoordinates[0][1],
+                          longitude: boundaryCoordinates[0][0],
+                          zoomLevel: 14,
+                          animation: animation)
 
         let villagePolygon = NMGPolygon(ring: NMGLineString(points: MapConstant.koreaBoundaryCoordinates.convertNMLatLng()), interiorRings: [NMGLineString(points: boundaryCoordinates.convertNMLatLng())])
         villagePolygonOverlay = NMFPolygonOverlay(villagePolygon as! NMGPolygon<AnyObject>)
         
         villagePolygonOverlay?.fillColor = UIColor(red: 26, green: 26, blue: 26).withAlphaComponent(0.2)
         villagePolygonOverlay?.mapView = mapView
+    }
+    
+    func setStoreMarker(selectIndex: Int, _ stores: [ThemaStore]) {
+        clearMarker()
+        
+        for (index, store) in stores.enumerated() {
+            let marker = NMFMarker()
+            print(store)
+            marker.position = NMGLatLng(lat: store.longitude, lng: store.latitude)
+            if index == selectIndex {
+                marker.iconImage = NMFOverlayImage(name: "marker.select")
+            } else {
+                marker.iconImage = NMFOverlayImage(name: "marker.nonSelect")
+            }
+            marker.width = 20
+            marker.height = 20
+            
+            marker.mapView = mapView
+            
+            marker.touchHandler = { (overlay: NMFOverlay) -> Bool in
+                self.setCameraPosition(latitude: store.longitude,
+                                       longitude: store.latitude,
+                                       zoomLevel: 15,
+                                       animation: true)
+                self.storeCollectionView.selectItem(at: IndexPath(item: index, section: 0),
+                                               animated: true,
+                                                    scrollPosition: .left)
+                return true
+            }
+            
+            markers.append(marker)
+        }
+    }
+    
+    func clearMarker() {
+        for marker in self.markers {
+            marker.mapView = nil
+        }
+        self.markers.removeAll()
     }
 }
 
