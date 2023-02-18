@@ -12,24 +12,21 @@ final class MyPageCoordinator: FlowCoordinator {
     
     var presentationStyle: PresentationStyle
     weak var navigationController: UINavigationController?
-    let isAnonymous: Bool
     let authUseCase: AuthUseCase
     let memberUseCase: MemberUseCase
     
     init(
         presentationStyle: PresentationStyle,
-        isAnonymous: Bool,
         authUseCase: AuthUseCase,
         memberUseCase: MemberUseCase
     ) {
         self.presentationStyle = presentationStyle
-        self.isAnonymous = isAnonymous
         self.authUseCase = authUseCase
         self.memberUseCase = memberUseCase
     }
     
     internal func initScene() -> UIViewController {
-        if isAnonymous {
+        if UserDefaultsSetting.isAnonymous {
             let myPageAnonymousViewModel = MyPageAnonymousViewModel(delegate: self)
             let myPageAnonymousViewController = MyPageAnonymousViewController(viewModel: myPageAnonymousViewModel)
             return myPageAnonymousViewController
@@ -87,12 +84,6 @@ final class MyPageCoordinator: FlowCoordinator {
 }
 
 extension MyPageCoordinator: MyPageViewModelDelegate {
-    func goToLogin() {
-        guard let navigationController = navigationController else { return }
-        navigationController.isNavigationBarHidden = true
-        LoginCoordinator(presentationStyle: .push(navigationController: navigationController)).start()
-    }
-    
     func goToChangeNickname() {
         guard let navigationController = navigationController else { return }
         navigationController.pushViewController(changeNicknameScene(), animated: true)

@@ -11,7 +11,7 @@ import FindTownCore
 import RxSwift
 
 protocol MyPageAnonymousViewModelType {
-    func goToLogin()
+    func goToAuth()
 }
 
 final class MyPageAnonymousViewModel: BaseViewModel {
@@ -38,14 +38,14 @@ final class MyPageAnonymousViewModel: BaseViewModel {
     func bind() {
         self.input.goToLoginTrigger
             .bind { [weak self] in
-                self?.goToLogin()
+                self?.goToAuth()
             }
             .disposed(by: disposeBag)
     }
 }
 
 extension MyPageAnonymousViewModel: MyPageAnonymousViewModelType {
-    func goToLogin() {
-        delegate.goToLogin()
+    func goToAuth() {
+        delegate.goToAuth()
     }
 }
