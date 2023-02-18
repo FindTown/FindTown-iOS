@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct ThemaStore {
+struct ThemaStore: Equatable {
     let name: String
     let address: String
     let latitude: Double
