@@ -22,6 +22,10 @@ final class StoreCollectionViewFlowLayout: UICollectionViewFlowLayout {
     private func setupView() {
         scrollDirection = .horizontal
         minimumLineSpacing = 0
+        sectionInset = UIEdgeInsets(top: 0.0,
+                                    left: 0.0,
+                                    bottom: 0.0,
+                                    right: 16.0)
         itemSize = CGSize(width: 290, height: 155)
     }
     
