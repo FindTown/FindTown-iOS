@@ -20,6 +20,11 @@ final class TownIntroViewController: BaseViewController, UIScrollViewDelegate {
     
     // MARK: - Views
     
+    fileprivate let favoriteButton = UIBarButtonItem(image: UIImage(named: "favorite.nonselect"),
+                                                     style: .plain,
+                                                     target: nil,
+                                                     action: nil)
+    
     /// 소개
     private let townIntroView = UIView()
     private let townIntroTitleLabel = FindTownLabel(text: "어떤 동네인가요?", font: .subtitle4)
@@ -71,6 +76,7 @@ final class TownIntroViewController: BaseViewController, UIScrollViewDelegate {
     }
     
     override func setupView() {
+        self.navigationItem.rightBarButtonItem = favoriteButton        
         self.stackView.backgroundColor = FindTownColor.grey1.color
         self.stackView.spacing = 11
         
@@ -213,7 +219,20 @@ final class TownIntroViewController: BaseViewController, UIScrollViewDelegate {
         townMoodCollectionView.rx.setDelegate(self)
             .disposed(by: disposeBag)
         
-        // Input
+        // MARK: Input
+        
+        favoriteButton.rx.tap
+            .scan(false) { (lastState, newValue) in
+                  !lastState
+            }
+            .subscribe(onNext: { [weak self] isFavorite in
+                self?.rx.isFavoriteCity.onNext(isFavorite)
+                self?.viewModel?.input.favoriteButtonTrigger.onNext(isFavorite)
+                if isFavorite {
+                    self?.showToast(message: "찜 목록에 추가 되었어요")
+                }
+            })
+            .disposed(by: disposeBag)
         
         moveToMapButton.rx.tap
             .bind { [weak self] in
@@ -221,7 +240,11 @@ final class TownIntroViewController: BaseViewController, UIScrollViewDelegate {
             }
             .disposed(by: disposeBag)
         
-        // Output
+        // MARK: Output
+        
+        viewModel?.output.isFavorite
+            .bind(to: rx.isFavoriteCity)
+            .disposed(by: disposeBag)
         
         viewModel?.output.townTitle
             .subscribe(onNext: { townTitle in
@@ -293,6 +316,21 @@ private extension TownIntroViewController {
         let backViewTappedLocation = tapRecognizer.location(in: self.townRankToolTip)
         if townRankToolTip.point(inside: backViewTappedLocation, with: nil) == false {
             townRankToolTip.dismiss()
+        }
+    }
+}
+
+extension Reactive where Base: TownIntroViewController {
+    
+    var isFavoriteCity: Binder<Bool> {
+        return Binder(self.base) { (viewController, isSelect) in
+            if isSelect {
+                viewController.favoriteButton.image = UIImage(named: "favorite.select")
+                viewController.favoriteButton.tintColor = FindTownColor.orange.color
+            } else {
+                viewController.favoriteButton.image = UIImage(named: "favorite.nonselect")
+                viewController.favoriteButton.tintColor = FindTownColor.grey4.color
+            }
         }
     }
 }

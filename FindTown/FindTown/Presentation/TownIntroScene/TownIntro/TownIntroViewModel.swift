@@ -22,12 +22,13 @@ final class TownIntroViewModel: BaseViewModel {
     
     struct Input {
         let moveToMapButtonTrigger = PublishSubject<Void>()
+        let favoriteButtonTrigger = PublishSubject<Bool>()
     }
         
     struct Output {
+        var isFavorite = BehaviorSubject<Bool>(value: false)
         var townTitle = BehaviorSubject<String>(value: "")
         var townExplanation = BehaviorSubject<String>(value: "")
-        var townIntro = BehaviorSubject<(String,String)>(value: ("",""))
         var townMoodDataSource = BehaviorSubject<[TownMood]>(value: [])
         var trafficDataSource = BehaviorSubject<[Traffic]>(value: [])
         var hotPlaceDataSource = BehaviorSubject<[String]>(value: [])
@@ -83,9 +84,12 @@ extension TownIntroViewModel {
     func getTownIntroData() {
         self.townIntroTask = Task {
             do {
+                var accessToken = ""
+                //TODO: isAnonymous 적용
+                if true {
+                    accessToken = try await self.authUseCase.getAccessToken()
+                }
                 
-//                let accessToken = try await self.authUseCase.getAccessToken()
-                let accessToken = ""
                 let townIntroData = try await self.townUseCase.getTownIntro(cityCode: self.cityCode,
                                                                             accessToken: accessToken)
 
@@ -110,6 +114,7 @@ extension TownIntroViewModel {
             self.output.townTitle.onNext(townTitle)
         }
         
+        self.output.isFavorite.onNext(data.wishTown)
         self.output.townExplanation.onNext(data.townExplanation)
         self.output.townMoodDataSource.onNext(returnTownMoodData(data.townMoodList))
         self.output.trafficDataSource.onNext(returnTrafficData(data.townSubwayList))
