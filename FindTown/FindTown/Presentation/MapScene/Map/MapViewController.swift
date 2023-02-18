@@ -382,11 +382,11 @@ extension MapViewController {
         
         for (index, store) in themaStores.enumerated() {
             let marker = NMFMarker()
-            marker.position = NMGLatLng(lat: store.longitude, lng: store.latitude)
+            marker.position = NMGLatLng(lat: store.latitude, lng: store.longitude)
             if store == selectStore {
                 marker.iconImage = NMFOverlayImage(name: "marker.select")
-                self.setCameraPosition(latitude: store.longitude,
-                                       longitude: store.latitude,
+                self.setCameraPosition(latitude: store.latitude,
+                                       longitude: store.longitude,
                                        zoomLevel: 15,
                                        animation: true)
             } else {

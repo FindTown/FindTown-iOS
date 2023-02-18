@@ -22,6 +22,6 @@ struct ThemaStoreResponseDTO: Response {
     
     func toEntity() -> ThemaStore {
         let subCategory = StoreDetailType(description: subCategory)
-        return ThemaStore(name: name, address: address, latitude: x, longitude: y, subCategory: subCategory ?? StoreDetailType.cafe, foodCategory: foodCategory ?? nil)
+        return ThemaStore(name: name, address: address, latitude: y, longitude: x, subCategory: subCategory ?? StoreDetailType.cafe, foodCategory: foodCategory ?? nil)
     }
 }
