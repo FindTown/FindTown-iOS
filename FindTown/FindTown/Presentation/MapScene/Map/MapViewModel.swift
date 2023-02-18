@@ -34,7 +34,7 @@ final class MapViewModel: BaseViewModel {
     
     struct Output {
         let categoryDataSource = BehaviorSubject<[Category]>(value: [])
-        let storeDataSource = BehaviorSubject<[ThemaStore]>(value: [])
+        let storeDataSource = PublishSubject<[ThemaStore]>()
         let city = PublishSubject<City>()
         let cityBoundaryCoordinates = PublishSubject<[[Double]]>()
         let isFavoriteCity = PublishSubject<Bool>()
@@ -134,7 +134,6 @@ extension MapViewModel {
                 let themaStores = try await self.mapUseCase.getThemaStores(cityCode: cityCode, categoryId: category.code)
 
                 await MainActor.run {
-                    print(themaStores)
                     self.output.storeDataSource.onNext(themaStores)
                 }
                 themaStoreDataTask?.cancel()
