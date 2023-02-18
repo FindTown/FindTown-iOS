@@ -87,12 +87,6 @@ final class MyPageCoordinator: FlowCoordinator {
 }
 
 extension MyPageCoordinator: MyPageViewModelDelegate {
-    func goToLogin() {
-        guard let navigationController = navigationController else { return }
-        navigationController.isNavigationBarHidden = true
-        LoginCoordinator(presentationStyle: .push(navigationController: navigationController)).start()
-    }
-    
     func goToChangeNickname() {
         guard let navigationController = navigationController else { return }
         navigationController.pushViewController(changeNicknameScene(), animated: true)
