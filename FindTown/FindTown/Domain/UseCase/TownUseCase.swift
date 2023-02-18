@@ -17,10 +17,10 @@ final class TownUseCase {
     
     func getTownInformation(filterStatus: String = "", subwayList: [String] = []) async throws -> TownFilterResponseDTO {
         return try await defaultTownRepository.getTownInformation(filterStatus: filterStatus,
-                                                                 subwayList: subwayList)
+                                                                  subwayList: subwayList)
     }
     
-    func getSearchTownInformation() {
-        
+    func getSearchTownInformation(countyData: String) async throws -> TownSearchResponseDTO {
+        return try await defaultTownRepository.getSearchTownInformation(countyData: countyData)
     }
 }
