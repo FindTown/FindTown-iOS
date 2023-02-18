@@ -147,6 +147,6 @@ enum Traffic: CaseIterable {
     }
     
     static func returnTrafficType(_ traffic: String) -> Traffic? {
-        return self.allCases.first { $0.shortDescription == traffic }
+        return self.allCases.first { $0.description == traffic }
     }
 }

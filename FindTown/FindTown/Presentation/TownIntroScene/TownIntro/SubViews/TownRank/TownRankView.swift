@@ -23,13 +23,13 @@ final class TownRankView: UIView {
         rankTitleLabel.text = data.0.description
         
         switch data.0 {
-        case .lifeSafety:
+        case .lifeRank:
             numberLabel.text = "\(data.1)"
-        case .crime:
+        case .crimeRank:
             numberLabel.text = "\(data.1)"
-        case .traffic:
+        case .trafficRank:
             numberLabel.text = "\(data.1)"
-        case .livable:
+        case .liveRank:
             numberLabel.text = "\(data.1)"
             rightTextLabel.text = "순위"
         case .popular:
@@ -37,7 +37,7 @@ final class TownRankView: UIView {
             guard let dic = data.1 as? [String] else { return }
             leftTextLabel.text = dic[0]
             numberLabel.text = dic[1]
-        case .clean:
+        case .cleanRank:
             numberLabel.text = "\(data.1)"
             rightTextLabel.text = ""
         case .safety:

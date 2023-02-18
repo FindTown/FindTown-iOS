@@ -134,11 +134,12 @@ final class ShowVillageListViewController: BaseViewController {
 }
 
 extension ShowVillageListViewController: TownTableViewCellDelegate {
+    
     func didTapGoToMapButton() {
         print("didTapGoToMapButton")
     }
     
-    func didTapGoToIntroduceButton() {
+    func didTapGoToIntroduceButton(cityCode: Int) {
         print("didTapGoToIntroduceButton")
     }
     

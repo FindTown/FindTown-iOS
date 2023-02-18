@@ -435,12 +435,12 @@ final class HomeViewController: BaseViewController {
 }
 
 extension HomeViewController: TownTableViewCellDelegate {
-    func didTapGoToMapButton() {
-        print("didTapGoToMapButton")
+    func didTapGoToIntroduceButton(cityCode: Int) {
+        print("didTapGoToIntroduceButton")
     }
     
-    func didTapGoToIntroduceButton() {
-        print("didTapGoToIntroduceButton")
+    func didTapGoToMapButton() {
+        print("didTapGoToMapButton")
     }
     
     func didTapFavoriteButton() {

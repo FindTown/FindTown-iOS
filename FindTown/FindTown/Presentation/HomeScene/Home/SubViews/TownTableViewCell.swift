@@ -13,7 +13,7 @@ import RxSwift
 
 protocol TownTableViewCellDelegate: AnyObject {
     func didTapGoToMapButton()
-    func didTapGoToIntroduceButton()
+    func didTapGoToIntroduceButton(cityCode: Int)
     func didTapFavoriteButton()
 }
 
@@ -30,6 +30,8 @@ final class TownTableViewCell: UITableViewCell {
     var townTableModel: TownTableModel?
     
     var disposeBag = DisposeBag()
+    
+    var cityCode: Int?
     
     // MARK: Views
     
@@ -181,7 +183,8 @@ private extension TownTableViewCell {
     }
     
     @objc func didTapGoToIntroduceButton() {
-        self.delegate?.didTapGoToIntroduceButton()
+        guard let cityCode = cityCode else { return }
+        self.delegate?.didTapGoToIntroduceButton(cityCode: cityCode)
     }
     
     func didTapFavoriteButton() {
