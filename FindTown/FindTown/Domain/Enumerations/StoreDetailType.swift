@@ -64,7 +64,7 @@ enum StoreDetailType: CustomStringConvertible, CaseIterable {
         case .worldFood:
             return UIImage(named: "worldFoodIcon")
         case .cafe:
-            return UIImage(named: "fcafeIcon")
+            return UIImage(named: "cafeIcon")
         }
     }
 }

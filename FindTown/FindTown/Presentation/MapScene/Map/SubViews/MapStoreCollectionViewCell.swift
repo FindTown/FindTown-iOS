@@ -148,8 +148,13 @@ final class MapStoreCollectionViewCell: UICollectionViewCell {
     }
     
     func setupCell(store: ThemaStore) {
+        if let foodCategoty = store.foodCategory {
+            typeNameLabel.text = foodCategoty
+        } else {
+            typeNameLabel.text = store.subCategory.description
+        }
         typeImageView.image = store.subCategory.image
-        typeNameLabel.text = store.foodCategory
+        
         nameLabel.text = store.name
         addressLabel.text = store.address
     }
