@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum GlobalSettings {
+enum UserDefaultsSetting {
     
     @UserDefaultsWrapper(key: "isAnonymous", defaultValue: true)
     static var isAnonymous

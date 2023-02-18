@@ -91,7 +91,7 @@ struct townModelTest {
 extension FavoriteViewModel {
     
     func returnViewStatus() -> FavoriteViewStatus {
-        if GlobalSettings.isAnonymous {
+        if UserDefaultsSetting.isAnonymous {
             return .anonymous
         } else {
             // 찜 API 호출

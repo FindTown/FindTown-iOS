@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2B42E970299F83DB0093FB0A /* UserDefaultsWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B42E96F299F83DB0093FB0A /* UserDefaultsWrapper.swift */; };
-		2B42E972299F85200093FB0A /* GlobalSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B42E971299F85200093FB0A /* GlobalSettings.swift */; };
+		2B42E972299F85200093FB0A /* UserDefaultsSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B42E971299F85200093FB0A /* UserDefaultsSetting.swift */; };
 		2B564932299F828400B63317 /* APIKeyInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2B564931299F828400B63317 /* APIKeyInfo.plist */; };
 		2B628DD52986508F00A90D9A /* TownIntroViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B628DD42986508F00A90D9A /* TownIntroViewController.swift */; };
 		2B628DD7298650CD00A90D9A /* TownIntroViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B628DD6298650CD00A90D9A /* TownIntroViewModel.swift */; };
@@ -212,7 +212,7 @@
 
 /* Begin PBXFileReference section */
 		2B42E96F299F83DB0093FB0A /* UserDefaultsWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsWrapper.swift; sourceTree = "<group>"; };
-		2B42E971299F85200093FB0A /* GlobalSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalSettings.swift; sourceTree = "<group>"; };
+		2B42E971299F85200093FB0A /* UserDefaultsSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsSetting.swift; sourceTree = "<group>"; };
 		2B564931299F828400B63317 /* APIKeyInfo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = APIKeyInfo.plist; path = ../../../../APIKeyInfo.plist; sourceTree = "<group>"; };
 		2B628DD42986508F00A90D9A /* TownIntroViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TownIntroViewController.swift; sourceTree = "<group>"; };
 		2B628DD6298650CD00A90D9A /* TownIntroViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TownIntroViewModel.swift; sourceTree = "<group>"; };
@@ -435,7 +435,7 @@
 			isa = PBXGroup;
 			children = (
 				2B42E96F299F83DB0093FB0A /* UserDefaultsWrapper.swift */,
-				2B42E971299F85200093FB0A /* GlobalSettings.swift */,
+				2B42E971299F85200093FB0A /* UserDefaultsSetting.swift */,
 			);
 			path = UserDefaults;
 			sourceTree = "<group>";
@@ -1591,7 +1591,7 @@
 				2BEE90C92977F93E002E7C3A /* FavoriteViewModel.swift in Sources */,
 				F38AA7FA298124AD00EF66F2 /* AuthLoginRequest.swift in Sources */,
 				BC0D88532963DD0D00CCB800 /* LocationAndYearsViewController.swift in Sources */,
-				2B42E972299F85200093FB0A /* GlobalSettings.swift in Sources */,
+				2B42E972299F85200093FB0A /* UserDefaultsSetting.swift in Sources */,
 				F3219B762969D169000024E4 /* AddressSheetViewController.swift in Sources */,
 				F38AA80D29817E2000EF66F2 /* NickNameCheckRequest.swift in Sources */,
 				BCF825962988C93500AC00BB /* MyPageCoordinator.swift in Sources */,

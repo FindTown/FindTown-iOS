@@ -126,7 +126,7 @@ extension LoginViewModel {
 
 extension LoginViewModel: LoginViewModelType {
     func goToTabBar(isAnonymous: Bool = false) {
-        GlobalSettings.isAnonymous = isAnonymous
+        UserDefaultsSetting.isAnonymous = isAnonymous
         delegate.goToTabBar(isAnonymous: isAnonymous)
     }
     
