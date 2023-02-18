@@ -95,9 +95,7 @@ final class TownIntroViewController: BaseViewController, UIScrollViewDelegate {
         moveToMapButton.changesSelectionAsPrimaryAction = false
         moveToMapButton.isSelected = true
         
-        /// 임시 텍스트
-        self.title = "관악구 신림동"
-        townIntroLabel.text = "신림동은 20대 1인가구가 많이 살고 있어요."
+        self.viewModel?.getTownIntroData()
     }
     
     override func addView() {
@@ -225,6 +223,18 @@ final class TownIntroViewController: BaseViewController, UIScrollViewDelegate {
         
         // Output
         
+        viewModel?.output.townTitle
+            .subscribe(onNext: { townTitle in
+                self.title = townTitle
+            })
+            .disposed(by: disposeBag)
+        
+        viewModel?.output.townExplanation
+            .subscribe(onNext: { townExplanation in
+                self.townIntroLabel.text = townExplanation
+            })
+            .disposed(by: disposeBag)
+        
         viewModel?.output.townMoodDataSource
             .observe(on: MainScheduler.instance)
             .bind(to: townMoodCollectionView.rx.items(cellIdentifier: TownMoodCollectionViewCell.reuseIdentifier, cellType: TownMoodCollectionViewCell.self)) { index, item, cell in
@@ -257,6 +267,12 @@ final class TownIntroViewController: BaseViewController, UIScrollViewDelegate {
                     self.townRankStackView.addArrangedSubview(rankView)
                 }
             })
+            .disposed(by: disposeBag)
+        
+        viewModel?.output.errorNotice
+            .subscribe { [weak self] _ in
+                self?.showErrorNoticeAlertPopUp(message: "네트워크 오류가 발생하였습니다.", buttonText: "확인")
+            }
             .disposed(by: disposeBag)
     }
 }

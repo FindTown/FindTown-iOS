@@ -25,18 +25,40 @@ final class TownIntroViewModel: BaseViewModel {
     }
         
     struct Output {
+        var townTitle = BehaviorSubject<String>(value: "")
+        var townExplanation = BehaviorSubject<String>(value: "")
+        var townIntro = BehaviorSubject<(String,String)>(value: ("",""))
         var townMoodDataSource = BehaviorSubject<[TownMood]>(value: [])
         var trafficDataSource = BehaviorSubject<[Traffic]>(value: [])
         var hotPlaceDataSource = BehaviorSubject<[String]>(value: [])
         var townRankDataSource = BehaviorSubject<[(TownRank,Any)]>(value: [])
+        let errorNotice = PublishSubject<Void>()
     }
     
     let delegate: TownIntroViewModelDelegate
     let input = Input()
     let output = Output()
+    var cityCode: Int
+    
+    // MARK: - UseCase
+    
+    let townUseCase: TownUseCase
+    let authUseCase: AuthUseCase
+    
+    // MARK: - Task
+    
+    private var townIntroTask: Task<Void, Error>?
 
-    init(delegate: TownIntroViewModelDelegate) {
+    init(delegate: TownIntroViewModelDelegate,
+         townUseCase: TownUseCase,
+         authUseCase: AuthUseCase,
+         cityCode: Int) {
+        
         self.delegate = delegate
+        self.townUseCase = townUseCase
+        self.authUseCase = authUseCase
+        self.cityCode = cityCode
+        
         super.init()
         self.bind()
     }
@@ -48,11 +70,6 @@ final class TownIntroViewModel: BaseViewModel {
                 self?.delegate.goToMap()
             })
             .disposed(by: disposeBag)
-      
-        self.output.townMoodDataSource.onNext(returnTownMoodData())
-        self.output.trafficDataSource.onNext(returnTrafficData())
-        self.output.hotPlaceDataSource.onNext(returnHotPlaceData())
-        self.output.townRankDataSource.onNext(returnTownRankData())
     }
 }
 
@@ -62,13 +79,51 @@ extension TownIntroViewModel: TownIntroViewModelType {
     }
 }
 
-// 임시 데이터
 extension TownIntroViewModel {
-    func returnTownMoodData() -> [TownMood] {
-        let data =  ["배달시키기 좋은", "항상 사람이 많은"]
+    func getTownIntroData() {
+        self.townIntroTask = Task {
+            do {
+                
+//                let accessToken = try await self.authUseCase.getAccessToken()
+                let accessToken = ""
+                let townIntroData = try await self.townUseCase.getTownIntro(cityCode: self.cityCode,
+                                                                            accessToken: accessToken)
+
+                await MainActor.run(body: {
+                    self.setTownIntroData(data: townIntroData.townIntro)
+                })
+            } catch (let error) {
+                await MainActor.run {
+                    self.output.errorNotice.onNext(())
+                }
+                Log.error(error)
+            }
+            townIntroTask?.cancel()
+        }
+        
+    }
+    
+    func setTownIntroData(data: TownIntroDTO) {
+        
+        if let city = CityCode.init(rawValue: cityCode) {
+            let townTitle = City(county: city.county, village: city.village).description
+            self.output.townTitle.onNext(townTitle)
+        }
+        
+        self.output.townExplanation.onNext(data.townExplanation)
+        self.output.townMoodDataSource.onNext(returnTownMoodData(data.townMoodList))
+        self.output.trafficDataSource.onNext(returnTrafficData(data.townSubwayList))
+        let hotPlaceList = data.townHotPlaceList.filter{ $0 != nil }.map { $0! }
+        self.output.hotPlaceDataSource.onNext(hotPlaceList)
+        self.output.townRankDataSource.onNext(self.returnTownRankData(data: data))
+    }
+}
+
+extension TownIntroViewModel {
+    func returnTownMoodData(_ townMoodStringArray: [String]) -> [TownMood] {
         var townMoodArray: [TownMood] = []
         
-        for mood in data {
+        for mood in townMoodStringArray {
             if let mood = TownMood.returnTrafficType(mood) {
                 townMoodArray.append(mood)
             }
@@ -76,36 +131,41 @@ extension TownIntroViewModel {
         return townMoodArray
     }
     
-    func returnTrafficData() -> [Traffic] {
-        let data = ["1", "2", "3"]
+    func returnTrafficData(_ trafficStringArray: [String]) -> [Traffic] {
         var trafficArray: [Traffic] = []
       
-        for traffic in data {
+        for traffic in trafficStringArray {
             if let traffic =  Traffic.returnTrafficType(traffic) {
                 trafficArray.append(traffic)
             }
         }
+        
         return trafficArray
     }
     
-    func returnHotPlaceData() -> [String] {
-        return ["타임 스트림", "신림 순대타운"]
-    }
-    
-    func returnTownRankData() -> [(TownRank,Any)] {
-        let test = TownRankData()
+    func returnTownRankData(data: TownIntroDTO ) -> [(TownRank,Any)] {
+        let popular = data.popularGeneration == 0 ? nil : ["\(data.popularGeneration)대 1인가구",
+                                                           "\(data.popularTownRate)"]
+        let test = TownRankData(lifeRank: data.lifeRate,
+                                crimeRank: data.crimeRate,
+                                trafficRank: data.trafficRate,
+                                liveRank: data.liveRank == 0 ? nil : data.liveRank,
+                                popular: popular,
+                                cleanRank: data.cleanlinessRank == "N" ? nil : data.cleanlinessRank,
+                                safety: data.reliefYn == "Y" ? "안심보안관 활동지" : nil)
+        
         return test.toArray()
     }
 }
 
 struct TownRankData: Encodable {
-    var lifeSafety = "1"
-    var crime = "1"
-    var traffic = "1"
-    var livable = "1"
-    var popular = ["30대 1인가구","2"]
-    var clean = "TOP 10"
-    var safety = "안심보안관 활동지"
+    var lifeRank: Int
+    var crimeRank: Int
+    var trafficRank: Int
+    var liveRank: Int?
+    var popular: [String]?
+    var cleanRank: String?
+    var safety: String?
     
     func toArray() -> [(TownRank, Any)] {
         var array = [(TownRank, Any)]()
