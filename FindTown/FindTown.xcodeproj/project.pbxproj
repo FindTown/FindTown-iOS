@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2B42E984299FC82D0093FB0A /* APIKeyInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2B42E983299FC82D0093FB0A /* APIKeyInfo.plist */; };
+		2B42E986299FCC110093FB0A /* TownIntroRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B42E985299FCC110093FB0A /* TownIntroRequest.swift */; };
+		2B42E98A299FCD140093FB0A /* TownIntroResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B42E989299FCD140093FB0A /* TownIntroResponseDTO.swift */; };
+		2B42E98C29A0688D0093FB0A /* Traffic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B42E98B29A0688D0093FB0A /* Traffic.swift */; };
 		2B628DD52986508F00A90D9A /* TownIntroViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B628DD42986508F00A90D9A /* TownIntroViewController.swift */; };
 		2B628DD7298650CD00A90D9A /* TownIntroViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B628DD6298650CD00A90D9A /* TownIntroViewModel.swift */; };
 		2B628DDA29865DB400A90D9A /* TownMoodCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B628DD929865DB400A90D9A /* TownMoodCollectionView.swift */; };
@@ -58,7 +62,6 @@
 		BC32F82D299D49D60038F0D6 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC32F82C299D49D60038F0D6 /* SearchViewController.swift */; };
 		BC32F835299EA3870038F0D6 /* MemberInfomationRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC32F834299EA3870038F0D6 /* MemberInfomationRequest.swift */; };
 		BC32F837299EA3A80038F0D6 /* MemberInfomationResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC32F836299EA3A80038F0D6 /* MemberInfomationResponseDTO.swift */; };
-		BC32F839299EA4D90038F0D6 /* APIKeyInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = BC32F838299EA4D90038F0D6 /* APIKeyInfo.plist */; };
 		BC354708298F9D010016FE4A /* ServiceMapPopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC354707298F9D010016FE4A /* ServiceMapPopUpViewController.swift */; };
 		BC47D6382993809A00FE83D5 /* MyPageViewSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC47D6372993809A00FE83D5 /* MyPageViewSection.swift */; };
 		BC47D63A299381D000FE83D5 /* ReviewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC47D639299381D000FE83D5 /* ReviewModel.swift */; };
@@ -209,6 +212,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2B42E983299FC82D0093FB0A /* APIKeyInfo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = APIKeyInfo.plist; path = ../../../../APIKeyInfo.plist; sourceTree = "<group>"; };
+		2B42E985299FCC110093FB0A /* TownIntroRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TownIntroRequest.swift; sourceTree = "<group>"; };
+		2B42E989299FCD140093FB0A /* TownIntroResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TownIntroResponseDTO.swift; sourceTree = "<group>"; };
+		2B42E98B29A0688D0093FB0A /* Traffic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Traffic.swift; sourceTree = "<group>"; };
 		2B628DD42986508F00A90D9A /* TownIntroViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TownIntroViewController.swift; sourceTree = "<group>"; };
 		2B628DD6298650CD00A90D9A /* TownIntroViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TownIntroViewModel.swift; sourceTree = "<group>"; };
 		2B628DD929865DB400A90D9A /* TownMoodCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TownMoodCollectionView.swift; sourceTree = "<group>"; };
@@ -257,7 +264,6 @@
 		BC32F82C299D49D60038F0D6 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		BC32F834299EA3870038F0D6 /* MemberInfomationRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberInfomationRequest.swift; sourceTree = "<group>"; };
 		BC32F836299EA3A80038F0D6 /* MemberInfomationResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberInfomationResponseDTO.swift; sourceTree = "<group>"; };
-		BC32F838299EA4D90038F0D6 /* APIKeyInfo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = APIKeyInfo.plist; path = ../../../../../../Downloads/APIKeyInfo.plist; sourceTree = "<group>"; };
 		BC354707298F9D010016FE4A /* ServiceMapPopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceMapPopUpViewController.swift; sourceTree = "<group>"; };
 		BC47D6372993809A00FE83D5 /* MyPageViewSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewSection.swift; sourceTree = "<group>"; };
 		BC47D639299381D000FE83D5 /* ReviewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewModel.swift; sourceTree = "<group>"; };
@@ -427,6 +433,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2B42E988299FCD040093FB0A /* TownIntro */ = {
+			isa = PBXGroup;
+			children = (
+				2B42E989299FCD140093FB0A /* TownIntroResponseDTO.swift */,
+			);
+			path = TownIntro;
+			sourceTree = "<group>";
+		};
 		2B628DD32986507B00A90D9A /* TownIntro */ = {
 			isa = PBXGroup;
 			children = (
@@ -725,7 +739,7 @@
 			isa = PBXGroup;
 			children = (
 				F3891E2A293B8394003CE8AD /* Assets.xcassets */,
-				BC32F838299EA4D90038F0D6 /* APIKeyInfo.plist */,
+				2B42E983299FC82D0093FB0A /* APIKeyInfo.plist */,
 				F3891E2F293B8394003CE8AD /* Info.plist */,
 				F3891E2C293B8394003CE8AD /* LaunchScreen.storyboard */,
 			);
@@ -836,6 +850,7 @@
 		BCF68B54299BB24C00E8D83E /* Town */ = {
 			isa = PBXGroup;
 			children = (
+				2B42E985299FCC110093FB0A /* TownIntroRequest.swift */,
 				BCF68B55299BB25C00E8D83E /* TownFilterRequest.swift */,
 			);
 			path = Town;
@@ -1106,6 +1121,7 @@
 		F38AA80429816C3A00EF66F2 /* Reponse */ = {
 			isa = PBXGroup;
 			children = (
+				2B42E988299FCD040093FB0A /* TownIntro */,
 				F38AA80E29817F1600EF66F2 /* NickCheckResponseDTO.swift */,
 				F3356EE1298CEA4B002B9FFD /* TokenInformationDTO.swift */,
 				F3356EFB298EB980002B9FFD /* LoginConfirmReponseDTO.swift */,
@@ -1151,6 +1167,7 @@
 				2B718C192966A6000068884A /* MapCategory.swift */,
 				F38AA8102982766400EF66F2 /* ProviderType.swift */,
 				F38AA81829829BED00EF66F2 /* CityCode.swift */,
+				2B42E98B29A0688D0093FB0A /* Traffic.swift */,
 			);
 			path = Enumerations;
 			sourceTree = "<group>";
@@ -1398,7 +1415,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F3891E2E293B8394003CE8AD /* LaunchScreen.storyboard in Resources */,
-				BC32F839299EA4D90038F0D6 /* APIKeyInfo.plist in Resources */,
+				2B42E984299FC82D0093FB0A /* APIKeyInfo.plist in Resources */,
 				F3891E2B293B8394003CE8AD /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1451,6 +1468,7 @@
 				BC056C602962B2D900EDCA18 /* NicknameViewController.swift in Sources */,
 				BC8B6393298A66DD004E1116 /* MyTownReviewViewController.swift in Sources */,
 				F391845B299A68F600CEF02E /* InfraCategory.swift in Sources */,
+				2B42E98A299FCD140093FB0A /* TownIntroResponseDTO.swift in Sources */,
 				F38CCBE929582881000C16AF /* MapViewModel.swift in Sources */,
 				F38AA80629816C4700EF66F2 /* MemberIdDTO.swift in Sources */,
 				F39EDDBC296D5AE500A4E655 /* City.swift in Sources */,
@@ -1523,6 +1541,7 @@
 				BCB554B32977AEA8007E1BBA /* VillageYearMonth.swift in Sources */,
 				F38AA8112982766400EF66F2 /* ProviderType.swift in Sources */,
 				F38AA7F6298121EE00EF66F2 /* DefaultAuthRepository.swift in Sources */,
+				2B42E986299FCC110093FB0A /* TownIntroRequest.swift in Sources */,
 				F38AA81929829BED00EF66F2 /* CityCode.swift in Sources */,
 				BC8B638729894EE1004E1116 /* MyPageCollectionView.swift in Sources */,
 				BCB554B32977AEA8007E1BBA /* VillageYearMonth.swift in Sources */,
@@ -1549,6 +1568,7 @@
 				F38CCBE12958287C000C16AF /* HomeCoordinator.swift in Sources */,
 				2BEE90C52977F90A002E7C3A /* FavoriteViewController.swift in Sources */,
 				BCF68B5C299BDE3E00E8D83E /* TownTableModel.swift in Sources */,
+				2B42E98C29A0688D0093FB0A /* Traffic.swift in Sources */,
 				2BEE90CF2977FDFE002E7C3A /* AnonymousView.swift in Sources */,
 				2B628DDC29865DD800A90D9A /* TownMoodCollectionViewCell.swift in Sources */,
 				F38AA822298396D300EF66F2 /* MemberSignupDTO.swift in Sources */,
