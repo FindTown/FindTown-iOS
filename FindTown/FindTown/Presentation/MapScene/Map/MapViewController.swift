@@ -51,7 +51,6 @@ final class MapViewController: BaseViewController {
     var currentIndex: CGFloat = 0 {
         didSet {
             let index = Int(self.currentIndex)
-            print(themaStores[index])
             self.setStoreMarker(selectStore: themaStores[index])
         }
     }
@@ -143,10 +142,7 @@ final class MapViewController: BaseViewController {
         viewModel.output.storeDataSource
             .bind { [weak self] stores in
                 self?.themaStores = stores
-
-                self?.setStoreMarker(selectStore: stores[0])
-                self?.storeCollectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .left, animated: true)
-                self?.currentIndex = 0
+                self?.showFirstStore(store: stores[0])
         }
         .disposed(by: disposeBag)
         
@@ -166,11 +162,7 @@ final class MapViewController: BaseViewController {
         storeCollectionView.rx.modelSelected(ThemaStore.self)
             .throttle(.milliseconds(300), scheduler: MainScheduler.instance)
             .bind { [weak self] store in
-                guard let storeIndex = self?.themaStores.firstIndex(of: store) else {
-                    return
-                }
                 self?.setStoreMarker(selectStore: store)
-                self?.storeCollectionView.scrollToItem(at: IndexPath(item: storeIndex, section: 0), at: .left, animated: true)
             }
             .disposed(by: disposeBag)
         
@@ -383,6 +375,11 @@ extension MapViewController {
     func setStoreMarker(selectStore: ThemaStore) {
         clearMarker()
         
+        guard let storeIndex = self.themaStores.firstIndex(of: selectStore) else {
+            return
+        }
+        self.storeCollectionView.scrollToItem(at: IndexPath(item: storeIndex, section: 0), at: .left, animated: true)
+        
         for (index, store) in themaStores.enumerated() {
             let marker = NMFMarker()
             marker.position = NMGLatLng(lat: store.longitude, lng: store.latitude)
@@ -417,6 +414,11 @@ extension MapViewController {
             marker.mapView = nil
         }
         self.markers.removeAll()
+    }
+    
+    func showFirstStore(store: ThemaStore) {
+        self.setStoreMarker(selectStore: store)
+        self.currentIndex = 0
     }
 }
 
