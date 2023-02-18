@@ -66,6 +66,7 @@ extension ShowVillageListViewModel {
                     let townTableModel = townInformation.toEntity
                     self.output.searchTownTableDataSource.accept(townTableModel)
                 })
+                searchTask?.cancel()
             } catch (let error) {
                 await MainActor.run {
                     self.output.errorNotice.onNext(())
