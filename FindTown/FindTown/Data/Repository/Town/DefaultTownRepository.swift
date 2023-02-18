@@ -22,4 +22,17 @@ final class DefaultTownRepository {
     func getSearchTownInformation() {
         
     }
+    
+    /// 동네 소개 
+    func getTownIntro(cityCode: Int, accessToken: String) async throws -> TownIntroReponseDTO {
+        
+        let httpHeaders = HTTPHeaders([.accept("*/*"),
+                                       .authorization(bearerToken: accessToken)])
+        
+        let parameters = [URLQueryItem(name: "objectId", value: String(cityCode))]
+        let request = TownIntroRequest(HTTPHeaders: httpHeaders, parameters: parameters)
+        print("request  ==== \(request)")
+        let data = try await Network.shared.request(target: TownIntroRequest(HTTPHeaders: httpHeaders, parameters: parameters))
+        return data.body
+    }
 }
