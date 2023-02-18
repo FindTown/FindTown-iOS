@@ -481,7 +481,6 @@ extension Reactive where Base: MapViewController {
     
     var isFavoriteCity: Binder<Bool> {
         return Binder(self.base) { (viewController, isSelect) in
-            print(isSelect)
             if isSelect {
                 viewController.favoriteButton.image = UIImage(named: "favorite.select")
                 viewController.favoriteButton.tintColor = FindTownColor.orange.color
