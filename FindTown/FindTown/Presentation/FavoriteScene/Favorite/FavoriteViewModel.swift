@@ -68,8 +68,8 @@ final class FavoriteViewModel: BaseViewModel {
             .disposed(by: disposeBag)
         
         self.input.townIntroButtonTrigger
-            .subscribe(onNext: { cityCode in
-                self.delegate.goToTownIntro(cityCode: cityCode)
+            .subscribe(onNext: { [weak self] cityCode in
+                self?.delegate.goToTownIntro(cityCode: cityCode)
             })
             .disposed(by: disposeBag)
         

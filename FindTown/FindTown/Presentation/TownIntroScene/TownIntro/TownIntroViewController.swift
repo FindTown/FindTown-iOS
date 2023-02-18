@@ -247,14 +247,14 @@ final class TownIntroViewController: BaseViewController, UIScrollViewDelegate {
             .disposed(by: disposeBag)
         
         viewModel?.output.townTitle
-            .subscribe(onNext: { townTitle in
-                self.title = townTitle
+            .subscribe(onNext: { [weak self] townTitle in
+                self?.title = townTitle
             })
             .disposed(by: disposeBag)
         
         viewModel?.output.townExplanation
-            .subscribe(onNext: { townExplanation in
-                self.townIntroLabel.text = townExplanation
+            .subscribe(onNext: { [weak self] townExplanation in
+                self?.townIntroLabel.text = townExplanation
             })
             .disposed(by: disposeBag)
         
