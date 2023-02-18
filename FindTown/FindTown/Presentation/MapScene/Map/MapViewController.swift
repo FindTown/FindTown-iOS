@@ -126,8 +126,9 @@ final class MapViewController: BaseViewController {
                 } else if let themaCategory = categories[0] as? ThemaCategory {
                     self?.viewModel?.getThemaData(category: themaCategory, city: city)
                 }
-                self?.categoryCollectionView.selectItem(at: IndexPath(item: 0, section: 0), animated: true, scrollPosition: .left)
-                
+                DispatchQueue.main.async {
+                    self?.categoryCollectionView.selectItem(at: IndexPath(item: 0, section: 0), animated: true, scrollPosition: .bottom)
+                }
         }
         .disposed(by: disposeBag)
         
