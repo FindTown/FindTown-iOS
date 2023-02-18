@@ -103,18 +103,20 @@ final class FavoriteViewController: BaseViewController {
                                                  cellType: TownTableViewCell.self)) {
                 index, item, cell in
                 cell.setupCell(item)
+                cell.cityCode = item.objectId
                 cell.delegate = self
             }.disposed(by: disposeBag)
     }
 }
 
 extension FavoriteViewController: TownTableViewCellDelegate {
+
     func didTapGoToMapButton() {
         print("FavoriteViewControlle: didTapGoToMapButton")
     }
     
-    func didTapGoToIntroduceButton() {
-        self.viewModel?.input.townIntroButtonTrigger.onNext(())
+    func didTapGoToIntroduceButton(cityCode: Int) {
+        self.viewModel?.input.townIntroButtonTrigger.onNext(cityCode)
     }
     
     func didTapFavoriteButton() {

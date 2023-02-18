@@ -5,18 +5,19 @@
 //  Created by 장선영 on 2023/01/18.
 //
 
+import UIKit
 import Foundation
 import FindTownCore
 import RxSwift
 
 protocol FavoriteViewModelType {
     func goToSignUp()
-    func goToTownIntro()
+    func goToTownIntro(cityCode: Int)
 }
 
 protocol FavoriteViewModelDelegate {
     func goToSignup()
-    func goToTownIntro()
+    func goToTownIntro(cityCode: Int)
 }
 
 enum FavoriteViewStatus {
@@ -34,19 +35,26 @@ final class FavoriteViewModel: BaseViewModel {
     
     struct Input {
         let signUpButtonTrigger = PublishSubject<Void>()
-        let townIntroButtonTrigger = PublishSubject<Void>()
+        let townIntroButtonTrigger = PublishSubject<Int>()
     }
     
     struct Output {
         let viewStatus = BehaviorSubject<FavoriteViewStatus>(value: .anonymous)
-        let favoriteDataSource = BehaviorSubject<[townModelTest]>(value: [])
+        let favoriteDataSource = BehaviorSubject<[TownTableModel]>(value: [])
     }
     
     let output = Output()
     let input = Input()
     
-    init(delegate: FavoriteViewModelDelegate) {
+    // MARK: - UseCase
+    
+    let townUseCase: TownUseCase
+    let authUseCase: AuthUseCase
+    
+    init(delegate: FavoriteViewModelDelegate, townUseCase: TownUseCase, authUseCsae: AuthUseCase) {
         self.delegate = delegate
+        self.townUseCase = townUseCase
+        self.authUseCase = authUseCsae
         super.init()
         self.bind()
     }
@@ -60,8 +68,8 @@ final class FavoriteViewModel: BaseViewModel {
             .disposed(by: disposeBag)
         
         self.input.townIntroButtonTrigger
-            .subscribe(onNext: { [weak self] in
-                self?.delegate.goToTownIntro()
+            .subscribe(onNext: { cityCode in
+                self.delegate.goToTownIntro(cityCode: cityCode)
             })
             .disposed(by: disposeBag)
         
@@ -76,8 +84,8 @@ extension FavoriteViewModel: FavoriteViewModelType {
         delegate.goToSignup()
     }
     
-    func goToTownIntro() {
-        delegate.goToTownIntro()
+    func goToTownIntro(cityCode: Int) {
+        delegate.goToTownIntro(cityCode: cityCode)
     }
 }
 
@@ -94,16 +102,33 @@ extension FavoriteViewModel {
         return .isPresent
     }
     
-    func returnTownTestData() -> [townModelTest] {
-        let demoTown1 = townModelTest(image: "map", village: "신림동", introduce: "자취생들이 많이 사는 동네")
-        let demoTown2 = townModelTest(image: "map", village: "신림동", introduce: "자취생들이 많이 사는 동네")
-        let demoTown3 = townModelTest(image: "map", village: "신림동", introduce: "자취생들이 많이 사는 동네")
-        let demoTown4 = townModelTest(image: "map", village: "신림동", introduce: "자취생들이 많이 사는 동네")
-        let demoTown5 = townModelTest(image: "map", village: "신림동", introduce: "자취생들이 많이 사는 동네")
-        let demoTown6 = townModelTest(image: "map", village: "신림동", introduce: "자취생들이 많이 사는 동네")
-        let demoTown7 = townModelTest(image: "map", village: "신림동", introduce: "자취생들이 많이 사는 동네")
-        
-        let towns = [demoTown1, demoTown2, demoTown3, demoTown4, demoTown5, demoTown6, demoTown7]
+    func returnTownTestData() -> [TownTableModel] {
+        let test1 = TownTableModel(objectId: 321,
+                                  county: "행운동",
+                                  countyIcon: UIImage(named: "gwanak") ?? UIImage(),
+                                  wishTown: false,
+                                  safetyRate: 3,
+                                  townIntroduction: "강남으로 출근하기 좋은 동네")
+        let test2 = TownTableModel(objectId: 321,
+                                  county: "행운동",
+                                  countyIcon: UIImage(named: "gwanak") ?? UIImage(),
+                                  wishTown: false,
+                                  safetyRate: 3,
+                                  townIntroduction: "강남으로 출근하기 좋은 동네")
+        let test3 = TownTableModel(objectId: 321,
+                                  county: "행운동",
+                                  countyIcon: UIImage(named: "gwanak") ?? UIImage(),
+                                  wishTown: false,
+                                  safetyRate: 3,
+                                  townIntroduction: "강남으로 출근하기 좋은 동네")
+        let test4 = TownTableModel(objectId: 321,
+                                  county: "행운동",
+                                  countyIcon: UIImage(named: "gwanak") ?? UIImage(),
+                                  wishTown: false,
+                                  safetyRate: 3,
+                                  townIntroduction: "강남으로 출근하기 좋은 동네")
+       
+        let towns = [test1, test2, test3, test4]
         return towns + towns
     }
 }
