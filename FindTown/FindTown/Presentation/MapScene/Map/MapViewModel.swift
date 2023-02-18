@@ -17,11 +17,13 @@ protocol MapViewModelDelegate {
     func gotoIntroduce()
     func presentAddressSheet()
     func setCityData(_ city: City)
+    func presentInformationUpdateScene()
 }
 
 protocol MapViewModelType {
     func gotoIntroduce()
     func presentAddressSheet()
+    func presentInformationUpdateScene()
 }
 
 final class MapViewModel: BaseViewModel {
@@ -162,6 +164,9 @@ extension MapViewModel {
 
 
 extension MapViewModel: MapViewModelType {
+    func presentInformationUpdateScene() {
+        delegate.presentInformationUpdateScene()
+    }
     
     func gotoIntroduce() {
         delegate.gotoIntroduce()

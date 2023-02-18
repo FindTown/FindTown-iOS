@@ -29,6 +29,12 @@ final class MapCoordinator: FlowCoordinator {
         return MapViewController(viewModel: mapViewModel, mapTransition: .tapBar, isAnonymous: isAnonymous)
     }
     
+    internal func informationUpdateScene() -> UIViewController {
+        let informationUpdateViewController = BaseWebViewController(webViewTitle: "정보 수정 요청", url: "https://docs.google.com/forms/d/e/1FAIpQLSejCcnZ_TFvlMRaYjgxUUneah1cgXjRwA0t_NrMKpiSNMYZrw/viewform")
+        informationUpdateViewController.hidesBottomBarWhenPushed = true
+        return informationUpdateViewController
+    }
+    
 }
 
 extension MapCoordinator: MapViewModelDelegate {
@@ -40,6 +46,11 @@ extension MapCoordinator: MapViewModelDelegate {
     func presentAddressSheet() {
         guard let navigationController = navigationController else { return }
         AddressSheetCoordinator(presentationStyle: .present(navigationController: navigationController, modalPresentationStyle: .overFullScreen),       parentCoordinator: self).start()
+    }
+    
+    func presentInformationUpdateScene() {
+        guard let navigationController = navigationController else { return }
+        navigationController.pushViewController(informationUpdateScene(), animated: true)
     }
     
     func setCityData(_ city: City) {

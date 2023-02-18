@@ -424,7 +424,7 @@ extension MapViewController {
 
 extension MapViewController: MapStoreCollectionViewCellDelegate {
     func didTapInformationUpdateButton() {
-        print("informationUpdate tap")
+        self.viewModel?.presentInformationUpdateScene()
     }
     
     func didTapCopyButton(text: String) {
