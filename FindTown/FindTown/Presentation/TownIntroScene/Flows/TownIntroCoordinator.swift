@@ -13,13 +13,26 @@ final class TownIntroCoordinator: FlowCoordinator {
     var presentationStyle: PresentationStyle
     weak var navigationController: UINavigationController?
     var delegate: TownIntroViewModelDelegate?
+    let townUseCase: TownUseCase
+    let authUseCase: AuthUseCase
+    let cityCode: Int
 
-    init(presentationStyle: PresentationStyle) {
+    init(presentationStyle: PresentationStyle,
+         townUseCase: TownUseCase,
+         authUseCase: AuthUseCase,
+         cityCode: Int) {
+        
         self.presentationStyle = presentationStyle
+        self.townUseCase = townUseCase
+        self.authUseCase = authUseCase
+        self.cityCode = cityCode
     }
 
     internal func initScene() -> UIViewController {
-        let townIntroViewModel = TownIntroViewModel(delegate: self)
+        let townIntroViewModel = TownIntroViewModel(delegate: self,
+                                                    townUseCase: townUseCase,
+                                                    authUseCase: authUseCase,
+                                                    cityCode: cityCode)
         return TownIntroViewController(viewModel: townIntroViewModel)
     }
  }
