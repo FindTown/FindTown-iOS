@@ -117,10 +117,19 @@ final class MapViewController: BaseViewController {
             .bind(to: categoryCollectionView.rx.items(cellIdentifier: MapCategoryCollectionViewCell.reuseIdentifier,
                                               cellType: MapCategoryCollectionViewCell.self)) { index, item, cell in
                 cell.setupCell(image: item.image, title: item.description)
-                if index == 0 {
-                    self.selectFirstItem(item)
-                }
             }.disposed(by: disposeBag)
+        
+        Observable.combineLatest(viewModel.output.categoryDataSource, viewModel.output.city)
+            .bind { [weak self] categories, city in
+                if let infraCategory = categories[0] as? InfraCategory {
+                    //
+                } else if let themaCategory = categories[0] as? ThemaCategory {
+                    self?.viewModel?.getThemaData(category: themaCategory, city: city)
+                }
+                self?.categoryCollectionView.selectItem(at: IndexPath(item: 0, section: 0), animated: true, scrollPosition: .left)
+                
+        }
+        .disposed(by: disposeBag)
         
         /// iconCollectionView 데이터 바인딩
         viewModel.output.storeDataSource.observe(on: MainScheduler.instance)
@@ -244,13 +253,6 @@ final class MapViewController: BaseViewController {
         setNaviBarLayout()
         setMapViewLayout()
         setLayoutByTransition()
-    }
-    
-    private func selectFirstItem(_ item: Category) {
-        DispatchQueue.main.async {
-            self.categoryCollectionView.selectItem(at: IndexPath(item: 0, section: 0), animated: true, scrollPosition: .left)
-//            self.detailCategoryView.setStackView(data: item.detailCategories)
-        }
     }
 }
 
