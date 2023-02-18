@@ -15,7 +15,7 @@ struct TownIntroRequest: BaseRequest {
         self.parameters = parameters
     }
     
-    typealias ResponseType = TownIntroReponseDTO
+    typealias ResponseType = TownIntroResponseDTO
     
     var path: String = "/app/town/introduce"
     var method: FindTownNetwork.HttpMethod = .get

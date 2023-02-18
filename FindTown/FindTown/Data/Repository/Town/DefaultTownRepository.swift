@@ -24,7 +24,7 @@ final class DefaultTownRepository {
     }
     
     /// 동네 소개 
-    func getTownIntro(cityCode: Int, accessToken: String) async throws -> TownIntroReponseDTO {
+    func getTownIntro(cityCode: Int, accessToken: String) async throws -> TownIntroResponseDTO {
         
         let httpHeaders = HTTPHeaders([.accept("*/*"),
                                        .authorization(bearerToken: accessToken)])
