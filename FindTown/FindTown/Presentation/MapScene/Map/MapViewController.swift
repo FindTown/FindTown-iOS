@@ -48,7 +48,13 @@ final class MapViewController: BaseViewController {
         return button
     }()
     
-    var currentIndex: CGFloat = 0
+    var currentIndex: CGFloat = 0 {
+        didSet {
+            let index = Int(self.currentIndex)
+            print(themaStores[index])
+            self.setStoreMarker(selectStore: themaStores[index])
+        }
+    }
     let isAnonymous: Bool
     
     // MARK: Map property
@@ -56,6 +62,7 @@ final class MapViewController: BaseViewController {
     var villagePolygonOverlay: NMFPolygonOverlay?
     var isFirstShowingVillage: Bool = true
     var mapTransition: MapTransition
+    var themaStores: [ThemaStore] = []
     var markers: [NMFMarker] = []
     
     // MARK: - Life Cycle
@@ -123,9 +130,13 @@ final class MapViewController: BaseViewController {
                 cell.delegate = self
             }.disposed(by: disposeBag)
         
-        viewModel.output.storeDataSource.subscribe { [weak self] stores in
-            print(stores)
-            self?.setStoreMarker(selectIndex: 0, stores)
+        viewModel.output.storeDataSource
+            .bind { [weak self] stores in
+                self?.themaStores = stores
+
+                self?.setStoreMarker(selectStore: stores[0])
+                self?.storeCollectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .left, animated: true)
+                self?.currentIndex = 0
         }
         .disposed(by: disposeBag)
         
@@ -140,6 +151,17 @@ final class MapViewController: BaseViewController {
                 }
 //                self.detailCategoryView.setStackView(data: [])
             })
+            .disposed(by: disposeBag)
+        
+        storeCollectionView.rx.modelSelected(ThemaStore.self)
+            .throttle(.milliseconds(300), scheduler: MainScheduler.instance)
+            .bind { [weak self] store in
+                guard let storeIndex = self?.themaStores.firstIndex(of: store) else {
+                    return
+                }
+                self?.setStoreMarker(selectStore: store)
+                self?.storeCollectionView.scrollToItem(at: IndexPath(item: storeIndex, section: 0), at: .left, animated: true)
+            }
             .disposed(by: disposeBag)
         
         viewModel.output.city
@@ -355,15 +377,18 @@ extension MapViewController {
         villagePolygonOverlay?.mapView = mapView
     }
     
-    func setStoreMarker(selectIndex: Int, _ stores: [ThemaStore]) {
+    func setStoreMarker(selectStore: ThemaStore) {
         clearMarker()
         
-        for (index, store) in stores.enumerated() {
+        for (index, store) in themaStores.enumerated() {
             let marker = NMFMarker()
-            print(store)
             marker.position = NMGLatLng(lat: store.longitude, lng: store.latitude)
-            if index == selectIndex {
+            if store == selectStore {
                 marker.iconImage = NMFOverlayImage(name: "marker.select")
+                self.setCameraPosition(latitude: store.longitude,
+                                       longitude: store.latitude,
+                                       zoomLevel: 15,
+                                       animation: true)
             } else {
                 marker.iconImage = NMFOverlayImage(name: "marker.nonSelect")
             }
@@ -373,14 +398,10 @@ extension MapViewController {
             marker.mapView = mapView
             
             marker.touchHandler = { (overlay: NMFOverlay) -> Bool in
-                self.setCameraPosition(latitude: store.longitude,
-                                       longitude: store.latitude,
-                                       zoomLevel: 15,
-                                       animation: true)
                 self.storeCollectionView.selectItem(at: IndexPath(item: index, section: 0),
-                                               animated: true,
+                                                    animated: true,
                                                     scrollPosition: .left)
-                self.setStoreMarker(selectIndex: index, stores)
+                self.setStoreMarker(selectStore: store)
                 return true
             }
             
@@ -404,6 +425,40 @@ extension MapViewController: MapStoreCollectionViewCellDelegate {
     func didTapCopyButton(text: String) {
         UIPasteboard.general.string = text
         self.showToast(message: "클립보드에 복사되었습니다.")
+    }
+}
+
+extension MapViewController: UIScrollViewDelegate, UICollectionViewDelegate {
+    
+    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+        
+        guard let layout = self.storeCollectionView.collectionViewLayout as? UICollectionViewFlowLayout else {
+            return
+        }
+        let cellWidthIncludingSpacing = layout.itemSize.width + layout.minimumLineSpacing
+        
+        var offset = targetContentOffset.pointee
+        let index = (offset.x + scrollView.contentInset.left) / cellWidthIncludingSpacing
+        var roundedIndex = round(index)
+        
+        if scrollView.contentOffset.x > targetContentOffset.pointee.x {
+            roundedIndex = floor(index)
+        } else if scrollView.contentOffset.x < targetContentOffset.pointee.x {
+            roundedIndex = ceil(index)
+        } else {
+            roundedIndex = round(index)
+        }
+        
+        if currentIndex > roundedIndex {
+            currentIndex -= 1
+            roundedIndex = currentIndex
+        } else if currentIndex < roundedIndex {
+            currentIndex += 1
+            roundedIndex = currentIndex
+        }
+    
+        offset = CGPoint(x: roundedIndex * cellWidthIncludingSpacing - scrollView.contentInset.left, y: -scrollView.contentInset.top)
+        targetContentOffset.pointee = offset
     }
 }
 
