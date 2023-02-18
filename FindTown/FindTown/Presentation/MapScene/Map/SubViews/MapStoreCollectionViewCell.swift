@@ -142,7 +142,7 @@ final class MapStoreCollectionViewCell: UICollectionViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 10,
-                                                                     left: 0,
+                                                                     left: 16,
                                                                      bottom: 10,
                                                                      right: 0))
     }

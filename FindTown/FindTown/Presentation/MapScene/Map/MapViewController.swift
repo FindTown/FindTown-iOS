@@ -226,7 +226,7 @@ final class MapViewController: BaseViewController {
     
     private func selectFirstItem(_ item: Category) {
         DispatchQueue.main.async {
-            self.categoryCollectionView.selectItem(at: IndexPath(item: 0, section: 0), animated: true, scrollPosition: .bottom)
+            self.categoryCollectionView.selectItem(at: IndexPath(item: 0, section: 0), animated: true, scrollPosition: .left)
 //            self.detailCategoryView.setStackView(data: item.detailCategories)
         }
     }
@@ -380,6 +380,7 @@ extension MapViewController {
                 self.storeCollectionView.selectItem(at: IndexPath(item: index, section: 0),
                                                animated: true,
                                                     scrollPosition: .left)
+                self.setStoreMarker(selectIndex: index, stores)
                 return true
             }
             
@@ -403,40 +404,6 @@ extension MapViewController: MapStoreCollectionViewCellDelegate {
     func didTapCopyButton(text: String) {
         UIPasteboard.general.string = text
         self.showToast(message: "클립보드에 복사되었습니다.")
-    }
-}
-
-extension MapViewController: UIScrollViewDelegate, UICollectionViewDelegate {
-    
-    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-        
-        guard let layout = self.storeCollectionView.collectionViewLayout as? UICollectionViewFlowLayout else {
-            return
-        }
-        let cellWidthIncludingSpacing = layout.itemSize.width + layout.minimumLineSpacing
-        
-        var offset = targetContentOffset.pointee
-        let index = (offset.x + scrollView.contentInset.left) / cellWidthIncludingSpacing
-        var roundedIndex = round(index)
-        
-        if scrollView.contentOffset.x > targetContentOffset.pointee.x {
-            roundedIndex = floor(index)
-        } else if scrollView.contentOffset.x < targetContentOffset.pointee.x {
-            roundedIndex = ceil(index)
-        } else {
-            roundedIndex = round(index)
-        }
-        
-        if currentIndex > roundedIndex {
-            currentIndex -= 1
-            roundedIndex = currentIndex
-        } else if currentIndex < roundedIndex {
-            currentIndex += 1
-            roundedIndex = currentIndex
-        }
-    
-        offset = CGPoint(x: roundedIndex * cellWidthIncludingSpacing - scrollView.contentInset.left, y: -scrollView.contentInset.top)
-        targetContentOffset.pointee = offset
     }
 }
 

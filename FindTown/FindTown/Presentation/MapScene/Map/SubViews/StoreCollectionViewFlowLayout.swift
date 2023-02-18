@@ -9,6 +9,9 @@ import UIKit
 
 final class StoreCollectionViewFlowLayout: UICollectionViewFlowLayout {
 
+    private var previousOffset: CGFloat = 0
+    private var currentPage: Int = 0
+    
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
@@ -21,11 +24,25 @@ final class StoreCollectionViewFlowLayout: UICollectionViewFlowLayout {
     
     private func setupView() {
         scrollDirection = .horizontal
-        minimumInteritemSpacing = 0
-        sectionInset = UIEdgeInsets(top: 0.0,
-                                    left: 16.0,
-                                    bottom: 0.0,
-                                    right: 16.0)
+        minimumLineSpacing = 0
         itemSize = CGSize(width: 290, height: 155)
+    }
+    
+    override func targetContentOffset(forProposedContentOffset proposedContentOffset: CGPoint, withScrollingVelocity velocity: CGPoint) -> CGPoint {
+        guard let collectionView = collectionView else {
+            return super.targetContentOffset(forProposedContentOffset: proposedContentOffset, withScrollingVelocity: velocity)
+        }
+
+        let itemsCount = collectionView.numberOfItems(inSection: 0)
+        
+        if previousOffset > collectionView.contentOffset.x && velocity.x < 0 {
+            currentPage = max(currentPage - 1, 0)
+        } else if previousOffset < collectionView.contentOffset.x && velocity.x > 0 {
+            currentPage = min(currentPage + 1, itemsCount - 1)
+        }
+        
+        let updatedOffset = (itemSize.width + minimumLineSpacing) * CGFloat(currentPage)
+        previousOffset = updatedOffset
+        return CGPoint(x: updatedOffset, y: proposedContentOffset.y)
     }
 }
