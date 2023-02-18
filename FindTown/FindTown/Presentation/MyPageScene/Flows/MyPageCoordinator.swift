@@ -12,24 +12,21 @@ final class MyPageCoordinator: FlowCoordinator {
     
     var presentationStyle: PresentationStyle
     weak var navigationController: UINavigationController?
-    let isAnonymous: Bool
     let authUseCase: AuthUseCase
     let memberUseCase: MemberUseCase
     
     init(
         presentationStyle: PresentationStyle,
-        isAnonymous: Bool,
         authUseCase: AuthUseCase,
         memberUseCase: MemberUseCase
     ) {
         self.presentationStyle = presentationStyle
-        self.isAnonymous = isAnonymous
         self.authUseCase = authUseCase
         self.memberUseCase = memberUseCase
     }
     
     internal func initScene() -> UIViewController {
-        if isAnonymous {
+        if UserDefaultsSetting.isAnonymous {
             let myPageAnonymousViewModel = MyPageAnonymousViewModel(delegate: self)
             let myPageAnonymousViewController = MyPageAnonymousViewController(viewModel: myPageAnonymousViewModel)
             return myPageAnonymousViewController

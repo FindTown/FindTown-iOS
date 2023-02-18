@@ -54,7 +54,6 @@ public final class AppCoordinator: Coordinator {
     private func goToTabBar() {
         navigationController.isNavigationBarHidden = true
         TabBarCoordinator(presentationStyle: .push(navigationController: navigationController),
-                          isAnonymous: false,
                           authUseCase: authUseCase,
                           memberUseCase: memberUseCase,
                           townUseCase: townUseCase).start()
