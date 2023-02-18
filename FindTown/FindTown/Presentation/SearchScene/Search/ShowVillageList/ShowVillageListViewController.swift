@@ -59,40 +59,29 @@ final class ShowVillageListViewController: BaseViewController {
     // MARK: - Functions
     
     override func addView() {
-        super.addView()
-        
         [selectCountyTitle, townCountTitle].forEach {
             townListAndCountStackView.addArrangedSubview($0)
         }
         
-        [townTableView].forEach {
-            townListBackgroundView.addArrangedSubview($0)
-        }
-        
-        [topEmptyView, townListAndCountStackView, townListBackgroundView].forEach {
-            self.stackView.addArrangedSubview($0)
-        }
+        view.addSubview(townTableView)
+        townTableView.tableHeaderView = townListAndCountStackView
     }
     
     override func setLayout() {
-        super.setLayout()
+        townListAndCountStackView.layoutMargins = UIEdgeInsets(top: 20, left: 16, bottom: 10, right: 16)
+        townListAndCountStackView.isLayoutMarginsRelativeArrangement = true
         
-        stackView.setCustomSpacing(24, after: topEmptyView)
-        stackView.setCustomSpacing(16, after: townListAndCountStackView)
-        
-        townListBackgroundView.layoutMargins = UIEdgeInsets(top: 24, left: 0, bottom: 16, right: 0)
-        townListBackgroundView.isLayoutMarginsRelativeArrangement = true
-        
-        [townListAndCountStackView].forEach {
-            $0.layoutMargins = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
-            $0.isLayoutMarginsRelativeArrangement = true
-        }
-    }
-    
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
+        townListAndCountStackView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            townTableView.heightAnchor.constraint(equalToConstant: townTableView.contentSize.height),
+            townListAndCountStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            townListAndCountStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+        ])
+        
+        NSLayoutConstraint.activate([
+            townTableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            townTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            townTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            townTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
     }
     
@@ -105,6 +94,8 @@ final class ShowVillageListViewController: BaseViewController {
         
         townTableView.rowHeight = 150
         townTableView.estimatedRowHeight = 150
+        
+        viewModel?.fetchTownInformation()
     }
     
     override func bindViewModel() {
@@ -128,6 +119,17 @@ final class ShowVillageListViewController: BaseViewController {
             .observe(on: MainScheduler.instance)
             .bind { [weak self] searchTown in
                 self?.townCountTitle.text = "\(searchTown.count)개 동네"
+            }
+            .disposed(by: disposeBag)
+        
+        viewModel?.output.errorNotice
+            .subscribe { [weak self] _ in
+                self?.showErrorNoticeAlertPopUp(message: "네트워크 오류가 발생하였습니다.",
+                                                buttonText: "확인",
+                                                buttonAction: {
+                    self?.dismiss(animated: false) {
+                        self?.navigationController?.popViewController(animated: true)
+                    }})
             }
             .disposed(by: disposeBag)
     }
