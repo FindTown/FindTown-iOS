@@ -23,6 +23,6 @@ final class TownMoodCollectionViewLayout: UICollectionViewFlowLayout {
     private func setupView() {
         scrollDirection = .horizontal
         minimumInteritemSpacing = itemSpacing
-        estimatedItemSize = UICollectionViewFlowLayout.automaticSize
+        estimatedItemSize = CGSize(width: 120.0, height: 32.0)
     }
 }

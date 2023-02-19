@@ -109,7 +109,6 @@ extension TownIntroduceViewModel {
     }
     
     func setTownIntroduceData(townIntroData: TownIntroduce) {
-        
         self.output.townTitle.onNext(townIntroData.townTitle)
         self.output.isFavorite.onNext(townIntroData.wishTown)
         self.output.townExplanation.onNext(townIntroData.townExplanation)
