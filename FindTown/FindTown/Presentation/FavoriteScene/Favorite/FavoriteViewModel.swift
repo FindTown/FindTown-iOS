@@ -39,8 +39,9 @@ final class FavoriteViewModel: BaseViewModel {
     }
     
     struct Output {
-        let viewStatus = BehaviorSubject<FavoriteViewStatus>(value: .anonymous)
+        let viewStatus = PublishSubject<FavoriteViewStatus>()
         let favoriteDataSource = BehaviorSubject<[TownTableModel]>(value: [])
+        let errorNotice = PublishSubject<Void>()
     }
     
     let output = Output()
@@ -50,11 +51,22 @@ final class FavoriteViewModel: BaseViewModel {
     
     let townUseCase: TownUseCase
     let authUseCase: AuthUseCase
+    let memberUseCase: MemberUseCase
     
-    init(delegate: FavoriteViewModelDelegate, townUseCase: TownUseCase, authUseCsae: AuthUseCase) {
+    // MARK: - Task
+    
+    private var favoriteListTask: Task<Void, Error>?
+    
+    init(delegate: FavoriteViewModelDelegate,
+         townUseCase: TownUseCase,
+         authUseCase: AuthUseCase,
+         memberUseCase: MemberUseCase) {
+        
         self.delegate = delegate
         self.townUseCase = townUseCase
-        self.authUseCase = authUseCsae
+        self.authUseCase = authUseCase
+        self.memberUseCase = memberUseCase
+        
         super.init()
         self.bind()
     }
@@ -72,9 +84,6 @@ final class FavoriteViewModel: BaseViewModel {
                 self?.delegate.goToTownIntroduce(cityCode: cityCode)
             })
             .disposed(by: disposeBag)
-        
-        self.output.favoriteDataSource.onNext(returnTownTestData())
-        self.output.viewStatus.onNext(returnViewStatus())
     }
 }
 
@@ -89,51 +98,40 @@ extension FavoriteViewModel: FavoriteViewModelType {
     }
 }
 
+// MARK: 네트워크
+
+extension FavoriteViewModel {
+    
+    func getFavoriteList() {
+        
+        if UserDefaultsSetting.isAnonymous {
+            self.output.viewStatus.onNext(.anonymous)
+        } else {
+            self.favoriteListTask = Task {
+                do {
+                    let accessToken = try await self.authUseCase.getAccessToken()
+                    let favoriteList = try await self.memberUseCase.getFavoriteList(accessToken: accessToken)
+                    
+                    await MainActor.run(body: {
+                        favoriteList.isEmpty ? self.output.viewStatus.onNext(.isEmpty) : self.output.viewStatus.onNext(.isPresent)
+                        self.output.favoriteDataSource.onNext(favoriteList)
+                    })
+                } catch(let error) {
+                    await MainActor.run(body:  {
+                        self.output.errorNotice.onNext(())
+                    })
+                    Log.error(error)
+                }
+                favoriteListTask?.cancel()
+            }
+        }
+    }
+}
+
+
 // 임시
 struct townModelTest {
     let image: String
     let village: String
     let introduce: String
-}
-
-extension FavoriteViewModel {
-    
-    func returnViewStatus() -> FavoriteViewStatus {
-        if UserDefaultsSetting.isAnonymous {
-            return .anonymous
-        } else {
-            // 찜 API 호출
-            return .isPresent
-        }
-    }
-    
-    func returnTownTestData() -> [TownTableModel] {
-        let test1 = TownTableModel(objectId: 321,
-                                  county: "행운동",
-                                  countyIcon: UIImage(named: "gwanak") ?? UIImage(),
-                                  wishTown: false,
-                                  safetyRate: 3,
-                                  townIntroduction: "강남으로 출근하기 좋은 동네")
-        let test2 = TownTableModel(objectId: 321,
-                                  county: "행운동",
-                                  countyIcon: UIImage(named: "gwanak") ?? UIImage(),
-                                  wishTown: false,
-                                  safetyRate: 3,
-                                  townIntroduction: "강남으로 출근하기 좋은 동네")
-        let test3 = TownTableModel(objectId: 321,
-                                  county: "행운동",
-                                  countyIcon: UIImage(named: "gwanak") ?? UIImage(),
-                                  wishTown: false,
-                                  safetyRate: 3,
-                                  townIntroduction: "강남으로 출근하기 좋은 동네")
-        let test4 = TownTableModel(objectId: 321,
-                                  county: "행운동",
-                                  countyIcon: UIImage(named: "gwanak") ?? UIImage(),
-                                  wishTown: false,
-                                  safetyRate: 3,
-                                  townIntroduction: "강남으로 출근하기 좋은 동네")
-       
-        let towns = [test1, test2, test3, test4]
-        return towns + towns
-    }
 }

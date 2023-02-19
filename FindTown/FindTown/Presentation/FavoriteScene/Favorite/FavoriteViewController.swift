@@ -38,6 +38,8 @@ final class FavoriteViewController: BaseViewController {
     override func setupView() {
         self.title = "찜"
         self.view.backgroundColor = FindTownColor.back2.color
+        [anonymousView,isEmptyView,favoriteTableView].forEach { $0.isHidden = true }
+        self.viewModel?.getFavoriteList()
     }
     
     override func addView() {
@@ -106,6 +108,13 @@ final class FavoriteViewController: BaseViewController {
                 cell.setupCell(item, cityCode: item.objectId)
                 cell.delegate = self
             }.disposed(by: disposeBag)
+        
+        self.viewModel?.output.errorNotice
+            .subscribe { [weak self] _ in
+                self?.showErrorNoticeAlertPopUp(message: "네트워크 오류가 발생하였습니다.",
+                                                buttonText: "확인")
+            }
+            .disposed(by: disposeBag)
     }
 }
 

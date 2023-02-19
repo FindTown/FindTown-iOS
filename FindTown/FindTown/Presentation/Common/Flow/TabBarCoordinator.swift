@@ -48,7 +48,8 @@ final class TabBarCoordinator: FlowCoordinator {
         /// 찜 탭
         let favoriteCoordinator = FavoriteCoordinator(presentationStyle: .none,
                                                       townUseCase: townUseCase,
-                                                      authUseCase: authUseCase)
+                                                      authUseCase: authUseCase,
+                                                      memberUseCase: memberUseCase)
         favoriteCoordinator.start()
         guard let favoriteViewController = favoriteCoordinator.navigationController else { return UIViewController() }
         favoriteViewController.tabBarItem = UITabBarItem(title: "찜", image: UIImage(named: "favoriteIcon"), tag: 2)
