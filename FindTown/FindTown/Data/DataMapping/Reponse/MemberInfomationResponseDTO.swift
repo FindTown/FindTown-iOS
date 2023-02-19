@@ -20,7 +20,7 @@ struct MemberInformationDTO: Response {
     let email: String
     let nickname: String
     let providerType: String
-    let resident: Resident
+    let resident: [Resident]
     let useAgreeYn: Bool
     let privacyAgreeYn: Bool
     let locationList: [Location]
@@ -30,12 +30,6 @@ struct MemberInformationDTO: Response {
         let residentReview: String
         let residentYear: Int
         let residentMonth: Int
-        
-        var toEntity: ReviewModel {
-            return ReviewModel(village: residentAddress,
-                               period: "\(residentYear)년 \(residentMonth)개월 거주",
-                               introduce: residentReview)
-        }
     }
     
     struct Location: Response {
