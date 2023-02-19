@@ -435,14 +435,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		2B42E988299FCD040093FB0A /* TownIntro */ = {
-			isa = PBXGroup;
-			children = (
-				2B42E989299FCD140093FB0A /* TownIntroduceResponseDTO.swift */,
-			);
-			path = TownIntro;
-			sourceTree = "<group>";
-		};
 		2B628DD32986507B00A90D9A /* TownIntroduce */ = {
 			isa = PBXGroup;
 			children = (
@@ -1124,7 +1116,7 @@
 		F38AA80429816C3A00EF66F2 /* Reponse */ = {
 			isa = PBXGroup;
 			children = (
-				2B42E988299FCD040093FB0A /* TownIntro */,
+				2B42E989299FCD140093FB0A /* TownIntroduceResponseDTO.swift */,
 				F38AA80E29817F1600EF66F2 /* NickCheckResponseDTO.swift */,
 				F3356EE1298CEA4B002B9FFD /* TokenInformationDTO.swift */,
 				F3356EFB298EB980002B9FFD /* LoginConfirmReponseDTO.swift */,
