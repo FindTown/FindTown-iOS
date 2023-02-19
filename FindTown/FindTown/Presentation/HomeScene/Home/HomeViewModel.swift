@@ -15,11 +15,13 @@ import RxRelay
 protocol HomeViewModelDelegate {
     func goToFilterBottomSheet(filterSheetType: FilterSheetType, filterDataSource: FilterModel)
     func goToGuSearchView()
+    func goToTownIntroduce(cityCode: Int)
 }
 
 protocol HomeViewModelType {
     func goToFilterBottomSheet(filterSheetType: FilterSheetType, filterDataSource: FilterModel)
     func goToGuSearchView()
+    func goToTownIntroduce(cityCode: Int)
 }
 
 final class HomeViewModel: BaseViewModel {
@@ -32,6 +34,7 @@ final class HomeViewModel: BaseViewModel {
         let setEmptyViewTrigger = PublishSubject<Void>()
         let setNetworkErrorViewTrigger = PublishSubject<Void>()
         let safetySortTrigger = PublishSubject<Bool>()
+        let townIntroButtonTrigger = PublishSubject<Int>()
     }
     
     struct Output {
@@ -101,6 +104,12 @@ final class HomeViewModel: BaseViewModel {
                 self?.output.searchTownTableDataSource.accept(sortedValue)
             }
             .disposed(by: disposeBag)
+        
+        self.input.townIntroButtonTrigger
+            .subscribe(onNext: { [weak self] cityCode in
+                self?.delegate.goToTownIntroduce(cityCode: cityCode)
+            })
+            .disposed(by: disposeBag)
     }
 }
 
@@ -149,5 +158,9 @@ extension HomeViewModel: HomeViewModelType {
     
     func goToGuSearchView() {
         delegate.goToGuSearchView()
+    }
+    
+    func goToTownIntroduce(cityCode: Int) {
+        delegate.goToTownIntroduce(cityCode: cityCode)
     }
 }
