@@ -162,31 +162,3 @@ extension TownIntroViewModel {
         return test.toArray()
     }
 }
-
-struct TownRankData: Encodable {
-    var lifeRank: Int
-    var crimeRank: Int
-    var trafficRank: Int
-    var liveRank: Int?
-    var popular: [String]?
-    var cleanRank: String?
-    var safety: String?
-    
-    func toArray() -> [(TownRank, Any)] {
-        var array = [(TownRank, Any)]()
-        let otherSelf = Mirror(reflecting: self)
-        
-        for child in otherSelf.children {
-            if let key = child.label,
-               let typeKey = TownRank.returnTownRankType(key) {
-                switch child.value {
-                case Optional<Any>.some(let value):
-                    array.append((typeKey, value))
-                default:
-                    continue
-                }
-            }
-        }
-        return array
-    }
-}
