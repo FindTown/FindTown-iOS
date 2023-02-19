@@ -19,29 +19,26 @@ final class TownRankView: UIView {
     
     convenience init(data: (TownRank,Any)) {
         self.init(frame: .zero)
-        rankImageView.image = data.0.image
-        rankTitleLabel.text = data.0.description
+        let townRankType = data.0
+        let townRankData = data.1
         
-        switch data.0 {
-        case .lifeRank:
-            numberLabel.text = "\(data.1)"
-        case .crimeRank:
-            numberLabel.text = "\(data.1)"
-        case .trafficRank:
-            numberLabel.text = "\(data.1)"
+        rankImageView.image = townRankType.image
+        rankTitleLabel.text = townRankType.description
+        
+        switch townRankType {
+        case .lifeRank, .crimeRank, .trafficRank, .safety:
+            numberLabel.text = "\(townRankData)"
         case .liveRank:
-            numberLabel.text = "\(data.1)"
+            numberLabel.text = "\(townRankData)"
             rightTextLabel.text = "순위"
         case .popular:
             rightTextLabel.text = "위"
-            guard let dic = data.1 as? [String] else { return }
+            guard let dic = townRankData as? [String] else { return }
             leftTextLabel.text = dic[0]
             numberLabel.text = dic[1]
         case .cleanRank:
-            numberLabel.text = "\(data.1)"
+            numberLabel.text = "\(townRankData)"
             rightTextLabel.text = ""
-        case .safety:
-            rightTextLabel.text = "\(data.1)"
         }
     }
     
