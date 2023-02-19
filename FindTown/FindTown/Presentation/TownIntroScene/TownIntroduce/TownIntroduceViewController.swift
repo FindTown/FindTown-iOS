@@ -101,7 +101,7 @@ final class TownIntroduceViewController: BaseViewController, UIScrollViewDelegat
         moveToMapButton.changesSelectionAsPrimaryAction = false
         moveToMapButton.isSelected = true
         
-        self.viewModel?.getTownIntroData()
+        self.viewModel?.getTownIntroduceData()
     }
     
     override func addView() {
@@ -294,7 +294,11 @@ final class TownIntroduceViewController: BaseViewController, UIScrollViewDelegat
         
         viewModel?.output.errorNotice
             .subscribe { [weak self] _ in
-                self?.showErrorNoticeAlertPopUp(message: "네트워크 오류가 발생하였습니다.", buttonText: "확인")
+                self?.showErrorNoticeAlertPopUp(message: "네트워크 오류가 발생하였습니다.",
+                                                buttonText: "확인",
+                                                buttonAction: { self?.dismiss(animated: false) {
+                    self?.navigationController?.popViewController(animated: true)
+                }})
             }
             .disposed(by: disposeBag)
     }
