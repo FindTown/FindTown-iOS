@@ -12,11 +12,11 @@ public enum PopupStatus {
 }
 
 public class NoticeAlertPopUpViewController: UIViewController {
-
+    
     private var titleText: String = ""
     private var messageText: String = ""
     private var confirmButtonText: String = ""
-
+    
     private var contentView: UIView = {
         let view = UIView()
         view.backgroundColor = FindTownColor.white.color
@@ -24,7 +24,7 @@ public class NoticeAlertPopUpViewController: UIViewController {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-
+    
     private lazy var titleLabel: FindTownLabel = {
         let label = FindTownLabel(text: titleText,
                                   font: .subtitle4,
@@ -32,7 +32,7 @@ public class NoticeAlertPopUpViewController: UIViewController {
                                   textAlignment: .center)
         return label
     }()
-
+    
     private lazy var messageLabel: FindTownLabel = {
         let label = FindTownLabel(text: messageText,
                                   font: .body1,
@@ -49,7 +49,7 @@ public class NoticeAlertPopUpViewController: UIViewController {
         label.textAlignment = .center
         return label
     }()
-
+    
     private lazy var confirmButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -59,7 +59,7 @@ public class NoticeAlertPopUpViewController: UIViewController {
         button.addBorder(to: .top, in: FindTownColor.grey3.color, width: 1.0)
         return button
     }()
-
+    
     private lazy var buttonStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
@@ -75,14 +75,14 @@ public class NoticeAlertPopUpViewController: UIViewController {
         view.alpha = 0.0
         return view
     }()
-
+    
     public convenience init(titleText: String,
                             messageText: String,
                             confirmButtonText: String,
                             confirmButtonAction: (() -> Void)? = nil) {
-
+        
         self.init()
-
+        
         self.titleText = titleText
         self.messageText = messageText
         self.confirmButtonText = confirmButtonText
@@ -93,19 +93,19 @@ public class NoticeAlertPopUpViewController: UIViewController {
                 self.setBottomSheetStatus(to: .dismiss)
             }
         }
-
+        
         /// present 시 fullScreen (화면 덮도록)
         modalPresentationStyle = .overFullScreen
     }
-
+    
     open override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         setBottomSheetStatus(to: .show)
     }
-
+    
     public override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         self.view.backgroundColor = .clear
         setLayout()
     }
@@ -127,22 +127,22 @@ public class NoticeAlertPopUpViewController: UIViewController {
 }
 
 private extension NoticeAlertPopUpViewController {
-
+    
     func setLayout() {
-
+        
         self.view.addSubview(dimmedBackView)
         self.view.addSubview(contentView)
-
+        
         [confirmButton].forEach {
             buttonStackView.addArrangedSubview($0)
         }
-
+        
         [titleLabel, messageLabel, buttonStackView].forEach {
             self.contentView.addSubview($0)
         }
-
+        
         let view = self.view.safeAreaLayoutGuide
-
+        
         NSLayoutConstraint.activate([
             dimmedBackView.topAnchor.constraint(equalTo: self.view.topAnchor),
             dimmedBackView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
@@ -155,19 +155,24 @@ private extension NoticeAlertPopUpViewController {
             contentView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             contentView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 48.0),
         ])
-
+        
         NSLayoutConstraint.activate([
             titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 24.0),
             titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20.0),
             titleLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor)
         ])
-
+        
+        if titleLabel.text == "" {
+            messageLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 24.0).isActive = true
+        } else {
+            messageLabel.topAnchor.constraint(equalTo: titleLabel.topAnchor, constant: 28.0).isActive = true
+        }
+        
         NSLayoutConstraint.activate([
-            messageLabel.topAnchor.constraint(equalTo: titleLabel.topAnchor, constant: 28.0),
             messageLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20.0),
             messageLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor)
         ])
-
+        
         NSLayoutConstraint.activate([
             buttonStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
             buttonStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
