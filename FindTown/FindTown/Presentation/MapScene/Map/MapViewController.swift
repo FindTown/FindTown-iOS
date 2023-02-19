@@ -64,6 +64,9 @@ final class MapViewController: BaseViewController {
     var themaStores: [ThemaStore] = []
     var markers: [NMFMarker] = []
     
+    var infoWindow = NMFInfoWindow()
+    var defaultInfoWindowImage = NMFInfoWindowDefaultTextSource.data()
+    
     // MARK: - Life Cycle
     
     init(viewModel: MapViewModel, mapTransition: MapTransition, isAnonymous: Bool) {
@@ -392,15 +395,21 @@ extension MapViewController {
             marker.position = NMGLatLng(lat: store.latitude, lng: store.longitude)
             if store == selectStore {
                 marker.iconImage = NMFOverlayImage(name: "marker.select")
+                marker.zIndex = 1
+                marker.captionText = store.name
+                marker.width = 36
+                marker.height = 45
                 self.setCameraPosition(latitude: store.latitude,
                                        longitude: store.longitude,
                                        zoomLevel: 15,
                                        animation: true)
             } else {
+                marker.width = 28
+                marker.height = 35
+                marker.zIndex = -1
                 marker.iconImage = NMFOverlayImage(name: "marker.nonSelect")
             }
-            marker.width = 20
-            marker.height = 20
+            
             
             marker.mapView = mapView
             

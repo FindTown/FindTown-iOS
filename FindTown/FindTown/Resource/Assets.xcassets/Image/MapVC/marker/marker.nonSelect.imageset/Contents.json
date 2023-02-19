@@ -1,7 +1,7 @@
 {
   "images" : [
     {
-      "filename" : "mapMarker.svg",
+      "filename" : "marker.nonSelect.svg",
       "idiom" : "universal"
     }
   ],
