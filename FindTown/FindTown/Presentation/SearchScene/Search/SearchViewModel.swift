@@ -14,6 +14,7 @@ import RxRelay
 protocol SearchViewModelDelegate {
     func goToShowVillageList(selectCountyData: String)
     func popUpServiceMap()
+    func goToTownIntroduce(cityCode: Int)
 }
 
 protocol SearchViewModelType {

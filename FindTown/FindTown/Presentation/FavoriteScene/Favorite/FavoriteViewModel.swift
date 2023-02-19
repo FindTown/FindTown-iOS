@@ -37,13 +37,11 @@ final class FavoriteViewModel: BaseViewModel {
         let signUpButtonTrigger = PublishSubject<Void>()
         let townIntroButtonTrigger = PublishSubject<Int>()
         let favoriteButtonTrigger = PublishSubject<Int>()
-//        let favoriteButtonTrigger = PublishSubject<(Int,Int)>()
     }
     
     struct Output {
         let viewStatus = PublishSubject<FavoriteViewStatus>()
         let favoriteDataSource = BehaviorSubject<[TownTableModel]>(value: [])
-        let favoriteStatus = PublishSubject<(Bool,Int)>()
         let errorNotice = PublishSubject<Void>()
     }
     
@@ -91,7 +89,7 @@ final class FavoriteViewModel: BaseViewModel {
         
         self.input.favoriteButtonTrigger
             .subscribe(onNext: { [weak self] cityCode in
-                self?.favorite(cityCode: cityCode, row: 0)
+                self?.favorite(cityCode: cityCode)
             })
             .disposed(by: disposeBag)
     }
@@ -138,16 +136,14 @@ extension FavoriteViewModel {
     }
     
     // 찜 등록, 해제
-    func favorite(cityCode: Int, row: Int) {
-        print("start favorite - cityCode: \(cityCode), row: \(row)")
+    func favorite(cityCode: Int) {
         self.favoriteTask = Task {
             do {
                 let accessToken = try await self.authUseCase.getAccessToken()
                 let favoriteStatus = try await self.memberUseCase.favorite(accessToken: accessToken,
                                                                            cityCode: cityCode)
-                
                 await MainActor.run(body: {
-                    self.output.favoriteStatus.onNext((favoriteStatus,row))
+                    self.getFavoriteList()
                 })
             } catch (let error) {
                 await MainActor.run(body: {

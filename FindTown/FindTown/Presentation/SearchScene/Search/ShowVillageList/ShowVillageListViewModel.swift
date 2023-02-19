@@ -11,12 +11,20 @@ import FindTownCore
 import RxSwift
 import RxRelay
 
-protocol ShowVillageListViewModelType { }
+protocol ShowVillageListViewModelType {
+    func goToTownIntroduce(cityCode: Int)
+}
+
+//protocol FhowVillageListViewModelDelegate {
+//    func goToTownIntroduce(cityCode: Int)
+//}
+
 
 final class ShowVillageListViewModel: BaseViewModel {
     
     struct Input {
         let fetchFinishTrigger = PublishSubject<Void>()
+        let townIntroButtonTrigger = PublishSubject<Int>()
     }
     
     struct Output {
@@ -51,8 +59,25 @@ final class ShowVillageListViewModel: BaseViewModel {
         self.bind()
     }
     
-    func bind() { }
+    func bind() {
+        
+        self.input.townIntroButtonTrigger
+            .subscribe(onNext: { [weak self] cityCode in
+                self?.delegate.goToTownIntroduce(cityCode: cityCode)
+            })
+            .disposed(by: disposeBag)
+        
+    }
 }
+
+
+extension ShowVillageListViewModel: ShowVillageListViewModelType {
+    
+    func goToTownIntroduce(cityCode: Int) {
+        delegate.goToTownIntroduce(cityCode: cityCode)
+    }
+}
+
 
 // MARK: - Network
 

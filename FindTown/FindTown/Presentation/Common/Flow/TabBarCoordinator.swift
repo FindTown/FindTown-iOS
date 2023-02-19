@@ -34,7 +34,8 @@ final class TabBarCoordinator: FlowCoordinator {
         /// 홈 탭
         let homeCoordinator = HomeCoordinator(presentationStyle: .none,
                                               authUseCase: authUseCase,
-                                              townUseCase: townUseCase)
+                                              townUseCase: townUseCase,
+                                              memberUseCase: memberUseCase)
         homeCoordinator.start()
         guard let homeViewController = homeCoordinator.navigationController else { return UIViewController() }
         homeViewController.tabBarItem = UITabBarItem(title: "동네 찾기", image: UIImage(named: "homeIcon"), tag: 0)

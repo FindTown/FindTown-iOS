@@ -109,8 +109,7 @@ final class ShowVillageListViewController: BaseViewController {
             .bind(to: townTableView.rx.items(
                 cellIdentifier: TownTableViewCell.reuseIdentifier,
                 cellType: TownTableViewCell.self)) { index, item, cell in
-                    // TODO: cell Model 변경
-                    cell.setupCell(item, cityCode: 365)
+                    cell.setupCell(item, cityCode: item.objectId)
                     cell.delegate = self
                     
                 }.disposed(by: disposeBag)
@@ -142,7 +141,7 @@ extension ShowVillageListViewController: TownTableViewCellDelegate {
     }
     
     func didTapGoToIntroduceButton(cityCode: Int) {
-        print("didTapGoToIntroduceButton")
+        self.viewModel?.input.townIntroButtonTrigger.onNext(cityCode)
     }
     
     func didTapFavoriteButton(cityCode: Int) {

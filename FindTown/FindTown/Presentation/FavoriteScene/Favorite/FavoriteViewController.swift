@@ -33,6 +33,11 @@ final class FavoriteViewController: BaseViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.viewModel?.getFavoriteList()
+    }
+    
     // MARK: - Functions
     
     override func setupView() {
@@ -128,8 +133,8 @@ extension FavoriteViewController: TownTableViewCellDelegate {
         self.viewModel?.input.townIntroButtonTrigger.onNext(cityCode)
     }
     
-    func didTapFavoriteButton() {
-        print("FavoriteViewControlle: didTapFavoriteButton")
+    func didTapFavoriteButton(cityCode: Int) {
+        self.viewModel?.input.favoriteButtonTrigger.onNext(cityCode)
     }
 }
 
