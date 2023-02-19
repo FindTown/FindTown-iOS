@@ -14,7 +14,7 @@ import RxSwift
 protocol TownTableViewCellDelegate: AnyObject {
     func didTapGoToMapButton()
     func didTapGoToIntroduceButton(cityCode: Int)
-    func didTapFavoriteButton()
+    func didTapFavoriteButton(cityCode: Int)
 }
 
 final class TownTableViewCell: UITableViewCell {
@@ -195,6 +195,7 @@ private extension TownTableViewCell {
     }
     
     func didTapFavoriteButton() {
-        self.delegate?.didTapFavoriteButton()
+        guard let cityCode = cityCode else { return }
+        self.delegate?.didTapFavoriteButton(cityCode: cityCode)
     }
 }

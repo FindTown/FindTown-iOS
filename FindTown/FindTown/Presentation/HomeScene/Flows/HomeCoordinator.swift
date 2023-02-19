@@ -14,21 +14,25 @@ final class HomeCoordinator: FlowCoordinator {
     weak var navigationController: UINavigationController?
     let authUseCase: AuthUseCase
     let townUseCase: TownUseCase
+    let memberUseCase: MemberUseCase
     
     init(
         presentationStyle: PresentationStyle,
         authUseCase: AuthUseCase,
-        townUseCase: TownUseCase
+        townUseCase: TownUseCase,
+        memberUseCase: MemberUseCase
     ) {
         self.presentationStyle = presentationStyle
         self.authUseCase = authUseCase
         self.townUseCase = townUseCase
+        self.memberUseCase = memberUseCase
     }
     
     internal func initScene() -> UIViewController {
         let homeViewModel = HomeViewModel(delegate: self,
                                           authUseCase: authUseCase,
-                                          townUseCase: townUseCase)
+                                          townUseCase: townUseCase,
+                                          memberUseCase: memberUseCase)
         let homeViewController = HomeViewController(viewModel: homeViewModel)
         return homeViewController
     }

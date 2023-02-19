@@ -35,6 +35,7 @@ final class HomeViewModel: BaseViewModel {
         let setNetworkErrorViewTrigger = PublishSubject<Void>()
         let safetySortTrigger = PublishSubject<Bool>()
         let townIntroButtonTrigger = PublishSubject<Int>()
+        let favoriteButtonTrigger = PublishSubject<Int>()
     }
     
     struct Output {
@@ -54,19 +55,23 @@ final class HomeViewModel: BaseViewModel {
     
     let authUseCase: AuthUseCase
     let townUseCase: TownUseCase
+    let memberUseCase: MemberUseCase
     
     // MARK: - Task
     
     private var townTask: Task<Void, Error>?
+    private var favoriteTask: Task<Void, Error>?
     
     init(
         delegate: HomeViewModelDelegate,
         authUseCase: AuthUseCase,
-        townUseCase: TownUseCase
+        townUseCase: TownUseCase,
+        memberUseCase: MemberUseCase
     ) {
         self.delegate = delegate
         self.authUseCase = authUseCase
         self.townUseCase = townUseCase
+        self.memberUseCase = memberUseCase
         
         super.init()
         self.bind()
@@ -110,6 +115,12 @@ final class HomeViewModel: BaseViewModel {
                 self?.delegate.goToTownIntroduce(cityCode: cityCode)
             })
             .disposed(by: disposeBag)
+        
+        self.input.favoriteButtonTrigger
+            .subscribe(onNext: { [weak self] cityCode in
+                self?.favorite(cityCode: cityCode)
+            })
+            .disposed(by: disposeBag)
     }
 }
 
@@ -147,6 +158,25 @@ extension HomeViewModel {
     private func setNetworkErrorTownTableView() {
         self.input.fetchFinishTrigger.onNext(())
         self.input.setNetworkErrorViewTrigger.onNext(())
+    }
+    
+    // 찜 등록, 해제
+    func favorite(cityCode: Int) {
+        self.favoriteTask = Task {
+            do {
+                let accessToken = try await self.authUseCase.getAccessToken()
+                let favoriteStatus = try await self.memberUseCase.favorite(accessToken: accessToken,
+                                                                           cityCode: cityCode)
+                
+            } catch (let error) {
+                await MainActor.run(body: {
+                    self.output.errorNotice.onNext(())
+                })
+                Log.error(error)
+            }
+    
+            favoriteTask?.cancel()
+        }
     }
 }
 

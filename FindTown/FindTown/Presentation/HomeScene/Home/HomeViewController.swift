@@ -443,8 +443,8 @@ extension HomeViewController: TownTableViewCellDelegate {
         print("didTapGoToMapButton")
     }
     
-    func didTapFavoriteButton() {
-        print("didTapFavoriteButton")
+    func didTapFavoriteButton(cityCode: Int) {
+        self.viewModel?.input.favoriteButtonTrigger.onNext(cityCode)
     }
 }
 
