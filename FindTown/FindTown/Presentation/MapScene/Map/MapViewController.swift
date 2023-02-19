@@ -141,8 +141,14 @@ final class MapViewController: BaseViewController {
         
         viewModel.output.storeDataSource
             .bind { [weak self] stores in
-                self?.themaStores = stores
-                self?.showFirstStore(store: stores[0])
+                if stores.isEmpty == false {
+                    self?.themaStores = stores
+                    self?.showFirstStore(store: stores[0])
+                } else {
+                    DispatchQueue.main.async {
+                        self?.viewModel?.output.errorNotice.onNext(())
+                    }
+                }
         }
         .disposed(by: disposeBag)
         
@@ -202,6 +208,7 @@ final class MapViewController: BaseViewController {
             .disposed(by: disposeBag)
         
         viewModel.output.errorNotice
+            .observe(on: MainScheduler.instance)
             .subscribe { [weak self] _ in
                 self?.showErrorNoticeAlertPopUp(message: "네트워크 오류가 발생하였습니다.", buttonText: "확인")
             }
