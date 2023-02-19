@@ -60,4 +60,15 @@ final class DefaultMemberRepository {
         
         return data.body
     }
+    
+    // 찜 등록, 해제
+    func favorite(accessToken: String, cityCode: Int) async throws -> FavoriteResponseDTO {
+        let httpHeaders = HTTPHeaders([.accept("*/*"),
+                                       .authorization(bearerToken: accessToken)])
+        let parameters = [URLQueryItem(name: "object_id", value: String(cityCode))]
+        
+        let data = try await Network.shared.request(target: FavoriteRequest(HTTPHeaders: httpHeaders,
+                                                                            parameters: parameters))
+        return data.body
+    }
 }

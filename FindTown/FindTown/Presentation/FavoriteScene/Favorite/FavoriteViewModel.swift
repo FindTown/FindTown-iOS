@@ -36,11 +36,14 @@ final class FavoriteViewModel: BaseViewModel {
     struct Input {
         let signUpButtonTrigger = PublishSubject<Void>()
         let townIntroButtonTrigger = PublishSubject<Int>()
+        let favoriteButtonTrigger = PublishSubject<Int>()
+//        let favoriteButtonTrigger = PublishSubject<(Int,Int)>()
     }
     
     struct Output {
         let viewStatus = PublishSubject<FavoriteViewStatus>()
         let favoriteDataSource = BehaviorSubject<[TownTableModel]>(value: [])
+        let favoriteStatus = PublishSubject<(Bool,Int)>()
         let errorNotice = PublishSubject<Void>()
     }
     
@@ -56,6 +59,7 @@ final class FavoriteViewModel: BaseViewModel {
     // MARK: - Task
     
     private var favoriteListTask: Task<Void, Error>?
+    private var favoriteTask: Task<Void, Error>?
     
     init(delegate: FavoriteViewModelDelegate,
          townUseCase: TownUseCase,
@@ -84,6 +88,12 @@ final class FavoriteViewModel: BaseViewModel {
                 self?.delegate.goToTownIntroduce(cityCode: cityCode)
             })
             .disposed(by: disposeBag)
+        
+        self.input.favoriteButtonTrigger
+            .subscribe(onNext: { [weak self] cityCode in
+                self?.favorite(cityCode: cityCode, row: 0)
+            })
+            .disposed(by: disposeBag)
     }
 }
 
@@ -102,8 +112,8 @@ extension FavoriteViewModel: FavoriteViewModelType {
 
 extension FavoriteViewModel {
     
+    // 찜 목록 불러오기
     func getFavoriteList() {
-        
         if UserDefaultsSetting.isAnonymous {
             self.output.viewStatus.onNext(.anonymous)
         } else {
@@ -124,6 +134,29 @@ extension FavoriteViewModel {
                 }
                 favoriteListTask?.cancel()
             }
+        }
+    }
+    
+    // 찜 등록, 해제
+    func favorite(cityCode: Int, row: Int) {
+        print("start favorite - cityCode: \(cityCode), row: \(row)")
+        self.favoriteTask = Task {
+            do {
+                let accessToken = try await self.authUseCase.getAccessToken()
+                let favoriteStatus = try await self.memberUseCase.favorite(accessToken: accessToken,
+                                                                           cityCode: cityCode)
+                
+                await MainActor.run(body: {
+                    self.output.favoriteStatus.onNext((favoriteStatus,row))
+                })
+            } catch (let error) {
+                await MainActor.run(body: {
+                    self.output.errorNotice.onNext(())
+                })
+                Log.error(error)
+            }
+    
+            favoriteTask?.cancel()
         }
     }
 }
