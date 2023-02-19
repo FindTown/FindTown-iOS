@@ -31,6 +31,11 @@ final class TownTableViewCell: UITableViewCell {
     
     var disposeBag = DisposeBag()
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        disposeBag = DisposeBag()
+    }
+    
     // MARK: Views
     
     private let townIconView = UIView()

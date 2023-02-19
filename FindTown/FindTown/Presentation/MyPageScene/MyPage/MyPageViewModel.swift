@@ -13,7 +13,6 @@ import RxSwift
 import RxRelay
 
 protocol MyPageViewModelDelegate {
-    func goToLogin()
     func goToChangeNickname()
     func goToMyTownReview()
     func goToInquiry()
@@ -188,8 +187,8 @@ extension MyPageViewModel {
                 let accessToken = try await authUseCase.getAccessToken()
                 let memberInformation = try await self.memberUseCase.getMemberInformation(accessToken: accessToken)
                 await MainActor.run(body: {
-                    let resident = memberInformation.resident
-                    let villagePeriod = "\(resident.residentAddress.split(separator: " ").last!) 거주 ・ \(resident.residentYear)년 \(resident.residentMonth)개월"
+                    guard let resident = memberInformation.resident.first else { return }
+                    let villagePeriod = "\(resident.residentAddress.split(separator: " ").last ?? "") 거주 ・ \(resident.residentYear)년 \(resident.residentMonth)개월"
                     self.input.nickname.onNext(memberInformation.nickname)
                     self.input.villagePeriod.onNext(villagePeriod)
                     self.input.fetchFinishTrigger.onNext(())

@@ -67,8 +67,13 @@ extension MyTownReviewViewModel {
             do {
                 let accessToken = try await authUseCase.getAccessToken()
                 let memberInformation = try await self.memberUseCase.getMemberInformation(accessToken: accessToken)
+                let reviews = memberInformation.resident.map { resident in
+                    ReviewModel(village: resident.residentAddress,
+                                period: "\(resident.residentYear)년 \(resident.residentMonth)개월 거주",
+                                introduce: resident.residentReview)
+                }
                 await MainActor.run(body: {
-                    self.output.reviewTableDataSource.accept([memberInformation.resident.toEntity])
+                    self.output.reviewTableDataSource.accept(reviews)
                 })
                 reviewTask?.cancel()
             } catch (let error) {

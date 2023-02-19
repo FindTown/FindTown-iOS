@@ -9,21 +9,16 @@ import Foundation
 import FindTownNetwork
 
 struct LoginConfirmReponseDTO: Response {
-    let data: MemberAuthroize
+    let loginConfirm: MemberAuthroize
     
     enum CodingKeys: String, CodingKey {
-        case data = ""
+        case loginConfirm = "login_confirm"
     }
 }
 
 struct MemberAuthroize: Response {
-    let memberAuthorizeData: [AuthoritiesDTO]
+    let authorities: [AuthoritiesDTO]
     let memberId: String
-    
-    enum CodingKeys: String, CodingKey {
-        case memberAuthorizeData = "회원 권한 정보"
-        case memberId = "회원 id"
-    }
 }
 
 struct AuthoritiesDTO: Response {
