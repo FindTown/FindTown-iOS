@@ -61,14 +61,11 @@
 		BC32F835299EA3870038F0D6 /* MemberInfomationRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC32F834299EA3870038F0D6 /* MemberInfomationRequest.swift */; };
 		BC32F837299EA3A80038F0D6 /* MemberInfomationResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC32F836299EA3A80038F0D6 /* MemberInfomationResponseDTO.swift */; };
 		BC354708298F9D010016FE4A /* ServiceMapPopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC354707298F9D010016FE4A /* ServiceMapPopUpViewController.swift */; };
-		BC3C069429A10B6C0049DA8C /* APIKeyInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = BC3C069329A10B6C0049DA8C /* APIKeyInfo.plist */; };
-		BC3C069629A10E660049DA8C /* ChangeNicknameRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC3C069529A10E660049DA8C /* ChangeNicknameRequest.swift */; };
-		BC3C069829A110430049DA8C /* ChangeNicknameResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC3C069729A110430049DA8C /* ChangeNicknameResponseDTO.swift */; };
-		BC3C068C29A0C0C70049DA8C /* APIKeyInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = BC3C068B29A0C0C70049DA8C /* APIKeyInfo.plist */; };
 		BC3C068E29A0C5680049DA8C /* TownSearchResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC3C068D29A0C5680049DA8C /* TownSearchResponseDTO.swift */; };
 		BC3C069029A0C5870049DA8C /* TownSearchDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC3C068F29A0C5870049DA8C /* TownSearchDTO.swift */; };
 		BC3C069229A0C5A20049DA8C /* TownSearchRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC3C069129A0C5A20049DA8C /* TownSearchRequest.swift */; };
-		BC3C068829A08ABC0049DA8C /* APIKeyInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = BC3C068729A08ABC0049DA8C /* APIKeyInfo.plist */; };
+		BC3C069629A10E660049DA8C /* ChangeNicknameRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC3C069529A10E660049DA8C /* ChangeNicknameRequest.swift */; };
+		BC3C069829A110430049DA8C /* ChangeNicknameResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC3C069729A110430049DA8C /* ChangeNicknameResponseDTO.swift */; };
 		BC47D6382993809A00FE83D5 /* MyPageViewSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC47D6372993809A00FE83D5 /* MyPageViewSection.swift */; };
 		BC47D63A299381D000FE83D5 /* ReviewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC47D639299381D000FE83D5 /* ReviewModel.swift */; };
 		BC47D63C299383CA00FE83D5 /* FilterBottomSheetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC47D63B299383CA00FE83D5 /* FilterBottomSheetType.swift */; };
@@ -76,6 +73,7 @@
 		BC4C117E297124F900645AA7 /* FilterCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC4C117D297124F900645AA7 /* FilterCollectionViewCell.swift */; };
 		BC4C11802971256300645AA7 /* TownTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC4C117F2971256300645AA7 /* TownTableView.swift */; };
 		BC4C11822971256D00645AA7 /* TownTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC4C11812971256D00645AA7 /* TownTableViewCell.swift */; };
+		BC4FB79F29A229560064CFA1 /* APIKeyInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = BC4FB79E29A229560064CFA1 /* APIKeyInfo.plist */; };
 		BC689866298A8A4400668C86 /* FilterCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC689865298A8A4400668C86 /* FilterCollectionView.swift */; };
 		BC689868298A8A8E00668C86 /* ReviewTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC689867298A8A8E00668C86 /* ReviewTableView.swift */; };
 		BC68986A298A8A9800668C86 /* ReviewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC689869298A8A9800668C86 /* ReviewTableViewCell.swift */; };
@@ -269,14 +267,11 @@
 		BC32F834299EA3870038F0D6 /* MemberInfomationRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberInfomationRequest.swift; sourceTree = "<group>"; };
 		BC32F836299EA3A80038F0D6 /* MemberInfomationResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberInfomationResponseDTO.swift; sourceTree = "<group>"; };
 		BC354707298F9D010016FE4A /* ServiceMapPopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceMapPopUpViewController.swift; sourceTree = "<group>"; };
-		BC3C069329A10B6C0049DA8C /* APIKeyInfo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = APIKeyInfo.plist; path = ../../../../../../Downloads/APIKeyInfo.plist; sourceTree = "<group>"; };
-		BC3C069529A10E660049DA8C /* ChangeNicknameRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeNicknameRequest.swift; sourceTree = "<group>"; };
-		BC3C069729A110430049DA8C /* ChangeNicknameResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeNicknameResponseDTO.swift; sourceTree = "<group>"; };
-		BC3C068B29A0C0C70049DA8C /* APIKeyInfo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = APIKeyInfo.plist; path = ../../../../../../Downloads/APIKeyInfo.plist; sourceTree = "<group>"; };
 		BC3C068D29A0C5680049DA8C /* TownSearchResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TownSearchResponseDTO.swift; sourceTree = "<group>"; };
 		BC3C068F29A0C5870049DA8C /* TownSearchDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TownSearchDTO.swift; sourceTree = "<group>"; };
 		BC3C069129A0C5A20049DA8C /* TownSearchRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TownSearchRequest.swift; sourceTree = "<group>"; };
-		BC3C068729A08ABC0049DA8C /* APIKeyInfo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = APIKeyInfo.plist; path = ../../../../../../Downloads/APIKeyInfo.plist; sourceTree = "<group>"; };
+		BC3C069529A10E660049DA8C /* ChangeNicknameRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeNicknameRequest.swift; sourceTree = "<group>"; };
+		BC3C069729A110430049DA8C /* ChangeNicknameResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeNicknameResponseDTO.swift; sourceTree = "<group>"; };
 		BC47D6372993809A00FE83D5 /* MyPageViewSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewSection.swift; sourceTree = "<group>"; };
 		BC47D639299381D000FE83D5 /* ReviewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewModel.swift; sourceTree = "<group>"; };
 		BC47D63B299383CA00FE83D5 /* FilterBottomSheetType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterBottomSheetType.swift; sourceTree = "<group>"; };
@@ -284,6 +279,7 @@
 		BC4C117D297124F900645AA7 /* FilterCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterCollectionViewCell.swift; sourceTree = "<group>"; };
 		BC4C117F2971256300645AA7 /* TownTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TownTableView.swift; sourceTree = "<group>"; };
 		BC4C11812971256D00645AA7 /* TownTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TownTableViewCell.swift; sourceTree = "<group>"; };
+		BC4FB79E29A229560064CFA1 /* APIKeyInfo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = APIKeyInfo.plist; path = ../../../../../../Downloads/APIKeyInfo.plist; sourceTree = "<group>"; };
 		BC689865298A8A4400668C86 /* FilterCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterCollectionView.swift; sourceTree = "<group>"; };
 		BC689867298A8A8E00668C86 /* ReviewTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewTableView.swift; sourceTree = "<group>"; };
 		BC689869298A8A9800668C86 /* ReviewTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewTableViewCell.swift; sourceTree = "<group>"; };
@@ -751,10 +747,8 @@
 		BC6EFB7A293BA31D00AB3332 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
-				BC3C068729A08ABC0049DA8C /* APIKeyInfo.plist */,
+				BC4FB79E29A229560064CFA1 /* APIKeyInfo.plist */,
 				F3891E2A293B8394003CE8AD /* Assets.xcassets */,
-				BC3C069329A10B6C0049DA8C /* APIKeyInfo.plist */,
-				BC3C068B29A0C0C70049DA8C /* APIKeyInfo.plist */,
 				F3891E2F293B8394003CE8AD /* Info.plist */,
 				F3891E2C293B8394003CE8AD /* LaunchScreen.storyboard */,
 			);
@@ -1433,9 +1427,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F3891E2E293B8394003CE8AD /* LaunchScreen.storyboard in Resources */,
-				BC3C069429A10B6C0049DA8C /* APIKeyInfo.plist in Resources */,
-				BC3C068C29A0C0C70049DA8C /* APIKeyInfo.plist in Resources */,
-				BC3C068829A08ABC0049DA8C /* APIKeyInfo.plist in Resources */,
+				BC4FB79F29A229560064CFA1 /* APIKeyInfo.plist in Resources */,
 				F3891E2B293B8394003CE8AD /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
