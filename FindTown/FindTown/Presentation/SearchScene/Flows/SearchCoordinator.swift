@@ -15,15 +15,18 @@ final class SearchCoordinator: FlowCoordinator {
     weak var navigationController: UINavigationController?
     let townUseCase: TownUseCase
     let authUseCase: AuthUseCase
+    let memberUseCase: MemberUseCase
     
     init(
         presentationStyle: PresentationStyle,
         townUseCase: TownUseCase,
-        authUseCase: AuthUseCase
+        authUseCase: AuthUseCase,
+        memberUseCase: MemberUseCase
     ) {
         self.presentationStyle = presentationStyle
         self.townUseCase = townUseCase
         self.authUseCase = authUseCase
+        self.memberUseCase = memberUseCase
     }
     
     internal func initScene() -> UIViewController {
@@ -35,6 +38,8 @@ final class SearchCoordinator: FlowCoordinator {
     internal func showVillageListScene(selectCountyData: String) -> UIViewController {
         let showVillageListViewModel = ShowVillageListViewModel(delegate: self,
                                                                 townUseCase: townUseCase,
+                                                                authUseCase: authUseCase,
+                                                                memberUseCase: memberUseCase,
                                                                 selectCountyData: selectCountyData)
         let showVillageListViewController = ShowVillageListViewController(viewModel: showVillageListViewModel)
         return showVillageListViewController

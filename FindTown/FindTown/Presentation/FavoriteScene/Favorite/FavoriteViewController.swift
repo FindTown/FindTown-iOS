@@ -134,6 +134,7 @@ extension FavoriteViewController: TownTableViewCellDelegate {
     }
     
     func didTapFavoriteButton(cityCode: Int) {
+        print("FavoriteViewControlle: - TapFavoriteButto")
         self.viewModel?.input.favoriteButtonTrigger.onNext(cityCode)
     }
 }

@@ -35,7 +35,7 @@ final class TownTableViewCell: UITableViewCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        disposeBag = DisposeBag()
+//        disposeBag = DisposeBag()
     }
     
     // MARK: Views

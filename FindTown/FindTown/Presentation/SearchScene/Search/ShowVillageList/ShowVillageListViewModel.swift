@@ -15,16 +15,12 @@ protocol ShowVillageListViewModelType {
     func goToTownIntroduce(cityCode: Int)
 }
 
-//protocol FhowVillageListViewModelDelegate {
-//    func goToTownIntroduce(cityCode: Int)
-//}
-
-
 final class ShowVillageListViewModel: BaseViewModel {
     
     struct Input {
         let fetchFinishTrigger = PublishSubject<Void>()
         let townIntroButtonTrigger = PublishSubject<Int>()
+        let favoriteButtonTrigger = PublishSubject<Int>()
     }
     
     struct Output {
@@ -41,18 +37,25 @@ final class ShowVillageListViewModel: BaseViewModel {
     // MARK: - UseCase
     
     let townUseCase: TownUseCase
+    let authUseCase: AuthUseCase
+    let memberUseCase: MemberUseCase
     
     // MARK: - Task
     
     private var searchTask: Task<Void, Error>?
+    private var favoriteTask: Task<Void, Error>?
     
     init(
         delegate: SearchViewModelDelegate,
         townUseCase: TownUseCase,
+        authUseCase: AuthUseCase,
+        memberUseCase: MemberUseCase,
         selectCountyData: String?
     ) {
         self.delegate = delegate
         self.townUseCase = townUseCase
+        self.authUseCase = authUseCase
+        self.memberUseCase = memberUseCase
         self.selectCountyData = selectCountyData
         
         super.init()
@@ -67,6 +70,11 @@ final class ShowVillageListViewModel: BaseViewModel {
             })
             .disposed(by: disposeBag)
         
+        self.input.favoriteButtonTrigger
+            .subscribe(onNext: { [weak self] cityCode in
+                self?.favorite(cityCode: cityCode)
+            })
+            .disposed(by: disposeBag)
     }
 }
 
@@ -99,6 +107,25 @@ extension ShowVillageListViewModel {
                 Log.error(error)
             }
             searchTask?.cancel()
+        }
+    }
+    
+    // 찜 등록, 해제
+    func favorite(cityCode: Int) {
+        self.favoriteTask = Task {
+            do {
+                let accessToken = try await self.authUseCase.getAccessToken()
+                let favoriteStatus = try await self.memberUseCase.favorite(accessToken: accessToken,
+                                                                           cityCode: cityCode)
+                
+            } catch (let error) {
+                await MainActor.run(body: {
+                    self.output.errorNotice.onNext(())
+                })
+                Log.error(error)
+            }
+    
+            favoriteTask?.cancel()
         }
     }
 }
