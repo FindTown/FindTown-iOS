@@ -80,7 +80,7 @@ final class AgreePolicyViewModel: BaseViewModel {
         Observable.combineLatest(input.policy, input.personalInfo)
             .map { [weak self] (policy, personalInfo) in
                 self?.signupUserModel.useAgreeYn = policy
-                self?.signupUserModel.privaxyAgreeYn = personalInfo
+                self?.signupUserModel.privacyAgreeYn = personalInfo
                 return policy && personalInfo
             }
             .bind { [weak self] isEnabled in

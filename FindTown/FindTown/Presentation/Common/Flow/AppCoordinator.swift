@@ -16,6 +16,7 @@ public final class AppCoordinator: Coordinator {
     var navigationController: UINavigationController
     let authUseCase = AuthUseCase()
     let memberUseCase = MemberUseCase()
+    let townUseCase = TownUseCase()
     
     private var autoSignTask: Task<Void, Error>?
     
@@ -53,8 +54,8 @@ public final class AppCoordinator: Coordinator {
     private func goToTabBar() {
         navigationController.isNavigationBarHidden = true
         TabBarCoordinator(presentationStyle: .push(navigationController: navigationController),
-                          isAnonymous: false,
                           authUseCase: authUseCase,
-                          memberUseCase: memberUseCase).start()
+                          memberUseCase: memberUseCase,
+                          townUseCase: townUseCase).start()
     }
 }

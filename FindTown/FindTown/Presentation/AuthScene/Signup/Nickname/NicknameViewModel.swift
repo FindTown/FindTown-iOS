@@ -25,7 +25,7 @@ enum NicknameStatus {
 }
 
 final class NicknameViewModel: BaseViewModel {
-   
+    
     struct Input {
         let nickname = PublishSubject<String>()
         let nickNameCheckTrigger = PublishSubject<String>()
@@ -34,6 +34,7 @@ final class NicknameViewModel: BaseViewModel {
     
     struct Output {
         let nickNameStatus = PublishRelay<NicknameStatus>()
+        let errorNotice = PublishSubject<Void>()
     }
     
     let input = Input()
@@ -111,10 +112,13 @@ extension NicknameViewModel {
                         self.output.nickNameStatus.accept(.complete)
                     }
                 })
-                nicknameCheckTask?.cancel()
             } catch (let error) {
-                print(error)
+                Log.error(error)
+                await MainActor.run(body: {
+                    self.output.errorNotice.onNext(())
+                })
             }
+            nicknameCheckTask?.cancel()
         }
     }
 }

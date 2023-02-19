@@ -22,7 +22,7 @@ final class TrafficCollectionViewCell: UICollectionViewCell {
     
     // MARK: - Views
     
-    private let nameButton = FTButton(style: .small)
+    let nameButton = FTButton(style: .small)
     
     // MARK: - Life Cycle
     
@@ -41,12 +41,6 @@ final class TrafficCollectionViewCell: UICollectionViewCell {
         super.prepareForReuse()
         
         disposeBag = DisposeBag()
-    }
-    
-    override var isSelected: Bool {
-        didSet {
-            nameButton.isSelected = isSelected
-        }
     }
     
     // MARK: - Functions
@@ -74,8 +68,12 @@ final class TrafficCollectionViewCell: UICollectionViewCell {
         ])
     }
     
-    func setupCell(itemText: String) {
+    func setupCell(itemText: String, traffics: [String]) {
         nameButton.setTitle(itemText, for: .normal)
         nameButton.isUserInteractionEnabled = false
+        
+        if traffics.contains(itemText) {
+            nameButton.isSelected = true
+        }
     }
 }

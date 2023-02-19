@@ -10,6 +10,7 @@ import Foundation
 public enum HttpMethod {
     case get
     case post
+    case put
     case patch
     case delete
     
@@ -19,6 +20,8 @@ public enum HttpMethod {
             return "GET"
         case .post:
             return "POST"
+        case .put:
+            return "PUT"
         case .patch:
             return "PATCH"
         case .delete:

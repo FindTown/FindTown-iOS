@@ -16,6 +16,7 @@ final class LoginCoordinator: FlowCoordinator {
     weak var navigationController: UINavigationController?
     let authUseCase = AuthUseCase()
     let memberUseCase = MemberUseCase()
+    let townUseCase = TownUseCase()
     
     init(presentationStyle: PresentationStyle) {
         self.presentationStyle = presentationStyle
@@ -31,13 +32,13 @@ final class LoginCoordinator: FlowCoordinator {
 
 extension LoginCoordinator: LoginViewModelDelegate {
     
-    func goToTabBar(isAnonymous: Bool = false) {
+    func goToTabBar() {
         guard let navigationController = navigationController else { return }
         navigationController.isNavigationBarHidden = true
         TabBarCoordinator(presentationStyle: .push(navigationController: navigationController),
-                          isAnonymous: isAnonymous,
                           authUseCase: authUseCase,
-                          memberUseCase: memberUseCase).start()
+                          memberUseCase: memberUseCase,
+                          townUseCase: townUseCase).start()
     }
     
     func goToNickname(userData: SigninUserModel, providerType: ProviderType) {
@@ -47,8 +48,9 @@ extension LoginCoordinator: LoginViewModelDelegate {
                                                           modalPresentationStyle: .overFullScreen),
                           parentCoordinator: self,
                           authUseCase: authUseCase,
-                          userData: userData,
                           memberUseCase: memberUseCase,
+                          townUseCase: townUseCase,
+                          userData: userData,
                           providerType: providerType).start()
     }
     

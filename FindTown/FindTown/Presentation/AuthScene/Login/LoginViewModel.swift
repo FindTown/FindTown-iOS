@@ -126,7 +126,8 @@ extension LoginViewModel {
 
 extension LoginViewModel: LoginViewModelType {
     func goToTabBar(isAnonymous: Bool = false) {
-        delegate.goToTabBar(isAnonymous: isAnonymous)
+        UserDefaultsSetting.isAnonymous = isAnonymous
+        delegate.goToTabBar()
     }
     
     func goToNickname(userData: SigninUserModel, providerType: ProviderType) {

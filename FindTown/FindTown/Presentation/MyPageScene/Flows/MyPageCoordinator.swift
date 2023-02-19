@@ -12,24 +12,21 @@ final class MyPageCoordinator: FlowCoordinator {
     
     var presentationStyle: PresentationStyle
     weak var navigationController: UINavigationController?
-    let isAnonymous: Bool
     let authUseCase: AuthUseCase
     let memberUseCase: MemberUseCase
     
     init(
         presentationStyle: PresentationStyle,
-        isAnonymous: Bool,
         authUseCase: AuthUseCase,
         memberUseCase: MemberUseCase
     ) {
         self.presentationStyle = presentationStyle
-        self.isAnonymous = isAnonymous
         self.authUseCase = authUseCase
         self.memberUseCase = memberUseCase
     }
     
     internal func initScene() -> UIViewController {
-        if isAnonymous {
+        if UserDefaultsSetting.isAnonymous {
             let myPageAnonymousViewModel = MyPageAnonymousViewModel(delegate: self)
             let myPageAnonymousViewController = MyPageAnonymousViewController(viewModel: myPageAnonymousViewModel)
             return myPageAnonymousViewController
@@ -45,6 +42,7 @@ final class MyPageCoordinator: FlowCoordinator {
     /// 닉네임 수정 화면
     internal func changeNicknameScene() -> UIViewController {
         let changeNicknameViewModel = ChangeNicknameViewModel(delegate: self,
+                                                              authUseCase: authUseCase,
                                                               memberUseCase: memberUseCase)
         let changeNicknameViewController = ChangeNicknameViewController(viewModel: changeNicknameViewModel)
         changeNicknameViewController.hidesBottomBarWhenPushed = true
@@ -87,12 +85,6 @@ final class MyPageCoordinator: FlowCoordinator {
 }
 
 extension MyPageCoordinator: MyPageViewModelDelegate {
-    func goToLogin() {
-        guard let navigationController = navigationController else { return }
-        navigationController.isNavigationBarHidden = true
-        LoginCoordinator(presentationStyle: .push(navigationController: navigationController)).start()
-    }
-    
     func goToChangeNickname() {
         guard let navigationController = navigationController else { return }
         navigationController.pushViewController(changeNicknameScene(), animated: true)
@@ -127,5 +119,12 @@ extension MyPageCoordinator: MyPageViewModelDelegate {
         guard let navigationController = navigationController else { return }
         LoginCoordinator(presentationStyle: .setViewController(navigationController: navigationController,                                                                      modalTransitionStyle: .crossDissolve,
                                                                modalPresentationStyle: .overFullScreen)).start()
+    }
+    
+    func fetchNickname(nickname: String) {
+        guard let navigationController = navigationController else { return }
+        if let mypageVC = navigationController.topViewController as? MyPageViewController {
+            mypageVC.fetchNickname(nickname: nickname)
+        }
     }
 }

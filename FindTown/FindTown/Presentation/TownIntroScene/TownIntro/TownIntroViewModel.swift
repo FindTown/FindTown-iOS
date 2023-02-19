@@ -98,6 +98,7 @@ extension TownIntroViewModel {
     }
 }
 
+// 임시 데이터
 struct TownRankData: Encodable {
     var lifeSafety = "1"
     var crime = "1"

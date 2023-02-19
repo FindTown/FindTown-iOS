@@ -5,7 +5,7 @@
 //  Created by 이호영 on 2023/01/26.
 //
 
-import Foundation
+import UIKit
 
 enum CityCode: Int, CaseIterable {
     case code365 = 365
@@ -13,7 +13,9 @@ enum CityCode: Int, CaseIterable {
     case code251 = 251
     case code259 = 259
     case code336 = 336
+    case code333 = 333
     case code329 = 329
+    case code328 = 328
     case code321 = 321
     case code330 = 330
     case code326 = 326
@@ -26,6 +28,7 @@ enum CityCode: Int, CaseIterable {
     case code305 = 305
     case code211 = 211
     case code205 = 205
+    case code206 = 206
     case code113 = 113
     case code399 = 399
     case code301 = 301
@@ -50,6 +53,10 @@ enum CityCode: Int, CaseIterable {
         return self.cityModel.village
     }
     
+    var countyIcon: UIImage {
+        return self.cityModel.countyIcon
+    }
+    
     var cityModel: CityMapping {
         switch self {
         case .code365:
@@ -62,8 +69,12 @@ enum CityCode: Int, CaseIterable {
             return .gangseo(.hwagok)
         case .code336:
             return .gwanak(.cheongnyong)
+        case .code333:
+            return .gwanak(.daehak)
         case .code329:
             return .gwanak(.sinsa)
+        case .code328:
+            return .gwanak(.seorim)
         case .code321:
             return .gwanak(.haengun)
         case .code330:
@@ -88,6 +99,8 @@ enum CityCode: Int, CaseIterable {
             return .mapo(.seogyo)
         case .code205:
             return .seodaemun(.sinchon)
+        case .code206:
+            return .seodaemun(.yeonhui)
         case .code113:
             return .seongbuk(.anam)
         case .code399:

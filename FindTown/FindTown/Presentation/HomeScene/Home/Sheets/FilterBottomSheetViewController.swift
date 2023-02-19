@@ -56,8 +56,14 @@ final class FilterBottonSheetViewController: BaseBottomSheetViewController {
         self.filterDataSource = filterDataSource
         self.viewModel = viewModel
         
-        self.viewModel?.input.infra.onNext(filterDataSource.infra)
-        self.viewModel?.input.traffic.onNext(filterDataSource.traffic)
+        if filterSheetType == .Infra {
+            self.viewModel?.input.traffic.onNext(filterDataSource.traffic)
+            self.viewModel?.input.infra.onNext(filterDataSource.infra)
+        } else {
+            self.viewModel?.input.infra.onNext(filterDataSource.infra)
+            self.viewModel?.input.traffic.onNext(filterDataSource.traffic)
+        }
+        self.viewModel?.input.trafficIndexPath.onNext(filterDataSource.trafficIndexPath)
         
         super.init(bottomHeight: UIScreen.main.bounds.height * filterSheetType.height)
     }
@@ -91,7 +97,7 @@ final class FilterBottonSheetViewController: BaseBottomSheetViewController {
             filterStackView.leadingAnchor.constraint(equalTo: bottomSheetView.leadingAnchor, constant: 16),
             filterStackView.trailingAnchor.constraint(equalTo: bottomSheetView.trailingAnchor, constant: -16)
         ])
-
+        
         NSLayoutConstraint.activate([
             trafficCollectionView.leadingAnchor.constraint(equalTo: filterStackView.leadingAnchor),
             trafficCollectionView.trailingAnchor.constraint(equalTo: filterStackView.trailingAnchor),
@@ -119,8 +125,12 @@ final class FilterBottonSheetViewController: BaseBottomSheetViewController {
     override func setupView() {
         super.setupView()
         
+        guard let filterDataSource = self.filterDataSource else { return }
+        selectedCellsString = filterDataSource.traffic
+        selectedCells = filterDataSource.trafficIndexPath
+        infraIconStackView.setupButtonSelected(infra: filterDataSource.infra)
+        
         if filterSheetType == .Infra {
-            self.viewModel?.input.infra.onNext("")
             titleLabel.text = " "
             [spacingView, trafficLabel, trafficGuideLabel, trafficCollectionView].forEach {
                 $0.isHidden = true
@@ -128,7 +138,6 @@ final class FilterBottonSheetViewController: BaseBottomSheetViewController {
         }
         
         else if filterSheetType == .Traffic {
-            self.viewModel?.input.traffic.onNext([])
             titleLabel.text = " "
             [spacingView, infraLabel, infraGuideLabel, infraIconStackView].forEach {
                 $0.isHidden = true
@@ -137,6 +146,8 @@ final class FilterBottonSheetViewController: BaseBottomSheetViewController {
         
         confirmButton.setTitle("적용하기", for: .normal)
         confirmButton.isEnabled = false
+        
+        trafficCollectionView.reloadData()
     }
     
     override func bindViewModel() {
@@ -159,26 +170,7 @@ final class FilterBottonSheetViewController: BaseBottomSheetViewController {
         
         trafficCollectionView.rx.itemSelected
             .bind { [weak self] indexPath in
-                if self?.selectedCells.count ?? 0 >= 3 {
-                    self?.trafficCollectionView.deselectItem(
-                        at: self?.selectedCells.removeFirst() ?? IndexPath.init(),
-                        animated: true
-                    )
-                    _ = self?.selectedCellsString.removeFirst()
-                }
-                self?.selectedCells.append(indexPath)
-                self?.selectedCellsString.append(Traffic.allCases[indexPath.row].description)
-                self?.viewModel?.input.traffic.onNext(self?.selectedCellsString ?? [])
-            }
-            .disposed(by: disposeBag)
-        
-        trafficCollectionView.rx.itemDeselected
-            .bind { [weak self] indexPath in
-                if let index = self?.selectedCells.firstIndex(where: {$0 == indexPath}) {
-                    self?.selectedCells.remove(at: index)
-                    self?.selectedCellsString.remove(at: index)
-                }
-                self?.viewModel?.input.traffic.onNext(self?.selectedCellsString ?? [])
+                self?.handleSelection(at: indexPath)
             }
             .disposed(by: disposeBag)
         
@@ -188,7 +180,10 @@ final class FilterBottonSheetViewController: BaseBottomSheetViewController {
             .bind(to: trafficCollectionView.rx.items(
                 cellIdentifier: TrafficCollectionViewCell.reuseIdentifier,
                 cellType: TrafficCollectionViewCell.self)) { index, item, cell in
-                    cell.setupCell(itemText: item.description)
+                    
+                    guard let traffics = self.filterDataSource?.traffic else { return }
+                    cell.setupCell(itemText: item.description, traffics: traffics)
+                    
                 }.disposed(by: disposeBag)
         
         viewModel?.output.buttonsSelected
@@ -199,5 +194,48 @@ final class FilterBottonSheetViewController: BaseBottomSheetViewController {
                 self?.confirmButton.isEnabled = $0
             }
             .disposed(by: disposeBag)
+    }
+}
+
+private extension FilterBottonSheetViewController {
+    func handleSelection(at indexPath: IndexPath) {
+        if selectedCellsString.contains(Traffic.allCases[indexPath.row].description) {
+            removeTrafficCell(at: indexPath)
+        } else {
+            addTrafficCell(at: indexPath)
+        }
+    }
+    
+    func removeTrafficCell(at indexPath: IndexPath) {
+        if let index = selectedCells.firstIndex(where: { $0 == indexPath }) {
+            selectedCells.remove(at: index)
+            selectedCellsString.remove(at: index)
+        }
+        viewModel?.input.traffic.onNext(selectedCellsString)
+        viewModel?.input.trafficIndexPath.onNext(selectedCells)
+        
+        if let cell = trafficCollectionView.cellForItem(at: indexPath) as? TrafficCollectionViewCell {
+            cell.nameButton.isSelected = false
+        }
+    }
+    
+    func addTrafficCell(at indexPath: IndexPath) {
+        if selectedCells.count >= 3 {
+            let firstIndexPath = selectedCells.removeFirst()
+            trafficCollectionView.deselectItem(at: firstIndexPath, animated: true)
+            _ = selectedCellsString.removeFirst()
+            
+            if let cell = trafficCollectionView.cellForItem(at: firstIndexPath) as? TrafficCollectionViewCell {
+                cell.nameButton.isSelected = false
+            }
+        }
+        selectedCells.append(indexPath)
+        selectedCellsString.append(Traffic.allCases[indexPath.row].description)
+        viewModel?.input.traffic.onNext(selectedCellsString)
+        viewModel?.input.trafficIndexPath.onNext(selectedCells)
+        
+        if let cell = trafficCollectionView.cellForItem(at: indexPath) as? TrafficCollectionViewCell {
+            cell.nameButton.isSelected = true
+        }
     }
 }

@@ -16,15 +16,24 @@ final class DefaultMemberRepository {
         return data.body.existConfirm
     }
     
+    func changeNickname(nickName: String, accessToken: String) async throws -> Bool {
+        let parameters = [URLQueryItem(name: "nickname", value: nickName)]
+        let HTTPHeaders = HTTPHeaders([.accept("*/*"),
+                                       .authorization(bearerToken: accessToken)])
+        let data = try await Network.shared.request(target: ChangeNicknameRequest(parameters: parameters,
+                                                                                  HTTPHeaders: HTTPHeaders))
+        return data.body.editSuccess
+    }
+    
     func signup(memberSignupDTO: MemberSignupDTO) async throws -> TokenInformationDTO {
         let data = try await Network.shared.request(target: SignupRequest(task: .requestJSONEncodable(encodable: memberSignupDTO)))
         return data.body
     }
     
-    func getMemberInfomation(_ accessToken: String) async throws -> MemberInfomationDTO {
+    func getMemberInformation(_ accessToken: String) async throws -> MemberInformationDTO {
         let HTTPHeaders = HTTPHeaders([.accept("*/*"),
                                        .authorization(bearerToken: accessToken)])
-        let data = try await Network.shared.request(target: MemberInfomationRequest(HTTPHeaders: HTTPHeaders))
+        let data = try await Network.shared.request(target: MemberInformationRequest(HTTPHeaders: HTTPHeaders))
         return data.body.memberInfomation
     }
     

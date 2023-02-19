@@ -9,23 +9,30 @@ import UIKit
 
 import FindTownCore
 
-final class SearchCountyCoordinator: FlowCoordinator {
+final class SearchCoordinator: FlowCoordinator {
     
     var presentationStyle: PresentationStyle
     weak var navigationController: UINavigationController?
+    let townUseCase: TownUseCase
     
-    init(presentationStyle: PresentationStyle) {
+    init(
+        presentationStyle: PresentationStyle,
+        townUseCase: TownUseCase
+    ) {
         self.presentationStyle = presentationStyle
+        self.townUseCase = townUseCase
     }
     
     internal func initScene() -> UIViewController {
-        let selectCountyViewModel = SelectCountyViewModel(delegate: self)
-        let selectCountyViewController = SelectCountyViewController(viewModel: selectCountyViewModel)
-        return selectCountyViewController
+        let searchViewModel = SearchViewModel(delegate: self)
+        let searchViewController = SearchViewController(viewModel: searchViewModel)
+        return searchViewController
     }
     
     internal func showVillageListScene(selectCountyData: String) -> UIViewController {
-        let showVillageListViewModel = ShowVillageListViewModel(selectCountyData: selectCountyData)
+        let showVillageListViewModel = ShowVillageListViewModel(delegate: self,
+                                                                townUseCase: townUseCase,
+                                                                selectCountyData: selectCountyData)
         let showVillageListViewController = ShowVillageListViewController(viewModel: showVillageListViewModel)
         return showVillageListViewController
     }
@@ -37,7 +44,7 @@ final class SearchCountyCoordinator: FlowCoordinator {
     }
 }
 
-extension SearchCountyCoordinator: SelectCountyViewModelDelegate {
+extension SearchCoordinator: SearchViewModelDelegate {
     func goToShowVillageList(selectCountyData: String) {
         guard let navigationController = navigationController else { return }
         navigationController.pushViewController(showVillageListScene(selectCountyData: selectCountyData), animated: true)

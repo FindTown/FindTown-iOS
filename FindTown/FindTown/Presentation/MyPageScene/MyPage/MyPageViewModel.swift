@@ -8,11 +8,11 @@
 import UIKit
 
 import FindTownCore
+import FindTownNetwork
 import RxSwift
 import RxRelay
 
 protocol MyPageViewModelDelegate {
-    func goToLogin()
     func goToChangeNickname()
     func goToMyTownReview()
     func goToInquiry()
@@ -20,6 +20,7 @@ protocol MyPageViewModelDelegate {
     func goToTerms()
     func goToPersonalInfo()
     func goToAuth()
+    func fetchNickname(nickname: String)
 }
 
 protocol MyPageViewModelType {
@@ -67,9 +68,9 @@ final class MyPageViewModel: BaseViewModel {
     
     // MARK: - Task
     
-    private var myInfomationTask: Task<Void, Error>?
     private var resignTask: Task<Void, Error>?
     private var logoutTask: Task<Void, Error>?
+    private var myInformationTask: Task<Void, Error>?
     
     init(
         delegate: MyPageViewModelDelegate,
@@ -180,27 +181,38 @@ final class MyPageViewModel: BaseViewModel {
 // MARK: - Network
 
 extension MyPageViewModel {
-    func fetchMemberInfomation() {
-        self.myInfomationTask = Task {
+    func fetchMemberInformation() {
+        self.myInformationTask = Task {
             do {
                 let accessToken = try await authUseCase.getAccessToken()
-                let memberInfomation = try await self.memberUseCase.getMemberInfomation(accessToken: accessToken)
+                let memberInformation = try await self.memberUseCase.getMemberInformation(accessToken: accessToken)
                 await MainActor.run(body: {
-                    let resident = memberInfomation.resident
-                    let villagePeriod = "\(resident.residentAddress.split(separator: " ").last!) 거주 ・ \(resident.residentYear)년 \(resident.residentMonth)개월"
-                    self.input.nickname.onNext(memberInfomation.nickname)
+                    guard let resident = memberInformation.resident.first else { return }
+                    let villagePeriod = "\(resident.residentAddress.split(separator: " ").last ?? "") 거주 ・ \(resident.residentYear)년 \(resident.residentMonth)개월"
+                    self.input.nickname.onNext(memberInformation.nickname)
                     self.input.villagePeriod.onNext(villagePeriod)
-                    
                     self.input.fetchFinishTrigger.onNext(())
                 })
-                myInfomationTask?.cancel()
+                myInformationTask?.cancel()
             } catch (let error) {
+                if let error = error as? FTNetworkError,
+                   FTNetworkError.isUnauthorized(error: error) {
+                    await MainActor.run (body: {
+                        self.input.nickname.onNext("닉네임")
+                        self.input.villagePeriod.onNext("거주 ・ 년 개월")
+                        self.input.fetchFinishTrigger.onNext(())
+                    })
+                } else {
+                    await MainActor.run(body: {
+                        self.showErrorNoticeAlert()
+                        self.input.nickname.onNext("닉네임")
+                        self.input.villagePeriod.onNext("거주 ・ 년 개월")
+                        self.input.fetchFinishTrigger.onNext(())
+                    })
+                }
                 Log.error(error)
-                await MainActor.run(body: {
-                    self.showErrorNoticeAlert()
-                })
+                myInformationTask?.cancel()
             }
-            myInfomationTask?.cancel()
         }
     }
     

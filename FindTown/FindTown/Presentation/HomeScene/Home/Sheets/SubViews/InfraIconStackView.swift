@@ -85,6 +85,15 @@ final class InfraIconStackView: UIStackView {
         }
         button.isSelected = true
     }
+    
+    func setupButtonSelected(infra: String) {
+        if infra != "" {
+            [shopFilterIcon, hospitalFilterIcon, healthFilterIcon, natureFilterIcon].forEach {
+                guard let currentTitle = $0.currentTitle else { return }
+                $0.isSelected = currentTitle == infra ? true : false
+            }
+        }
+    }
 }
 
 @objc protocol InfraIconStackViewDelegate: AnyObject {

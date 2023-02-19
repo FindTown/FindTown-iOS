@@ -5,7 +5,7 @@
 //  Created by 이호영 on 2023/01/26.
 //
 
-import Foundation
+import UIKit
 
 enum CityMapping: Equatable {
     
@@ -87,6 +87,39 @@ enum CityMapping: Equatable {
             return yeongdeungpoVillages
         case .jongno(let jongnoVillages):
             return jongnoVillages
+        }
+    }
+    
+    var countyIcon: UIImage {
+        switch self {
+        case .gangnam:
+            return UIImage(named: "gangnam") ?? UIImage()
+        case .gangseo:
+            return UIImage(named: "gangseo") ?? UIImage()
+        case .gwanak:
+            return UIImage(named: "gwanak") ?? UIImage()
+        case .gwangjin:
+            return UIImage(named: "gwangjin") ?? UIImage()
+        case .guro:
+            return UIImage(named: "guro") ?? UIImage()
+        case .geumcheon:
+            return UIImage(named: "geumcheon") ?? UIImage()
+        case .dongdaemun:
+            return UIImage(named: "dongdaemun") ?? UIImage()
+        case .dongjak:
+            return UIImage(named: "dongjak") ?? UIImage()
+        case .mapo:
+            return UIImage(named: "mapo") ?? UIImage()
+        case .seodaemun:
+            return UIImage(named: "seodaemun") ?? UIImage()
+        case .seongbuk:
+            return UIImage(named: "seongbuk") ?? UIImage()
+        case .songpa:
+            return UIImage(named: "songpa") ?? UIImage()
+        case .yeongdeungpo:
+            return UIImage(named: "yeongdeungpo") ?? UIImage()
+        case .jongno:
+            return UIImage(named: "jongno") ?? UIImage()
         }
     }
 }

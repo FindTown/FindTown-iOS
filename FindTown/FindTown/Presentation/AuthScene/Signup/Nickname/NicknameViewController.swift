@@ -34,9 +34,9 @@ final class NicknameViewController: BaseViewController {
     }()
     private let nickNameStatusLabel = FindTownLabel(text: "", font: .label3)
     private let closeButton = UIBarButtonItem(image: UIImage(named: "close"),
-                                         style: .plain,
-                                         target: nil,
-                                         action: nil)
+                                              style: .plain,
+                                              target: nil,
+                                              action: nil)
     private let nextButton = FTButton(style: .largeFilled)
     
     // MARK: - Life Cycle
@@ -53,6 +53,16 @@ final class NicknameViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        keyboardNotificationInit()
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        keyboardNotificationDeInit()
     }
     
     // MARK: - Functions
@@ -126,12 +136,6 @@ final class NicknameViewController: BaseViewController {
         nextButton.setTitle("다음", for: .normal)
         nextButton.changesSelectionAsPrimaryAction = false
         nextButton.isEnabledAndSelected(false)
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShowSender(_:)),
-                                               name: UIResponder.keyboardWillShowNotification, object: nil)
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHideSender(_:)),
-                                               name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
     override func bindViewModel() {
@@ -155,6 +159,7 @@ final class NicknameViewController: BaseViewController {
         duplicateButton.rx.tap
             .throttle(.milliseconds(300), scheduler: MainScheduler.instance)
             .bind { [weak self] in
+                self?.view.endEditing(true)
                 guard let nickName = self?.nickNameTextField.text else { return }
                 self?.viewModel?.input.nickNameCheckTrigger.onNext(nickName)
             }
@@ -173,6 +178,13 @@ final class NicknameViewController: BaseViewController {
             .asDriver(onErrorJustReturn: .none)
             .drive { [weak self] nickNameStatus in
                 self?.nickNameStatusChange(nickNameStatus)
+            }
+            .disposed(by: disposeBag)
+        
+        viewModel?.output.errorNotice
+            .subscribe { [weak self] _ in
+                self?.showErrorNoticeAlertPopUp(message: "네트워크 오류가 발생하였습니다.",
+                                                buttonText: "확인")
             }
             .disposed(by: disposeBag)
     }
@@ -213,11 +225,27 @@ final class NicknameViewController: BaseViewController {
         keyHeight = keyboardHeight
         
         self.view.frame.size.height -= keyboardHeight
+        
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
     }
     
     @objc private func keyboardWillHideSender(_ sender: Notification) {
         guard let keyHeight = keyHeight else { return }
         self.view.frame.size.height += keyHeight
+        
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
+        keyboardNotificationInit()
+    }
+    
+    private func keyboardNotificationInit() {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShowSender(_:)),
+                                               name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHideSender(_:)),
+                                               name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    private func keyboardNotificationDeInit() {
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
     }
 }
 

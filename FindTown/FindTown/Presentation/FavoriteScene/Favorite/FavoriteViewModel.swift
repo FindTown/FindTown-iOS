@@ -10,12 +10,12 @@ import FindTownCore
 import RxSwift
 
 protocol FavoriteViewModelType {
-    func goToSignUp()
+    func goToLogin()
     func goToTownIntro()
 }
 
 protocol FavoriteViewModelDelegate {
-    func goToSignup()
+    func goToLogin()
     func goToTownIntro()
 }
 
@@ -55,7 +55,7 @@ final class FavoriteViewModel: BaseViewModel {
         
         self.input.signUpButtonTrigger
             .subscribe(onNext: { [weak self] in
-                self?.delegate.goToSignup()
+                self?.delegate.goToLogin()
             })
             .disposed(by: disposeBag)
         
@@ -72,8 +72,8 @@ final class FavoriteViewModel: BaseViewModel {
 
 extension FavoriteViewModel: FavoriteViewModelType {
     
-    func goToSignUp() {
-        delegate.goToSignup()
+    func goToLogin() {
+        delegate.goToLogin()
     }
     
     func goToTownIntro() {
@@ -81,10 +81,22 @@ extension FavoriteViewModel: FavoriteViewModelType {
     }
 }
 
+// 임시
+struct townModelTest {
+    let image: String
+    let village: String
+    let introduce: String
+}
+
 extension FavoriteViewModel {
     
     func returnViewStatus() -> FavoriteViewStatus {
-        return .isPresent
+        if UserDefaultsSetting.isAnonymous {
+            return .anonymous
+        } else {
+            // 찜 API 호출
+            return .isPresent
+        }
     }
     
     func returnTownTestData() -> [townModelTest] {
