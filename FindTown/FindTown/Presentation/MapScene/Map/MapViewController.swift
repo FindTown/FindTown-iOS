@@ -323,7 +323,7 @@ private extension MapViewController {
         }
         
         NSLayoutConstraint.activate([
-            storeCollectionView.heightAnchor.constraint(equalToConstant: 142),
+            storeCollectionView.heightAnchor.constraint(equalToConstant: 165),
             storeCollectionView.leadingAnchor.constraint(equalTo: mapView.leadingAnchor),
             storeCollectionView.trailingAnchor.constraint(equalTo: mapView.trailingAnchor),
             storeCollectionView.bottomAnchor.constraint(equalTo: mapView.bottomAnchor,
