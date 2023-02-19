@@ -20,4 +20,8 @@ final class MapUseCase {
     func getVillageLocationInformation(cityCode: Int?, accessToken: String?) async throws -> VillageLocationInformation {
         return try await mapRepository.getVillageLocationData(cityCode: cityCode, accessToken).locationInfo.toEntity()
     }
+    
+    func getThemaStores(cityCode: Int, categoryId: String) async throws -> [ThemaStore] {
+        return try await mapRepository.getThemaStores(cityCode: String(cityCode), categoryId: categoryId).placeList.map { $0.toEntity() }
+    }
 }

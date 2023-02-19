@@ -7,7 +7,7 @@
 
 import UIKit
 
-enum InfraCategory: CaseIterable, MCategory {
+enum InfraCategory: CaseIterable, Category {
     case martOrConvenienceStore
     case cafe
     case security

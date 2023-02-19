@@ -7,15 +7,11 @@
 
 import Foundation
 
-struct ThemaStore: Decodable {
+struct ThemaStore: Equatable {
     let name: String
     let address: String
     let latitude: Double
     let longitude: Double
-    
-    enum CodingKeys: String, CodingKey {
-        case name, address
-        case latitude = "x"
-        case longitude = "y"
-    }
+    let subCategory: StoreDetailType
+    let foodCategory: String?
 }

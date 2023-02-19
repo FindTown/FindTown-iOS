@@ -27,4 +27,10 @@ final class DefaultMapRepository {
                                                                                 parameters: parameters))
         return data.body
     }
+    
+    func getThemaStores(cityCode: String, categoryId: String) async throws -> MapThemaStoreResponseDTO {
+        let path = "app/townMap/location/\(cityCode)/theme/\(categoryId)"
+        let data = try await Network.shared.request(target: ThemaStoreRequest(path: path), cachePolicy: .returnCacheDataElseLoad)
+        return data.body
+    }
 }

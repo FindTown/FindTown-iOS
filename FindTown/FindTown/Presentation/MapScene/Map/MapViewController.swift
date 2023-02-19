@@ -40,18 +40,40 @@ final class MapViewController: BaseViewController {
     fileprivate let detailCategoryView = MapDetailCategoryView()
     private let categoryCollectionView = CategoryCollectionView()
     fileprivate let storeCollectionView = StoreCollectionView()
+    private let moveToIntroduceButton: FTButton = {
+        let button = FTButton(style: .round)
+        button.setTitle("동네 소개로 이동", for: .normal)
+        button.setImage(UIImage(named: "chip.chat"), for: .normal)
+        button.changesSelectionAsPrimaryAction = false
+        return button
+    }()
     
-    var currentIndex: CGFloat = 0
+    var currentIndex: CGFloat = 0 {
+        didSet {
+            let index = Int(self.currentIndex)
+            self.setStoreMarker(selectStore: themaStores[index])
+        }
+    }
+    let isAnonymous: Bool
     
     // MARK: Map property
     
     var villagePolygonOverlay: NMFPolygonOverlay?
     var isFirstShowingVillage: Bool = true
+    var mapTransition: MapTransition
+    var themaStores: [ThemaStore] = []
+    var markers: [NMFMarker] = []
+    
+    var infoWindow = NMFInfoWindow()
+    var defaultInfoWindowImage = NMFInfoWindowDefaultTextSource.data()
     
     // MARK: - Life Cycle
     
-    init(viewModel: MapViewModel) {
+    init(viewModel: MapViewModel, mapTransition: MapTransition, isAnonymous: Bool) {
         self.viewModel = viewModel
+        self.mapTransition = mapTransition
+        self.isAnonymous = isAnonymous
+        
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -63,6 +85,9 @@ final class MapViewController: BaseViewController {
     
     override func bindViewModel() {
         // MARK: Input
+        guard let viewModel = viewModel else {
+            return
+        }
         
         favoriteButton.rx.tap
             .scan(false) { (lastState, newValue) in
@@ -90,40 +115,73 @@ final class MapViewController: BaseViewController {
         // MARK: Output
         
         /// iconCollectionView 데이터 바인딩
-        viewModel?.output.categoryDataSource.observe(on: MainScheduler.instance)
+        viewModel.output.categoryDataSource.observe(on: MainScheduler.instance)
             .bind(to: categoryCollectionView.rx.items(cellIdentifier: MapCategoryCollectionViewCell.reuseIdentifier,
                                               cellType: MapCategoryCollectionViewCell.self)) { index, item, cell in
                 cell.setupCell(image: item.image, title: item.description)
-                if index == 0 {
-                    self.selectFirstItem(item)
-                }
             }.disposed(by: disposeBag)
         
+        Observable.combineLatest(viewModel.output.categoryDataSource, viewModel.output.city)
+            .bind { [weak self] categories, city in
+                if let infraCategory = categories[0] as? InfraCategory {
+                    //
+                } else if let themaCategory = categories[0] as? ThemaCategory {
+                    self?.viewModel?.getThemaData(category: themaCategory, city: city)
+                }
+                DispatchQueue.main.async {
+                    self?.categoryCollectionView.selectItem(at: IndexPath(item: 0, section: 0), animated: true, scrollPosition: .bottom)
+                }
+        }
+        .disposed(by: disposeBag)
+        
         /// iconCollectionView 데이터 바인딩
-        viewModel?.output.storeDataSource.observe(on: MainScheduler.instance)
+        viewModel.output.storeDataSource.observe(on: MainScheduler.instance)
             .bind(to: storeCollectionView.rx.items(cellIdentifier: MapStoreCollectionViewCell.reuseIdentifier,
                                               cellType: MapStoreCollectionViewCell.self)) { index, item, cell in
                 cell.setupCell(store: item)
                 cell.delegate = self
             }.disposed(by: disposeBag)
         
+        viewModel.output.storeDataSource
+            .bind { [weak self] stores in
+                if stores.isEmpty == false {
+                    self?.themaStores = stores
+                    self?.showFirstStore(store: stores[0])
+                } else {
+                    DispatchQueue.main.async {
+                        self?.viewModel?.output.errorNotice.onNext(())
+                    }
+                }
+        }
+        .disposed(by: disposeBag)
+        
         /// 선택한 iconCell에 맞는 detailCategoryView 데이터 보여주게 함
-        categoryCollectionView.rx.modelSelected(Category.self)
-            .map { category in
-                return category.detailCategories
-            }
-            .subscribe(onNext: { detailCategories in
-                self.detailCategoryView.setStackView(data: detailCategories)
+        Observable.combineLatest(categoryCollectionView.rx.modelSelected(Category.self), viewModel.output.city)
+            .subscribe(onNext: { [weak self] categoty, city in
+                if let infraCategory = categoty as? InfraCategory {
+                    print(infraCategory)
+                    print(city)
+                } else if let themaCategory = categoty as? ThemaCategory {
+                    self?.viewModel?.getThemaData(category: themaCategory, city: city)
+                }
+//                self.detailCategoryView.setStackView(data: [])
             })
             .disposed(by: disposeBag)
         
-        viewModel?.output.city
+        storeCollectionView.rx.modelSelected(ThemaStore.self)
+            .throttle(.milliseconds(300), scheduler: MainScheduler.instance)
+            .bind { [weak self] store in
+                self?.setStoreMarker(selectStore: store)
+            }
+            .disposed(by: disposeBag)
+        
+        viewModel.output.city
             .subscribe(onNext: { [weak self] city in
                 self?.addressButton.setTitle(city.description, for: .normal)
             })
             .disposed(by: disposeBag)
         
-        viewModel?.output.cityBoundaryCoordinates
+        viewModel.output.cityBoundaryCoordinates
             .subscribe(onNext: { [weak self] boundaryCoordinates in
                 guard let isFirstShowingVillage = self?.isFirstShowingVillage else {
                     return
@@ -138,12 +196,22 @@ final class MapViewController: BaseViewController {
             })
             .disposed(by: disposeBag)
             
+        viewModel.input.segmentIndex
+            .bind { [weak self] index in
+                if index == 0 {
+                    self?.viewModel?.output.categoryDataSource.onNext(InfraCategory.allCases)
+                } else {
+                    self?.viewModel?.output.categoryDataSource.onNext(ThemaCategory.allCases)
+                }
+            }
+            .disposed(by: disposeBag)
         
-        viewModel?.output.isFavoriteCity
+        viewModel.output.isFavoriteCity
             .bind(to: rx.isFavoriteCity)
             .disposed(by: disposeBag)
         
-        viewModel?.output.errorNotice
+        viewModel.output.errorNotice
+            .observe(on: MainScheduler.instance)
             .subscribe { [weak self] _ in
                 self?.showErrorNoticeAlertPopUp(message: "네트워크 오류가 발생하였습니다.", buttonText: "확인")
             }
@@ -152,7 +220,7 @@ final class MapViewController: BaseViewController {
     }
 
     override func addView() {
-        [mapView, naviBarSubView].forEach {
+        [mapView, naviBarSubView, moveToIntroduceButton].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
             self.view.addSubview($0)
         }
@@ -173,10 +241,12 @@ final class MapViewController: BaseViewController {
         view.backgroundColor = FindTownColor.back2.color
         
         naviBarSubView.backgroundColor = FindTownColor.white.color
-        self.navigationItem.rightBarButtonItem = favoriteButton
-        self.storeCollectionView.delegate = self
-        favoriteButton.tintColor = FindTownColor.grey4.color
+        if isAnonymous == false {
+            favoriteButton.tintColor = FindTownColor.grey4.color
+            self.navigationItem.rightBarButtonItem = favoriteButton
+        }
         
+        self.storeCollectionView.delegate = self
         self.viewModel?.setCity()
         setMapZoomLevel()
         setMapLayerGrounp()
@@ -185,13 +255,7 @@ final class MapViewController: BaseViewController {
     override func setLayout() {
         setNaviBarLayout()
         setMapViewLayout()
-    }
-    
-    private func selectFirstItem(_ item: MCategory) {
-        DispatchQueue.main.async {
-            self.categoryCollectionView.selectItem(at: IndexPath(item: 0, section: 0), animated: true, scrollPosition: .bottom)
-//            self.detailCategoryView.setStackView(data: item.detailCategories)
-        }
+        setLayoutByTransition()
     }
 }
 
@@ -240,15 +304,37 @@ private extension MapViewController {
         ])
         
         NSLayoutConstraint.activate([
-            storeCollectionView.heightAnchor.constraint(equalToConstant: 142),
+            detailCategoryView.topAnchor.constraint(equalTo: categoryCollectionView.bottomAnchor, constant: 1.0),
+            detailCategoryView.leadingAnchor.constraint(equalTo: mapView.leadingAnchor, constant: 16.0)
+        ])
+    }
+    
+    func setLayoutByTransition() {
+        let storeCollectionViewBottomConstraint: Int
+        let moveToIntroduceButtonBottomConstraint: Int
+        
+        switch mapTransition {
+        case .tapBar:
+            storeCollectionViewBottomConstraint = -84
+            moveToIntroduceButtonBottomConstraint = -24
+        case .push:
+            storeCollectionViewBottomConstraint = -107
+            moveToIntroduceButtonBottomConstraint = -47
+        }
+        
+        NSLayoutConstraint.activate([
+            storeCollectionView.heightAnchor.constraint(equalToConstant: 165),
             storeCollectionView.leadingAnchor.constraint(equalTo: mapView.leadingAnchor),
             storeCollectionView.trailingAnchor.constraint(equalTo: mapView.trailingAnchor),
-            storeCollectionView.bottomAnchor.constraint(equalTo: mapView.bottomAnchor, constant: -32)
+            storeCollectionView.bottomAnchor.constraint(equalTo: mapView.bottomAnchor,
+                                                        constant: CGFloat(storeCollectionViewBottomConstraint))
         ])
         
         NSLayoutConstraint.activate([
-            detailCategoryView.topAnchor.constraint(equalTo: categoryCollectionView.bottomAnchor, constant: 1.0),
-            detailCategoryView.leadingAnchor.constraint(equalTo: mapView.leadingAnchor, constant: 16.0)
+            moveToIntroduceButton.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+            moveToIntroduceButton.widthAnchor.constraint(equalToConstant: 140.0),
+            moveToIntroduceButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor,
+                                                          constant: CGFloat(moveToIntroduceButtonBottomConstraint))
         ])
     }
 }
@@ -256,6 +342,17 @@ private extension MapViewController {
 // MARK: MapView
 
 extension MapViewController {
+    
+    func setCameraPosition(latitude: Double, longitude: Double, zoomLevel: Double, animation: Bool) {
+        let cameraPosition = NMFCameraPosition(NMGLatLng(lat: latitude, lng: longitude), zoom: zoomLevel, tilt: 0, heading: 0)
+        let cameraUpdate = NMFCameraUpdate(position: cameraPosition)
+        
+        if animation {
+            cameraUpdate.animation = .easeIn
+            cameraUpdate.animationDuration = 0.2
+        }
+        mapView.moveCamera(cameraUpdate)
+    }
     
     func setMapZoomLevel() {
         mapView.minZoomLevel = 10.0
@@ -273,14 +370,10 @@ extension MapViewController {
     func setVillageCooridnateOverlay(_ boundaryCoordinates: Coordinates, animation: Bool = true) {
         villagePolygonOverlay?.mapView = nil
         
-        let cameraPosition = NMFCameraPosition(NMGLatLng(lat: boundaryCoordinates[0][1], lng: boundaryCoordinates[0][0]), zoom: 14, tilt: 0, heading: 0)
-        let cameraUpdate = NMFCameraUpdate(position: cameraPosition)
-        
-        if animation {
-            cameraUpdate.animation = .easeIn
-            cameraUpdate.animationDuration = 0.5
-        }
-        mapView.moveCamera(cameraUpdate)
+        setCameraPosition(latitude: boundaryCoordinates[0][1],
+                          longitude: boundaryCoordinates[0][0],
+                          zoomLevel: 14,
+                          animation: animation)
 
         let villagePolygon = NMGPolygon(ring: NMGLineString(points: MapConstant.koreaBoundaryCoordinates.convertNMLatLng()), interiorRings: [NMGLineString(points: boundaryCoordinates.convertNMLatLng())])
         villagePolygonOverlay = NMFPolygonOverlay(villagePolygon as! NMGPolygon<AnyObject>)
@@ -288,11 +381,66 @@ extension MapViewController {
         villagePolygonOverlay?.fillColor = UIColor(red: 26, green: 26, blue: 26).withAlphaComponent(0.2)
         villagePolygonOverlay?.mapView = mapView
     }
+    
+    func setStoreMarker(selectStore: ThemaStore) {
+        clearMarker()
+        
+        guard let storeIndex = self.themaStores.firstIndex(of: selectStore) else {
+            return
+        }
+        self.storeCollectionView.scrollToItem(at: IndexPath(item: storeIndex, section: 0), at: .left, animated: true)
+        
+        for (index, store) in themaStores.enumerated() {
+            let marker = NMFMarker()
+            marker.position = NMGLatLng(lat: store.latitude, lng: store.longitude)
+            if store == selectStore {
+                marker.iconImage = NMFOverlayImage(name: "marker.select")
+                marker.zIndex = 1
+                marker.captionText = store.name
+                marker.width = 36
+                marker.height = 45
+                self.setCameraPosition(latitude: store.latitude,
+                                       longitude: store.longitude,
+                                       zoomLevel: 15,
+                                       animation: true)
+            } else {
+                marker.width = 28
+                marker.height = 35
+                marker.zIndex = -1
+                marker.iconImage = NMFOverlayImage(name: "marker.nonSelect")
+            }
+            
+            
+            marker.mapView = mapView
+            
+            marker.touchHandler = { (overlay: NMFOverlay) -> Bool in
+                self.storeCollectionView.selectItem(at: IndexPath(item: index, section: 0),
+                                                    animated: true,
+                                                    scrollPosition: .left)
+                self.setStoreMarker(selectStore: store)
+                return true
+            }
+            
+            markers.append(marker)
+        }
+    }
+    
+    func clearMarker() {
+        for marker in self.markers {
+            marker.mapView = nil
+        }
+        self.markers.removeAll()
+    }
+    
+    func showFirstStore(store: ThemaStore) {
+        self.setStoreMarker(selectStore: store)
+        self.currentIndex = 0
+    }
 }
 
 extension MapViewController: MapStoreCollectionViewCellDelegate {
     func didTapInformationUpdateButton() {
-        print("informationUpdate tap")
+        self.viewModel?.presentInformationUpdateScene()
     }
     
     func didTapCopyButton(text: String) {
@@ -352,7 +500,6 @@ extension Reactive where Base: MapViewController {
     
     var isFavoriteCity: Binder<Bool> {
         return Binder(self.base) { (viewController, isSelect) in
-            print(isSelect)
             if isSelect {
                 viewController.favoriteButton.image = UIImage(named: "favorite.select")
                 viewController.favoriteButton.tintColor = FindTownColor.orange.color

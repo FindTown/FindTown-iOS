@@ -141,17 +141,22 @@ final class MapStoreCollectionViewCell: UICollectionViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 10,
-                                                                     left: 0,
-                                                                     bottom: 10,
+        contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 5,
+                                                                     left: 16,
+                                                                     bottom: 5,
                                                                      right: 0))
     }
     
-    func setupCell(store: Store) {
-        typeImageView.image = store.thema.storeDetailType.image
-        typeNameLabel.text = store.thema.storeDetailType.description
+    func setupCell(store: ThemaStore) {
+        if let foodCategoty = store.foodCategory {
+            typeNameLabel.text = foodCategoty
+        } else {
+            typeNameLabel.text = store.subCategory.description
+        }
+        typeImageView.image = store.subCategory.image
+        
         nameLabel.text = store.name
-        addressLabel.text = store.address
+        addressLabel.text = "서울 강서구 마곡중앙5로 6 마곡나루역 보타닉푸르지오시티 1층 114호"
     }
     
     @objc func copyAction() {

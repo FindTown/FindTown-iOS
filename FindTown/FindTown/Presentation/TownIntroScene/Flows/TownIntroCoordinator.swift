@@ -30,6 +30,7 @@ extension TownIntroCoordinator: TownIntroViewModelDelegate {
         guard let navigationController = navigationController else {
             return
         }
-        MapCoordinator(presentationStyle: .push(navigationController: navigationController)).start()
+        // isAnonymous 임시
+        MapCoordinator(presentationStyle: .push(navigationController: navigationController), isAnonymous: false).start()
     }
  }

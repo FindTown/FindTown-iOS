@@ -17,11 +17,13 @@ protocol MapViewModelDelegate {
     func gotoIntroduce()
     func presentAddressSheet()
     func setCityData(_ city: City)
+    func presentInformationUpdateScene()
 }
 
 protocol MapViewModelType {
     func gotoIntroduce()
     func presentAddressSheet()
+    func presentInformationUpdateScene()
 }
 
 final class MapViewModel: BaseViewModel {
@@ -33,8 +35,8 @@ final class MapViewModel: BaseViewModel {
     }
     
     struct Output {
-        let categoryDataSource = BehaviorSubject<[MCategory]>(value: [])
-        let storeDataSource = BehaviorSubject<[Store]>(value: [])
+        let categoryDataSource = BehaviorSubject<[Category]>(value: [])
+        let storeDataSource = PublishSubject<[ThemaStore]>()
         let city = PublishSubject<City>()
         let cityBoundaryCoordinates = PublishSubject<[[Double]]>()
         let isFavoriteCity = PublishSubject<Bool>()
@@ -49,6 +51,7 @@ final class MapViewModel: BaseViewModel {
     // MARK: - Task
     
     private var cityDataTask: Task<Void, Error>?
+    private var themaStoreDataTask: Task<Void, Error>?
     
     let input = Input()
     let output = Output()
@@ -65,15 +68,6 @@ final class MapViewModel: BaseViewModel {
     }
     
     func bind() {
-        self.input.segmentIndex
-            .bind { [weak self] index in
-                if index == 0 {
-                    self?.output.categoryDataSource.onNext(InfraCategory.allCases)
-                } else {
-                    self?.output.categoryDataSource.onNext(ThemaCategory.allCases)
-                }
-            }
-            .disposed(by: disposeBag)
         
         Observable.combineLatest(self.input.didTapFavoriteButton, self.output.city)
             .subscribe { [weak self] isFavorite, city in
@@ -84,8 +78,6 @@ final class MapViewModel: BaseViewModel {
                 }
             }
             .disposed(by: disposeBag)
-        
-        self.output.storeDataSource.onNext(returnStoreTestData())
     }
 }
 
@@ -135,8 +127,26 @@ extension MapViewModel {
         }
     }
     
-    func getThemaData(category: ThemaCategory) {
-        
+    func getThemaData(category: ThemaCategory, city: City) {
+        self.themaStoreDataTask = Task {
+            do {
+                guard let cityCode = CityCode(county: city.county, village: city.village)?.rawValue else {
+                    return
+                }
+                let themaStores = try await self.mapUseCase.getThemaStores(cityCode: cityCode, categoryId: category.code)
+
+                await MainActor.run {
+                    self.output.storeDataSource.onNext(themaStores)
+                }
+                themaStoreDataTask?.cancel()
+            } catch (let error) {
+                await MainActor.run {
+                    self.output.errorNotice.onNext(())
+                }
+                Log.error(error)
+                themaStoreDataTask?.cancel()
+            }
+        }
     }
     
     func getInfraData(category: InfraCategory) {
@@ -154,6 +164,9 @@ extension MapViewModel {
 
 
 extension MapViewModel: MapViewModelType {
+    func presentInformationUpdateScene() {
+        delegate.presentInformationUpdateScene()
+    }
     
     func gotoIntroduce() {
         delegate.gotoIntroduce()
@@ -161,104 +174,5 @@ extension MapViewModel: MapViewModelType {
     
     func presentAddressSheet() {
         delegate.presentAddressSheet()
-    }
-}
-
-extension MapViewModel {
-    func returnInfraTestData() -> [Category] {
-        let detailCategories1 = [DetailCategory(color: UIColor.init(red: 255,
-                                                                   green: 30,
-                                                                   blue: 30),
-                                               detailTitle: "편의점"),
-                                DetailCategory(color: UIColor.init(red: 255,
-                                                                   green: 210,
-                                                                   blue: 49),
-                                               detailTitle: "편의점편의점편의점"),
-                                DetailCategory(color: UIColor.init(red: 255,
-                                                                   green: 30,
-                                                                   blue: 30),
-                                               detailTitle: "편의점")]
-        
-        let detailCategories2 = [DetailCategory(color: UIColor.init(red: 255,
-                                                                   green: 30,
-                                                                   blue: 30),
-                                               detailTitle: "편의점"),
-                                DetailCategory(color: UIColor.init(red: 255,
-                                                                   green: 210,
-                                                                   blue: 49),
-                                               detailTitle: "편의점"),
-                                DetailCategory(color: UIColor.init(red: 255,
-                                                                   green: 30,
-                                                                   blue: 30),
-                                               detailTitle: "편의점")]
-        
-    
-        let categories = [Category(image: UIImage(named: "martIcon")?.withRenderingMode(.alwaysTemplate) ?? UIImage(),
-                                   title: "마트&편의점",
-                                   detailCategories: detailCategories1),
-                          Category(image: UIImage(named: "cafeIcon")?.withRenderingMode(.alwaysTemplate) ?? UIImage(),
-                                   title: "카페",
-                                   detailCategories: detailCategories2),
-                          Category(image: UIImage(named: "bellIcon")?.withRenderingMode(.alwaysTemplate) ?? UIImage(),
-                                   title: "치안",
-                                   detailCategories: detailCategories1)]
-        return categories
-    }
-    
-    func returnThemaTestData() -> [Category] {
-        let detailCategories1 = [DetailCategory(color: UIColor.init(red: 255,
-                                                                   green: 30,
-                                                                   blue: 30),
-                                               detailTitle: "편의점"),
-                                DetailCategory(color: UIColor.init(red: 255,
-                                                                   green: 210,
-                                                                   blue: 49),
-                                               detailTitle: "편의점편의점편의점"),
-                                DetailCategory(color: UIColor.init(red: 255,
-                                                                   green: 30,
-                                                                   blue: 30),
-                                               detailTitle: "편의점")]
-        
-        let detailCategories2 = [DetailCategory(color: UIColor.init(red: 255,
-                                                                   green: 30,
-                                                                   blue: 30),
-                                               detailTitle: "편의점"),
-                                DetailCategory(color: UIColor.init(red: 255,
-                                                                   green: 210,
-                                                                   blue: 49),
-                                               detailTitle: "편의점"),
-                                DetailCategory(color: UIColor.init(red: 255,
-                                                                   green: 30,
-                                                                   blue: 30),
-                                               detailTitle: "편의점")]
-        
-    
-        let categories = [Category(image: UIImage(named: "martIcon")?.withRenderingMode(.alwaysTemplate) ?? UIImage(),
-                                   title: "혼밥하기 좋은 식당",
-                                   detailCategories: detailCategories1),
-                          Category(image: UIImage(named: "cafeIcon")?.withRenderingMode(.alwaysTemplate) ?? UIImage(),
-                                   title: "공부하기 좋은 카페",
-                                   detailCategories: detailCategories1),
-                          Category(image: UIImage(named: "bellIcon")?.withRenderingMode(.alwaysTemplate) ?? UIImage(),
-                                   title: "반려견 동물과 동반 가능한 ",
-                                   detailCategories: detailCategories1)]
-        return categories
-    }
-    
-    func returnStoreTestData() -> [Store] {
-        let stores = [Store(name: "프레퍼스 다이어트 푸드", address: "서울 강서구 마곡중앙5로", thema:
-                                    Thema(storeType: .restaurent, storeDetailType: .fastFood)),
-                          Store(name: "미정국수0410 멸치국수 잘하는집 신촌점", address: "서울 강서구 마곡중앙5로 6 마곡나루역 보타닉푸르지오시티 1층 114호", thema:
-                                    Thema(storeType: .restaurent, storeDetailType: .chineseFood)),
-                          Store(name: "프레퍼스 다이어트 푸드", address: "서울 강서구 마곡중앙5로 6 마곡나루역", thema:
-                                    Thema(storeType: .restaurent, storeDetailType: .koreanFood)),
-                          Store(name: "미정국수0410 멸치국수 잘하는집 신촌점", address: "서울 강서구 마곡중앙5로 6 마곡나루역 보타닉푸르지오시티 1층 114호", thema:
-                                    Thema(storeType: .restaurent, storeDetailType: .westernFood)),
-                          Store(name: "프레퍼스 다이어트 푸드", address: "서울 강서구 마곡중앙5로 6 마곡나루역", thema:
-                                    Thema(storeType: .restaurent, storeDetailType: .worldFood)),
-                          Store(name: "미정국수0410 멸치국수 잘하는집 신촌점", address: "서울 강서구 마곡중앙5로 6 마곡나루역 보타닉푸르지오시티 1층 114호", thema:
-                                    Thema(storeType: .restaurent, storeDetailType: .fastFood)),
-                          ]
-        return stores
     }
 }
