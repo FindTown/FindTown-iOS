@@ -130,6 +130,10 @@ final class MyPageViewController: BaseViewController {
             }
             .disposed(by: disposeBag)
     }
+    
+    func fetchNickname(nickname: String) {
+        self.viewModel?.input.nickname.onNext(nickname)
+    }
 }
 
 extension MyPageViewController: UICollectionViewDataSource {

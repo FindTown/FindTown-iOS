@@ -21,7 +21,11 @@ final class MemberUseCase {
     }
     
     func checkNicknameDuplicate(nickName: String) async throws -> Bool {
-       return try await memberRepository.checkNickNameDuplicate(nickName)
+        return try await memberRepository.checkNickNameDuplicate(nickName)
+    }
+    
+    func changeNickname(nickName: String, accessToken: String) async throws -> Bool {
+        return try await memberRepository.changeNickname(nickName: nickName, accessToken: accessToken)
     }
     
     func signup(signupUerModel: SignupUserModel) async throws {

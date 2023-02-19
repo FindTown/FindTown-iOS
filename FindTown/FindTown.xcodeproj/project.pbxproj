@@ -61,6 +61,9 @@
 		BC32F835299EA3870038F0D6 /* MemberInfomationRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC32F834299EA3870038F0D6 /* MemberInfomationRequest.swift */; };
 		BC32F837299EA3A80038F0D6 /* MemberInfomationResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC32F836299EA3A80038F0D6 /* MemberInfomationResponseDTO.swift */; };
 		BC354708298F9D010016FE4A /* ServiceMapPopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC354707298F9D010016FE4A /* ServiceMapPopUpViewController.swift */; };
+		BC3C069429A10B6C0049DA8C /* APIKeyInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = BC3C069329A10B6C0049DA8C /* APIKeyInfo.plist */; };
+		BC3C069629A10E660049DA8C /* ChangeNicknameRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC3C069529A10E660049DA8C /* ChangeNicknameRequest.swift */; };
+		BC3C069829A110430049DA8C /* ChangeNicknameResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC3C069729A110430049DA8C /* ChangeNicknameResponseDTO.swift */; };
 		BC3C068C29A0C0C70049DA8C /* APIKeyInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = BC3C068B29A0C0C70049DA8C /* APIKeyInfo.plist */; };
 		BC3C068E29A0C5680049DA8C /* TownSearchResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC3C068D29A0C5680049DA8C /* TownSearchResponseDTO.swift */; };
 		BC3C069029A0C5870049DA8C /* TownSearchDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC3C068F29A0C5870049DA8C /* TownSearchDTO.swift */; };
@@ -266,6 +269,9 @@
 		BC32F834299EA3870038F0D6 /* MemberInfomationRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberInfomationRequest.swift; sourceTree = "<group>"; };
 		BC32F836299EA3A80038F0D6 /* MemberInfomationResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberInfomationResponseDTO.swift; sourceTree = "<group>"; };
 		BC354707298F9D010016FE4A /* ServiceMapPopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceMapPopUpViewController.swift; sourceTree = "<group>"; };
+		BC3C069329A10B6C0049DA8C /* APIKeyInfo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = APIKeyInfo.plist; path = ../../../../../../Downloads/APIKeyInfo.plist; sourceTree = "<group>"; };
+		BC3C069529A10E660049DA8C /* ChangeNicknameRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeNicknameRequest.swift; sourceTree = "<group>"; };
+		BC3C069729A110430049DA8C /* ChangeNicknameResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeNicknameResponseDTO.swift; sourceTree = "<group>"; };
 		BC3C068B29A0C0C70049DA8C /* APIKeyInfo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = APIKeyInfo.plist; path = ../../../../../../Downloads/APIKeyInfo.plist; sourceTree = "<group>"; };
 		BC3C068D29A0C5680049DA8C /* TownSearchResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TownSearchResponseDTO.swift; sourceTree = "<group>"; };
 		BC3C068F29A0C5870049DA8C /* TownSearchDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TownSearchDTO.swift; sourceTree = "<group>"; };
@@ -747,6 +753,7 @@
 			children = (
 				BC3C068729A08ABC0049DA8C /* APIKeyInfo.plist */,
 				F3891E2A293B8394003CE8AD /* Assets.xcassets */,
+				BC3C069329A10B6C0049DA8C /* APIKeyInfo.plist */,
 				BC3C068B29A0C0C70049DA8C /* APIKeyInfo.plist */,
 				F3891E2F293B8394003CE8AD /* Info.plist */,
 				F3891E2C293B8394003CE8AD /* LaunchScreen.storyboard */,
@@ -1141,6 +1148,7 @@
 				F363D15F299A1D4600606C7F /* TownMapLocationDTO.swift */,
 				F391846F299D3EB900CEF02E /* MemberResignDTO.swift */,
 				BC32F836299EA3A80038F0D6 /* MemberInfomationResponseDTO.swift */,
+				BC3C069729A110430049DA8C /* ChangeNicknameResponseDTO.swift */,
 				BC3C068D29A0C5680049DA8C /* TownSearchResponseDTO.swift */,
 			);
 			path = Reponse;
@@ -1190,6 +1198,7 @@
 				F3356F01298FA270002B9FFD /* LogoutRequest.swift */,
 				F3918471299D3F0600CEF02E /* ResignRequest.swift */,
 				BC32F834299EA3870038F0D6 /* MemberInfomationRequest.swift */,
+				BC3C069529A10E660049DA8C /* ChangeNicknameRequest.swift */,
 			);
 			path = Member;
 			sourceTree = "<group>";
@@ -1424,6 +1433,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F3891E2E293B8394003CE8AD /* LaunchScreen.storyboard in Resources */,
+				BC3C069429A10B6C0049DA8C /* APIKeyInfo.plist in Resources */,
 				BC3C068C29A0C0C70049DA8C /* APIKeyInfo.plist in Resources */,
 				BC3C068829A08ABC0049DA8C /* APIKeyInfo.plist in Resources */,
 				F3891E2B293B8394003CE8AD /* Assets.xcassets in Resources */,
@@ -1550,6 +1560,7 @@
 				2BEE90D129780640002E7C3A /* EmptyView.swift in Sources */,
 				BC056C562962B29F00EDCA18 /* SignupCoordinator.swift in Sources */,
 				F38AA800298125FB00EF66F2 /* DefaultAppleAuthRepository.swift in Sources */,
+				BC3C069829A110430049DA8C /* ChangeNicknameResponseDTO.swift in Sources */,
 				BCB554B32977AEA8007E1BBA /* VillageYearMonth.swift in Sources */,
 				F38AA8112982766400EF66F2 /* ProviderType.swift in Sources */,
 				F38AA7F6298121EE00EF66F2 /* DefaultAuthRepository.swift in Sources */,
@@ -1584,6 +1595,7 @@
 				F38AA822298396D300EF66F2 /* MemberSignupDTO.swift in Sources */,
 				BC853DFE298C04C20033AF20 /* MyPageAnonymousViewController.swift in Sources */,
 				F39EDDCE296D7A6900A4E655 /* CategoryCollectionViewFlowLayout.swift in Sources */,
+				BC3C069629A10E660049DA8C /* ChangeNicknameRequest.swift in Sources */,
 				BC4C11822971256D00645AA7 /* TownTableViewCell.swift in Sources */,
 				F38AA82B29842C2D00EF66F2 /* SigninUserModel.swift in Sources */,
 				F3219B5E2969403F000024E4 /* MapData.swift in Sources */,

@@ -20,6 +20,7 @@ protocol MyPageViewModelDelegate {
     func goToTerms()
     func goToPersonalInfo()
     func goToAuth()
+    func fetchNickname(nickname: String)
 }
 
 protocol MyPageViewModelType {
