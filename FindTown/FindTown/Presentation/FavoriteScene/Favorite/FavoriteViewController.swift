@@ -102,15 +102,25 @@ final class FavoriteViewController: BaseViewController {
             .bind(to: favoriteTableView.rx.items(cellIdentifier: TownTableViewCell.reuseIdentifier,
                                                  cellType: TownTableViewCell.self)) {
                 index, item, cell in
-                cell.setupCell(item)
                 
-                //cell.introduceButtonAction = { [unowned self] in
-                //    self.viewModel?.input.townIntroButtonTrigger.onNext(())
-                //}
-                //cell.heartButtonAction = { [unowned self] in
-                //    self.showToast(message: "찜 목록에서 삭제되었어요")
-                //}
+                cell.setupCell(item, cityCode: item.objectId)
+                cell.delegate = self
             }.disposed(by: disposeBag)
+    }
+}
+
+extension FavoriteViewController: TownTableViewCellDelegate {
+
+    func didTapGoToMapButton() {
+        print("FavoriteViewControlle: didTapGoToMapButton")
+    }
+    
+    func didTapGoToIntroduceButton(cityCode: Int) {
+        self.viewModel?.input.townIntroButtonTrigger.onNext(cityCode)
+    }
+    
+    func didTapFavoriteButton() {
+        print("FavoriteViewControlle: didTapFavoriteButton")
     }
 }
 

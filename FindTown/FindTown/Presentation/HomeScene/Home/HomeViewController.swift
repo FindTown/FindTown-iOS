@@ -345,7 +345,7 @@ final class HomeViewController: BaseViewController {
                 cellIdentifier: TownTableViewCell.reuseIdentifier,
                 cellType: TownTableViewCell.self)) { index, item, cell in
                     
-                    cell.setupCell(item)
+                    cell.setupCell(item, cityCode: item.objectId)
                     cell.delegate = self
                     
                 }.disposed(by: disposeBag)
@@ -435,12 +435,12 @@ final class HomeViewController: BaseViewController {
 }
 
 extension HomeViewController: TownTableViewCellDelegate {
-    func didTapGoToMapButton() {
-        print("didTapGoToMapButton")
+    func didTapGoToIntroduceButton(cityCode: Int) {
+        self.viewModel?.input.townIntroButtonTrigger.onNext(cityCode)
     }
     
-    func didTapGoToIntroduceButton() {
-        print("didTapGoToIntroduceButton")
+    func didTapGoToMapButton() {
+        print("didTapGoToMapButton")
     }
     
     func didTapFavoriteButton() {

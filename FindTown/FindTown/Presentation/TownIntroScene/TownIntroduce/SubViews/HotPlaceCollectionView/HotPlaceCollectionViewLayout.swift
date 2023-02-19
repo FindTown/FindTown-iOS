@@ -23,6 +23,6 @@ final class HotPlaceCollectionViewLayout: UICollectionViewFlowLayout {
     private func setupView() {
         scrollDirection = .horizontal
         minimumInteritemSpacing = itemSpacing
-        estimatedItemSize = UICollectionViewFlowLayout.automaticSize
+        estimatedItemSize = CGSize(width: 100.0, height: 28.0)
     }
 }

@@ -27,4 +27,16 @@ final class DefaultTownRepository {
                                                                               HTTPHeaders: HTTPHeaders))
         return data.body
     }
+    
+    /// 동네 소개 
+    func getTownIntroduce(cityCode: Int, accessToken: String) async throws -> TownIntroduceResponseDTO {
+        
+        let httpHeaders = HTTPHeaders([.accept("*/*"),
+                                       .authorization(bearerToken: accessToken)])
+        let parameters = [URLQueryItem(name: "objectId", value: String(cityCode))]
+        
+        let data = try await Network.shared.request(target: TownIntroduceRequest(HTTPHeaders: httpHeaders,
+                                                                                 parameters: parameters))
+        return data.body
+    }
 }

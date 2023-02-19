@@ -13,13 +13,19 @@ final class FavoriteCoordinator: FlowCoordinator {
     var presentationStyle: PresentationStyle
     weak var navigationController: UINavigationController?
     var delegate: FavoriteViewModelDelegate?
+    let townUseCase: TownUseCase
+    let authUseCase: AuthUseCase
     
-    init(presentationStyle: PresentationStyle) {
+    init(presentationStyle: PresentationStyle, townUseCase: TownUseCase, authUseCase: AuthUseCase) {
         self.presentationStyle = presentationStyle
+        self.townUseCase = townUseCase
+        self.authUseCase = authUseCase
     }
     
     internal func initScene() -> UIViewController {
-        let favoriteViewModel = FavoriteViewModel(delegate: self)
+        let favoriteViewModel = FavoriteViewModel(delegate: self,
+                                                  townUseCase: townUseCase,
+                                                  authUseCsae: authUseCase)
         return FavoriteViewController(viewModel: favoriteViewModel)
     }
 }
@@ -32,8 +38,12 @@ extension FavoriteCoordinator: FavoriteViewModelDelegate {
         LoginCoordinator(presentationStyle: .push(navigationController: navigationController)).start()
     }
     
-    func goToTownIntro() {
+    func goToTownIntroduce(cityCode: Int) {
         guard let navigationController = navigationController else { return }
-        TownIntroCoordinator(presentationStyle: .push(navigationController: navigationController)).start()
+        TownIntroCoordinator(presentationStyle: .push(navigationController: navigationController),
+                             townUseCase: townUseCase,
+                             authUseCase: authUseCase,
+                             cityCode: cityCode).start()
     }
+
 }

@@ -13,7 +13,7 @@ import RxSwift
 
 protocol TownTableViewCellDelegate: AnyObject {
     func didTapGoToMapButton()
-    func didTapGoToIntroduceButton()
+    func didTapGoToIntroduceButton(cityCode: Int)
     func didTapFavoriteButton()
 }
 
@@ -30,6 +30,8 @@ final class TownTableViewCell: UITableViewCell {
     var townTableModel: TownTableModel?
     
     var disposeBag = DisposeBag()
+    
+    var cityCode: Int?
     
     override func prepareForReuse() {
         super.prepareForReuse()
@@ -170,9 +172,10 @@ final class TownTableViewCell: UITableViewCell {
             .disposed(by: disposeBag)
     }
     
-    func setupCell(_ model: Any) {
+    func setupCell(_ model: Any, cityCode: Int) {
         guard let model = model as? TownTableModel else { return }
         townTableModel = model
+        self.cityCode = cityCode
         
         townTitle.text = model.county
         townIntroduceTitle.text = model.townIntroduction
@@ -186,7 +189,8 @@ private extension TownTableViewCell {
     }
     
     @objc func didTapGoToIntroduceButton() {
-        self.delegate?.didTapGoToIntroduceButton()
+        guard let cityCode = cityCode else { return }
+        self.delegate?.didTapGoToIntroduceButton(cityCode: cityCode)
     }
     
     func didTapFavoriteButton() {

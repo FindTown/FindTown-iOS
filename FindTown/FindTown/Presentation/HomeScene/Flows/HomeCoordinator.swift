@@ -49,4 +49,12 @@ extension HomeCoordinator: HomeViewModelDelegate {
         SearchCoordinator(presentationStyle: .push(navigationController: navigationController),
                           townUseCase: townUseCase).start()
     }
+    
+    func goToTownIntroduce(cityCode: Int) {
+        guard let navigationController = navigationController else { return }
+        TownIntroCoordinator(presentationStyle: .push(navigationController: navigationController),
+                             townUseCase: townUseCase,
+                             authUseCase: authUseCase,
+                             cityCode: cityCode).start()
+    }
 }

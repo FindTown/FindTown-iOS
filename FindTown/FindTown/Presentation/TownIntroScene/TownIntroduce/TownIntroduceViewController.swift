@@ -12,13 +12,18 @@ import RxSwift
 import RxCocoa
 
 /// 동네소개 페이지
-final class TownIntroViewController: BaseViewController, UIScrollViewDelegate {
+final class TownIntroduceViewController: BaseViewController, UIScrollViewDelegate {
     
     // MARK: - Properties
     
-    var viewModel: TownIntroViewModel?
+    var viewModel: TownIntroduceViewModel?
     
     // MARK: - Views
+    
+    fileprivate let favoriteButton = UIBarButtonItem(image: UIImage(named: "favorite.nonselect"),
+                                                     style: .plain,
+                                                     target: nil,
+                                                     action: nil)
     
     /// 소개
     private let townIntroView = UIView()
@@ -55,7 +60,7 @@ final class TownIntroViewController: BaseViewController, UIScrollViewDelegate {
     
     // MARK: - Life Cycle
     
-    init(viewModel: TownIntroViewModel) {
+    init(viewModel: TownIntroduceViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
@@ -71,6 +76,7 @@ final class TownIntroViewController: BaseViewController, UIScrollViewDelegate {
     }
     
     override func setupView() {
+        self.navigationItem.rightBarButtonItem = favoriteButton        
         self.stackView.backgroundColor = FindTownColor.grey1.color
         self.stackView.spacing = 11
         
@@ -95,9 +101,7 @@ final class TownIntroViewController: BaseViewController, UIScrollViewDelegate {
         moveToMapButton.changesSelectionAsPrimaryAction = false
         moveToMapButton.isSelected = true
         
-        /// 임시 텍스트
-        self.title = "관악구 신림동"
-        townIntroLabel.text = "신림동은 20대 1인가구가 많이 살고 있어요."
+        self.viewModel?.getTownIntroduceData()
     }
     
     override func addView() {
@@ -215,7 +219,20 @@ final class TownIntroViewController: BaseViewController, UIScrollViewDelegate {
         townMoodCollectionView.rx.setDelegate(self)
             .disposed(by: disposeBag)
         
-        // Input
+        // MARK: Input
+        
+        favoriteButton.rx.tap
+            .scan(false) { (lastState, newValue) in
+                  !lastState
+            }
+            .subscribe(onNext: { [weak self] isFavorite in
+                self?.rx.isFavoriteCity.onNext(isFavorite)
+                self?.viewModel?.input.favoriteButtonTrigger.onNext(isFavorite)
+                if isFavorite {
+                    self?.showToast(message: "찜 목록에 추가 되었어요")
+                }
+            })
+            .disposed(by: disposeBag)
         
         moveToMapButton.rx.tap
             .bind { [weak self] in
@@ -223,7 +240,23 @@ final class TownIntroViewController: BaseViewController, UIScrollViewDelegate {
             }
             .disposed(by: disposeBag)
         
-        // Output
+        // MARK: Output
+        
+        viewModel?.output.isFavorite
+            .bind(to: rx.isFavoriteCity)
+            .disposed(by: disposeBag)
+        
+        viewModel?.output.townTitle
+            .subscribe(onNext: { [weak self] townTitle in
+                self?.title = townTitle
+            })
+            .disposed(by: disposeBag)
+        
+        viewModel?.output.townExplanation
+            .subscribe(onNext: { [weak self] townExplanation in
+                self?.townIntroLabel.text = townExplanation
+            })
+            .disposed(by: disposeBag)
         
         viewModel?.output.townMoodDataSource
             .observe(on: MainScheduler.instance)
@@ -234,10 +267,10 @@ final class TownIntroViewController: BaseViewController, UIScrollViewDelegate {
         
         viewModel?.output.trafficDataSource
             .observe(on: MainScheduler.instance)
-            .subscribe(onNext: { traffics in
+            .subscribe(onNext: { [weak self] traffics in
                 for traffic in traffics {
                     let trafficTip = TrafficTipView(type: traffic)
-                    self.trafficTipStackView.addArrangedSubview(trafficTip)
+                    self?.trafficTipStackView.addArrangedSubview(trafficTip)
                 }
             })
             .disposed(by: disposeBag)
@@ -251,17 +284,27 @@ final class TownIntroViewController: BaseViewController, UIScrollViewDelegate {
         
         viewModel?.output.townRankDataSource
             .observe(on: MainScheduler.instance)
-            .subscribe(onNext:  { dataList in
+            .subscribe(onNext:  { [weak self] dataList in
                 for data in dataList {
                     let rankView = TownRankView(data: data)
-                    self.townRankStackView.addArrangedSubview(rankView)
+                    self?.townRankStackView.addArrangedSubview(rankView)
                 }
             })
+            .disposed(by: disposeBag)
+        
+        viewModel?.output.errorNotice
+            .subscribe { [weak self] _ in
+                self?.showErrorNoticeAlertPopUp(message: "네트워크 오류가 발생하였습니다.",
+                                                buttonText: "확인",
+                                                buttonAction: { self?.dismiss(animated: false) {
+                    self?.navigationController?.popViewController(animated: true)
+                }})
+            }
             .disposed(by: disposeBag)
     }
 }
 
-private extension TownIntroViewController {
+private extension TownIntroduceViewController {
     
     @objc func tapTownRankInfoButton() {
         townRankToolTip.alpha = 1.0
@@ -277,6 +320,21 @@ private extension TownIntroViewController {
         let backViewTappedLocation = tapRecognizer.location(in: self.townRankToolTip)
         if townRankToolTip.point(inside: backViewTappedLocation, with: nil) == false {
             townRankToolTip.dismiss()
+        }
+    }
+}
+
+extension Reactive where Base: TownIntroduceViewController {
+    
+    var isFavoriteCity: Binder<Bool> {
+        return Binder(self.base) { (viewController, isSelect) in
+            if isSelect {
+                viewController.favoriteButton.image = UIImage(named: "favorite.select")
+                viewController.favoriteButton.tintColor = FindTownColor.orange.color
+            } else {
+                viewController.favoriteButton.image = UIImage(named: "favorite.nonselect")
+                viewController.favoriteButton.tintColor = FindTownColor.grey4.color
+            }
         }
     }
 }
