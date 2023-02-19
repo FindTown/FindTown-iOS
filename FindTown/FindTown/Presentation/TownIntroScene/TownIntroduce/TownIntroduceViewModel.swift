@@ -93,9 +93,9 @@ extension TownIntroduceViewModel {
                 let townIntroData = try await
                 self.townUseCase.getTownIntroduce(cityCode: self.cityCode,
                                                   accessToken: accessToken)
-
+               
                 await MainActor.run(body: {
-                    self.setTownIntroduceData(townIntroData: townIntroData.townIntroduce)
+                    self.setTownIntroduceData(townIntroData: townIntroData)
                 })
             } catch (let error) {
                 await MainActor.run {
@@ -108,18 +108,15 @@ extension TownIntroduceViewModel {
         
     }
     
-    func setTownIntroduceData(townIntroData: TownIntroduceDTO) {
+    func setTownIntroduceData(townIntroData: TownIntroduce) {
         
-        self.output.townTitle.onNext(townIntroData.convertTownTitle)
+        self.output.townTitle.onNext(townIntroData.townTitle)
         self.output.isFavorite.onNext(townIntroData.wishTown)
         self.output.townExplanation.onNext(townIntroData.townExplanation)
-        self.output.townMoodDataSource.onNext(townIntroData.convertTownMood)
-        self.output.trafficDataSource.onNext(townIntroData.convertTraffic)
-        
-        // TODO: hotplaceList db 추가 후 수정 예정
-        let hotPlaceList = townIntroData.townHotPlaceList.filter{ $0 != nil }.map { $0! }
-        self.output.hotPlaceDataSource.onNext(hotPlaceList)
-        self.output.townRankDataSource.onNext(townIntroData.convertTownRank())
+        self.output.townMoodDataSource.onNext(townIntroData.townMood)
+        self.output.trafficDataSource.onNext(townIntroData.traffic)
+        self.output.hotPlaceDataSource.onNext(townIntroData.hotPlace)
+        self.output.townRankDataSource.onNext(townIntroData.townRank)
     }
 }
 

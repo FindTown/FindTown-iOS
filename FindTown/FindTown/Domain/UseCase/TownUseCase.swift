@@ -24,8 +24,8 @@ final class TownUseCase {
         
     }
     
-    func getTownIntroduce(cityCode: Int, accessToken: String) async throws -> TownIntroduceResponseDTO {
+    func getTownIntroduce(cityCode: Int, accessToken: String) async throws -> TownIntroduce {
         return try await defaultTownRepository.getTownIntroduce(cityCode: cityCode,
-                                                                accessToken: accessToken)
+                                                                accessToken: accessToken).townIntroduce.toEntity
     }
 }

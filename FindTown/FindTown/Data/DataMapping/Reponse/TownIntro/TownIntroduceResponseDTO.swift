@@ -32,6 +32,24 @@ struct TownIntroduceDTO: Response {
     let townMoodList: [String]
     let townHotPlaceList: [String?]
     
+    var toEntity: TownIntroduce {
+        
+        let townTitle = convertTownTitle
+        let townMood = convertTownMood
+        let traffic = convertTraffic
+        let townRank = convertTownRank()
+        // TODO: hotplaceList db 추가 후 수정 예정
+        let hotPlaceList = townHotPlaceList.filter{ $0 != nil }.map { $0! }
+        
+        return TownIntroduce(townTitle: townTitle,
+                            wishTown: wishTown,
+                            townExplanation: townExplanation,
+                            townMood: townMood,
+                            traffic: traffic,
+                            hotPlace: hotPlaceList,
+                            townRank: townRank)
+    }
+    
     var convertTownTitle: String {
         guard let city = CityCode.init(rawValue: objectId) else { return "" }
         let townTitle = City(county: city.county, village: city.village).description
