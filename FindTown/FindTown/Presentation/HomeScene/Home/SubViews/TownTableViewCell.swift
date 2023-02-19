@@ -177,6 +177,7 @@ final class TownTableViewCell: UITableViewCell {
         townTableModel = model
         self.cityCode = cityCode
         
+        favoriteIcon.isSelected = model.wishTown ? true : false
         townTitle.text = model.county
         townIntroduceTitle.text = model.townIntroduction
         townIconImageView.image = model.countyIcon
