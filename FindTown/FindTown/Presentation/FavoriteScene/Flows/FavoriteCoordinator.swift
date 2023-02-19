@@ -34,8 +34,8 @@ extension FavoriteCoordinator: FavoriteViewModelDelegate {
 
     func goToLogin() {
         guard let navigationController = navigationController else { return }
-        navigationController.isNavigationBarHidden = true
-        LoginCoordinator(presentationStyle: .push(navigationController: navigationController)).start()
+        LoginCoordinator(presentationStyle: .setViewController(navigationController: navigationController,
+                                                               modalPresentationStyle: .overFullScreen)).start()
     }
     
     func goToTownIntroduce(cityCode: Int) {
