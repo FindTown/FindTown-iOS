@@ -24,14 +24,14 @@ final class DefaultTownRepository {
     }
     
     /// 동네 소개 
-    func getTownIntro(cityCode: Int, accessToken: String) async throws -> TownIntroResponseDTO {
+    func getTownIntroduce(cityCode: Int, accessToken: String) async throws -> TownIntroduceResponseDTO {
         
         let httpHeaders = HTTPHeaders([.accept("*/*"),
                                        .authorization(bearerToken: accessToken)])
         
         let parameters = [URLQueryItem(name: "objectId", value: String(cityCode))]
-        let request = TownIntroRequest(HTTPHeaders: httpHeaders, parameters: parameters)
-        let data = try await Network.shared.request(target: TownIntroRequest(HTTPHeaders: httpHeaders, parameters: parameters))
+        let request = TownIntroduceRequest(HTTPHeaders: httpHeaders, parameters: parameters)
+        let data = try await Network.shared.request(target: TownIntroduceRequest(HTTPHeaders: httpHeaders, parameters: parameters))
         return data.body
     }
 }

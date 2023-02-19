@@ -37,7 +37,7 @@ extension FavoriteCoordinator: FavoriteViewModelDelegate {
         AppCoordinator(navigationController: navigationController).start()
     }
     
-    func goToTownIntro(cityCode: Int) {
+    func goToTownIntroduce(cityCode: Int) {
         guard let navigationController = navigationController else { return }
         TownIntroCoordinator(presentationStyle: .push(navigationController: navigationController),
                              townUseCase: townUseCase,

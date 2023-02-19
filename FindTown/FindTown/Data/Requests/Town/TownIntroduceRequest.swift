@@ -8,14 +8,14 @@
 import Foundation
 import FindTownNetwork
 
-struct TownIntroRequest: BaseRequest {    
+struct TownIntroduceRequest: BaseRequest {    
     
     init(HTTPHeaders: HTTPHeaders, parameters: [URLQueryItem]) {
         self.headers = HTTPHeaders
         self.parameters = parameters
     }
     
-    typealias ResponseType = TownIntroResponseDTO
+    typealias ResponseType = TownIntroduceResponseDTO
     
     var path: String = "/app/town/introduce"
     var method: FindTownNetwork.HttpMethod = .get

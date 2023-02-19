@@ -12,12 +12,12 @@ import RxSwift
 
 protocol FavoriteViewModelType {
     func goToSignUp()
-    func goToTownIntro(cityCode: Int)
+    func goToTownIntroduce(cityCode: Int)
 }
 
 protocol FavoriteViewModelDelegate {
     func goToSignup()
-    func goToTownIntro(cityCode: Int)
+    func goToTownIntroduce(cityCode: Int)
 }
 
 enum FavoriteViewStatus {
@@ -69,7 +69,7 @@ final class FavoriteViewModel: BaseViewModel {
         
         self.input.townIntroButtonTrigger
             .subscribe(onNext: { [weak self] cityCode in
-                self?.delegate.goToTownIntro(cityCode: cityCode)
+                self?.delegate.goToTownIntroduce(cityCode: cityCode)
             })
             .disposed(by: disposeBag)
         
@@ -84,8 +84,8 @@ extension FavoriteViewModel: FavoriteViewModelType {
         delegate.goToSignup()
     }
     
-    func goToTownIntro(cityCode: Int) {
-        delegate.goToTownIntro(cityCode: cityCode)
+    func goToTownIntroduce(cityCode: Int) {
+        delegate.goToTownIntroduce(cityCode: cityCode)
     }
 }
 

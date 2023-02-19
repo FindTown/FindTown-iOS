@@ -10,15 +10,15 @@ import FindTownCore
 import RxSwift
          
 
-protocol TownIntroViewModelType {
+protocol TownIntroduceViewModelType {
     func goToMap()
 }
 
-protocol TownIntroViewModelDelegate {
+protocol TownIntroduceViewModelDelegate {
     func goToMap()
 }
 
-final class TownIntroViewModel: BaseViewModel {
+final class TownIntroduceViewModel: BaseViewModel {
     
     struct Input {
         let moveToMapButtonTrigger = PublishSubject<Void>()
@@ -36,7 +36,7 @@ final class TownIntroViewModel: BaseViewModel {
         let errorNotice = PublishSubject<Void>()
     }
     
-    let delegate: TownIntroViewModelDelegate
+    let delegate: TownIntroduceViewModelDelegate
     let input = Input()
     let output = Output()
     var cityCode: Int
@@ -48,9 +48,9 @@ final class TownIntroViewModel: BaseViewModel {
     
     // MARK: - Task
     
-    private var townIntroTask: Task<Void, Error>?
+    private var townIntroduceTask: Task<Void, Error>?
 
-    init(delegate: TownIntroViewModelDelegate,
+    init(delegate: TownIntroduceViewModelDelegate,
          townUseCase: TownUseCase,
          authUseCase: AuthUseCase,
          cityCode: Int) {
@@ -74,15 +74,15 @@ final class TownIntroViewModel: BaseViewModel {
     }
 }
 
-extension TownIntroViewModel: TownIntroViewModelType {
+extension TownIntroduceViewModel: TownIntroduceViewModelType {
     func goToMap() {
         self.delegate.goToMap()
     }
 }
 
-extension TownIntroViewModel {
+extension TownIntroduceViewModel {
     func getTownIntroData() {
-        self.townIntroTask = Task {
+        self.townIntroduceTask = Task {
             do {
                 var accessToken = ""
                 //TODO: isAnonymous 적용
@@ -90,11 +90,11 @@ extension TownIntroViewModel {
                     accessToken = try await self.authUseCase.getAccessToken()
                 }
                 
-                let townIntroData = try await self.townUseCase.getTownIntro(cityCode: self.cityCode,
+                let townIntroData = try await self.townUseCase.getTownIntroduce(cityCode: self.cityCode,
                                                                             accessToken: accessToken)
 
                 await MainActor.run(body: {
-                    self.setTownIntroData(data: townIntroData.townIntro)
+                    self.setTownIntroData(data: townIntroData.townIntroduce)
                 })
             } catch (let error) {
                 await MainActor.run {
@@ -102,12 +102,12 @@ extension TownIntroViewModel {
                 }
                 Log.error(error)
             }
-            townIntroTask?.cancel()
+            townIntroduceTask?.cancel()
         }
         
     }
     
-    func setTownIntroData(data: TownIntroDTO) {
+    func setTownIntroData(data: TownIntroduceDTO) {
         
         if let city = CityCode.init(rawValue: cityCode) {
             let townTitle = City(county: city.county, village: city.village).description
@@ -116,16 +116,16 @@ extension TownIntroViewModel {
         
         self.output.isFavorite.onNext(data.wishTown)
         self.output.townExplanation.onNext(data.townExplanation)
-        self.output.townMoodDataSource.onNext(returnTownMoodData(data.townMoodList))
-        self.output.trafficDataSource.onNext(returnTrafficData(data.townSubwayList))
+        self.output.townMoodDataSource.onNext(convertTownMoodData(data.townMoodList))
+        self.output.trafficDataSource.onNext(convertTrafficData(data.townSubwayList))
         let hotPlaceList = data.townHotPlaceList.filter{ $0 != nil }.map { $0! }
         self.output.hotPlaceDataSource.onNext(hotPlaceList)
-        self.output.townRankDataSource.onNext(self.returnTownRankData(data: data))
+        self.output.townRankDataSource.onNext(self.convertTownRankData(data: data))
     }
 }
 
-extension TownIntroViewModel {
-    func returnTownMoodData(_ townMoodStringArray: [String]) -> [TownMood] {
+extension TownIntroduceViewModel {
+    func convertTownMoodData(_ townMoodStringArray: [String]) -> [TownMood] {
         var townMoodArray: [TownMood] = []
         
         for mood in townMoodStringArray {
@@ -136,7 +136,7 @@ extension TownIntroViewModel {
         return townMoodArray
     }
     
-    func returnTrafficData(_ trafficStringArray: [String]) -> [Traffic] {
+    func convertTrafficData(_ trafficStringArray: [String]) -> [Traffic] {
         var trafficArray: [Traffic] = []
       
         for traffic in trafficStringArray {
@@ -148,17 +148,17 @@ extension TownIntroViewModel {
         return trafficArray
     }
     
-    func returnTownRankData(data: TownIntroDTO ) -> [(TownRank,Any)] {
+    func convertTownRankData(data: TownIntroduceDTO) -> [(TownRank,Any)] {
         let popular = data.popularGeneration == 0 ? nil : ["\(data.popularGeneration)대 1인가구",
                                                            "\(data.popularTownRate)"]
-        let test = TownRankData(lifeRank: data.lifeRate,
-                                crimeRank: data.crimeRate,
-                                trafficRank: data.trafficRate,
-                                liveRank: data.liveRank == 0 ? nil : data.liveRank,
-                                popular: popular,
-                                cleanRank: data.cleanlinessRank == "N" ? nil : data.cleanlinessRank,
-                                safety: data.reliefYn == "Y" ? "안심보안관 활동지" : nil)
+        let townRankData = TownRankData(lifeRank: data.lifeRate,
+                                        crimeRank: data.crimeRate,
+                                        trafficRank: data.trafficRate,
+                                        liveRank: data.liveRank == 0 ? nil : data.liveRank,
+                                        popular: popular,
+                                        cleanRank: data.cleanlinessRank == "N" ? nil : data.cleanlinessRank,
+                                        safety: data.reliefYn == "Y" ? "안심보안관 활동지" : nil)
         
-        return test.toArray()
+        return townRankData.toArray()
     }
 }

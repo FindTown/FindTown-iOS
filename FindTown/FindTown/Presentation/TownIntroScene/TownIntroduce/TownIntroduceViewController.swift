@@ -12,11 +12,11 @@ import RxSwift
 import RxCocoa
 
 /// 동네소개 페이지
-final class TownIntroViewController: BaseViewController, UIScrollViewDelegate {
+final class TownIntroduceViewController: BaseViewController, UIScrollViewDelegate {
     
     // MARK: - Properties
     
-    var viewModel: TownIntroViewModel?
+    var viewModel: TownIntroduceViewModel?
     
     // MARK: - Views
     
@@ -60,7 +60,7 @@ final class TownIntroViewController: BaseViewController, UIScrollViewDelegate {
     
     // MARK: - Life Cycle
     
-    init(viewModel: TownIntroViewModel) {
+    init(viewModel: TownIntroduceViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
@@ -300,7 +300,7 @@ final class TownIntroViewController: BaseViewController, UIScrollViewDelegate {
     }
 }
 
-private extension TownIntroViewController {
+private extension TownIntroduceViewController {
     
     @objc func tapTownRankInfoButton() {
         townRankToolTip.alpha = 1.0
@@ -320,7 +320,7 @@ private extension TownIntroViewController {
     }
 }
 
-extension Reactive where Base: TownIntroViewController {
+extension Reactive where Base: TownIntroduceViewController {
     
     var isFavoriteCity: Binder<Bool> {
         return Binder(self.base) { (viewController, isSelect) in

@@ -8,15 +8,15 @@
 import Foundation
 import FindTownNetwork
 
-struct TownIntroResponseDTO: Response {
-    let townIntro: TownIntroDTO
+struct TownIntroduceResponseDTO: Response {
+    let townIntroduce: TownIntroduceDTO
     
     enum CodingKeys: String, CodingKey {
-        case townIntro = "town_info"
+        case townIntroduce = "town_info"
     }
 }
 
-struct TownIntroDTO: Response {
+struct TownIntroduceDTO: Response {
     let objectId: Int
     let townExplanation: String
     let reliefYn: String
