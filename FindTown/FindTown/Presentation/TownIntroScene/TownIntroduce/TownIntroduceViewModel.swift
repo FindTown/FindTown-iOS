@@ -109,56 +109,16 @@ extension TownIntroduceViewModel {
     
     func setTownIntroData(data: TownIntroduceDTO) {
         
-        if let city = CityCode.init(rawValue: cityCode) {
-            let townTitle = City(county: city.county, village: city.village).description
-            self.output.townTitle.onNext(townTitle)
-        }
-        
+        self.output.townTitle.onNext(data.convertTownTitle)
         self.output.isFavorite.onNext(data.wishTown)
         self.output.townExplanation.onNext(data.townExplanation)
-        self.output.townMoodDataSource.onNext(convertTownMoodData(data.townMoodList))
-        self.output.trafficDataSource.onNext(convertTrafficData(data.townSubwayList))
+        self.output.townMoodDataSource.onNext(data.convertTownMood)
+        self.output.trafficDataSource.onNext(data.convertTraffic)
+        
+        // TODO: hotplaceList db 추가 후 수정 예정
         let hotPlaceList = data.townHotPlaceList.filter{ $0 != nil }.map { $0! }
         self.output.hotPlaceDataSource.onNext(hotPlaceList)
-        self.output.townRankDataSource.onNext(self.convertTownRankData(data: data))
+        self.output.townRankDataSource.onNext(data.convertTownRank())
     }
 }
 
-extension TownIntroduceViewModel {
-    func convertTownMoodData(_ townMoodStringArray: [String]) -> [TownMood] {
-        var townMoodArray: [TownMood] = []
-        
-        for mood in townMoodStringArray {
-            if let mood = TownMood.returnTrafficType(mood) {
-                townMoodArray.append(mood)
-            }
-        }
-        return townMoodArray
-    }
-    
-    func convertTrafficData(_ trafficStringArray: [String]) -> [Traffic] {
-        var trafficArray: [Traffic] = []
-      
-        for traffic in trafficStringArray {
-            if let traffic =  Traffic.returnTrafficType(traffic) {
-                trafficArray.append(traffic)
-            }
-        }
-        
-        return trafficArray
-    }
-    
-    func convertTownRankData(data: TownIntroduceDTO) -> [(TownRank,Any)] {
-        let popular = data.popularGeneration == 0 ? nil : ["\(data.popularGeneration)대 1인가구",
-                                                           "\(data.popularTownRate)"]
-        let townRankData = TownRankData(lifeRank: data.lifeRate,
-                                        crimeRank: data.crimeRate,
-                                        trafficRank: data.trafficRate,
-                                        liveRank: data.liveRank == 0 ? nil : data.liveRank,
-                                        popular: popular,
-                                        cleanRank: data.cleanlinessRank == "N" ? nil : data.cleanlinessRank,
-                                        safety: data.reliefYn == "Y" ? "안심보안관 활동지" : nil)
-        
-        return townRankData.toArray()
-    }
-}
