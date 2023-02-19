@@ -102,8 +102,8 @@ final class FavoriteViewController: BaseViewController {
             .bind(to: favoriteTableView.rx.items(cellIdentifier: TownTableViewCell.reuseIdentifier,
                                                  cellType: TownTableViewCell.self)) {
                 index, item, cell in
-                cell.setupCell(item)
-                cell.cityCode = item.objectId
+                
+                cell.setupCell(item, cityCode: item.objectId)
                 cell.delegate = self
             }.disposed(by: disposeBag)
     }

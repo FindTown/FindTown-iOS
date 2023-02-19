@@ -167,9 +167,10 @@ final class TownTableViewCell: UITableViewCell {
             .disposed(by: disposeBag)
     }
     
-    func setupCell(_ model: Any) {
+    func setupCell(_ model: Any, cityCode: Int) {
         guard let model = model as? TownTableModel else { return }
         townTableModel = model
+        self.cityCode = cityCode
         
         townTitle.text = model.county
         townIntroduceTitle.text = model.townIntroduction

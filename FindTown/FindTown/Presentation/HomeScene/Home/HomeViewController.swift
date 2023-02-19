@@ -345,7 +345,7 @@ final class HomeViewController: BaseViewController {
                 cellIdentifier: TownTableViewCell.reuseIdentifier,
                 cellType: TownTableViewCell.self)) { index, item, cell in
                     
-                    cell.setupCell(item)
+                    cell.setupCell(item, cityCode: item.objectId)
                     cell.delegate = self
                     
                 }.disposed(by: disposeBag)
