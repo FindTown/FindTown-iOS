@@ -157,6 +157,18 @@ final class ChangeNicknameViewController: BaseViewController {
             }
             .disposed(by: disposeBag)
         
+        viewModel?.output.successNotice
+            .subscribe { [weak self] nickname in
+                self?.showErrorNoticeAlertPopUp(message: "닉네임이 변경됐습니다.",
+                                                buttonText: "확인",
+                                                buttonAction: {
+                    self?.dismiss(animated: false) {
+                        self?.navigationController?.popViewController(animated: true)
+                        self?.viewModel?.fetchNickname(nickname: nickname)
+                    }})
+            }
+            .disposed(by: disposeBag)
+        
         viewModel?.output.errorNotice
             .subscribe { [weak self] _ in
                 self?.showErrorNoticeAlertPopUp(message: "네트워크 오류가 발생하였습니다.",

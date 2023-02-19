@@ -45,6 +45,7 @@ final class MyPageCoordinator: FlowCoordinator {
     /// 닉네임 수정 화면
     internal func changeNicknameScene() -> UIViewController {
         let changeNicknameViewModel = ChangeNicknameViewModel(delegate: self,
+                                                              authUseCase: authUseCase,
                                                               memberUseCase: memberUseCase)
         let changeNicknameViewController = ChangeNicknameViewController(viewModel: changeNicknameViewModel)
         changeNicknameViewController.hidesBottomBarWhenPushed = true
@@ -127,5 +128,12 @@ extension MyPageCoordinator: MyPageViewModelDelegate {
         guard let navigationController = navigationController else { return }
         LoginCoordinator(presentationStyle: .setViewController(navigationController: navigationController,                                                                      modalTransitionStyle: .crossDissolve,
                                                                modalPresentationStyle: .overFullScreen)).start()
+    }
+    
+    func fetchNickname(nickname: String) {
+        guard let navigationController = navigationController else { return }
+        if let mypageVC = navigationController.topViewController as? MyPageViewController {
+            mypageVC.fetchNickname(nickname: nickname)
+        }
     }
 }

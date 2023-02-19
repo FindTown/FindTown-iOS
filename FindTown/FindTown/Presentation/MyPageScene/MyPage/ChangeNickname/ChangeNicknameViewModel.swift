@@ -13,7 +13,7 @@ import RxSwift
 import RxRelay
 
 protocol ChangeNicknameViewModelType {
-    
+    func fetchNickname(nickname: String)
 }
 
 final class ChangeNicknameViewModel: BaseViewModel {
@@ -26,6 +26,7 @@ final class ChangeNicknameViewModel: BaseViewModel {
     
     struct Output {
         let nickNameStatus = PublishRelay<NicknameStatus>()
+        let successNotice = PublishSubject<String>()
         let errorNotice = PublishSubject<Void>()
     }
     
@@ -35,17 +36,21 @@ final class ChangeNicknameViewModel: BaseViewModel {
     
     // MARK: - UseCase
     
+    let authUseCase: AuthUseCase
     let memberUseCase: MemberUseCase
     
     // MARK: - Task
     
     private var nicknameCheckTask: Task<Void, Error>?
+    private var nicknameChangeTask: Task<Void, Error>?
     
     init(
         delegate: MyPageViewModelDelegate,
+        authUseCase: AuthUseCase,
         memberUseCase: MemberUseCase
     ) {
         self.delegate = delegate
+        self.authUseCase = authUseCase
         self.memberUseCase = memberUseCase
         
         super.init()
@@ -78,9 +83,8 @@ final class ChangeNicknameViewModel: BaseViewModel {
             .disposed(by: disposeBag)
     }
     
-    // 닉네임 변경 + 뒤로가기
     private func setNickname(nickname: String) {
-        print("nickname set \(nickname)")
+        self.changeNickname(nickname: nickname)
     }
 }
 
@@ -98,6 +102,7 @@ extension ChangeNicknameViewModel {
                         self.output.nickNameStatus.accept(.complete)
                     }
                 })
+                nicknameCheckTask?.cancel()
             } catch (let error) {
                 Log.error(error)
                 await MainActor.run(body: {
@@ -107,8 +112,33 @@ extension ChangeNicknameViewModel {
             nicknameCheckTask?.cancel()
         }
     }
+    
+    func changeNickname(nickname: String) {
+        self.nicknameChangeTask = Task {
+            do {
+                let accessToken = try await authUseCase.getAccessToken()
+                let editSuccess = try await self.memberUseCase.changeNickname(nickName: nickname, accessToken: accessToken)
+                await MainActor.run(body: {
+                    if editSuccess {
+                        self.output.successNotice.onNext(nickname)
+                    } else {
+                        self.output.errorNotice.onNext(())
+                    }
+                })
+                nicknameChangeTask?.cancel()
+            } catch (let error) {
+                Log.error(error)
+                await MainActor.run(body: {
+                    self.output.errorNotice.onNext(())
+                })
+            }
+            nicknameChangeTask?.cancel()
+        }
+    }
 }
 
 extension ChangeNicknameViewModel: ChangeNicknameViewModelType {
-    
+    func fetchNickname(nickname: String) {
+        delegate.fetchNickname(nickname: nickname)
+    }
 }
