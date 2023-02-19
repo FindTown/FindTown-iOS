@@ -28,9 +28,10 @@ final class DefaultTownRepository {
         
         let httpHeaders = HTTPHeaders([.accept("*/*"),
                                        .authorization(bearerToken: accessToken)])
-        
         let parameters = [URLQueryItem(name: "objectId", value: String(cityCode))]
-        let data = try await Network.shared.request(target: TownIntroduceRequest(HTTPHeaders: httpHeaders, parameters: parameters))
+        
+        let data = try await Network.shared.request(target: TownIntroduceRequest(HTTPHeaders: httpHeaders,
+                                                                                 parameters: parameters))
         return data.body
     }
 }

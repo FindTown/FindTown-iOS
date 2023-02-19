@@ -42,12 +42,12 @@ struct TownIntroduceDTO: Response {
         let hotPlaceList = townHotPlaceList.filter{ $0 != nil }.map { $0! }
         
         return TownIntroduce(townTitle: townTitle,
-                            wishTown: wishTown,
-                            townExplanation: townExplanation,
-                            townMood: townMood,
-                            traffic: traffic,
-                            hotPlace: hotPlaceList,
-                            townRank: townRank)
+                             wishTown: wishTown,
+                             townExplanation: townExplanation,
+                             townMood: townMood,
+                             traffic: traffic,
+                             hotPlace: hotPlaceList,
+                             townRank: townRank)
     }
     
     var convertTownTitle: String {
@@ -82,7 +82,8 @@ struct TownIntroduceDTO: Response {
     
     func convertTownRank() -> [(TownRank,Any)] {
         let popular = popularGeneration == 0 ? nil : ["\(popularGeneration)대 1인가구",
-                                                        "\(popularTownRate)"]
+                                                      "\(popularTownRate)"]
+        
         let townRankData = TownRankData(lifeRank: lifeRate,
                                         crimeRank: crimeRate,
                                         trafficRank: trafficRate,
