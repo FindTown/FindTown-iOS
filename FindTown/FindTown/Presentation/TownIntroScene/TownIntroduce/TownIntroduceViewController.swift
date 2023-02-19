@@ -267,10 +267,10 @@ final class TownIntroduceViewController: BaseViewController, UIScrollViewDelegat
         
         viewModel?.output.trafficDataSource
             .observe(on: MainScheduler.instance)
-            .subscribe(onNext: { traffics in
+            .subscribe(onNext: { [weak self] traffics in
                 for traffic in traffics {
                     let trafficTip = TrafficTipView(type: traffic)
-                    self.trafficTipStackView.addArrangedSubview(trafficTip)
+                    self?.trafficTipStackView.addArrangedSubview(trafficTip)
                 }
             })
             .disposed(by: disposeBag)
@@ -284,10 +284,10 @@ final class TownIntroduceViewController: BaseViewController, UIScrollViewDelegat
         
         viewModel?.output.townRankDataSource
             .observe(on: MainScheduler.instance)
-            .subscribe(onNext:  { dataList in
+            .subscribe(onNext:  { [weak self] dataList in
                 for data in dataList {
                     let rankView = TownRankView(data: data)
-                    self.townRankStackView.addArrangedSubview(rankView)
+                    self?.townRankStackView.addArrangedSubview(rankView)
                 }
             })
             .disposed(by: disposeBag)

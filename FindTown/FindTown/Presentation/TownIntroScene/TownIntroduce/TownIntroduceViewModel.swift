@@ -90,8 +90,9 @@ extension TownIntroduceViewModel {
                     accessToken = try await self.authUseCase.getAccessToken()
                 }
                 
-                let townIntroData = try await self.townUseCase.getTownIntroduce(cityCode: self.cityCode,
-                                                                            accessToken: accessToken)
+                let townIntroData = try await
+                self.townUseCase.getTownIntroduce(cityCode: self.cityCode,
+                                                  accessToken: accessToken)
 
                 await MainActor.run(body: {
                     self.setTownIntroduceData(townIntroData: townIntroData.townIntroduce)
