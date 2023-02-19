@@ -19,7 +19,12 @@ final class DefaultTownRepository {
         return data.body
     }
     
-    func getSearchTownInformation() {
-        
+    func getSearchTownInformation(countyData: String) async throws -> TownSearchResponseDTO {
+        let HTTPHeaders = HTTPHeaders([.accept("*/*"),
+                                       .contentType("application/json")])
+        let townSearch = TownSearchDTO(sggNm: countyData)
+        let data = try await Network.shared.request(target: TownSearchRequest(task: .requestJSONEncodable(encodable: townSearch),
+                                                                              HTTPHeaders: HTTPHeaders))
+        return data.body
     }
 }

@@ -11,44 +11,69 @@ import FindTownCore
 import RxSwift
 import RxRelay
 
-final class ShowVillageListViewModel: BaseViewModel {
+protocol ShowVillageListViewModelType { }
 
+final class ShowVillageListViewModel: BaseViewModel {
+    
     struct Input {
-        
+        let fetchFinishTrigger = PublishSubject<Void>()
     }
     
     struct Output {
-        var searchTownTableDataSource = BehaviorRelay<[townModelTest]>(value: [])
+        var searchTownTableDataSource = BehaviorRelay<[TownTableModel]>(value: [])
+        let errorNotice = PublishSubject<Void>()
     }
     
     let input = Input()
     let output = Output()
+    let delegate: SearchViewModelDelegate
+    
     let selectCountyData: String?
     
-    init(selectCountyData: String?) {
+    // MARK: - UseCase
+    
+    let townUseCase: TownUseCase
+    
+    // MARK: - Task
+    
+    private var searchTask: Task<Void, Error>?
+    
+    init(
+        delegate: SearchViewModelDelegate,
+        townUseCase: TownUseCase,
+        selectCountyData: String?
+    ) {
+        self.delegate = delegate
+        self.townUseCase = townUseCase
         self.selectCountyData = selectCountyData
+        
         super.init()
         self.bind()
     }
-
-    func bind() {
-
-        // 임시
-        self.output.searchTownTableDataSource.accept(returnTownTestData())
-    }
+    
+    func bind() { }
 }
 
+// MARK: - Network
+
 extension ShowVillageListViewModel {
-    func returnTownTestData() -> [townModelTest] {
-        let demoTown1 = townModelTest(image: "map", village: "신림동", introduce: "자취생들이 많이 사는 동네")
-        let demoTown2 = townModelTest(image: "map", village: "신림동", introduce: "자취생들이 많이 사는 동네")
-        let demoTown3 = townModelTest(image: "map", village: "신림동", introduce: "자취생들이 많이 사는 동네")
-        let demoTown4 = townModelTest(image: "map", village: "신림동", introduce: "자취생들이 많이 사는 동네")
-        let demoTown5 = townModelTest(image: "map", village: "신림동", introduce: "자취생들이 많이 사는 동네")
-        let demoTown6 = townModelTest(image: "map", village: "신림동", introduce: "자취생들이 많이 사는 동네")
-        let demoTown7 = townModelTest(image: "map", village: "신림동", introduce: "자취생들이 많이 사는 동네")
-        
-        let towns = [demoTown1, demoTown2, demoTown3, demoTown4, demoTown5, demoTown6, demoTown7]
-        return towns
+    func fetchTownInformation() {
+        self.searchTask = Task {
+            do {
+                guard let selectCountyData = self.selectCountyData else { return }
+                let townInformation = try await self.townUseCase.getSearchTownInformation(countyData: selectCountyData)
+                await MainActor.run(body: {
+                    let townTableModel = townInformation.toEntity
+                    self.output.searchTownTableDataSource.accept(townTableModel)
+                })
+                searchTask?.cancel()
+            } catch (let error) {
+                await MainActor.run {
+                    self.output.errorNotice.onNext(())
+                }
+                Log.error(error)
+            }
+            searchTask?.cancel()
+        }
     }
 }
