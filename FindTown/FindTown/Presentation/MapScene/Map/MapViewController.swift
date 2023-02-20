@@ -307,7 +307,7 @@ private extension MapViewController {
         
         NSLayoutConstraint.activate([
             mapView.topAnchor.constraint(equalTo: naviBarSubView.bottomAnchor),
-            mapView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            mapView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
             mapView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             mapView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
