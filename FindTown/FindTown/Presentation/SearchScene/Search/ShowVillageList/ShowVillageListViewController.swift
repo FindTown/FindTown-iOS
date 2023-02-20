@@ -137,12 +137,12 @@ final class ShowVillageListViewController: BaseViewController {
 
 extension ShowVillageListViewController: TownTableViewCellDelegate {
     
-    func didTapGoToMapButton() {
-        print("didTapGoToMapButton")
+    func didTapGoToIntroduceButton(cityCode: Int) {
+        self.viewModel?.input.townIntroButtonTrigger.onNext(cityCode)
     }
     
-    func didTapGoToIntroduceButton(cityCode: Int) {
-        print("didTapGoToIntroduceButton")
+    func didTapGoToMapButton(cityCode: Int) {
+        self.viewModel?.input.townMapButtonTrigger.onNext(cityCode)
     }
     
     func didTapFavoriteButton() {

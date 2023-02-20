@@ -14,6 +14,7 @@ final class SearchCoordinator: FlowCoordinator {
     var presentationStyle: PresentationStyle
     weak var navigationController: UINavigationController?
     let townUseCase: TownUseCase
+    let authUseCase: AuthUseCase = AuthUseCase()
     
     init(
         presentationStyle: PresentationStyle,
@@ -44,7 +45,20 @@ final class SearchCoordinator: FlowCoordinator {
     }
 }
 
-extension SearchCoordinator: SearchViewModelDelegate {
+extension SearchCoordinator: SearchViewModelDelegate, ShowVillageListViewModelDelegate {
+    func goToTownIntroduce(cityCode: Int) {
+        guard let navigationController = navigationController else { return }
+        TownIntroCoordinator(presentationStyle: .push(navigationController: navigationController),
+                             townUseCase: townUseCase,
+                             authUseCase: authUseCase,
+                             cityCode: cityCode).start()
+    }
+    
+    func goToTownMap(cityCode: Int) {
+        guard let navigationController = navigationController else { return }
+        MapCoordinator(presentationStyle: .push(navigationController: navigationController)).start()
+    }
+    
     func goToShowVillageList(selectCountyData: String) {
         guard let navigationController = navigationController else { return }
         navigationController.pushViewController(showVillageListScene(selectCountyData: selectCountyData), animated: true)
@@ -54,4 +68,6 @@ extension SearchCoordinator: SearchViewModelDelegate {
         guard let navigationController = navigationController else { return }
         navigationController.present(showServiceMapScene(), animated: false)
     }
+    
+    
 }
