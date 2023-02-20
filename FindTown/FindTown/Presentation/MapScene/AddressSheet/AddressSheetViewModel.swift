@@ -11,11 +11,11 @@ import FindTownCore
 import RxSwift
 
 protocol AddressSheetViewModelDelegate {
-    func dismiss(_ city: City)
+    func dismiss(_ cityCode: Int)
 }
 
 protocol AddressSheetViewModelType {
-    func dismiss(_ city: City)
+    func dismiss(_ cityCode: Int)
 }
 
 final class AddressSheetViewModel: BaseViewModel {
@@ -46,14 +46,17 @@ final class AddressSheetViewModel: BaseViewModel {
         
         self.input.didTapCompleteButton.withLatestFrom(self.input.selectedCity)
         .subscribe { [weak self] city in
-            self?.dismiss(city)
+            guard let cityCode = CityCode(county: city.county, village: city.village) else {
+                return
+            }
+            self?.dismiss(cityCode.rawValue)
         }
         .disposed(by: disposeBag)
     }
 }
 
 extension AddressSheetViewModel: AddressSheetViewModelType {
-    func dismiss(_ city: City) {
-        self.delegate.dismiss(city)
+    func dismiss(_ cityCode: Int) {
+        self.delegate.dismiss(cityCode)
     }
 }

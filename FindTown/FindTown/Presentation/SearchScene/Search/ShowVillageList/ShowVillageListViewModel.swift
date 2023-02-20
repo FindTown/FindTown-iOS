@@ -11,12 +11,22 @@ import FindTownCore
 import RxSwift
 import RxRelay
 
-protocol ShowVillageListViewModelType { }
+protocol ShowVillageListViewModelDelegate {
+    func goToTownIntroduce(cityCode: Int)
+    func goToTownMap(cityCode: Int)
+}
+
+protocol ShowVillageListViewModelType {
+    func goToTownIntroduce(cityCode: Int)
+    func goToTownMap(cityCode: Int)
+}
 
 final class ShowVillageListViewModel: BaseViewModel {
     
     struct Input {
         let fetchFinishTrigger = PublishSubject<Void>()
+        let townIntroButtonTrigger = PublishSubject<Int>()
+        let townMapButtonTrigger = PublishSubject<Int>()
     }
     
     struct Output {
@@ -26,7 +36,7 @@ final class ShowVillageListViewModel: BaseViewModel {
     
     let input = Input()
     let output = Output()
-    let delegate: SearchViewModelDelegate
+    let delegate: ShowVillageListViewModelDelegate
     
     let selectCountyData: String?
     
@@ -39,7 +49,7 @@ final class ShowVillageListViewModel: BaseViewModel {
     private var searchTask: Task<Void, Error>?
     
     init(
-        delegate: SearchViewModelDelegate,
+        delegate: ShowVillageListViewModelDelegate,
         townUseCase: TownUseCase,
         selectCountyData: String?
     ) {
@@ -51,7 +61,19 @@ final class ShowVillageListViewModel: BaseViewModel {
         self.bind()
     }
     
-    func bind() { }
+    func bind() {
+        self.input.townIntroButtonTrigger
+            .subscribe(onNext: { [weak self] cityCode in
+                self?.delegate.goToTownIntroduce(cityCode: cityCode)
+            })
+            .disposed(by: disposeBag)
+        
+        self.input.townMapButtonTrigger
+            .subscribe(onNext: { [weak self] cityCode in
+                self?.delegate.goToTownMap(cityCode: cityCode)
+            })
+            .disposed(by: disposeBag)
+    }
 }
 
 // MARK: - Network
@@ -75,5 +97,18 @@ extension ShowVillageListViewModel {
             }
             searchTask?.cancel()
         }
+    }
+}
+
+// MARK: - Delegate
+
+extension ShowVillageListViewModel: ShowVillageListViewModelDelegate {
+    
+    func goToTownIntroduce(cityCode: Int) {
+        delegate.goToTownIntroduce(cityCode: cityCode)
+    }
+    
+    func goToTownMap(cityCode: Int) {
+        delegate.goToTownMap(cityCode: cityCode)
     }
 }

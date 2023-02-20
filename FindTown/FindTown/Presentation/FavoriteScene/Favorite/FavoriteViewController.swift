@@ -110,9 +110,9 @@ final class FavoriteViewController: BaseViewController {
 }
 
 extension FavoriteViewController: TownTableViewCellDelegate {
-
-    func didTapGoToMapButton() {
-        print("FavoriteViewControlle: didTapGoToMapButton")
+    
+    func didTapGoToMapButton(cityCode: Int) {
+        self.viewModel?.input.townMapButtonTrigger.onNext(cityCode)
     }
     
     func didTapGoToIntroduceButton(cityCode: Int) {

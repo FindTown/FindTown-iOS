@@ -54,7 +54,6 @@ final class MapViewController: BaseViewController {
             self.setStoreMarker(selectStore: themaStores[index])
         }
     }
-    let isAnonymous: Bool
     
     // MARK: Map property
     
@@ -64,15 +63,11 @@ final class MapViewController: BaseViewController {
     var themaStores: [ThemaStore] = []
     var markers: [NMFMarker] = []
     
-    var infoWindow = NMFInfoWindow()
-    var defaultInfoWindowImage = NMFInfoWindowDefaultTextSource.data()
-    
     // MARK: - Life Cycle
     
-    init(viewModel: MapViewModel, mapTransition: MapTransition, isAnonymous: Bool) {
+    init(viewModel: MapViewModel, mapTransition: MapTransition) {
         self.viewModel = viewModel
         self.mapTransition = mapTransition
-        self.isAnonymous = isAnonymous
         
         super.init(nibName: nil, bundle: nil)
     }
@@ -110,6 +105,15 @@ final class MapViewController: BaseViewController {
  
         mapToggle.rx.selectedSegmentIndex
             .bind(to: self.rx.mapCategoryIndex)
+            .disposed(by: disposeBag)
+        
+        moveToIntroduceButton.rx.tap
+            .subscribe(onNext: { [weak self] _ in
+                guard let cityCode = self?.viewModel?.cityCode else {
+                    return
+                }
+                self?.viewModel?.gotoIntroduce(cityCode: cityCode)
+            })
             .disposed(by: disposeBag)
         
         // MARK: Output
@@ -177,6 +181,10 @@ final class MapViewController: BaseViewController {
         
         viewModel.output.city
             .subscribe(onNext: { [weak self] city in
+                guard let cityCode = CityCode(county: city.county, village: city.village)?.rawValue else {
+                    return
+                }
+                self?.viewModel?.cityCode = cityCode
                 self?.addressButton.setTitle(city.description, for: .normal)
             })
             .disposed(by: disposeBag)
@@ -241,15 +249,19 @@ final class MapViewController: BaseViewController {
         view.backgroundColor = FindTownColor.back2.color
         
         naviBarSubView.backgroundColor = FindTownColor.white.color
-        if isAnonymous == false {
+        if UserDefaultsSetting.isAnonymous == false {
             favoriteButton.tintColor = FindTownColor.grey4.color
             self.navigationItem.rightBarButtonItem = favoriteButton
         }
         
         self.storeCollectionView.delegate = self
-        self.viewModel?.setCity()
+        self.viewModel?.setCity(cityCode: viewModel?.cityCode)
         setMapZoomLevel()
         setMapLayerGrounp()
+        
+        /// 인프라 데이터 숨김
+        self.viewModel?.output.categoryDataSource.onNext(ThemaCategory.allCases)
+        self.detailCategoryView.isHidden = true
     }
 
     override func setLayout() {
@@ -291,7 +303,7 @@ private extension MapViewController {
         
         NSLayoutConstraint.activate([
             mapView.topAnchor.constraint(equalTo: naviBarSubView.bottomAnchor),
-            mapView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            mapView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
             mapView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             mapView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
@@ -315,7 +327,7 @@ private extension MapViewController {
         
         switch mapTransition {
         case .tapBar:
-            storeCollectionViewBottomConstraint = -84
+            storeCollectionViewBottomConstraint = -167
             moveToIntroduceButtonBottomConstraint = -24
         case .push:
             storeCollectionViewBottomConstraint = -107
@@ -397,15 +409,15 @@ extension MapViewController {
                 marker.iconImage = NMFOverlayImage(name: "marker.select")
                 marker.zIndex = 1
                 marker.captionText = store.name
-                marker.width = 36
-                marker.height = 45
+                marker.width = 41
+                marker.height = 50
                 self.setCameraPosition(latitude: store.latitude,
                                        longitude: store.longitude,
                                        zoomLevel: 15,
                                        animation: true)
             } else {
-                marker.width = 28
-                marker.height = 35
+                marker.width = 37
+                marker.height = 45
                 marker.zIndex = -1
                 marker.iconImage = NMFOverlayImage(name: "marker.nonSelect")
             }

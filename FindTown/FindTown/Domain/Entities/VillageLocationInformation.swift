@@ -9,5 +9,6 @@ import Foundation
 
 struct VillageLocationInformation {
     let cityCode: Int
+    let wishStatus: Bool
     let coordinate: [[Double]]
 }

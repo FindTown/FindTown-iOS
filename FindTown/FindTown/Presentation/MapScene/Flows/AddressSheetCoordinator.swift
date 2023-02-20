@@ -28,14 +28,14 @@ final class AddressSheetCoordinator: FlowCoordinator {
 }
 
 extension AddressSheetCoordinator: AddressSheetViewModelDelegate {
-    func dismiss(_ city: City) {
+    func dismiss(_ cityCode: Int) {
         guard let navigationController = navigationController else { return }
         
         if let addressSheetViewController = navigationController.visibleViewController as? AddressSheetViewController {
             addressSheetViewController.setBottomSheetStatus(to: .hide)
         
             if let mapCoordinator = parentCoordinator as? MapCoordinator {
-                mapCoordinator.setCityData(city)
+                mapCoordinator.setCityData(cityCode)
             }
         }
         

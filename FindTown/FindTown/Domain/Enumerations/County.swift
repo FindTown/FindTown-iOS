@@ -26,11 +26,11 @@ enum County: String, CaseIterable {
     var villages: [Village] {
         switch self {
         case .gangnam:
-            return [.yeoksam1, .nonhyeon1]
+            return [.nonhyeon1, .yeoksam1,]
         case .gangseo:
             return [.gayang1, .hwagok]
         case .gwanak:
-            return [.cheongnyong, .sinsa, .haengun, . sillim, .seowon, .inheon, .nakseongdae]
+            return [.nakseongdae, .daehak, .seorim, .sinsa, .sillim, .seowon, .inheon, .cheongnyong, .haengun]
         case .gwangjin:
             return [.hwayang]
         case .guro:
@@ -44,13 +44,13 @@ enum County: String, CaseIterable {
         case .mapo:
             return [.seogyo]
         case .seodaemun:
-            return [.sinchon]
+            return [.sinchon, .yeonhui]
         case .seongbuk:
             return [.anam]
         case .songpa:
             return [.jamsilbon]
         case .yeongdeungpo:
-            return [.yeongdeungpo, .dangsan2, .singil1]
+            return [.dangsan2, .singil1, .yeongdeungpo]
         case .jongno:
             return [.hyehwa]
         }

@@ -14,19 +14,20 @@ final class MapCoordinator: FlowCoordinator {
     weak var navigationController: UINavigationController?
     let authUseCase = AuthUseCase()
     let mapUseCase = MapUseCase()
-    let isAnonymous: Bool
+    let townUseCase = TownUseCase()
+    let cityCode: Int?
     
-    init(presentationStyle: PresentationStyle,
-         isAnonymous: Bool) {
+    init(presentationStyle: PresentationStyle, cityCode: Int?) {
         self.presentationStyle = presentationStyle
-        self.isAnonymous = isAnonymous
+        self.cityCode = cityCode
     }
     
     internal func initScene() -> UIViewController {
         let mapViewModel = MapViewModel(delegate: self,
                                         authUseCase: authUseCase,
-                                        mapUseCase: mapUseCase)
-        return MapViewController(viewModel: mapViewModel, mapTransition: .tapBar, isAnonymous: isAnonymous)
+                                        mapUseCase: mapUseCase,
+                                        cityCode: cityCode)
+        return MapViewController(viewModel: mapViewModel, mapTransition: .tapBar)
     }
     
     internal func informationUpdateScene() -> UIViewController {
@@ -39,13 +40,19 @@ final class MapCoordinator: FlowCoordinator {
 
 extension MapCoordinator: MapViewModelDelegate {
     
-    func gotoIntroduce() {
-        
+    func gotoIntroduce(cityCode: Int) {
+        guard let navigationController = navigationController else { return }
+        TownIntroCoordinator(presentationStyle: .push(navigationController: navigationController),
+                             townUseCase: townUseCase,
+                             authUseCase: authUseCase,
+                             cityCode: cityCode).start()
     }
     
     func presentAddressSheet() {
         guard let navigationController = navigationController else { return }
-        AddressSheetCoordinator(presentationStyle: .present(navigationController: navigationController, modalPresentationStyle: .overFullScreen),       parentCoordinator: self).start()
+        AddressSheetCoordinator(presentationStyle: .present(navigationController: navigationController,
+                                                            modalPresentationStyle: .overFullScreen),
+                                parentCoordinator: self).start()
     }
     
     func presentInformationUpdateScene() {
@@ -53,10 +60,10 @@ extension MapCoordinator: MapViewModelDelegate {
         navigationController.pushViewController(informationUpdateScene(), animated: true)
     }
     
-    func setCityData(_ city: City) {
+    func setCityData(_ city: Int) {
         guard let navigationController = navigationController else { return }
         if let mapViewController = navigationController.topViewController as? MapViewController {
-            mapViewController.viewModel?.setCity(city: city)
+            mapViewController.viewModel?.setCity(cityCode: city)
         }
     }
 }
