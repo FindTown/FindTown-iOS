@@ -185,7 +185,8 @@ final class TownTableViewCell: UITableViewCell {
 }
 
 private extension TownTableViewCell {
-    @objc func didTapGoToMapButton(cityCode: Int) {
+    @objc func didTapGoToMapButton() {
+        guard let cityCode = cityCode else { return }
         self.delegate?.didTapGoToMapButton(cityCode: cityCode)
     }
     

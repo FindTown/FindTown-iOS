@@ -245,7 +245,7 @@ final class MapViewController: BaseViewController {
         }
         
         self.storeCollectionView.delegate = self
-        self.viewModel?.setCity()
+        self.viewModel?.setCity(cityCode: viewModel?.cityCode)
         setMapZoomLevel()
         setMapLayerGrounp()
     }

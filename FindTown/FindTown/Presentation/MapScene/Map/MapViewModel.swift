@@ -16,7 +16,7 @@ import RxCocoa
 protocol MapViewModelDelegate {
     func gotoIntroduce()
     func presentAddressSheet()
-    func setCityData(_ city: City)
+    func setCityData(_ city: Int)
     func presentInformationUpdateScene()
 }
 
@@ -43,6 +43,9 @@ final class MapViewModel: BaseViewModel {
         let errorNotice = PublishSubject<Void>()
     }
     
+    // MARK: - Proerty
+    let cityCode: Int?
+    
     // MARK: - UseCase
     
     let authUseCase: AuthUseCase
@@ -58,10 +61,12 @@ final class MapViewModel: BaseViewModel {
     
     init(delegate: MapViewModelDelegate,
          authUseCase: AuthUseCase,
-         mapUseCase: MapUseCase) {
+         mapUseCase: MapUseCase,
+         cityCode: Int?) {
         self.delegate = delegate
         self.authUseCase = authUseCase
         self.mapUseCase = mapUseCase
+        self.cityCode = cityCode
         
         super.init()
         self.bind()
@@ -84,20 +89,17 @@ final class MapViewModel: BaseViewModel {
 // MARK: - Network
 
 extension MapViewModel {
-    func setCity(city: City? = nil) {
+    func setCity(cityCode: Int? = nil) {
         
         self.cityDataTask = Task {
             do {
-                var cityCode: Int? = nil
-                if let city = city {
-                    cityCode = CityCode(county: city.county, village: city.village)?.rawValue
-                }
                 var villageLocaionInformation: VillageLocationInformation
-                if UserDefaultsSetting.isAnonymous {
-                    villageLocaionInformation = try await self.mapUseCase.getVillageLocationInformation(cityCode: nil, accessToken: nil)
-                } else {
+                if UserDefaultsSetting.isAnonymous == false,
+                   let cityCode = cityCode {
                     let accessToken = try await self.authUseCase.getAccessToken()
                     villageLocaionInformation = try await self.mapUseCase.getVillageLocationInformation(cityCode: cityCode, accessToken: accessToken)
+                } else {
+                    villageLocaionInformation = try await self.mapUseCase.getVillageLocationInformation(cityCode: nil, accessToken: nil)
                 }
                 let coordinate = villageLocaionInformation.coordinate
                 guard let cityCode = CityCode(rawValue: villageLocaionInformation.cityCode) else {
@@ -153,7 +155,6 @@ extension MapViewModel {
         
     }
 }
-
 
 extension MapViewModel: MapViewModelType {
     func presentInformationUpdateScene() {

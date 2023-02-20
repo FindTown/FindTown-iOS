@@ -14,15 +14,18 @@ final class MapCoordinator: FlowCoordinator {
     weak var navigationController: UINavigationController?
     let authUseCase = AuthUseCase()
     let mapUseCase = MapUseCase()
+    let cityCode: Int?
     
-    init(presentationStyle: PresentationStyle) {
+    init(presentationStyle: PresentationStyle, cityCode: Int?) {
         self.presentationStyle = presentationStyle
+        self.cityCode = cityCode
     }
     
     internal func initScene() -> UIViewController {
         let mapViewModel = MapViewModel(delegate: self,
                                         authUseCase: authUseCase,
-                                        mapUseCase: mapUseCase)
+                                        mapUseCase: mapUseCase,
+                                        cityCode: cityCode)
         return MapViewController(viewModel: mapViewModel, mapTransition: .tapBar)
     }
     
@@ -52,10 +55,10 @@ extension MapCoordinator: MapViewModelDelegate {
         navigationController.pushViewController(informationUpdateScene(), animated: true)
     }
     
-    func setCityData(_ city: City) {
+    func setCityData(_ city: Int) {
         guard let navigationController = navigationController else { return }
         if let mapViewController = navigationController.topViewController as? MapViewController {
-            mapViewController.viewModel?.setCity(city: city)
+            mapViewController.viewModel?.setCity(cityCode: city)
         }
     }
 }
