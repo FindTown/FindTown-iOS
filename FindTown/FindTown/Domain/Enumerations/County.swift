@@ -30,7 +30,7 @@ enum County: String, CaseIterable {
         case .gangseo:
             return [.gayang1, .hwagok]
         case .gwanak:
-            return [.cheongnyong, .sinsa, .haengun, . sillim, .seowon, .inheon, .nakseongdae]
+            return [.cheongnyong, .sinsa, .haengun, .daehak, .sillim, .seowon, .inheon, .seorim, .nakseongdae]
         case .gwangjin:
             return [.hwayang]
         case .guro:
@@ -44,7 +44,7 @@ enum County: String, CaseIterable {
         case .mapo:
             return [.seogyo]
         case .seodaemun:
-            return [.sinchon]
+            return [.sinchon, .yeonhui]
         case .seongbuk:
             return [.anam]
         case .songpa:
