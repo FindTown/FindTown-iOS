@@ -382,9 +382,12 @@ extension MapViewController {
     func setVillageCooridnateOverlay(_ boundaryCoordinates: Coordinates, animation: Bool = true) {
         villagePolygonOverlay?.mapView = nil
         
-        setCameraPosition(latitude: boundaryCoordinates[0][1],
-                          longitude: boundaryCoordinates[0][0],
-                          zoomLevel: 14,
+        let centerPoint = boundaryCoordinates.calculateCenterPoint()
+        let size = boundaryCoordinates.calculatePolygonSize()
+        
+        setCameraPosition(latitude: centerPoint.latitude,
+                          longitude: centerPoint.longitude,
+                          zoomLevel: calculateZoomLevel(by: size),
                           animation: animation)
 
         let villagePolygon = NMGPolygon(ring: NMGLineString(points: MapConstant.koreaBoundaryCoordinates.convertNMLatLng()), interiorRings: [NMGLineString(points: boundaryCoordinates.convertNMLatLng())])
@@ -447,6 +450,19 @@ extension MapViewController {
     func showFirstStore(store: ThemaStore) {
         self.setStoreMarker(selectStore: store)
         self.currentIndex = 0
+    }
+    
+    func calculateZoomLevel(by size: Double) -> Double {
+        switch size {
+        case ..<2:
+            return 14.2
+        case ..<4:
+            return 13.8
+        case ..<6:
+            return 13.2
+        default:
+            return 13
+        }
     }
 }
 
@@ -528,5 +544,46 @@ fileprivate extension Coordinates {
         return self.map { coordinate in
             NMGLatLng(lat: coordinate[1], lng: coordinate[0])
         }
+    }
+    
+    func calculateCenterPoint() -> (latitude: Double, longitude: Double) {
+        var latitudes: [Double] = []
+        var longitudes: [Double] = []
+        
+        let coordinates = self
+        
+        for coordinate in coordinates {
+            latitudes.append(coordinate[1])
+            longitudes.append(coordinate[0])
+        }
+
+        guard let minLatitude = latitudes.min(),
+              let minlongitude = longitudes.min(),
+              let maxLatitude = latitudes.max(),
+              let maxlongitude = longitudes.max() else {
+            return (latitude: 0.0, longitude: 0.0)
+        }
+        
+        let centerLatitude = minLatitude + ((maxLatitude - minLatitude) / 2)
+        let centerLongitude = minlongitude + ((maxlongitude - minlongitude) / 2)
+
+        return (latitude: centerLatitude, longitude: centerLongitude)
+    }
+    
+    func calculatePolygonSize() -> Double {
+        var size = 0.0
+        
+        let coordinates = self
+
+        for index in 0..<coordinates.count {
+            let j = (index + 1) % self.count
+            size += coordinates[index][1] * coordinates[j][0]
+            size -= coordinates[j][1] * coordinates[index][0]
+        }
+
+        size /= 2.0
+        size = abs(size)
+
+        return size * 10000
     }
 }
