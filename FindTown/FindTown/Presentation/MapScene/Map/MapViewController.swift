@@ -110,6 +110,15 @@ final class MapViewController: BaseViewController {
             .bind(to: self.rx.mapCategoryIndex)
             .disposed(by: disposeBag)
         
+        moveToIntroduceButton.rx.tap
+            .subscribe(onNext: { [weak self] _ in
+                guard let cityCode = self?.viewModel?.cityCode else {
+                    return
+                }
+                self?.viewModel?.gotoIntroduce(cityCode: cityCode)
+            })
+            .disposed(by: disposeBag)
+        
         // MARK: Output
         
         /// iconCollectionView 데이터 바인딩
@@ -175,6 +184,10 @@ final class MapViewController: BaseViewController {
         
         viewModel.output.city
             .subscribe(onNext: { [weak self] city in
+                guard let cityCode = CityCode(county: city.county, village: city.village)?.rawValue else {
+                    return
+                }
+                self?.viewModel?.cityCode = cityCode
                 self?.addressButton.setTitle(city.description, for: .normal)
             })
             .disposed(by: disposeBag)

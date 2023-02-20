@@ -14,14 +14,14 @@ import RxSwift
 import RxCocoa
 
 protocol MapViewModelDelegate {
-    func gotoIntroduce()
+    func gotoIntroduce(cityCode: Int)
     func presentAddressSheet()
     func setCityData(_ city: Int)
     func presentInformationUpdateScene()
 }
 
 protocol MapViewModelType {
-    func gotoIntroduce()
+    func gotoIntroduce(cityCode: Int)
     func presentAddressSheet()
     func presentInformationUpdateScene()
 }
@@ -44,7 +44,7 @@ final class MapViewModel: BaseViewModel {
     }
     
     // MARK: - Proerty
-    let cityCode: Int?
+    var cityCode: Int?
     
     // MARK: - UseCase
     
@@ -161,8 +161,8 @@ extension MapViewModel: MapViewModelType {
         delegate.presentInformationUpdateScene()
     }
     
-    func gotoIntroduce() {
-        delegate.gotoIntroduce()
+    func gotoIntroduce(cityCode: Int) {
+        delegate.gotoIntroduce(cityCode: cityCode)
     }
     
     func presentAddressSheet() {

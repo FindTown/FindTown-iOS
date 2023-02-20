@@ -14,6 +14,7 @@ final class MapCoordinator: FlowCoordinator {
     weak var navigationController: UINavigationController?
     let authUseCase = AuthUseCase()
     let mapUseCase = MapUseCase()
+    let townUseCase = TownUseCase()
     let cityCode: Int?
     
     init(presentationStyle: PresentationStyle, cityCode: Int?) {
@@ -39,8 +40,12 @@ final class MapCoordinator: FlowCoordinator {
 
 extension MapCoordinator: MapViewModelDelegate {
     
-    func gotoIntroduce() {
-        
+    func gotoIntroduce(cityCode: Int) {
+        guard let navigationController = navigationController else { return }
+        TownIntroCoordinator(presentationStyle: .push(navigationController: navigationController),
+                             townUseCase: townUseCase,
+                             authUseCase: authUseCase,
+                             cityCode: cityCode).start()
     }
     
     func presentAddressSheet() {
