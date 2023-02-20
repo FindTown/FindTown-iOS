@@ -92,8 +92,14 @@ extension MapViewModel {
                 if let city = city {
                     cityCode = CityCode(county: city.county, village: city.village)?.rawValue
                 }
-                let accessToken = try await self.authUseCase.getAccessToken()
-                let villageLocaionInformation = try await self.mapUseCase.getVillageLocationInformation(cityCode: cityCode, accessToken: accessToken)
+                var villageLocaionInformation: VillageLocationInformation
+                if UserDefaultsSetting.isAnonymous {
+                    villageLocaionInformation = try await self.mapUseCase.getVillageLocationInformation(cityCode: nil, accessToken: nil)
+                } else {
+                    let accessToken = try await self.authUseCase.getAccessToken()
+                    villageLocaionInformation = try await self.mapUseCase.getVillageLocationInformation(cityCode: cityCode, accessToken: accessToken)
+                }
+                let coordinate = villageLocaionInformation.coordinate
                 guard let cityCode = CityCode(rawValue: villageLocaionInformation.cityCode) else {
                     cityDataTask?.cancel()
                     return
@@ -101,28 +107,14 @@ extension MapViewModel {
                 await MainActor.run {
                     let city = City(county: cityCode.county, village: cityCode.village)
                     self.output.city.onNext(city)
-                    self.output.cityBoundaryCoordinates.onNext(villageLocaionInformation.coordinate)
+                    self.output.cityBoundaryCoordinates.onNext(coordinate)
                 }
                 cityDataTask?.cancel()
             } catch (let error) {
-                if let error = error as? FTNetworkError,
-                   FTNetworkError.isUnauthorized(error: error) {
-                    let villageLocaionInformation = try await self.mapUseCase.getVillageLocationInformation(cityCode: nil, accessToken: nil)
-                    guard let cityCode = CityCode(rawValue: villageLocaionInformation.cityCode) else {
-                        cityDataTask?.cancel()
-                        return
-                    }
-                    await MainActor.run {
-                        let city = City(county: cityCode.county, village: cityCode.village)
-                        self.output.city.onNext(city)
-                        self.output.cityBoundaryCoordinates.onNext(villageLocaionInformation.coordinate)
-                    }
-                } else {
-                    await MainActor.run {
-                        self.output.errorNotice.onNext(())
-                    }
-                    Log.error(error)
+                await MainActor.run {
+                    self.output.errorNotice.onNext(())
                 }
+                Log.error(error)
             }
         }
     }
