@@ -395,14 +395,14 @@ extension MapViewController {
                 marker.iconImage = NMFOverlayImage(name: "marker.select")
                 marker.zIndex = 1
                 marker.captionText = store.name
-                marker.width = 36
+                marker.width = 37
                 marker.height = 45
                 self.setCameraPosition(latitude: store.latitude,
                                        longitude: store.longitude,
                                        zoomLevel: 15,
                                        animation: true)
             } else {
-                marker.width = 28
+                marker.width = 29
                 marker.height = 35
                 marker.zIndex = -1
                 marker.iconImage = NMFOverlayImage(name: "marker.nonSelect")
