@@ -13,11 +13,13 @@ import RxSwift
 protocol FavoriteViewModelType {
     func goToLogin()
     func goToTownIntroduce(cityCode: Int)
+    func goToTownMap(cityCode: Int)
 }
 
 protocol FavoriteViewModelDelegate {
     func goToLogin()
     func goToTownIntroduce(cityCode: Int)
+    func goToTownMap(cityCode: Int)
 }
 
 enum FavoriteViewStatus {
@@ -36,6 +38,7 @@ final class FavoriteViewModel: BaseViewModel {
     struct Input {
         let signUpButtonTrigger = PublishSubject<Void>()
         let townIntroButtonTrigger = PublishSubject<Int>()
+        let townMapButtonTrigger = PublishSubject<Int>()
     }
     
     struct Output {
@@ -73,6 +76,12 @@ final class FavoriteViewModel: BaseViewModel {
             })
             .disposed(by: disposeBag)
         
+        self.input.townMapButtonTrigger
+            .subscribe(onNext: { [weak self] cityCode in
+                self?.delegate.goToTownMap(cityCode: cityCode)
+            })
+            .disposed(by: disposeBag)
+        
         self.output.favoriteDataSource.onNext(returnTownTestData())
         self.output.viewStatus.onNext(returnViewStatus())
     }
@@ -86,6 +95,10 @@ extension FavoriteViewModel: FavoriteViewModelType {
     
     func goToTownIntroduce(cityCode: Int) {
         delegate.goToTownIntroduce(cityCode: cityCode)
+    }
+    
+    func goToTownMap(cityCode: Int) {
+        delegate.goToTownMap(cityCode: cityCode)
     }
 }
 
