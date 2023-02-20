@@ -207,15 +207,15 @@ final class MapViewController: BaseViewController {
             })
             .disposed(by: disposeBag)
             
-        viewModel.input.segmentIndex
-            .bind { [weak self] index in
-                if index == 0 {
-                    self?.viewModel?.output.categoryDataSource.onNext(InfraCategory.allCases)
-                } else {
-                    self?.viewModel?.output.categoryDataSource.onNext(ThemaCategory.allCases)
-                }
-            }
-            .disposed(by: disposeBag)
+//        viewModel.input.segmentIndex
+//            .bind { [weak self] index in
+//                if index == 0 {
+//                    self?.viewModel?.output.categoryDataSource.onNext(InfraCategory.allCases)
+//                } else {
+//                    self?.viewModel?.output.categoryDataSource.onNext(ThemaCategory.allCases)
+//                }
+//            }
+//            .disposed(by: disposeBag)
         
         viewModel.output.isFavoriteCity
             .bind(to: rx.isFavoriteCity)
@@ -261,6 +261,11 @@ final class MapViewController: BaseViewController {
         self.viewModel?.setCity(cityCode: viewModel?.cityCode)
         setMapZoomLevel()
         setMapLayerGrounp()
+        
+        /// 인프라 데이터 숨김
+        self.viewModel?.output.categoryDataSource.onNext(ThemaCategory.allCases)
+        self.mapToggle.isHidden = true
+        self.detailCategoryView.isHidden = true
     }
 
     override func setLayout() {
@@ -500,7 +505,7 @@ extension Reactive where Base: MapViewController {
         return Binder(self.base) { (viewController, index) in
             if index == 0 {
                 viewController.storeCollectionView.isHidden = true
-                viewController.detailCategoryView.isHidden = false
+//                viewController.detailCategoryView.isHidden = false
             } else {
                 viewController.storeCollectionView.isHidden = false
                 viewController.detailCategoryView.isHidden = true
