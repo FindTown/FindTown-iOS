@@ -54,7 +54,6 @@ final class MapViewController: BaseViewController {
             self.setStoreMarker(selectStore: themaStores[index])
         }
     }
-    let isAnonymous: Bool
     
     // MARK: Map property
     
@@ -69,10 +68,9 @@ final class MapViewController: BaseViewController {
     
     // MARK: - Life Cycle
     
-    init(viewModel: MapViewModel, mapTransition: MapTransition, isAnonymous: Bool) {
+    init(viewModel: MapViewModel, mapTransition: MapTransition) {
         self.viewModel = viewModel
         self.mapTransition = mapTransition
-        self.isAnonymous = isAnonymous
         
         super.init(nibName: nil, bundle: nil)
     }
@@ -241,7 +239,7 @@ final class MapViewController: BaseViewController {
         view.backgroundColor = FindTownColor.back2.color
         
         naviBarSubView.backgroundColor = FindTownColor.white.color
-        if isAnonymous == false {
+        if UserDefaultsSetting.isAnonymous == false {
             favoriteButton.tintColor = FindTownColor.grey4.color
             self.navigationItem.rightBarButtonItem = favoriteButton
         }

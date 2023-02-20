@@ -44,6 +44,6 @@ extension TownIntroCoordinator: TownIntroduceViewModelDelegate {
             return
         }
         // isAnonymous 임시
-        MapCoordinator(presentationStyle: .push(navigationController: navigationController), isAnonymous: false).start()
+        MapCoordinator(presentationStyle: .push(navigationController: navigationController)).start()
     }
  }

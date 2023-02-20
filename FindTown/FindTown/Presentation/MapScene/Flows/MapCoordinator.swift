@@ -14,19 +14,16 @@ final class MapCoordinator: FlowCoordinator {
     weak var navigationController: UINavigationController?
     let authUseCase = AuthUseCase()
     let mapUseCase = MapUseCase()
-    let isAnonymous: Bool
     
-    init(presentationStyle: PresentationStyle,
-         isAnonymous: Bool) {
+    init(presentationStyle: PresentationStyle) {
         self.presentationStyle = presentationStyle
-        self.isAnonymous = isAnonymous
     }
     
     internal func initScene() -> UIViewController {
         let mapViewModel = MapViewModel(delegate: self,
                                         authUseCase: authUseCase,
                                         mapUseCase: mapUseCase)
-        return MapViewController(viewModel: mapViewModel, mapTransition: .tapBar, isAnonymous: isAnonymous)
+        return MapViewController(viewModel: mapViewModel, mapTransition: .tapBar)
     }
     
     internal func informationUpdateScene() -> UIViewController {
@@ -45,7 +42,9 @@ extension MapCoordinator: MapViewModelDelegate {
     
     func presentAddressSheet() {
         guard let navigationController = navigationController else { return }
-        AddressSheetCoordinator(presentationStyle: .present(navigationController: navigationController, modalPresentationStyle: .overFullScreen),       parentCoordinator: self).start()
+        AddressSheetCoordinator(presentationStyle: .present(navigationController: navigationController,
+                                                            modalPresentationStyle: .overFullScreen),
+                                parentCoordinator: self).start()
     }
     
     func presentInformationUpdateScene() {
