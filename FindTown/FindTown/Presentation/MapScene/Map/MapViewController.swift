@@ -63,9 +63,6 @@ final class MapViewController: BaseViewController {
     var themaStores: [ThemaStore] = []
     var markers: [NMFMarker] = []
     
-    var infoWindow = NMFInfoWindow()
-    var defaultInfoWindowImage = NMFInfoWindowDefaultTextSource.data()
-    
     // MARK: - Life Cycle
     
     init(viewModel: MapViewModel, mapTransition: MapTransition) {
@@ -207,15 +204,15 @@ final class MapViewController: BaseViewController {
             })
             .disposed(by: disposeBag)
             
-//        viewModel.input.segmentIndex
-//            .bind { [weak self] index in
-//                if index == 0 {
-//                    self?.viewModel?.output.categoryDataSource.onNext(InfraCategory.allCases)
-//                } else {
-//                    self?.viewModel?.output.categoryDataSource.onNext(ThemaCategory.allCases)
-//                }
-//            }
-//            .disposed(by: disposeBag)
+        viewModel.input.segmentIndex
+            .bind { [weak self] index in
+                if index == 0 {
+                    self?.viewModel?.output.categoryDataSource.onNext(InfraCategory.allCases)
+                } else {
+                    self?.viewModel?.output.categoryDataSource.onNext(ThemaCategory.allCases)
+                }
+            }
+            .disposed(by: disposeBag)
         
         viewModel.output.isFavoriteCity
             .bind(to: rx.isFavoriteCity)
@@ -264,7 +261,6 @@ final class MapViewController: BaseViewController {
         
         /// 인프라 데이터 숨김
         self.viewModel?.output.categoryDataSource.onNext(ThemaCategory.allCases)
-        self.mapToggle.isHidden = true
         self.detailCategoryView.isHidden = true
     }
 
@@ -331,7 +327,7 @@ private extension MapViewController {
         
         switch mapTransition {
         case .tapBar:
-            storeCollectionViewBottomConstraint = -84
+            storeCollectionViewBottomConstraint = -167
             moveToIntroduceButtonBottomConstraint = -24
         case .push:
             storeCollectionViewBottomConstraint = -107
@@ -413,15 +409,15 @@ extension MapViewController {
                 marker.iconImage = NMFOverlayImage(name: "marker.select")
                 marker.zIndex = 1
                 marker.captionText = store.name
-                marker.width = 37
-                marker.height = 45
+                marker.width = 41
+                marker.height = 50
                 self.setCameraPosition(latitude: store.latitude,
                                        longitude: store.longitude,
                                        zoomLevel: 15,
                                        animation: true)
             } else {
-                marker.width = 29
-                marker.height = 35
+                marker.width = 37
+                marker.height = 45
                 marker.zIndex = -1
                 marker.iconImage = NMFOverlayImage(name: "marker.nonSelect")
             }
@@ -505,7 +501,7 @@ extension Reactive where Base: MapViewController {
         return Binder(self.base) { (viewController, index) in
             if index == 0 {
                 viewController.storeCollectionView.isHidden = true
-//                viewController.detailCategoryView.isHidden = false
+                viewController.detailCategoryView.isHidden = false
             } else {
                 viewController.storeCollectionView.isHidden = false
                 viewController.detailCategoryView.isHidden = true
