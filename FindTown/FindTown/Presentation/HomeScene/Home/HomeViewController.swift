@@ -439,8 +439,8 @@ extension HomeViewController: TownTableViewCellDelegate {
         self.viewModel?.input.townIntroButtonTrigger.onNext(cityCode)
     }
     
-    func didTapGoToMapButton() {
-        print("didTapGoToMapButton")
+    func didTapGoToMapButton(cityCode: Int) {
+        self.viewModel?.input.townMapButtonTrigger.onNext(cityCode)
     }
     
     func didTapFavoriteButton() {

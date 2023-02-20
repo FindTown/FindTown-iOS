@@ -12,7 +12,7 @@ import RxCocoa
 import RxSwift
 
 protocol TownTableViewCellDelegate: AnyObject {
-    func didTapGoToMapButton()
+    func didTapGoToMapButton(cityCode: Int)
     func didTapGoToIntroduceButton(cityCode: Int)
     func didTapFavoriteButton()
 }
@@ -185,8 +185,8 @@ final class TownTableViewCell: UITableViewCell {
 }
 
 private extension TownTableViewCell {
-    @objc func didTapGoToMapButton() {
-        self.delegate?.didTapGoToMapButton()
+    @objc func didTapGoToMapButton(cityCode: Int) {
+        self.delegate?.didTapGoToMapButton(cityCode: cityCode)
     }
     
     @objc func didTapGoToIntroduceButton() {

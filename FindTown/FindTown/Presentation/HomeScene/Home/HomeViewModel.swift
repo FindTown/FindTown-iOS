@@ -16,12 +16,14 @@ protocol HomeViewModelDelegate {
     func goToFilterBottomSheet(filterSheetType: FilterSheetType, filterDataSource: FilterModel)
     func goToGuSearchView()
     func goToTownIntroduce(cityCode: Int)
+    func goToTownMap(cityCode: Int)
 }
 
 protocol HomeViewModelType {
     func goToFilterBottomSheet(filterSheetType: FilterSheetType, filterDataSource: FilterModel)
     func goToGuSearchView()
     func goToTownIntroduce(cityCode: Int)
+    func goToTownMap(cityCode: Int)
 }
 
 final class HomeViewModel: BaseViewModel {
@@ -35,6 +37,7 @@ final class HomeViewModel: BaseViewModel {
         let setNetworkErrorViewTrigger = PublishSubject<Void>()
         let safetySortTrigger = PublishSubject<Bool>()
         let townIntroButtonTrigger = PublishSubject<Int>()
+        let townMapButtonTrigger = PublishSubject<Int>()
     }
     
     struct Output {
@@ -110,6 +113,12 @@ final class HomeViewModel: BaseViewModel {
                 self?.delegate.goToTownIntroduce(cityCode: cityCode)
             })
             .disposed(by: disposeBag)
+        
+        self.input.townMapButtonTrigger
+            .subscribe(onNext: { [weak self] cityCode in
+                self?.delegate.goToTownMap(cityCode: cityCode)
+            })
+            .disposed(by: disposeBag)
     }
 }
 
@@ -162,5 +171,9 @@ extension HomeViewModel: HomeViewModelType {
     
     func goToTownIntroduce(cityCode: Int) {
         delegate.goToTownIntroduce(cityCode: cityCode)
+    }
+    
+    func goToTownMap(cityCode: Int) {
+        delegate.goToTownMap(cityCode: cityCode)
     }
 }
