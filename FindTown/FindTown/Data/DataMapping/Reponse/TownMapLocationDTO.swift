@@ -19,15 +19,18 @@ struct TownMapLocationDTO: Response {
 struct LocationInformationDTO: Response {
     let objectId: Int
     let adminName: String
+    let wishStatus: Bool
     let coordinates: [[Double]]
     
     enum CodingKeys: String, CodingKey {
         case objectId = "object_id"
         case adminName = "adm_nm"
-        case coordinates
+        case coordinates, wishStatus
     }
     
     func toEntity() -> VillageLocationInformation {
-        return VillageLocationInformation(cityCode: self.objectId, coordinate: self.coordinates)
+        return VillageLocationInformation(cityCode: self.objectId,
+                                          wishStatus: self.wishStatus,
+                                          coordinate: self.coordinates)
     }
 }
