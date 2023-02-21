@@ -93,8 +93,13 @@ extension ShowVillageListViewModel {
     func fetchTownInformation() {
         self.searchTask = Task {
             do {
+                var accessToken = ""
+                if !UserDefaultsSetting.isAnonymous {
+                    accessToken = try await self.authUseCase.getAccessToken()
+                }
                 guard let selectCountyData = self.selectCountyData else { return }
-                let townInformation = try await self.townUseCase.getSearchTownInformation(countyData: selectCountyData)
+                let townInformation = try await self.townUseCase.getSearchTownInformation(countyData: selectCountyData,
+                                                                                          accessToken: accessToken)
                 await MainActor.run(body: {
                     let townTableModel = townInformation.toEntity
                     self.output.searchTownTableDataSource.accept(townTableModel)
@@ -124,7 +129,7 @@ extension ShowVillageListViewModel {
                 })
                 Log.error(error)
             }
-    
+            
             favoriteTask?.cancel()
         }
     }

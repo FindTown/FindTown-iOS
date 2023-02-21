@@ -180,7 +180,7 @@ final class TownTableViewCell: UITableViewCell {
         townTitle.text = model.county
         townIntroduceTitle.text = model.townIntroduction
         townIconImageView.image = model.countyIcon
-        favoriteIcon.isSelected = model.wishTown
+        favoriteIcon.isSelected = model.wishTown ? true : false
     }
 }
 

@@ -130,8 +130,13 @@ extension HomeViewModel {
     func fetchTownInformation(filterStatus: String = "", subwayList: [String] = []) {
         self.townTask = Task {
             do {
+                var accessToken = ""
+                if !UserDefaultsSetting.isAnonymous {
+                    accessToken = try await self.authUseCase.getAccessToken()
+                }
                 let townInformation = try await self.townUseCase.getTownInformation(filterStatus: filterStatus,
-                                                                                    subwayList: subwayList)
+                                                                                    subwayList: subwayList,
+                                                                                    accessToken: accessToken)
                 await MainActor.run(body: {
                     let townTableModel = townInformation.toEntity
                     self.setTownTableView(townTableModel)
