@@ -107,6 +107,11 @@ final class HomeViewController: BaseViewController {
         super.viewDidLoad()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.viewModel?.fetchTownInformation()
+    }
+    
     // MARK: - Functions
     
     override func addView() {
@@ -253,8 +258,6 @@ final class HomeViewController: BaseViewController {
             $0.isUserInteractionEnabled = true
             $0.addGestureRecognizer(tap)
         }
-        
-        viewModel?.fetchTownInformation()
     }
     
     override func bindViewModel() {
@@ -443,8 +446,17 @@ extension HomeViewController: TownTableViewCellDelegate {
         self.viewModel?.input.townMapButtonTrigger.onNext(cityCode)
     }
     
-    func didTapFavoriteButton() {
-        print("didTapFavoriteButton")
+    func didTapFavoriteButton(cityCode: Int) {
+        if UserDefaultsSetting.isAnonymous {
+            self.showAlertSuccessCancelPopUp(title: "",
+                                             message: "찜 기능은 회원가입/로그인 후\n 사용 가능해요.",
+                                             successButtonText: "회원가입",
+                                             cancelButtonText: "취소",
+                                             successButtonAction: {
+                self.viewModel?.input.goToAuthButtonTrigger.onNext(())})
+        } else {
+            self.viewModel?.input.favoriteButtonTrigger.onNext(cityCode)
+        }
     }
 }
 

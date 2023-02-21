@@ -33,11 +33,17 @@ final class FavoriteViewController: BaseViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.viewModel?.getFavoriteList()
+    }
+    
     // MARK: - Functions
     
     override func setupView() {
         self.title = "찜"
         self.view.backgroundColor = FindTownColor.back2.color
+        [anonymousView,isEmptyView,favoriteTableView].forEach { $0.isHidden = true }
     }
     
     override func addView() {
@@ -106,6 +112,21 @@ final class FavoriteViewController: BaseViewController {
                 cell.setupCell(item, cityCode: item.objectId)
                 cell.delegate = self
             }.disposed(by: disposeBag)
+        
+        self.viewModel?.output.isFavorite
+            .filter { $0 == false }
+            .subscribe(onNext: { [weak self] _ in
+                let toastMessage = "찜 목록에서 삭제되었어요"
+                self?.showToast(message: toastMessage)
+            })
+            .disposed(by: disposeBag)
+        
+        self.viewModel?.output.errorNotice
+            .subscribe { [weak self] _ in
+                self?.showErrorNoticeAlertPopUp(message: "네트워크 오류가 발생하였습니다.",
+                                                buttonText: "확인")
+            }
+            .disposed(by: disposeBag)
     }
 }
 
@@ -119,8 +140,8 @@ extension FavoriteViewController: TownTableViewCellDelegate {
         self.viewModel?.input.townIntroButtonTrigger.onNext(cityCode)
     }
     
-    func didTapFavoriteButton() {
-        print("FavoriteViewControlle: didTapFavoriteButton")
+    func didTapFavoriteButton(cityCode: Int) {
+        self.viewModel?.input.favoriteButtonTrigger.onNext(cityCode)
     }
 }
 

@@ -48,4 +48,14 @@ final class MemberUseCase {
         }
         return isResign
     }
+    
+    // 찜 목록
+    func getFavoriteList(accessToken: String) async throws -> [TownTableModel] {
+        return try await memberRepository.getFavoriteList(accessToken: accessToken).toEntity
+    }
+    
+    // 찜 등록, 해제
+    func favorite(accessToken: String, cityCode: Int) async throws -> Bool {
+        return try await memberRepository.favorite(accessToken: accessToken, cityCode: cityCode).toStatus
+    }
 }

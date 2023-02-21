@@ -39,11 +39,14 @@ final class FavoriteViewModel: BaseViewModel {
         let signUpButtonTrigger = PublishSubject<Void>()
         let townIntroButtonTrigger = PublishSubject<Int>()
         let townMapButtonTrigger = PublishSubject<Int>()
+        let favoriteButtonTrigger = PublishSubject<Int>()
     }
     
     struct Output {
-        let viewStatus = BehaviorSubject<FavoriteViewStatus>(value: .anonymous)
+        let viewStatus = PublishSubject<FavoriteViewStatus>()
         let favoriteDataSource = BehaviorSubject<[TownTableModel]>(value: [])
+        var isFavorite = PublishSubject<Bool>()
+        let errorNotice = PublishSubject<Void>()
     }
     
     let output = Output()
@@ -53,11 +56,23 @@ final class FavoriteViewModel: BaseViewModel {
     
     let townUseCase: TownUseCase
     let authUseCase: AuthUseCase
+    let memberUseCase: MemberUseCase
     
-    init(delegate: FavoriteViewModelDelegate, townUseCase: TownUseCase, authUseCsae: AuthUseCase) {
+    // MARK: - Task
+    
+    private var favoriteListTask: Task<Void, Error>?
+    private var favoriteTask: Task<Void, Error>?
+    
+    init(delegate: FavoriteViewModelDelegate,
+         townUseCase: TownUseCase,
+         authUseCase: AuthUseCase,
+         memberUseCase: MemberUseCase) {
+        
         self.delegate = delegate
         self.townUseCase = townUseCase
-        self.authUseCase = authUseCsae
+        self.authUseCase = authUseCase
+        self.memberUseCase = memberUseCase
+        
         super.init()
         self.bind()
     }
@@ -76,14 +91,19 @@ final class FavoriteViewModel: BaseViewModel {
             })
             .disposed(by: disposeBag)
         
+        self.input.favoriteButtonTrigger
+            .subscribe(onNext: { [weak self] cityCode in
+                self?.favorite(cityCode: cityCode)
+            })
+            .disposed(by: disposeBag)
         self.input.townMapButtonTrigger
             .subscribe(onNext: { [weak self] cityCode in
                 self?.delegate.goToTownMap(cityCode: cityCode)
             })
             .disposed(by: disposeBag)
         
-        self.output.favoriteDataSource.onNext(returnTownTestData())
-        self.output.viewStatus.onNext(returnViewStatus())
+//        self.output.favoriteDataSource.onNext(returnTownTestData())
+//        self.output.viewStatus.onNext(returnViewStatus())
     }
 }
 
@@ -102,51 +122,54 @@ extension FavoriteViewModel: FavoriteViewModelType {
     }
 }
 
-// 임시
-struct townModelTest {
-    let image: String
-    let village: String
-    let introduce: String
-}
+// MARK: 네트워크
 
 extension FavoriteViewModel {
     
-    func returnViewStatus() -> FavoriteViewStatus {
+    // 찜 목록 불러오기
+    func getFavoriteList() {
         if UserDefaultsSetting.isAnonymous {
-            return .anonymous
+            self.output.viewStatus.onNext(.anonymous)
         } else {
-            // 찜 API 호출
-            return .isPresent
+            self.favoriteListTask = Task {
+                do {
+                    let accessToken = try await self.authUseCase.getAccessToken()
+                    let favoriteList = try await self.memberUseCase.getFavoriteList(accessToken: accessToken)
+                    
+                    await MainActor.run(body: {
+                        favoriteList.isEmpty ? self.output.viewStatus.onNext(.isEmpty) : self.output.viewStatus.onNext(.isPresent)
+                        self.output.favoriteDataSource.onNext(favoriteList)
+                    })
+                } catch(let error) {
+                    await MainActor.run(body:  {
+                        self.output.errorNotice.onNext(())
+                    })
+                    Log.error(error)
+                }
+                favoriteListTask?.cancel()
+            }
         }
     }
     
-    func returnTownTestData() -> [TownTableModel] {
-        let test1 = TownTableModel(objectId: 321,
-                                  county: "행운동",
-                                  countyIcon: UIImage(named: "gwanak") ?? UIImage(),
-                                  wishTown: false,
-                                  safetyRate: 3,
-                                  townIntroduction: "강남으로 출근하기 좋은 동네")
-        let test2 = TownTableModel(objectId: 321,
-                                  county: "행운동",
-                                  countyIcon: UIImage(named: "gwanak") ?? UIImage(),
-                                  wishTown: false,
-                                  safetyRate: 3,
-                                  townIntroduction: "강남으로 출근하기 좋은 동네")
-        let test3 = TownTableModel(objectId: 321,
-                                  county: "행운동",
-                                  countyIcon: UIImage(named: "gwanak") ?? UIImage(),
-                                  wishTown: false,
-                                  safetyRate: 3,
-                                  townIntroduction: "강남으로 출근하기 좋은 동네")
-        let test4 = TownTableModel(objectId: 321,
-                                  county: "행운동",
-                                  countyIcon: UIImage(named: "gwanak") ?? UIImage(),
-                                  wishTown: false,
-                                  safetyRate: 3,
-                                  townIntroduction: "강남으로 출근하기 좋은 동네")
-       
-        let towns = [test1, test2, test3, test4]
-        return towns + towns
+    // 찜 등록, 해제
+    func favorite(cityCode: Int) {
+        self.favoriteTask = Task {
+            do {
+                let accessToken = try await self.authUseCase.getAccessToken()
+                let favoriteStatus = try await self.memberUseCase.favorite(accessToken: accessToken,
+                                                                           cityCode: cityCode)
+                await MainActor.run(body: {
+                    self.getFavoriteList()
+                    self.output.isFavorite.onNext(favoriteStatus)
+                })
+            } catch (let error) {
+                await MainActor.run(body: {
+                    self.output.errorNotice.onNext(())
+                })
+                Log.error(error)
+            }
+    
+            favoriteTask?.cancel()
+        }
     }
 }

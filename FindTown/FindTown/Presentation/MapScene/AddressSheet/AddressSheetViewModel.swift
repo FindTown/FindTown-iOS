@@ -46,10 +46,10 @@ final class AddressSheetViewModel: BaseViewModel {
         
         self.input.didTapCompleteButton.withLatestFrom(self.input.selectedCity)
         .subscribe { [weak self] city in
-            guard let cityCode = CityCode(county: city.county, village: city.village) else {
-                return
-            }
-            self?.dismiss(cityCode.rawValue)
+//            guard let cityCode = CityCode(county: city.county, village: city.village) else {
+//                return
+//            }
+//            self?.dismiss(cityCode.rawValue)
         }
         .disposed(by: disposeBag)
     }

@@ -109,8 +109,7 @@ final class ShowVillageListViewController: BaseViewController {
             .bind(to: townTableView.rx.items(
                 cellIdentifier: TownTableViewCell.reuseIdentifier,
                 cellType: TownTableViewCell.self)) { index, item, cell in
-                    // TODO: cell Model 변경
-                    cell.setupCell(item, cityCode: 365)
+                    cell.setupCell(item, cityCode: item.objectId)
                     cell.delegate = self
                     
                 }.disposed(by: disposeBag)
@@ -145,7 +144,16 @@ extension ShowVillageListViewController: TownTableViewCellDelegate {
         self.viewModel?.input.townMapButtonTrigger.onNext(cityCode)
     }
     
-    func didTapFavoriteButton() {
-        print("didTapFavoriteButton")
+    func didTapFavoriteButton(cityCode: Int) {
+        if UserDefaultsSetting.isAnonymous {
+            self.showAlertSuccessCancelPopUp(title: "",
+                                             message: "찜 기능은 회원가입/로그인 후\n 사용 가능해요.",
+                                             successButtonText: "회원가입",
+                                             cancelButtonText: "취소",
+                                             successButtonAction: {
+                self.viewModel?.input.goToAuthButtonTrigger.onNext(())})
+        } else {
+            self.viewModel?.input.favoriteButtonTrigger.onNext(cityCode)
+        }
     }
 }

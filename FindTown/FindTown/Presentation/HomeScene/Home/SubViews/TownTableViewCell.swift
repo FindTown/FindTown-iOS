@@ -14,7 +14,7 @@ import RxSwift
 protocol TownTableViewCellDelegate: AnyObject {
     func didTapGoToMapButton(cityCode: Int)
     func didTapGoToIntroduceButton(cityCode: Int)
-    func didTapFavoriteButton()
+    func didTapFavoriteButton(cityCode: Int)
 }
 
 final class TownTableViewCell: UITableViewCell {
@@ -35,7 +35,7 @@ final class TownTableViewCell: UITableViewCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        disposeBag = DisposeBag()
+//        disposeBag = DisposeBag()
     }
     
     // MARK: Views
@@ -181,6 +181,7 @@ final class TownTableViewCell: UITableViewCell {
         townTitle.text = model.county
         townIntroduceTitle.text = model.townIntroduction
         townIconImageView.image = model.countyIcon
+        favoriteIcon.isSelected = model.wishTown ? true : false
     }
 }
 
@@ -196,6 +197,7 @@ private extension TownTableViewCell {
     }
     
     func didTapFavoriteButton() {
-        self.delegate?.didTapFavoriteButton()
+        guard let cityCode = cityCode else { return }
+        self.delegate?.didTapFavoriteButton(cityCode: cityCode)
     }
 }
