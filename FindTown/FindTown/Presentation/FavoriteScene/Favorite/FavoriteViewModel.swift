@@ -42,6 +42,7 @@ final class FavoriteViewModel: BaseViewModel {
     struct Output {
         let viewStatus = PublishSubject<FavoriteViewStatus>()
         let favoriteDataSource = BehaviorSubject<[TownTableModel]>(value: [])
+        var isFavorite = PublishSubject<Bool>()
         let errorNotice = PublishSubject<Void>()
     }
     
@@ -144,6 +145,7 @@ extension FavoriteViewModel {
                                                                            cityCode: cityCode)
                 await MainActor.run(body: {
                     self.getFavoriteList()
+                    self.output.isFavorite.onNext(favoriteStatus)
                 })
             } catch (let error) {
                 await MainActor.run(body: {
