@@ -498,8 +498,7 @@ extension MapViewController {
                 marker.zIndex = -1
             }
             
-            marker.iconImage = NMFOverlayImage(name: "marker.nonSelect")
-            marker.iconTintColor = store.subCategory.iconColor
+            marker.iconImage = NMFOverlayImage(name: store.subCategory.imageName)
             marker.mapView = mapView
             marker.touchHandler = { (overlay: NMFOverlay) -> Bool in
                 self.setInfraStoreMarker(selectStore: store, stores: stores)
