@@ -128,18 +128,15 @@
 		F31A80C82949A5BB003B8A6E /* FindTownCore in Frameworks */ = {isa = PBXBuildFile; productRef = F31A80C72949A5BB003B8A6E /* FindTownCore */; };
 		F31A80CA2949A5BB003B8A6E /* FindTownNetwork in Frameworks */ = {isa = PBXBuildFile; productRef = F31A80C92949A5BB003B8A6E /* FindTownNetwork */; };
 		F31A80CC2949A5BB003B8A6E /* FindTownUI in Frameworks */ = {isa = PBXBuildFile; productRef = F31A80CB2949A5BB003B8A6E /* FindTownUI */; };
-		F3219B5E2969403F000024E4 /* MapData.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3219B5D2969403F000024E4 /* MapData.swift */; };
-		F3219B622969408C000024E4 /* DetailCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3219B612969408C000024E4 /* DetailCategory.swift */; };
 		F3219B6729694328000024E4 /* MapDetailCategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3219B6629694328000024E4 /* MapDetailCategoryView.swift */; };
 		F3219B692969432C000024E4 /* MapDetailComponentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3219B682969432C000024E4 /* MapDetailComponentView.swift */; };
 		F3219B6C29699B25000024E4 /* MapStoreCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3219B6B29699B25000024E4 /* MapStoreCollectionViewCell.swift */; };
-		F3219B6E29699F88000024E4 /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3219B6D29699F88000024E4 /* Store.swift */; };
-		F3219B702969B32F000024E4 /* Thema.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3219B6F2969B32F000024E4 /* Thema.swift */; };
-		F3219B722969B346000024E4 /* StoreType.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3219B712969B346000024E4 /* StoreType.swift */; };
 		F3219B742969B351000024E4 /* StoreDetailType.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3219B732969B351000024E4 /* StoreDetailType.swift */; };
 		F3219B762969D169000024E4 /* AddressSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3219B752969D169000024E4 /* AddressSheetViewController.swift */; };
 		F3219B7A2969D53D000024E4 /* AddressSheetCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3219B792969D53D000024E4 /* AddressSheetCoordinator.swift */; };
 		F3219B7C2969D589000024E4 /* AddressSheetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3219B7B2969D589000024E4 /* AddressSheetViewModel.swift */; };
+    F32F849A29A485C700EA403C /* InfraStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32F849929A485C700EA403C /* InfraStore.swift */; };
+		F32F849E29A49F9200EA403C /* InfraSubCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32F849D29A49F9200EA403C /* InfraSubCategory.swift */; };
 		F3356EE2298CEA4B002B9FFD /* TokenInformationDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3356EE1298CEA4B002B9FFD /* TokenInformationDTO.swift */; };
 		F3356EEA298D4D59002B9FFD /* ReissueRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3356EE9298D4D59002B9FFD /* ReissueRequest.swift */; };
 		F3356EFA298EB918002B9FFD /* LoginConfirmRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3356EF9298EB918002B9FFD /* LoginConfirmRequest.swift */; };
@@ -340,18 +337,15 @@
 		F31A80C32949A556003B8A6E /* FindTownUI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = FindTownUI; sourceTree = "<group>"; };
 		F31A80C42949A568003B8A6E /* FindTownCore */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = FindTownCore; sourceTree = "<group>"; };
 		F31A80C52949A577003B8A6E /* FindTownNetwork */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = FindTownNetwork; sourceTree = "<group>"; };
-		F3219B5D2969403F000024E4 /* MapData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapData.swift; sourceTree = "<group>"; };
-		F3219B612969408C000024E4 /* DetailCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailCategory.swift; sourceTree = "<group>"; };
 		F3219B6629694328000024E4 /* MapDetailCategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapDetailCategoryView.swift; sourceTree = "<group>"; };
 		F3219B682969432C000024E4 /* MapDetailComponentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapDetailComponentView.swift; sourceTree = "<group>"; };
 		F3219B6B29699B25000024E4 /* MapStoreCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapStoreCollectionViewCell.swift; sourceTree = "<group>"; };
-		F3219B6D29699F88000024E4 /* Store.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
-		F3219B6F2969B32F000024E4 /* Thema.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Thema.swift; sourceTree = "<group>"; };
-		F3219B712969B346000024E4 /* StoreType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreType.swift; sourceTree = "<group>"; };
 		F3219B732969B351000024E4 /* StoreDetailType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreDetailType.swift; sourceTree = "<group>"; };
 		F3219B752969D169000024E4 /* AddressSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressSheetViewController.swift; sourceTree = "<group>"; };
 		F3219B792969D53D000024E4 /* AddressSheetCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressSheetCoordinator.swift; sourceTree = "<group>"; };
 		F3219B7B2969D589000024E4 /* AddressSheetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressSheetViewModel.swift; sourceTree = "<group>"; };
+    F32F849929A485C700EA403C /* InfraStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfraStore.swift; sourceTree = "<group>"; };
+		F32F849D29A49F9200EA403C /* InfraSubCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfraSubCategory.swift; sourceTree = "<group>"; };
 		F3356EE1298CEA4B002B9FFD /* TokenInformationDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenInformationDTO.swift; sourceTree = "<group>"; };
 		F3356EE9298D4D59002B9FFD /* ReissueRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReissueRequest.swift; sourceTree = "<group>"; };
 		F3356EF9298EB918002B9FFD /* LoginConfirmRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginConfirmRequest.swift; sourceTree = "<group>"; };
@@ -942,13 +936,7 @@
 			children = (
 				F38AA81F2983966A00EF66F2 /* SingupUserModel.swift */,
 				BCB554B22977AEA8007E1BBA /* VillageYearMonth.swift */,
-				F3219B5D2969403F000024E4 /* MapData.swift */,
-				F3219B612969408C000024E4 /* DetailCategory.swift */,
-				F3219B6D29699F88000024E4 /* Store.swift */,
-				F3219B6F2969B32F000024E4 /* Thema.swift */,
 				F39EDDBB296D5AE500A4E655 /* City.swift */,
-				2B628DE3298675C400A90D9A /* TownMood.swift */,
-				2B628DF72987853300A90D9A /* TownRank.swift */,
 				F38AA82A29842C2D00EF66F2 /* SigninUserModel.swift */,
 				F3918460299A693400CEF02E /* ThemaStore.swift */,
 				F363D163299A2E1800606C7F /* VillageLocationInformation.swift */,
@@ -956,6 +944,7 @@
 				BC47D63D2993845800FE83D5 /* FilterModel.swift */,
 				BCF68B5B299BDE3E00E8D83E /* TownTableModel.swift */,
 				2BA009B029A2248300F3563A /* TownIntroduce.swift */,
+				F32F849929A485C700EA403C /* InfraStore.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -1196,8 +1185,9 @@
 			children = (
 				F38AA81A2982A93D00EF66F2 /* Mapping */,
 				F39EDDC1296D635100A4E655 /* CityType.swift */,
+				2B628DE3298675C400A90D9A /* TownMood.swift */,
+				2B628DF72987853300A90D9A /* TownRank.swift */,
 				F3219B732969B351000024E4 /* StoreDetailType.swift */,
-				F3219B712969B346000024E4 /* StoreType.swift */,
 				F391845A299A68F600CEF02E /* InfraCategory.swift */,
 				F39EDDC3296D667800A4E655 /* County.swift */,
 				F391845E299A691500CEF02E /* ThemaCategory.swift */,
@@ -1207,6 +1197,7 @@
 				F38AA81829829BED00EF66F2 /* CityCode.swift */,
 				2B42E98B29A0688D0093FB0A /* Traffic.swift */,
 				F3918469299BCE9200CEF02E /* MapTransition.swift */,
+				F32F849D29A49F9200EA403C /* InfraSubCategory.swift */,
 			);
 			path = Enumerations;
 			sourceTree = "<group>";
@@ -1533,6 +1524,7 @@
 				BCE814F62967DAF200A6E3CB /* LoginCoordinator.swift in Sources */,
 				F363D15B299A17EA00606C7F /* DefaultMapRepository.swift in Sources */,
 				BC3C069029A0C5870049DA8C /* TownSearchDTO.swift in Sources */,
+				F32F849E29A49F9200EA403C /* InfraSubCategory.swift in Sources */,
 				F363D156299A0ABD00606C7F /* MapUseCase.swift in Sources */,
 				BC9F4D5E296BF0C90099473C /* AgreePolicyViewController.swift in Sources */,
 				F3918470299D3EB900CEF02E /* MemberResignDTO.swift in Sources */,
@@ -1551,7 +1543,6 @@
 				2B628DD52986508F00A90D9A /* TownIntroduceViewController.swift in Sources */,
 				2BA009B129A2248300F3563A /* TownIntroduce.swift in Sources */,
 				F391846A299BCE9200CEF02E /* MapTransition.swift in Sources */,
-				F3219B622969408C000024E4 /* DetailCategory.swift in Sources */,
 				F39EDDD2296D7C0E00A4E655 /* StoreCollectionViewFlowLayout.swift in Sources */,
 				BC4C11802971256300645AA7 /* TownTableView.swift in Sources */,
 				F38AA81C2983912E00EF66F2 /* SignupRequest.swift in Sources */,
@@ -1582,7 +1573,6 @@
 				BC32F835299EA3870038F0D6 /* MemberInfomationRequest.swift in Sources */,
 				BC7BCBCD29646EE1003BB4FF /* TownMoodViewController.swift in Sources */,
 				BC689866298A8A4400668C86 /* FilterCollectionView.swift in Sources */,
-				F3219B722969B346000024E4 /* StoreType.swift in Sources */,
 				BC1CE29629753FB800F89B81 /* TrafficCollectionView.swift in Sources */,
 				F3918478299E8CB500CEF02E /* ThemaStoreRequest.swift in Sources */,
 				BCF68B58299BB2A000E8D83E /* TownFilterDTO.swift in Sources */,
@@ -1620,6 +1610,7 @@
 				2B718C1A2966A6000068884A /* MapCategory.swift in Sources */,
 				F38CCBE12958287C000C16AF /* HomeCoordinator.swift in Sources */,
 				2BEE90C52977F90A002E7C3A /* FavoriteViewController.swift in Sources */,
+				F32F849A29A485C700EA403C /* InfraStore.swift in Sources */,
 				BCF68B5C299BDE3E00E8D83E /* TownTableModel.swift in Sources */,
 				2B42E98C29A0688D0093FB0A /* Traffic.swift in Sources */,
 				2BEE90CF2977FDFE002E7C3A /* AnonymousView.swift in Sources */,
@@ -1630,10 +1621,7 @@
 				BC3C069629A10E660049DA8C /* ChangeNicknameRequest.swift in Sources */,
 				BC4C11822971256D00645AA7 /* TownTableViewCell.swift in Sources */,
 				F38AA82B29842C2D00EF66F2 /* SigninUserModel.swift in Sources */,
-				F3219B5E2969403F000024E4 /* MapData.swift in Sources */,
-				F3219B6E29699F88000024E4 /* Store.swift in Sources */,
 				F38AA7F429811F0600EF66F2 /* DefaultKakaoAuthRepository.swift in Sources */,
-				F3219B702969B32F000024E4 /* Thema.swift in Sources */,
 				F3918472299D3F0600CEF02E /* ResignRequest.swift in Sources */,
 				F3356F02298FA270002B9FFD /* LogoutRequest.swift in Sources */,
 				BCF825992988DFF800AC00BB /* SupportSectionCollectionViewCell.swift in Sources */,

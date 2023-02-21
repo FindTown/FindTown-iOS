@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "marker.large.hospital.svg",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

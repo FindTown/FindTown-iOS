@@ -16,11 +16,15 @@ final class MapCoordinator: FlowCoordinator {
     let mapUseCase = MapUseCase()
     let townUseCase = TownUseCase()
     let memberUseCase = MemberUseCase()
+    let mapTransition: MapTransition
     let cityCode: Int?
     
-    init(presentationStyle: PresentationStyle, cityCode: Int?) {
+    init(presentationStyle: PresentationStyle,
+         cityCode: Int?,
+         mapTransition: MapTransition) {
         self.presentationStyle = presentationStyle
         self.cityCode = cityCode
+        self.mapTransition = mapTransition
     }
     
     internal func initScene() -> UIViewController {
@@ -28,7 +32,7 @@ final class MapCoordinator: FlowCoordinator {
                                         authUseCase: authUseCase,
                                         mapUseCase: mapUseCase,
                                         cityCode: cityCode)
-        return MapViewController(viewModel: mapViewModel, mapTransition: .tapBar)
+        return MapViewController(viewModel: mapViewModel, mapTransition: mapTransition)
     }
     
     internal func informationUpdateScene() -> UIViewController {

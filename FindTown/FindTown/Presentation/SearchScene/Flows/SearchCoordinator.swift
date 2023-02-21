@@ -66,7 +66,9 @@ extension SearchCoordinator: SearchViewModelDelegate {
     
     func goToTownMap(cityCode: Int) {
         guard let navigationController = navigationController else { return }
-        MapCoordinator(presentationStyle: .push(navigationController: navigationController), cityCode: cityCode).start()
+        MapCoordinator(presentationStyle: .push(navigationController: navigationController),
+                       cityCode: cityCode,
+                       mapTransition: .push).start()
     }
     
     func goToTownIntroduce(cityCode: Int) {

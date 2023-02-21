@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct City {
+struct City: Equatable {
     let county: County
     let village: Village
     

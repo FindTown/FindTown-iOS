@@ -20,8 +20,13 @@ struct ThemaStoreResponseDTO: Response {
     let subCategory: String
     let foodCategory: String?
     
-    func toEntity() -> ThemaStore {
+    func toThemaStoreEntity() -> ThemaStore {
         let subCategory = StoreDetailType(description: subCategory)
         return ThemaStore(name: name, address: address, latitude: y, longitude: x, subCategory: subCategory ?? StoreDetailType.cafe, foodCategory: foodCategory ?? nil)
+    }
+    
+    func toInfraStoreEntity() -> InfraStore {
+        let subCategory = InfraSubCategory(description: subCategory)
+        return InfraStore(name: name, address: address, latitude: y, longitude: x, subCategory: subCategory ?? InfraSubCategory.convenienceStore)
     }
 }

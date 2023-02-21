@@ -62,6 +62,7 @@ final class MapViewController: BaseViewController {
     var mapTransition: MapTransition
     var themaStores: [ThemaStore] = []
     var markers: [NMFMarker] = []
+    var villageboundaryCoordinates: Coordinates = []
     
     // MARK: - Life Cycle
     
@@ -92,7 +93,14 @@ final class MapViewController: BaseViewController {
                 self?.rx.isFavoriteCity.onNext(isFavorite)
                 self?.viewModel?.input.didTapFavoriteButton.onNext(isFavorite)
                 if isFavorite {
-                    self?.showToast(message: "찜 목록에 추가 되었어요")
+                    switch self?.mapTransition {
+                    case .tapBar:
+                        self?.showToast(message: "찜 목록에 추가 되었어요.", height: 170)
+                    case .push:
+                        self?.showToast(message: "찜 목록에 추가 되었어요.", height: 120)
+                    case .none:
+                        break
+                    }
                 }
             })
             .disposed(by: disposeBag)
@@ -123,52 +131,71 @@ final class MapViewController: BaseViewController {
             .bind(to: categoryCollectionView.rx.items(cellIdentifier: MapCategoryCollectionViewCell.reuseIdentifier,
                                               cellType: MapCategoryCollectionViewCell.self)) { index, item, cell in
                 cell.setupCell(image: item.image, title: item.description)
+                if index == 0 {
+                    self.categoryCollectionView.selectItem(at: IndexPath(item: 0, section: 0), animated: true, scrollPosition: .bottom)
+                }
             }.disposed(by: disposeBag)
         
-        Observable.combineLatest(viewModel.output.categoryDataSource, viewModel.output.city)
-            .bind { [weak self] categories, city in
-                if let infraCategory = categories[0] as? InfraCategory {
-                    //
-                } else if let themaCategory = categories[0] as? ThemaCategory {
-                    self?.viewModel?.getThemaData(category: themaCategory, city: city)
-                }
-                DispatchQueue.main.async {
-                    self?.categoryCollectionView.selectItem(at: IndexPath(item: 0, section: 0), animated: true, scrollPosition: .bottom)
-                }
-        }
-        .disposed(by: disposeBag)
-        
         /// iconCollectionView 데이터 바인딩
-        viewModel.output.storeDataSource.observe(on: MainScheduler.instance)
+        viewModel.output.themaStoreDataSource.observe(on: MainScheduler.instance)
             .bind(to: storeCollectionView.rx.items(cellIdentifier: MapStoreCollectionViewCell.reuseIdentifier,
                                               cellType: MapStoreCollectionViewCell.self)) { index, item, cell in
                 cell.setupCell(store: item)
                 cell.delegate = self
             }.disposed(by: disposeBag)
         
-        viewModel.output.storeDataSource
+        viewModel.output.themaStoreDataSource
             .bind { [weak self] stores in
                 if stores.isEmpty == false {
                     self?.themaStores = stores
                     self?.showFirstStore(store: stores[0])
                 } else {
                     DispatchQueue.main.async {
-                        self?.viewModel?.output.errorNotice.onNext(())
+                        self?.clearMarker()
+                        self?.showEntireVillage()
+                        switch self?.mapTransition {
+                        case .tapBar:
+                            self?.showToast(message: "근처에 해당하는 장소가 없습니다.", height: 170)
+                        case .push:
+                            self?.showToast(message: "근처에 해당하는 장소가 없습니다.", height: 120)
+                        case .none:
+                            break
+                        }
+                    }
+                }
+        }
+        .disposed(by: disposeBag)
+        
+        viewModel.output.infraStoreDataSource
+            .bind { [weak self] stores in
+                self?.showEntireVillage()
+                if stores.isEmpty == false {
+                    self?.setInfraStoreMarker(selectStore: nil, stores: stores)
+                } else {
+                    DispatchQueue.main.async {
+                        self?.clearMarker()
+                        switch self?.mapTransition {
+                        case .tapBar:
+                            self?.showToast(message: "근처에 해당하는 장소가 없습니다.", height: 170)
+                        case .push:
+                            self?.showToast(message: "근처에 해당하는 장소가 없습니다.", height: 120)
+                        case .none:
+                            break
+                        }
                     }
                 }
         }
         .disposed(by: disposeBag)
         
         /// 선택한 iconCell에 맞는 detailCategoryView 데이터 보여주게 함
-        Observable.combineLatest(categoryCollectionView.rx.modelSelected(Category.self), viewModel.output.city)
-            .subscribe(onNext: { [weak self] categoty, city in
+        categoryCollectionView.rx.modelSelected(Category.self)
+            .subscribe(onNext: { [weak self] categoty in
                 if let infraCategory = categoty as? InfraCategory {
-                    print(infraCategory)
-                    print(city)
+                    self?.viewModel?.getInfraData(category: infraCategory)
+                    self?.detailCategoryView.setStackView(subCategories: infraCategory.subCatrgories)
                 } else if let themaCategory = categoty as? ThemaCategory {
-                    self?.viewModel?.getThemaData(category: themaCategory, city: city)
+                    self?.viewModel?.getThemaData(category: themaCategory)
                 }
-//                self.detailCategoryView.setStackView(data: [])
             })
             .disposed(by: disposeBag)
         
@@ -204,12 +231,15 @@ final class MapViewController: BaseViewController {
             })
             .disposed(by: disposeBag)
             
-        viewModel.input.segmentIndex
-            .bind { [weak self] index in
+        Observable.combineLatest(viewModel.input.segmentIndex, viewModel.output.city)
+            .bind { [weak self] index, city in
                 if index == 0 {
                     self?.viewModel?.output.categoryDataSource.onNext(InfraCategory.allCases)
+                    self?.viewModel?.getInfraData(category: .security)
+                    self?.detailCategoryView.setStackView(subCategories: InfraCategory.security.subCatrgories)
                 } else {
                     self?.viewModel?.output.categoryDataSource.onNext(ThemaCategory.allCases)
+                    self?.viewModel?.getThemaData(category: .restaurantForEatingAlone)
                 }
             }
             .disposed(by: disposeBag)
@@ -331,7 +361,7 @@ private extension MapViewController {
             moveToIntroduceButtonBottomConstraint = -24
         case .push:
             storeCollectionViewBottomConstraint = -107
-            moveToIntroduceButtonBottomConstraint = -47
+            moveToIntroduceButtonBottomConstraint = -20
         }
         
         NSLayoutConstraint.activate([
@@ -382,16 +412,24 @@ extension MapViewController {
     func setVillageCooridnateOverlay(_ boundaryCoordinates: Coordinates, animation: Bool = true) {
         villagePolygonOverlay?.mapView = nil
         
-        setCameraPosition(latitude: boundaryCoordinates[0][1],
-                          longitude: boundaryCoordinates[0][0],
-                          zoomLevel: 14,
-                          animation: animation)
+        self.villageboundaryCoordinates = boundaryCoordinates
+        showEntireVillage()
 
         let villagePolygon = NMGPolygon(ring: NMGLineString(points: MapConstant.koreaBoundaryCoordinates.convertNMLatLng()), interiorRings: [NMGLineString(points: boundaryCoordinates.convertNMLatLng())])
         villagePolygonOverlay = NMFPolygonOverlay(villagePolygon as! NMGPolygon<AnyObject>)
         
         villagePolygonOverlay?.fillColor = UIColor(red: 26, green: 26, blue: 26).withAlphaComponent(0.2)
         villagePolygonOverlay?.mapView = mapView
+    }
+    
+    func showEntireVillage() {
+        let centerPoint = villageboundaryCoordinates.calculateCenterPoint()
+        let size = villageboundaryCoordinates.calculatePolygonSize()
+        
+        setCameraPosition(latitude: centerPoint.latitude,
+                          longitude: centerPoint.longitude,
+                          zoomLevel: calculateZoomLevel(by: size),
+                          animation: true)
     }
     
     func setStoreMarker(selectStore: ThemaStore) {
@@ -437,6 +475,39 @@ extension MapViewController {
         }
     }
     
+    func setInfraStoreMarker(selectStore: InfraStore?, stores: [InfraStore]) {
+        clearMarker()
+        
+        for store in stores {
+            let marker = NMFMarker()
+            marker.position = NMGLatLng(lat: store.latitude, lng: store.longitude)
+            if let selectStore = selectStore,
+                store == selectStore {
+                
+                marker.zIndex = 1
+                marker.captionText = store.name
+                marker.width = 41
+                marker.height = 50
+                self.setCameraPosition(latitude: store.latitude,
+                                       longitude: store.longitude,
+                                       zoomLevel: 15,
+                                       animation: true)
+            } else {
+                marker.width = 37
+                marker.height = 45
+                marker.zIndex = -1
+            }
+            
+            marker.iconImage = NMFOverlayImage(name: store.subCategory.imageName)
+            marker.mapView = mapView
+            marker.touchHandler = { (overlay: NMFOverlay) -> Bool in
+                self.setInfraStoreMarker(selectStore: store, stores: stores)
+                return true
+            }
+            markers.append(marker)
+        }
+    }
+    
     func clearMarker() {
         for marker in self.markers {
             marker.mapView = nil
@@ -448,6 +519,19 @@ extension MapViewController {
         self.setStoreMarker(selectStore: store)
         self.currentIndex = 0
     }
+    
+    func calculateZoomLevel(by size: Double) -> Double {
+        switch size {
+        case ..<2:
+            return 14.2
+        case ..<4:
+            return 13.8
+        case ..<6:
+            return 13.2
+        default:
+            return 13
+        }
+    }
 }
 
 extension MapViewController: MapStoreCollectionViewCellDelegate {
@@ -457,7 +541,12 @@ extension MapViewController: MapStoreCollectionViewCellDelegate {
     
     func didTapCopyButton(text: String) {
         UIPasteboard.general.string = text
-        self.showToast(message: "클립보드에 복사되었습니다.")
+        switch self.mapTransition {
+        case .tapBar:
+            self.showToast(message: "클립보드에 복사되었습니다.", height: 170)
+        case .push:
+            self.showToast(message: "클립보드에 복사되었습니다.", height: 120)
+        }
     }
 }
 
@@ -528,5 +617,46 @@ fileprivate extension Coordinates {
         return self.map { coordinate in
             NMGLatLng(lat: coordinate[1], lng: coordinate[0])
         }
+    }
+    
+    func calculateCenterPoint() -> (latitude: Double, longitude: Double) {
+        var latitudes: [Double] = []
+        var longitudes: [Double] = []
+        
+        let coordinates = self
+        
+        for coordinate in coordinates {
+            latitudes.append(coordinate[1])
+            longitudes.append(coordinate[0])
+        }
+
+        guard let minLatitude = latitudes.min(),
+              let minlongitude = longitudes.min(),
+              let maxLatitude = latitudes.max(),
+              let maxlongitude = longitudes.max() else {
+            return (latitude: 0.0, longitude: 0.0)
+        }
+        
+        let centerLatitude = minLatitude + ((maxLatitude - minLatitude) / 2)
+        let centerLongitude = minlongitude + ((maxlongitude - minlongitude) / 2)
+
+        return (latitude: centerLatitude, longitude: centerLongitude)
+    }
+    
+    func calculatePolygonSize() -> Double {
+        var size = 0.0
+        
+        let coordinates = self
+
+        for index in 0..<coordinates.count {
+            let j = (index + 1) % self.count
+            size += coordinates[index][1] * coordinates[j][0]
+            size -= coordinates[j][1] * coordinates[index][0]
+        }
+
+        size /= 2.0
+        size = abs(size)
+
+        return size * 10000
     }
 }
