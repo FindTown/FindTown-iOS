@@ -122,10 +122,10 @@ extension MapViewModel {
         }
     }
     
-    func getThemaData(category: ThemaCategory, city: City) {
+    func getThemaData(category: ThemaCategory) {
         self.themaStoreDataTask = Task {
             do {
-                guard let cityCode = CityCode(county: city.county, village: city.village)?.rawValue else {
+                guard let cityCode = self.cityCode else {
                     return
                 }
                 let themaStores = try await self.mapUseCase.getThemaStores(cityCode: cityCode, categoryId: category.code)
@@ -144,10 +144,10 @@ extension MapViewModel {
         }
     }
     
-    func getInfraData(category: InfraCategory, city: City) {
+    func getInfraData(category: InfraCategory) {
         self.themaStoreDataTask = Task {
             do {
-                guard let cityCode = CityCode(county: city.county, village: city.village)?.rawValue else {
+                guard let cityCode = self.cityCode else {
                     return
                 }
                 let infraStores = try await self.mapUseCase.getInfraStores(cityCode: cityCode, categoryId: category.code)

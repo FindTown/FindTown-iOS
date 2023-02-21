@@ -126,20 +126,6 @@ final class MapViewController: BaseViewController {
                 cell.setupCell(image: item.image, title: item.description)
             }.disposed(by: disposeBag)
         
-        Observable.combineLatest(viewModel.output.categoryDataSource, viewModel.output.city)
-            .bind { [weak self] categories, city in
-                if let infraCategory = categories[0] as? InfraCategory {
-                    self?.viewModel?.getInfraData(category: infraCategory, city: city)
-                    self?.detailCategoryView.setStackView(subCategories: infraCategory.subCatrgories)
-                } else if let themaCategory = categories[0] as? ThemaCategory {
-                    self?.viewModel?.getThemaData(category: themaCategory, city: city)
-                }
-                DispatchQueue.main.async {
-                    self?.categoryCollectionView.selectItem(at: IndexPath(item: 0, section: 0), animated: true, scrollPosition: .bottom)
-                }
-        }
-        .disposed(by: disposeBag)
-        
         /// iconCollectionView 데이터 바인딩
         viewModel.output.themaStoreDataSource.observe(on: MainScheduler.instance)
             .bind(to: storeCollectionView.rx.items(cellIdentifier: MapStoreCollectionViewCell.reuseIdentifier,
@@ -180,14 +166,13 @@ final class MapViewController: BaseViewController {
         .disposed(by: disposeBag)
         
         /// 선택한 iconCell에 맞는 detailCategoryView 데이터 보여주게 함
-        Observable.combineLatest(categoryCollectionView.rx.modelSelected(Category.self),
-                                 viewModel.output.city.distinctUntilChanged({ $0 }, comparer: { ($0 != $1) }) )
-            .subscribe(onNext: { [weak self] categoty, city in
+        categoryCollectionView.rx.modelSelected(Category.self)
+            .subscribe(onNext: { [weak self] categoty in
                 if let infraCategory = categoty as? InfraCategory {
-                    self?.viewModel?.getInfraData(category: infraCategory, city: city)
+                    self?.viewModel?.getInfraData(category: infraCategory)
                     self?.detailCategoryView.setStackView(subCategories: infraCategory.subCatrgories)
                 } else if let themaCategory = categoty as? ThemaCategory {
-                    self?.viewModel?.getThemaData(category: themaCategory, city: city)
+                    self?.viewModel?.getThemaData(category: themaCategory)
                 }
             })
             .disposed(by: disposeBag)
@@ -224,12 +209,19 @@ final class MapViewController: BaseViewController {
             })
             .disposed(by: disposeBag)
             
-        viewModel.input.segmentIndex
-            .bind { [weak self] index in
+        Observable.combineLatest(viewModel.input.segmentIndex, viewModel.output.city)
+            .bind { [weak self] index, city in
                 if index == 0 {
                     self?.viewModel?.output.categoryDataSource.onNext(InfraCategory.allCases)
+                    self?.viewModel?.getInfraData(category: .security)
+                    self?.detailCategoryView.setStackView(subCategories: InfraCategory.security.subCatrgories)
                 } else {
                     self?.viewModel?.output.categoryDataSource.onNext(ThemaCategory.allCases)
+                    self?.viewModel?.getThemaData(category: .restaurantForEatingAlone)
+                }
+                
+                DispatchQueue.main.async {
+                    self?.categoryCollectionView.selectItem(at: IndexPath(item: 0, section: 0), animated: true, scrollPosition: .bottom)
                 }
             }
             .disposed(by: disposeBag)
@@ -487,7 +479,8 @@ extension MapViewController {
                 marker.height = 45
                 marker.zIndex = -1
             }
-            marker.iconImage = NMFOverlayImage(name: "marker")
+            
+            marker.iconImage = NMFOverlayImage(name: "marker.nonSelect")
             marker.iconTintColor = store.subCategory.iconColor
             marker.mapView = mapView
             marker.touchHandler = { (overlay: NMFOverlay) -> Bool in
