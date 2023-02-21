@@ -131,6 +131,9 @@ final class MapViewController: BaseViewController {
             .bind(to: categoryCollectionView.rx.items(cellIdentifier: MapCategoryCollectionViewCell.reuseIdentifier,
                                               cellType: MapCategoryCollectionViewCell.self)) { index, item, cell in
                 cell.setupCell(image: item.image, title: item.description)
+                if index == 0 {
+                    self.categoryCollectionView.selectItem(at: IndexPath(item: 0, section: 0), animated: true, scrollPosition: .bottom)
+                }
             }.disposed(by: disposeBag)
         
         /// iconCollectionView 데이터 바인딩
@@ -149,6 +152,7 @@ final class MapViewController: BaseViewController {
                 } else {
                     DispatchQueue.main.async {
                         self?.clearMarker()
+                        self?.showEntireVillage()
                         switch self?.mapTransition {
                         case .tapBar:
                             self?.showToast(message: "근처에 해당하는 장소가 없습니다.", height: 170)
@@ -164,9 +168,8 @@ final class MapViewController: BaseViewController {
         
         viewModel.output.infraStoreDataSource
             .bind { [weak self] stores in
-                print(stores)
+                self?.showEntireVillage()
                 if stores.isEmpty == false {
-                    self?.showEntireVillage()
                     self?.setInfraStoreMarker(selectStore: nil, stores: stores)
                 } else {
                     DispatchQueue.main.async {
@@ -237,10 +240,6 @@ final class MapViewController: BaseViewController {
                 } else {
                     self?.viewModel?.output.categoryDataSource.onNext(ThemaCategory.allCases)
                     self?.viewModel?.getThemaData(category: .restaurantForEatingAlone)
-                }
-                
-                DispatchQueue.main.async {
-                    self?.categoryCollectionView.selectItem(at: IndexPath(item: 0, section: 0), animated: true, scrollPosition: .bottom)
                 }
             }
             .disposed(by: disposeBag)
