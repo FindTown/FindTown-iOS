@@ -31,6 +31,7 @@ final class MapCoordinator: FlowCoordinator {
         let mapViewModel = MapViewModel(delegate: self,
                                         authUseCase: authUseCase,
                                         mapUseCase: mapUseCase,
+                                        memberUseCase: memberUseCase,
                                         cityCode: cityCode)
         return MapViewController(viewModel: mapViewModel, mapTransition: mapTransition)
     }

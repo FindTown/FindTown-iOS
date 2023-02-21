@@ -601,12 +601,14 @@ extension Reactive where Base: MapViewController {
     
     var isFavoriteCity: Binder<Bool> {
         return Binder(self.base) { (viewController, isSelect) in
-            if isSelect {
-                viewController.favoriteButton.image = UIImage(named: "favorite.select")
-                viewController.favoriteButton.tintColor = FindTownColor.orange.color
-            } else {
-                viewController.favoriteButton.image = UIImage(named: "favorite.nonselect")
-                viewController.favoriteButton.tintColor = FindTownColor.grey4.color
+            DispatchQueue.main.async {
+                if isSelect {
+                    viewController.favoriteButton.image = UIImage(named: "favorite.select")
+                    viewController.favoriteButton.tintColor = FindTownColor.orange.color
+                } else {
+                    viewController.favoriteButton.image = UIImage(named: "favorite.nonselect")
+                    viewController.favoriteButton.tintColor = FindTownColor.grey4.color
+                }
             }
         }
     }

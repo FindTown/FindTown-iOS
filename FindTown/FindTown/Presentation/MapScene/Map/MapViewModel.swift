@@ -51,11 +51,13 @@ final class MapViewModel: BaseViewModel {
     
     let authUseCase: AuthUseCase
     let mapUseCase: MapUseCase
+    let memberUseCase: MemberUseCase
     
     // MARK: - Task
     
     private var cityDataTask: Task<Void, Error>?
     private var themaStoreDataTask: Task<Void, Error>?
+    private var favoriteTask: Task<Void, Error>?
     
     let input = Input()
     let output = Output()
@@ -63,10 +65,12 @@ final class MapViewModel: BaseViewModel {
     init(delegate: MapViewModelDelegate,
          authUseCase: AuthUseCase,
          mapUseCase: MapUseCase,
+         memberUseCase: MemberUseCase,
          cityCode: Int?) {
         self.delegate = delegate
         self.authUseCase = authUseCase
         self.mapUseCase = mapUseCase
+        self.memberUseCase = memberUseCase
         self.cityCode = cityCode
         
         super.init()
@@ -75,13 +79,9 @@ final class MapViewModel: BaseViewModel {
     
     func bind() {
         
-        Observable.combineLatest(self.input.didTapFavoriteButton, self.output.city)
-            .subscribe { [weak self] isFavorite, city in
-                if isFavorite {
-                    self?.addFavoriteCity(city)
-                } else {
-                    self?.removeFavoriteCity(city)
-                }
+        self.input.didTapFavoriteButton
+            .subscribe { [weak self] isFavorite in
+                self?.changeFavoriteCityStauts()
             }
             .disposed(by: disposeBag)
     }
@@ -103,6 +103,7 @@ extension MapViewModel {
                     villageLocaionInformation = try await self.mapUseCase.getVillageLocationInformation(cityCode: nil, accessToken: nil)
                 }
                 let coordinate = villageLocaionInformation.coordinate
+                let isFavorite = villageLocaionInformation.wishStatus
                 guard let cityCode = CityCode(rawValue: villageLocaionInformation.cityCode) else {
                     cityDataTask?.cancel()
                     return
@@ -111,6 +112,8 @@ extension MapViewModel {
                     let city = City(county: cityCode.county, village: cityCode.village)
                     self.output.city.onNext(city)
                     self.output.cityBoundaryCoordinates.onNext(coordinate)
+                    self.output.isFavoriteCity.onNext(isFavorite)
+                    print(isFavorite)
                 }
                 cityDataTask?.cancel()
             } catch (let error) {
@@ -166,12 +169,28 @@ extension MapViewModel {
         }
     }
     
-    func addFavoriteCity(_ city: City) {
-        
-    }
+    func changeFavoriteCityStauts() {
+        self.favoriteTask = Task {
+            do {
+                guard let cityCode = self.cityCode else {
+                    return
+                }
+                
+                let accessToken = try await self.authUseCase.getAccessToken()
+                let favoriteStatus = try await self.memberUseCase.favorite(accessToken: accessToken,
+                                                                           cityCode: cityCode)
+                await MainActor.run(body: {
+                    self.output.isFavoriteCity.onNext(favoriteStatus)
+                })
+            } catch (let error) {
+                await MainActor.run(body: {
+                    self.output.errorNotice.onNext(())
+                })
+                Log.error(error)
+            }
     
-    func removeFavoriteCity(_ city: City) {
-        
+            favoriteTask?.cancel()
+        }
     }
 }
 
