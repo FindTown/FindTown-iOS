@@ -25,7 +25,7 @@ public class AlertSuccessCancelPopUpViewController: UIViewController {
     
     private lazy var titleStackView: UIStackView = {
         let stackView = UIStackView()
-        stackView.spacing = 28.0
+        stackView.spacing = 2.0
         stackView.axis = .vertical
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
