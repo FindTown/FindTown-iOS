@@ -117,7 +117,7 @@ final class FavoriteViewController: BaseViewController {
             .filter { $0 == false }
             .subscribe(onNext: { [weak self] _ in
                 let toastMessage = "찜 목록에서 삭제되었어요"
-                self?.showToast(message: toastMessage)
+                self?.showToast(message: toastMessage, height: 120)
             })
             .disposed(by: disposeBag)
         
