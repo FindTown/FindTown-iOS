@@ -102,4 +102,39 @@ enum InfraSubCategory: CaseIterable {
             return UIColor(red: 1, green: 0.533, blue: 0.841, alpha: 1)
         }
     }
+    
+    var imageName: String {
+        switch self {
+        case .convenienceStore:
+            return "marker.convenience"
+        case .supermarket:
+            return "marker.superMarket"
+        case .goceryStore:
+            return "marker.groceryStore"
+        case .cafe:
+            return "marker.superMarket"
+        case .policeStation:
+            return "maker.police"
+        case .safetyBell:
+            return "marker.safetyBell"
+        case .cctv:
+            return "marker.cctv"
+        case .daiso:
+            return "marker.daiso"
+        case .fitnessCenter:
+            return "marker.superMarket"
+        case .pilates:
+            return "marker.superMarket"
+        case .sportsCenter:
+            return "marker.superMarket"
+        case .park:
+            return "marker.superMarket"
+        case .hospital:
+            return "marker.hospital"
+        case .largeHospital:
+            return "marker.largeHospital"
+        case .pharmacy:
+            return "marker.superMarket"
+        }
+    }
 }
