@@ -86,22 +86,8 @@ final class MapViewController: BaseViewController {
         }
         
         favoriteButton.rx.tap
-            .scan(false) { (lastState, newValue) in
-                  !lastState
-            }
-            .subscribe(onNext: { [weak self] isFavorite in
-                self?.rx.isFavoriteCity.onNext(isFavorite)
-                self?.viewModel?.input.didTapFavoriteButton.onNext(isFavorite)
-                if isFavorite {
-                    switch self?.mapTransition {
-                    case .tapBar:
-                        self?.showToast(message: "찜 목록에 추가 되었어요.", height: 170)
-                    case .push:
-                        self?.showToast(message: "찜 목록에 추가 되었어요.", height: 120)
-                    case .none:
-                        break
-                    }
-                }
+            .subscribe(onNext: { [weak self] _ in
+                self?.viewModel?.changeFavoriteStauts(informationPresentType: .tap)
             })
             .disposed(by: disposeBag)
         
@@ -245,7 +231,25 @@ final class MapViewController: BaseViewController {
             .disposed(by: disposeBag)
         
         viewModel.output.isFavoriteCity
-            .bind(to: rx.isFavoriteCity)
+            .subscribe(onNext: { [weak self] isFavorite in
+                self?.rx.isFavoriteCity.onNext(isFavorite)
+            })
+            .disposed(by: disposeBag)
+        
+        viewModel.output.changeFavoriteStauts
+            .subscribe(onNext: { [weak self] isFavorite in
+                if isFavorite {
+                    switch self?.mapTransition {
+                    case .tapBar:
+                        self?.showToast(message: "찜 목록에 추가 되었어요.", height: 170)
+                    case .push:
+                        self?.showToast(message: "찜 목록에 추가 되었어요.", height: 120)
+                    case .none:
+                        break
+                    }
+                }
+                self?.rx.isFavoriteCity.onNext(isFavorite)
+            })
             .disposed(by: disposeBag)
         
         viewModel.output.errorNotice
@@ -274,6 +278,12 @@ final class MapViewController: BaseViewController {
         }
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.viewModel?.setCity(cityCode: viewModel?.cityCode, informationPresentType: .setting)
+    }
+    
     override func setupView() {
         self.title = "동네 지도"
         view.backgroundColor = FindTownColor.back2.color
@@ -285,13 +295,8 @@ final class MapViewController: BaseViewController {
         }
         
         self.storeCollectionView.delegate = self
-        self.viewModel?.setCity(cityCode: viewModel?.cityCode)
         setMapZoomLevel()
         setMapLayerGrounp()
-        
-        /// 인프라 데이터 숨김
-        self.viewModel?.output.categoryDataSource.onNext(ThemaCategory.allCases)
-        self.detailCategoryView.isHidden = true
     }
 
     override func setLayout() {
@@ -600,9 +605,9 @@ extension Reactive where Base: MapViewController {
     }
     
     var isFavoriteCity: Binder<Bool> {
-        return Binder(self.base) { (viewController, isSelect) in
+        return Binder(self.base) { (viewController, isFavorite) in
             DispatchQueue.main.async {
-                if isSelect {
+                if isFavorite {
                     viewController.favoriteButton.image = UIImage(named: "favorite.select")
                     viewController.favoriteButton.tintColor = FindTownColor.orange.color
                 } else {

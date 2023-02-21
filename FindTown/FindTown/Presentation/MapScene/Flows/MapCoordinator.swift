@@ -70,7 +70,7 @@ extension MapCoordinator: MapViewModelDelegate {
     func setCityData(_ city: Int) {
         guard let navigationController = navigationController else { return }
         if let mapViewController = navigationController.topViewController as? MapViewController {
-            mapViewController.viewModel?.setCity(cityCode: city)
+            mapViewController.viewModel?.setCity(cityCode: city, informationPresentType: .setting)
         }
     }
 }

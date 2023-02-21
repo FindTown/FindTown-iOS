@@ -41,6 +41,7 @@ final class MapViewModel: BaseViewModel {
         let city = PublishSubject<City>()
         let cityBoundaryCoordinates = PublishSubject<[[Double]]>()
         let isFavoriteCity = PublishSubject<Bool>()
+        let changeFavoriteStauts = PublishSubject<Bool>()
         let errorNotice = PublishSubject<Void>()
     }
     
@@ -74,23 +75,13 @@ final class MapViewModel: BaseViewModel {
         self.cityCode = cityCode
         
         super.init()
-        self.bind()
-    }
-    
-    func bind() {
-        
-        self.input.didTapFavoriteButton
-            .subscribe { [weak self] isFavorite in
-                self?.changeFavoriteCityStauts()
-            }
-            .disposed(by: disposeBag)
     }
 }
 
 // MARK: - Network
 
 extension MapViewModel {
-    func setCity(cityCode: Int? = nil) {
+    func setCity(cityCode: Int? = nil, informationPresentType: InformationPresentType) {
         
         self.cityDataTask = Task {
             do {
@@ -115,8 +106,14 @@ extension MapViewModel {
                     let city = City(county: cityCode.county, village: cityCode.village)
                     self.output.city.onNext(city)
                     self.output.cityBoundaryCoordinates.onNext(coordinate)
-                    self.output.isFavoriteCity.onNext(isFavorite)
-                    print(isFavorite)
+                    
+                    switch informationPresentType {
+                    case .setting:
+                        self.output.isFavoriteCity.onNext(isFavorite)
+                    case .tap:
+                        self.output.changeFavoriteStauts.onNext(isFavorite)
+                    }
+                    
                 }
                 cityDataTask?.cancel()
             } catch (let error) {
@@ -172,7 +169,7 @@ extension MapViewModel {
         }
     }
     
-    func changeFavoriteCityStauts() {
+    func changeFavoriteStauts(informationPresentType: InformationPresentType) {
         self.favoriteTask = Task {
             do {
                 guard let cityCode = self.cityCode else {
