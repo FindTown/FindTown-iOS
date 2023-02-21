@@ -158,11 +158,3 @@ extension FavoriteViewModel {
         }
     }
 }
-
-
-// 임시
-struct townModelTest {
-    let image: String
-    let village: String
-    let introduce: String
-}

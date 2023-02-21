@@ -128,11 +128,7 @@ private extension AlertSuccessCancelPopUpViewController {
         [cancelButton, successButton].forEach {
             buttonStackView.addArrangedSubview($0)
         }
-        
-//        [titleLabel, messageLabel, buttonStackView].forEach {
-//            self.contentView.addSubview($0)
-//        }
-        
+ 
         [titleStackView, buttonStackView].forEach {
             self.contentView.addSubview($0)
         }

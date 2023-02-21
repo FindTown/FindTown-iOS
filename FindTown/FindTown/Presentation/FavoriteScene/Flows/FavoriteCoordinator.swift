@@ -52,5 +52,4 @@ extension FavoriteCoordinator: FavoriteViewModelDelegate {
                              authUseCase: authUseCase,
                              cityCode: cityCode).start()
     }
-
 }

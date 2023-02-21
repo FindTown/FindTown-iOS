@@ -113,7 +113,7 @@ final class FavoriteViewController: BaseViewController {
                 cell.delegate = self
             }.disposed(by: disposeBag)
         
-        viewModel?.output.isFavorite
+        self.viewModel?.output.isFavorite
             .filter { $0 == false }
             .subscribe(onNext: { [weak self] _ in
                 let toastMessage = "찜 목록에서 삭제되었어요"
@@ -141,7 +141,6 @@ extension FavoriteViewController: TownTableViewCellDelegate {
     }
     
     func didTapFavoriteButton(cityCode: Int) {
-        print("FavoriteViewControlle: - TapFavoriteButto")
         self.viewModel?.input.favoriteButtonTrigger.onNext(cityCode)
     }
 }
