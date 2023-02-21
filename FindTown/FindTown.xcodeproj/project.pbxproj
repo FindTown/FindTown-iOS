@@ -128,7 +128,6 @@
 		F3219B6729694328000024E4 /* MapDetailCategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3219B6629694328000024E4 /* MapDetailCategoryView.swift */; };
 		F3219B692969432C000024E4 /* MapDetailComponentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3219B682969432C000024E4 /* MapDetailComponentView.swift */; };
 		F3219B6C29699B25000024E4 /* MapStoreCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3219B6B29699B25000024E4 /* MapStoreCollectionViewCell.swift */; };
-		F3219B6E29699F88000024E4 /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3219B6D29699F88000024E4 /* Store.swift */; };
 		F3219B702969B32F000024E4 /* Thema.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3219B6F2969B32F000024E4 /* Thema.swift */; };
 		F3219B722969B346000024E4 /* StoreType.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3219B712969B346000024E4 /* StoreType.swift */; };
 		F3219B742969B351000024E4 /* StoreDetailType.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3219B732969B351000024E4 /* StoreDetailType.swift */; };
@@ -136,6 +135,7 @@
 		F3219B7A2969D53D000024E4 /* AddressSheetCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3219B792969D53D000024E4 /* AddressSheetCoordinator.swift */; };
 		F3219B7C2969D589000024E4 /* AddressSheetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3219B7B2969D589000024E4 /* AddressSheetViewModel.swift */; };
 		F32F849129A304B400EA403C /* APIKeyInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = F32F849029A304B400EA403C /* APIKeyInfo.plist */; };
+		F32F849A29A485C700EA403C /* InfraStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32F849929A485C700EA403C /* InfraStore.swift */; };
 		F3356EE2298CEA4B002B9FFD /* TokenInformationDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3356EE1298CEA4B002B9FFD /* TokenInformationDTO.swift */; };
 		F3356EEA298D4D59002B9FFD /* ReissueRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3356EE9298D4D59002B9FFD /* ReissueRequest.swift */; };
 		F3356EFA298EB918002B9FFD /* LoginConfirmRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3356EF9298EB918002B9FFD /* LoginConfirmRequest.swift */; };
@@ -336,7 +336,6 @@
 		F3219B6629694328000024E4 /* MapDetailCategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapDetailCategoryView.swift; sourceTree = "<group>"; };
 		F3219B682969432C000024E4 /* MapDetailComponentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapDetailComponentView.swift; sourceTree = "<group>"; };
 		F3219B6B29699B25000024E4 /* MapStoreCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapStoreCollectionViewCell.swift; sourceTree = "<group>"; };
-		F3219B6D29699F88000024E4 /* Store.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
 		F3219B6F2969B32F000024E4 /* Thema.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Thema.swift; sourceTree = "<group>"; };
 		F3219B712969B346000024E4 /* StoreType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreType.swift; sourceTree = "<group>"; };
 		F3219B732969B351000024E4 /* StoreDetailType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreDetailType.swift; sourceTree = "<group>"; };
@@ -344,6 +343,7 @@
 		F3219B792969D53D000024E4 /* AddressSheetCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressSheetCoordinator.swift; sourceTree = "<group>"; };
 		F3219B7B2969D589000024E4 /* AddressSheetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressSheetViewModel.swift; sourceTree = "<group>"; };
 		F32F849029A304B400EA403C /* APIKeyInfo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = APIKeyInfo.plist; path = ../../../../../Downloads/APIKeyInfo.plist; sourceTree = "<group>"; };
+		F32F849929A485C700EA403C /* InfraStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfraStore.swift; sourceTree = "<group>"; };
 		F3356EE1298CEA4B002B9FFD /* TokenInformationDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenInformationDTO.swift; sourceTree = "<group>"; };
 		F3356EE9298D4D59002B9FFD /* ReissueRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReissueRequest.swift; sourceTree = "<group>"; };
 		F3356EF9298EB918002B9FFD /* LoginConfirmRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginConfirmRequest.swift; sourceTree = "<group>"; };
@@ -936,7 +936,6 @@
 				BCB554B22977AEA8007E1BBA /* VillageYearMonth.swift */,
 				F3219B5D2969403F000024E4 /* MapData.swift */,
 				F3219B612969408C000024E4 /* DetailCategory.swift */,
-				F3219B6D29699F88000024E4 /* Store.swift */,
 				F3219B6F2969B32F000024E4 /* Thema.swift */,
 				F39EDDBB296D5AE500A4E655 /* City.swift */,
 				2B628DE3298675C400A90D9A /* TownMood.swift */,
@@ -948,6 +947,7 @@
 				BC47D63D2993845800FE83D5 /* FilterModel.swift */,
 				BCF68B5B299BDE3E00E8D83E /* TownTableModel.swift */,
 				2BA009B029A2248300F3563A /* TownIntroduce.swift */,
+				F32F849929A485C700EA403C /* InfraStore.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -1605,6 +1605,7 @@
 				2B718C1A2966A6000068884A /* MapCategory.swift in Sources */,
 				F38CCBE12958287C000C16AF /* HomeCoordinator.swift in Sources */,
 				2BEE90C52977F90A002E7C3A /* FavoriteViewController.swift in Sources */,
+				F32F849A29A485C700EA403C /* InfraStore.swift in Sources */,
 				BCF68B5C299BDE3E00E8D83E /* TownTableModel.swift in Sources */,
 				2B42E98C29A0688D0093FB0A /* Traffic.swift in Sources */,
 				2BEE90CF2977FDFE002E7C3A /* AnonymousView.swift in Sources */,
@@ -1616,7 +1617,6 @@
 				BC4C11822971256D00645AA7 /* TownTableViewCell.swift in Sources */,
 				F38AA82B29842C2D00EF66F2 /* SigninUserModel.swift in Sources */,
 				F3219B5E2969403F000024E4 /* MapData.swift in Sources */,
-				F3219B6E29699F88000024E4 /* Store.swift in Sources */,
 				F38AA7F429811F0600EF66F2 /* DefaultKakaoAuthRepository.swift in Sources */,
 				F3219B702969B32F000024E4 /* Thema.swift in Sources */,
 				F3918472299D3F0600CEF02E /* ResignRequest.swift in Sources */,

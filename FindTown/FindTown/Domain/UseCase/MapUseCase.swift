@@ -22,6 +22,10 @@ final class MapUseCase {
     }
     
     func getThemaStores(cityCode: Int, categoryId: String) async throws -> [ThemaStore] {
-        return try await mapRepository.getThemaStores(cityCode: String(cityCode), categoryId: categoryId).placeList.map { $0.toEntity() }
+        return try await mapRepository.getThemaStores(cityCode: String(cityCode), categoryId: categoryId).placeList.map { $0.toThemaStoreEntity() }
+    }
+    
+    func getInfraStores(cityCode: Int, categoryId: String) async throws -> [InfraStore] {
+        return try await mapRepository.getInfraStores(cityCode: String(cityCode), categoryId: categoryId).placeList.map { $0.toInfraStoreEntity() }
     }
 }
