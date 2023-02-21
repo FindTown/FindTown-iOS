@@ -23,11 +23,20 @@ public class AlertSuccessCancelPopUpViewController: UIViewController {
         return view
     }()
     
+    private lazy var titleStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.spacing = 28.0
+        stackView.axis = .vertical
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        return stackView
+    }()
+    
     private lazy var titleLabel: FindTownLabel = {
         let label = FindTownLabel(text: titleText,
                                   font: .subtitle4,
                                   textColor: .black,
                                   textAlignment: .center)
+        label.isHidden = titleText == "" ? true : false
         return label
     }()
     
@@ -86,7 +95,6 @@ public class AlertSuccessCancelPopUpViewController: UIViewController {
                             cancelButtonAction: (() -> Void)? = nil) {
         
         self.init()
-        
         self.titleText = titleText
         self.messageText = messageText
         self.successButtonText = successButtonText
@@ -99,7 +107,6 @@ public class AlertSuccessCancelPopUpViewController: UIViewController {
         self.cancelButton.addAction(for: .touchUpInside) { _ in
             cancelButtonAction?()
         }
-        
         /// present 시 fullScreen (화면 덮도록)
         modalPresentationStyle = .overFullScreen
     }
@@ -122,8 +129,16 @@ private extension AlertSuccessCancelPopUpViewController {
             buttonStackView.addArrangedSubview($0)
         }
         
-        [titleLabel, messageLabel, buttonStackView].forEach {
+//        [titleLabel, messageLabel, buttonStackView].forEach {
+//            self.contentView.addSubview($0)
+//        }
+        
+        [titleStackView, buttonStackView].forEach {
             self.contentView.addSubview($0)
+        }
+        
+        [titleLabel, messageLabel].forEach {
+            self.titleStackView.addArrangedSubview($0)
         }
         
         let view = self.view.safeAreaLayoutGuide
@@ -135,22 +150,16 @@ private extension AlertSuccessCancelPopUpViewController {
         ])
         
         NSLayoutConstraint.activate([
-            titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 24.0),
-            titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20.0),
-            titleLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor)
-        ])
-        
-        NSLayoutConstraint.activate([
-            messageLabel.topAnchor.constraint(equalTo: titleLabel.topAnchor, constant: 28.0),
-            messageLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20.0),
-            messageLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor)
+            titleStackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 30.0),
+            titleStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20.0),
+            titleStackView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor)
         ])
         
         NSLayoutConstraint.activate([
             buttonStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
             buttonStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             buttonStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            buttonStackView.topAnchor.constraint(equalTo: messageLabel.bottomAnchor, constant: 24),
+            buttonStackView.topAnchor.constraint(equalTo: titleStackView.bottomAnchor, constant: 24),
             buttonStackView.heightAnchor.constraint(equalToConstant: 48)
         ])
     }
