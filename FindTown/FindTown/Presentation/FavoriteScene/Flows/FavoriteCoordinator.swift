@@ -50,6 +50,7 @@ extension FavoriteCoordinator: FavoriteViewModelDelegate {
         TownIntroCoordinator(presentationStyle: .push(navigationController: navigationController),
                              townUseCase: townUseCase,
                              authUseCase: authUseCase,
+                             memberUseCase: memberUseCase,
                              cityCode: cityCode).start()
     }
 }

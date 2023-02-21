@@ -225,16 +225,9 @@ final class TownIntroduceViewController: BaseViewController, UIScrollViewDelegat
         // MARK: Input
         
         favoriteButton.rx.tap
-            .scan(false) { (lastState, newValue) in
-                  !lastState
+            .bind { [weak self] in
+                self?.viewModel?.input.favoriteButtonTrigger.onNext(())
             }
-            .subscribe(onNext: { [weak self] isFavorite in
-                self?.rx.isFavoriteCity.onNext(isFavorite)
-                self?.viewModel?.input.favoriteButtonTrigger.onNext(isFavorite)
-                if isFavorite {
-                    self?.showToast(message: "찜 목록에 추가 되었어요")
-                }
-            })
             .disposed(by: disposeBag)
         
         moveToMapButton.rx.tap
@@ -292,6 +285,16 @@ final class TownIntroduceViewController: BaseViewController, UIScrollViewDelegat
                     let rankView = TownRankView(data: data)
                     self?.townRankStackView.addArrangedSubview(rankView)
                 }
+            })
+            .disposed(by: disposeBag)
+        
+        viewModel?.output.isFavorite
+            .skip(2)
+            .subscribe(onNext: { [weak self] isFavorite in
+                if isFavorite {
+                    self?.showToast(message: "찜 목록에 추가 되었어요")
+                }
+                self?.rx.isFavoriteCity.onNext(isFavorite)
             })
             .disposed(by: disposeBag)
         
