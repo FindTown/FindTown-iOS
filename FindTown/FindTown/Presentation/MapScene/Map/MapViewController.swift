@@ -241,7 +241,7 @@ final class MapViewController: BaseViewController {
         view.backgroundColor = FindTownColor.back2.color
         
         naviBarSubView.backgroundColor = FindTownColor.white.color
-        if isAnonymous == false {
+        if !UserDefaultsSetting.isAnonymous {
             favoriteButton.tintColor = FindTownColor.grey4.color
             self.navigationItem.rightBarButtonItem = favoriteButton
         }

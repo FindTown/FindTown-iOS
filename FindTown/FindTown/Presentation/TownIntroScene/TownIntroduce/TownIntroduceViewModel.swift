@@ -85,8 +85,7 @@ extension TownIntroduceViewModel {
         self.townIntroduceTask = Task {
             do {
                 var accessToken = ""
-                //TODO: isAnonymous 적용
-                if true {
+                if !UserDefaultsSetting.isAnonymous {
                     accessToken = try await self.authUseCase.getAccessToken()
                 }
                 

@@ -76,7 +76,10 @@ final class TownIntroduceViewController: BaseViewController, UIScrollViewDelegat
     }
     
     override func setupView() {
-        self.navigationItem.rightBarButtonItem = favoriteButton        
+        if !UserDefaultsSetting.isAnonymous {
+            self.navigationItem.rightBarButtonItem = favoriteButton
+        }
+        
         self.stackView.backgroundColor = FindTownColor.grey1.color
         self.stackView.spacing = 11
         
