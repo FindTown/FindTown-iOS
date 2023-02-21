@@ -164,6 +164,7 @@ final class MapViewController: BaseViewController {
         
         viewModel.output.infraStoreDataSource
             .bind { [weak self] stores in
+                print(stores)
                 if stores.isEmpty == false {
                     self?.showEntireVillage()
                     self?.setInfraStoreMarker(selectStore: nil, stores: stores)
@@ -182,10 +183,10 @@ final class MapViewController: BaseViewController {
             .subscribe(onNext: { [weak self] categoty, city in
                 if let infraCategory = categoty as? InfraCategory {
                     self?.viewModel?.getInfraData(category: infraCategory, city: city)
+                    self?.detailCategoryView.setStackView(subCategories: infraCategory.subCatrgories)
                 } else if let themaCategory = categoty as? ThemaCategory {
                     self?.viewModel?.getThemaData(category: themaCategory, city: city)
                 }
-//                self.detailCategoryView.setStackView(data: [])
             })
             .disposed(by: disposeBag)
         
@@ -484,7 +485,8 @@ extension MapViewController {
                 marker.height = 45
                 marker.zIndex = -1
             }
-            marker.iconImage = NMFOverlayImage(name: "marker.select")
+            marker.iconImage = NMFOverlayImage(name: "marker.nonSelect")
+            marker.iconTintColor = store.subCategory.iconColor
             marker.mapView = mapView
             marker.touchHandler = { (overlay: NMFOverlay) -> Bool in
                 self.setInfraStoreMarker(selectStore: store, stores: stores)

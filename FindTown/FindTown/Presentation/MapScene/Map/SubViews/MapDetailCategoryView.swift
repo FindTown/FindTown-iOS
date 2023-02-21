@@ -28,15 +28,15 @@ final class MapDetailCategoryView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setStackView(data: [DetailCategory]) {
+    func setStackView(subCategories: [InfraSubCategory]) {
         detailCategoryStackView.subviews.forEach {
             $0.removeFromSuperview()
         }
         
-        for i in 0..<data.count{
+        for subCategory in subCategories {
             let view = MapDetailComponentView()
-            view.textLabel.text = data[i].detailTitle
-            view.colorView.backgroundColor = data[i].color
+            view.textLabel.text = subCategory.description
+            view.colorView.backgroundColor = subCategory.iconColor
             detailCategoryStackView.addArrangedSubview(view)
          }
      }

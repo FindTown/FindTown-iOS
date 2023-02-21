@@ -26,7 +26,7 @@ struct ThemaStoreResponseDTO: Response {
     }
     
     func toInfraStoreEntity() -> InfraStore {
-        let subCategory = StoreDetailType(description: subCategory)
-        return InfraStore(name: name, address: address, latitude: y, longitude: x, subCategory: subCategory ?? StoreDetailType.cafe)
+        let subCategory = InfraSubCategory(description: subCategory)
+        return InfraStore(name: name, address: address, latitude: y, longitude: x, subCategory: subCategory ?? InfraSubCategory.convenienceStore)
     }
 }
