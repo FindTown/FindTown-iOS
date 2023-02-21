@@ -13,6 +13,7 @@ import RxRelay
 
 protocol ShowVillageListViewModelType {
     func goToTownIntroduce(cityCode: Int)
+    func goToAuth()
 }
 
 final class ShowVillageListViewModel: BaseViewModel {
@@ -21,6 +22,7 @@ final class ShowVillageListViewModel: BaseViewModel {
         let fetchFinishTrigger = PublishSubject<Void>()
         let townIntroButtonTrigger = PublishSubject<Int>()
         let favoriteButtonTrigger = PublishSubject<Int>()
+        let goToAuthButtonTrigger = PublishSubject<Void>()
     }
     
     struct Output {
@@ -75,6 +77,12 @@ final class ShowVillageListViewModel: BaseViewModel {
                 self?.favorite(cityCode: cityCode)
             })
             .disposed(by: disposeBag)
+        
+        self.input.goToAuthButtonTrigger
+            .subscribe(onNext: { [weak self] in
+                self?.goToAuth()
+            })
+            .disposed(by: disposeBag)
     }
 }
 
@@ -84,8 +92,11 @@ extension ShowVillageListViewModel: ShowVillageListViewModelType {
     func goToTownIntroduce(cityCode: Int) {
         delegate.goToTownIntroduce(cityCode: cityCode)
     }
+    
+    func goToAuth() {
+        delegate.goToAuth()
+    }
 }
-
 
 // MARK: - Network
 

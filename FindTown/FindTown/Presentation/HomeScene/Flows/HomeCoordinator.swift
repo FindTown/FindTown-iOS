@@ -63,4 +63,11 @@ extension HomeCoordinator: HomeViewModelDelegate {
                              authUseCase: authUseCase,
                              cityCode: cityCode).start()
     }
+    
+    func goToAuth() {
+        guard let navigationController = navigationController else { return }
+        LoginCoordinator(presentationStyle: .setViewController(navigationController: navigationController,
+                                                               modalTransitionStyle: .crossDissolve,
+                                                               modalPresentationStyle: .overFullScreen)).start()
+    }
 }

@@ -145,6 +145,15 @@ extension ShowVillageListViewController: TownTableViewCellDelegate {
     }
     
     func didTapFavoriteButton(cityCode: Int) {
-        self.viewModel?.input.favoriteButtonTrigger.onNext(cityCode)
+        if UserDefaultsSetting.isAnonymous {
+            self.showAlertSuccessCancelPopUp(title: "",
+                                             message: "찜 기능은 회원가입/로그인 후\n 사용 가능해요.",
+                                             successButtonText: "회원가입",
+                                             cancelButtonText: "취소",
+                                             successButtonAction: {
+                self.viewModel?.input.goToAuthButtonTrigger.onNext(())})
+        } else {
+            self.viewModel?.input.favoriteButtonTrigger.onNext(cityCode)
+        }
     }
 }

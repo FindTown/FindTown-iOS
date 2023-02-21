@@ -16,12 +16,14 @@ protocol HomeViewModelDelegate {
     func goToFilterBottomSheet(filterSheetType: FilterSheetType, filterDataSource: FilterModel)
     func goToGuSearchView()
     func goToTownIntroduce(cityCode: Int)
+    func goToAuth()
 }
 
 protocol HomeViewModelType {
     func goToFilterBottomSheet(filterSheetType: FilterSheetType, filterDataSource: FilterModel)
     func goToGuSearchView()
     func goToTownIntroduce(cityCode: Int)
+    func goToAuth()
 }
 
 final class HomeViewModel: BaseViewModel {
@@ -36,6 +38,7 @@ final class HomeViewModel: BaseViewModel {
         let safetySortTrigger = PublishSubject<Bool>()
         let townIntroButtonTrigger = PublishSubject<Int>()
         let favoriteButtonTrigger = PublishSubject<Int>()
+        let goToAuthButtonTrigger = PublishSubject<Void>()
     }
     
     struct Output {
@@ -121,6 +124,12 @@ final class HomeViewModel: BaseViewModel {
                 self?.favorite(cityCode: cityCode)
             })
             .disposed(by: disposeBag)
+        
+        self.input.goToAuthButtonTrigger
+            .subscribe(onNext: { [weak self] in
+                self?.goToAuth()
+            })
+            .disposed(by: disposeBag)
     }
 }
 
@@ -179,8 +188,6 @@ extension HomeViewModel {
                 })
                 Log.error(error)
             }
-    
-            favoriteTask?.cancel()
         }
     }
 }
@@ -197,5 +204,9 @@ extension HomeViewModel: HomeViewModelType {
     
     func goToTownIntroduce(cityCode: Int) {
         delegate.goToTownIntroduce(cityCode: cityCode)
+    }
+    
+    func goToAuth() {
+        delegate.goToAuth()
     }
 }
