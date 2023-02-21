@@ -6,3 +6,8 @@
 //
 
 import Foundation
+
+enum InformationPresentType {
+    case setting
+    case tap
+}
