@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "marker.sportsCenter.svg",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

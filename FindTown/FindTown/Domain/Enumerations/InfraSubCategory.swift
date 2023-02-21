@@ -112,7 +112,7 @@ enum InfraSubCategory: CaseIterable {
         case .goceryStore:
             return "marker.groceryStore"
         case .cafe:
-            return "marker.superMarket"
+            return "marker.cafe"
         case .policeStation:
             return "maker.police"
         case .safetyBell:
@@ -122,19 +122,19 @@ enum InfraSubCategory: CaseIterable {
         case .daiso:
             return "marker.daiso"
         case .fitnessCenter:
-            return "marker.superMarket"
+            return "marker.fitnessCenter"
         case .pilates:
-            return "marker.superMarket"
+            return "marker.pilates"
         case .sportsCenter:
-            return "marker.superMarket"
+            return "marker.sportsCenter"
         case .park:
-            return "marker.superMarket"
+            return "marker.park"
         case .hospital:
             return "marker.hospital"
         case .largeHospital:
             return "marker.largeHospital"
         case .pharmacy:
-            return "marker.superMarket"
+            return "marker.pharmacy"
         }
     }
 }
