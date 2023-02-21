@@ -36,7 +36,8 @@ final class MapViewModel: BaseViewModel {
     
     struct Output {
         let categoryDataSource = BehaviorSubject<[Category]>(value: [])
-        let storeDataSource = PublishSubject<[ThemaStore]>()
+        let themaStoreDataSource = PublishSubject<[ThemaStore]>()
+        let infraStoreDataSource = PublishSubject<[InfraStore]>()
         let city = PublishSubject<City>()
         let cityBoundaryCoordinates = PublishSubject<[[Double]]>()
         let isFavoriteCity = PublishSubject<Bool>()
@@ -130,7 +131,7 @@ extension MapViewModel {
                 let themaStores = try await self.mapUseCase.getThemaStores(cityCode: cityCode, categoryId: category.code)
 
                 await MainActor.run {
-                    self.output.storeDataSource.onNext(themaStores)
+                    self.output.themaStoreDataSource.onNext(themaStores)
                 }
                 themaStoreDataTask?.cancel()
             } catch (let error) {
@@ -143,8 +144,26 @@ extension MapViewModel {
         }
     }
     
-    func getInfraData(category: InfraCategory) {
-        
+    func getInfraData(category: InfraCategory, city: City) {
+        self.themaStoreDataTask = Task {
+            do {
+                guard let cityCode = CityCode(county: city.county, village: city.village)?.rawValue else {
+                    return
+                }
+                let infraStores = try await self.mapUseCase.getInfraStores(cityCode: cityCode, categoryId: category.code)
+
+                await MainActor.run {
+                    self.output.infraStoreDataSource.onNext(infraStores)
+                }
+                themaStoreDataTask?.cancel()
+            } catch (let error) {
+                await MainActor.run {
+                    self.output.errorNotice.onNext(())
+                }
+                Log.error(error)
+                themaStoreDataTask?.cancel()
+            }
+        }
     }
     
     func addFavoriteCity(_ city: City) {

@@ -62,6 +62,7 @@ final class MapViewController: BaseViewController {
     var mapTransition: MapTransition
     var themaStores: [ThemaStore] = []
     var markers: [NMFMarker] = []
+    var villageboundaryCoordinates: Coordinates = []
     
     // MARK: - Life Cycle
     
@@ -128,7 +129,7 @@ final class MapViewController: BaseViewController {
         Observable.combineLatest(viewModel.output.categoryDataSource, viewModel.output.city)
             .bind { [weak self] categories, city in
                 if let infraCategory = categories[0] as? InfraCategory {
-                    //
+                    self?.viewModel?.getInfraData(category: infraCategory, city: city)
                 } else if let themaCategory = categories[0] as? ThemaCategory {
                     self?.viewModel?.getThemaData(category: themaCategory, city: city)
                 }
@@ -139,20 +140,37 @@ final class MapViewController: BaseViewController {
         .disposed(by: disposeBag)
         
         /// iconCollectionView 데이터 바인딩
-        viewModel.output.storeDataSource.observe(on: MainScheduler.instance)
+        viewModel.output.themaStoreDataSource.observe(on: MainScheduler.instance)
             .bind(to: storeCollectionView.rx.items(cellIdentifier: MapStoreCollectionViewCell.reuseIdentifier,
                                               cellType: MapStoreCollectionViewCell.self)) { index, item, cell in
                 cell.setupCell(store: item)
                 cell.delegate = self
             }.disposed(by: disposeBag)
         
-        viewModel.output.storeDataSource
+        viewModel.output.themaStoreDataSource
             .bind { [weak self] stores in
                 if stores.isEmpty == false {
                     self?.themaStores = stores
                     self?.showFirstStore(store: stores[0])
                 } else {
                     DispatchQueue.main.async {
+                        self?.clearMarker()
+                        /// 수정 예정
+                        self?.viewModel?.output.errorNotice.onNext(())
+                    }
+                }
+        }
+        .disposed(by: disposeBag)
+        
+        viewModel.output.infraStoreDataSource
+            .bind { [weak self] stores in
+                if stores.isEmpty == false {
+                    self?.showEntireVillage()
+                    self?.setInfraStoreMarker(selectStore: nil, stores: stores)
+                } else {
+                    DispatchQueue.main.async {
+                        self?.clearMarker()
+                        /// 수정 예정
                         self?.viewModel?.output.errorNotice.onNext(())
                     }
                 }
@@ -163,8 +181,7 @@ final class MapViewController: BaseViewController {
         Observable.combineLatest(categoryCollectionView.rx.modelSelected(Category.self), viewModel.output.city)
             .subscribe(onNext: { [weak self] categoty, city in
                 if let infraCategory = categoty as? InfraCategory {
-                    print(infraCategory)
-                    print(city)
+                    self?.viewModel?.getInfraData(category: infraCategory, city: city)
                 } else if let themaCategory = categoty as? ThemaCategory {
                     self?.viewModel?.getThemaData(category: themaCategory, city: city)
                 }
@@ -382,19 +399,24 @@ extension MapViewController {
     func setVillageCooridnateOverlay(_ boundaryCoordinates: Coordinates, animation: Bool = true) {
         villagePolygonOverlay?.mapView = nil
         
-        let centerPoint = boundaryCoordinates.calculateCenterPoint()
-        let size = boundaryCoordinates.calculatePolygonSize()
-        
-        setCameraPosition(latitude: centerPoint.latitude,
-                          longitude: centerPoint.longitude,
-                          zoomLevel: calculateZoomLevel(by: size),
-                          animation: animation)
+        self.villageboundaryCoordinates = boundaryCoordinates
+        showEntireVillage()
 
         let villagePolygon = NMGPolygon(ring: NMGLineString(points: MapConstant.koreaBoundaryCoordinates.convertNMLatLng()), interiorRings: [NMGLineString(points: boundaryCoordinates.convertNMLatLng())])
         villagePolygonOverlay = NMFPolygonOverlay(villagePolygon as! NMGPolygon<AnyObject>)
         
         villagePolygonOverlay?.fillColor = UIColor(red: 26, green: 26, blue: 26).withAlphaComponent(0.2)
         villagePolygonOverlay?.mapView = mapView
+    }
+    
+    func showEntireVillage() {
+        let centerPoint = villageboundaryCoordinates.calculateCenterPoint()
+        let size = villageboundaryCoordinates.calculatePolygonSize()
+        
+        setCameraPosition(latitude: centerPoint.latitude,
+                          longitude: centerPoint.longitude,
+                          zoomLevel: calculateZoomLevel(by: size),
+                          animation: true)
     }
     
     func setStoreMarker(selectStore: ThemaStore) {
@@ -436,6 +458,38 @@ extension MapViewController {
                 return true
             }
             
+            markers.append(marker)
+        }
+    }
+    
+    func setInfraStoreMarker(selectStore: InfraStore?, stores: [InfraStore]) {
+        clearMarker()
+        
+        for store in stores {
+            let marker = NMFMarker()
+            marker.position = NMGLatLng(lat: store.latitude, lng: store.longitude)
+            if let selectStore = selectStore,
+                store == selectStore {
+                
+                marker.zIndex = 1
+                marker.captionText = store.name
+                marker.width = 41
+                marker.height = 50
+                self.setCameraPosition(latitude: store.latitude,
+                                       longitude: store.longitude,
+                                       zoomLevel: 15,
+                                       animation: true)
+            } else {
+                marker.width = 37
+                marker.height = 45
+                marker.zIndex = -1
+            }
+            marker.iconImage = NMFOverlayImage(name: "marker.select")
+            marker.mapView = mapView
+            marker.touchHandler = { (overlay: NMFOverlay) -> Bool in
+                self.setInfraStoreMarker(selectStore: store, stores: stores)
+                return true
+            }
             markers.append(marker)
         }
     }
