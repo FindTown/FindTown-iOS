@@ -31,6 +31,7 @@ final class MapCoordinator: FlowCoordinator {
         let mapViewModel = MapViewModel(delegate: self,
                                         authUseCase: authUseCase,
                                         mapUseCase: mapUseCase,
+                                        memberUseCase: memberUseCase,
                                         cityCode: cityCode)
         return MapViewController(viewModel: mapViewModel, mapTransition: mapTransition)
     }
@@ -69,7 +70,7 @@ extension MapCoordinator: MapViewModelDelegate {
     func setCityData(_ city: Int) {
         guard let navigationController = navigationController else { return }
         if let mapViewController = navigationController.topViewController as? MapViewController {
-            mapViewController.viewModel?.setCity(cityCode: city)
+            mapViewController.viewModel?.setCity(cityCode: city, informationPresentType: .setting)
         }
     }
 }

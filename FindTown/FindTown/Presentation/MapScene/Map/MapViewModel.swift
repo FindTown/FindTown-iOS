@@ -41,6 +41,7 @@ final class MapViewModel: BaseViewModel {
         let city = PublishSubject<City>()
         let cityBoundaryCoordinates = PublishSubject<[[Double]]>()
         let isFavoriteCity = PublishSubject<Bool>()
+        let changeFavoriteStauts = PublishSubject<Bool>()
         let errorNotice = PublishSubject<Void>()
     }
     
@@ -51,11 +52,13 @@ final class MapViewModel: BaseViewModel {
     
     let authUseCase: AuthUseCase
     let mapUseCase: MapUseCase
+    let memberUseCase: MemberUseCase
     
     // MARK: - Task
     
     private var cityDataTask: Task<Void, Error>?
     private var themaStoreDataTask: Task<Void, Error>?
+    private var favoriteTask: Task<Void, Error>?
     
     let input = Input()
     let output = Output()
@@ -63,46 +66,38 @@ final class MapViewModel: BaseViewModel {
     init(delegate: MapViewModelDelegate,
          authUseCase: AuthUseCase,
          mapUseCase: MapUseCase,
+         memberUseCase: MemberUseCase,
          cityCode: Int?) {
         self.delegate = delegate
         self.authUseCase = authUseCase
         self.mapUseCase = mapUseCase
+        self.memberUseCase = memberUseCase
         self.cityCode = cityCode
         
         super.init()
-        self.bind()
-    }
-    
-    func bind() {
-        
-        Observable.combineLatest(self.input.didTapFavoriteButton, self.output.city)
-            .subscribe { [weak self] isFavorite, city in
-                if isFavorite {
-                    self?.addFavoriteCity(city)
-                } else {
-                    self?.removeFavoriteCity(city)
-                }
-            }
-            .disposed(by: disposeBag)
     }
 }
 
 // MARK: - Network
 
 extension MapViewModel {
-    func setCity(cityCode: Int? = nil) {
+    func setCity(cityCode: Int? = nil, informationPresentType: InformationPresentType) {
         
         self.cityDataTask = Task {
             do {
                 var villageLocaionInformation: VillageLocationInformation
-                if UserDefaultsSetting.isAnonymous == false,
-                   let cityCode = cityCode {
+                if UserDefaultsSetting.isAnonymous == false {
                     let accessToken = try await self.authUseCase.getAccessToken()
-                    villageLocaionInformation = try await self.mapUseCase.getVillageLocationInformation(cityCode: cityCode, accessToken: accessToken)
+                    if let cityCode = cityCode {
+                        villageLocaionInformation = try await self.mapUseCase.getVillageLocationInformation(cityCode: cityCode, accessToken: accessToken)
+                    } else {
+                        villageLocaionInformation = try await self.mapUseCase.getVillageLocationInformation(cityCode: nil, accessToken: accessToken)
+                    }
                 } else {
                     villageLocaionInformation = try await self.mapUseCase.getVillageLocationInformation(cityCode: nil, accessToken: nil)
                 }
                 let coordinate = villageLocaionInformation.coordinate
+                let isFavorite = villageLocaionInformation.wishStatus
                 guard let cityCode = CityCode(rawValue: villageLocaionInformation.cityCode) else {
                     cityDataTask?.cancel()
                     return
@@ -111,6 +106,14 @@ extension MapViewModel {
                     let city = City(county: cityCode.county, village: cityCode.village)
                     self.output.city.onNext(city)
                     self.output.cityBoundaryCoordinates.onNext(coordinate)
+                    
+                    switch informationPresentType {
+                    case .setting:
+                        self.output.isFavoriteCity.onNext(isFavorite)
+                    case .tap:
+                        self.output.changeFavoriteStauts.onNext(isFavorite)
+                    }
+                    
                 }
                 cityDataTask?.cancel()
             } catch (let error) {
@@ -166,12 +169,28 @@ extension MapViewModel {
         }
     }
     
-    func addFavoriteCity(_ city: City) {
-        
-    }
+    func changeFavoriteStauts(informationPresentType: InformationPresentType) {
+        self.favoriteTask = Task {
+            do {
+                guard let cityCode = self.cityCode else {
+                    return
+                }
+                
+                let accessToken = try await self.authUseCase.getAccessToken()
+                let favoriteStatus = try await self.memberUseCase.favorite(accessToken: accessToken,
+                                                                           cityCode: cityCode)
+                await MainActor.run(body: {
+                    self.output.isFavoriteCity.onNext(favoriteStatus)
+                })
+            } catch (let error) {
+                await MainActor.run(body: {
+                    self.output.errorNotice.onNext(())
+                })
+                Log.error(error)
+            }
     
-    func removeFavoriteCity(_ city: City) {
-        
+            favoriteTask?.cancel()
+        }
     }
 }
 

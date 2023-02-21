@@ -137,6 +137,7 @@
 		F32F849A29A485C700EA403C /* InfraStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32F849929A485C700EA403C /* InfraStore.swift */; };
 		F32F849E29A49F9200EA403C /* InfraSubCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32F849D29A49F9200EA403C /* InfraSubCategory.swift */; };
 		F33454CA29A4F1D60075E66B /* APIKeyInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = F33454C929A4F1D60075E66B /* APIKeyInfo.plist */; };
+		F33454CC29A504340075E66B /* InformationPresentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = F33454CB29A504340075E66B /* InformationPresentType.swift */; };
 		F3356EE2298CEA4B002B9FFD /* TokenInformationDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3356EE1298CEA4B002B9FFD /* TokenInformationDTO.swift */; };
 		F3356EEA298D4D59002B9FFD /* ReissueRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3356EE9298D4D59002B9FFD /* ReissueRequest.swift */; };
 		F3356EFA298EB918002B9FFD /* LoginConfirmRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3356EF9298EB918002B9FFD /* LoginConfirmRequest.swift */; };
@@ -346,6 +347,7 @@
 		F32F849929A485C700EA403C /* InfraStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfraStore.swift; sourceTree = "<group>"; };
 		F32F849D29A49F9200EA403C /* InfraSubCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfraSubCategory.swift; sourceTree = "<group>"; };
 		F33454C929A4F1D60075E66B /* APIKeyInfo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = APIKeyInfo.plist; path = ../../../../../Downloads/APIKeyInfo.plist; sourceTree = "<group>"; };
+		F33454CB29A504340075E66B /* InformationPresentType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InformationPresentType.swift; sourceTree = "<group>"; };
 		F3356EE1298CEA4B002B9FFD /* TokenInformationDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenInformationDTO.swift; sourceTree = "<group>"; };
 		F3356EE9298D4D59002B9FFD /* ReissueRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReissueRequest.swift; sourceTree = "<group>"; };
 		F3356EF9298EB918002B9FFD /* LoginConfirmRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginConfirmRequest.swift; sourceTree = "<group>"; };
@@ -1198,6 +1200,7 @@
 				2B42E98B29A0688D0093FB0A /* Traffic.swift */,
 				F3918469299BCE9200CEF02E /* MapTransition.swift */,
 				F32F849D29A49F9200EA403C /* InfraSubCategory.swift */,
+				F33454CB29A504340075E66B /* InformationPresentType.swift */,
 			);
 			path = Enumerations;
 			sourceTree = "<group>";
@@ -1556,6 +1559,7 @@
 				BCF68B53299BB1DF00E8D83E /* DefaultTownRepository.swift in Sources */,
 				F3891E1F293B8393003CE8AD /* AppDelegate.swift in Sources */,
 				BC8B638D298A4B4C004E1116 /* ChangeNicknameViewModel.swift in Sources */,
+				F33454CC29A504340075E66B /* InformationPresentType.swift in Sources */,
 				BC9F4D59296BE5FC0099473C /* FavoriteTownViewController.swift in Sources */,
 				F3918476299E8B9700CEF02E /* MapThemaStoreResponseDTO.swift in Sources */,
 				F3918461299A693400CEF02E /* ThemaStore.swift in Sources */,

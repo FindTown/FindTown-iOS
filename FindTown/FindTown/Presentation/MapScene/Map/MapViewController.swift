@@ -51,7 +51,7 @@ final class MapViewController: BaseViewController {
     var currentIndex: CGFloat = 0 {
         didSet {
             let index = Int(self.currentIndex)
-            self.setStoreMarker(selectStore: themaStores[index])
+            self.setThemaStoreMarker(selectStore: themaStores[index])
         }
     }
     
@@ -86,22 +86,8 @@ final class MapViewController: BaseViewController {
         }
         
         favoriteButton.rx.tap
-            .scan(false) { (lastState, newValue) in
-                  !lastState
-            }
-            .subscribe(onNext: { [weak self] isFavorite in
-                self?.rx.isFavoriteCity.onNext(isFavorite)
-                self?.viewModel?.input.didTapFavoriteButton.onNext(isFavorite)
-                if isFavorite {
-                    switch self?.mapTransition {
-                    case .tapBar:
-                        self?.showToast(message: "찜 목록에 추가 되었어요.", height: 170)
-                    case .push:
-                        self?.showToast(message: "찜 목록에 추가 되었어요.", height: 120)
-                    case .none:
-                        break
-                    }
-                }
+            .subscribe(onNext: { [weak self] _ in
+                self?.viewModel?.changeFavoriteStauts(informationPresentType: .tap)
             })
             .disposed(by: disposeBag)
         
@@ -148,7 +134,7 @@ final class MapViewController: BaseViewController {
             .bind { [weak self] stores in
                 if stores.isEmpty == false {
                     self?.themaStores = stores
-                    self?.showFirstStore(store: stores[0])
+                    self?.showFirstThemaStore(store: stores[0])
                 } else {
                     DispatchQueue.main.async {
                         self?.clearMarker()
@@ -202,7 +188,7 @@ final class MapViewController: BaseViewController {
         storeCollectionView.rx.modelSelected(ThemaStore.self)
             .throttle(.milliseconds(300), scheduler: MainScheduler.instance)
             .bind { [weak self] store in
-                self?.setStoreMarker(selectStore: store)
+                self?.setThemaStoreMarker(selectStore: store)
             }
             .disposed(by: disposeBag)
         
@@ -245,7 +231,25 @@ final class MapViewController: BaseViewController {
             .disposed(by: disposeBag)
         
         viewModel.output.isFavoriteCity
-            .bind(to: rx.isFavoriteCity)
+            .subscribe(onNext: { [weak self] isFavorite in
+                self?.rx.isFavoriteCity.onNext(isFavorite)
+            })
+            .disposed(by: disposeBag)
+        
+        viewModel.output.changeFavoriteStauts
+            .subscribe(onNext: { [weak self] isFavorite in
+                if isFavorite {
+                    switch self?.mapTransition {
+                    case .tapBar:
+                        self?.showToast(message: "찜 목록에 추가 되었어요.", height: 170)
+                    case .push:
+                        self?.showToast(message: "찜 목록에 추가 되었어요.", height: 120)
+                    case .none:
+                        break
+                    }
+                }
+                self?.rx.isFavoriteCity.onNext(isFavorite)
+            })
             .disposed(by: disposeBag)
         
         viewModel.output.errorNotice
@@ -274,6 +278,12 @@ final class MapViewController: BaseViewController {
         }
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.viewModel?.setCity(cityCode: viewModel?.cityCode, informationPresentType: .setting)
+    }
+    
     override func setupView() {
         self.title = "동네 지도"
         view.backgroundColor = FindTownColor.back2.color
@@ -285,13 +295,8 @@ final class MapViewController: BaseViewController {
         }
         
         self.storeCollectionView.delegate = self
-        self.viewModel?.setCity(cityCode: viewModel?.cityCode)
         setMapZoomLevel()
         setMapLayerGrounp()
-        
-        /// 인프라 데이터 숨김
-        self.viewModel?.output.categoryDataSource.onNext(ThemaCategory.allCases)
-        self.detailCategoryView.isHidden = true
     }
 
     override func setLayout() {
@@ -432,7 +437,7 @@ extension MapViewController {
                           animation: true)
     }
     
-    func setStoreMarker(selectStore: ThemaStore) {
+    func setThemaStoreMarker(selectStore: ThemaStore) {
         clearMarker()
         
         guard let storeIndex = self.themaStores.firstIndex(of: selectStore) else {
@@ -467,7 +472,7 @@ extension MapViewController {
                 self.storeCollectionView.selectItem(at: IndexPath(item: index, section: 0),
                                                     animated: true,
                                                     scrollPosition: .left)
-                self.setStoreMarker(selectStore: store)
+                self.setThemaStoreMarker(selectStore: store)
                 return true
             }
             
@@ -515,8 +520,8 @@ extension MapViewController {
         self.markers.removeAll()
     }
     
-    func showFirstStore(store: ThemaStore) {
-        self.setStoreMarker(selectStore: store)
+    func showFirstThemaStore(store: ThemaStore) {
+        self.setThemaStoreMarker(selectStore: store)
         self.currentIndex = 0
     }
     
@@ -600,13 +605,15 @@ extension Reactive where Base: MapViewController {
     }
     
     var isFavoriteCity: Binder<Bool> {
-        return Binder(self.base) { (viewController, isSelect) in
-            if isSelect {
-                viewController.favoriteButton.image = UIImage(named: "favorite.select")
-                viewController.favoriteButton.tintColor = FindTownColor.orange.color
-            } else {
-                viewController.favoriteButton.image = UIImage(named: "favorite.nonselect")
-                viewController.favoriteButton.tintColor = FindTownColor.grey4.color
+        return Binder(self.base) { (viewController, isFavorite) in
+            DispatchQueue.main.async {
+                if isFavorite {
+                    viewController.favoriteButton.image = UIImage(named: "favorite.select")
+                    viewController.favoriteButton.tintColor = FindTownColor.orange.color
+                } else {
+                    viewController.favoriteButton.image = UIImage(named: "favorite.nonselect")
+                    viewController.favoriteButton.tintColor = FindTownColor.grey4.color
+                }
             }
         }
     }
