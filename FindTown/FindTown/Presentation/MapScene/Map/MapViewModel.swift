@@ -95,10 +95,13 @@ extension MapViewModel {
         self.cityDataTask = Task {
             do {
                 var villageLocaionInformation: VillageLocationInformation
-                if UserDefaultsSetting.isAnonymous == false,
-                   let cityCode = cityCode {
+                if UserDefaultsSetting.isAnonymous == false {
                     let accessToken = try await self.authUseCase.getAccessToken()
-                    villageLocaionInformation = try await self.mapUseCase.getVillageLocationInformation(cityCode: cityCode, accessToken: accessToken)
+                    if let cityCode = cityCode {
+                        villageLocaionInformation = try await self.mapUseCase.getVillageLocationInformation(cityCode: cityCode, accessToken: accessToken)
+                    } else {
+                        villageLocaionInformation = try await self.mapUseCase.getVillageLocationInformation(cityCode: nil, accessToken: accessToken)
+                    }
                 } else {
                     villageLocaionInformation = try await self.mapUseCase.getVillageLocationInformation(cityCode: nil, accessToken: nil)
                 }
