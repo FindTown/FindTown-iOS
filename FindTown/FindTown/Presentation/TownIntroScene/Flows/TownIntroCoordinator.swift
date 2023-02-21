@@ -15,16 +15,19 @@ final class TownIntroCoordinator: FlowCoordinator {
     var delegate: TownIntroduceViewModelDelegate?
     let townUseCase: TownUseCase
     let authUseCase: AuthUseCase
+    let memberUseCase: MemberUseCase
     let cityCode: Int
 
     init(presentationStyle: PresentationStyle,
          townUseCase: TownUseCase,
          authUseCase: AuthUseCase,
+         memberUseCase: MemberUseCase,
          cityCode: Int) {
         
         self.presentationStyle = presentationStyle
         self.townUseCase = townUseCase
         self.authUseCase = authUseCase
+        self.memberUseCase = memberUseCase
         self.cityCode = cityCode
     }
 
@@ -32,6 +35,7 @@ final class TownIntroCoordinator: FlowCoordinator {
         let townIntroViewModel = TownIntroduceViewModel(delegate: self,
                                                     townUseCase: townUseCase,
                                                     authUseCase: authUseCase,
+                                                    memeberUseCase: memberUseCase,
                                                     cityCode: cityCode)
         return TownIntroduceViewController(viewModel: townIntroViewModel)
     }

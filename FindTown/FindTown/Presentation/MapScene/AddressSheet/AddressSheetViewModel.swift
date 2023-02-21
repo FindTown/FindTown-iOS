@@ -45,13 +45,13 @@ final class AddressSheetViewModel: BaseViewModel {
         self.output.countyDataSource.onNext(County.allCases)
         
         self.input.didTapCompleteButton.withLatestFrom(self.input.selectedCity)
-        .subscribe { [weak self] city in
-            guard let cityCode = CityCode(county: city.county, village: city.village) else {
-                return
-            }
-            self?.dismiss(cityCode.rawValue)
-        }
-        .disposed(by: disposeBag)
+            .subscribe(onNext: { [weak self] city in
+                guard let cityCode = CityCode(county: city.county, village: city.village) else {
+                    return
+                }
+                self?.dismiss(cityCode.rawValue)
+            })
+            .disposed(by: disposeBag)
     }
 }
 

@@ -15,6 +15,7 @@ final class MapCoordinator: FlowCoordinator {
     let authUseCase = AuthUseCase()
     let mapUseCase = MapUseCase()
     let townUseCase = TownUseCase()
+    let memberUseCase = MemberUseCase()
     let mapTransition: MapTransition
     let cityCode: Int?
     
@@ -49,6 +50,7 @@ extension MapCoordinator: MapViewModelDelegate {
         TownIntroCoordinator(presentationStyle: .push(navigationController: navigationController),
                              townUseCase: townUseCase,
                              authUseCase: authUseCase,
+                             memberUseCase: memberUseCase,
                              cityCode: cityCode).start()
     }
     

@@ -14,14 +14,19 @@ final class SearchCoordinator: FlowCoordinator {
     var presentationStyle: PresentationStyle
     weak var navigationController: UINavigationController?
     let townUseCase: TownUseCase
-    let authUseCase: AuthUseCase = AuthUseCase()
+    let authUseCase: AuthUseCase
+    let memberUseCase: MemberUseCase
     
     init(
         presentationStyle: PresentationStyle,
-        townUseCase: TownUseCase
+        townUseCase: TownUseCase,
+        authUseCase: AuthUseCase,
+        memberUseCase: MemberUseCase
     ) {
         self.presentationStyle = presentationStyle
         self.townUseCase = townUseCase
+        self.authUseCase = authUseCase
+        self.memberUseCase = memberUseCase
     }
     
     internal func initScene() -> UIViewController {
@@ -33,6 +38,8 @@ final class SearchCoordinator: FlowCoordinator {
     internal func showVillageListScene(selectCountyData: String) -> UIViewController {
         let showVillageListViewModel = ShowVillageListViewModel(delegate: self,
                                                                 townUseCase: townUseCase,
+                                                                authUseCase: authUseCase,
+                                                                memberUseCase: memberUseCase,
                                                                 selectCountyData: selectCountyData)
         let showVillageListViewController = ShowVillageListViewController(viewModel: showVillageListViewModel)
         return showVillageListViewController
@@ -45,21 +52,7 @@ final class SearchCoordinator: FlowCoordinator {
     }
 }
 
-extension SearchCoordinator: SearchViewModelDelegate, ShowVillageListViewModelDelegate {
-    func goToTownIntroduce(cityCode: Int) {
-        guard let navigationController = navigationController else { return }
-        TownIntroCoordinator(presentationStyle: .push(navigationController: navigationController),
-                             townUseCase: townUseCase,
-                             authUseCase: authUseCase,
-                             cityCode: cityCode).start()
-    }
-    
-    func goToTownMap(cityCode: Int) {
-        guard let navigationController = navigationController else { return }
-        MapCoordinator(presentationStyle: .push(navigationController: navigationController),
-                       cityCode: cityCode,
-                       mapTransition: .push).start()
-    }
+extension SearchCoordinator: SearchViewModelDelegate {
     
     func goToShowVillageList(selectCountyData: String) {
         guard let navigationController = navigationController else { return }
@@ -71,5 +64,26 @@ extension SearchCoordinator: SearchViewModelDelegate, ShowVillageListViewModelDe
         navigationController.present(showServiceMapScene(), animated: false)
     }
     
+    func goToTownMap(cityCode: Int) {
+        guard let navigationController = navigationController else { return }
+        MapCoordinator(presentationStyle: .push(navigationController: navigationController),
+                       cityCode: cityCode,
+                       mapTransition: .push).start()
+    }
     
+    func goToTownIntroduce(cityCode: Int) {
+        guard let navigationController = navigationController else { return }
+        TownIntroCoordinator(presentationStyle: .push(navigationController: navigationController),
+                             townUseCase: townUseCase,
+                             authUseCase: authUseCase,
+                             memberUseCase: memberUseCase,
+                             cityCode: cityCode).start()
+    }
+    
+    func goToAuth() {
+        guard let navigationController = navigationController else { return }
+        LoginCoordinator(presentationStyle: .setViewController(navigationController: navigationController,
+                                                               modalTransitionStyle: .crossDissolve,
+                                                               modalPresentationStyle: .overFullScreen)).start()
+    }
 }

@@ -50,4 +50,25 @@ final class DefaultMemberRepository {
         let data = try await Network.shared.request(target: ResignRequest(HTTPHeaders: HTTPHeaders))
         return data.body
     }
+    
+    // 찜 목록 조회
+    func getFavoriteList(accessToken: String) async throws -> FavoriteListResponseDTO {
+        let httpHeaders = HTTPHeaders([.accept("*/*"),
+                                       .authorization(bearerToken: accessToken)])
+        
+        let data = try await Network.shared.request(target: FavoriteListRequest(HTTPHeaders: httpHeaders))
+        
+        return data.body
+    }
+    
+    // 찜 등록, 해제
+    func favorite(accessToken: String, cityCode: Int) async throws -> FavoriteResponseDTO {
+        let httpHeaders = HTTPHeaders([.accept("*/*"),
+                                       .authorization(bearerToken: accessToken)])
+        let parameters = [URLQueryItem(name: "object_id", value: String(cityCode))]
+        
+        let data = try await Network.shared.request(target: FavoriteRequest(HTTPHeaders: httpHeaders,
+                                                                            parameters: parameters))
+        return data.body
+    }
 }

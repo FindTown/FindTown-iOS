@@ -17,6 +17,7 @@ protocol HomeViewModelDelegate {
     func goToGuSearchView()
     func goToTownIntroduce(cityCode: Int)
     func goToTownMap(cityCode: Int)
+    func goToAuth()
 }
 
 protocol HomeViewModelType {
@@ -24,6 +25,7 @@ protocol HomeViewModelType {
     func goToGuSearchView()
     func goToTownIntroduce(cityCode: Int)
     func goToTownMap(cityCode: Int)
+    func goToAuth()
 }
 
 final class HomeViewModel: BaseViewModel {
@@ -38,6 +40,8 @@ final class HomeViewModel: BaseViewModel {
         let safetySortTrigger = PublishSubject<Bool>()
         let townIntroButtonTrigger = PublishSubject<Int>()
         let townMapButtonTrigger = PublishSubject<Int>()
+        let favoriteButtonTrigger = PublishSubject<Int>()
+        let goToAuthButtonTrigger = PublishSubject<Void>()
     }
     
     struct Output {
@@ -57,19 +61,23 @@ final class HomeViewModel: BaseViewModel {
     
     let authUseCase: AuthUseCase
     let townUseCase: TownUseCase
+    let memberUseCase: MemberUseCase
     
     // MARK: - Task
     
     private var townTask: Task<Void, Error>?
+    private var favoriteTask: Task<Void, Error>?
     
     init(
         delegate: HomeViewModelDelegate,
         authUseCase: AuthUseCase,
-        townUseCase: TownUseCase
+        townUseCase: TownUseCase,
+        memberUseCase: MemberUseCase
     ) {
         self.delegate = delegate
         self.authUseCase = authUseCase
         self.townUseCase = townUseCase
+        self.memberUseCase = memberUseCase
         
         super.init()
         self.bind()
@@ -119,6 +127,18 @@ final class HomeViewModel: BaseViewModel {
                 self?.delegate.goToTownMap(cityCode: cityCode)
             })
             .disposed(by: disposeBag)
+        
+        self.input.favoriteButtonTrigger
+            .subscribe(onNext: { [weak self] cityCode in
+                self?.favorite(cityCode: cityCode)
+            })
+            .disposed(by: disposeBag)
+        
+        self.input.goToAuthButtonTrigger
+            .subscribe(onNext: { [weak self] in
+                self?.goToAuth()
+            })
+            .disposed(by: disposeBag)
     }
 }
 
@@ -128,8 +148,13 @@ extension HomeViewModel {
     func fetchTownInformation(filterStatus: String = "", subwayList: [String] = []) {
         self.townTask = Task {
             do {
+                var accessToken = ""
+                if !UserDefaultsSetting.isAnonymous {
+                    accessToken = try await self.authUseCase.getAccessToken()
+                }
                 let townInformation = try await self.townUseCase.getTownInformation(filterStatus: filterStatus,
-                                                                                    subwayList: subwayList)
+                                                                                    subwayList: subwayList,
+                                                                                    accessToken: accessToken)
                 await MainActor.run(body: {
                     let townTableModel = townInformation.toEntity
                     self.setTownTableView(townTableModel)
@@ -157,6 +182,23 @@ extension HomeViewModel {
         self.input.fetchFinishTrigger.onNext(())
         self.input.setNetworkErrorViewTrigger.onNext(())
     }
+    
+    // 찜 등록, 해제
+    func favorite(cityCode: Int) {
+        self.favoriteTask = Task {
+            do {
+                let accessToken = try await self.authUseCase.getAccessToken()
+                let favoriteStatus = try await self.memberUseCase.favorite(accessToken: accessToken,
+                                                                           cityCode: cityCode)
+                
+            } catch (let error) {
+                await MainActor.run(body: {
+                    self.output.errorNotice.onNext(())
+                })
+                Log.error(error)
+            }
+        }
+    }
 }
 
 extension HomeViewModel: HomeViewModelType {
@@ -175,5 +217,9 @@ extension HomeViewModel: HomeViewModelType {
     
     func goToTownMap(cityCode: Int) {
         delegate.goToTownMap(cityCode: cityCode)
+    }
+    
+    func goToAuth() {
+        delegate.goToAuth()
     }
 }

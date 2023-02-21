@@ -34,7 +34,8 @@ final class TabBarCoordinator: FlowCoordinator {
         /// 홈 탭
         let homeCoordinator = HomeCoordinator(presentationStyle: .none,
                                               authUseCase: authUseCase,
-                                              townUseCase: townUseCase)
+                                              townUseCase: townUseCase,
+                                              memberUseCase: memberUseCase)
         homeCoordinator.start()
         guard let homeViewController = homeCoordinator.navigationController else { return UIViewController() }
         homeViewController.tabBarItem = UITabBarItem(title: "동네 찾기", image: UIImage(named: "homeIcon"), tag: 0)
@@ -48,7 +49,8 @@ final class TabBarCoordinator: FlowCoordinator {
         /// 찜 탭
         let favoriteCoordinator = FavoriteCoordinator(presentationStyle: .none,
                                                       townUseCase: townUseCase,
-                                                      authUseCase: authUseCase)
+                                                      authUseCase: authUseCase,
+                                                      memberUseCase: memberUseCase)
         favoriteCoordinator.start()
         guard let favoriteViewController = favoriteCoordinator.navigationController else { return UIViewController() }
         favoriteViewController.tabBarItem = UITabBarItem(title: "찜", image: UIImage(named: "favoriteIcon"), tag: 2)

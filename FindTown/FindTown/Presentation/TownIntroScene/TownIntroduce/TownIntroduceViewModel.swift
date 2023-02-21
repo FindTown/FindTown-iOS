@@ -22,7 +22,7 @@ final class TownIntroduceViewModel: BaseViewModel {
     
     struct Input {
         let moveToMapButtonTrigger = PublishSubject<Void>()
-        let favoriteButtonTrigger = PublishSubject<Bool>()
+        let favoriteButtonTrigger = PublishSubject<Void>()
     }
         
     struct Output {
@@ -45,19 +45,23 @@ final class TownIntroduceViewModel: BaseViewModel {
     
     let townUseCase: TownUseCase
     let authUseCase: AuthUseCase
+    let memberUseCase: MemberUseCase
     
     // MARK: - Task
     
     private var townIntroduceTask: Task<Void, Error>?
+    private var favoriteTask: Task<Void, Error>?
 
     init(delegate: TownIntroduceViewModelDelegate,
          townUseCase: TownUseCase,
          authUseCase: AuthUseCase,
+         memeberUseCase: MemberUseCase,
          cityCode: Int) {
         
         self.delegate = delegate
         self.townUseCase = townUseCase
         self.authUseCase = authUseCase
+        self.memberUseCase = memeberUseCase
         self.cityCode = cityCode
         
         super.init()
@@ -71,6 +75,12 @@ final class TownIntroduceViewModel: BaseViewModel {
                 self?.delegate.goToMap()
             })
             .disposed(by: disposeBag)
+        
+        self.input.favoriteButtonTrigger
+            .subscribe(onNext: { [weak self] in
+                self?.favorite()
+            })
+            .disposed(by: disposeBag)
     }
 }
 
@@ -81,12 +91,12 @@ extension TownIntroduceViewModel: TownIntroduceViewModelType {
 }
 
 extension TownIntroduceViewModel {
+    // 동네 소개
     func getTownIntroduceData() {
         self.townIntroduceTask = Task {
             do {
                 var accessToken = ""
-                //TODO: isAnonymous 적용
-                if true {
+                if !UserDefaultsSetting.isAnonymous {
                     accessToken = try await self.authUseCase.getAccessToken()
                 }
                 
@@ -108,6 +118,29 @@ extension TownIntroduceViewModel {
         
     }
     
+    // 찜 등록, 해제
+    func favorite() {
+        self.favoriteTask = Task {
+            do {
+                let accessToken = try await self.authUseCase.getAccessToken()
+                let favoriteStatus = try await self.memberUseCase.favorite(accessToken: accessToken,
+                                                                           cityCode: cityCode)
+                await MainActor.run(body: {
+                    self.output.isFavorite.onNext(favoriteStatus)
+                })
+            } catch (let error) {
+                await MainActor.run(body: {
+                    self.output.errorNotice.onNext(())
+                })
+                Log.error(error)
+            }
+            
+            favoriteTask?.cancel()
+        }
+    }
+}
+
+extension TownIntroduceViewModel {
     func setTownIntroduceData(townIntroData: TownIntroduce) {
         self.output.townTitle.onNext(townIntroData.townTitle)
         self.output.isFavorite.onNext(townIntroData.wishTown)
@@ -118,4 +151,3 @@ extension TownIntroduceViewModel {
         self.output.townRankDataSource.onNext(townIntroData.townRank)
     }
 }
-

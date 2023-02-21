@@ -14,21 +14,25 @@ final class HomeCoordinator: FlowCoordinator {
     weak var navigationController: UINavigationController?
     let authUseCase: AuthUseCase
     let townUseCase: TownUseCase
+    let memberUseCase: MemberUseCase
     
     init(
         presentationStyle: PresentationStyle,
         authUseCase: AuthUseCase,
-        townUseCase: TownUseCase
+        townUseCase: TownUseCase,
+        memberUseCase: MemberUseCase
     ) {
         self.presentationStyle = presentationStyle
         self.authUseCase = authUseCase
         self.townUseCase = townUseCase
+        self.memberUseCase = memberUseCase
     }
     
     internal func initScene() -> UIViewController {
         let homeViewModel = HomeViewModel(delegate: self,
                                           authUseCase: authUseCase,
-                                          townUseCase: townUseCase)
+                                          townUseCase: townUseCase,
+                                          memberUseCase: memberUseCase)
         let homeViewController = HomeViewController(viewModel: homeViewModel)
         return homeViewController
     }
@@ -47,7 +51,9 @@ extension HomeCoordinator: HomeViewModelDelegate {
     func goToGuSearchView() {
         guard let navigationController = navigationController else { return }
         SearchCoordinator(presentationStyle: .push(navigationController: navigationController),
-                          townUseCase: townUseCase).start()
+                          townUseCase: townUseCase,
+                          authUseCase: authUseCase,
+                          memberUseCase: memberUseCase).start()
     }
     
     func goToTownIntroduce(cityCode: Int) {
@@ -55,6 +61,7 @@ extension HomeCoordinator: HomeViewModelDelegate {
         TownIntroCoordinator(presentationStyle: .push(navigationController: navigationController),
                              townUseCase: townUseCase,
                              authUseCase: authUseCase,
+                             memberUseCase: memberUseCase,
                              cityCode: cityCode).start()
     }
     
@@ -63,5 +70,12 @@ extension HomeCoordinator: HomeViewModelDelegate {
         MapCoordinator(presentationStyle: .push(navigationController: navigationController),
                        cityCode: cityCode,
                        mapTransition: .push).start()
+    }
+    
+    func goToAuth() {
+        guard let navigationController = navigationController else { return }
+        LoginCoordinator(presentationStyle: .setViewController(navigationController: navigationController,
+                                                               modalTransitionStyle: .crossDissolve,
+                                                               modalPresentationStyle: .overFullScreen)).start()
     }
 }
