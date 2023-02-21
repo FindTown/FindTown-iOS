@@ -44,7 +44,6 @@ final class FavoriteViewController: BaseViewController {
         self.title = "찜"
         self.view.backgroundColor = FindTownColor.back2.color
         [anonymousView,isEmptyView,favoriteTableView].forEach { $0.isHidden = true }
-        self.viewModel?.getFavoriteList()
     }
     
     override func addView() {
