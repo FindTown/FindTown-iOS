@@ -93,7 +93,14 @@ final class MapViewController: BaseViewController {
                 self?.rx.isFavoriteCity.onNext(isFavorite)
                 self?.viewModel?.input.didTapFavoriteButton.onNext(isFavorite)
                 if isFavorite {
-                    self?.showToast(message: "찜 목록에 추가 되었어요")
+                    switch self?.mapTransition {
+                    case .tapBar:
+                        self?.showToast(message: "찜 목록에 추가 되었어요.", height: 170)
+                    case .push:
+                        self?.showToast(message: "찜 목록에 추가 되었어요.", height: 120)
+                    case .none:
+                        break
+                    }
                 }
             })
             .disposed(by: disposeBag)
@@ -142,8 +149,14 @@ final class MapViewController: BaseViewController {
                 } else {
                     DispatchQueue.main.async {
                         self?.clearMarker()
-                        /// 수정 예정
-                        self?.viewModel?.output.errorNotice.onNext(())
+                        switch self?.mapTransition {
+                        case .tapBar:
+                            self?.showToast(message: "근처에 해당하는 장소가 없습니다.", height: 170)
+                        case .push:
+                            self?.showToast(message: "근처에 해당하는 장소가 없습니다.", height: 120)
+                        case .none:
+                            break
+                        }
                     }
                 }
         }
@@ -158,8 +171,14 @@ final class MapViewController: BaseViewController {
                 } else {
                     DispatchQueue.main.async {
                         self?.clearMarker()
-                        /// 수정 예정
-                        self?.viewModel?.output.errorNotice.onNext(())
+                        switch self?.mapTransition {
+                        case .tapBar:
+                            self?.showToast(message: "근처에 해당하는 장소가 없습니다.", height: 170)
+                        case .push:
+                            self?.showToast(message: "근처에 해당하는 장소가 없습니다.", height: 120)
+                        case .none:
+                            break
+                        }
                     }
                 }
         }
@@ -524,7 +543,12 @@ extension MapViewController: MapStoreCollectionViewCellDelegate {
     
     func didTapCopyButton(text: String) {
         UIPasteboard.general.string = text
-        self.showToast(message: "클립보드에 복사되었습니다.")
+        switch self.mapTransition {
+        case .tapBar:
+            self.showToast(message: "클립보드에 복사되었습니다.", height: 170)
+        case .push:
+            self.showToast(message: "클립보드에 복사되었습니다.", height: 120)
+        }
     }
 }
 

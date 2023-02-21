@@ -35,10 +35,10 @@ extension UIViewController {
     }
     
     /// toast 메세지
-    public func showToast(message: String) {
+    public func showToast(message: String, height: CGFloat) {
         let toastLabel = ToastLabel()
         let screenWidth = self.view.frame.size.width
-        let toastLabelFrame = CGRect(x: 12, y: self.view.frame.size.height - 150, width: screenWidth-24, height: 44)
+        let toastLabelFrame = CGRect(x: 12, y: self.view.frame.size.height - (height + 44), width: screenWidth-24, height: 44)
         toastLabel.setMessage(text: message, font: FindTownFont.body3.font, frame: toastLabelFrame)
         self.view.addSubview(toastLabel)
         self.view.endEditing(true)
