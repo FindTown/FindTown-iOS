@@ -96,14 +96,12 @@ final class FavoriteViewModel: BaseViewModel {
                 self?.favorite(cityCode: cityCode)
             })
             .disposed(by: disposeBag)
+        
         self.input.townMapButtonTrigger
             .subscribe(onNext: { [weak self] cityCode in
                 self?.delegate.goToTownMap(cityCode: cityCode)
             })
             .disposed(by: disposeBag)
-        
-//        self.output.favoriteDataSource.onNext(returnTownTestData())
-//        self.output.viewStatus.onNext(returnViewStatus())
     }
 }
 
