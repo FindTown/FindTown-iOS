@@ -361,7 +361,7 @@ private extension MapViewController {
             moveToIntroduceButtonBottomConstraint = -24
         case .push:
             storeCollectionViewBottomConstraint = -107
-            moveToIntroduceButtonBottomConstraint = -47
+            moveToIntroduceButtonBottomConstraint = -20
         }
         
         NSLayoutConstraint.activate([

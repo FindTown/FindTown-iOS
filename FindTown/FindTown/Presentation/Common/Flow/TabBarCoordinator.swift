@@ -40,7 +40,7 @@ final class TabBarCoordinator: FlowCoordinator {
         homeViewController.tabBarItem = UITabBarItem(title: "동네 찾기", image: UIImage(named: "homeIcon"), tag: 0)
         
         /// 지도 탭
-        let mapCoordinator = MapCoordinator(presentationStyle: .none, cityCode: nil)
+        let mapCoordinator = MapCoordinator(presentationStyle: .none, cityCode: nil, mapTransition: .tapBar)
         mapCoordinator.start()
         guard let mapViewController = mapCoordinator.navigationController else { return UIViewController() }
         mapViewController.tabBarItem = UITabBarItem(title: "동네 지도", image: UIImage(named: "mapIcon"), tag: 1)

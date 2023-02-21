@@ -56,7 +56,9 @@ extension SearchCoordinator: SearchViewModelDelegate, ShowVillageListViewModelDe
     
     func goToTownMap(cityCode: Int) {
         guard let navigationController = navigationController else { return }
-        MapCoordinator(presentationStyle: .push(navigationController: navigationController), cityCode: cityCode).start()
+        MapCoordinator(presentationStyle: .push(navigationController: navigationController),
+                       cityCode: cityCode,
+                       mapTransition: .push).start()
     }
     
     func goToShowVillageList(selectCountyData: String) {
