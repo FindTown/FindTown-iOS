@@ -130,6 +130,7 @@ final class MapViewController: BaseViewController {
             .bind { [weak self] categories, city in
                 if let infraCategory = categories[0] as? InfraCategory {
                     self?.viewModel?.getInfraData(category: infraCategory, city: city)
+                    self?.detailCategoryView.setStackView(subCategories: infraCategory.subCatrgories)
                 } else if let themaCategory = categories[0] as? ThemaCategory {
                     self?.viewModel?.getThemaData(category: themaCategory, city: city)
                 }
@@ -179,7 +180,8 @@ final class MapViewController: BaseViewController {
         .disposed(by: disposeBag)
         
         /// 선택한 iconCell에 맞는 detailCategoryView 데이터 보여주게 함
-        Observable.combineLatest(categoryCollectionView.rx.modelSelected(Category.self), viewModel.output.city)
+        Observable.combineLatest(categoryCollectionView.rx.modelSelected(Category.self),
+                                 viewModel.output.city.distinctUntilChanged({ $0 }, comparer: { ($0 != $1) }) )
             .subscribe(onNext: { [weak self] categoty, city in
                 if let infraCategory = categoty as? InfraCategory {
                     self?.viewModel?.getInfraData(category: infraCategory, city: city)
@@ -485,7 +487,7 @@ extension MapViewController {
                 marker.height = 45
                 marker.zIndex = -1
             }
-            marker.iconImage = NMFOverlayImage(name: "marker.nonSelect")
+            marker.iconImage = NMFOverlayImage(name: "marker")
             marker.iconTintColor = store.subCategory.iconColor
             marker.mapView = mapView
             marker.touchHandler = { (overlay: NMFOverlay) -> Bool in
