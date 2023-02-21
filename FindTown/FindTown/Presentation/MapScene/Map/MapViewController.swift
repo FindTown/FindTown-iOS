@@ -51,7 +51,7 @@ final class MapViewController: BaseViewController {
     var currentIndex: CGFloat = 0 {
         didSet {
             let index = Int(self.currentIndex)
-            self.setStoreMarker(selectStore: themaStores[index])
+            self.setThemaStoreMarker(selectStore: themaStores[index])
         }
     }
     
@@ -148,7 +148,7 @@ final class MapViewController: BaseViewController {
             .bind { [weak self] stores in
                 if stores.isEmpty == false {
                     self?.themaStores = stores
-                    self?.showFirstStore(store: stores[0])
+                    self?.showFirstThemaStore(store: stores[0])
                 } else {
                     DispatchQueue.main.async {
                         self?.clearMarker()
@@ -202,7 +202,7 @@ final class MapViewController: BaseViewController {
         storeCollectionView.rx.modelSelected(ThemaStore.self)
             .throttle(.milliseconds(300), scheduler: MainScheduler.instance)
             .bind { [weak self] store in
-                self?.setStoreMarker(selectStore: store)
+                self?.setThemaStoreMarker(selectStore: store)
             }
             .disposed(by: disposeBag)
         
@@ -432,7 +432,7 @@ extension MapViewController {
                           animation: true)
     }
     
-    func setStoreMarker(selectStore: ThemaStore) {
+    func setThemaStoreMarker(selectStore: ThemaStore) {
         clearMarker()
         
         guard let storeIndex = self.themaStores.firstIndex(of: selectStore) else {
@@ -467,7 +467,7 @@ extension MapViewController {
                 self.storeCollectionView.selectItem(at: IndexPath(item: index, section: 0),
                                                     animated: true,
                                                     scrollPosition: .left)
-                self.setStoreMarker(selectStore: store)
+                self.setThemaStoreMarker(selectStore: store)
                 return true
             }
             
@@ -515,8 +515,8 @@ extension MapViewController {
         self.markers.removeAll()
     }
     
-    func showFirstStore(store: ThemaStore) {
-        self.setStoreMarker(selectStore: store)
+    func showFirstThemaStore(store: ThemaStore) {
+        self.setThemaStoreMarker(selectStore: store)
         self.currentIndex = 0
     }
     
