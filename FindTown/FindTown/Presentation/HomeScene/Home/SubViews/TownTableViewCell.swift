@@ -47,7 +47,9 @@ final class TownTableViewCell: UITableViewCell {
     
     private let favoriteIcon: UIButton = {
         let button = UIButton()
-        button.changesSelectionAsPrimaryAction = true
+        if !UserDefaultsSetting.isAnonymous {
+            button.changesSelectionAsPrimaryAction = true
+        }
         button.setImage(UIImage(named: "favorite"), for: .normal)
         button.setImage(UIImage(named: "favorite_selected"), for: .selected)
         return button
