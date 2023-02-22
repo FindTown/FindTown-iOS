@@ -19,7 +19,8 @@ public class ToolTip: UIView {
         let label = UILabel()
         label.font = FindTownFont.label2.font
         label.numberOfLines = 0
-        label.lineBreakMode = .byCharWrapping
+        label.lineBreakMode = .byWordWrapping
+        label.textAlignment = .left
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -36,8 +37,7 @@ public class ToolTip: UIView {
         super.init(frame: .zero)
         
         self.backgroundColor = viewColor.color
-        self.textLabel.text = text
-        self.textLabel.textColor = textColor.color
+        setTitle(text: text, textColor: textColor.color)
         
         drawPath(tipLocation: tipLocation, width: width, height: height)
 
@@ -113,5 +113,13 @@ public class ToolTip: UIView {
             path.addLine(to: CGPoint(x: endXWidth + tipWidth, y: tipHeight))
             path.addLine(to: CGPoint(x: tipwidthCenter, y: 0))
         }
+    }
+    
+    func setTitle(text: String, textColor: UIColor) {
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.lineHeightMultiple = 1.11
+        textLabel.attributedText = NSMutableAttributedString(string: text,
+                                                             attributes: [NSAttributedString.Key.paragraphStyle: paragraphStyle,
+                                                                          NSAttributedString.Key.foregroundColor: textColor])
     }
 }
