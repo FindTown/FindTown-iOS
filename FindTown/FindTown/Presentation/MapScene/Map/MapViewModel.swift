@@ -81,20 +81,16 @@ final class MapViewModel: BaseViewModel {
 // MARK: - Network
 
 extension MapViewModel {
-    func setCity(cityCode: Int? = nil, informationPresentType: InformationPresentType) {
+    func setCity(cityCode: Int? = nil) {
         
         self.cityDataTask = Task {
             do {
                 var villageLocaionInformation: VillageLocationInformation
                 if UserDefaultsSetting.isAnonymous == false {
                     let accessToken = try await self.authUseCase.getAccessToken()
-                    if let cityCode = cityCode {
-                        villageLocaionInformation = try await self.mapUseCase.getVillageLocationInformation(cityCode: cityCode, accessToken: accessToken)
-                    } else {
-                        villageLocaionInformation = try await self.mapUseCase.getVillageLocationInformation(cityCode: nil, accessToken: accessToken)
-                    }
+                    villageLocaionInformation = try await self.mapUseCase.getVillageLocationInformation(cityCode: cityCode, accessToken: accessToken)
                 } else {
-                    villageLocaionInformation = try await self.mapUseCase.getVillageLocationInformation(cityCode: nil, accessToken: nil)
+                    villageLocaionInformation = try await self.mapUseCase.getVillageLocationInformation(cityCode: cityCode, accessToken: nil)
                 }
                 let coordinate = villageLocaionInformation.coordinate
                 let isFavorite = villageLocaionInformation.wishStatus
@@ -106,13 +102,7 @@ extension MapViewModel {
                     let city = City(county: cityCode.county, village: cityCode.village)
                     self.output.city.onNext(city)
                     self.output.cityBoundaryCoordinates.onNext(coordinate)
-                    
-                    switch informationPresentType {
-                    case .setting:
-                        self.output.isFavoriteCity.onNext(isFavorite)
-                    case .tap:
-                        self.output.changeFavoriteStauts.onNext(isFavorite)
-                    }
+                    self.output.isFavoriteCity.onNext(isFavorite)
                     
                 }
                 cityDataTask?.cancel()
@@ -169,7 +159,7 @@ extension MapViewModel {
         }
     }
     
-    func changeFavoriteStauts(informationPresentType: InformationPresentType) {
+    func changeFavoriteStauts() {
         self.favoriteTask = Task {
             do {
                 guard let cityCode = self.cityCode else {
@@ -180,7 +170,7 @@ extension MapViewModel {
                 let favoriteStatus = try await self.memberUseCase.favorite(accessToken: accessToken,
                                                                            cityCode: cityCode)
                 await MainActor.run(body: {
-                    self.output.isFavoriteCity.onNext(favoriteStatus)
+                    self.output.changeFavoriteStauts.onNext(favoriteStatus)
                 })
             } catch (let error) {
                 await MainActor.run(body: {

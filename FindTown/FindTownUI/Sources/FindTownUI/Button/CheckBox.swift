@@ -16,6 +16,7 @@ public final class CheckBox: UIButton {
         
         changesSelectionAsPrimaryAction = true
         
+        
         configureUI()
     }
     
@@ -24,8 +25,10 @@ public final class CheckBox: UIButton {
     }
     
     private func configureUI() {
-        let image = UIImage(named: "checkBox", in: .module, compatibleWith: nil)
-        let selectedImage = UIImage(named: "checkBoxFill", in: .module, compatibleWith: nil)
+        let imageConfiguration = UIImage.SymbolConfiguration(pointSize: 20, weight: .light)
+        let selectedImageConfiguration = UIImage.SymbolConfiguration(pointSize: 20, weight: .light)
+        let image = UIImage(named: "checkBox", in: .module, compatibleWith: nil)?.withConfiguration(imageConfiguration)
+        let selectedImage = UIImage(named: "checkBoxFill", in: .module, compatibleWith: nil)?.withConfiguration(selectedImageConfiguration)
         
         setImage(image, for: .normal)
         setImage(selectedImage, for: .selected)

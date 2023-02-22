@@ -30,7 +30,7 @@ final class MemberUseCase {
     
     func signup(signupUerModel: SignupUserModel) async throws {
         let tokenData = try await memberRepository.signup(memberSignupDTO: signupUerModel.toData())
-        try await tokenRepository.createTokens(tokenData: tokenData)
+        try await tokenRepository.createTokens(tokenData: tokenData.toEntity())
     }
     
     func logout(accessToken: String) async throws -> Bool {

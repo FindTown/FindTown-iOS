@@ -20,7 +20,7 @@ open class BaseBottomSheetViewController: BaseViewController {
     
     public lazy var dimmedBackView: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.5)
+        view.backgroundColor = UIColor(red: 0.102, green: 0.102, blue: 0.102, alpha: 0.7)
         view.translatesAutoresizingMaskIntoConstraints = false
         view.alpha = 0.0
         return view

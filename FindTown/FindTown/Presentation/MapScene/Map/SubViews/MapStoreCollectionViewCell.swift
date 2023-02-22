@@ -156,7 +156,7 @@ final class MapStoreCollectionViewCell: UICollectionViewCell {
         typeImageView.image = store.subCategory.image
         
         nameLabel.text = store.name
-        addressLabel.text = "서울 강서구 마곡중앙5로 6 마곡나루역 보타닉푸르지오시티 1층 114호"
+        addressLabel.text = store.address
     }
     
     @objc func copyAction() {

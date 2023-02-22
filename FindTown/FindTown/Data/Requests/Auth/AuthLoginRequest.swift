@@ -14,7 +14,7 @@ struct AuthLoginReqeust: BaseRequest {
         self.task = task
     }
     
-    typealias ResponseType = TokenInformationDTO
+    typealias ResponseType = LoginResponseDTO
     var path: String = "/auth/login"
     var method: FindTownNetwork.HttpMethod = .post
     var headers: FindTownNetwork.HTTPHeaders = HTTPHeaders([.accept("*/*"),

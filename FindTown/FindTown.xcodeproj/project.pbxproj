@@ -137,7 +137,8 @@
 		F32F849A29A485C700EA403C /* InfraStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32F849929A485C700EA403C /* InfraStore.swift */; };
 		F32F849E29A49F9200EA403C /* InfraSubCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32F849D29A49F9200EA403C /* InfraSubCategory.swift */; };
 		F33454CA29A4F1D60075E66B /* APIKeyInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = F33454C929A4F1D60075E66B /* APIKeyInfo.plist */; };
-		F33454CC29A504340075E66B /* InformationPresentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = F33454CB29A504340075E66B /* InformationPresentType.swift */; };
+		F33454CE29A60D730075E66B /* LoginResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = F33454CD29A60D730075E66B /* LoginResponseDTO.swift */; };
+		F33454D029A611A20075E66B /* TokenData.swift in Sources */ = {isa = PBXBuildFile; fileRef = F33454CF29A611A20075E66B /* TokenData.swift */; };
 		F3356EE2298CEA4B002B9FFD /* TokenInformationDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3356EE1298CEA4B002B9FFD /* TokenInformationDTO.swift */; };
 		F3356EEA298D4D59002B9FFD /* ReissueRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3356EE9298D4D59002B9FFD /* ReissueRequest.swift */; };
 		F3356EFA298EB918002B9FFD /* LoginConfirmRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3356EF9298EB918002B9FFD /* LoginConfirmRequest.swift */; };
@@ -347,7 +348,8 @@
 		F32F849929A485C700EA403C /* InfraStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfraStore.swift; sourceTree = "<group>"; };
 		F32F849D29A49F9200EA403C /* InfraSubCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfraSubCategory.swift; sourceTree = "<group>"; };
 		F33454C929A4F1D60075E66B /* APIKeyInfo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = APIKeyInfo.plist; path = ../../../../../Downloads/APIKeyInfo.plist; sourceTree = "<group>"; };
-		F33454CB29A504340075E66B /* InformationPresentType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InformationPresentType.swift; sourceTree = "<group>"; };
+		F33454CD29A60D730075E66B /* LoginResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginResponseDTO.swift; sourceTree = "<group>"; };
+		F33454CF29A611A20075E66B /* TokenData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenData.swift; sourceTree = "<group>"; };
 		F3356EE1298CEA4B002B9FFD /* TokenInformationDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenInformationDTO.swift; sourceTree = "<group>"; };
 		F3356EE9298D4D59002B9FFD /* ReissueRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReissueRequest.swift; sourceTree = "<group>"; };
 		F3356EF9298EB918002B9FFD /* LoginConfirmRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginConfirmRequest.swift; sourceTree = "<group>"; };
@@ -947,6 +949,7 @@
 				BCF68B5B299BDE3E00E8D83E /* TownTableModel.swift */,
 				2BA009B029A2248300F3563A /* TownIntroduce.swift */,
 				F32F849929A485C700EA403C /* InfraStore.swift */,
+				F33454CF29A611A20075E66B /* TokenData.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -1161,6 +1164,7 @@
 				BC3C068D29A0C5680049DA8C /* TownSearchResponseDTO.swift */,
 				2B557B0829A268ED00232DAE /* FavoriteListResponseDTO.swift */,
 				2B557B0C29A279B400232DAE /* FavoriteResponseDTO.swift */,
+				F33454CD29A60D730075E66B /* LoginResponseDTO.swift */,
 			);
 			path = Reponse;
 			sourceTree = "<group>";
@@ -1200,7 +1204,6 @@
 				2B42E98B29A0688D0093FB0A /* Traffic.swift */,
 				F3918469299BCE9200CEF02E /* MapTransition.swift */,
 				F32F849D29A49F9200EA403C /* InfraSubCategory.swift */,
-				F33454CB29A504340075E66B /* InformationPresentType.swift */,
 			);
 			path = Enumerations;
 			sourceTree = "<group>";
@@ -1524,6 +1527,7 @@
 				F39EDDC2296D635100A4E655 /* CityType.swift in Sources */,
 				BC47D63C299383CA00FE83D5 /* FilterBottomSheetType.swift in Sources */,
 				F3356EFE298F8784002B9FFD /* ReissueResponseDTO.swift in Sources */,
+				F33454CE29A60D730075E66B /* LoginResponseDTO.swift in Sources */,
 				BCE814F62967DAF200A6E3CB /* LoginCoordinator.swift in Sources */,
 				F363D15B299A17EA00606C7F /* DefaultMapRepository.swift in Sources */,
 				BC3C069029A0C5870049DA8C /* TownSearchDTO.swift in Sources */,
@@ -1559,7 +1563,6 @@
 				BCF68B53299BB1DF00E8D83E /* DefaultTownRepository.swift in Sources */,
 				F3891E1F293B8393003CE8AD /* AppDelegate.swift in Sources */,
 				BC8B638D298A4B4C004E1116 /* ChangeNicknameViewModel.swift in Sources */,
-				F33454CC29A504340075E66B /* InformationPresentType.swift in Sources */,
 				BC9F4D59296BE5FC0099473C /* FavoriteTownViewController.swift in Sources */,
 				F3918476299E8B9700CEF02E /* MapThemaStoreResponseDTO.swift in Sources */,
 				F3918461299A693400CEF02E /* ThemaStore.swift in Sources */,
@@ -1610,6 +1613,7 @@
 				F3219B692969432C000024E4 /* MapDetailComponentView.swift in Sources */,
 				2BEE90D32978111C002E7C3A /* FavoriteTableView.swift in Sources */,
 				F3219B7A2969D53D000024E4 /* AddressSheetCoordinator.swift in Sources */,
+				F33454D029A611A20075E66B /* TokenData.swift in Sources */,
 				BCF68B5A299BB2B900E8D83E /* TownFilterResponseDTO.swift in Sources */,
 				2B718C1A2966A6000068884A /* MapCategory.swift in Sources */,
 				F38CCBE12958287C000C16AF /* HomeCoordinator.swift in Sources */,
@@ -1844,12 +1848,15 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.07;
 				PRODUCT_BUNDLE_IDENTIFIER = kr.FindTown.com;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -1875,12 +1882,15 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.07;
 				PRODUCT_BUNDLE_IDENTIFIER = kr.FindTown.com;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

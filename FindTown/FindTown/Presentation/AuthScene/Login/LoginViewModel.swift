@@ -87,33 +87,15 @@ extension LoginViewModel {
     func login(providerType: ProviderType) {
         loginTask = Task {
             do {
-                try await self.authUseCase.login(authType: providerType)
+                let (isSuccess, signInUserModel) = try await self.authUseCase.login(authType: providerType)
                 await MainActor.run {
-                    self.goToTabBar()
+                    if isSuccess {
+                        self.goToTabBar()
+                    } else {
+                        self.goToNickname(userData: signInUserModel, providerType: providerType)
+                    }
                 }
                 loginTask?.cancel()
-            } catch (let error) {
-                if let error = error as? FTNetworkError,
-                   FTNetworkError.isUnauthorized(error: error) {
-                    self.goToSignup(providerType: providerType)
-                } else {
-                    await MainActor.run {
-                        self.output.errorNotice.onNext(())
-                    }
-                    Log.error(error)
-                }
-            }
-        }
-    }
-    
-    func goToSignup(providerType: ProviderType) {
-        signupTask = Task {
-            do {
-                let userData = try await self.authUseCase.getUserData()
-                await MainActor.run {
-                    self.goToNickname(userData: userData, providerType: providerType)
-                }
-                signupTask?.cancel()
             } catch (let error) {
                 await MainActor.run {
                     self.output.errorNotice.onNext(())

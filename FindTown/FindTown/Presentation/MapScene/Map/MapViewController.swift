@@ -87,7 +87,7 @@ final class MapViewController: BaseViewController {
         
         favoriteButton.rx.tap
             .subscribe(onNext: { [weak self] _ in
-                self?.viewModel?.changeFavoriteStauts(informationPresentType: .tap)
+                self?.viewModel?.changeFavoriteStauts()
             })
             .disposed(by: disposeBag)
         
@@ -281,7 +281,7 @@ final class MapViewController: BaseViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        self.viewModel?.setCity(cityCode: viewModel?.cityCode, informationPresentType: .setting)
+        self.viewModel?.setCity(cityCode: viewModel?.cityCode)
     }
     
     override func setupView() {
