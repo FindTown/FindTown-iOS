@@ -87,7 +87,7 @@ extension FTButtonStyle {
         nonSelectedColorSet: [FindTownColor.white.color, FindTownColor.grey4.color],
         strokeColorSet: [FindTownColor.primary.color, FindTownColor.grey4.color],
         topBottomInset: 11,
-        cornerRadius: 10
+        cornerRadius: 8
     )
     
     /// Button_XS
@@ -133,7 +133,7 @@ extension FTButtonStyle {
         isSelectedButton: false,
         configuration: .tinted(),
         titleFont: FindTownFont.label1.font,
-        nonSelectedColorSet: [FindTownColor.white.color, FindTownColor.grey5.color],
+        nonSelectedColorSet: [FindTownColor.white.color, FindTownColor.grey3.color],
         strokeColorSet: [FindTownColor.grey5.color, FindTownColor.grey5.color],
         topBottomInset: 12,
         cornerRadius: 30,

@@ -152,6 +152,9 @@ final class FilterBottonSheetViewController: BaseBottomSheetViewController {
     
     override func bindViewModel() {
         
+        trafficCollectionView.rx.setDelegate(self)
+                    .disposed(by: disposeBag)
+        
         // Input
         
         confirmButton.rx.tap
@@ -237,5 +240,13 @@ private extension FilterBottonSheetViewController {
         if let cell = trafficCollectionView.cellForItem(at: indexPath) as? TrafficCollectionViewCell {
             cell.nameButton.isSelected = true
         }
+    }
+}
+
+extension FilterBottonSheetViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        let screenWidth = UIScreen.main.bounds.width
+        let itemSizeWidth = screenWidth * 0.200
+        return itemSizeWidth / 5
     }
 }
