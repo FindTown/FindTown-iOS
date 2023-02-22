@@ -44,7 +44,7 @@ final class MyTownReviewViewController: BaseViewController, UIScrollViewDelegate
     
     override func setLayout() {
         NSLayoutConstraint.activate([
-            reviewTableView.topAnchor.constraint(equalTo: view.topAnchor),
+            reviewTableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 40),
             reviewTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             reviewTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             reviewTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
