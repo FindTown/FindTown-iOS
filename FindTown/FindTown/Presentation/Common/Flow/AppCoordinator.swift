@@ -34,6 +34,7 @@ public final class AppCoordinator: Coordinator {
                 let accessToken = try await self.authUseCase.getAccessToken()
                 let userId = try await self.authUseCase.memberConfirm(accessToken: accessToken)
                 await MainActor.run {
+                    UserDefaultsSetting.isAnonymous = false
                     self.goToTabBar()
                 }
                 autoSignTask?.cancel()

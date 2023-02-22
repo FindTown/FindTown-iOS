@@ -11,7 +11,7 @@ import FindTownNetwork
 
 final class DefaultTokenRepository {
     
-    func createTokens(tokenData: TokenInformationDTO) async throws {
+    func createTokens(tokenData: TokenData) async throws {
         try KeyChainManager.shared.create(account: .accessToken, data: tokenData.accessToken)
         let accessTokenExpiredTime = try await extractExpiredTime(token: tokenData.accessToken)
         try KeyChainManager.shared.create(account: .accesstokenExpiredTime, data: String(accessTokenExpiredTime))

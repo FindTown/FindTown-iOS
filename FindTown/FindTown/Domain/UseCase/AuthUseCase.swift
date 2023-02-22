@@ -24,17 +24,25 @@ final class AuthUseCase {
         self.tokenRepository = DefaultTokenRepository()
     }
     
-    func login(authType: ProviderType) async throws {
+    func login(authType: ProviderType) async throws -> (isSuccess: Bool, signinUserModel: SigninUserModel) {
         switch authType {
         case .kakao:
             let _ = try await kakaoAuthRepository.isKakaoTalkLoginAvailable()
             let userData = try await kakaoAuthRepository.getUserInformation()
-            let tokenData = try await authRepository.login(memberId: userData.userId)
-            try await tokenRepository.createTokens(tokenData: tokenData)
+            let loginResult = try await authRepository.login(memberId: userData.userId)
+            if loginResult.loginStatus {
+                let tokenData = TokenData(accessToken: loginResult.accessToken, refreshToken: loginResult.refreshToken)
+                try await tokenRepository.createTokens(tokenData: tokenData)
+            }
+            return (loginResult.loginStatus, userData)
         case .apple:
             let userData = try await appleAuthRespository.loginWithApple()
-            let tokenData = try await authRepository.login(memberId: userData.userId)
-            try await tokenRepository.createTokens(tokenData: tokenData)
+            let loginResult = try await authRepository.login(memberId: userData.userId)
+            if loginResult.loginStatus {
+                let tokenData = TokenData(accessToken: loginResult.accessToken, refreshToken: loginResult.refreshToken)
+                try await tokenRepository.createTokens(tokenData: tokenData)
+            }
+            return (loginResult.loginStatus, userData)
         }
     }
     
@@ -68,8 +76,13 @@ final class AuthUseCase {
         }
     }
     
-    func getUserData() async throws -> SigninUserModel {
-        return try await kakaoAuthRepository.getUserInformation()
+    func getUserData(providerType: ProviderType) async throws -> SigninUserModel {
+        switch providerType {
+        case .kakao:
+            return try await kakaoAuthRepository.getUserInformation()
+        case .apple:
+            return try await appleAuthRespository.loginWithApple()
+        }
     }
     
     func memberConfirm(accessToken: String) async throws -> String {
