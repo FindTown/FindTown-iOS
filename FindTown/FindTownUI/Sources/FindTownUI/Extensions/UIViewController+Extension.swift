@@ -42,7 +42,7 @@ extension UIViewController {
         toastLabel.setMessage(text: message, font: FindTownFont.body3.font, frame: toastLabelFrame)
         self.view.addSubview(toastLabel)
         self.view.endEditing(true)
-        UIView.animate(withDuration: 2.0, delay: 2.0, options: .curveEaseOut, animations: {
+        UIView.animate(withDuration: 0.5, delay: 1.0, options: .curveEaseOut, animations: {
             toastLabel.alpha = 0.0
         }, completion: { _ in
             toastLabel.removeFromSuperview()
