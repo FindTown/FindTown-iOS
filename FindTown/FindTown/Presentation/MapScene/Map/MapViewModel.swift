@@ -88,13 +88,9 @@ extension MapViewModel {
                 var villageLocaionInformation: VillageLocationInformation
                 if UserDefaultsSetting.isAnonymous == false {
                     let accessToken = try await self.authUseCase.getAccessToken()
-                    if let cityCode = cityCode {
-                        villageLocaionInformation = try await self.mapUseCase.getVillageLocationInformation(cityCode: cityCode, accessToken: accessToken)
-                    } else {
-                        villageLocaionInformation = try await self.mapUseCase.getVillageLocationInformation(cityCode: nil, accessToken: accessToken)
-                    }
+                    villageLocaionInformation = try await self.mapUseCase.getVillageLocationInformation(cityCode: cityCode, accessToken: accessToken)
                 } else {
-                    villageLocaionInformation = try await self.mapUseCase.getVillageLocationInformation(cityCode: nil, accessToken: nil)
+                    villageLocaionInformation = try await self.mapUseCase.getVillageLocationInformation(cityCode: cityCode, accessToken: nil)
                 }
                 let coordinate = villageLocaionInformation.coordinate
                 let isFavorite = villageLocaionInformation.wishStatus
