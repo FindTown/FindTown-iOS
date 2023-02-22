@@ -97,15 +97,10 @@ extension LoginViewModel {
                 }
                 loginTask?.cancel()
             } catch (let error) {
-                if let error = error as? FTNetworkError,
-                   FTNetworkError.isUnauthorized(error: error) {
-                    
-                } else {
-                    await MainActor.run {
-                        self.output.errorNotice.onNext(())
-                    }
-                    Log.error(error)
+                await MainActor.run {
+                    self.output.errorNotice.onNext(())
                 }
+                Log.error(error)
             }
         }
     }
