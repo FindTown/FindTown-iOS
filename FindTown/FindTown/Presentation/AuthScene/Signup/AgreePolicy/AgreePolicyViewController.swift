@@ -120,26 +120,17 @@ final class AgreePolicyViewController: BaseBottomSheetViewController {
         ])
         
         NSLayoutConstraint.activate([
-            allAgreeCheckButton.widthAnchor.constraint(equalToConstant: 20),
-            allAgreeCheckButton.heightAnchor.constraint(equalToConstant: 20),
-            
             allAgreeStackView.topAnchor.constraint(equalTo: agreePolicyTitle.bottomAnchor, constant: 34),
             allAgreeStackView.leadingAnchor.constraint(equalTo: bottomSheetView.leadingAnchor, constant: 18),
         ])
         
         NSLayoutConstraint.activate([
-            agreePolicyCheckButton.widthAnchor.constraint(equalToConstant: 20),
-            agreePolicyCheckButton.heightAnchor.constraint(equalToConstant: 20),
-            
             agreePolicyStackView.topAnchor.constraint(equalTo: allAgreeStackView.bottomAnchor, constant: 16),
             agreePolicyStackView.leadingAnchor.constraint(equalTo: bottomSheetView.leadingAnchor, constant: 18),
             agreePolicyStackView.trailingAnchor.constraint(equalTo: bottomSheetView.trailingAnchor, constant: -16),
         ])
         
         NSLayoutConstraint.activate([
-            agreePersonalInfoCheckButton.widthAnchor.constraint(equalToConstant: 20),
-            agreePersonalInfoCheckButton.heightAnchor.constraint(equalToConstant: 20),
-            
             agreePersonalInfoStackView.topAnchor.constraint(equalTo: agreePolicyStackView.bottomAnchor, constant: 16),
             agreePersonalInfoStackView.leadingAnchor.constraint(equalTo: bottomSheetView.leadingAnchor, constant: 18),
             agreePersonalInfoStackView.trailingAnchor.constraint(equalTo: bottomSheetView.trailingAnchor, constant: -16),
@@ -151,6 +142,9 @@ final class AgreePolicyViewController: BaseBottomSheetViewController {
             confirmButton.trailingAnchor.constraint(equalTo: bottomSheetView.trailingAnchor, constant: -16),
         ])
         
+        allAgreeCheckButton.setContentHuggingPriority(.required, for: .horizontal)
+        agreePolicyCheckButton.setContentHuggingPriority(.required, for: .horizontal)
+        agreePersonalInfoCheckButton.setContentHuggingPriority(.required, for: .horizontal)
         agreePolicyLabel.setContentCompressionResistancePriority(.required, for: .horizontal)
         agreePersonalInfoLabel.setContentCompressionResistancePriority(.required, for: .horizontal)
         
