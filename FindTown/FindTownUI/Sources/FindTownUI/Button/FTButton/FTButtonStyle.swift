@@ -133,7 +133,7 @@ extension FTButtonStyle {
         isSelectedButton: false,
         configuration: .tinted(),
         titleFont: FindTownFont.label1.font,
-        nonSelectedColorSet: [FindTownColor.white.color, FindTownColor.grey5.color],
+        nonSelectedColorSet: [FindTownColor.white.color, FindTownColor.grey3.color],
         strokeColorSet: [FindTownColor.grey5.color, FindTownColor.grey5.color],
         topBottomInset: 12,
         cornerRadius: 30,
