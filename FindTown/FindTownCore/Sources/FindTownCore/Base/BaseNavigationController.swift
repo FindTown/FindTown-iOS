@@ -21,7 +21,8 @@ public class BaseNavigationController: UINavigationController {
         let backButtonAppearance = UIBarButtonItemAppearance(style: .plain)
         backButtonAppearance.normal.titleTextAttributes = [.foregroundColor: UIColor.clear]
         
-        let backButtonImage = UIImage(named: "Back", in: .FindTownUI, compatibleWith: nil)?.withAlignmentRectInsets(UIEdgeInsets(top: 0.0, left: -8.0, bottom: -8.0, right: 0.0))
+        let backButtonImage = UIImage(named: "back", in: .FindTownUI, compatibleWith: nil)?
+            .withAlignmentRectInsets(UIEdgeInsets(top: 0.0, left: -8.0, bottom: -5.0, right: 0.0))
         
         let appearance = UINavigationBarAppearance()
         appearance.configureWithOpaqueBackground()
