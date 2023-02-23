@@ -395,6 +395,7 @@ final class HomeViewController: BaseViewController {
         }
         filterResetButton.isHidden = isHidden
         filterButton.isHidden = !isHidden
+        checkBox.isSelected = false
     }
     
     private func setupTableViewFooterView(_ footerType: FooterType) {
