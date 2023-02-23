@@ -339,16 +339,17 @@ private extension MapViewController {
     }
     
     func setLayoutByTransition() {
-        let storeCollectionViewBottomConstraint: Int
-        let moveToIntroduceButtonBottomConstraint: Int
+        let screenToHeight = UIScreen.main.bounds.height
+        let storeCollectionViewBottomConstraint: Double
+        let moveToIntroduceButtonBottomConstraint: Double
         
         switch mapTransition {
         case .tapBar:
-            storeCollectionViewBottomConstraint = -167
-            moveToIntroduceButtonBottomConstraint = -24
+            storeCollectionViewBottomConstraint = -0.185 * screenToHeight
+            moveToIntroduceButtonBottomConstraint = -0.029 * screenToHeight
         case .push:
-            storeCollectionViewBottomConstraint = -107
-            moveToIntroduceButtonBottomConstraint = -20
+            storeCollectionViewBottomConstraint = -0.131 * screenToHeight
+            moveToIntroduceButtonBottomConstraint = -0.045 * screenToHeight
         }
         
         NSLayoutConstraint.activate([
