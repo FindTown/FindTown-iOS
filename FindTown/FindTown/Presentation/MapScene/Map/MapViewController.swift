@@ -62,6 +62,7 @@ final class MapViewController: BaseViewController {
     var mapTransition: MapTransition
     var themaStores: [ThemaStore] = []
     var markers: [NMFMarker] = []
+    var currentZoomLevel: CGFloat = 15.0
     var villageboundaryCoordinates: Coordinates = []
     
     // MARK: - Life Cycle
@@ -147,12 +148,12 @@ final class MapViewController: BaseViewController {
         
         viewModel.output.infraStoreDataSource
             .bind { [weak self] stores in
-                self?.showEntireVillage()
                 if stores.isEmpty == false {
                     self?.setInfraStoreMarker(selectStore: nil, stores: stores)
                 } else {
                     DispatchQueue.main.async {
                         self?.clearMarker()
+                        self?.showEntireVillage()
                         self?.showToastMessgeWithMap(with: "근처에 해당하는 장소가 없습니다.")
                     }
                 }
@@ -437,7 +438,7 @@ extension MapViewController {
                 marker.height = 50
                 self.setCameraPosition(latitude: store.latitude,
                                        longitude: store.longitude,
-                                       zoomLevel: 15,
+                                       zoomLevel: self.currentZoomLevel,
                                        animation: true)
             } else {
                 marker.width = 37
@@ -446,7 +447,7 @@ extension MapViewController {
                 marker.iconImage = NMFOverlayImage(name: "marker.nonSelect")
             }
             
-            
+            self.currentZoomLevel = mapView.zoomLevel
             marker.mapView = mapView
             
             marker.touchHandler = { (overlay: NMFOverlay) -> Bool in
@@ -476,14 +477,14 @@ extension MapViewController {
                 marker.height = 50
                 self.setCameraPosition(latitude: store.latitude,
                                        longitude: store.longitude,
-                                       zoomLevel: 15,
+                                       zoomLevel: self.currentZoomLevel,
                                        animation: true)
             } else {
                 marker.width = 37
                 marker.height = 45
                 marker.zIndex = -1
             }
-            
+            self.currentZoomLevel = mapView.zoomLevel
             marker.iconImage = NMFOverlayImage(name: store.subCategory.imageName)
             marker.mapView = mapView
             marker.touchHandler = { (overlay: NMFOverlay) -> Bool in
