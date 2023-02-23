@@ -107,11 +107,6 @@ final class HomeViewController: BaseViewController {
         super.viewDidLoad()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        self.viewModel?.fetchTownInformation()
-    }
-    
     // MARK: - Functions
     
     override func addView() {
@@ -258,6 +253,8 @@ final class HomeViewController: BaseViewController {
             $0.isUserInteractionEnabled = true
             $0.addGestureRecognizer(tap)
         }
+        
+        viewModel?.fetchTownInformation()
     }
     
     override func bindViewModel() {
@@ -360,6 +357,14 @@ final class HomeViewController: BaseViewController {
             }
             .disposed(by: disposeBag)
         
+        viewModel?.output.isFavorite
+            .filter { $0 == false }
+            .subscribe(onNext: { [weak self] _ in
+                let toastMessage = "찜 목록에서 삭제되었어요"
+                self?.showToast(message: toastMessage, height: 120)
+            })
+            .disposed(by: disposeBag)
+        
         viewModel?.output.errorNotice
             .bind { [weak self] in
                 self?.showErrorNoticeAlertPopUp(message: "네트워크 오류가 발생하였습니다.",
@@ -395,6 +400,7 @@ final class HomeViewController: BaseViewController {
         }
         filterResetButton.isHidden = isHidden
         filterButton.isHidden = !isHidden
+        checkBox.isSelected = false
     }
     
     private func setupTableViewFooterView(_ footerType: FooterType) {
@@ -464,6 +470,12 @@ extension HomeViewController: TownTableFooterViewDelegate {
     func didTapRetryButton() {
         viewModel?.input.resetButtonTrigger.onNext(())
         setupTableView(true)
+    }
+}
+
+extension HomeViewController: HomeFavoriteDelegate {
+    func HomeFavoriteFetch(_ cityCode: Int) {
+        self.viewModel?.input.favoriteButtonTrigger.onNext(cityCode)
     }
 }
 

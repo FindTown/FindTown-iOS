@@ -81,7 +81,7 @@ final class ServiceMapPopUpViewController: ContentPopUpViewController {
             blockPopupButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
         ])
         
-        blockPopupButton.setUnderlineWithBottomPadding()
+        blockPopupButton.setUnderlineWithBottomPadding(1.0)
         
         topLeftButton.isHidden = true
         

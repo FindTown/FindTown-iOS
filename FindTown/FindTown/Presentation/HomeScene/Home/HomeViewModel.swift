@@ -48,6 +48,7 @@ final class HomeViewModel: BaseViewModel {
         var searchFilterStringDataSource = BehaviorRelay<[String]>(value: ["인프라", "교통"])
         var searchFilterModelDataSource = BehaviorRelay<FilterModel>(value: FilterModel.init())
         var searchTownTableDataSource = BehaviorRelay<[TownTableModel]>(value: [])
+        var isFavorite = PublishSubject<Bool>()
         let errorNotice = PublishSubject<Void>()
     }
     
@@ -191,6 +192,14 @@ extension HomeViewModel {
                 let favoriteStatus = try await self.memberUseCase.favorite(accessToken: accessToken,
                                                                            cityCode: cityCode)
                 
+                await MainActor.run(body: {
+                    var dataSource = self.output.searchTownTableDataSource.value
+                    let index = dataSource.indices.filter({ dataSource[$0].objectId == cityCode }).first
+                    guard let index = index else { return }
+                    dataSource[index].wishTown = favoriteStatus
+                    self.output.searchTownTableDataSource.accept(dataSource)
+                    self.output.isFavorite.onNext(favoriteStatus)
+                })
             } catch (let error) {
                 await MainActor.run(body: {
                     self.output.errorNotice.onNext(())

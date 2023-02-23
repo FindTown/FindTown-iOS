@@ -25,5 +25,6 @@ final class ReviewTableView: UITableView {
         translatesAutoresizingMaskIntoConstraints = false
         separatorStyle = .none
         register(ReviewTableViewCell.self, forCellReuseIdentifier: ReviewTableViewCell.reuseIdentifier)
+        contentInset = UIEdgeInsets(top: 24, left: 0, bottom: 0, right: 0)
     }
 }
