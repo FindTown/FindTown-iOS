@@ -12,7 +12,6 @@ final class TownIntroCoordinator: FlowCoordinator {
     
     var presentationStyle: PresentationStyle
     weak var navigationController: UINavigationController?
-    var delegate: TownIntroduceViewModelDelegate?
     let townUseCase: TownUseCase
     let authUseCase: AuthUseCase
     let memberUseCase: MemberUseCase
@@ -32,23 +31,10 @@ final class TownIntroCoordinator: FlowCoordinator {
     }
 
     internal func initScene() -> UIViewController {
-        let townIntroViewModel = TownIntroduceViewModel(delegate: self,
-                                                    townUseCase: townUseCase,
-                                                    authUseCase: authUseCase,
-                                                    memeberUseCase: memberUseCase,
-                                                    cityCode: cityCode)
+        let townIntroViewModel = TownIntroduceViewModel(townUseCase: townUseCase,
+                                                        authUseCase: authUseCase,
+                                                        memeberUseCase: memberUseCase,
+                                                        cityCode: cityCode)
         return TownIntroduceViewController(viewModel: townIntroViewModel)
-    }
- }
-
-extension TownIntroCoordinator: TownIntroduceViewModelDelegate {
-    
-    func goToMap() {
-        guard let navigationController = navigationController else {
-            return
-        }
-        MapCoordinator(presentationStyle: .push(navigationController: navigationController),
-                       cityCode: cityCode,
-                       mapTransition: .push).start()
     }
  }

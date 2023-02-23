@@ -9,19 +9,9 @@ import Foundation
 import FindTownCore
 import RxSwift
          
-
-protocol TownIntroduceViewModelType {
-    func goToMap()
-}
-
-protocol TownIntroduceViewModelDelegate {
-    func goToMap()
-}
-
 final class TownIntroduceViewModel: BaseViewModel {
     
     struct Input {
-        let moveToMapButtonTrigger = PublishSubject<Void>()
         let favoriteButtonTrigger = PublishSubject<Void>()
     }
         
@@ -36,7 +26,6 @@ final class TownIntroduceViewModel: BaseViewModel {
         let errorNotice = PublishSubject<Void>()
     }
     
-    let delegate: TownIntroduceViewModelDelegate
     let input = Input()
     let output = Output()
     let cityCode: Int
@@ -52,13 +41,11 @@ final class TownIntroduceViewModel: BaseViewModel {
     private var townIntroduceTask: Task<Void, Error>?
     private var favoriteTask: Task<Void, Error>?
 
-    init(delegate: TownIntroduceViewModelDelegate,
-         townUseCase: TownUseCase,
+    init(townUseCase: TownUseCase,
          authUseCase: AuthUseCase,
          memeberUseCase: MemberUseCase,
          cityCode: Int) {
         
-        self.delegate = delegate
         self.townUseCase = townUseCase
         self.authUseCase = authUseCase
         self.memberUseCase = memeberUseCase
@@ -70,23 +57,11 @@ final class TownIntroduceViewModel: BaseViewModel {
     
     func bind() {
         
-        self.input.moveToMapButtonTrigger
-            .subscribe(onNext: { [weak self] in
-                self?.delegate.goToMap()
-            })
-            .disposed(by: disposeBag)
-        
         self.input.favoriteButtonTrigger
             .subscribe(onNext: { [weak self] in
                 self?.favorite()
             })
             .disposed(by: disposeBag)
-    }
-}
-
-extension TownIntroduceViewModel: TownIntroduceViewModelType {
-    func goToMap() {
-        self.delegate.goToMap()
     }
 }
 
