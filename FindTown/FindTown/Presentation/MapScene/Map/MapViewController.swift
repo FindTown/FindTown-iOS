@@ -139,14 +139,7 @@ final class MapViewController: BaseViewController {
                     DispatchQueue.main.async {
                         self?.clearMarker()
                         self?.showEntireVillage()
-                        switch self?.mapTransition {
-                        case .tapBar:
-                            self?.showToast(message: "근처에 해당하는 장소가 없습니다.", height: 170)
-                        case .push:
-                            self?.showToast(message: "근처에 해당하는 장소가 없습니다.", height: 120)
-                        case .none:
-                            break
-                        }
+                        self?.showToastMessgeWithMap(with: "근처에 해당하는 장소가 없습니다.")
                     }
                 }
         }
@@ -160,14 +153,7 @@ final class MapViewController: BaseViewController {
                 } else {
                     DispatchQueue.main.async {
                         self?.clearMarker()
-                        switch self?.mapTransition {
-                        case .tapBar:
-                            self?.showToast(message: "근처에 해당하는 장소가 없습니다.", height: 170)
-                        case .push:
-                            self?.showToast(message: "근처에 해당하는 장소가 없습니다.", height: 120)
-                        case .none:
-                            break
-                        }
+                        self?.showToastMessgeWithMap(with: "근처에 해당하는 장소가 없습니다.")
                     }
                 }
         }
@@ -239,14 +225,9 @@ final class MapViewController: BaseViewController {
         viewModel.output.changeFavoriteStauts
             .subscribe(onNext: { [weak self] isFavorite in
                 if isFavorite {
-                    switch self?.mapTransition {
-                    case .tapBar:
-                        self?.showToast(message: "찜 목록에 추가 되었어요.", height: 170)
-                    case .push:
-                        self?.showToast(message: "찜 목록에 추가 되었어요.", height: 120)
-                    case .none:
-                        break
-                    }
+                    self?.showToastMessgeWithMap(with: "찜 목록에 추가 되었어요.")
+                } else {
+                    self?.showToastMessgeWithMap(with: "찜 목록에서 삭제되었어요.")
                 }
                 self?.rx.isFavoriteCity.onNext(isFavorite)
             })
@@ -546,12 +527,7 @@ extension MapViewController: MapStoreCollectionViewCellDelegate {
     
     func didTapCopyButton(text: String) {
         UIPasteboard.general.string = text
-        switch self.mapTransition {
-        case .tapBar:
-            self.showToast(message: "클립보드에 복사되었습니다.", height: 170)
-        case .push:
-            self.showToast(message: "클립보드에 복사되었습니다.", height: 120)
-        }
+        showToastMessgeWithMap(with: "클립보드에 복사되었습니다.")
     }
 }
 
@@ -615,6 +591,19 @@ extension Reactive where Base: MapViewController {
                     viewController.favoriteButton.tintColor = FindTownColor.grey4.color
                 }
             }
+        }
+    }
+}
+
+// MARK: - Toast by Maptransition
+
+extension MapViewController {
+    func showToastMessgeWithMap(with text: String) {
+        switch self.mapTransition {
+        case .tapBar:
+            self.showToast(message: text, height: 170)
+        case .push:
+            self.showToast(message: text, height: 120)
         }
     }
 }
