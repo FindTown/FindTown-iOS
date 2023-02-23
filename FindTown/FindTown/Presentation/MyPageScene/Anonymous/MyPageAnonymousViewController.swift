@@ -56,6 +56,8 @@ final class MyPageAnonymousViewController: BaseViewController {
     }
     
     override func setLayout() {
+        let view = self.view.safeAreaLayoutGuide
+        
         NSLayoutConstraint.activate([
             subLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             subLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor)

@@ -56,8 +56,6 @@ final class TownIntroduceViewController: BaseViewController, UIScrollViewDelegat
     private let hotPlaceTitleLabel = FindTownLabel(text: "근처 핫플레이스", font: .subtitle4)
     private let hotPlaceCollectionView = HotPlaceCollectionView()
     
-    private let moveToMapButton = FTButton(style: .round)
-    
     // MARK: - Life Cycle
     
     init(viewModel: TownIntroduceViewModel) {
@@ -99,11 +97,6 @@ final class TownIntroduceViewController: BaseViewController, UIScrollViewDelegat
         townRankToolTip.dismiss()
         addTapGesture()
         
-        moveToMapButton.setTitle("동네지도로 이동", for: .normal)
-        moveToMapButton.setImage(UIImage(named: "map_icon"), for: .normal)
-        moveToMapButton.changesSelectionAsPrimaryAction = false
-        moveToMapButton.isSelected = true
-        
         self.viewModel?.getTownIntroduceData()
     }
     
@@ -142,8 +135,6 @@ final class TownIntroduceViewController: BaseViewController, UIScrollViewDelegat
             hotPlaceView.addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
-        
-        self.view.addSubview(moveToMapButton)
     }
     
     override func setLayout() {
@@ -208,12 +199,6 @@ final class TownIntroduceViewController: BaseViewController, UIScrollViewDelegat
             hotPlaceCollectionView.trailingAnchor.constraint(equalTo: hotPlaceView.trailingAnchor, constant: -16.0),
             hotPlaceCollectionView.bottomAnchor.constraint(equalTo: hotPlaceView.bottomAnchor, constant: -105.0)
         ])
-        
-        NSLayoutConstraint.activate([
-            moveToMapButton.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
-            moveToMapButton.widthAnchor.constraint(equalToConstant: 140.0),
-            moveToMapButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -24.0)
-        ])
     }
     
     override func bindViewModel() {
@@ -229,12 +214,6 @@ final class TownIntroduceViewController: BaseViewController, UIScrollViewDelegat
              self?.viewModel?.input.favoriteButtonTrigger.onNext(())
          }
         .disposed(by: disposeBag)
-        
-        moveToMapButton.rx.tap
-            .bind { [weak self] in
-                self?.viewModel?.input.moveToMapButtonTrigger.onNext(())
-            }
-            .disposed(by: disposeBag)
         
         // MARK: Output
         

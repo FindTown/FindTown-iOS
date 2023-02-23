@@ -62,7 +62,7 @@ enum InfraSubCategory: CaseIterable {
         case .hospital:
             return "병원"
         case .largeHospital:
-            return "대학병원"
+            return "종합병원"
         case .pharmacy:
             return "약국"
         }
