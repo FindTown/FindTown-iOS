@@ -117,7 +117,8 @@ public class ToolTip: UIView {
     
     func setTitle(text: String, textColor: UIColor) {
         let paragraphStyle = NSMutableParagraphStyle()
-        paragraphStyle.lineHeightMultiple = 1.11
+        paragraphStyle.maximumLineHeight = 16
+        paragraphStyle.minimumLineHeight = 16
         textLabel.attributedText = NSMutableAttributedString(string: text,
                                                              attributes: [NSAttributedString.Key.paragraphStyle: paragraphStyle,
                                                                           NSAttributedString.Key.foregroundColor: textColor])
