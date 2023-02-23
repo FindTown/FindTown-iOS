@@ -62,7 +62,6 @@ final class MapViewController: BaseViewController {
     var mapTransition: MapTransition
     var themaStores: [ThemaStore] = []
     var markers: [NMFMarker] = []
-    var currentZoomLevel: CGFloat = 15.0
     var villageboundaryCoordinates: Coordinates = []
     
     // MARK: - Life Cycle
@@ -277,6 +276,7 @@ final class MapViewController: BaseViewController {
         }
         
         self.storeCollectionView.delegate = self
+        self.mapView.positionMode = .compass
         setMapZoomLevel()
         setMapLayerGrounp()
     }
@@ -438,7 +438,7 @@ extension MapViewController {
                 marker.height = 50
                 self.setCameraPosition(latitude: store.latitude,
                                        longitude: store.longitude,
-                                       zoomLevel: self.currentZoomLevel,
+                                       zoomLevel: self.mapView.zoomLevel,
                                        animation: true)
             } else {
                 marker.width = 37
@@ -446,8 +446,6 @@ extension MapViewController {
                 marker.zIndex = -1
                 marker.iconImage = NMFOverlayImage(name: "marker.nonSelect")
             }
-            
-            self.currentZoomLevel = mapView.zoomLevel
             marker.mapView = mapView
             
             marker.touchHandler = { (overlay: NMFOverlay) -> Bool in
@@ -477,14 +475,13 @@ extension MapViewController {
                 marker.height = 50
                 self.setCameraPosition(latitude: store.latitude,
                                        longitude: store.longitude,
-                                       zoomLevel: self.currentZoomLevel,
+                                       zoomLevel: self.mapView.zoomLevel,
                                        animation: true)
             } else {
                 marker.width = 37
                 marker.height = 45
                 marker.zIndex = -1
             }
-            self.currentZoomLevel = mapView.zoomLevel
             marker.iconImage = NMFOverlayImage(name: store.subCategory.imageName)
             marker.mapView = mapView
             marker.touchHandler = { (overlay: NMFOverlay) -> Bool in
