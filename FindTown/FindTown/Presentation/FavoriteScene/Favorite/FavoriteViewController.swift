@@ -10,11 +10,17 @@ import FindTownCore
 import FindTownUI
 import RxSwift
 
+protocol HomeFavoriteDelegate: AnyObject {
+    func HomeFavoriteFetch(_ cityCode: Int)
+}
+
 final class FavoriteViewController: BaseViewController {
     
     // MARK: - Properties
     
     var viewModel: FavoriteViewModel?
+    
+    weak var delegate: HomeFavoriteDelegate?
     
     // MARK: - Views
     
@@ -142,6 +148,7 @@ extension FavoriteViewController: TownTableViewCellDelegate {
     
     func didTapFavoriteButton(cityCode: Int) {
         self.viewModel?.input.favoriteButtonTrigger.onNext(cityCode)
+        delegate?.HomeFavoriteFetch(cityCode)
     }
 }
 

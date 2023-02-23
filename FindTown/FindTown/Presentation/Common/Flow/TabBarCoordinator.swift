@@ -55,6 +55,11 @@ final class TabBarCoordinator: FlowCoordinator {
         guard let favoriteViewController = favoriteCoordinator.navigationController else { return UIViewController() }
         favoriteViewController.tabBarItem = UITabBarItem(title: "찜", image: UIImage(named: "favoriteIcon"), tag: 2)
         
+        let homeVC = homeViewController.viewControllers.first as? HomeViewController
+        if let favoriteVC = favoriteViewController.viewControllers.first as? FavoriteViewController {
+            favoriteVC.delegate = homeVC
+        }
+        
         /// 마이페이지 탭
         let myPageCoordinator = MyPageCoordinator(presentationStyle: .none,
                                                   authUseCase: authUseCase,
