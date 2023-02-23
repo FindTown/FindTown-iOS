@@ -203,7 +203,7 @@ final class MapViewController: BaseViewController {
             })
             .disposed(by: disposeBag)
             
-        Observable.combineLatest(viewModel.input.segmentIndex, viewModel.output.city)
+        Observable.combineLatest(viewModel.input.segmentIndex, viewModel.output.city.distinctUntilChanged())
             .bind { [weak self] index, city in
                 if index == 0 {
                     self?.viewModel?.output.categoryDataSource.onNext(InfraCategory.allCases)
