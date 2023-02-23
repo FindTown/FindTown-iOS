@@ -121,6 +121,14 @@ final class ShowVillageListViewController: BaseViewController {
             }
             .disposed(by: disposeBag)
         
+        viewModel?.output.isFavorite
+            .filter { $0 == false }
+            .subscribe(onNext: { [weak self] _ in
+                let toastMessage = "찜 목록에서 삭제되었어요"
+                self?.showToast(message: toastMessage, height: 60)
+            })
+            .disposed(by: disposeBag)
+        
         viewModel?.output.errorNotice
             .subscribe { [weak self] _ in
                 self?.showErrorNoticeAlertPopUp(message: "네트워크 오류가 발생하였습니다.",

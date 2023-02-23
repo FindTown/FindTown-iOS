@@ -29,6 +29,7 @@ final class ShowVillageListViewModel: BaseViewModel {
     
     struct Output {
         var searchTownTableDataSource = BehaviorRelay<[TownTableModel]>(value: [])
+        var isFavorite = PublishSubject<Bool>()
         let errorNotice = PublishSubject<Void>()
     }
     
@@ -67,7 +68,7 @@ final class ShowVillageListViewModel: BaseViewModel {
     }
     
     func bind() {
-
+        
         self.input.townIntroButtonTrigger
             .subscribe(onNext: { [weak self] cityCode in
                 self?.delegate.goToTownIntroduce(cityCode: cityCode)
@@ -79,7 +80,7 @@ final class ShowVillageListViewModel: BaseViewModel {
                 self?.delegate.goToTownMap(cityCode: cityCode)
             })
             .disposed(by: disposeBag)
- 
+        
         self.input.favoriteButtonTrigger
             .subscribe(onNext: { [weak self] cityCode in
                 self?.favorite(cityCode: cityCode)
@@ -143,7 +144,9 @@ extension ShowVillageListViewModel {
                 let accessToken = try await self.authUseCase.getAccessToken()
                 let favoriteStatus = try await self.memberUseCase.favorite(accessToken: accessToken,
                                                                            cityCode: cityCode)
-                
+                await MainActor.run(body: {
+                    self.output.isFavorite.onNext(favoriteStatus)
+                })
             } catch (let error) {
                 await MainActor.run(body: {
                     self.output.errorNotice.onNext(())
