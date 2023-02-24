@@ -47,8 +47,9 @@ final class MapViewController: BaseViewController {
         button.changesSelectionAsPrimaryAction = false
         return button
     }()
+    private let emptyDataInformLabel = InformLabel(text: "근처에 해당하는 장소가 없습니다.")
     
-    var currentIndex: CGFloat = 0 {
+    private var currentIndex: CGFloat = 0 {
         didSet {
             let index = Int(self.currentIndex)
             self.setThemaStoreMarker(selectStore: themaStores[index])
@@ -135,11 +136,12 @@ final class MapViewController: BaseViewController {
                 if stores.isEmpty == false {
                     self?.themaStores = stores
                     self?.showFirstThemaStore(store: stores[0])
+                    self?.emptyDataInformLabel.isHidden = true
                 } else {
                     DispatchQueue.main.async {
                         self?.clearMarker()
                         self?.showEntireVillage()
-                        self?.showToastMessgeWithMap(with: "근처에 해당하는 장소가 없습니다.")
+                        self?.emptyDataInformLabel.isHidden = false
                     }
                 }
         }
@@ -149,11 +151,12 @@ final class MapViewController: BaseViewController {
             .bind { [weak self] stores in
                 if stores.isEmpty == false {
                     self?.setInfraStoreMarker(selectStore: nil, stores: stores)
+                    self?.emptyDataInformLabel.isHidden = true
                 } else {
                     DispatchQueue.main.async {
                         self?.clearMarker()
                         self?.showEntireVillage()
-                        self?.showToastMessgeWithMap(with: "근처에 해당하는 장소가 없습니다.")
+                        self?.emptyDataInformLabel.isHidden = false
                     }
                 }
         }
@@ -243,7 +246,7 @@ final class MapViewController: BaseViewController {
     }
 
     override func addView() {
-        [mapView, naviBarSubView, moveToIntroduceButton].forEach {
+        [mapView, naviBarSubView, moveToIntroduceButton, emptyDataInformLabel].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
             self.view.addSubview($0)
         }
@@ -276,7 +279,7 @@ final class MapViewController: BaseViewController {
         }
         
         self.storeCollectionView.delegate = self
-        self.mapView.positionMode = .compass
+        self.emptyDataInformLabel.isHidden = true
         setMapZoomLevel()
         setMapLayerGrounp()
     }
@@ -342,14 +345,17 @@ private extension MapViewController {
         let screenToHeight = UIScreen.main.bounds.height
         let storeCollectionViewBottomConstraint: Double
         let moveToIntroduceButtonBottomConstraint: Double
+        let emptyDataInformLabelBottomConstraint: Double
         
         switch mapTransition {
         case .tapBar:
             storeCollectionViewBottomConstraint = -0.185 * screenToHeight
-            moveToIntroduceButtonBottomConstraint = -0.029 * screenToHeight
+            moveToIntroduceButtonBottomConstraint = -0.022 * screenToHeight
+            emptyDataInformLabelBottomConstraint = -0.092 * screenToHeight
         case .push:
             storeCollectionViewBottomConstraint = -0.131 * screenToHeight
-            moveToIntroduceButtonBottomConstraint = -0.045 * screenToHeight
+            moveToIntroduceButtonBottomConstraint = -0.03 * screenToHeight
+            emptyDataInformLabelBottomConstraint = -0.101 * screenToHeight
         }
         
         NSLayoutConstraint.activate([
@@ -365,6 +371,14 @@ private extension MapViewController {
             moveToIntroduceButton.widthAnchor.constraint(equalToConstant: 140.0),
             moveToIntroduceButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor,
                                                           constant: CGFloat(moveToIntroduceButtonBottomConstraint))
+        ])
+        
+        NSLayoutConstraint.activate([
+            emptyDataInformLabel.heightAnchor.constraint(equalToConstant: 44),
+            emptyDataInformLabel.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 12),
+            emptyDataInformLabel.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -12),
+            emptyDataInformLabel.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor,
+                                                          constant: CGFloat(emptyDataInformLabelBottomConstraint))
         ])
     }
 }
