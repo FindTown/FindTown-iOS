@@ -207,8 +207,8 @@ final class MapViewController: BaseViewController {
             .bind { [weak self] index, city in
                 if index == 0 {
                     self?.viewModel?.output.categoryDataSource.onNext(InfraCategory.allCases)
-                    self?.viewModel?.getInfraData(category: .security)
-                    self?.detailCategoryView.setStackView(subCategories: InfraCategory.security.subCatrgories)
+                    self?.viewModel?.getInfraData(category: .martOrConvenienceStore)
+                    self?.detailCategoryView.setStackView(subCategories: InfraCategory.martOrConvenienceStore.subCatrgories)
                 } else {
                     self?.viewModel?.output.categoryDataSource.onNext(ThemaCategory.allCases)
                     self?.viewModel?.getThemaData(category: .restaurantForEatingAlone)

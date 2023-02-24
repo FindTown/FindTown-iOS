@@ -8,7 +8,7 @@
 import UIKit
 
 enum InfraCategory: CaseIterable, Category {
-//    case martOrConvenienceStore
+    case martOrConvenienceStore
 //    case cafe
     case security
     case life
@@ -19,8 +19,8 @@ enum InfraCategory: CaseIterable, Category {
     
     var description: String {
         switch self {
-//        case .martOrConvenienceStore:
-//            return "마트&편의점"
+        case .martOrConvenienceStore:
+            return "마트&편의점"
 //        case .cafe:
 //            return "카페"
         case .security:
@@ -40,8 +40,8 @@ enum InfraCategory: CaseIterable, Category {
     
     var image: UIImage? {
         switch self {
-//        case .martOrConvenienceStore:
-//            return UIImage(named: "martIcon")
+        case .martOrConvenienceStore:
+            return UIImage(named: "martIcon")
 //        case .cafe:
 //            return UIImage(named: "infra.cafe.icon")
         case .security:
@@ -61,8 +61,8 @@ enum InfraCategory: CaseIterable, Category {
     
     var code: String {
         switch self {
-//        case .martOrConvenienceStore:
-//            return "001"
+        case .martOrConvenienceStore:
+            return "001"
 //        case .cafe:
 //            return "002"
         case .security:
@@ -82,8 +82,8 @@ enum InfraCategory: CaseIterable, Category {
     
     var subCatrgories: [InfraSubCategory] {
         switch self {
-//        case .martOrConvenienceStore:
-//            return [.convenienceStore, .supermarket, .goceryStore]
+        case .martOrConvenienceStore:
+            return [.convenienceStore, .supermarket, .goceryStore]
 //        case .cafe:
 //            return [.cafe]
         case .security:
