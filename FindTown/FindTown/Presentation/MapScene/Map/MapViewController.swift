@@ -56,6 +56,10 @@ final class MapViewController: BaseViewController {
         }
     }
     
+    // MARK: Property
+    
+    var selectedIndex: Int = 0
+    
     // MARK: Map property
     
     var villagePolygonOverlay: NMFPolygonOverlay?
@@ -118,10 +122,21 @@ final class MapViewController: BaseViewController {
             .bind(to: categoryCollectionView.rx.items(cellIdentifier: MapCategoryCollectionViewCell.reuseIdentifier,
                                               cellType: MapCategoryCollectionViewCell.self)) { index, item, cell in
                 cell.setupCell(image: item.image, title: item.description)
-                if index == 0 {
-                    self.categoryCollectionView.selectItem(at: IndexPath(item: 0, section: 0), animated: true, scrollPosition: .bottom)
+                if index == self.selectedIndex {
+                    self.categoryCollectionView.selectItem(at: IndexPath(item: self.selectedIndex, section: 0), animated: true, scrollPosition: .bottom)
+                    cell.selectedView()
                 }
             }.disposed(by: disposeBag)
+        
+        viewModel.output.categoryDataSource.observe(on: MainScheduler.instance)
+            .bind(onNext: { [weak self] categories in
+                if let firstInfraCategory = categories[0] as? InfraCategory {
+                    self?.viewModel?.getInfraData(category: firstInfraCategory)
+                    self?.detailCategoryView.setStackView(subCategories: firstInfraCategory.subCatrgories)
+                } else if let firstThemaCategory = categories[0] as? ThemaCategory {
+                    self?.viewModel?.getThemaData(category: firstThemaCategory)
+                }
+            }).disposed(by: disposeBag)
         
         /// iconCollectionView 데이터 바인딩
         viewModel.output.themaStoreDataSource.observe(on: MainScheduler.instance)
@@ -166,9 +181,15 @@ final class MapViewController: BaseViewController {
         categoryCollectionView.rx.modelSelected(Category.self)
             .subscribe(onNext: { [weak self] categoty in
                 if let infraCategory = categoty as? InfraCategory {
+                    if let selectedIndex = InfraCategory.allCases.firstIndex(of: infraCategory) {
+                        self?.selectedIndex = selectedIndex
+                    }
                     self?.viewModel?.getInfraData(category: infraCategory)
                     self?.detailCategoryView.setStackView(subCategories: infraCategory.subCatrgories)
                 } else if let themaCategory = categoty as? ThemaCategory {
+                    if let selectedIndex = ThemaCategory.allCases.firstIndex(of: themaCategory) {
+                        self?.selectedIndex = selectedIndex
+                    }
                     self?.viewModel?.getThemaData(category: themaCategory)
                 }
             })
@@ -208,13 +229,11 @@ final class MapViewController: BaseViewController {
             
         Observable.combineLatest(viewModel.input.segmentIndex, viewModel.output.city.distinctUntilChanged())
             .bind { [weak self] index, city in
+                self?.selectedIndex = 0
                 if index == 0 {
                     self?.viewModel?.output.categoryDataSource.onNext(InfraCategory.allCases)
-                    self?.viewModel?.getInfraData(category: .martOrConvenienceStore)
-                    self?.detailCategoryView.setStackView(subCategories: InfraCategory.martOrConvenienceStore.subCatrgories)
                 } else {
                     self?.viewModel?.output.categoryDataSource.onNext(ThemaCategory.allCases)
-                    self?.viewModel?.getThemaData(category: .restaurantForEatingAlone)
                 }
             }
             .disposed(by: disposeBag)
