@@ -13,26 +13,20 @@ final class FavoriteCoordinator: FlowCoordinator {
     var presentationStyle: PresentationStyle
     weak var navigationController: UINavigationController?
     var delegate: FavoriteViewModelDelegate?
-    let townUseCase: TownUseCase
-    let authUseCase: AuthUseCase
-    let memberUseCase: MemberUseCase
+    let appDIContainer: AppDIContainer
     
     init(presentationStyle: PresentationStyle,
-         townUseCase: TownUseCase,
-         authUseCase: AuthUseCase,
-         memberUseCase: MemberUseCase) {
+         appDIContainer: AppDIContainer) {
         
         self.presentationStyle = presentationStyle
-        self.townUseCase = townUseCase
-        self.authUseCase = authUseCase
-        self.memberUseCase = memberUseCase
+        self.appDIContainer = appDIContainer
     }
     
     internal func initScene() -> UIViewController {
         let favoriteViewModel = FavoriteViewModel(delegate: self,
-                                                  townUseCase: townUseCase,
-                                                  authUseCase: authUseCase,
-                                                  memberUseCase: memberUseCase)
+                                                  townUseCase: appDIContainer.townUseCase,
+                                                  authUseCase: appDIContainer.authUseCase,
+                                                  memberUseCase: appDIContainer.memberUseCase)
         return FavoriteViewController(viewModel: favoriteViewModel)
     }
 }
@@ -42,15 +36,14 @@ extension FavoriteCoordinator: FavoriteViewModelDelegate {
     func goToLogin() {
         guard let navigationController = navigationController else { return }
         LoginCoordinator(presentationStyle: .setViewController(navigationController: navigationController,
-                                                               modalPresentationStyle: .overFullScreen)).start()
+                                                               modalPresentationStyle: .overFullScreen),
+                                                               appDIContainer: appDIContainer).start()
     }
     
     func goToTownIntroduce(cityCode: Int) {
         guard let navigationController = navigationController else { return }
         TownIntroCoordinator(presentationStyle: .push(navigationController: navigationController),
-                             townUseCase: townUseCase,
-                             authUseCase: authUseCase,
-                             memberUseCase: memberUseCase,
+                             appDIContainer: appDIContainer,
                              cityCode: cityCode).start()
     }
     
@@ -58,6 +51,7 @@ extension FavoriteCoordinator: FavoriteViewModelDelegate {
         guard let navigationController = navigationController else { return }
         MapCoordinator(presentationStyle: .push(navigationController: navigationController),
                        cityCode: cityCode,
-                       mapTransition: .push).start()
+                       mapTransition: .push,
+                       appDIContainer: appDIContainer).start()
     }
 }

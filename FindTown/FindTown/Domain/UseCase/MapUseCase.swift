@@ -10,11 +10,10 @@ import Foundation
 final class MapUseCase {
     
     let mapRepository: DefaultMapRepository
-    let tokenRepository: DefaultTokenRepository
     
-    init() {
-        self.mapRepository = DefaultMapRepository()
-        self.tokenRepository = DefaultTokenRepository()
+    init(mapRepository: DefaultMapRepository
+    ) {
+        self.mapRepository = mapRepository
     }
     
     func getVillageLocationInformation(cityCode: Int?, accessToken: String?) async throws -> VillageLocationInformation {

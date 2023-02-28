@@ -11,9 +11,11 @@ final class MemberUseCase {
     let memberRepository: DefaultMemberRepository
     let tokenRepository: DefaultTokenRepository
     
-    init() {
-        self.memberRepository = DefaultMemberRepository()
-        self.tokenRepository = DefaultTokenRepository()
+    init(memberRepository: DefaultMemberRepository,
+         tokenRepository: DefaultTokenRepository
+    ) {
+        self.memberRepository = memberRepository
+        self.tokenRepository = tokenRepository
     }
     
     func getMemberInformation(accessToken: String) async throws -> MemberInformationDTO {

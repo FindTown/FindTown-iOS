@@ -14,16 +14,16 @@ import FindTownNetwork
 
 public final class AppCoordinator: Coordinator {
     var navigationController: UINavigationController
-    let authUseCase = AuthUseCase()
-    let memberUseCase = MemberUseCase()
-    let townUseCase = TownUseCase()
+    let appDIContainer: AppDIContainer
     
     private var autoSignTask: Task<Void, Error>?
     
     required init(
-        navigationController: UINavigationController
+        navigationController: UINavigationController,
+        appDIContainer: AppDIContainer
     ) {
         self.navigationController = navigationController
+        self.appDIContainer = appDIContainer
     }
     
     public func start() {
@@ -31,8 +31,8 @@ public final class AppCoordinator: Coordinator {
         // 자동 로그인
         autoSignTask = Task {
             do {
-                let accessToken = try await self.authUseCase.getAccessToken()
-                let userId = try await self.authUseCase.memberConfirm(accessToken: accessToken)
+                let accessToken = try await self.appDIContainer.authUseCase.getAccessToken()
+                let userId = try await self.appDIContainer.authUseCase.memberConfirm(accessToken: accessToken)
                 await MainActor.run {
                     UserDefaultsSetting.isAnonymous = false
                     self.goToTabBar()
@@ -49,14 +49,13 @@ public final class AppCoordinator: Coordinator {
     
     private func goToAuth() {
         navigationController.isNavigationBarHidden = true
-        LoginCoordinator(presentationStyle: .push(navigationController: navigationController)).start()
+        LoginCoordinator(presentationStyle: .push(navigationController: navigationController),
+                         appDIContainer: appDIContainer).start()
     }
     
     private func goToTabBar() {
         navigationController.isNavigationBarHidden = true
         TabBarCoordinator(presentationStyle: .push(navigationController: navigationController),
-                          authUseCase: authUseCase,
-                          memberUseCase: memberUseCase,
-                          townUseCase: townUseCase).start()
+                          appDIContainer: appDIContainer).start()
     }
 }

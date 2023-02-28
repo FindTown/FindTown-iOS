@@ -17,11 +17,15 @@ final class AuthUseCase {
     let authRepository: DefaultAuthRepository
     let tokenRepository: DefaultTokenRepository
     
-    init() {
-        self.kakaoAuthRepository = DefaultKakaoAuthRepository()
-        self.appleAuthRespository = DefaultAppleAuthRespository()
-        self.authRepository = DefaultAuthRepository()
-        self.tokenRepository = DefaultTokenRepository()
+    init(kakaoAuthRepository: DefaultKakaoAuthRepository,
+         appleAuthRespository: DefaultAppleAuthRespository,
+         authRepository: DefaultAuthRepository,
+         tokenRepository: DefaultTokenRepository
+    ) {
+        self.kakaoAuthRepository = kakaoAuthRepository
+        self.appleAuthRespository = appleAuthRespository
+        self.authRepository = authRepository
+        self.tokenRepository = tokenRepository
     }
     
     func login(authType: ProviderType) async throws -> (isSuccess: Bool, signinUserModel: SigninUserModel) {

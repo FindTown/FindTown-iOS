@@ -29,7 +29,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window = UIWindow(windowScene: windowScene)
 
         let navigationController = BaseNavigationController()
-        AppCoordinator(navigationController: navigationController).start()
+        let networkDIContainer = NetwokDIContainer()
+        let appDIContainer = AppDIContainer(networkDIContainer: networkDIContainer)
+        AppCoordinator(navigationController: navigationController, appDIContainer: appDIContainer).start()
         
         window?.rootViewController = navigationController
         window?.makeKeyAndVisible()

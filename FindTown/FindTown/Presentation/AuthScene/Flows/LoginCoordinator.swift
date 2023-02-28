@@ -14,17 +14,17 @@ final class LoginCoordinator: FlowCoordinator {
     
     var presentationStyle: PresentationStyle
     weak var navigationController: UINavigationController?
-    let authUseCase = AuthUseCase()
-    let memberUseCase = MemberUseCase()
-    let townUseCase = TownUseCase()
+    let appDIContainer: AppDIContainer
     
-    init(presentationStyle: PresentationStyle) {
+    init(presentationStyle: PresentationStyle,
+         appDIContainer: AppDIContainer) {
         self.presentationStyle = presentationStyle
+        self.appDIContainer = appDIContainer
     }
     
     internal func initScene() -> UIViewController {
         let loginViewModel = LoginViewModel(delegate: self,
-                                            authUseCase: authUseCase)
+                                            authUseCase: appDIContainer.authUseCase)
         let loginViewController = LoginViewController(viewModel: loginViewModel)
         return loginViewController
     }
@@ -36,9 +36,7 @@ extension LoginCoordinator: LoginViewModelDelegate {
         guard let navigationController = navigationController else { return }
         navigationController.isNavigationBarHidden = true
         TabBarCoordinator(presentationStyle: .push(navigationController: navigationController),
-                          authUseCase: authUseCase,
-                          memberUseCase: memberUseCase,
-                          townUseCase: townUseCase).start()
+                          appDIContainer: appDIContainer).start()
     }
     
     func goToNickname(userData: SigninUserModel, providerType: ProviderType) {
@@ -47,9 +45,7 @@ extension LoginCoordinator: LoginViewModelDelegate {
         SignupCoordinator(presentationStyle: .presentFlow(navigationController: navigationController,
                                                           modalPresentationStyle: .overFullScreen),
                           parentCoordinator: self,
-                          authUseCase: authUseCase,
-                          memberUseCase: memberUseCase,
-                          townUseCase: townUseCase,
+                          appDIContainer: appDIContainer,
                           userData: userData,
                           providerType: providerType).start()
     }

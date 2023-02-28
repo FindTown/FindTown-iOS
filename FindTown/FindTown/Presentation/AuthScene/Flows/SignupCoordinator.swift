@@ -13,33 +13,27 @@ final class SignupCoordinator: FlowCoordinator {
     
     var presentationStyle: PresentationStyle
     weak var navigationController: UINavigationController?
-    let authUseCase: AuthUseCase
-    let memberUseCase: MemberUseCase
-    let townUseCase: TownUseCase
+    let appDIContainer: AppDIContainer
     var signupUserModel = SignupUserModel()
     var parentCoordinator: FlowCoordinator
     
     init(presentationStyle: PresentationStyle,
          parentCoordinator: FlowCoordinator,
-         authUseCase: AuthUseCase,
-         memberUseCase: MemberUseCase,
-         townUseCase: TownUseCase,
+         appDIContainer: AppDIContainer,
          userData: SigninUserModel,
          providerType: ProviderType) {
         self.presentationStyle = presentationStyle
-        self.authUseCase = authUseCase
-        self.memberUseCase = memberUseCase
-        self.townUseCase = townUseCase
         self.signupUserModel.memberId = userData.userId
         self.signupUserModel.email = userData.email
         self.signupUserModel.providerType = providerType
         self.parentCoordinator = parentCoordinator
+        self.appDIContainer = appDIContainer
     }
     
     /// 회원가입 닉네임 설정 화면
     internal func initScene() -> UIViewController {
         let nicknameViewModel = NicknameViewModel(delegate: self,
-                                                  memberUseCase: memberUseCase,
+                                                  memberUseCase: appDIContainer.memberUseCase,
                                                   signupUserModel: signupUserModel)
         let nicknameViewController = NicknameViewController(viewModel: nicknameViewModel)
         return nicknameViewController
@@ -68,7 +62,7 @@ final class SignupCoordinator: FlowCoordinator {
     
     /// 이용약관
     internal func signUpAgreePolicyScene(_ signupUserModel: SignupUserModel) -> UIViewController {
-        let agreePolicyViewModel = AgreePolicyViewModel(delegate: self, signupUserModel: signupUserModel, memberUseCase: memberUseCase)
+        let agreePolicyViewModel = AgreePolicyViewModel(delegate: self, signupUserModel: signupUserModel, memberUseCase: appDIContainer.memberUseCase)
         let agreePolicyViewController = AgreePolicyViewController(viewModel: agreePolicyViewModel)
         agreePolicyViewController.modalPresentationStyle = .overFullScreen
         return agreePolicyViewController
@@ -102,9 +96,7 @@ extension SignupCoordinator: SignupViewModelDelegate {
         guard let navigationController = navigationController else { return }
         navigationController.isNavigationBarHidden = true
         TabBarCoordinator(presentationStyle: .push(navigationController: navigationController),
-                          authUseCase: authUseCase,
-                          memberUseCase: memberUseCase,
-                          townUseCase: townUseCase).start()
+                          appDIContainer: appDIContainer).start()
     }
     
     func dismiss() {
