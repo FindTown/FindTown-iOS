@@ -31,31 +31,31 @@ final class NetwokDIContainer {
     }
     
     // MARK: - Repositories
-    func makeKakaoRepository() -> DefaultKakaoAuthRepository {
+    func makeKakaoRepository() -> KakaoAuthRepository {
         return DefaultKakaoAuthRepository()
     }
     
-    func makeAppleRepository() -> DefaultAppleAuthRespository {
+    func makeAppleRepository() -> AppleAuthRespository {
         return DefaultAppleAuthRespository()
     }
     
-    func makeAuthRepository() -> DefaultAuthRepository {
+    func makeAuthRepository() -> AuthRepository {
         return DefaultAuthRepository()
     }
     
-    func makeTokenRepository() -> DefaultTokenRepository {
+    func makeTokenRepository() -> TokenRepository {
         return DefaultTokenRepository()
     }
     
-    func makeTownRepository() -> DefaultTownRepository {
+    func makeTownRepository() -> TownRepository {
         return DefaultTownRepository()
     }
     
-    func makeMapRepository() -> DefaultMapRepository {
+    func makeMapRepository() -> MapRepository {
         return DefaultMapRepository()
     }
     
-    func makeMemberRepository() -> DefaultMemberRepository {
+    func makeMemberRepository() -> MemberRepository {
         return DefaultMemberRepository()
     }
 }

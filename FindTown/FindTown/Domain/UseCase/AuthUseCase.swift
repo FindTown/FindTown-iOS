@@ -12,15 +12,15 @@ import FindTownNetwork
 
 final class AuthUseCase {
     
-    let kakaoAuthRepository: DefaultKakaoAuthRepository
-    let appleAuthRespository: DefaultAppleAuthRespository
-    let authRepository: DefaultAuthRepository
-    let tokenRepository: DefaultTokenRepository
+    let kakaoAuthRepository: KakaoAuthRepository
+    let appleAuthRespository: AppleAuthRespository
+    let authRepository: AuthRepository
+    let tokenRepository: TokenRepository
     
-    init(kakaoAuthRepository: DefaultKakaoAuthRepository,
-         appleAuthRespository: DefaultAppleAuthRespository,
-         authRepository: DefaultAuthRepository,
-         tokenRepository: DefaultTokenRepository
+    init(kakaoAuthRepository: KakaoAuthRepository,
+         appleAuthRespository: AppleAuthRespository,
+         authRepository: AuthRepository,
+         tokenRepository: TokenRepository
     ) {
         self.kakaoAuthRepository = kakaoAuthRepository
         self.appleAuthRespository = appleAuthRespository

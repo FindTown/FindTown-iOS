@@ -10,7 +10,7 @@ import KakaoSDKAuth
 import KakaoSDKUser
 import KakaoSDKCommon
 
-final class DefaultKakaoAuthRepository {
+final class DefaultKakaoAuthRepository: KakaoAuthRepository {
     
     /// 추후 개선
     /// 카카오톡 어플이 설치되어있는지 확인하는 로직

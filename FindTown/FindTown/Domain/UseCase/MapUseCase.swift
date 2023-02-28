@@ -9,9 +9,9 @@ import Foundation
 
 final class MapUseCase {
     
-    let mapRepository: DefaultMapRepository
+    let mapRepository: MapRepository
     
-    init(mapRepository: DefaultMapRepository
+    init(mapRepository: MapRepository
     ) {
         self.mapRepository = mapRepository
     }

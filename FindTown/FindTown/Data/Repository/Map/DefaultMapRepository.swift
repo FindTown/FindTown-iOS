@@ -8,7 +8,7 @@
 import Foundation
 import FindTownNetwork
 
-final class DefaultMapRepository {
+final class DefaultMapRepository: MapRepository {
 
     func getVillageLocationData(cityCode: Int?, _ accessToken: String? = nil) async throws -> TownMapLocationDTO {
         var httpHeaders: HTTPHeaders = HTTPHeaders([.accept("*/*")])

@@ -8,11 +8,11 @@ import Foundation
 
 final class MemberUseCase {
     
-    let memberRepository: DefaultMemberRepository
-    let tokenRepository: DefaultTokenRepository
+    let memberRepository: MemberRepository
+    let tokenRepository: TokenRepository
     
-    init(memberRepository: DefaultMemberRepository,
-         tokenRepository: DefaultTokenRepository
+    init(memberRepository: MemberRepository,
+         tokenRepository: TokenRepository
     ) {
         self.memberRepository = memberRepository
         self.tokenRepository = tokenRepository

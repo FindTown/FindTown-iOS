@@ -8,7 +8,7 @@
 import Foundation
 import FindTownNetwork
 
-final class DefaultTownRepository {
+final class DefaultTownRepository: TownRepository {
     
     func getTownInformation(filterStatus: String = "", subwayList: [String] = [], accessToken: String = "") async throws -> TownFilterResponseDTO {
         let HTTPHeaders = HTTPHeaders([.accept("*/*"),

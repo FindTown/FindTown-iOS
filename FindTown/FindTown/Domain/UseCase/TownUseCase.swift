@@ -9,9 +9,9 @@ import Foundation
 
 final class TownUseCase {
     
-    let townRepository: DefaultTownRepository
+    let townRepository: TownRepository
     
-    init(townRepository: DefaultTownRepository
+    init(townRepository: TownRepository
     ) {
         self.townRepository = townRepository
     }
