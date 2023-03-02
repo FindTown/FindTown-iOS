@@ -7,7 +7,13 @@
 
 import Foundation
 
-final class MapUseCase {
+protocol MapUseCase {
+    func getVillageLocationInformation(cityCode: Int?, accessToken: String?) async throws -> VillageLocationInformation
+    func getThemaStores(cityCode: Int, categoryId: String) async throws -> [ThemaStore]
+    func getInfraStores(cityCode: Int, categoryId: String) async throws -> [InfraStore]
+}
+
+final class DefaultMapUseCase: MapUseCase {
     
     let mapRepository: MapRepository
     

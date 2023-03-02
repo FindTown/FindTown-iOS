@@ -10,7 +10,16 @@ import AuthenticationServices
 
 import FindTownNetwork
 
-final class AuthUseCase {
+protocol AuthUseCase {
+    func login(authType: ProviderType) async throws -> (isSuccess: Bool, signinUserModel: SigninUserModel)
+    func getAppleAuthorizationController() -> ASAuthorizationController
+    func reissue() async throws -> String
+    func getAccessToken() async throws -> String
+    func getUserData(providerType: ProviderType) async throws -> SigninUserModel
+    func memberConfirm(accessToken: String) async throws -> String
+}
+
+final class DefaultAuthUseCase: AuthUseCase {
     
     let kakaoAuthRepository: KakaoAuthRepository
     let appleAuthRespository: AppleAuthRespository

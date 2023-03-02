@@ -11,23 +11,23 @@ final class NetwokDIContainer {
 
     // MARK: - Use Cases
     func authUseCase() -> AuthUseCase {
-        return AuthUseCase(kakaoAuthRepository: makeKakaoRepository(),
+        return DefaultAuthUseCase(kakaoAuthRepository: makeKakaoRepository(),
                            appleAuthRespository: makeAppleRepository(),
                            authRepository: makeAuthRepository(),
                            tokenRepository: makeTokenRepository())
     }
     
     func memberUseCase() -> MemberUseCase {
-        return MemberUseCase(memberRepository: makeMemberRepository(),
+        return DefaultMemberUseCase(memberRepository: makeMemberRepository(),
                              tokenRepository: makeTokenRepository())
     }
     
     func townUseCase() -> TownUseCase {
-        return TownUseCase(townRepository: makeTownRepository())
+        return DefaultTownUseCase(townRepository: makeTownRepository())
     }
     
     func mapUseCase() -> MapUseCase {
-        return MapUseCase(mapRepository: makeMapRepository())
+        return DefaultMapUseCase(mapRepository: makeMapRepository())
     }
     
     // MARK: - Repositories
