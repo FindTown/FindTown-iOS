@@ -124,7 +124,7 @@ final class MapViewController: BaseViewController {
                 cell.setupCell(image: item.image, title: item.description)
                 if index == self.selectedIndex {
                     self.categoryCollectionView.selectItem(at: IndexPath(item: self.selectedIndex, section: 0), animated: true, scrollPosition: .bottom)
-                    cell.selectedView()
+                    cell.isSelected = true
                 }
             }.disposed(by: disposeBag)
         
