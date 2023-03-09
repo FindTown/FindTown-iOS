@@ -16,8 +16,6 @@ final class MapCategoryCollectionViewCell: UICollectionViewCell {
         return String(describing: self)
     }
     
-    private var disposeBag = DisposeBag()
-    
     private let imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.tintColor = FindTownColor.grey5.color
@@ -34,7 +32,8 @@ final class MapCategoryCollectionViewCell: UICollectionViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         
-        disposeBag = DisposeBag()
+        imageView.image = nil
+        titleLabel.text = ""
     }
     
     override init(frame: CGRect) {
@@ -105,16 +104,6 @@ private extension MapCategoryCollectionViewCell {
         ])
     }
     
-    func selectedView() {
-        contentView.layer.borderColor = FindTownColor.primary.color.cgColor
-        titleLabel.textColor = FindTownColor.primary.color
-        
-        guard let image = imageView.image else {
-            return
-        }
-        imageView.image = returnColoredImage(image: image , color: FindTownColor.primary.color)
-    }
-    
     private func nonSelectedView() {
         contentView.layer.borderColor = FindTownColor.grey2.color.cgColor
         titleLabel.textColor = FindTownColor.grey6.color
@@ -143,5 +132,19 @@ private extension MapCategoryCollectionViewCell {
 
         UIGraphicsEndImageContext()
         return result
+    }
+}
+
+extension MapCategoryCollectionViewCell {
+    func selectedView() {
+        contentView.layer.borderColor = FindTownColor.primary.color.cgColor
+        titleLabel.textColor = FindTownColor.primary.color
+        
+        guard let image = imageView.image else {
+            return
+        }
+        DispatchQueue.main.async {
+            self.imageView.image = self.returnColoredImage(image: image, color: FindTownColor.primary.color)
+        }
     }
 }

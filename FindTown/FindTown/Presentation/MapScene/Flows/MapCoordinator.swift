@@ -12,26 +12,25 @@ final class MapCoordinator: FlowCoordinator {
 
     var presentationStyle: PresentationStyle
     weak var navigationController: UINavigationController?
-    let authUseCase = AuthUseCase()
-    let mapUseCase = MapUseCase()
-    let townUseCase = TownUseCase()
-    let memberUseCase = MemberUseCase()
+    let appDIContainer: AppDIContainer
     let mapTransition: MapTransition
     let cityCode: Int?
     
     init(presentationStyle: PresentationStyle,
          cityCode: Int?,
-         mapTransition: MapTransition) {
+         mapTransition: MapTransition,
+         appDIContainer: AppDIContainer) {
         self.presentationStyle = presentationStyle
         self.cityCode = cityCode
         self.mapTransition = mapTransition
+        self.appDIContainer = appDIContainer
     }
     
     internal func initScene() -> UIViewController {
         let mapViewModel = MapViewModel(delegate: self,
-                                        authUseCase: authUseCase,
-                                        mapUseCase: mapUseCase,
-                                        memberUseCase: memberUseCase,
+                                        authUseCase: appDIContainer.authUseCase,
+                                        mapUseCase: appDIContainer.mapUseCase,
+                                        memberUseCase: appDIContainer.memberUseCase,
                                         cityCode: cityCode)
         return MapViewController(viewModel: mapViewModel, mapTransition: mapTransition)
     }
@@ -49,9 +48,7 @@ extension MapCoordinator: MapViewModelDelegate {
     func gotoIntroduce(cityCode: Int) {
         guard let navigationController = navigationController else { return }
         TownIntroCoordinator(presentationStyle: .push(navigationController: navigationController),
-                             townUseCase: townUseCase,
-                             authUseCase: authUseCase,
-                             memberUseCase: memberUseCase,
+                             appDIContainer: appDIContainer,
                              cityCode: cityCode).start()
     }
     

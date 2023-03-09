@@ -12,17 +12,12 @@ final class MyPageCoordinator: FlowCoordinator {
     
     var presentationStyle: PresentationStyle
     weak var navigationController: UINavigationController?
-    let authUseCase: AuthUseCase
-    let memberUseCase: MemberUseCase
+    let appDIContainer: AppDIContainer
     
-    init(
-        presentationStyle: PresentationStyle,
-        authUseCase: AuthUseCase,
-        memberUseCase: MemberUseCase
-    ) {
+    init(presentationStyle: PresentationStyle,
+         appDIContainer: AppDIContainer) {
         self.presentationStyle = presentationStyle
-        self.authUseCase = authUseCase
-        self.memberUseCase = memberUseCase
+        self.appDIContainer = appDIContainer
     }
     
     internal func initScene() -> UIViewController {
@@ -32,8 +27,8 @@ final class MyPageCoordinator: FlowCoordinator {
             return myPageAnonymousViewController
         } else {
             let myPageViewModel = MyPageViewModel(delegate: self,
-                                                  authUseCase: authUseCase,
-                                                  memberUseCase: memberUseCase)
+                                                  authUseCase: appDIContainer.authUseCase,
+                                                  memberUseCase: appDIContainer.memberUseCase)
             let myPageViewController = MyPageViewController(viewModel: myPageViewModel)
             return myPageViewController
         }
@@ -42,8 +37,8 @@ final class MyPageCoordinator: FlowCoordinator {
     /// 닉네임 수정 화면
     internal func changeNicknameScene() -> UIViewController {
         let changeNicknameViewModel = ChangeNicknameViewModel(delegate: self,
-                                                              authUseCase: authUseCase,
-                                                              memberUseCase: memberUseCase)
+                                                              authUseCase: appDIContainer.authUseCase,
+                                                              memberUseCase: appDIContainer.memberUseCase)
         let changeNicknameViewController = ChangeNicknameViewController(viewModel: changeNicknameViewModel)
         changeNicknameViewController.hidesBottomBarWhenPushed = true
         return changeNicknameViewController
@@ -52,8 +47,8 @@ final class MyPageCoordinator: FlowCoordinator {
     /// 내가 쓴 동네 후기 화면
     internal func myTownReviewScene() -> UIViewController {
         let myTownReviewViewModel = MyTownReviewViewModel(delegate: self,
-                                                          authUseCase: authUseCase,
-                                                          memberUseCase: memberUseCase)
+                                                          authUseCase: appDIContainer.authUseCase,
+                                                          memberUseCase: appDIContainer.memberUseCase)
         let myTownReviewViewController = MyTownReviewViewController(viewModel: myTownReviewViewModel)
         myTownReviewViewController.hidesBottomBarWhenPushed = true
         return myTownReviewViewController
@@ -117,8 +112,9 @@ extension MyPageCoordinator: MyPageViewModelDelegate {
     
     func goToAuth() {
         guard let navigationController = navigationController else { return }
-        LoginCoordinator(presentationStyle: .setViewController(navigationController: navigationController,                                                                      modalTransitionStyle: .crossDissolve,
-                                                               modalPresentationStyle: .overFullScreen)).start()
+        LoginCoordinator(presentationStyle: .setViewController(navigationController: navigationController,                                                                                                                              modalTransitionStyle: .crossDissolve,
+                                                               modalPresentationStyle: .overFullScreen),
+                         appDIContainer: appDIContainer).start()
     }
     
     func fetchNickname(nickname: String) {

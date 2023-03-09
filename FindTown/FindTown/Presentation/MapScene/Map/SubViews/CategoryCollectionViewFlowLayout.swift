@@ -25,7 +25,7 @@ final class CategoryCollectionViewFlowLayout: UICollectionViewFlowLayout {
         sectionInset = UIEdgeInsets(top: 0.0,
                                     left: 17.0,
                                     bottom: 0.0,
-                                    right: 17.0)
+                                    right: 82.0)
         estimatedItemSize = UICollectionViewFlowLayout.automaticSize
     }
 }

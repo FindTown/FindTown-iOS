@@ -10,18 +10,31 @@ import AuthenticationServices
 
 import FindTownNetwork
 
-final class AuthUseCase {
+protocol AuthUseCase {
+    func login(authType: ProviderType) async throws -> (isSuccess: Bool, signinUserModel: SigninUserModel)
+    func getAppleAuthorizationController() -> ASAuthorizationController
+    func reissue() async throws -> String
+    func getAccessToken() async throws -> String
+    func getUserData(providerType: ProviderType) async throws -> SigninUserModel
+    func memberConfirm(accessToken: String) async throws -> String
+}
+
+final class DefaultAuthUseCase: AuthUseCase {
     
-    let kakaoAuthRepository: DefaultKakaoAuthRepository
-    let appleAuthRespository: DefaultAppleAuthRespository
-    let authRepository: DefaultAuthRepository
-    let tokenRepository: DefaultTokenRepository
+    let kakaoAuthRepository: KakaoAuthRepository
+    let appleAuthRespository: AppleAuthRespository
+    let authRepository: AuthRepository
+    let tokenRepository: TokenRepository
     
-    init() {
-        self.kakaoAuthRepository = DefaultKakaoAuthRepository()
-        self.appleAuthRespository = DefaultAppleAuthRespository()
-        self.authRepository = DefaultAuthRepository()
-        self.tokenRepository = DefaultTokenRepository()
+    init(kakaoAuthRepository: KakaoAuthRepository,
+         appleAuthRespository: AppleAuthRespository,
+         authRepository: AuthRepository,
+         tokenRepository: TokenRepository
+    ) {
+        self.kakaoAuthRepository = kakaoAuthRepository
+        self.appleAuthRespository = appleAuthRespository
+        self.authRepository = authRepository
+        self.tokenRepository = tokenRepository
     }
     
     func login(authType: ProviderType) async throws -> (isSuccess: Bool, signinUserModel: SigninUserModel) {

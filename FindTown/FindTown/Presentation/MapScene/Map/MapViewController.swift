@@ -47,13 +47,18 @@ final class MapViewController: BaseViewController {
         button.changesSelectionAsPrimaryAction = false
         return button
     }()
+    private let emptyDataInformLabel = InformLabel(text: "근처에 해당하는 장소가 없습니다.")
     
-    var currentIndex: CGFloat = 0 {
+    private var currentIndex: CGFloat = 0 {
         didSet {
             let index = Int(self.currentIndex)
             self.setThemaStoreMarker(selectStore: themaStores[index])
         }
     }
+    
+    // MARK: Property
+    
+    var selectedIndex: Int = 0
     
     // MARK: Map property
     
@@ -117,10 +122,21 @@ final class MapViewController: BaseViewController {
             .bind(to: categoryCollectionView.rx.items(cellIdentifier: MapCategoryCollectionViewCell.reuseIdentifier,
                                               cellType: MapCategoryCollectionViewCell.self)) { index, item, cell in
                 cell.setupCell(image: item.image, title: item.description)
-                if index == 0 {
-                    self.categoryCollectionView.selectItem(at: IndexPath(item: 0, section: 0), animated: true, scrollPosition: .bottom)
+                if index == self.selectedIndex {
+                    self.categoryCollectionView.selectItem(at: IndexPath(item: self.selectedIndex, section: 0), animated: true, scrollPosition: .bottom)
+                    cell.isSelected = true
                 }
             }.disposed(by: disposeBag)
+        
+        viewModel.output.categoryDataSource.observe(on: MainScheduler.instance)
+            .bind(onNext: { [weak self] categories in
+                if let firstInfraCategory = categories[0] as? InfraCategory {
+                    self?.viewModel?.getInfraData(category: firstInfraCategory)
+                    self?.detailCategoryView.setStackView(subCategories: firstInfraCategory.subCatrgories)
+                } else if let firstThemaCategory = categories[0] as? ThemaCategory {
+                    self?.viewModel?.getThemaData(category: firstThemaCategory)
+                }
+            }).disposed(by: disposeBag)
         
         /// iconCollectionView 데이터 바인딩
         viewModel.output.themaStoreDataSource.observe(on: MainScheduler.instance)
@@ -135,11 +151,12 @@ final class MapViewController: BaseViewController {
                 if stores.isEmpty == false {
                     self?.themaStores = stores
                     self?.showFirstThemaStore(store: stores[0])
+                    self?.emptyDataInformLabel.isHidden = true
                 } else {
                     DispatchQueue.main.async {
                         self?.clearMarker()
                         self?.showEntireVillage()
-                        self?.showToastMessgeWithMap(with: "근처에 해당하는 장소가 없습니다.")
+                        self?.emptyDataInformLabel.isHidden = false
                     }
                 }
         }
@@ -149,11 +166,12 @@ final class MapViewController: BaseViewController {
             .bind { [weak self] stores in
                 if stores.isEmpty == false {
                     self?.setInfraStoreMarker(selectStore: nil, stores: stores)
+                    self?.emptyDataInformLabel.isHidden = true
                 } else {
                     DispatchQueue.main.async {
                         self?.clearMarker()
                         self?.showEntireVillage()
-                        self?.showToastMessgeWithMap(with: "근처에 해당하는 장소가 없습니다.")
+                        self?.emptyDataInformLabel.isHidden = false
                     }
                 }
         }
@@ -163,9 +181,15 @@ final class MapViewController: BaseViewController {
         categoryCollectionView.rx.modelSelected(Category.self)
             .subscribe(onNext: { [weak self] categoty in
                 if let infraCategory = categoty as? InfraCategory {
+                    if let selectedIndex = InfraCategory.allCases.firstIndex(of: infraCategory) {
+                        self?.selectedIndex = selectedIndex
+                    }
                     self?.viewModel?.getInfraData(category: infraCategory)
                     self?.detailCategoryView.setStackView(subCategories: infraCategory.subCatrgories)
                 } else if let themaCategory = categoty as? ThemaCategory {
+                    if let selectedIndex = ThemaCategory.allCases.firstIndex(of: themaCategory) {
+                        self?.selectedIndex = selectedIndex
+                    }
                     self?.viewModel?.getThemaData(category: themaCategory)
                 }
             })
@@ -205,13 +229,11 @@ final class MapViewController: BaseViewController {
             
         Observable.combineLatest(viewModel.input.segmentIndex, viewModel.output.city.distinctUntilChanged())
             .bind { [weak self] index, city in
+                self?.selectedIndex = 0
                 if index == 0 {
                     self?.viewModel?.output.categoryDataSource.onNext(InfraCategory.allCases)
-                    self?.viewModel?.getInfraData(category: .security)
-                    self?.detailCategoryView.setStackView(subCategories: InfraCategory.security.subCatrgories)
                 } else {
                     self?.viewModel?.output.categoryDataSource.onNext(ThemaCategory.allCases)
-                    self?.viewModel?.getThemaData(category: .restaurantForEatingAlone)
                 }
             }
             .disposed(by: disposeBag)
@@ -243,7 +265,7 @@ final class MapViewController: BaseViewController {
     }
 
     override func addView() {
-        [mapView, naviBarSubView, moveToIntroduceButton].forEach {
+        [mapView, naviBarSubView, moveToIntroduceButton, emptyDataInformLabel].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
             self.view.addSubview($0)
         }
@@ -276,7 +298,7 @@ final class MapViewController: BaseViewController {
         }
         
         self.storeCollectionView.delegate = self
-        self.mapView.positionMode = .compass
+        self.emptyDataInformLabel.isHidden = true
         setMapZoomLevel()
         setMapLayerGrounp()
     }
@@ -342,14 +364,17 @@ private extension MapViewController {
         let screenToHeight = UIScreen.main.bounds.height
         let storeCollectionViewBottomConstraint: Double
         let moveToIntroduceButtonBottomConstraint: Double
+        let emptyDataInformLabelBottomConstraint: Double
         
         switch mapTransition {
         case .tapBar:
             storeCollectionViewBottomConstraint = -0.185 * screenToHeight
-            moveToIntroduceButtonBottomConstraint = -0.029 * screenToHeight
+            moveToIntroduceButtonBottomConstraint = -0.022 * screenToHeight
+            emptyDataInformLabelBottomConstraint = -0.092 * screenToHeight
         case .push:
             storeCollectionViewBottomConstraint = -0.131 * screenToHeight
-            moveToIntroduceButtonBottomConstraint = -0.045 * screenToHeight
+            moveToIntroduceButtonBottomConstraint = -0.03 * screenToHeight
+            emptyDataInformLabelBottomConstraint = -0.101 * screenToHeight
         }
         
         NSLayoutConstraint.activate([
@@ -365,6 +390,14 @@ private extension MapViewController {
             moveToIntroduceButton.widthAnchor.constraint(equalToConstant: 140.0),
             moveToIntroduceButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor,
                                                           constant: CGFloat(moveToIntroduceButtonBottomConstraint))
+        ])
+        
+        NSLayoutConstraint.activate([
+            emptyDataInformLabel.heightAnchor.constraint(equalToConstant: 44),
+            emptyDataInformLabel.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 12),
+            emptyDataInformLabel.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -12),
+            emptyDataInformLabel.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor,
+                                                          constant: CGFloat(emptyDataInformLabelBottomConstraint))
         ])
     }
 }

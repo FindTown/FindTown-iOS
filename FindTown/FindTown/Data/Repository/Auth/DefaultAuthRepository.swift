@@ -8,7 +8,7 @@
 import Foundation
 import FindTownNetwork
 
-final class DefaultAuthRepository {
+final class DefaultAuthRepository: AuthRepository {
     
     func login(memberId: String) async throws -> LoginResponseDTO {
         let memberInformation = MemberIdDTO(memberId: memberId)

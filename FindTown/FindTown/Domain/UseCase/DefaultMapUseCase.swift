@@ -7,14 +7,19 @@
 
 import Foundation
 
-final class MapUseCase {
+protocol MapUseCase {
+    func getVillageLocationInformation(cityCode: Int?, accessToken: String?) async throws -> VillageLocationInformation
+    func getThemaStores(cityCode: Int, categoryId: String) async throws -> [ThemaStore]
+    func getInfraStores(cityCode: Int, categoryId: String) async throws -> [InfraStore]
+}
+
+final class DefaultMapUseCase: MapUseCase {
     
-    let mapRepository: DefaultMapRepository
-    let tokenRepository: DefaultTokenRepository
+    let mapRepository: MapRepository
     
-    init() {
-        self.mapRepository = DefaultMapRepository()
-        self.tokenRepository = DefaultTokenRepository()
+    init(mapRepository: MapRepository
+    ) {
+        self.mapRepository = mapRepository
     }
     
     func getVillageLocationInformation(cityCode: Int?, accessToken: String?) async throws -> VillageLocationInformation {

@@ -12,20 +12,14 @@ final class TabBarCoordinator: FlowCoordinator {
     
     var presentationStyle: PresentationStyle
     weak var navigationController: UINavigationController?
-    let authUseCase: AuthUseCase
-    let memberUseCase: MemberUseCase
-    let townUseCase: TownUseCase
+    let appDIContainer: AppDIContainer
     
     init(
         presentationStyle: PresentationStyle,
-        authUseCase: AuthUseCase,
-        memberUseCase: MemberUseCase,
-        townUseCase: TownUseCase
+        appDIContainer: AppDIContainer
     ) {
         self.presentationStyle = presentationStyle
-        self.authUseCase = authUseCase
-        self.memberUseCase = memberUseCase
-        self.townUseCase = townUseCase
+        self.appDIContainer = appDIContainer
     }
     
     func initScene() -> UIViewController {
@@ -33,24 +27,23 @@ final class TabBarCoordinator: FlowCoordinator {
         
         /// 홈 탭
         let homeCoordinator = HomeCoordinator(presentationStyle: .none,
-                                              authUseCase: authUseCase,
-                                              townUseCase: townUseCase,
-                                              memberUseCase: memberUseCase)
+                                              appDIContainer: appDIContainer)
         homeCoordinator.start()
         guard let homeViewController = homeCoordinator.navigationController else { return UIViewController() }
         homeViewController.tabBarItem = UITabBarItem(title: "동네 찾기", image: UIImage(named: "homeIcon"), tag: 0)
         
         /// 지도 탭
-        let mapCoordinator = MapCoordinator(presentationStyle: .none, cityCode: nil, mapTransition: .tapBar)
+        let mapCoordinator = MapCoordinator(presentationStyle: .none,
+                                            cityCode: nil,
+                                            mapTransition: .tapBar,
+                                            appDIContainer: appDIContainer)
         mapCoordinator.start()
         guard let mapViewController = mapCoordinator.navigationController else { return UIViewController() }
         mapViewController.tabBarItem = UITabBarItem(title: "동네 지도", image: UIImage(named: "mapIcon"), tag: 1)
         
         /// 찜 탭
         let favoriteCoordinator = FavoriteCoordinator(presentationStyle: .none,
-                                                      townUseCase: townUseCase,
-                                                      authUseCase: authUseCase,
-                                                      memberUseCase: memberUseCase)
+                                                      appDIContainer: appDIContainer)
         favoriteCoordinator.start()
         guard let favoriteViewController = favoriteCoordinator.navigationController else { return UIViewController() }
         favoriteViewController.tabBarItem = UITabBarItem(title: "찜", image: UIImage(named: "favoriteIcon"), tag: 2)
@@ -62,8 +55,7 @@ final class TabBarCoordinator: FlowCoordinator {
         
         /// 마이페이지 탭
         let myPageCoordinator = MyPageCoordinator(presentationStyle: .none,
-                                                  authUseCase: authUseCase,
-                                                  memberUseCase: memberUseCase)
+                                                  appDIContainer: appDIContainer)
         myPageCoordinator.start()
         guard let myPageViewController = myPageCoordinator.navigationController else { return UIViewController() }
         myPageViewController.tabBarItem = UITabBarItem(title: "마이", image: UIImage(named: "myPageIcon"), tag: 3)

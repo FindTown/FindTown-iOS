@@ -9,7 +9,7 @@ import Foundation
 import AuthenticationServices
 import FindTownNetwork
 
-final class DefaultAppleAuthRespository: NSObject {
+final class DefaultAppleAuthRespository: NSObject, AppleAuthRespository {
     
     private var authcontinuation: CheckedContinuation<SigninUserModel, Error>?
     

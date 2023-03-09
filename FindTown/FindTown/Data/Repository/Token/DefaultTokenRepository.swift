@@ -6,10 +6,9 @@
 //
 
 import Foundation
-
 import FindTownNetwork
 
-final class DefaultTokenRepository {
+final class DefaultTokenRepository: TokenRepository {
     
     func createTokens(tokenData: TokenData) async throws {
         try KeyChainManager.shared.create(account: .accessToken, data: tokenData.accessToken)

@@ -6,14 +6,27 @@
 //
 import Foundation
 
-final class MemberUseCase {
+protocol MemberUseCase {
+    func getMemberInformation(accessToken: String) async throws -> MemberInformationDTO
+    func checkNicknameDuplicate(nickName: String) async throws -> Bool
+    func changeNickname(nickName: String, accessToken: String) async throws -> Bool
+    func signup(signupUerModel: SignupUserModel) async throws
+    func logout(accessToken: String) async throws -> Bool
+    func resign(accessToken: String) async throws -> Bool
+    func getFavoriteList(accessToken: String) async throws -> [TownTableModel]
+    func favorite(accessToken: String, cityCode: Int) async throws -> Bool
+}
+
+final class DefaultMemberUseCase: MemberUseCase {
     
-    let memberRepository: DefaultMemberRepository
-    let tokenRepository: DefaultTokenRepository
+    let memberRepository: MemberRepository
+    let tokenRepository: TokenRepository
     
-    init() {
-        self.memberRepository = DefaultMemberRepository()
-        self.tokenRepository = DefaultTokenRepository()
+    init(memberRepository: MemberRepository,
+         tokenRepository: TokenRepository
+    ) {
+        self.memberRepository = memberRepository
+        self.tokenRepository = tokenRepository
     }
     
     func getMemberInformation(accessToken: String) async throws -> MemberInformationDTO {

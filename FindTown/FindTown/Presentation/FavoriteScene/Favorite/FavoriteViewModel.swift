@@ -5,7 +5,6 @@
 //  Created by 장선영 on 2023/01/18.
 //
 
-import UIKit
 import Foundation
 import FindTownCore
 import RxSwift

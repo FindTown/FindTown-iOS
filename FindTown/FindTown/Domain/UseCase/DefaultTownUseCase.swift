@@ -7,27 +7,34 @@
 
 import Foundation
 
-final class TownUseCase {
+protocol TownUseCase {
+    func getTownInformation(filterStatus: String, subwayList: [String], accessToken: String) async throws -> TownFilterResponseDTO
+    func getSearchTownInformation(countyData: String, accessToken: String) async throws -> TownSearchResponseDTO
+    func getTownIntroduce(cityCode: Int, accessToken: String) async throws -> TownIntroduce
+}
+
+final class DefaultTownUseCase: TownUseCase {
     
-    let defaultTownRepository: DefaultTownRepository
+    let townRepository: TownRepository
     
-    init() {
-        self.defaultTownRepository = DefaultTownRepository()
+    init(townRepository: TownRepository
+    ) {
+        self.townRepository = townRepository
     }
     
     func getTownInformation(filterStatus: String = "", subwayList: [String] = [], accessToken: String = "") async throws -> TownFilterResponseDTO {
-        return try await defaultTownRepository.getTownInformation(filterStatus: filterStatus,
+        return try await townRepository.getTownInformation(filterStatus: filterStatus,
                                                                   subwayList: subwayList,
                                                                   accessToken: accessToken)
     }
     
     func getSearchTownInformation(countyData: String, accessToken: String = "") async throws -> TownSearchResponseDTO {
-        return try await defaultTownRepository.getSearchTownInformation(countyData: countyData,
+        return try await townRepository.getSearchTownInformation(countyData: countyData,
                                                                         accessToken: accessToken)
     }
     
     func getTownIntroduce(cityCode: Int, accessToken: String) async throws -> TownIntroduce {
-        return try await defaultTownRepository.getTownIntroduce(cityCode: cityCode,
+        return try await townRepository.getTownIntroduce(cityCode: cityCode,
                                                                 accessToken: accessToken).townIntroduce.toEntity
     }
 }

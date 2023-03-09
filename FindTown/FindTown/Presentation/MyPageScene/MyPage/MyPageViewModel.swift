@@ -5,7 +5,7 @@
 //  Created by 김성훈 on 2023/01/31.
 //
 
-import UIKit
+import Foundation
 
 import FindTownCore
 import FindTownNetwork

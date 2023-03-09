@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import UIKit
 import FindTownCore
 import FindTownNetwork
 
@@ -35,7 +34,7 @@ final class MapViewModel: BaseViewModel {
     }
     
     struct Output {
-        let categoryDataSource = BehaviorSubject<[Category]>(value: [])
+        let categoryDataSource = PublishSubject<[Category]>()
         let themaStoreDataSource = PublishSubject<[ThemaStore]>()
         let infraStoreDataSource = PublishSubject<[InfraStore]>()
         let city = PublishSubject<City>()

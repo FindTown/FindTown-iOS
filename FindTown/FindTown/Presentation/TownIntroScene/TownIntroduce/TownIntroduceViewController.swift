@@ -47,7 +47,7 @@ final class TownIntroduceViewController: BaseViewController, UIScrollViewDelegat
     private let townRankInfoButton = UIButton()
     private let townRankScrollView = UIScrollView()
     private let townRankStackView = UIStackView()
-    private let townRankToolTip = ToolTip(text: "지역 안전지수, 사회 안전지수, 서울 도시청결도\n 평가를 토대로 제공하는 정보입니다.",
+    private let townRankToolTip = ToolTip(text: "지역 안전지수, 사회 안전지수, 서울 도시청결도\n평가를 토대로 제공하는 정보입니다.",
                                           viewColor: .black, textColor: .white,
                                           tipLocation: .topCustom(tipXPoint: 127.0), width: 238, height: 52)
         

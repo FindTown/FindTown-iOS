@@ -12,27 +12,21 @@ final class HomeCoordinator: FlowCoordinator {
     
     var presentationStyle: PresentationStyle
     weak var navigationController: UINavigationController?
-    let authUseCase: AuthUseCase
-    let townUseCase: TownUseCase
-    let memberUseCase: MemberUseCase
+    let appDIContainer: AppDIContainer
     
     init(
         presentationStyle: PresentationStyle,
-        authUseCase: AuthUseCase,
-        townUseCase: TownUseCase,
-        memberUseCase: MemberUseCase
+        appDIContainer: AppDIContainer
     ) {
         self.presentationStyle = presentationStyle
-        self.authUseCase = authUseCase
-        self.townUseCase = townUseCase
-        self.memberUseCase = memberUseCase
+        self.appDIContainer = appDIContainer
     }
     
     internal func initScene() -> UIViewController {
         let homeViewModel = HomeViewModel(delegate: self,
-                                          authUseCase: authUseCase,
-                                          townUseCase: townUseCase,
-                                          memberUseCase: memberUseCase)
+                                          authUseCase: appDIContainer.authUseCase,
+                                          townUseCase: appDIContainer.townUseCase,
+                                          memberUseCase: appDIContainer.memberUseCase)
         let homeViewController = HomeViewController(viewModel: homeViewModel)
         return homeViewController
     }
@@ -51,17 +45,13 @@ extension HomeCoordinator: HomeViewModelDelegate {
     func goToGuSearchView() {
         guard let navigationController = navigationController else { return }
         SearchCoordinator(presentationStyle: .push(navigationController: navigationController),
-                          townUseCase: townUseCase,
-                          authUseCase: authUseCase,
-                          memberUseCase: memberUseCase).start()
+                          appDIContainer: appDIContainer).start()
     }
     
     func goToTownIntroduce(cityCode: Int) {
         guard let navigationController = navigationController else { return }
         TownIntroCoordinator(presentationStyle: .push(navigationController: navigationController),
-                             townUseCase: townUseCase,
-                             authUseCase: authUseCase,
-                             memberUseCase: memberUseCase,
+                             appDIContainer: appDIContainer,
                              cityCode: cityCode).start()
     }
     
@@ -69,13 +59,15 @@ extension HomeCoordinator: HomeViewModelDelegate {
         guard let navigationController = navigationController else { return }
         MapCoordinator(presentationStyle: .push(navigationController: navigationController),
                        cityCode: cityCode,
-                       mapTransition: .push).start()
+                       mapTransition: .push,
+                       appDIContainer: appDIContainer).start()
     }
     
     func goToAuth() {
         guard let navigationController = navigationController else { return }
         LoginCoordinator(presentationStyle: .setViewController(navigationController: navigationController,
                                                                modalTransitionStyle: .crossDissolve,
-                                                               modalPresentationStyle: .overFullScreen)).start()
+                                                               modalPresentationStyle: .overFullScreen),
+                         appDIContainer: appDIContainer).start()
     }
 }
