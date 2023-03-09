@@ -146,6 +146,12 @@
 		F3356F00298F986A002B9FFD /* TokenPayloadDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3356EFF298F986A002B9FFD /* TokenPayloadDTO.swift */; };
 		F3356F02298FA270002B9FFD /* LogoutRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3356F01298FA270002B9FFD /* LogoutRequest.swift */; };
 		F3356F04298FA2C3002B9FFD /* LogoutResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3356F03298FA2C3002B9FFD /* LogoutResponseDTO.swift */; };
+		F362189C29B99AE2005A0C8F /* MemberRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = F362189629B99AE2005A0C8F /* MemberRepository.swift */; };
+		F362189D29B99AE2005A0C8F /* TokenRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = F362189729B99AE2005A0C8F /* TokenRepository.swift */; };
+		F362189E29B99AE2005A0C8F /* MapRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = F362189829B99AE2005A0C8F /* MapRepository.swift */; };
+		F362189F29B99AE2005A0C8F /* TownRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = F362189929B99AE2005A0C8F /* TownRepository.swift */; };
+		F36218A029B99AE2005A0C8F /* KakaoAuthRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = F362189A29B99AE2005A0C8F /* KakaoAuthRepository.swift */; };
+		F36218A129B99AE2005A0C8F /* AuthRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = F362189B29B99AE2005A0C8F /* AuthRepository.swift */; };
 		F363D156299A0ABD00606C7F /* DefaultMapUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = F363D155299A0ABD00606C7F /* DefaultMapUseCase.swift */; };
 		F363D15B299A17EA00606C7F /* DefaultMapRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = F363D15A299A17EA00606C7F /* DefaultMapRepository.swift */; };
 		F363D15E299A1A3800606C7F /* TownLocationRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F363D15D299A1A3800606C7F /* TownLocationRequest.swift */; };
@@ -196,12 +202,6 @@
 		F3984A7129A92853003FA0C8 /* APIKeyInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = F3984A7029A92853003FA0C8 /* APIKeyInfo.plist */; };
 		F3984A7429ACBE03003FA0C8 /* AppDIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3984A7329ACBE03003FA0C8 /* AppDIContainer.swift */; };
 		F3984A7C29ADA30F003FA0C8 /* NetwokDIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3984A7B29ADA30F003FA0C8 /* NetwokDIContainer.swift */; };
-		F3984A9929ADAD23003FA0C8 /* TownRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3984A9829ADAD23003FA0C8 /* TownRepository.swift */; };
-		F3984A9F29ADAD2B003FA0C8 /* AuthRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3984A9A29ADAD2B003FA0C8 /* AuthRepository.swift */; };
-		F3984AA029ADAD2B003FA0C8 /* MapRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3984A9B29ADAD2B003FA0C8 /* MapRepository.swift */; };
-		F3984AA129ADAD2B003FA0C8 /* MemberRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3984A9C29ADAD2B003FA0C8 /* MemberRepository.swift */; };
-		F3984AA229ADAD2B003FA0C8 /* KakaoAuthRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3984A9D29ADAD2B003FA0C8 /* KakaoAuthRepository.swift */; };
-		F3984AA329ADAD2B003FA0C8 /* TokenRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3984A9E29ADAD2B003FA0C8 /* TokenRepository.swift */; };
 		F3984AA529ADAD45003FA0C8 /* AppleAuthRespository.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3984AA429ADAD45003FA0C8 /* AppleAuthRespository.swift */; };
 		F39EDDBC296D5AE500A4E655 /* City.swift in Sources */ = {isa = PBXBuildFile; fileRef = F39EDDBB296D5AE500A4E655 /* City.swift */; };
 		F39EDDC0296D5D7D00A4E655 /* CityCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F39EDDBF296D5D7D00A4E655 /* CityCollectionViewCell.swift */; };
@@ -366,6 +366,12 @@
 		F3356EFF298F986A002B9FFD /* TokenPayloadDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenPayloadDTO.swift; sourceTree = "<group>"; };
 		F3356F01298FA270002B9FFD /* LogoutRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoutRequest.swift; sourceTree = "<group>"; };
 		F3356F03298FA2C3002B9FFD /* LogoutResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoutResponseDTO.swift; sourceTree = "<group>"; };
+		F362189629B99AE2005A0C8F /* MemberRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemberRepository.swift; sourceTree = "<group>"; };
+		F362189729B99AE2005A0C8F /* TokenRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenRepository.swift; sourceTree = "<group>"; };
+		F362189829B99AE2005A0C8F /* MapRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapRepository.swift; sourceTree = "<group>"; };
+		F362189929B99AE2005A0C8F /* TownRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TownRepository.swift; sourceTree = "<group>"; };
+		F362189A29B99AE2005A0C8F /* KakaoAuthRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KakaoAuthRepository.swift; sourceTree = "<group>"; };
+		F362189B29B99AE2005A0C8F /* AuthRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthRepository.swift; sourceTree = "<group>"; };
 		F363D155299A0ABD00606C7F /* DefaultMapUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultMapUseCase.swift; sourceTree = "<group>"; };
 		F363D15A299A17EA00606C7F /* DefaultMapRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultMapRepository.swift; sourceTree = "<group>"; };
 		F363D15D299A1A3800606C7F /* TownLocationRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TownLocationRequest.swift; sourceTree = "<group>"; };
@@ -421,12 +427,6 @@
 		F3984A7029A92853003FA0C8 /* APIKeyInfo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = APIKeyInfo.plist; path = ../../../../../Downloads/APIKeyInfo.plist; sourceTree = "<group>"; };
 		F3984A7329ACBE03003FA0C8 /* AppDIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDIContainer.swift; sourceTree = "<group>"; };
 		F3984A7B29ADA30F003FA0C8 /* NetwokDIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetwokDIContainer.swift; sourceTree = "<group>"; };
-		F3984A9829ADAD23003FA0C8 /* TownRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TownRepository.swift; path = "../../../../../../../Library/Mobile Documents/com~apple~CloudDocs/.Trash/TownRepository.swift"; sourceTree = "<group>"; };
-		F3984A9A29ADAD2B003FA0C8 /* AuthRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AuthRepository.swift; path = "../../../../../../../Library/Mobile Documents/com~apple~CloudDocs/.Trash/AuthRepository.swift"; sourceTree = "<group>"; };
-		F3984A9B29ADAD2B003FA0C8 /* MapRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MapRepository.swift; path = "../../../../../../../Library/Mobile Documents/com~apple~CloudDocs/.Trash/MapRepository.swift"; sourceTree = "<group>"; };
-		F3984A9C29ADAD2B003FA0C8 /* MemberRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MemberRepository.swift; path = "../../../../../../../Library/Mobile Documents/com~apple~CloudDocs/.Trash/MemberRepository.swift"; sourceTree = "<group>"; };
-		F3984A9D29ADAD2B003FA0C8 /* KakaoAuthRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KakaoAuthRepository.swift; path = "../../../../../../../Library/Mobile Documents/com~apple~CloudDocs/.Trash/KakaoAuthRepository.swift"; sourceTree = "<group>"; };
-		F3984A9E29ADAD2B003FA0C8 /* TokenRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TokenRepository.swift; path = "../../../../../../../Library/Mobile Documents/com~apple~CloudDocs/.Trash/TokenRepository.swift"; sourceTree = "<group>"; };
 		F3984AA429ADAD45003FA0C8 /* AppleAuthRespository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleAuthRespository.swift; sourceTree = "<group>"; };
 		F39EDDBB296D5AE500A4E655 /* City.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = City.swift; sourceTree = "<group>"; };
 		F39EDDBF296D5D7D00A4E655 /* CityCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -1356,12 +1356,12 @@
 		F3984A7E29ADA6D9003FA0C8 /* Repository */ = {
 			isa = PBXGroup;
 			children = (
-				F3984A9A29ADAD2B003FA0C8 /* AuthRepository.swift */,
-				F3984A9D29ADAD2B003FA0C8 /* KakaoAuthRepository.swift */,
-				F3984A9B29ADAD2B003FA0C8 /* MapRepository.swift */,
-				F3984A9C29ADAD2B003FA0C8 /* MemberRepository.swift */,
-				F3984A9E29ADAD2B003FA0C8 /* TokenRepository.swift */,
-				F3984A9829ADAD23003FA0C8 /* TownRepository.swift */,
+				F362189B29B99AE2005A0C8F /* AuthRepository.swift */,
+				F362189A29B99AE2005A0C8F /* KakaoAuthRepository.swift */,
+				F362189829B99AE2005A0C8F /* MapRepository.swift */,
+				F362189629B99AE2005A0C8F /* MemberRepository.swift */,
+				F362189729B99AE2005A0C8F /* TokenRepository.swift */,
+				F362189929B99AE2005A0C8F /* TownRepository.swift */,
 				F3984AA429ADAD45003FA0C8 /* AppleAuthRespository.swift */,
 			);
 			path = Repository;
@@ -1537,7 +1537,7 @@
 				F3ACC0A4298CB9520018889F /* DefaultTokenRepository.swift in Sources */,
 				2B628DE72986908600A90D9A /* HotPlaceCollectionView.swift in Sources */,
 				2BEE90CC2977F975002E7C3A /* FavoriteCoordinator.swift in Sources */,
-				F3984AA029ADAD2B003FA0C8 /* MapRepository.swift in Sources */,
+				F362189F29B99AE2005A0C8F /* TownRepository.swift in Sources */,
 				F39EDDCC296D7A1800A4E655 /* CategoryCollectionView.swift in Sources */,
 				F38AA80F29817F1600EF66F2 /* NickCheckResponseDTO.swift in Sources */,
 				BC04A6E329700DF400B60BCF /* KeyChainAccount.swift in Sources */,
@@ -1568,7 +1568,6 @@
 				BCF825942988C91500AC00BB /* MyPageViewModel.swift in Sources */,
 				BC1CE29A2975634800F89B81 /* FilterSheetCoordinator.swift in Sources */,
 				BC043A8529891ACA005FAE45 /* InfoSectionCollectionViewCell.swift in Sources */,
-				F3984AA329ADAD2B003FA0C8 /* TokenRepository.swift in Sources */,
 				F39EDDD0296D7BBF00A4E655 /* StoreCollectionView.swift in Sources */,
 				F3356EFC298EB980002B9FFD /* LoginConfirmReponseDTO.swift in Sources */,
 				F38AA8202983966A00EF66F2 /* SingupUserModel.swift in Sources */,
@@ -1593,13 +1592,13 @@
 				BC853DF0298B813C0033AF20 /* DefaultMemberRepository.swift in Sources */,
 				BC0D88552963DD1D00CCB800 /* KakaoAddressViewController.swift in Sources */,
 				F3356F00298F986A002B9FFD /* TokenPayloadDTO.swift in Sources */,
-				F3984AA129ADAD2B003FA0C8 /* MemberRepository.swift in Sources */,
 				F3356EEA298D4D59002B9FFD /* ReissueRequest.swift in Sources */,
 				F38AA7FE2981259200EF66F2 /* DefaultAuthUseCase.swift in Sources */,
 				BC056C5C2962B2C400EDCA18 /* LoginViewController.swift in Sources */,
 				BC7508E62975275300D0CAFA /* FilterBottomSheetViewController.swift in Sources */,
 				BCE99668297693D100AACD02 /* TrafficCollectionViewFlowLayout.swift in Sources */,
 				2B628DE4298675C400A90D9A /* TownMood.swift in Sources */,
+				F362189D29B99AE2005A0C8F /* TokenRepository.swift in Sources */,
 				BC3C069229A0C5A20049DA8C /* TownSearchRequest.swift in Sources */,
 				BCE996662976915A00AACD02 /* FilterCollectionViewFlowLayout.swift in Sources */,
 				2B628DD52986508F00A90D9A /* TownIntroduceViewController.swift in Sources */,
@@ -1615,9 +1614,9 @@
 				BC0D88512963DCF300CCB800 /* LocationAndYearsViewModel.swift in Sources */,
 				2B628DE229866A7800A90D9A /* TrafficTipView.swift in Sources */,
 				BC3C068E29A0C5680049DA8C /* TownSearchResponseDTO.swift in Sources */,
+				F362189E29B99AE2005A0C8F /* MapRepository.swift in Sources */,
 				BCF68B53299BB1DF00E8D83E /* DefaultTownRepository.swift in Sources */,
 				F3891E1F293B8393003CE8AD /* AppDelegate.swift in Sources */,
-				F3984A9F29ADAD2B003FA0C8 /* AuthRepository.swift in Sources */,
 				F3984A7429ACBE03003FA0C8 /* AppDIContainer.swift in Sources */,
 				BC8B638D298A4B4C004E1116 /* ChangeNicknameViewModel.swift in Sources */,
 				BC9F4D59296BE5FC0099473C /* FavoriteTownViewController.swift in Sources */,
@@ -1650,7 +1649,6 @@
 				2B42E986299FCC110093FB0A /* TownIntroduceRequest.swift in Sources */,
 				F38AA81929829BED00EF66F2 /* CityCode.swift in Sources */,
 				BC8B638729894EE1004E1116 /* MyPageCollectionView.swift in Sources */,
-				F3984AA229ADAD2B003FA0C8 /* KakaoAuthRepository.swift in Sources */,
 				BCB554B32977AEA8007E1BBA /* VillageYearMonth.swift in Sources */,
 				BC199C42297FE96E00C2A89B /* ShowVillageListViewModel.swift in Sources */,
 				BC9E86522966821C00AB4AE7 /* SignupViewModelDelegate.swift in Sources */,
@@ -1681,7 +1679,6 @@
 				2B42E98C29A0688D0093FB0A /* Traffic.swift in Sources */,
 				2BEE90CF2977FDFE002E7C3A /* AnonymousView.swift in Sources */,
 				2B628DDC29865DD800A90D9A /* TownMoodCollectionViewCell.swift in Sources */,
-				F3984A9929ADAD23003FA0C8 /* TownRepository.swift in Sources */,
 				F38AA822298396D300EF66F2 /* MemberSignupDTO.swift in Sources */,
 				BC853DFE298C04C20033AF20 /* MyPageAnonymousViewController.swift in Sources */,
 				F39EDDCE296D7A6900A4E655 /* CategoryCollectionViewFlowLayout.swift in Sources */,
@@ -1694,6 +1691,7 @@
 				F3356F02298FA270002B9FFD /* LogoutRequest.swift in Sources */,
 				BCF825992988DFF800AC00BB /* SupportSectionCollectionViewCell.swift in Sources */,
 				F3219B6729694328000024E4 /* MapDetailCategoryView.swift in Sources */,
+				F362189C29B99AE2005A0C8F /* MemberRepository.swift in Sources */,
 				2B42E970299F83DB0093FB0A /* UserDefaultsWrapper.swift in Sources */,
 				F38CCBE02958287C000C16AF /* HomeViewController.swift in Sources */,
 				F363D15E299A1A3800606C7F /* TownLocationRequest.swift in Sources */,
@@ -1706,6 +1704,7 @@
 				2BEE90C92977F93E002E7C3A /* FavoriteViewModel.swift in Sources */,
 				F38AA7FA298124AD00EF66F2 /* AuthLoginRequest.swift in Sources */,
 				BC0D88532963DD0D00CCB800 /* LocationAndYearsViewController.swift in Sources */,
+				F36218A029B99AE2005A0C8F /* KakaoAuthRepository.swift in Sources */,
 				2B42E972299F85200093FB0A /* UserDefaultsSetting.swift in Sources */,
 				F3219B762969D169000024E4 /* AddressSheetViewController.swift in Sources */,
 				F38AA80D29817E2000EF66F2 /* NickNameCheckRequest.swift in Sources */,
@@ -1722,6 +1721,7 @@
 				BC354708298F9D010016FE4A /* ServiceMapPopUpViewController.swift in Sources */,
 				BCF68B56299BB25C00E8D83E /* TownFilterRequest.swift in Sources */,
 				BC1CE29429753F9E00F89B81 /* InfraIconStackView.swift in Sources */,
+				F36218A129B99AE2005A0C8F /* AuthRepository.swift in Sources */,
 				2B628DF529869F0C00A90D9A /* TownRankView.swift in Sources */,
 				F39EDDCA296D788800A4E655 /* CityCollectionViewFlowLayout.swift in Sources */,
 			);
