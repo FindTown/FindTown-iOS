@@ -358,9 +358,8 @@ final class HomeViewController: BaseViewController {
             .disposed(by: disposeBag)
         
         viewModel?.output.isFavorite
-            .filter { $0 == false }
-            .subscribe(onNext: { [weak self] _ in
-                let toastMessage = "찜 목록에서 삭제되었어요"
+            .subscribe(onNext: { [weak self] isFavorite in
+                let toastMessage = isFavorite ? "찜 목록에 추가되었어요" : "찜 목록에서 삭제되었어요"
                 self?.showToast(message: toastMessage, height: 120)
             })
             .disposed(by: disposeBag)
