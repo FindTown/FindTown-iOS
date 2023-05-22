@@ -61,13 +61,13 @@ enum TownRank: String, CaseIterable {
 }
 
 struct TownRankData {
-    var lifeRank: Int
-    var crimeRank: Int
-    var trafficRank: Int
     var liveRank: Int?
     var popular: [String]?
     var cleanRank: String?
     var safety: String?
+    var lifeRank: Int
+    var crimeRank: Int
+    var trafficRank: Int
     
     func toArray() -> [(TownRank, Any)] {
         var array = [(TownRank, Any)]()
