@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2B08B1902A1B28FE00955E69 /* APIKeyInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2B08B18F2A1B28FE00955E69 /* APIKeyInfo.plist */; };
 		2B42E970299F83DB0093FB0A /* UserDefaultsWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B42E96F299F83DB0093FB0A /* UserDefaultsWrapper.swift */; };
 		2B42E972299F85200093FB0A /* UserDefaultsSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B42E971299F85200093FB0A /* UserDefaultsSetting.swift */; };
 		2B42E986299FCC110093FB0A /* TownIntroduceRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B42E985299FCC110093FB0A /* TownIntroduceRequest.swift */; };
@@ -199,7 +200,6 @@
 		F3918472299D3F0600CEF02E /* ResignRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3918471299D3F0600CEF02E /* ResignRequest.swift */; };
 		F3918476299E8B9700CEF02E /* MapThemaStoreResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3918475299E8B9700CEF02E /* MapThemaStoreResponseDTO.swift */; };
 		F3918478299E8CB500CEF02E /* ThemaStoreRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3918477299E8CB500CEF02E /* ThemaStoreRequest.swift */; };
-		F3984A7129A92853003FA0C8 /* APIKeyInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = F3984A7029A92853003FA0C8 /* APIKeyInfo.plist */; };
 		F3984A7429ACBE03003FA0C8 /* AppDIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3984A7329ACBE03003FA0C8 /* AppDIContainer.swift */; };
 		F3984A7C29ADA30F003FA0C8 /* NetwokDIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3984A7B29ADA30F003FA0C8 /* NetwokDIContainer.swift */; };
 		F3984AA529ADAD45003FA0C8 /* AppleAuthRespository.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3984AA429ADAD45003FA0C8 /* AppleAuthRespository.swift */; };
@@ -234,6 +234,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2B08B18F2A1B28FE00955E69 /* APIKeyInfo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = APIKeyInfo.plist; path = ../../../../../APIKeyInfo.plist; sourceTree = "<group>"; };
 		2B42E96F299F83DB0093FB0A /* UserDefaultsWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsWrapper.swift; sourceTree = "<group>"; };
 		2B42E971299F85200093FB0A /* UserDefaultsSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsSetting.swift; sourceTree = "<group>"; };
 		2B42E985299FCC110093FB0A /* TownIntroduceRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TownIntroduceRequest.swift; sourceTree = "<group>"; };
@@ -424,7 +425,6 @@
 		F3918471299D3F0600CEF02E /* ResignRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResignRequest.swift; sourceTree = "<group>"; };
 		F3918475299E8B9700CEF02E /* MapThemaStoreResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapThemaStoreResponseDTO.swift; sourceTree = "<group>"; };
 		F3918477299E8CB500CEF02E /* ThemaStoreRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemaStoreRequest.swift; sourceTree = "<group>"; };
-		F3984A7029A92853003FA0C8 /* APIKeyInfo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = APIKeyInfo.plist; path = ../../../../../Downloads/APIKeyInfo.plist; sourceTree = "<group>"; };
 		F3984A7329ACBE03003FA0C8 /* AppDIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDIContainer.swift; sourceTree = "<group>"; };
 		F3984A7B29ADA30F003FA0C8 /* NetwokDIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetwokDIContainer.swift; sourceTree = "<group>"; };
 		F3984AA429ADAD45003FA0C8 /* AppleAuthRespository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleAuthRespository.swift; sourceTree = "<group>"; };
@@ -786,7 +786,7 @@
 			isa = PBXGroup;
 			children = (
 				F3891E2A293B8394003CE8AD /* Assets.xcassets */,
-				F3984A7029A92853003FA0C8 /* APIKeyInfo.plist */,
+				2B08B18F2A1B28FE00955E69 /* APIKeyInfo.plist */,
 				F3891E2F293B8394003CE8AD /* Info.plist */,
 				F3891E2C293B8394003CE8AD /* LaunchScreen.storyboard */,
 			);
@@ -1505,7 +1505,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F3891E2E293B8394003CE8AD /* LaunchScreen.storyboard in Resources */,
-				F3984A7129A92853003FA0C8 /* APIKeyInfo.plist in Resources */,
+				2B08B1902A1B28FE00955E69 /* APIKeyInfo.plist in Resources */,
 				F3891E2B293B8394003CE8AD /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
