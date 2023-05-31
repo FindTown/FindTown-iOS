@@ -472,7 +472,7 @@ extension HomeViewController: TownTableFooterViewDelegate {
 
 extension HomeViewController: HomeFavoriteDelegate {
     func HomeFavoriteFetch(_ cityCode: Int) {
-        self.viewModel?.input.favoriteButtonTrigger.onNext(cityCode)
+        self.viewModel?.input.changeFavoriteStatus.onNext(cityCode)
     }
 }
 
