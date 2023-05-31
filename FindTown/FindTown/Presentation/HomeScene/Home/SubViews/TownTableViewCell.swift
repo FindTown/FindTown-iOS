@@ -40,10 +40,9 @@ final class TownTableViewCell: UITableViewCell {
     
     // MARK: Views
     
-    private let townIconView = UIView()
-    private let townIconImageView = UIImageView()
-    private let townTitle = FindTownLabel(text: "", font: .subtitle4)
-    private let townIntroduceTitle = FindTownLabel(text: "", font: .body3, textColor: .grey5)
+    private let townTitle = FindTownLabel(text: "", font: .subtitle2)
+    private let townIntroduceTitle = FindTownLabel(text: "", font: .label2, textColor: .grey5)
+    private let townMoodCollectionView = TownMoodCollectionView()
     
     private let favoriteIcon: UIButton = {
         let button = UIButton()
@@ -96,41 +95,36 @@ final class TownTableViewCell: UITableViewCell {
             buttonStackView.addArrangedSubview($0)
         }
         
-        [townIconView, townTitle, townIntroduceTitle, favoriteIcon, buttonStackView].forEach {
+        [townMoodCollectionView, townTitle, townIntroduceTitle, favoriteIcon, buttonStackView].forEach {
             contentView.addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
-        
-        townIconView.addSubview(townIconImageView)
-        townIconImageView.translatesAutoresizingMaskIntoConstraints = false
     }
     
     private func setLayout() {
         NSLayoutConstraint.activate([
-            townIconView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
-            townIconView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            townIconView.widthAnchor.constraint(equalToConstant: 48),
-            townIconView.heightAnchor.constraint(equalToConstant: 48),
-            townIconImageView.centerXAnchor.constraint(equalTo: townIconView.centerXAnchor),
-            townIconImageView.centerYAnchor.constraint(equalTo: townIconView.centerYAnchor)
+            townMoodCollectionView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
+            townMoodCollectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            townMoodCollectionView.trailingAnchor.constraint(equalTo: favoriteIcon.leadingAnchor, constant: -16),
+            townMoodCollectionView.heightAnchor.constraint(equalToConstant: 35.0)
         ])
         
         NSLayoutConstraint.activate([
-            townTitle.topAnchor.constraint(equalTo: townIconView.topAnchor),
-            townTitle.leadingAnchor.constraint(equalTo: townIconView.trailingAnchor, constant: 16),
-            townIntroduceTitle.topAnchor.constraint(equalTo: townTitle.bottomAnchor, constant: 4),
-            townIntroduceTitle.leadingAnchor.constraint(equalTo: townTitle.leadingAnchor)
+            townTitle.topAnchor.constraint(equalTo: townMoodCollectionView.bottomAnchor, constant: 16),
+            townTitle.leadingAnchor.constraint(equalTo: townMoodCollectionView.leadingAnchor),
+            townIntroduceTitle.centerYAnchor.constraint(equalTo: townTitle.centerYAnchor),
+            townIntroduceTitle.leadingAnchor.constraint(equalTo: townTitle.trailingAnchor, constant: 8.0)
         ])
         
         NSLayoutConstraint.activate([
-            favoriteIcon.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 14),
-            favoriteIcon.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -14),
+            favoriteIcon.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
+            favoriteIcon.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
             favoriteIcon.widthAnchor.constraint(equalToConstant: 24),
             favoriteIcon.heightAnchor.constraint(equalToConstant: 24)
         ])
         
         NSLayoutConstraint.activate([
-            buttonStackView.topAnchor.constraint(equalTo: townIntroduceTitle.bottomAnchor, constant: 16),
+            buttonStackView.topAnchor.constraint(equalTo: townTitle.bottomAnchor, constant: 22),
             buttonStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             buttonStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
             buttonStackView.heightAnchor.constraint(equalToConstant: 44),
@@ -140,12 +134,7 @@ final class TownTableViewCell: UITableViewCell {
     
     private func setupView() {
         self.backgroundColor = FindTownColor.back2.color
-        
-        townIconView.backgroundColor = FindTownColor.white.color
-        townIconView.layer.cornerRadius = 24
-        townIconView.layer.borderWidth = 1.0
-        townIconView.layer.borderColor = FindTownColor.grey3.color.cgColor
-        townIconImageView.image = UIImage(named: "hospital")
+        self.selectionStyle = .none
         
         mapButton.changesSelectionAsPrimaryAction = false
         mapButton.isSelected = true
@@ -158,8 +147,7 @@ final class TownTableViewCell: UITableViewCell {
         contentView.layer.addCustomShadow(shadowX: 0, shadowY: 2,
                                           shadowColor: FindTownColor.black.color.withAlphaComponent(0.4),
                                           blur: 10.0, spread: 0, alpha: 0.4)
-        
-        selectionStyle = .none
+    
         
         introduceButton.addTarget(self, action: #selector(didTapGoToIntroduceButton), for: .touchUpInside)
         mapButton.addTarget(self, action: #selector(didTapGoToMapButton), for: .touchUpInside)
@@ -172,6 +160,13 @@ final class TownTableViewCell: UITableViewCell {
                 self?.didTapFavoriteButton()
             }
             .disposed(by: disposeBag)
+        
+        // TODO: API 수정되면 수정 필요
+        BehaviorSubject<[TownMood]>(value: [.infra1, .mood4])
+            .bind(to: townMoodCollectionView.rx.items(cellIdentifier: TownMoodCollectionViewCell.reuseIdentifier, cellType: TownMoodCollectionViewCell.self)) { index, item, cell in
+                cell.setupCell(item)
+            }
+            .disposed(by: disposeBag)
     }
     
     func setupCell(_ model: Any, cityCode: Int) {
@@ -182,7 +177,6 @@ final class TownTableViewCell: UITableViewCell {
         favoriteIcon.isSelected = model.wishTown ? true : false
         townTitle.text = model.county
         townIntroduceTitle.text = model.townIntroduction
-        townIconImageView.image = model.countyIcon
         favoriteIcon.isSelected = model.wishTown ? true : false
     }
 }

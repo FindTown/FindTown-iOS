@@ -92,9 +92,6 @@ final class ShowVillageListViewController: BaseViewController {
         guard let selectCountyData = self.viewModel?.selectCountyData else { return }
         selectCountyTitle.text = "서울시 \(selectCountyData)"
         
-        townTableView.rowHeight = 150
-        townTableView.estimatedRowHeight = 150
-        
         viewModel?.fetchTownInformation()
     }
     

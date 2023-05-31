@@ -242,8 +242,6 @@ final class HomeViewController: BaseViewController {
         
         townTableView.tableFooterView?.isHidden = true
         townTableView.isHidden = true
-        townTableView.rowHeight = 150
-        townTableView.estimatedRowHeight = 150
         
         safetyToolTip.dismiss()
         addTapGesture()
