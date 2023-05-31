@@ -18,8 +18,8 @@ final class TownMoodViewController: BaseViewController {
     
     private let viewModel: TownMoodViewModel?
     private var keyHeight: CGFloat?
-    private let textViewPlaceHolder = "동네의 장, 단점 or 동네 생활 꿀팁을 알려주세요. \n(최소 20자 이상 작성)"
-    private let afterTwentyTitleText = "최소 20자 이상 작성해주세요"
+    private let textViewPlaceHolder = "동네의 장, 단점 or 동네 생활 꿀팁을 알려주세요. \n(최소 10자 이상 작성)"
+    private let afterTwentyTitleText = "최소 10자 이상 작성해주세요"
     
     // MARK: - Views
     
@@ -35,7 +35,7 @@ final class TownMoodViewController: BaseViewController {
     
     private let afterTwentyTitle = FindTownLabel(text: "", font: .label3, textColor: .error)
     
-    private let textViewCountTitle = FindTownLabel(text: "0/200", font: .label3)
+    private let textViewCountTitle = FindTownLabel(text: "0/100", font: .label3)
     
     private let textViewGuideTitleStackView: UIStackView = {
         let stackView = UIStackView()
@@ -221,9 +221,9 @@ extension TownMoodViewController: UITextViewDelegate {
         let currentText = textViewText
         guard let stringRange = Range(range, in: currentText) else { return false }
         let changedText = currentText.replacingCharacters(in: stringRange, with: text)
-        textViewCountTitle.text = "\(changedText.count)/200"
+        textViewCountTitle.text = "\(changedText.count)/100"
         
-        return changedText.count < 200
+        return changedText.count < 100
     }
     
     func textViewDidBeginEditing(_ textView: UITextView) {
