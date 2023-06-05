@@ -52,6 +52,13 @@ final class SignupCoordinator: FlowCoordinator {
         let townMoodViewController = TownMoodViewController(viewModel: townMoodViewModel)
         return townMoodViewController
     }
+  
+    /// 회원가입 세번째 정보입력 화면 (동네 분위기 선택)
+    internal func signUpInputTownMoodSelectScene(_ signupUserModel: SignupUserModel) -> UIViewController {
+        let townMoodViewModel = TownMoodSelectViewModel(delegate: self, signupUserModel: signupUserModel)
+        let townMoodViewController = TownMoodSelectViewController(viewModel: townMoodViewModel)
+        return townMoodViewController
+    }
     
     /// 회원가입 관심 있는 동네
     internal func signUpFavoriteTownScene(_ signupUserModel: SignupUserModel) -> UIViewController {
@@ -84,6 +91,11 @@ extension SignupCoordinator: SignupViewModelDelegate {
     func goToFavorite(_ signupUserModel: SignupUserModel) {
         guard let navigationController = navigationController else { return }
         navigationController.pushViewController(signUpFavoriteTownScene(signupUserModel), animated: true)
+    }
+  
+    func goToTownMoodSelect(_ signupUserModel: SignupUserModel) {
+        guard let navigationController = navigationController else { return }
+        navigationController.pushViewController(signUpInputTownMoodSelectScene(signupUserModel), animated: true)
     }
     
     func goToAgreePolicy(_ signupUserModel: SignupUserModel) {

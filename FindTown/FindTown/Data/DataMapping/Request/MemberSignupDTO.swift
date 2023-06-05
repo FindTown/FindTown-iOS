@@ -16,6 +16,7 @@ struct MemberSignupDTO: Encodable {
     var resident: ResidentDTO
     var useAgreeYn: Bool
     var privacyAgreeYn: Bool
+    var moods: [String]
 }
 
 struct ResidentDTO: Encodable {

@@ -16,6 +16,7 @@ struct SignupUserModel {
     var resident: Resident
     var useAgreeYn: Bool
     var privacyAgreeYn: Bool
+    var moods: [String]
     
     init(memberId: String = "",
          email: String? = nil,
@@ -24,7 +25,8 @@ struct SignupUserModel {
          objectId: Int? = nil,
          resident: Resident = Resident(),
          useAgreeYn: Bool = false,
-         privacyAgreeYn: Bool = false
+         privacyAgreeYn: Bool = false,
+         moods: [String] = []
     ) {
         self.memberId = memberId
         self.email = email
@@ -34,6 +36,7 @@ struct SignupUserModel {
         self.resident = resident
         self.useAgreeYn = useAgreeYn
         self.privacyAgreeYn = privacyAgreeYn
+        self.moods = moods
     }
     
     func toData() -> MemberSignupDTO {
@@ -44,7 +47,8 @@ struct SignupUserModel {
                                objectId: objectId,
                                resident: resident.toData(),
                                useAgreeYn: useAgreeYn,
-                               privacyAgreeYn: privacyAgreeYn)
+                               privacyAgreeYn: privacyAgreeYn,
+                               moods: moods)
     }
 }
 

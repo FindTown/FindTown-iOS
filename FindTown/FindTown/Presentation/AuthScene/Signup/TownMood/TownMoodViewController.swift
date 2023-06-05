@@ -124,7 +124,7 @@ final class TownMoodViewController: BaseViewController {
         
         nowStatusPogressView.trackTintColor = FindTownColor.grey2.color
         nowStatusPogressView.progressTintColor = FindTownColor.primary.color
-        nowStatusPogressView.progress = Float(3) / 4.0
+        nowStatusPogressView.progress = Float(3) / 5.0
         
         townLikeTextView.delegate = self
         townLikeTextView.text = textViewPlaceHolder

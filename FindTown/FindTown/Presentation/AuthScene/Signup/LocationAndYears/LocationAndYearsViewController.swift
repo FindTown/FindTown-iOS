@@ -116,7 +116,7 @@ final class LocationAndYearsViewController: BaseViewController {
         
         nowStatusPogressView.trackTintColor = FindTownColor.grey2.color
         nowStatusPogressView.progressTintColor = FindTownColor.primary.color
-        nowStatusPogressView.progress = Float(2) / 4.0
+        nowStatusPogressView.progress = Float(2) / 5.0
         
         villageButton.setTitle("건물명, 도로명 또는 지번으로 검색", for: .normal)
         villageButton.contentHorizontalAlignment = .left

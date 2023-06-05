@@ -12,7 +12,7 @@ import RxSwift
 import RxRelay
 
 protocol TownMoodViewModelType {
-    func goToFavorite(_ signupUserModel: SignupUserModel)
+    func goToTownMoodSelect(_ signupUserModel: SignupUserModel)
 }
 
 final class TownMoodViewModel: BaseViewModel {
@@ -58,13 +58,13 @@ final class TownMoodViewModel: BaseViewModel {
     
     private func settownLikeText(townLikeText: String) {
         signupUserModel.resident.residentReview = townLikeText
-        self.goToFavorite(signupUserModel)
+        self.goToTownMoodSelect(signupUserModel)
     }
 }
 
 extension TownMoodViewModel: TownMoodViewModelType {
     
-    func goToFavorite(_ signupUserModel: SignupUserModel) {
-        delegate.goToFavorite(signupUserModel)
+    func goToTownMoodSelect(_ signupUserModel: SignupUserModel) {
+        delegate.goToTownMoodSelect(signupUserModel)
     }
 }
