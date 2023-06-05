@@ -16,7 +16,6 @@ struct SignupUserModel {
     var resident: Resident
     var useAgreeYn: Bool
     var privacyAgreeYn: Bool
-    var moods: [String]
     
     init(memberId: String = "",
          email: String? = nil,
@@ -25,8 +24,7 @@ struct SignupUserModel {
          objectId: Int? = nil,
          resident: Resident = Resident(),
          useAgreeYn: Bool = false,
-         privacyAgreeYn: Bool = false,
-         moods: [String] = []
+         privacyAgreeYn: Bool = false
     ) {
         self.memberId = memberId
         self.email = email
@@ -36,7 +34,6 @@ struct SignupUserModel {
         self.resident = resident
         self.useAgreeYn = useAgreeYn
         self.privacyAgreeYn = privacyAgreeYn
-        self.moods = moods
     }
     
     func toData() -> MemberSignupDTO {
@@ -47,8 +44,7 @@ struct SignupUserModel {
                                objectId: objectId,
                                resident: resident.toData(),
                                useAgreeYn: useAgreeYn,
-                               privacyAgreeYn: privacyAgreeYn,
-                               moods: moods)
+                               privacyAgreeYn: privacyAgreeYn)
     }
 }
 
@@ -57,21 +53,25 @@ struct Resident {
     var residentYear: Int
     var residentMonth: Int
     var residentAddress: String
+    var moods: [String]
     
     init(residentReview: String = "",
          residentYear: Int = 0,
          residentMonth: Int = 0,
-         residentAddress: String = "") {
+         residentAddress: String = "",
+         moods: [String] = []) {
         self.residentReview = residentReview
         self.residentYear = residentYear
         self.residentMonth = residentMonth
         self.residentAddress = residentAddress
+        self.moods = moods
     }
     
     func toData() -> ResidentDTO {
         return ResidentDTO(residentReview: residentReview,
                            residentYear: residentYear,
                            residentMonth: residentMonth,
-                           residentAddress: residentAddress)
+                           residentAddress: residentAddress,
+                           moods: moods)
     }
 }

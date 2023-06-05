@@ -57,7 +57,7 @@ final class TownMoodSelectViewModel: BaseViewModel {
     }
     
     private func setMoodItems(itmes: [TownMood]) {
-      signupUserModel.moods = itmes.map { $0.description }
+      signupUserModel.resident.moods = itmes.map { $0.description }
       self.goToFavorite(signupUserModel)
     }
 }

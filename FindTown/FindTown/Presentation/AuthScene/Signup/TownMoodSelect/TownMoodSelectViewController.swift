@@ -63,7 +63,7 @@ final class TownMoodSelectViewController: BaseViewController {
     
     private let nextButton = FTButton(style: .largeFilled)
   
-  private var selectItems: [TownMood] = []
+    private var selectItems: [TownMood] = []
     
     // MARK: - Life Cycle
     
