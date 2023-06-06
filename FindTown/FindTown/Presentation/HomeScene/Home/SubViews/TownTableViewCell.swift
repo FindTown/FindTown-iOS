@@ -33,6 +33,12 @@ final class TownTableViewCell: UITableViewCell {
     
     var cityCode: Int?
     
+    var townMood = [TownMood]() {
+        didSet {
+            townMoodCollectionView.reloadData()
+        }
+    }
+    
     override func prepareForReuse() {
         super.prepareForReuse()
 //        disposeBag = DisposeBag()
@@ -41,7 +47,7 @@ final class TownTableViewCell: UITableViewCell {
     // MARK: Views
     
     private let townTitle = FindTownLabel(text: "", font: .subtitle2)
-    private let townIntroduceTitle = FindTownLabel(text: "", font: .label2, textColor: .grey5)
+    private let townFullTitle = FindTownLabel(text: "", font: .label2, textColor: .grey5)
     private let townMoodCollectionView = TownMoodCollectionView()
     
     private let favoriteIcon: UIButton = {
@@ -95,7 +101,7 @@ final class TownTableViewCell: UITableViewCell {
             buttonStackView.addArrangedSubview($0)
         }
         
-        [townMoodCollectionView, townTitle, townIntroduceTitle, favoriteIcon, buttonStackView].forEach {
+        [townMoodCollectionView, townTitle, townFullTitle, favoriteIcon, buttonStackView].forEach {
             contentView.addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
@@ -112,8 +118,8 @@ final class TownTableViewCell: UITableViewCell {
         NSLayoutConstraint.activate([
             townTitle.topAnchor.constraint(equalTo: townMoodCollectionView.bottomAnchor, constant: 16),
             townTitle.leadingAnchor.constraint(equalTo: townMoodCollectionView.leadingAnchor),
-            townIntroduceTitle.centerYAnchor.constraint(equalTo: townTitle.centerYAnchor),
-            townIntroduceTitle.leadingAnchor.constraint(equalTo: townTitle.trailingAnchor, constant: 8.0)
+            townFullTitle.centerYAnchor.constraint(equalTo: townTitle.centerYAnchor),
+            townFullTitle.leadingAnchor.constraint(equalTo: townTitle.trailingAnchor, constant: 8.0)
         ])
         
         NSLayoutConstraint.activate([
@@ -135,6 +141,9 @@ final class TownTableViewCell: UITableViewCell {
     private func setupView() {
         self.backgroundColor = FindTownColor.back2.color
         self.selectionStyle = .none
+        
+        townMoodCollectionView.delegate = self
+        townMoodCollectionView.dataSource = self
         
         mapButton.changesSelectionAsPrimaryAction = false
         mapButton.isSelected = true
@@ -160,24 +169,32 @@ final class TownTableViewCell: UITableViewCell {
                 self?.didTapFavoriteButton()
             }
             .disposed(by: disposeBag)
-        
-        // TODO: API 수정되면 수정 필요
-        BehaviorSubject<[TownMood]>(value: [.infra1, .mood4])
-            .bind(to: townMoodCollectionView.rx.items(cellIdentifier: TownMoodCollectionViewCell.reuseIdentifier, cellType: TownMoodCollectionViewCell.self)) { index, item, cell in
-                cell.setupCell(item)
-            }
-            .disposed(by: disposeBag)
     }
     
     func setupCell(_ model: Any, cityCode: Int) {
         guard let model = model as? TownTableModel else { return }
         townTableModel = model
         self.cityCode = cityCode
+        townMood = model.moods
         
         favoriteIcon.isSelected = model.wishTown ? true : false
         townTitle.text = model.county
-        townIntroduceTitle.text = model.townIntroduction
         favoriteIcon.isSelected = model.wishTown ? true : false
+        townFullTitle.text = model.townFullTitle
+    }
+}
+
+extension TownTableViewCell: UICollectionViewDataSource, UICollectionViewDelegate {
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return townMood.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TownMoodCollectionViewCell.reuseIdentifier, for: indexPath) as? TownMoodCollectionViewCell else { return UICollectionViewCell() }
+        let mood = townMood[indexPath.row]
+        cell.setupCell(mood)
+        return cell
     }
 }
 

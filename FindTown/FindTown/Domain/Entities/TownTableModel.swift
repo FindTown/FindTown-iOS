@@ -13,5 +13,6 @@ struct TownTableModel {
     let countyIcon: UIImage
     var wishTown: Bool
     let safetyRate: Double
-    let townIntroduction: String
+    let moods: [TownMood]
+    let townFullTitle: String
 }
