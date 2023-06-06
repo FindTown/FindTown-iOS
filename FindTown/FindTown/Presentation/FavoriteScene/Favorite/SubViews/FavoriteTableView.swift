@@ -31,7 +31,7 @@ private extension FavoriteTableView {
         self.backgroundColor = .clear
         self.showsVerticalScrollIndicator = false
         self.automaticallyAdjustsScrollIndicatorInsets = false
-        self.rowHeight = 142 + 16
+        self.rowHeight = 174 + 16
         self.tableHeaderView = returnTableHeaderView()
         self.register(TownTableViewCell.self,
                       forCellReuseIdentifier: TownTableViewCell.reuseIdentifier)

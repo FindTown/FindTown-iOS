@@ -22,13 +22,13 @@ struct TownSearchResponseDTO: Response {
             let countyIcon = CityCode(rawValue: townInformation.objectId)?.countyIcon ?? UIImage()
             let wishTown = townInformation.wishTown
             let safetyRate = 0.0
-            let townIntroduction = townInformation.townIntroduction
             let tableModel = TownTableModel(objectId: townInformation.objectId,
                                             county: county,
                                             countyIcon: countyIcon,
                                             wishTown: wishTown,
                                             safetyRate: safetyRate,
-                                            townIntroduction: townIntroduction)
+                                            moods: townInformation.convertTownMood,
+                                            townFullTitle: townInformation.convertFullTitle)
             tableModels.append(tableModel)
         }
         return tableModels
@@ -37,6 +37,23 @@ struct TownSearchResponseDTO: Response {
 
 struct TownSearchInformationDTO: Response {
     let objectId: Int
-    let townIntroduction: String
+    let moods: [String]
     let wishTown: Bool
+    
+    var convertTownMood: [TownMood] {
+        var townMoodArray: [TownMood] = []
+        
+        for mood in moods {
+            if let mood = TownMood.returnTrafficType(mood) {
+                townMoodArray.append(mood)
+            }
+        }
+        return townMoodArray
+    }
+    
+    var convertFullTitle: String {
+        guard let city = CityCode.init(rawValue: objectId) else { return "" }
+        let townTitle = City(county: city.county, village: city.village).description
+        return townTitle
+    }
 }

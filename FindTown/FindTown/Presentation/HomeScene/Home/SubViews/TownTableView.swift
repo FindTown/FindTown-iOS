@@ -26,5 +26,6 @@ final class TownTableView: UITableView {
         backgroundColor = FindTownColor.white.color
         separatorStyle = .none
         register(TownTableViewCell.self, forCellReuseIdentifier: TownTableViewCell.reuseIdentifier)
+        self.rowHeight = 174 + 16
     }
 }

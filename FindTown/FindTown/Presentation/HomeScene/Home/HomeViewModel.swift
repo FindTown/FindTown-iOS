@@ -42,6 +42,7 @@ final class HomeViewModel: BaseViewModel {
         let townMapButtonTrigger = PublishSubject<Int>()
         let favoriteButtonTrigger = PublishSubject<Int>()
         let goToAuthButtonTrigger = PublishSubject<Void>()
+        let changeFavoriteStatus = PublishSubject<Int>()
     }
     
     struct Output {
@@ -140,6 +141,12 @@ final class HomeViewModel: BaseViewModel {
                 self?.goToAuth()
             })
             .disposed(by: disposeBag)
+        
+        self.input.changeFavoriteStatus
+            .subscribe(onNext: { [weak self] cityCode in
+                self?.changeFavoriteStatus(cityCode)
+            })
+            .disposed(by: disposeBag)
     }
 }
 
@@ -207,6 +214,17 @@ extension HomeViewModel {
                 Log.error(error)
             }
         }
+    }
+}
+
+extension HomeViewModel {
+    
+    func changeFavoriteStatus(_ cityCode: Int) {
+        var dataSource = self.output.searchTownTableDataSource.value
+        let index = dataSource.indices.filter({ dataSource[$0].objectId == cityCode }).first
+        guard let index = index else { return }
+        dataSource[index].wishTown = !dataSource[index].wishTown
+        self.output.searchTownTableDataSource.accept(dataSource)
     }
 }
 

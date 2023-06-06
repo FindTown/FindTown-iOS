@@ -39,6 +39,7 @@ final class FavoriteViewModel: BaseViewModel {
         let townIntroButtonTrigger = PublishSubject<Int>()
         let townMapButtonTrigger = PublishSubject<Int>()
         let favoriteButtonTrigger = PublishSubject<Int>()
+        let refreshTrigger = PublishSubject<Void>()
     }
     
     struct Output {
@@ -101,6 +102,12 @@ final class FavoriteViewModel: BaseViewModel {
                 self?.delegate.goToTownMap(cityCode: cityCode)
             })
             .disposed(by: disposeBag)
+        
+        self.input.refreshTrigger
+            .subscribe(onNext: { [weak self] in
+                self?.getFavoriteList()
+            })
+            .disposed(by: disposeBag)
     }
 }
 
@@ -156,7 +163,6 @@ extension FavoriteViewModel {
                 let favoriteStatus = try await self.memberUseCase.favorite(accessToken: accessToken,
                                                                            cityCode: cityCode)
                 await MainActor.run(body: {
-                    self.getFavoriteList()
                     self.output.isFavorite.onNext(favoriteStatus)
                 })
             } catch (let error) {

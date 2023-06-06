@@ -84,14 +84,13 @@ struct TownIntroduceDTO: Response {
         let popular = popularGeneration == 0 ? nil : ["\(popularGeneration)대 1인가구",
                                                       "\(popularTownRate)"]
         
-        let townRankData = TownRankData(lifeRank: lifeRate,
-                                        crimeRank: crimeRate,
-                                        trafficRank: trafficRate,
-                                        liveRank: liveRank == 0 ? nil : liveRank,
+        let townRankData = TownRankData(liveRank: liveRank == 0 ? nil : liveRank,
                                         popular: popular,
                                         cleanRank: cleanlinessRank == "N" ? nil : cleanlinessRank,
-                                        safety: reliefYn == "Y" ? "안심보안관 활동지" : nil)
-        
+                                        safety: reliefYn == "Y" ? "안심보안관 활동지" : nil,
+                                        lifeRank: lifeRate,
+                                        crimeRank: crimeRate,
+                                        trafficRank: trafficRate)
         return townRankData.toArray()
     }
 }

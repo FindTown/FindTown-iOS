@@ -27,6 +27,7 @@ final class FavoriteViewController: BaseViewController {
     fileprivate let anonymousView = AnonymousView()
     fileprivate let isEmptyView = EmptyView()
     fileprivate let favoriteTableView = FavoriteTableView()
+    fileprivate let refreshControl = UIRefreshControl()
     
     // MARK: - Life Cycle
     
@@ -49,6 +50,9 @@ final class FavoriteViewController: BaseViewController {
     override func setupView() {
         self.title = "찜"
         self.view.backgroundColor = FindTownColor.back2.color
+        refreshControl.backgroundColor = FindTownColor.back2.color
+        self.favoriteTableView.refreshControl = refreshControl
+        
         [anonymousView,isEmptyView,favoriteTableView].forEach { $0.isHidden = true }
     }
     
@@ -102,12 +106,18 @@ final class FavoriteViewController: BaseViewController {
             }
             .disposed(by: disposeBag)
         
+        self.refreshControl.rx.controlEvent(.valueChanged)
+            .bind { [weak self] in
+                self?.viewModel?.input.refreshTrigger.onNext(())
+            }
+            .disposed(by: disposeBag)
+        
         // MARK: ViewModel - Output
         
         self.viewModel?.output.viewStatus
             .bind(to: self.rx.favoriteViewStatus)
             .disposed(by: disposeBag)
-        
+            
         self.viewModel?.output.favoriteDataSource
             .observe(on: MainScheduler.instance)
             .filter { !$0.isEmpty }
@@ -117,12 +127,12 @@ final class FavoriteViewController: BaseViewController {
                 
                 cell.setupCell(item, cityCode: item.objectId)
                 cell.delegate = self
+                self.refreshControl.endRefreshing()
             }.disposed(by: disposeBag)
         
         self.viewModel?.output.isFavorite
-            .filter { $0 == false }
-            .subscribe(onNext: { [weak self] _ in
-                let toastMessage = "찜 목록에서 삭제되었어요"
+            .subscribe(onNext: { [weak self] isFavorite in
+                let toastMessage = isFavorite ? "찜 목록에 추가되었어요" : "찜 목록에서 삭제되었어요"
                 self?.showToast(message: toastMessage, height: 120)
             })
             .disposed(by: disposeBag)

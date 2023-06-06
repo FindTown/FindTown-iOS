@@ -16,14 +16,14 @@ struct FavoriteListResponseDTO: Response {
         for townList in townList {
             let county = CityCode(rawValue: townList.objectId)?.village.rawValue ?? ""
             let countyIcon = CityCode(rawValue: townList.objectId)?.countyIcon ?? UIImage()
-            let townIntroduction = townList.townExplanation
             
             let tableModel = TownTableModel(objectId: townList.objectId,
                                             county: county,
                                             countyIcon: countyIcon,
                                             wishTown: true,
                                             safetyRate: Double(0.0),
-                                            townIntroduction: townIntroduction)
+                                            moods: townList.convertTownMood,
+                                            townFullTitle: townList.convertFullTitle)
             tableModels.append(tableModel)
         }
         return tableModels
@@ -33,5 +33,22 @@ struct FavoriteListResponseDTO: Response {
 struct FavoriteList: Response {
     
     let objectId: Int
-    let townExplanation: String
+    let moods: [String]
+    
+    var convertTownMood: [TownMood] {
+        var townMoodArray: [TownMood] = []
+        
+        for mood in moods {
+            if let mood = TownMood.returnTrafficType(mood) {
+                townMoodArray.append(mood)
+            }
+        }
+        return townMoodArray
+    }
+    
+    var convertFullTitle: String {
+        guard let city = CityCode.init(rawValue: objectId) else { return "" }
+        let townTitle = City(county: city.county, village: city.village).description
+        return townTitle
+    }
 }

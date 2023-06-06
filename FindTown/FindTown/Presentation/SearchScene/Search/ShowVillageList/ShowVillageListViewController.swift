@@ -92,9 +92,6 @@ final class ShowVillageListViewController: BaseViewController {
         guard let selectCountyData = self.viewModel?.selectCountyData else { return }
         selectCountyTitle.text = "서울시 \(selectCountyData)"
         
-        townTableView.rowHeight = 150
-        townTableView.estimatedRowHeight = 150
-        
         viewModel?.fetchTownInformation()
     }
     
@@ -120,12 +117,11 @@ final class ShowVillageListViewController: BaseViewController {
                 self?.townCountTitle.text = "\(searchTown.count)개 동네"
             }
             .disposed(by: disposeBag)
-        
+    
         viewModel?.output.isFavorite
-            .filter { $0 == false }
-            .subscribe(onNext: { [weak self] _ in
-                let toastMessage = "찜 목록에서 삭제되었어요"
-                self?.showToast(message: toastMessage, height: 60)
+            .subscribe(onNext: { [weak self] isFavorite in
+                let toastMessage = isFavorite ? "찜 목록에 추가되었어요" : "찜 목록에서 삭제되었어요"
+                self?.showToast(message: toastMessage, height: 120)
             })
             .disposed(by: disposeBag)
         
