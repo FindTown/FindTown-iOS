@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SwiftUI
 import FindTownCore
 import FindTownUI
 import NMapsMap
@@ -465,21 +466,23 @@ extension MapViewController {
             let marker = NMFMarker()
             marker.position = NMGLatLng(lat: store.latitude, lng: store.longitude)
             if store == selectStore {
-                marker.iconImage = NMFOverlayImage(name: "marker.select")
                 marker.zIndex = 1
                 marker.captionText = store.name
-                marker.width = 41
-                marker.height = 50
+                marker.width = 28
+                marker.height = 28
                 self.setCameraPosition(latitude: store.latitude,
                                        longitude: store.longitude,
                                        zoomLevel: self.mapView.zoomLevel,
                                        animation: true)
             } else {
-                marker.width = 37
-                marker.height = 45
+                marker.width = 24
+                marker.height = 24
                 marker.zIndex = -1
-                marker.iconImage = NMFOverlayImage(name: "marker.nonSelect")
             }
+            let view = MapThemaIconView(store: store)
+            view.frame = CGRect(x: 0, y: 0, width: 24, height: 24)
+            let image = view.asImage()
+            marker.iconImage = NMFOverlayImage(image: image ?? store.category.image!)
             marker.mapView = mapView
             
             marker.touchHandler = { (overlay: NMFOverlay) -> Bool in
@@ -505,18 +508,21 @@ extension MapViewController {
                 
                 marker.zIndex = 1
                 marker.captionText = store.name
-                marker.width = 41
-                marker.height = 50
+                marker.width = 28
+                marker.height = 28
                 self.setCameraPosition(latitude: store.latitude,
                                        longitude: store.longitude,
                                        zoomLevel: self.mapView.zoomLevel,
                                        animation: true)
             } else {
-                marker.width = 37
-                marker.height = 45
+                marker.width = 24
+                marker.height = 24
                 marker.zIndex = -1
             }
-            marker.iconImage = NMFOverlayImage(name: store.subCategory.imageName)
+            let view = MapInfraIconView(store: store)
+            view.frame = CGRect(x: 0, y: 0, width: 24, height: 24)
+            let image = view.asImage()
+            marker.iconImage = NMFOverlayImage(image: image ?? UIImage(named: store.subCategory.imageName)!)
             marker.mapView = mapView
             marker.touchHandler = { (overlay: NMFOverlay) -> Bool in
                 self.setInfraStoreMarker(selectStore: store, stores: stores)
@@ -687,4 +693,15 @@ fileprivate extension Coordinates {
 
         return size * 10000
     }
+}
+
+extension UIView {
+
+    func asImage() -> UIImage? {
+        let renderer = UIGraphicsImageRenderer(bounds: self.bounds)
+        return renderer.image { renderImageContext in
+            self.layer.render(in: renderImageContext.cgContext)
+        }
+    }
+        
 }

@@ -227,7 +227,7 @@ enum TownMoodCategory: CaseIterable {
   case walk
   case surround
   case inflation
-  case transition
+  case traffic
   case etc
   
   var description: String {
@@ -238,7 +238,7 @@ enum TownMoodCategory: CaseIterable {
       return "주변 환경"
     case .inflation:
       return "동네 물가"
-    case .transition:
+    case .traffic:
       return "교통"
     case .etc:
       return "기타"
@@ -253,7 +253,7 @@ enum TownMoodCategory: CaseIterable {
       return [.walking5, .mood5, .mood4, .mood3, .mood1, .mood2, .environment1, .environment2]
     case .inflation:
       return [.price1, .price2]
-    case .transition:
+    case .traffic:
       return [.traffic3, .traffic2, .traffic1]
     case .etc:
       return [.neighbor1, .neighbor2, .neighbor3, .infra2, .infra1, .infra3]

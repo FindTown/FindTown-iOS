@@ -158,6 +158,9 @@
 		F363D160299A1D4600606C7F /* TownMapLocationDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = F363D15F299A1D4600606C7F /* TownMapLocationDTO.swift */; };
 		F363D164299A2E1800606C7F /* VillageLocationInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = F363D163299A2E1800606C7F /* VillageLocationInformation.swift */; };
 		F363D167299A39D200606C7F /* MapConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = F363D166299A39D200606C7F /* MapConstant.swift */; };
+		F381193F2A30C92300BFCCB2 /* APIKeyInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = F381193E2A30C92200BFCCB2 /* APIKeyInfo.plist */; };
+		F38119412A30CA3C00BFCCB2 /* MapInfraIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F38119402A30CA3C00BFCCB2 /* MapInfraIconView.swift */; };
+		F38119452A30DE6E00BFCCB2 /* MapThemaIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F38119442A30DE6E00BFCCB2 /* MapThemaIconView.swift */; };
 		F3891E1F293B8393003CE8AD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3891E1E293B8393003CE8AD /* AppDelegate.swift */; };
 		F3891E21293B8393003CE8AD /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3891E20293B8393003CE8AD /* SceneDelegate.swift */; };
 		F3891E2B293B8394003CE8AD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F3891E2A293B8394003CE8AD /* Assets.xcassets */; };
@@ -213,7 +216,6 @@
 		F39EDDD0296D7BBF00A4E655 /* StoreCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F39EDDCF296D7BBF00A4E655 /* StoreCollectionView.swift */; };
 		F39EDDD2296D7C0E00A4E655 /* StoreCollectionViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = F39EDDD1296D7C0E00A4E655 /* StoreCollectionViewFlowLayout.swift */; };
 		F3ACC0A4298CB9520018889F /* DefaultTokenRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3ACC0A3298CB9520018889F /* DefaultTokenRepository.swift */; };
-		F3EA9EA92A2D0261002123C8 /* APIKeyInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = F3EA9EA82A2D0261002123C8 /* APIKeyInfo.plist */; };
 		F3EA9EAC2A2D0540002123C8 /* TownMoodSelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3EA9EAB2A2D0540002123C8 /* TownMoodSelectViewController.swift */; };
 		F3EA9EAE2A2D0569002123C8 /* TownMoodSelectViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3EA9EAD2A2D0569002123C8 /* TownMoodSelectViewModel.swift */; };
 		F3EA9EB12A2D114E002123C8 /* AlignedCollectionViewFlowLayout in Frameworks */ = {isa = PBXBuildFile; productRef = F3EA9EB02A2D114E002123C8 /* AlignedCollectionViewFlowLayout */; };
@@ -383,6 +385,9 @@
 		F363D15F299A1D4600606C7F /* TownMapLocationDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TownMapLocationDTO.swift; sourceTree = "<group>"; };
 		F363D163299A2E1800606C7F /* VillageLocationInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VillageLocationInformation.swift; sourceTree = "<group>"; };
 		F363D166299A39D200606C7F /* MapConstant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapConstant.swift; sourceTree = "<group>"; };
+		F381193E2A30C92200BFCCB2 /* APIKeyInfo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = APIKeyInfo.plist; path = ../../../../../../../../Downloads/APIKeyInfo.plist; sourceTree = "<group>"; };
+		F38119402A30CA3C00BFCCB2 /* MapInfraIconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapInfraIconView.swift; sourceTree = "<group>"; };
+		F38119442A30DE6E00BFCCB2 /* MapThemaIconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapThemaIconView.swift; sourceTree = "<group>"; };
 		F3891E1B293B8393003CE8AD /* FindTown.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FindTown.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F3891E1E293B8393003CE8AD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F3891E20293B8393003CE8AD /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -443,7 +448,6 @@
 		F39EDDCF296D7BBF00A4E655 /* StoreCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreCollectionView.swift; sourceTree = "<group>"; };
 		F39EDDD1296D7C0E00A4E655 /* StoreCollectionViewFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreCollectionViewFlowLayout.swift; sourceTree = "<group>"; };
 		F3ACC0A3298CB9520018889F /* DefaultTokenRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultTokenRepository.swift; sourceTree = "<group>"; };
-		F3EA9EA82A2D0261002123C8 /* APIKeyInfo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = APIKeyInfo.plist; path = ../../../../../../Downloads/APIKeyInfo.plist; sourceTree = "<group>"; };
 		F3EA9EAB2A2D0540002123C8 /* TownMoodSelectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TownMoodSelectViewController.swift; sourceTree = "<group>"; };
 		F3EA9EAD2A2D0569002123C8 /* TownMoodSelectViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TownMoodSelectViewModel.swift; sourceTree = "<group>"; };
 		F3EA9EB22A2D20DC002123C8 /* TownMoodSelectCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TownMoodSelectCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -797,7 +801,7 @@
 			isa = PBXGroup;
 			children = (
 				F3891E2A293B8394003CE8AD /* Assets.xcassets */,
-				F3EA9EA82A2D0261002123C8 /* APIKeyInfo.plist */,
+				F381193E2A30C92200BFCCB2 /* APIKeyInfo.plist */,
 				F3891E2F293B8394003CE8AD /* Info.plist */,
 				F3891E2C293B8394003CE8AD /* LaunchScreen.storyboard */,
 			);
@@ -996,6 +1000,8 @@
 				F39EDDCD296D7A6900A4E655 /* CategoryCollectionViewFlowLayout.swift */,
 				F39EDDCF296D7BBF00A4E655 /* StoreCollectionView.swift */,
 				F39EDDD1296D7C0E00A4E655 /* StoreCollectionViewFlowLayout.swift */,
+				F38119402A30CA3C00BFCCB2 /* MapInfraIconView.swift */,
+				F38119442A30DE6E00BFCCB2 /* MapThemaIconView.swift */,
 			);
 			path = SubViews;
 			sourceTree = "<group>";
@@ -1529,7 +1535,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F3891E2E293B8394003CE8AD /* LaunchScreen.storyboard in Resources */,
-				F3EA9EA92A2D0261002123C8 /* APIKeyInfo.plist in Resources */,
+				F381193F2A30C92300BFCCB2 /* APIKeyInfo.plist in Resources */,
 				F3891E2B293B8394003CE8AD /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1559,10 +1565,12 @@
 				2B628DEB298690A800A90D9A /* HotPlaceCollectionViewCell.swift in Sources */,
 				2B628DF82987853300A90D9A /* TownRank.swift in Sources */,
 				F3ACC0A4298CB9520018889F /* DefaultTokenRepository.swift in Sources */,
+				F38119452A30DE6E00BFCCB2 /* MapThemaIconView.swift in Sources */,
 				2B628DE72986908600A90D9A /* HotPlaceCollectionView.swift in Sources */,
 				2BEE90CC2977F975002E7C3A /* FavoriteCoordinator.swift in Sources */,
 				F362189F29B99AE2005A0C8F /* TownRepository.swift in Sources */,
 				F39EDDCC296D7A1800A4E655 /* CategoryCollectionView.swift in Sources */,
+				F38119412A30CA3C00BFCCB2 /* MapInfraIconView.swift in Sources */,
 				F38AA80F29817F1600EF66F2 /* NickCheckResponseDTO.swift in Sources */,
 				BC04A6E329700DF400B60BCF /* KeyChainAccount.swift in Sources */,
 				F3EA9EAE2A2D0569002123C8 /* TownMoodSelectViewModel.swift in Sources */,
@@ -1936,7 +1944,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.10;
+				MARKETING_VERSION = 2.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = kr.FindTown.com;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -1970,7 +1978,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.10;
+				MARKETING_VERSION = 2.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = kr.FindTown.com;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
