@@ -73,7 +73,7 @@ final class MyPageCoordinator: FlowCoordinator {
     }
     
     internal func showPersonalInfo() -> UIViewController {
-        let personalInfo = BaseWebViewController(webViewTitle: "개인정보처리 방침", url: "https://yapp-workspace.notion.site/577e8340762440dd97ccb5ee16a57f8e")
+        let personalInfo = BaseWebViewController(webViewTitle: "개인정보처리 방침", url: "https://lacy-ambulance-6f8.notion.site/57e1a04013224eb7b85f19f3b14f9d35")
         personalInfo.hidesBottomBarWhenPushed = true
         return personalInfo
     }
