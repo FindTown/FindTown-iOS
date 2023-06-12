@@ -6,9 +6,10 @@
 //
 
 import UIKit
-import SwiftUI
+
 import FindTownCore
 import FindTownUI
+
 import NMapsMap
 import RxSwift
 import RxCocoa

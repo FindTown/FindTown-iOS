@@ -11,12 +11,7 @@ import FindTownUI
 
 final class MapInfraIconView: UIView {
     
-    private let imageView: UIImageView = {
-        let imageView = UIImageView()
-        
-        return imageView
-    }()
-    
+    private let imageView = UIImageView()
     private let backgroundView = UIView()
   
     init(store: InfraStore) {

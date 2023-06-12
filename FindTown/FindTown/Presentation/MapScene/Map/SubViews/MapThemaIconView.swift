@@ -11,11 +11,7 @@ import FindTownUI
 
 final class MapThemaIconView: UIView {
     
-    private let imageView: UIImageView = {
-        let imageView = UIImageView()
-        
-        return imageView
-    }()
+    private let imageView = UIImageView()
     
     private let backgroundView = UIView()
   
