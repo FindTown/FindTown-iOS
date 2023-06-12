@@ -67,7 +67,7 @@ final class MyPageCoordinator: FlowCoordinator {
     }
     
     internal func showTerms() -> UIViewController {
-        let terms = BaseWebViewController(webViewTitle: "이용약관", url: "https://yapp-workspace.notion.site/fec4a724526e4c11b5aea79884b9c966")
+        let terms = BaseWebViewController(webViewTitle: "이용약관", url: "https://lacy-ambulance-6f8.notion.site/30a635e779124ae7be1a4e05670607b8")
         terms.hidesBottomBarWhenPushed = true
         return terms
     }
