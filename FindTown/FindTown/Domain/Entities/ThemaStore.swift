@@ -14,4 +14,5 @@ struct ThemaStore: Equatable {
     let longitude: Double
     let subCategory: StoreDetailType
     let foodCategory: String?
+    let category: ThemaCategory
 }

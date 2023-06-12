@@ -22,7 +22,28 @@ struct ThemaStoreResponseDTO: Response {
     
     func toThemaStoreEntity() -> ThemaStore {
         let subCategory = StoreDetailType(description: subCategory)
-        return ThemaStore(name: name, address: address, latitude: y, longitude: x, subCategory: subCategory ?? StoreDetailType.cafe, foodCategory: foodCategory ?? nil)
+        if let foodCategory = foodCategory {
+            return ThemaStore(
+                name: name,
+                address: address,
+                latitude: y,
+                longitude: x,
+                subCategory: subCategory ?? StoreDetailType.cafe,
+                foodCategory: foodCategory,
+                category: .restaurantForEatingAlone
+            )
+        } else {
+            return ThemaStore(
+                name: name,
+                address: address,
+                latitude: y,
+                longitude: x,
+                subCategory: subCategory ?? StoreDetailType.cafe,
+                foodCategory: nil,
+                category: .cafeForStudy
+            )
+        }
+        
     }
     
     func toInfraStoreEntity() -> InfraStore {

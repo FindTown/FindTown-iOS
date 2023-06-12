@@ -23,4 +23,5 @@ struct ResidentDTO: Encodable {
     var residentYear: Int
     var residentMonth: Int
     var residentAddress: String
+    var moods: [String]
 }

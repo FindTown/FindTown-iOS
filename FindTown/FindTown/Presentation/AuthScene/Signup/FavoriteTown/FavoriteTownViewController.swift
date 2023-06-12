@@ -116,7 +116,7 @@ final class FavoriteTownViewController: BaseViewController {
         
         nowStatusPogressView.trackTintColor = FindTownColor.grey2.color
         nowStatusPogressView.progressTintColor = FindTownColor.primary.color
-        nowStatusPogressView.progress = Float(4) / 4.0
+        nowStatusPogressView.progress = Float(5) / 5.0
         
         nextButton.setTitle("다음", for: .normal)
         nextButton.changesSelectionAsPrimaryAction = false

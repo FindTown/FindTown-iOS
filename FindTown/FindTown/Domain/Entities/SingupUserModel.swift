@@ -53,21 +53,25 @@ struct Resident {
     var residentYear: Int
     var residentMonth: Int
     var residentAddress: String
+    var moods: [String]
     
     init(residentReview: String = "",
          residentYear: Int = 0,
          residentMonth: Int = 0,
-         residentAddress: String = "") {
+         residentAddress: String = "",
+         moods: [String] = []) {
         self.residentReview = residentReview
         self.residentYear = residentYear
         self.residentMonth = residentMonth
         self.residentAddress = residentAddress
+        self.moods = moods
     }
     
     func toData() -> ResidentDTO {
         return ResidentDTO(residentReview: residentReview,
                            residentYear: residentYear,
                            residentMonth: residentMonth,
-                           residentAddress: residentAddress)
+                           residentAddress: residentAddress,
+                           moods: moods)
     }
 }

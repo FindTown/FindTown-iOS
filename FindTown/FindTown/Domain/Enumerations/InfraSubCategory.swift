@@ -106,35 +106,35 @@ enum InfraSubCategory: CaseIterable {
     var imageName: String {
         switch self {
         case .convenienceStore:
-            return "marker.convenience"
+            return "martIcon"
         case .supermarket:
-            return "marker.superMarket"
+            return "martIcon"
         case .goceryStore:
-            return "marker.groceryStore"
+            return "martIcon"
         case .cafe:
-            return "marker.cafe"
+            return "infra.cafe.icon"
         case .policeStation:
-            return "maker.police"
+            return "bellIcon"
         case .safetyBell:
-            return "marker.safetyBell"
+            return "bellIcon"
         case .cctv:
-            return "marker.cctv"
+            return "bellIcon"
         case .daiso:
-            return "marker.daiso"
+            return "storeIcon"
         case .fitnessCenter:
-            return "marker.fitnessCenter"
+            return "healthIcon"
         case .pilates:
-            return "marker.pilates"
+            return "healthIcon"
         case .sportsCenter:
-            return "marker.sportsCenter"
+            return "healthIcon"
         case .park:
-            return "marker.park"
+            return "walkIcon"
         case .hospital:
-            return "marker.hospital"
+            return "hospitalIcon"
         case .largeHospital:
-            return "marker.largeHospital"
+            return "hospitalIcon"
         case .pharmacy:
-            return "marker.pharmacy"
+            return "pharmacyIcon"
         }
     }
 }

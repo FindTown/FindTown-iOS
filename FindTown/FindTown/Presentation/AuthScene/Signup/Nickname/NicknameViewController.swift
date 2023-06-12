@@ -122,7 +122,7 @@ final class NicknameViewController: BaseViewController {
         
         nowStatusPogressView.trackTintColor = FindTownColor.grey2.color
         nowStatusPogressView.progressTintColor = FindTownColor.primary.color
-        nowStatusPogressView.progress = Float(1) / 4.0
+        nowStatusPogressView.progress = Float(1) / 5.0
         
         nickNameTextField.delegate = self
         nickNameTextField.placeholder = "공백 포함 최대 10자, 특수문자 제외"
