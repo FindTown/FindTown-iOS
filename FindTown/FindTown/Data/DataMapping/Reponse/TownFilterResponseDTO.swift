@@ -60,7 +60,7 @@ struct TownFilterInformationDTO: Response {
     
     var convertFullTitle: String {
         guard let city = CityCode.init(rawValue: objectId) else { return "" }
-        let townTitle = City(county: city.county, village: city.village).description
+        let townTitle = City(county: city.county, village: city.village).countyDescription
         return townTitle
     }
 }

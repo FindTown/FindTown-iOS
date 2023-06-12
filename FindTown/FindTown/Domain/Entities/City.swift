@@ -14,4 +14,8 @@ struct City: Equatable {
     var description: String {
         return "서울시 \(self.county.rawValue) \(self.village.rawValue)"
     }
+    
+    var countyDescription: String {
+        return "서울시 \(self.county.rawValue)"
+    }
 }
