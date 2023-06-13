@@ -105,7 +105,7 @@ final class SearchViewController: BaseViewController {
     }
     
     private func firstEnterCheck() {
-        if !UserDefaults.standard.bool(forKey: "SearchFirstEnter") {
+        if !UserDefaultsSetting.isSearchFirstEnter {
             viewModel?.input.serviceMapPopUpTrigger.onNext(())
         }
     }
