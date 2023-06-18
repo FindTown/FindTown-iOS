@@ -64,12 +64,12 @@ final class TownMoodViewController: BaseViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        keyboardNotificationInit()
-    }
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        keyboardNotificationDeInit()
+        
+        NSLayoutConstraint.activate([
+            nextButton.bottomAnchor.constraint(equalTo: view.keyboardLayoutGuide.topAnchor, constant: -16),
+            nextButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
+            nextButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
+        ])
     }
     
     // MARK: - Functions
@@ -112,7 +112,7 @@ final class TownMoodViewController: BaseViewController {
         ])
         
         NSLayoutConstraint.activate([
-            nextButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -16),
+            nextButton.bottomAnchor.constraint(equalTo: view.keyboardLayoutGuide.topAnchor, constant: -16),
             nextButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
             nextButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
         ])
@@ -180,37 +180,6 @@ final class TownMoodViewController: BaseViewController {
             nextButton.isEnabled = isSelected
         }
         afterTwentyTitle.text = isSelected ? "" : afterTwentyTitleText
-    }
-    
-    @objc private func keyboardWillShowSender(_ sender: Notification) {
-        let userInfo:NSDictionary = sender.userInfo! as NSDictionary
-        let keyboardFrame:NSValue = userInfo.value(forKey: UIResponder.keyboardFrameEndUserInfoKey) as! NSValue
-        let keyboardRectangle = keyboardFrame.cgRectValue
-        let keyboardHeight = keyboardRectangle.height
-        keyHeight = keyboardHeight
-        
-        self.view.frame.size.height -= keyboardHeight
-        
-        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
-    }
-    
-    @objc private func keyboardWillHideSender(_ sender: Notification) {
-        guard let keyHeight = keyHeight else { return }
-        self.view.frame.size.height += keyHeight
-        
-        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
-        keyboardNotificationInit()
-    }
-    
-    private func keyboardNotificationInit() {
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShowSender(_:)),
-                                               name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHideSender(_:)),
-                                               name: UIResponder.keyboardWillHideNotification, object: nil)
-    }
-    private func keyboardNotificationDeInit() {
-        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
     }
 }
 
