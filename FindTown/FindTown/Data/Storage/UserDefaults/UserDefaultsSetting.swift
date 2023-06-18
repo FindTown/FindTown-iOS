@@ -11,4 +11,7 @@ enum UserDefaultsSetting {
     
     @UserDefaultsWrapper(key: "isAnonymous", defaultValue: true)
     static var isAnonymous
+
+    @UserDefaultsWrapper(key: "SearchFirstEnter", defaultValue: false)
+    static var isSearchFirstEnter
 }

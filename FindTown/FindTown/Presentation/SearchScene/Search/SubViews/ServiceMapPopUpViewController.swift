@@ -99,7 +99,7 @@ final class ServiceMapPopUpViewController: ContentPopUpViewController {
         
         blockPopupButton.rx.tap
             .bind { [weak self] in
-                UserDefaults.standard.set(true, forKey: "SearchFirstEnter")
+                UserDefaultsSetting.isSearchFirstEnter = true
                 self?.dismiss(animated: false)
             }
             .disposed(by: disposeBag)
