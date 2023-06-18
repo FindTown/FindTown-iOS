@@ -53,13 +53,14 @@ final class ChangeNicknameViewController: BaseViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        keyboardNotificationInit()
+        
+        NSLayoutConstraint.activate([
+            confirmButton.bottomAnchor.constraint(equalTo: view.keyboardLayoutGuide.topAnchor, constant: -16),
+            confirmButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
+            confirmButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
+        ])
     }
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        keyboardNotificationDeInit()
-    }
+
     
     // MARK: - Functions
     
@@ -207,37 +208,6 @@ final class ChangeNicknameViewController: BaseViewController {
     private func buttonStatusChange(_ isStatus: Bool) {
         duplicateButton.isEnabledAndSelected(isStatus)
         confirmButton.isEnabledAndSelected(!isStatus)
-    }
-    
-    @objc private func keyboardWillShowSender(_ sender: Notification) {
-        let userInfo:NSDictionary = sender.userInfo! as NSDictionary
-        let keyboardFrame:NSValue = userInfo.value(forKey: UIResponder.keyboardFrameEndUserInfoKey) as! NSValue
-        let keyboardRectangle = keyboardFrame.cgRectValue
-        let keyboardHeight = keyboardRectangle.height
-        keyHeight = keyboardHeight
-        
-        self.view.frame.size.height -= keyboardHeight
-        
-        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
-    }
-    
-    @objc private func keyboardWillHideSender(_ sender: Notification) {
-        guard let keyHeight = keyHeight else { return }
-        self.view.frame.size.height += keyHeight
-        
-        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
-        keyboardNotificationInit()
-    }
-    
-    private func keyboardNotificationInit() {
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShowSender(_:)),
-                                               name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHideSender(_:)),
-                                               name: UIResponder.keyboardWillHideNotification, object: nil)
-    }
-    private func keyboardNotificationDeInit() {
-        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
     }
 }
 
