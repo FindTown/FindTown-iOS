@@ -2,7 +2,7 @@
       <img src="https://i.imgur.com/xTobLYW.png"/>
 </a>
 
-[🍎 Go Download at the Appstore!](https://apple.co/3kop9Ys)
+<br>
 
 <br>
 
@@ -11,6 +11,8 @@
 > Find your perfect place to move by taking a bite through the Information that we provide!
 > 
 > 떠먹여 주는 `동네별 정보`를 통해서 한입씩 맛보며 **이사 갈 동네**를 찾아보세요!
+> + Development period : 2022.12 ~
+> + Appstore distribution : 2023.02 ~
 
 <br>
 
