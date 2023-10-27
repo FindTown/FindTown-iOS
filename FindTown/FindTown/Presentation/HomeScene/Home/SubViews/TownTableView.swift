@@ -23,7 +23,7 @@ final class TownTableView: UITableView {
     
     private func setupView() {
         translatesAutoresizingMaskIntoConstraints = false
-        backgroundColor = FindTownColor.white.color
+        backgroundColor = FindTownColor.back2.color
         separatorStyle = .none
         register(TownTableViewCell.self, forCellReuseIdentifier: TownTableViewCell.reuseIdentifier)
         self.rowHeight = 174 + 16

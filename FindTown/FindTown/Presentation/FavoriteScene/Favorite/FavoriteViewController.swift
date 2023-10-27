@@ -107,6 +107,7 @@ final class FavoriteViewController: BaseViewController {
             .disposed(by: disposeBag)
         
         self.refreshControl.rx.controlEvent(.valueChanged)
+            .delay(.seconds(1), scheduler: MainScheduler.instance)
             .bind { [weak self] in
                 self?.viewModel?.input.refreshTrigger.onNext(())
             }

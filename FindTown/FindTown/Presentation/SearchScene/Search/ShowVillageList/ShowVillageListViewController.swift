@@ -33,14 +33,7 @@ final class ShowVillageListViewController: BaseViewController {
     }()
     
     private let townTableView = TownTableView()
-    
-    private let townListBackgroundView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .vertical
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        return stackView
-    }()
-    
+
     // MARK: - Life Cycle
     
     init(viewModel: ShowVillageListViewModel?) {
@@ -63,22 +56,23 @@ final class ShowVillageListViewController: BaseViewController {
             townListAndCountStackView.addArrangedSubview($0)
         }
         
-        view.addSubview(townTableView)
-        townTableView.tableHeaderView = townListAndCountStackView
+        [townListAndCountStackView, townTableView].forEach {
+            view.addSubview($0)
+        }
     }
     
     override func setLayout() {
-        townListAndCountStackView.layoutMargins = UIEdgeInsets(top: 20, left: 16, bottom: 10, right: 16)
+        townListAndCountStackView.layoutMargins = UIEdgeInsets(top: 20, left: 16, bottom: 16, right: 16)
         townListAndCountStackView.isLayoutMarginsRelativeArrangement = true
         
-        townListAndCountStackView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
+            townListAndCountStackView.topAnchor.constraint(equalTo: view.topAnchor),
             townListAndCountStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             townListAndCountStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
         ])
         
         NSLayoutConstraint.activate([
-            townTableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            townTableView.topAnchor.constraint(equalTo: townListAndCountStackView.bottomAnchor),
             townTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             townTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             townTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
@@ -87,7 +81,7 @@ final class ShowVillageListViewController: BaseViewController {
     
     override func setupView() {
         view.backgroundColor = FindTownColor.white.color
-        townListBackgroundView.backgroundColor = FindTownColor.back2.color
+        townTableView.contentInset = UIEdgeInsets(top: 24 - 8, left: 0, bottom: 0, right: 0)
         
         guard let selectCountyData = self.viewModel?.selectCountyData else { return }
         selectCountyTitle.text = "서울시 \(selectCountyData)"
