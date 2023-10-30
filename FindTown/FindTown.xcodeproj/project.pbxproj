@@ -33,6 +33,7 @@
 		2B718C1A2966A6000068884A /* MapCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B718C192966A6000068884A /* MapCategory.swift */; };
 		2B7AE8312987F59200DF19C8 /* TownIntroCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B7AE8302987F59200DF19C8 /* TownIntroCoordinator.swift */; };
 		2BA009B129A2248300F3563A /* TownIntroduce.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA009B029A2248300F3563A /* TownIntroduce.swift */; };
+		2BE478172AEFF98900DF8632 /* NMapsMap in Frameworks */ = {isa = PBXBuildFile; productRef = 2BE478162AEFF98900DF8632 /* NMapsMap */; };
 		2BEE90C52977F90A002E7C3A /* FavoriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BEE90C42977F90A002E7C3A /* FavoriteViewController.swift */; };
 		2BEE90C92977F93E002E7C3A /* FavoriteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BEE90C82977F93E002E7C3A /* FavoriteViewModel.swift */; };
 		2BEE90CC2977F975002E7C3A /* FavoriteCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BEE90CB2977F975002E7C3A /* FavoriteCoordinator.swift */; };
@@ -103,7 +104,6 @@
 		BC8B638F298A4B5B004E1116 /* ChangeNicknameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC8B638E298A4B5B004E1116 /* ChangeNicknameViewController.swift */; };
 		BC8B6391298A66D0004E1116 /* MyTownReviewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC8B6390298A66D0004E1116 /* MyTownReviewViewModel.swift */; };
 		BC8B6393298A66DD004E1116 /* MyTownReviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC8B6392298A66DD004E1116 /* MyTownReviewViewController.swift */; };
-		BC99019C295F09720051CC9B /* NMapsMap in Frameworks */ = {isa = PBXBuildFile; productRef = BC99019B295F09720051CC9B /* NMapsMap */; };
 		BC9E86522966821C00AB4AE7 /* SignupViewModelDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC9E86512966821C00AB4AE7 /* SignupViewModelDelegate.swift */; };
 		BC9F4D59296BE5FC0099473C /* FavoriteTownViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC9F4D58296BE5FC0099473C /* FavoriteTownViewController.swift */; };
 		BC9F4D5B296BE6060099473C /* FavoriteTownViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC9F4D5A296BE6060099473C /* FavoriteTownViewModel.swift */; };
@@ -460,13 +460,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				F31A80CA2949A5BB003B8A6E /* FindTownNetwork in Frameworks */,
+				2BE478172AEFF98900DF8632 /* NMapsMap in Frameworks */,
 				BC04A6CE296FB8B200B60BCF /* KakaoSDKUser in Frameworks */,
 				BC6EFB83293BD12300AB3332 /* RxSwift in Frameworks */,
 				F31A80C82949A5BB003B8A6E /* FindTownCore in Frameworks */,
 				F3EA9EB12A2D114E002123C8 /* AlignedCollectionViewFlowLayout in Frameworks */,
 				BC6EFB86293BD15A00AB3332 /* RxDataSources in Frameworks */,
 				F31A80CC2949A5BB003B8A6E /* FindTownUI in Frameworks */,
-				BC99019C295F09720051CC9B /* NMapsMap in Frameworks */,
 				BC6EFB81293BD12300AB3332 /* RxRelay in Frameworks */,
 				BC6EFB7F293BD12300AB3332 /* RxCocoa in Frameworks */,
 				BC04A6CC296FB8B200B60BCF /* KakaoSDKCommon in Frameworks */,
@@ -1429,11 +1429,11 @@
 				F31A80C72949A5BB003B8A6E /* FindTownCore */,
 				F31A80C92949A5BB003B8A6E /* FindTownNetwork */,
 				F31A80CB2949A5BB003B8A6E /* FindTownUI */,
-				BC99019B295F09720051CC9B /* NMapsMap */,
 				BC04A6C9296FB8B200B60BCF /* KakaoSDKAuth */,
 				BC04A6CB296FB8B200B60BCF /* KakaoSDKCommon */,
 				BC04A6CD296FB8B200B60BCF /* KakaoSDKUser */,
 				F3EA9EB02A2D114E002123C8 /* AlignedCollectionViewFlowLayout */,
+				2BE478162AEFF98900DF8632 /* NMapsMap */,
 			);
 			productName = FindTown;
 			productReference = F3891E1B293B8393003CE8AD /* FindTown.app */;
@@ -1514,9 +1514,9 @@
 			packageReferences = (
 				BC6EFB7D293BD12300AB3332 /* XCRemoteSwiftPackageReference "RxSwift" */,
 				BC6EFB84293BD15A00AB3332 /* XCRemoteSwiftPackageReference "RxDataSources" */,
-				BC99019A295F09720051CC9B /* XCRemoteSwiftPackageReference "NMapsMap-SPM" */,
 				BC04A6C8296FB8B200B60BCF /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */,
 				F3EA9EAF2A2D114E002123C8 /* XCRemoteSwiftPackageReference "AlignedCollectionViewFlowLayout" */,
+				2BE478152AEFF98900DF8632 /* XCRemoteSwiftPackageReference "NMapsMap-SwiftPM" */,
 			);
 			productRefGroup = F3891E1C293B8393003CE8AD /* Products */;
 			projectDirPath = "";
@@ -1930,7 +1930,7 @@
 				CODE_SIGN_ENTITLEMENTS = FindTown/FindTown.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = CADXU3X8JU;
+				DEVELOPMENT_TEAM = 2Q6MH57SWY;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = FindTown/Resource/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "동네한입";
@@ -1964,7 +1964,7 @@
 				CODE_SIGN_ENTITLEMENTS = FindTown/FindTown.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = CADXU3X8JU;
+				DEVELOPMENT_TEAM = 2Q6MH57SWY;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = FindTown/Resource/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "동네한입";
@@ -2108,6 +2108,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		2BE478152AEFF98900DF8632 /* XCRemoteSwiftPackageReference "NMapsMap-SwiftPM" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/stleamist/NMapsMap-SwiftPM.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
 		BC04A6C8296FB8B200B60BCF /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/kakao/kakao-ios-sdk";
@@ -2132,14 +2140,6 @@
 				kind = branch;
 			};
 		};
-		BC99019A295F09720051CC9B /* XCRemoteSwiftPackageReference "NMapsMap-SPM" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/jaemyeong/NMapsMap-SPM.git";
-			requirement = {
-				kind = exactVersion;
-				version = 3.16.0;
-			};
-		};
 		F3EA9EAF2A2D114E002123C8 /* XCRemoteSwiftPackageReference "AlignedCollectionViewFlowLayout" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/mischa-hildebrand/AlignedCollectionViewFlowLayout";
@@ -2151,6 +2151,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		2BE478162AEFF98900DF8632 /* NMapsMap */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2BE478152AEFF98900DF8632 /* XCRemoteSwiftPackageReference "NMapsMap-SwiftPM" */;
+			productName = NMapsMap;
+		};
 		BC04A6C9296FB8B200B60BCF /* KakaoSDKAuth */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = BC04A6C8296FB8B200B60BCF /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */;
@@ -2185,11 +2190,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = BC6EFB84293BD15A00AB3332 /* XCRemoteSwiftPackageReference "RxDataSources" */;
 			productName = RxDataSources;
-		};
-		BC99019B295F09720051CC9B /* NMapsMap */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = BC99019A295F09720051CC9B /* XCRemoteSwiftPackageReference "NMapsMap-SPM" */;
-			productName = NMapsMap;
 		};
 		F31A80C72949A5BB003B8A6E /* FindTownCore */ = {
 			isa = XCSwiftPackageProductDependency;
