@@ -17,6 +17,7 @@
 		2B557B0929A268ED00232DAE /* FavoriteListResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B557B0829A268ED00232DAE /* FavoriteListResponseDTO.swift */; };
 		2B557B0B29A2796E00232DAE /* FavoriteRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B557B0A29A2796E00232DAE /* FavoriteRequest.swift */; };
 		2B557B0D29A279B400232DAE /* FavoriteResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B557B0C29A279B400232DAE /* FavoriteResponseDTO.swift */; };
+		2B5DF9332AEFFD0A006E5962 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 2B5DF9322AEFFD0A006E5962 /* SnapKit */; };
 		2B628DD52986508F00A90D9A /* TownIntroduceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B628DD42986508F00A90D9A /* TownIntroduceViewController.swift */; };
 		2B628DD7298650CD00A90D9A /* TownIntroduceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B628DD6298650CD00A90D9A /* TownIntroduceViewModel.swift */; };
 		2B628DDA29865DB400A90D9A /* TownMoodCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B628DD929865DB400A90D9A /* TownMoodCollectionView.swift */; };
@@ -461,6 +462,7 @@
 			files = (
 				F31A80CA2949A5BB003B8A6E /* FindTownNetwork in Frameworks */,
 				2BE478172AEFF98900DF8632 /* NMapsMap in Frameworks */,
+				2B5DF9332AEFFD0A006E5962 /* SnapKit in Frameworks */,
 				BC04A6CE296FB8B200B60BCF /* KakaoSDKUser in Frameworks */,
 				BC6EFB83293BD12300AB3332 /* RxSwift in Frameworks */,
 				F31A80C82949A5BB003B8A6E /* FindTownCore in Frameworks */,
@@ -1434,6 +1436,7 @@
 				BC04A6CD296FB8B200B60BCF /* KakaoSDKUser */,
 				F3EA9EB02A2D114E002123C8 /* AlignedCollectionViewFlowLayout */,
 				2BE478162AEFF98900DF8632 /* NMapsMap */,
+				2B5DF9322AEFFD0A006E5962 /* SnapKit */,
 			);
 			productName = FindTown;
 			productReference = F3891E1B293B8393003CE8AD /* FindTown.app */;
@@ -1517,6 +1520,7 @@
 				BC04A6C8296FB8B200B60BCF /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */,
 				F3EA9EAF2A2D114E002123C8 /* XCRemoteSwiftPackageReference "AlignedCollectionViewFlowLayout" */,
 				2BE478152AEFF98900DF8632 /* XCRemoteSwiftPackageReference "NMapsMap-SwiftPM" */,
+				2B5DF9312AEFFD0A006E5962 /* XCRemoteSwiftPackageReference "SnapKit" */,
 			);
 			productRefGroup = F3891E1C293B8393003CE8AD /* Products */;
 			projectDirPath = "";
@@ -2108,6 +2112,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		2B5DF9312AEFFD0A006E5962 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
+			requirement = {
+				kind = exactVersion;
+				version = 5.0.1;
+			};
+		};
 		2BE478152AEFF98900DF8632 /* XCRemoteSwiftPackageReference "NMapsMap-SwiftPM" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/stleamist/NMapsMap-SwiftPM.git";
@@ -2151,6 +2163,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		2B5DF9322AEFFD0A006E5962 /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2B5DF9312AEFFD0A006E5962 /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
+		};
 		2BE478162AEFF98900DF8632 /* NMapsMap */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 2BE478152AEFF98900DF8632 /* XCRemoteSwiftPackageReference "NMapsMap-SwiftPM" */;
