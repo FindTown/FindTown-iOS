@@ -13,6 +13,7 @@ import FindTownUI
 import NMapsMap
 import RxSwift
 import RxCocoa
+import SnapKit
 
 typealias Coordinates = [[Double]]
 
@@ -50,6 +51,11 @@ final class MapViewController: BaseViewController {
         return button
     }()
     private let emptyDataInformLabel = InformLabel(text: "근처에 해당하는 장소가 없습니다.")
+    private let addPlaceButton: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(named: "ic_post"), for: .normal)
+        return button
+    }()
     
     private var currentIndex: CGFloat = 0 {
         didSet {
@@ -114,6 +120,12 @@ final class MapViewController: BaseViewController {
                     return
                 }
                 self?.viewModel?.gotoIntroduce(cityCode: cityCode)
+            })
+            .disposed(by: disposeBag)
+        
+        addPlaceButton.rx.tap
+            .subscribe(onNext: { [weak self] _ in
+                self?.navigationController?.pushViewController(SearchPlaceViewController(), animated: true)
             })
             .disposed(by: disposeBag)
         
@@ -267,7 +279,7 @@ final class MapViewController: BaseViewController {
     }
 
     override func addView() {
-        [mapView, naviBarSubView, moveToIntroduceButton, emptyDataInformLabel].forEach {
+        [mapView, naviBarSubView, moveToIntroduceButton, addPlaceButton, emptyDataInformLabel].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
             self.view.addSubview($0)
         }
@@ -287,6 +299,7 @@ final class MapViewController: BaseViewController {
         super.viewWillAppear(animated)
         
         self.viewModel?.setCity(cityCode: viewModel?.cityCode)
+        self.tabBarController?.tabBar.isHidden = false
     }
     
     override func setupView() {
@@ -401,6 +414,12 @@ private extension MapViewController {
             emptyDataInformLabel.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor,
                                                           constant: CGFloat(emptyDataInformLabelBottomConstraint))
         ])
+        
+        addPlaceButton.snp.makeConstraints {
+            $0.width.height.equalTo(60)
+            $0.leading.equalTo(moveToIntroduceButton.snp.trailing).offset(3)
+            $0.centerY.equalTo(moveToIntroduceButton)
+        }
     }
 }
 
