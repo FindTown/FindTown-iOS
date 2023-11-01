@@ -44,6 +44,15 @@ final class SearchPlaceViewController: BaseViewController {
 //                guard let searchText = self.searchText else { return }
 //                cell.setSearchedTextColored(searchText, red.color)
             }.disposed(by: disposeBag)
+        
+        searchedTableView.rx.itemSelected
+            .subscribe(onNext: { [weak self] _ in
+                let nextVC = UINavigationController(rootViewController: AddPlaceViewController())
+                nextVC.modalPresentationStyle = .fullScreen
+                self?.present(nextVC, animated: true)
+            })
+            .disposed(by: disposeBag)
+        
     }
     
     override func setupView() {

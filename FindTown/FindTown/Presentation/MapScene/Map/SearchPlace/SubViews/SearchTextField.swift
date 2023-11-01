@@ -80,7 +80,8 @@ extension SearchTextField {
         self.layer.cornerRadius = 18
         self.backgroundColor = FindTownColor.grey2.color
         self.font = FindTownFont.label1.font
-        self.textColor = FindTownColor.grey5.color
+        self.textColor = FindTownColor.grey7.color
+        self.tintColor = FindTownColor.primary.color
     }
     
     func setupLayout() {

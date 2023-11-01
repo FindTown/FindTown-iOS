@@ -17,6 +17,9 @@
 		2B4A59B12AF0F62F009012D1 /* SearchedPlaceTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B4A59B02AF0F62F009012D1 /* SearchedPlaceTableView.swift */; };
 		2B4A59B32AF0F6A8009012D1 /* SearchedPlaceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B4A59B22AF0F6A8009012D1 /* SearchedPlaceTableViewCell.swift */; };
 		2B4A59B52AF0F800009012D1 /* EmptySearchedDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B4A59B42AF0F800009012D1 /* EmptySearchedDataView.swift */; };
+		2B4A59B82AF10493009012D1 /* AddPlaceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B4A59B72AF10493009012D1 /* AddPlaceViewController.swift */; };
+		2B4A59BB2AF22739009012D1 /* PlaceInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B4A59BA2AF22739009012D1 /* PlaceInfoView.swift */; };
+		2B4A59BD2AF28B93009012D1 /* SuccesAddPlaceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B4A59BC2AF28B92009012D1 /* SuccesAddPlaceViewController.swift */; };
 		2B557B0429A2673D00232DAE /* FavoriteListRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B557B0329A2673D00232DAE /* FavoriteListRequest.swift */; };
 		2B557B0929A268ED00232DAE /* FavoriteListResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B557B0829A268ED00232DAE /* FavoriteListResponseDTO.swift */; };
 		2B557B0B29A2796E00232DAE /* FavoriteRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B557B0A29A2796E00232DAE /* FavoriteRequest.swift */; };
@@ -257,6 +260,9 @@
 		2B4A59B02AF0F62F009012D1 /* SearchedPlaceTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchedPlaceTableView.swift; sourceTree = "<group>"; };
 		2B4A59B22AF0F6A8009012D1 /* SearchedPlaceTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchedPlaceTableViewCell.swift; sourceTree = "<group>"; };
 		2B4A59B42AF0F800009012D1 /* EmptySearchedDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptySearchedDataView.swift; sourceTree = "<group>"; };
+		2B4A59B72AF10493009012D1 /* AddPlaceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPlaceViewController.swift; sourceTree = "<group>"; };
+		2B4A59BA2AF22739009012D1 /* PlaceInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceInfoView.swift; sourceTree = "<group>"; };
+		2B4A59BC2AF28B92009012D1 /* SuccesAddPlaceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuccesAddPlaceViewController.swift; sourceTree = "<group>"; };
 		2B557B0329A2673D00232DAE /* FavoriteListRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteListRequest.swift; sourceTree = "<group>"; };
 		2B557B0829A268ED00232DAE /* FavoriteListResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteListResponseDTO.swift; sourceTree = "<group>"; };
 		2B557B0A29A2796E00232DAE /* FavoriteRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteRequest.swift; sourceTree = "<group>"; };
@@ -523,13 +529,32 @@
 			path = SubViews;
 			sourceTree = "<group>";
 		};
-		2B5DF9342AEFFE5A006E5962 /* AddPlace */ = {
+		2B4A59B62AF1047C009012D1 /* AddPlace */ = {
+			isa = PBXGroup;
+			children = (
+				2B4A59B92AF2272D009012D1 /* SubViews */,
+				2B4A59B72AF10493009012D1 /* AddPlaceViewController.swift */,
+				2B4A59BC2AF28B92009012D1 /* SuccesAddPlaceViewController.swift */,
+			);
+			path = AddPlace;
+			sourceTree = "<group>";
+		};
+		2B4A59B92AF2272D009012D1 /* SubViews */ = {
+			isa = PBXGroup;
+			children = (
+				2B4A59BA2AF22739009012D1 /* PlaceInfoView.swift */,
+			);
+			path = SubViews;
+			sourceTree = "<group>";
+		};
+		2B5DF9342AEFFE5A006E5962 /* SearchPlace */ = {
 			isa = PBXGroup;
 			children = (
 				2B5DF9352AEFFE9B006E5962 /* SearchPlaceViewController.swift */,
 				2B4A59AD2AF0EAE2009012D1 /* SubViews */,
+				2B4A59B62AF1047C009012D1 /* AddPlace */,
 			);
-			path = AddPlace;
+			path = SearchPlace;
 			sourceTree = "<group>";
 		};
 		2B628DD32986507B00A90D9A /* TownIntroduce */ = {
@@ -1361,10 +1386,10 @@
 		F38CCBE329582881000C16AF /* Map */ = {
 			isa = PBXGroup;
 			children = (
-				2B5DF9342AEFFE5A006E5962 /* AddPlace */,
 				F38CCBE429582881000C16AF /* MapViewController.swift */,
 				F38CCBE529582881000C16AF /* MapViewModel.swift */,
 				F3219B632969412C000024E4 /* SubViews */,
+				2B5DF9342AEFFE5A006E5962 /* SearchPlace */,
 			);
 			path = Map;
 			sourceTree = "<group>";
@@ -1664,6 +1689,7 @@
 				BC0D88552963DD1D00CCB800 /* KakaoAddressViewController.swift in Sources */,
 				F3356F00298F986A002B9FFD /* TokenPayloadDTO.swift in Sources */,
 				F3356EEA298D4D59002B9FFD /* ReissueRequest.swift in Sources */,
+				2B4A59BB2AF22739009012D1 /* PlaceInfoView.swift in Sources */,
 				F38AA7FE2981259200EF66F2 /* DefaultAuthUseCase.swift in Sources */,
 				BC056C5C2962B2C400EDCA18 /* LoginViewController.swift in Sources */,
 				BC7508E62975275300D0CAFA /* FilterBottomSheetViewController.swift in Sources */,
@@ -1679,6 +1705,7 @@
 				BC4C11802971256300645AA7 /* TownTableView.swift in Sources */,
 				F38AA81C2983912E00EF66F2 /* SignupRequest.swift in Sources */,
 				BCF68B50299BB16300E8D83E /* DefaultTownUseCase.swift in Sources */,
+				2B4A59BD2AF28B93009012D1 /* SuccesAddPlaceViewController.swift in Sources */,
 				F38CCBDF2958287C000C16AF /* HomeViewModel.swift in Sources */,
 				BC043A892989371D005FAE45 /* DividerView.swift in Sources */,
 				F3918464299B5C4000CEF02E /* Category.swift in Sources */,
@@ -1751,6 +1778,7 @@
 				BCF68B5C299BDE3E00E8D83E /* TownTableModel.swift in Sources */,
 				2B42E98C29A0688D0093FB0A /* Traffic.swift in Sources */,
 				2BEE90CF2977FDFE002E7C3A /* AnonymousView.swift in Sources */,
+				2B4A59B82AF10493009012D1 /* AddPlaceViewController.swift in Sources */,
 				2B628DDC29865DD800A90D9A /* TownMoodCollectionViewCell.swift in Sources */,
 				F38AA822298396D300EF66F2 /* MemberSignupDTO.swift in Sources */,
 				BC853DFE298C04C20033AF20 /* MyPageAnonymousViewController.swift in Sources */,
