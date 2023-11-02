@@ -20,6 +20,8 @@
 		2B4A59B82AF10493009012D1 /* AddPlaceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B4A59B72AF10493009012D1 /* AddPlaceViewController.swift */; };
 		2B4A59BB2AF22739009012D1 /* PlaceInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B4A59BA2AF22739009012D1 /* PlaceInfoView.swift */; };
 		2B4A59BD2AF28B93009012D1 /* SuccesAddPlaceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B4A59BC2AF28B92009012D1 /* SuccesAddPlaceViewController.swift */; };
+		2B4A59BF2AF383FC009012D1 /* SelectReasonTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B4A59BE2AF383FC009012D1 /* SelectReasonTableView.swift */; };
+		2B4A59C12AF38449009012D1 /* SelectReasonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B4A59C02AF38449009012D1 /* SelectReasonTableViewCell.swift */; };
 		2B557B0429A2673D00232DAE /* FavoriteListRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B557B0329A2673D00232DAE /* FavoriteListRequest.swift */; };
 		2B557B0929A268ED00232DAE /* FavoriteListResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B557B0829A268ED00232DAE /* FavoriteListResponseDTO.swift */; };
 		2B557B0B29A2796E00232DAE /* FavoriteRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B557B0A29A2796E00232DAE /* FavoriteRequest.swift */; };
@@ -263,6 +265,8 @@
 		2B4A59B72AF10493009012D1 /* AddPlaceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPlaceViewController.swift; sourceTree = "<group>"; };
 		2B4A59BA2AF22739009012D1 /* PlaceInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceInfoView.swift; sourceTree = "<group>"; };
 		2B4A59BC2AF28B92009012D1 /* SuccesAddPlaceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuccesAddPlaceViewController.swift; sourceTree = "<group>"; };
+		2B4A59BE2AF383FC009012D1 /* SelectReasonTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectReasonTableView.swift; sourceTree = "<group>"; };
+		2B4A59C02AF38449009012D1 /* SelectReasonTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectReasonTableViewCell.swift; sourceTree = "<group>"; };
 		2B557B0329A2673D00232DAE /* FavoriteListRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteListRequest.swift; sourceTree = "<group>"; };
 		2B557B0829A268ED00232DAE /* FavoriteListResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteListResponseDTO.swift; sourceTree = "<group>"; };
 		2B557B0A29A2796E00232DAE /* FavoriteRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteRequest.swift; sourceTree = "<group>"; };
@@ -543,6 +547,8 @@
 			isa = PBXGroup;
 			children = (
 				2B4A59BA2AF22739009012D1 /* PlaceInfoView.swift */,
+				2B4A59BE2AF383FC009012D1 /* SelectReasonTableView.swift */,
+				2B4A59C02AF38449009012D1 /* SelectReasonTableViewCell.swift */,
 			);
 			path = SubViews;
 			sourceTree = "<group>";
@@ -1798,6 +1804,7 @@
 				F363D15E299A1A3800606C7F /* TownLocationRequest.swift in Sources */,
 				F38AA8142982877300EF66F2 /* CityMapping.swift in Sources */,
 				BC47D6382993809A00FE83D5 /* MyPageViewSection.swift in Sources */,
+				2B4A59BF2AF383FC009012D1 /* SelectReasonTableView.swift in Sources */,
 				BC9F4D5B296BE6060099473C /* FavoriteTownViewModel.swift in Sources */,
 				BC9F4D5B296BE6060099473C /* FavoriteTownViewModel.swift in Sources */,
 				2BEE90C92977F93E002E7C3A /* FavoriteViewModel.swift in Sources */,
@@ -1817,6 +1824,7 @@
 				F3891E21293B8393003CE8AD /* SceneDelegate.swift in Sources */,
 				F3356F04298FA2C3002B9FFD /* LogoutResponseDTO.swift in Sources */,
 				F363D164299A2E1800606C7F /* VillageLocationInformation.swift in Sources */,
+				2B4A59C12AF38449009012D1 /* SelectReasonTableViewCell.swift in Sources */,
 				F39EDDC4296D667800A4E655 /* County.swift in Sources */,
 				2B4A59B52AF0F800009012D1 /* EmptySearchedDataView.swift in Sources */,
 				2B4A59B12AF0F62F009012D1 /* SearchedPlaceTableView.swift in Sources */,

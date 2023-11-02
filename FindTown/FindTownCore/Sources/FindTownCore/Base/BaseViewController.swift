@@ -50,7 +50,8 @@ open class BaseViewController: UIViewController {
             scrollView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
             scrollView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor),
             scrollView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor),
-            scrollView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
+//            scrollView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: view.keyboardLayoutGuide.topAnchor, constant: 0),
             
             contentView.topAnchor.constraint(equalTo: self.scrollView.contentLayoutGuide.topAnchor),
             contentView.leadingAnchor.constraint(equalTo: self.scrollView.contentLayoutGuide.leadingAnchor),
