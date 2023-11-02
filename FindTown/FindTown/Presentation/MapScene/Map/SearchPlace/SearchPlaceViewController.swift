@@ -28,6 +28,7 @@ final class SearchPlaceViewController: BaseViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.tabBarController?.tabBar.isHidden = true
+        self.navigationItem.leftBarButtonItem = closeButton
     }
     
     override func bindViewModel() {
@@ -47,9 +48,7 @@ final class SearchPlaceViewController: BaseViewController {
         
         searchedTableView.rx.itemSelected
             .subscribe(onNext: { [weak self] _ in
-                let nextVC = UINavigationController(rootViewController: AddPlaceViewController())
-                nextVC.modalPresentationStyle = .fullScreen
-                self?.present(nextVC, animated: true)
+                self?.navigationController?.pushViewController(AddPlaceViewController(), animated: true)
             })
             .disposed(by: disposeBag)
         

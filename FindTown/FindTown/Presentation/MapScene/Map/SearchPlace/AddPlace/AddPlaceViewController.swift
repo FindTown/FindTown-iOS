@@ -21,7 +21,6 @@ enum PlaceStatus {
 
 final class AddPlaceViewController: BaseViewController {
     
-    private let closeButton = UIBarButtonItem(image: UIImage(named: "close"), style: .plain, target: nil, action: nil)
     private let doneButton = UIBarButtonItem(title: "완료", style: .done, target: nil, action: nil)
     
     let placeInfoView = PlaceInfoView()
@@ -32,6 +31,7 @@ final class AddPlaceViewController: BaseViewController {
     }
     
     override func bindViewModel() {
+        
         doneButton.rx.tap
             .subscribe(onNext: { [weak self] _ in
                 let nextVC = SuccesAddPlaceViewController()
@@ -43,7 +43,6 @@ final class AddPlaceViewController: BaseViewController {
     override func setupView() {
         self.view.backgroundColor = .white
         self.title = "장소 등록"
-        self.navigationItem.leftBarButtonItem = closeButton
         self.navigationItem.rightBarButtonItem = doneButton
 //        self.navigationItem.rightBarButtonItem?.isEnabled = false
         

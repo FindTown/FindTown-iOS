@@ -44,13 +44,13 @@ final class SuccesAddPlaceViewController: BaseViewController {
     override func bindViewModel() {
         closeButton.rx.tap
             .subscribe(onNext: { [weak self] _ in
-                self?.navigationController?.dismiss(animated: true)
+                self?.dismiss(animated: true)
             })
             .disposed(by: disposeBag)
         
         okButton.rx.tap
             .subscribe(onNext: { [weak self] _ in
-                
+                self?.dismiss(animated: true)
             })
             .disposed(by: disposeBag)
     }

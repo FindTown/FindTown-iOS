@@ -125,7 +125,9 @@ final class MapViewController: BaseViewController {
         
         addPlaceButton.rx.tap
             .subscribe(onNext: { [weak self] _ in
-                self?.navigationController?.pushViewController(SearchPlaceViewController(), animated: true)
+                let nextVC = BaseNavigationController(rootViewController: SearchPlaceViewController())
+                nextVC.modalPresentationStyle = .fullScreen
+                self?.present(nextVC, animated: true)
             })
             .disposed(by: disposeBag)
         
