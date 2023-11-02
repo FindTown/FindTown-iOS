@@ -19,17 +19,24 @@ extension UIViewController {
     }
     
     /// select, cancel 버튼을 가지는 PopUp 띄워 줌
-    public func showAlertSuccessCancelPopUp(title: String, message: String = "", successButtonText: String, cancelButtonText: String, successButtonAction: @escaping () -> Void, cancelButtonAction: @escaping () -> Void = { }) {
+    public func showAlertSuccessCancelPopUp(
+        title: String,
+        message: String = "",
+        successButtonText: String,
+        cancelButtonText: String,
+        successButtonAction: @escaping () -> Void,
+        cancelButtonAction: (() -> Void)? = nil) {
         
         let dismissAction: () -> Void = { self.dismiss(animated: false, completion: nil) }
-        let finalCancelButtonAction = cancelButtonAction() == { }() ? dismissAction : cancelButtonAction
+        let finalCancelButtonAction = cancelButtonAction == nil ? dismissAction : cancelButtonAction
         
-        let alertPopUp = AlertSuccessCancelPopUpViewController(titleText: title,
-                                                               messageText: message,
-                                                               successButtonText: successButtonText,
-                                                               cancelButtonText: cancelButtonText,
-                                                               successButtonAction: successButtonAction,
-                                                               cancelButtonAction: finalCancelButtonAction)
+        let alertPopUp = AlertSuccessCancelPopUpViewController(
+                            titleText: title,
+                            messageText: message,
+                            successButtonText: successButtonText,
+                            cancelButtonText: cancelButtonText,
+                            successButtonAction: successButtonAction,
+                            cancelButtonAction: finalCancelButtonAction)
         
         present(alertPopUp, animated: false)
     }
@@ -51,7 +58,12 @@ extension UIViewController {
     
     /// AlertPopUpVC 띄워 줌
     public func showErrorNoticeAlertPopUp(message: String, buttonText: String, buttonAction: (() -> Void)? = nil) {
-        let alertPopUp = NoticeAlertPopUpViewController(titleText: "", messageText: message, confirmButtonText: buttonText, confirmButtonAction: buttonAction)
+        let alertPopUp = NoticeAlertPopUpViewController(
+                            titleText: "",
+                            messageText: message,
+                            confirmButtonText: buttonText,
+                            confirmButtonAction: buttonAction
+                        )
         present(alertPopUp, animated: false)
     }
 }

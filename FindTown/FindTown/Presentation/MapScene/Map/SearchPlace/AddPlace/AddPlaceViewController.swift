@@ -21,6 +21,7 @@ enum PlaceStatus {
 
 final class AddPlaceViewController: BaseViewController {
     
+    private let backButton = UIBarButtonItem(image: UIImage(named: "Icon_Navi_Back"), style: .plain, target: nil, action: nil)
     private let doneButton = UIBarButtonItem(title: "완료", style: .done, target: nil, action: nil)
     
     private let placeInfoView = PlaceInfoView()
@@ -39,6 +40,23 @@ final class AddPlaceViewController: BaseViewController {
     }
     
     override func bindViewModel() {
+        
+        backButton.rx.tap
+            .subscribe(onNext: { [weak self] _ in
+                
+                self?.showAlertSuccessCancelPopUp(
+                    title: "",
+                    message: "장소 등록 작성을 \n그만하시겠어요?",
+                    successButtonText: "계속쓰기",
+                    cancelButtonText: "그만하기",
+                    successButtonAction: { },
+                    cancelButtonAction: {
+                        self?.dismiss(animated: false) {
+                            self?.navigationController?.popViewController(animated: true)
+                        }}
+                )
+            })
+            .disposed(by: disposeBag)
         
         doneButton.rx.tap
             .subscribe(onNext: { [weak self] _ in
@@ -67,6 +85,7 @@ final class AddPlaceViewController: BaseViewController {
         self.view.backgroundColor = .white
         self.hideKeyboard()
         self.title = "장소 등록"
+        self.navigationItem.leftBarButtonItem = backButton
         self.navigationItem.rightBarButtonItem = doneButton
 //        self.navigationItem.rightBarButtonItem?.isEnabled = false
         

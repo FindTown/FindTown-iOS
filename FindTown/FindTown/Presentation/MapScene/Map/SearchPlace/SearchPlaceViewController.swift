@@ -52,6 +52,11 @@ final class SearchPlaceViewController: BaseViewController {
             })
             .disposed(by: disposeBag)
         
+        closeButton.rx.tap
+            .subscribe(onNext: { [weak self] _ in
+                self?.dismiss(animated: true)
+            })
+            .disposed(by: disposeBag)
     }
     
     override func setupView() {

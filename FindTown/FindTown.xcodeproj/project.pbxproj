@@ -536,9 +536,9 @@
 		2B4A59B62AF1047C009012D1 /* AddPlace */ = {
 			isa = PBXGroup;
 			children = (
-				2B4A59B92AF2272D009012D1 /* SubViews */,
 				2B4A59B72AF10493009012D1 /* AddPlaceViewController.swift */,
 				2B4A59BC2AF28B92009012D1 /* SuccesAddPlaceViewController.swift */,
+				2B4A59B92AF2272D009012D1 /* SubViews */,
 			);
 			path = AddPlace;
 			sourceTree = "<group>";
