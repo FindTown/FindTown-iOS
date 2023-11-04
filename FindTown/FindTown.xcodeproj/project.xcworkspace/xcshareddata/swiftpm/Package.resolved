@@ -28,12 +28,12 @@
       }
     },
     {
-      "identity" : "nmapsmap-spm",
+      "identity" : "nmapsmap-swiftpm",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/jaemyeong/NMapsMap-SPM.git",
+      "location" : "https://github.com/stleamist/NMapsMap-SwiftPM.git",
       "state" : {
-        "revision" : "ce8c40aaaa97454f8b3d296a262533fe9dc0de5f",
-        "version" : "3.16.0"
+        "branch" : "main",
+        "revision" : "a4cb12773bb559ed880bc7ce0c13067ee06269fa"
       }
     },
     {
@@ -52,6 +52,15 @@
       "state" : {
         "branch" : "main",
         "revision" : "91a36920b1ec069004fef9dc41b7c5dbcaa5fffe"
+      }
+    },
+    {
+      "identity" : "snapkit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/SnapKit/SnapKit.git",
+      "state" : {
+        "revision" : "d458564516e5676af9c70b4f4b2a9178294f1bc6",
+        "version" : "5.0.1"
       }
     }
   ],
