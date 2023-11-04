@@ -8,6 +8,7 @@
 import UIKit
 
 import FindTownCore
+import FindTownUI
 
 import SnapKit
 import RxSwift
@@ -17,7 +18,7 @@ final class SearchPlaceViewController: BaseViewController {
     
     private let closeButton = UIBarButtonItem(image: UIImage(named: "close"), style: .plain, target: nil, action: nil)
     
-    let searchTextField = SearchTextField()
+    let searchTextField = FindTownSearchTextField()
     let searchedTableView = SearchedPlaceTableView()
     let emptyDataView = EmptySearchedDataView()
 

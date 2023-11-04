@@ -7,10 +7,12 @@
 
 import UIKit
 
-import RxSwift
-import RxCocoa
 import FindTownUI
 import FindTownCore
+
+import RxSwift
+import RxCocoa
+import SnapKit
 
 final class SearchViewController: BaseViewController {
     
@@ -21,8 +23,12 @@ final class SearchViewController: BaseViewController {
     
     // MARK: - Views
     
+    private let searchTextField = FindTownSearchTextField()
+    private let searchedDataLabel = FindTownLabel(text: "최근 검색한 동네", font: .subtitle5)
+    private let removeEveryButton = UIButton()
+    private let searchedCollectionView = SearchedDongCollectionView()
+    private let emptyDataLabel = FindTownLabel(text: "검색 내역이 없습니다.", font: .body4, textColor: .grey5)
     private let selectJachiguTitle = FindTownLabel(text: "자치구를 선택해주세요.", font: .subtitle5)
-    
     private let countyCollectionView = CityCollectionView()
     
     // MARK: - Life Cycle
@@ -38,20 +44,50 @@ final class SearchViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.hideKeyboard()
         firstEnterCheck()
     }
     
     // MARK: - Functions
     
     override func addView() {
-        [selectJachiguTitle, countyCollectionView].forEach {
+        [searchedDataLabel,
+         removeEveryButton,
+         emptyDataLabel,
+         searchedCollectionView,
+         selectJachiguTitle,
+         countyCollectionView].forEach {
             view.addSubview($0)
         }
     }
     
     override func setLayout() {
+        
+        let safeArea = self.view.safeAreaLayoutGuide
+        
+        searchedDataLabel.snp.makeConstraints {
+            $0.top.equalTo(safeArea).offset(54)
+            $0.leading.equalToSuperview().inset(16)
+        }
+        
+        removeEveryButton.snp.makeConstraints {
+            $0.trailing.equalToSuperview().inset(16)
+            $0.centerY.equalTo(searchedDataLabel)
+        }
+        
+        emptyDataLabel.snp.makeConstraints {
+            $0.top.equalTo(searchedDataLabel.snp.bottom).offset(24)
+            $0.leading.equalTo(searchedDataLabel)
+        }
+        
+        searchedCollectionView.snp.makeConstraints {
+            $0.top.equalTo(searchedDataLabel.snp.bottom).offset(24)
+            $0.leading.trailing.equalToSuperview().inset(16)
+            $0.height.equalTo(36)
+        }
+        
         NSLayoutConstraint.activate([
-            selectJachiguTitle.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 24),
+            selectJachiguTitle.topAnchor.constraint(equalTo: searchedDataLabel.bottomAnchor, constant: 127),
             selectJachiguTitle.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
         ])
         
@@ -66,22 +102,30 @@ final class SearchViewController: BaseViewController {
     
     override func setupView() {
         view.backgroundColor = FindTownColor.white.color
+        searchTextField.placeholder = "동으로 검색해보세요."
+        searchTextField.delegate = self
+        self.navigationItem.titleView = searchTextField
+        self.navigationItem.titleView?.widthAnchor.constraint(equalToConstant: 315).isActive = true
+        
+        removeEveryButton.setTitle("전체삭제", for: .normal)
+        removeEveryButton.titleLabel?.font = FindTownFont.label1.font
+        removeEveryButton.setTitleColor(FindTownColor.grey5.color, for: .normal)
     }
     
     override func bindViewModel() {
         
         // Input
         
-        removeEveryLabelTapGesture.rx.event
-            .throttle(.milliseconds(300), scheduler: MainScheduler.instance)
-            .bind { [weak self] _ in
+        removeEveryButton.rx.tap
+            .subscribe(onNext: { [weak self] _ in
                 self?.showAlertSuccessCancelPopUp(
-                    title: "최근 검색한 동네를\n모두 삭제할까요?",
+                    title: "",
+                    message: "최근 검색한 동네를\n모두 삭제할까요?",
                     successButtonText: "삭제",
                     cancelButtonText: "취소",
                     successButtonAction: { self?.viewModel?.input.allDeleteTrigger.onNext(()) }
                 )
-            }
+            })
             .disposed(by: disposeBag)
         
         countyCollectionView.rx.modelSelected(County.self)
@@ -92,6 +136,31 @@ final class SearchViewController: BaseViewController {
             .disposed(by: disposeBag)
         
         // Output
+        
+        viewModel?.output.searcedDataSource
+            .distinctUntilChanged()
+            .observe(on: MainScheduler.instance)
+            .bind(to: searchedCollectionView.rx.items(
+                cellIdentifier: SearchedDongCollectionViewCell.reuseIdentifier,
+                cellType: SearchedDongCollectionViewCell.self)) {
+                index, item, cell in
+                    cell.delegate = self.viewModel
+                    cell.setupCell(item)
+            }.disposed(by: disposeBag)
+        
+        viewModel?.output.searcedDataSource
+            .distinctUntilChanged()
+            .observe(on: MainScheduler.instance)
+            .subscribe(onNext: { [weak self] data in
+                if data.isEmpty {
+                    self?.searchedCollectionView.isHidden = true
+                    self?.emptyDataLabel.isHidden = false
+                } else {
+                    self?.searchedCollectionView.isHidden = false
+                    self?.emptyDataLabel.isHidden = true
+                }
+            })
+            .disposed(by: disposeBag)
         
         viewModel?.output.countyDataSource
             .observe(on: MainScheduler.instance)
@@ -120,5 +189,15 @@ extension SearchViewController: UICollectionViewDelegateFlowLayout {
         return CGSize(width: (filter?.size(
             withAttributes: [NSAttributedString.Key.font : UIFont.systemFont(ofSize: 14)]
         ).width ?? 0) + 50, height: 40)
+    }
+}
+
+extension SearchViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if let searched = textField.text {
+            self.viewModel?.input.addSearchedData.onNext(searched)
+        }
+        textField.resignFirstResponder()
+        return true
     }
 }

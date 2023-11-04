@@ -14,4 +14,7 @@ enum UserDefaultsSetting {
 
     @UserDefaultsWrapper(key: "SearchFirstEnter", defaultValue: false)
     static var isSearchFirstEnter
+    
+    @UserDefaultsWrapper(key: "searchedDongList", defaultValue: [Search]())
+    static var searchedDongList
 }

@@ -31,11 +31,13 @@ final class SearchViewModel: BaseViewModel {
         let removedCounty =  PublishSubject<String>()
         let allDeleteTrigger = PublishSubject<Void>()
         let serviceMapPopUpTrigger = PublishSubject<Void>()
+        let addSearchedData = PublishSubject<String>()
     }
     
     struct Output {
         var searchFilterDataSource = BehaviorRelay<[String]>(value: [])
         var countyDataSource = BehaviorSubject<[County]>(value: [])
+        var searcedDataSource = BehaviorSubject<[Search]>(value: [])
     }
     
     let input = Input()
@@ -74,7 +76,8 @@ final class SearchViewModel: BaseViewModel {
         
         self.input.allDeleteTrigger
             .bind { [weak self] in
-                self?.output.searchFilterDataSource.accept([])
+                UserDefaultsSetting.searchedDongList = []
+                self?.output.searcedDataSource.onNext([])
             }
             .disposed(by: disposeBag)
         
@@ -83,6 +86,35 @@ final class SearchViewModel: BaseViewModel {
                 self?.popUpServiceMap()
             }
             .disposed(by: disposeBag)
+        
+        self.input.addSearchedData
+            .bind(onNext: { [weak self] title in
+                self?.addSearchedData(title)
+            })
+            .disposed(by: disposeBag)
+        
+        getSearchedData()
+    }
+}
+
+extension SearchViewModel {
+    func getSearchedData() {
+        let sortedData = UserDefaultsSetting.searchedDongList
+                                            .sorted(by: { $0.time < $1.time})
+        self.output.searcedDataSource.onNext(sortedData)
+    }
+    
+    func addSearchedData(_ data: String) {
+        var searchedData = UserDefaultsSetting.searchedDongList
+        searchedData.append(Search(data: data, time: .now))
+        
+        if searchedData.count >= 10 {
+            searchedData.sort(by: { $0.time < $1.time})
+            searchedData.removeLast()
+        }
+    
+        self.output.searcedDataSource.onNext(searchedData)
+        UserDefaultsSetting.searchedDongList = searchedData
     }
 }
 
@@ -93,5 +125,13 @@ extension SearchViewModel: SearchViewModelType {
     
     func popUpServiceMap() {
         delegate.popUpServiceMap()
+    }
+}
+
+extension SearchViewModel: SearchedDongCollectionViewCellDelegate {
+    func deletedDongData(data: Search) {
+        let dongList = UserDefaultsSetting.searchedDongList.filter { $0 != data }
+        UserDefaultsSetting.searchedDongList = dongList
+        getSearchedData()
     }
 }
