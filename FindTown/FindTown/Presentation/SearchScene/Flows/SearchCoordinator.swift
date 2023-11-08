@@ -29,12 +29,14 @@ final class SearchCoordinator: FlowCoordinator {
         return searchViewController
     }
     
-    internal func showVillageListScene(selectCountyData: String) -> UIViewController {
-        let showVillageListViewModel = ShowVillageListViewModel(delegate: self,
-                                                                townUseCase: appDIContainer.townUseCase,
-                                                                authUseCase: appDIContainer.authUseCase,
-                                                                memberUseCase: appDIContainer.memberUseCase,
-                                                                selectCountyData: selectCountyData)
+    internal func showVillageListScene(searchType: SearchType, data: String) -> UIViewController {
+        let showVillageListViewModel = ShowVillageListViewModel(
+                                            delegate: self,
+                                            townUseCase: appDIContainer.townUseCase,
+                                            authUseCase: appDIContainer.authUseCase,
+                                            memberUseCase: appDIContainer.memberUseCase,
+                                            searchType: searchType,
+                                            data: data)
         let showVillageListViewController = ShowVillageListViewController(viewModel: showVillageListViewModel)
         return showVillageListViewController
     }
@@ -47,10 +49,11 @@ final class SearchCoordinator: FlowCoordinator {
 }
 
 extension SearchCoordinator: SearchViewModelDelegate {
-    
-    func goToShowVillageList(selectCountyData: String) {
+    func goToShowVillageList(searchType: SearchType, data: String) {
         guard let navigationController = navigationController else { return }
-        navigationController.pushViewController(showVillageListScene(selectCountyData: selectCountyData), animated: true)
+        navigationController.pushViewController(
+            showVillageListScene(searchType: searchType, data: data),
+            animated: true)
     }
     
     func popUpServiceMap() {

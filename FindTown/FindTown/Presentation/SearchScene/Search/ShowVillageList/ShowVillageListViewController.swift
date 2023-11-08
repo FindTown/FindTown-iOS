@@ -22,7 +22,6 @@ final class ShowVillageListViewController: BaseViewController {
     
     private let topEmptyView = UIView()
     
-    private let selectCountyTitle = FindTownLabel(text: "", font: .subtitle5)
     private let townCountTitle = FindTownLabel(text: "", font: .label1, textColor: .grey6)
     private let townListAndCountStackView: UIStackView = {
         let stackView = UIStackView()
@@ -52,7 +51,7 @@ final class ShowVillageListViewController: BaseViewController {
     // MARK: - Functions
     
     override func addView() {
-        [selectCountyTitle, townCountTitle].forEach {
+        [townCountTitle].forEach {
             townListAndCountStackView.addArrangedSubview($0)
         }
         
@@ -83,10 +82,9 @@ final class ShowVillageListViewController: BaseViewController {
         view.backgroundColor = FindTownColor.white.color
         townTableView.contentInset = UIEdgeInsets(top: 24 - 8, left: 0, bottom: 0, right: 0)
         
-        guard let selectCountyData = self.viewModel?.selectCountyData else { return }
-        selectCountyTitle.text = "서울시 \(selectCountyData)"
-        
-        viewModel?.fetchTownInformation()
+        guard let selectCountyData = self.viewModel?.searchData,
+              self.viewModel?.searchType == .selection else { return }
+        self.title = "서울시 \(selectCountyData)"
     }
     
     override func bindViewModel() {
@@ -108,7 +106,7 @@ final class ShowVillageListViewController: BaseViewController {
         viewModel?.output.searchTownTableDataSource
             .observe(on: MainScheduler.instance)
             .bind { [weak self] searchTown in
-                self?.townCountTitle.text = "\(searchTown.count)개 동네"
+                self?.townCountTitle.text = "총 \(searchTown.count)개 동네"
             }
             .disposed(by: disposeBag)
     

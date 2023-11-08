@@ -12,7 +12,7 @@ import RxSwift
 import RxRelay
 
 protocol SearchViewModelDelegate {
-    func goToShowVillageList(selectCountyData: String)
+    func goToShowVillageList(searchType: SearchType, data: String)
     func popUpServiceMap()
     func goToTownIntroduce(cityCode: Int)
     func goToTownMap(cityCode: Int)
@@ -20,7 +20,7 @@ protocol SearchViewModelDelegate {
 }
 
 protocol SearchViewModelType {
-    func goToShowVillageList(selectCountyData: String)
+    func goToShowVillageList(searchType: SearchType, data: String)
     func popUpServiceMap()
 }
 
@@ -31,13 +31,15 @@ final class SearchViewModel: BaseViewModel {
         let removedCounty =  PublishSubject<String>()
         let allDeleteTrigger = PublishSubject<Void>()
         let serviceMapPopUpTrigger = PublishSubject<Void>()
+        let searchedData = PublishSubject<String>()
     }
     
     struct Output {
         var searchFilterDataSource = BehaviorRelay<[String]>(value: [])
         var countyDataSource = BehaviorSubject<[County]>(value: [])
+        var searchedDataSource = BehaviorSubject<[Search]>(value: [])
     }
-    
+
     let input = Input()
     let output = Output()
     let delegate: SearchViewModelDelegate
@@ -55,10 +57,10 @@ final class SearchViewModel: BaseViewModel {
         
         self.input.selectedCounty
             .bind { [weak self] county in
-                var dataSource = self?.output.searchFilterDataSource.value
-                dataSource?.insert(county, at: 0)
-                self?.output.searchFilterDataSource.accept(dataSource ?? [])
-                self?.goToShowVillageList(selectCountyData: county)
+//                var dataSource = self?.output.searchFilterDataSource.value
+//                dataSource?.insert(county, at: 0)
+//                self?.output.searchFilterDataSource.accept(dataSource ?? [])
+                self?.goToShowVillageList(searchType: .selection, data: county)
             }
             .disposed(by: disposeBag)
         
@@ -74,7 +76,8 @@ final class SearchViewModel: BaseViewModel {
         
         self.input.allDeleteTrigger
             .bind { [weak self] in
-                self?.output.searchFilterDataSource.accept([])
+                UserDefaultsSetting.searchedDongList = []
+                self?.output.searchedDataSource.onNext([])
             }
             .disposed(by: disposeBag)
         
@@ -83,15 +86,53 @@ final class SearchViewModel: BaseViewModel {
                 self?.popUpServiceMap()
             }
             .disposed(by: disposeBag)
+        
+        self.input.searchedData
+            .bind(onNext: { [weak self] data in
+                self?.goToShowVillageList(searchType: .searchBar, data: data)
+                self?.addSearchedData(data)
+            })
+            .disposed(by: disposeBag)
+        
+        getSearchedData()
+    }
+}
+
+extension SearchViewModel {
+    func getSearchedData() {
+        let sortedData = UserDefaultsSetting.searchedDongList
+                                            .sorted(by: { $0.time < $1.time})
+        self.output.searchedDataSource.onNext(sortedData)
+    }
+    
+    func addSearchedData(_ data: String) {
+        var searchedData = UserDefaultsSetting.searchedDongList
+        searchedData.append(Search(data: data, time: .now))
+        
+        if searchedData.count >= 10 {
+            searchedData.sort(by: { $0.time < $1.time})
+            searchedData.removeLast()
+        }
+    
+        self.output.searchedDataSource.onNext(searchedData)
+        UserDefaultsSetting.searchedDongList = searchedData
     }
 }
 
 extension SearchViewModel: SearchViewModelType {
-    func goToShowVillageList(selectCountyData: String) {
-        delegate.goToShowVillageList(selectCountyData: selectCountyData)
+    func goToShowVillageList(searchType: SearchType, data: String) {
+        delegate.goToShowVillageList(searchType: searchType, data: data)
     }
     
     func popUpServiceMap() {
         delegate.popUpServiceMap()
+    }
+}
+
+extension SearchViewModel: SearchedDongCollectionViewCellDelegate {
+    func deletedDongData(data: Search) {
+        let dongList = UserDefaultsSetting.searchedDongList.filter { $0 != data }
+        UserDefaultsSetting.searchedDongList = dongList
+        getSearchedData()
     }
 }

@@ -1,15 +1,13 @@
 //
-//  SearchTextField.swift
-//  FindTown
+//  File.swift
+//  
 //
-//  Created by 장선영 on 2023/10/31.
+//  Created by 장선영 on 2023/11/04.
 //
 
 import UIKit
 
-import FindTownUI
-
-class SearchTextField: UITextField {
+public class FindTownSearchTextField: UITextField {
     
     private lazy var clearButton: UIButton = {
         let button = UIButton()
@@ -31,27 +29,27 @@ class SearchTextField: UITextField {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func leftViewRect(forBounds bounds: CGRect) -> CGRect {
+    public override func leftViewRect(forBounds bounds: CGRect) -> CGRect {
         var padding = super.leftViewRect(forBounds: bounds)
         padding.origin.x += 12
         
         return padding
     }
     
-    override func rightViewRect(forBounds bounds: CGRect) -> CGRect {
+    public override func rightViewRect(forBounds bounds: CGRect) -> CGRect {
         var padding = super.rightViewRect(forBounds: bounds)
         padding.origin.x -= 12
 
         return padding
     }
     
-    override func editingRect(forBounds bounds: CGRect) -> CGRect {
+    public override func editingRect(forBounds bounds: CGRect) -> CGRect {
         
         return CGRect(x: 44, y: 0, width: bounds.size.width - (44 + 24 + 12), height: bounds.size.height)
     }
 }
 
-extension SearchTextField {
+extension FindTownSearchTextField {
     
     @objc
     func didTapClearButton() {
@@ -69,7 +67,7 @@ extension SearchTextField {
         imageView.snp.makeConstraints {
             $0.top.leading.bottom.equalToSuperview()
             $0.trailing.equalToSuperview().inset(8)
-            $0.width.height.equalTo(24)
+            $0.height.equalTo(24)
         }
         
         self.leftView = leftview
@@ -89,15 +87,15 @@ extension SearchTextField {
     }
 }
 
-extension SearchTextField: UITextFieldDelegate {
+extension FindTownSearchTextField: UITextFieldDelegate {
 
-    func textFieldDidBeginEditing(_ textField: UITextField) {
+    public func textFieldDidBeginEditing(_ textField: UITextField) {
         if text?.isEmpty ?? true {
             rightViewMode = .never
         }
     }
     
-    func textField(_ textField: UITextField,
+    public func textField(_ textField: UITextField,
                    shouldChangeCharactersIn range: NSRange,
                    replacementString string: String) -> Bool {
 

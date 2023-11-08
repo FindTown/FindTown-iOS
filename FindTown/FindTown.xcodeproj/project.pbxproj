@@ -7,13 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2B1E63252AFB68CE00D35A05 /* SearchType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1E63242AFB68CE00D35A05 /* SearchType.swift */; };
 		2B3266252A4D77FA00F883B0 /* APIKeyInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2B3266242A4D77FA00F883B0 /* APIKeyInfo.plist */; };
 		2B42E970299F83DB0093FB0A /* UserDefaultsWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B42E96F299F83DB0093FB0A /* UserDefaultsWrapper.swift */; };
 		2B42E972299F85200093FB0A /* UserDefaultsSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B42E971299F85200093FB0A /* UserDefaultsSetting.swift */; };
 		2B42E986299FCC110093FB0A /* TownIntroduceRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B42E985299FCC110093FB0A /* TownIntroduceRequest.swift */; };
 		2B42E98A299FCD140093FB0A /* TownIntroduceResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B42E989299FCD140093FB0A /* TownIntroduceResponseDTO.swift */; };
 		2B42E98C29A0688D0093FB0A /* Traffic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B42E98B29A0688D0093FB0A /* Traffic.swift */; };
-		2B4A59AF2AF0EAF5009012D1 /* SearchTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B4A59AE2AF0EAF5009012D1 /* SearchTextField.swift */; };
 		2B4A59B12AF0F62F009012D1 /* SearchedPlaceTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B4A59B02AF0F62F009012D1 /* SearchedPlaceTableView.swift */; };
 		2B4A59B32AF0F6A8009012D1 /* SearchedPlaceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B4A59B22AF0F6A8009012D1 /* SearchedPlaceTableViewCell.swift */; };
 		2B4A59B52AF0F800009012D1 /* EmptySearchedDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B4A59B42AF0F800009012D1 /* EmptySearchedDataView.swift */; };
@@ -45,6 +45,10 @@
 		2B7AE8312987F59200DF19C8 /* TownIntroCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B7AE8302987F59200DF19C8 /* TownIntroCoordinator.swift */; };
 		2BA009B129A2248300F3563A /* TownIntroduce.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA009B029A2248300F3563A /* TownIntroduce.swift */; };
 		2BE478172AEFF98900DF8632 /* NMapsMap in Frameworks */ = {isa = PBXBuildFile; productRef = 2BE478162AEFF98900DF8632 /* NMapsMap */; };
+		2BED7FA82AF6057800EFBFD6 /* SearchedDongCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BED7FA72AF6057700EFBFD6 /* SearchedDongCollectionView.swift */; };
+		2BED7FAA2AF6058600EFBFD6 /* SearchedDongCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BED7FA92AF6058600EFBFD6 /* SearchedDongCollectionViewCell.swift */; };
+		2BED7FAD2AF6090300EFBFD6 /* SearchedDongCollectionViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BED7FAC2AF6090300EFBFD6 /* SearchedDongCollectionViewFlowLayout.swift */; };
+		2BED7FAF2AF60FB200EFBFD6 /* Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BED7FAE2AF60FB200EFBFD6 /* Search.swift */; };
 		2BEE90C52977F90A002E7C3A /* FavoriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BEE90C42977F90A002E7C3A /* FavoriteViewController.swift */; };
 		2BEE90C92977F93E002E7C3A /* FavoriteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BEE90C82977F93E002E7C3A /* FavoriteViewModel.swift */; };
 		2BEE90CC2977F975002E7C3A /* FavoriteCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BEE90CB2977F975002E7C3A /* FavoriteCoordinator.swift */; };
@@ -252,13 +256,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2B1E63242AFB68CE00D35A05 /* SearchType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchType.swift; sourceTree = "<group>"; };
 		2B3266242A4D77FA00F883B0 /* APIKeyInfo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = APIKeyInfo.plist; path = ../../../../../APIKeyInfo.plist; sourceTree = "<group>"; };
 		2B42E96F299F83DB0093FB0A /* UserDefaultsWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsWrapper.swift; sourceTree = "<group>"; };
 		2B42E971299F85200093FB0A /* UserDefaultsSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsSetting.swift; sourceTree = "<group>"; };
 		2B42E985299FCC110093FB0A /* TownIntroduceRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TownIntroduceRequest.swift; sourceTree = "<group>"; };
 		2B42E989299FCD140093FB0A /* TownIntroduceResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TownIntroduceResponseDTO.swift; sourceTree = "<group>"; };
 		2B42E98B29A0688D0093FB0A /* Traffic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Traffic.swift; sourceTree = "<group>"; };
-		2B4A59AE2AF0EAF5009012D1 /* SearchTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTextField.swift; sourceTree = "<group>"; };
 		2B4A59B02AF0F62F009012D1 /* SearchedPlaceTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchedPlaceTableView.swift; sourceTree = "<group>"; };
 		2B4A59B22AF0F6A8009012D1 /* SearchedPlaceTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchedPlaceTableViewCell.swift; sourceTree = "<group>"; };
 		2B4A59B42AF0F800009012D1 /* EmptySearchedDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptySearchedDataView.swift; sourceTree = "<group>"; };
@@ -288,6 +292,10 @@
 		2B718C192966A6000068884A /* MapCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapCategory.swift; sourceTree = "<group>"; };
 		2B7AE8302987F59200DF19C8 /* TownIntroCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TownIntroCoordinator.swift; sourceTree = "<group>"; };
 		2BA009B029A2248300F3563A /* TownIntroduce.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TownIntroduce.swift; sourceTree = "<group>"; };
+		2BED7FA72AF6057700EFBFD6 /* SearchedDongCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchedDongCollectionView.swift; sourceTree = "<group>"; };
+		2BED7FA92AF6058600EFBFD6 /* SearchedDongCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchedDongCollectionViewCell.swift; sourceTree = "<group>"; };
+		2BED7FAC2AF6090300EFBFD6 /* SearchedDongCollectionViewFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchedDongCollectionViewFlowLayout.swift; sourceTree = "<group>"; };
+		2BED7FAE2AF60FB200EFBFD6 /* Search.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Search.swift; sourceTree = "<group>"; };
 		2BEE90C42977F90A002E7C3A /* FavoriteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteViewController.swift; sourceTree = "<group>"; };
 		2BEE90C82977F93E002E7C3A /* FavoriteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteViewModel.swift; sourceTree = "<group>"; };
 		2BEE90CB2977F975002E7C3A /* FavoriteCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteCoordinator.swift; sourceTree = "<group>"; };
@@ -525,7 +533,6 @@
 		2B4A59AD2AF0EAE2009012D1 /* SubViews */ = {
 			isa = PBXGroup;
 			children = (
-				2B4A59AE2AF0EAF5009012D1 /* SearchTextField.swift */,
 				2B4A59B02AF0F62F009012D1 /* SearchedPlaceTableView.swift */,
 				2B4A59B22AF0F6A8009012D1 /* SearchedPlaceTableViewCell.swift */,
 				2B4A59B42AF0F800009012D1 /* EmptySearchedDataView.swift */,
@@ -635,6 +642,16 @@
 				2B7AE8302987F59200DF19C8 /* TownIntroCoordinator.swift */,
 			);
 			path = Flows;
+			sourceTree = "<group>";
+		};
+		2BED7FAB2AF608D800EFBFD6 /* SearchedDongCollectionView */ = {
+			isa = PBXGroup;
+			children = (
+				2BED7FA72AF6057700EFBFD6 /* SearchedDongCollectionView.swift */,
+				2BED7FA92AF6058600EFBFD6 /* SearchedDongCollectionViewCell.swift */,
+				2BED7FAC2AF6090300EFBFD6 /* SearchedDongCollectionViewFlowLayout.swift */,
+			);
+			path = SearchedDongCollectionView;
 			sourceTree = "<group>";
 		};
 		2BEE90BE2977F806002E7C3A /* FavoriteScene */ = {
@@ -754,6 +771,7 @@
 		BC354706298F96B10016FE4A /* SubViews */ = {
 			isa = PBXGroup;
 			children = (
+				2BED7FAB2AF608D800EFBFD6 /* SearchedDongCollectionView */,
 				BC354707298F9D010016FE4A /* ServiceMapPopUpViewController.swift */,
 			);
 			path = SubViews;
@@ -1048,6 +1066,8 @@
 				2BA009B029A2248300F3563A /* TownIntroduce.swift */,
 				F32F849929A485C700EA403C /* InfraStore.swift */,
 				F33454CF29A611A20075E66B /* TokenData.swift */,
+				2BED7FAE2AF60FB200EFBFD6 /* Search.swift */,
+				2B1E63242AFB68CE00D35A05 /* SearchType.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -1648,6 +1668,7 @@
 				F3984A7C29ADA30F003FA0C8 /* NetwokDIContainer.swift in Sources */,
 				BCF825922988C90C00AC00BB /* MyPageViewController.swift in Sources */,
 				BC04A6DC296FDEC100B60BCF /* KeyChainManager.swift in Sources */,
+				2BED7FAF2AF60FB200EFBFD6 /* Search.swift in Sources */,
 				2B7AE8312987F59200DF19C8 /* TownIntroCoordinator.swift in Sources */,
 				F38CCBD729582869000C16AF /* AppCoordinator.swift in Sources */,
 				2B628DD7298650CD00A90D9A /* TownIntroduceViewModel.swift in Sources */,
@@ -1702,6 +1723,7 @@
 				BCE99668297693D100AACD02 /* TrafficCollectionViewFlowLayout.swift in Sources */,
 				2B628DE4298675C400A90D9A /* TownMood.swift in Sources */,
 				F362189D29B99AE2005A0C8F /* TokenRepository.swift in Sources */,
+				2BED7FAA2AF6058600EFBFD6 /* SearchedDongCollectionViewCell.swift in Sources */,
 				BC3C069229A0C5A20049DA8C /* TownSearchRequest.swift in Sources */,
 				BCE996662976915A00AACD02 /* FilterCollectionViewFlowLayout.swift in Sources */,
 				2B628DD52986508F00A90D9A /* TownIntroduceViewController.swift in Sources */,
@@ -1719,8 +1741,10 @@
 				2B628DE229866A7800A90D9A /* TrafficTipView.swift in Sources */,
 				BC3C068E29A0C5680049DA8C /* TownSearchResponseDTO.swift in Sources */,
 				2B4A59B32AF0F6A8009012D1 /* SearchedPlaceTableViewCell.swift in Sources */,
+				2BED7FAD2AF6090300EFBFD6 /* SearchedDongCollectionViewFlowLayout.swift in Sources */,
 				F3EA9EB52A2D2479002123C8 /* TownMoodSelectHeaderView.swift in Sources */,
 				F362189E29B99AE2005A0C8F /* MapRepository.swift in Sources */,
+				2BED7FA82AF6057800EFBFD6 /* SearchedDongCollectionView.swift in Sources */,
 				BCF68B53299BB1DF00E8D83E /* DefaultTownRepository.swift in Sources */,
 				F3891E1F293B8393003CE8AD /* AppDelegate.swift in Sources */,
 				F3984A7429ACBE03003FA0C8 /* AppDIContainer.swift in Sources */,
@@ -1736,6 +1760,7 @@
 				BC9F4D60296BF0D30099473C /* AgreePolicyViewModel.swift in Sources */,
 				2B557B0D29A279B400232DAE /* FavoriteResponseDTO.swift in Sources */,
 				F363D167299A39D200606C7F /* MapConstant.swift in Sources */,
+				2B1E63252AFB68CE00D35A05 /* SearchType.swift in Sources */,
 				BC056C5A2962B2B900EDCA18 /* LoginViewModel.swift in Sources */,
 				F3356EE2298CEA4B002B9FFD /* TokenInformationDTO.swift in Sources */,
 				BC32F82D299D49D60038F0D6 /* SearchViewController.swift in Sources */,
@@ -1835,7 +1860,6 @@
 				F36218A129B99AE2005A0C8F /* AuthRepository.swift in Sources */,
 				2B628DF529869F0C00A90D9A /* TownRankView.swift in Sources */,
 				F39EDDCA296D788800A4E655 /* CityCollectionViewFlowLayout.swift in Sources */,
-				2B4A59AF2AF0EAF5009012D1 /* SearchTextField.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
