@@ -42,6 +42,8 @@
 		2B628DF82987853300A90D9A /* TownRank.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B628DF72987853300A90D9A /* TownRank.swift */; };
 		2B718C182966A5930068884A /* MapCategoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B718C172966A5930068884A /* MapCategoryCollectionViewCell.swift */; };
 		2B718C1A2966A6000068884A /* MapCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B718C192966A6000068884A /* MapCategory.swift */; };
+		2B74F61A2AFB78A2002A6A5F /* PlaceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B74F6192AFB78A2002A6A5F /* PlaceViewController.swift */; };
+		2B74F61C2AFB78B3002A6A5F /* PlaceCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B74F61B2AFB78B3002A6A5F /* PlaceCoordinator.swift */; };
 		2B7AE8312987F59200DF19C8 /* TownIntroCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B7AE8302987F59200DF19C8 /* TownIntroCoordinator.swift */; };
 		2BA009B129A2248300F3563A /* TownIntroduce.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA009B029A2248300F3563A /* TownIntroduce.swift */; };
 		2BE478172AEFF98900DF8632 /* NMapsMap in Frameworks */ = {isa = PBXBuildFile; productRef = 2BE478162AEFF98900DF8632 /* NMapsMap */; };
@@ -290,6 +292,8 @@
 		2B628DF72987853300A90D9A /* TownRank.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TownRank.swift; sourceTree = "<group>"; };
 		2B718C172966A5930068884A /* MapCategoryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapCategoryCollectionViewCell.swift; sourceTree = "<group>"; };
 		2B718C192966A6000068884A /* MapCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapCategory.swift; sourceTree = "<group>"; };
+		2B74F6192AFB78A2002A6A5F /* PlaceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceViewController.swift; sourceTree = "<group>"; };
+		2B74F61B2AFB78B3002A6A5F /* PlaceCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceCoordinator.swift; sourceTree = "<group>"; };
 		2B7AE8302987F59200DF19C8 /* TownIntroCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TownIntroCoordinator.swift; sourceTree = "<group>"; };
 		2BA009B029A2248300F3563A /* TownIntroduce.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TownIntroduce.swift; sourceTree = "<group>"; };
 		2BED7FA72AF6057700EFBFD6 /* SearchedDongCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchedDongCollectionView.swift; sourceTree = "<group>"; };
@@ -636,6 +640,31 @@
 			path = TownIntroScene;
 			sourceTree = "<group>";
 		};
+		2B74F6182AFB788C002A6A5F /* PlaceScene */ = {
+			isa = PBXGroup;
+			children = (
+				2B74F61D2AFB79F9002A6A5F /* Flows */,
+				2B74F61E2AFB7A01002A6A5F /* Place */,
+			);
+			path = PlaceScene;
+			sourceTree = "<group>";
+		};
+		2B74F61D2AFB79F9002A6A5F /* Flows */ = {
+			isa = PBXGroup;
+			children = (
+				2B74F61B2AFB78B3002A6A5F /* PlaceCoordinator.swift */,
+			);
+			path = Flows;
+			sourceTree = "<group>";
+		};
+		2B74F61E2AFB7A01002A6A5F /* Place */ = {
+			isa = PBXGroup;
+			children = (
+				2B74F6192AFB78A2002A6A5F /* PlaceViewController.swift */,
+			);
+			path = Place;
+			sourceTree = "<group>";
+		};
 		2B7AE82F2987F55D00DF19C8 /* Flows */ = {
 			isa = PBXGroup;
 			children = (
@@ -858,6 +887,7 @@
 		BC6EFB75293B9C3800AB3332 /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				2B74F6182AFB788C002A6A5F /* PlaceScene */,
 				BC32F825299D48B00038F0D6 /* SearchScene */,
 				BCF8258E2988C8D900AC00BB /* MyPageScene */,
 				2B628DF62987803100A90D9A /* TownIntroScene */,
@@ -1697,6 +1727,7 @@
 				BC853DED298B80DD0033AF20 /* DefaultMemberUseCase.swift in Sources */,
 				F38CCBEA29582881000C16AF /* MapCoordinator.swift in Sources */,
 				BC1CE298297545D600F89B81 /* TrafficCollectionViewCell.swift in Sources */,
+				2B74F61A2AFB78A2002A6A5F /* PlaceViewController.swift in Sources */,
 				BC32F829299D48FC0038F0D6 /* SearchCoordinator.swift in Sources */,
 				BC8B638F298A4B5B004E1116 /* ChangeNicknameViewController.swift in Sources */,
 				F39EDDC2296D635100A4E655 /* CityType.swift in Sources */,
@@ -1819,6 +1850,7 @@
 				F38AA82B29842C2D00EF66F2 /* SigninUserModel.swift in Sources */,
 				F3984AA529ADAD45003FA0C8 /* AppleAuthRespository.swift in Sources */,
 				F38AA7F429811F0600EF66F2 /* DefaultKakaoAuthRepository.swift in Sources */,
+				2B74F61C2AFB78B3002A6A5F /* PlaceCoordinator.swift in Sources */,
 				F3918472299D3F0600CEF02E /* ResignRequest.swift in Sources */,
 				F3356F02298FA270002B9FFD /* LogoutRequest.swift in Sources */,
 				BCF825992988DFF800AC00BB /* SupportSectionCollectionViewCell.swift in Sources */,
