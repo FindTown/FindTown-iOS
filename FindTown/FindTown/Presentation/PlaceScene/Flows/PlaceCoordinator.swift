@@ -22,8 +22,22 @@ final class PlaceCoordinator: FlowCoordinator {
         self.presentationStyle = presentationStyle
         self.appDIContainer = appDIContainer
     }
-    
+
     internal func initScene() -> UIViewController {
-        return PlaceViewController()
+        let searchViewModel = PlaceViewModel(delegate: self)
+        let searchViewController = PlaceViewController(viewModel: searchViewModel)
+        return searchViewController
+    }
+}
+
+extension PlaceCoordinator: PlaceViewModelDelegate {
+    func presentAddressSheet() {
+        guard let navigationController = navigationController else { return }
+        AddressSheetCoordinator(
+            presentationStyle: .present(
+                navigationController: navigationController,
+                modalPresentationStyle: .overFullScreen),
+            parentCoordinator: self
+        ).start()
     }
 }

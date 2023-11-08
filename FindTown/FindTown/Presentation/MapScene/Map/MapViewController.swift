@@ -343,13 +343,19 @@ private extension MapViewController {
         ])
         
         NSLayoutConstraint.activate([
-            addressButton.leadingAnchor.constraint(equalTo: naviBarSubView.leadingAnchor, constant: 16.0),
-            addressButton.bottomAnchor.constraint(equalTo: naviBarSubView.bottomAnchor, constant: -8.0)
+            addressButton.leadingAnchor.constraint(
+                equalTo: naviBarSubView.leadingAnchor,
+                constant: 16.0),
+            addressButton.topAnchor.constraint(
+                equalTo: naviBarSubView.topAnchor,
+                constant: 24.0)
         ])
         
         NSLayoutConstraint.activate([
             mapToggle.centerYAnchor.constraint(equalTo: naviBarSubView.centerYAnchor),
-            mapToggle.trailingAnchor.constraint(equalTo: naviBarSubView.trailingAnchor, constant: -16.0)
+            mapToggle.trailingAnchor.constraint(
+                equalTo: naviBarSubView.trailingAnchor,
+                constant: -16.0)
         ])
     }
     
