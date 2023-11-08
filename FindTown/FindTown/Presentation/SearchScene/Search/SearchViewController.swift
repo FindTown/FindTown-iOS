@@ -24,7 +24,7 @@ final class SearchViewController: BaseViewController {
     // MARK: - Views
     
     private let searchTextField = FindTownSearchTextField()
-    private let searchedDataLabel = FindTownLabel(text: "최근 검색한 동네", font: .subtitle5)
+    private let searchedDataLabel = FindTownLabel(text: "최근 검색 내역", font: .subtitle5)
     private let removeEveryButton = UIButton()
     private let searchedCollectionView = SearchedDongCollectionView()
     private let emptyDataLabel = FindTownLabel(text: "검색 내역이 없습니다.", font: .body4, textColor: .grey5)
@@ -135,9 +135,15 @@ final class SearchViewController: BaseViewController {
             }
             .disposed(by: disposeBag)
         
+        searchedCollectionView.rx.modelSelected(Search.self)
+            .subscribe(onNext: { [weak self] item in
+                self?.viewModel?.input.searchedData.onNext(item.data)
+            })
+            .disposed(by: disposeBag)
+        
         // Output
         
-        viewModel?.output.searcedDataSource
+        viewModel?.output.searchedDataSource
             .distinctUntilChanged()
             .observe(on: MainScheduler.instance)
             .bind(to: searchedCollectionView.rx.items(
@@ -148,7 +154,7 @@ final class SearchViewController: BaseViewController {
                     cell.setupCell(item)
             }.disposed(by: disposeBag)
         
-        viewModel?.output.searcedDataSource
+        viewModel?.output.searchedDataSource
             .distinctUntilChanged()
             .observe(on: MainScheduler.instance)
             .subscribe(onNext: { [weak self] data in
@@ -171,6 +177,7 @@ final class SearchViewController: BaseViewController {
                     cell.setupCell(itemText: item.rawValue)
                     
                 }.disposed(by: disposeBag)
+        
     }
     
     private func firstEnterCheck() {
@@ -195,7 +202,7 @@ extension SearchViewController: UICollectionViewDelegateFlowLayout {
 extension SearchViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if let searched = textField.text {
-            self.viewModel?.input.addSearchedData.onNext(searched)
+            self.viewModel?.input.searchedData.onNext(searched)
         }
         textField.resignFirstResponder()
         return true

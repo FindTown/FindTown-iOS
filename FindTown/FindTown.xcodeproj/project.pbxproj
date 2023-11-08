@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2B1E63252AFB68CE00D35A05 /* SearchType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1E63242AFB68CE00D35A05 /* SearchType.swift */; };
 		2B3266252A4D77FA00F883B0 /* APIKeyInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2B3266242A4D77FA00F883B0 /* APIKeyInfo.plist */; };
 		2B42E970299F83DB0093FB0A /* UserDefaultsWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B42E96F299F83DB0093FB0A /* UserDefaultsWrapper.swift */; };
 		2B42E972299F85200093FB0A /* UserDefaultsSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B42E971299F85200093FB0A /* UserDefaultsSetting.swift */; };
@@ -255,6 +256,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2B1E63242AFB68CE00D35A05 /* SearchType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchType.swift; sourceTree = "<group>"; };
 		2B3266242A4D77FA00F883B0 /* APIKeyInfo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = APIKeyInfo.plist; path = ../../../../../APIKeyInfo.plist; sourceTree = "<group>"; };
 		2B42E96F299F83DB0093FB0A /* UserDefaultsWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsWrapper.swift; sourceTree = "<group>"; };
 		2B42E971299F85200093FB0A /* UserDefaultsSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsSetting.swift; sourceTree = "<group>"; };
@@ -1065,6 +1067,7 @@
 				F32F849929A485C700EA403C /* InfraStore.swift */,
 				F33454CF29A611A20075E66B /* TokenData.swift */,
 				2BED7FAE2AF60FB200EFBFD6 /* Search.swift */,
+				2B1E63242AFB68CE00D35A05 /* SearchType.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -1757,6 +1760,7 @@
 				BC9F4D60296BF0D30099473C /* AgreePolicyViewModel.swift in Sources */,
 				2B557B0D29A279B400232DAE /* FavoriteResponseDTO.swift in Sources */,
 				F363D167299A39D200606C7F /* MapConstant.swift in Sources */,
+				2B1E63252AFB68CE00D35A05 /* SearchType.swift in Sources */,
 				BC056C5A2962B2B900EDCA18 /* LoginViewModel.swift in Sources */,
 				F3356EE2298CEA4B002B9FFD /* TokenInformationDTO.swift in Sources */,
 				BC32F82D299D49D60038F0D6 /* SearchViewController.swift in Sources */,

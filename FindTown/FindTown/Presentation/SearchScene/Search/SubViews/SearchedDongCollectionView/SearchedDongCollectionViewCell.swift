@@ -85,9 +85,7 @@ extension SearchedDongCollectionViewCell {
 extension SearchedDongCollectionViewCell {
     @objc
     func didTapCloseButton() {
-        print("didTapCloseButton")
         guard let data = self.data else { return }
-        print("data: \(data)")
         self.delegate?.deletedDongData(data: data)
     }
 }

@@ -37,7 +37,8 @@ final class ShowVillageListViewModel: BaseViewModel {
     let output = Output()
     let delegate: SearchViewModelDelegate
     
-    let selectCountyData: String?
+    let searchType: SearchType?
+    let searchData: String?
     
     // MARK: - UseCase
     
@@ -55,19 +56,27 @@ final class ShowVillageListViewModel: BaseViewModel {
         townUseCase: TownUseCase,
         authUseCase: AuthUseCase,
         memberUseCase: MemberUseCase,
-        selectCountyData: String?
+        searchType: SearchType,
+        data: String?
     ) {
         self.delegate = delegate
         self.townUseCase = townUseCase
         self.authUseCase = authUseCase
         self.memberUseCase = memberUseCase
-        self.selectCountyData = selectCountyData
+        self.searchType = searchType
+        self.searchData = data
         
         super.init()
         self.bind()
     }
     
     func bind() {
+        if searchType == .selection {
+            self.fetchTownInformation()
+        } else {
+            // TODO: 검색 API 연동
+            self.getSearchedData()
+        }
         
         self.input.townIntroButtonTrigger
             .subscribe(onNext: { [weak self] cityCode in
@@ -119,9 +128,11 @@ extension ShowVillageListViewModel {
                 if !UserDefaultsSetting.isAnonymous {
                     accessToken = try await self.authUseCase.getAccessToken()
                 }
-                guard let selectCountyData = self.selectCountyData else { return }
-                let townInformation = try await self.townUseCase.getSearchTownInformation(countyData: selectCountyData,
-                                                                                          accessToken: accessToken)
+                guard let selectCountyData = self.searchData else { return }
+                let townInformation = try await self.townUseCase
+                                                    .getSearchTownInformation(
+                                                        countyData: selectCountyData,
+                                                        accessToken: accessToken)
                 await MainActor.run(body: {
                     let townTableModel = townInformation.toEntity
                     self.output.searchTownTableDataSource.accept(townTableModel)
@@ -135,6 +146,10 @@ extension ShowVillageListViewModel {
             }
             searchTask?.cancel()
         }
+    }
+    
+    func getSearchedData() {
+        self.output.searchTownTableDataSource.accept([])
     }
     
     // 찜 등록, 해제
