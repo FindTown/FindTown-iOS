@@ -32,6 +32,7 @@ final class ShowVillageListViewController: BaseViewController {
     }()
     
     private let townTableView = TownTableView()
+    private let emptyDataView = EmptyDataView()
 
     // MARK: - Life Cycle
     
@@ -55,7 +56,7 @@ final class ShowVillageListViewController: BaseViewController {
             townListAndCountStackView.addArrangedSubview($0)
         }
         
-        [townListAndCountStackView, townTableView].forEach {
+        [townListAndCountStackView, emptyDataView, townTableView].forEach {
             view.addSubview($0)
         }
     }
@@ -76,11 +77,16 @@ final class ShowVillageListViewController: BaseViewController {
             townTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             townTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
+        
+        emptyDataView.snp.makeConstraints {
+            $0.edges.equalTo(townTableView)
+        }
     }
     
     override func setupView() {
         view.backgroundColor = FindTownColor.white.color
         townTableView.contentInset = UIEdgeInsets(top: 24 - 8, left: 0, bottom: 0, right: 0)
+        emptyDataView.isHidden = true
         
         guard let selectCountyData = self.viewModel?.searchData,
               self.viewModel?.searchType == .sgg else { return }
@@ -107,6 +113,8 @@ final class ShowVillageListViewController: BaseViewController {
             .observe(on: MainScheduler.instance)
             .bind { [weak self] searchTown in
                 self?.townCountTitle.text = "총 \(searchTown.count)개 동네"
+                self?.townTableView.isHidden = searchTown.isEmpty
+                self?.emptyDataView.isHidden = !searchTown.isEmpty
             }
             .disposed(by: disposeBag)
     
