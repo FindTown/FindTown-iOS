@@ -28,7 +28,7 @@ final class ShowVillageListViewModel: BaseViewModel {
     }
     
     struct Output {
-        var searchTownTableDataSource = BehaviorRelay<[TownTableModel]>(value: [])
+        var searchTownTableDataSource = PublishSubject<[TownTableModel]>()
         var isFavorite = PublishSubject<Bool>()
         let errorNotice = PublishSubject<Void>()
     }
@@ -130,9 +130,8 @@ extension ShowVillageListViewModel {
                                                         data: data,
                                                         accessToken: accessToken
                                                     )
-                await MainActor.run(body: {
-                    let townTableModel = townInformation.toEntity
-                    self.output.searchTownTableDataSource.accept(townTableModel)
+                await MainActor.run(body: {                        
+                    self.output.searchTownTableDataSource.onNext(townInformation.toEntity)
                 })
                 searchTask?.cancel()
             } catch (let error) {

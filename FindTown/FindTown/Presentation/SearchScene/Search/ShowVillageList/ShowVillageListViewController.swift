@@ -99,23 +99,31 @@ final class ShowVillageListViewController: BaseViewController {
         
         // Output
         
-        viewModel?.output.searchTownTableDataSource
-            .observe(on: MainScheduler.instance)
-            .bind(to: townTableView.rx.items(
-                cellIdentifier: TownTableViewCell.reuseIdentifier,
-                cellType: TownTableViewCell.self)) { index, item, cell in
-                    cell.setupCell(item, cityCode: item.objectId)
-                    cell.delegate = self
-                    
-                }.disposed(by: disposeBag)
+        let dataSourceDriver = viewModel?.output.searchTownTableDataSource
+            .asDriver(onErrorJustReturn: [])
         
-        viewModel?.output.searchTownTableDataSource
-            .observe(on: MainScheduler.instance)
-            .bind { [weak self] searchTown in
+        dataSourceDriver?
+            .drive(townTableView.rx.items) { tableView, row, data in
+                guard let cell = tableView.dequeueReusableCell(
+                    withIdentifier: TownTableViewCell.reuseIdentifier,
+                    for: IndexPath(row: row, section: 0)
+                ) as? TownTableViewCell else {
+                    return UITableViewCell()
+                }
+                
+                cell.setupCell(data, cityCode: data.objectId)
+                cell.delegate = self
+            
+                return cell
+            }
+            .disposed(by: disposeBag)
+        
+        dataSourceDriver?
+            .drive(onNext: { [weak self] searchTown in
                 self?.townCountTitle.text = "총 \(searchTown.count)개 동네"
                 self?.townTableView.isHidden = searchTown.isEmpty
                 self?.emptyDataView.isHidden = !searchTown.isEmpty
-            }
+            })
             .disposed(by: disposeBag)
     
         viewModel?.output.isFavorite
