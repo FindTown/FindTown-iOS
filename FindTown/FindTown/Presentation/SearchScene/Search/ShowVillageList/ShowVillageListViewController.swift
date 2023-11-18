@@ -83,7 +83,7 @@ final class ShowVillageListViewController: BaseViewController {
         townTableView.contentInset = UIEdgeInsets(top: 24 - 8, left: 0, bottom: 0, right: 0)
         
         guard let selectCountyData = self.viewModel?.searchData,
-              self.viewModel?.searchType == .selection else { return }
+              self.viewModel?.searchType == .sgg else { return }
         self.title = "서울시 \(selectCountyData)"
     }
     

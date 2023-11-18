@@ -20,13 +20,19 @@ final class DefaultTownRepository: TownRepository {
         return data.body
     }
     
-    func getSearchTownInformation(countyData: String, accessToken: String = "") async throws -> TownSearchResponseDTO {
+    func getSearchTownInformation(searchType: SearchType, data: String, accessToken: String) async throws -> TownSearchResponseDTO {
         let HTTPHeaders = HTTPHeaders([.accept("*/*"),
                                        .contentType("application/json"),
                                        .authorization(bearerToken: accessToken)])
-        let townSearch = TownSearchDTO(sggNm: countyData)
-        let data = try await Network.shared.request(target: TownSearchRequest(task: .requestJSONEncodable(encodable: townSearch),
-                                                                              HTTPHeaders: HTTPHeaders))
+        let path = "/app/town/search/\(searchType.rawValue)"
+        let parameters = [URLQueryItem(name: "keyword", value: data)]
+        
+        let data = try await Network.shared.request(
+            target: TownSearchRequest(path: path,
+                                      parameters: parameters,
+                                      headers: HTTPHeaders),
+            cachePolicy: .returnCacheDataElseLoad)
+        
         return data.body
     }
     

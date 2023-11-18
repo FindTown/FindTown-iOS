@@ -10,18 +10,16 @@ import FindTownNetwork
 
 struct TownSearchRequest: BaseRequest {
     
-    init(
-        task: FindTownNetwork.TaskType,
-        HTTPHeaders: HTTPHeaders
-    ) {
-        self.task = task
-        self.headers = HTTPHeaders
+    init(path: String, parameters: [URLQueryItem], headers: HTTPHeaders) {
+        self.path = path
+        self.parameters = parameters
+        self.headers = headers
     }
     
     typealias ResponseType = TownSearchResponseDTO
-    var path: String = "/app/town/search"
-    var method: FindTownNetwork.HttpMethod = .post
+    var path: String
+    var method: FindTownNetwork.HttpMethod = .get
     var headers: FindTownNetwork.HTTPHeaders
-    var task: FindTownNetwork.TaskType
-    var parameters: [URLQueryItem]? = nil
+    var task: FindTownNetwork.TaskType = .requestPlain
+    var parameters: [URLQueryItem]?
 }

@@ -9,7 +9,12 @@ import Foundation
 
 protocol TownUseCase {
     func getTownInformation(filterStatus: String, subwayList: [String], accessToken: String) async throws -> TownFilterResponseDTO
-    func getSearchTownInformation(countyData: String, accessToken: String) async throws -> TownSearchResponseDTO
+
+    func getSearchTownInformation(
+        searchType: SearchType,
+        data: String,
+        accessToken: String) async throws -> TownSearchResponseDTO
+    
     func getTownIntroduce(cityCode: Int, accessToken: String) async throws -> TownIntroduce
 }
 
@@ -28,9 +33,11 @@ final class DefaultTownUseCase: TownUseCase {
                                                                   accessToken: accessToken)
     }
     
-    func getSearchTownInformation(countyData: String, accessToken: String = "") async throws -> TownSearchResponseDTO {
-        return try await townRepository.getSearchTownInformation(countyData: countyData,
-                                                                        accessToken: accessToken)
+    func getSearchTownInformation(searchType: SearchType, data: String, accessToken: String = "") async throws -> TownSearchResponseDTO {
+        return try await townRepository.getSearchTownInformation(
+            searchType: searchType,
+            data: data,
+            accessToken: accessToken)
     }
     
     func getTownIntroduce(cityCode: Int, accessToken: String) async throws -> TownIntroduce {

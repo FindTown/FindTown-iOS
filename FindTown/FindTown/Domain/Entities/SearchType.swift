@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum SearchType {
-    case searchBar // 검색 바 검색
-    case selection // 자치구 선택
+enum SearchType: String {
+    case adm // 동 검색
+    case sgg // 구 검색
 }

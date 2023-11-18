@@ -60,7 +60,7 @@ final class SearchViewModel: BaseViewModel {
 //                var dataSource = self?.output.searchFilterDataSource.value
 //                dataSource?.insert(county, at: 0)
 //                self?.output.searchFilterDataSource.accept(dataSource ?? [])
-                self?.goToShowVillageList(searchType: .selection, data: county)
+                self?.goToShowVillageList(searchType: .sgg, data: county)
             }
             .disposed(by: disposeBag)
         
@@ -89,7 +89,7 @@ final class SearchViewModel: BaseViewModel {
         
         self.input.searchedData
             .bind(onNext: { [weak self] data in
-                self?.goToShowVillageList(searchType: .searchBar, data: data)
+                self?.goToShowVillageList(searchType: .adm, data: data)
                 self?.addSearchedData(data)
             })
             .disposed(by: disposeBag)
