@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2B1E63252AFB68CE00D35A05 /* SearchType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1E63242AFB68CE00D35A05 /* SearchType.swift */; };
+		2B2F8AC92B08D52700A14150 /* EmptyDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B2F8AC82B08D52700A14150 /* EmptyDataView.swift */; };
 		2B3266252A4D77FA00F883B0 /* APIKeyInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2B3266242A4D77FA00F883B0 /* APIKeyInfo.plist */; };
 		2B42E970299F83DB0093FB0A /* UserDefaultsWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B42E96F299F83DB0093FB0A /* UserDefaultsWrapper.swift */; };
 		2B42E972299F85200093FB0A /* UserDefaultsSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B42E971299F85200093FB0A /* UserDefaultsSetting.swift */; };
@@ -257,6 +258,7 @@
 
 /* Begin PBXFileReference section */
 		2B1E63242AFB68CE00D35A05 /* SearchType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchType.swift; sourceTree = "<group>"; };
+		2B2F8AC82B08D52700A14150 /* EmptyDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyDataView.swift; sourceTree = "<group>"; };
 		2B3266242A4D77FA00F883B0 /* APIKeyInfo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = APIKeyInfo.plist; path = ../../../../../APIKeyInfo.plist; sourceTree = "<group>"; };
 		2B42E96F299F83DB0093FB0A /* UserDefaultsWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsWrapper.swift; sourceTree = "<group>"; };
 		2B42E971299F85200093FB0A /* UserDefaultsSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsSetting.swift; sourceTree = "<group>"; };
@@ -521,6 +523,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2B2F8AC72B08D51000A14150 /* SubViews */ = {
+			isa = PBXGroup;
+			children = (
+				2B2F8AC82B08D52700A14150 /* EmptyDataView.swift */,
+			);
+			path = SubViews;
+			sourceTree = "<group>";
+		};
 		2B42E96E299F83CB0093FB0A /* UserDefaults */ = {
 			isa = PBXGroup;
 			children = (
@@ -734,6 +744,7 @@
 		BC103D8E297FD68200A709EC /* ShowVillageList */ = {
 			isa = PBXGroup;
 			children = (
+				2B2F8AC72B08D51000A14150 /* SubViews */,
 				BC199C3F297FE95F00C2A89B /* ShowVillageListViewController.swift */,
 				BC199C41297FE96E00C2A89B /* ShowVillageListViewModel.swift */,
 			);
@@ -1771,6 +1782,7 @@
 				F3918478299E8CB500CEF02E /* ThemaStoreRequest.swift in Sources */,
 				BCF68B58299BB2A000E8D83E /* TownFilterDTO.swift in Sources */,
 				2BEE90D129780640002E7C3A /* EmptyView.swift in Sources */,
+				2B2F8AC92B08D52700A14150 /* EmptyDataView.swift in Sources */,
 				BC056C562962B29F00EDCA18 /* SignupCoordinator.swift in Sources */,
 				F38AA800298125FB00EF66F2 /* DefaultAppleAuthRepository.swift in Sources */,
 				BC3C069829A110430049DA8C /* ChangeNicknameResponseDTO.swift in Sources */,

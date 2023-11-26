@@ -32,6 +32,7 @@ final class ShowVillageListViewController: BaseViewController {
     }()
     
     private let townTableView = TownTableView()
+    private let emptyDataView = EmptyDataView()
 
     // MARK: - Life Cycle
     
@@ -55,7 +56,7 @@ final class ShowVillageListViewController: BaseViewController {
             townListAndCountStackView.addArrangedSubview($0)
         }
         
-        [townListAndCountStackView, townTableView].forEach {
+        [townListAndCountStackView, emptyDataView, townTableView].forEach {
             view.addSubview($0)
         }
     }
@@ -76,14 +77,19 @@ final class ShowVillageListViewController: BaseViewController {
             townTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             townTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
+        
+        emptyDataView.snp.makeConstraints {
+            $0.edges.equalTo(townTableView)
+        }
     }
     
     override func setupView() {
         view.backgroundColor = FindTownColor.white.color
         townTableView.contentInset = UIEdgeInsets(top: 24 - 8, left: 0, bottom: 0, right: 0)
+        emptyDataView.isHidden = true
         
         guard let selectCountyData = self.viewModel?.searchData,
-              self.viewModel?.searchType == .selection else { return }
+              self.viewModel?.searchType == .sgg else { return }
         self.title = "서울시 \(selectCountyData)"
     }
     
@@ -93,21 +99,31 @@ final class ShowVillageListViewController: BaseViewController {
         
         // Output
         
-        viewModel?.output.searchTownTableDataSource
-            .observe(on: MainScheduler.instance)
-            .bind(to: townTableView.rx.items(
-                cellIdentifier: TownTableViewCell.reuseIdentifier,
-                cellType: TownTableViewCell.self)) { index, item, cell in
-                    cell.setupCell(item, cityCode: item.objectId)
-                    cell.delegate = self
-                    
-                }.disposed(by: disposeBag)
+        let dataSourceDriver = viewModel?.output.searchTownTableDataSource
+            .asDriver(onErrorJustReturn: [])
         
-        viewModel?.output.searchTownTableDataSource
-            .observe(on: MainScheduler.instance)
-            .bind { [weak self] searchTown in
-                self?.townCountTitle.text = "총 \(searchTown.count)개 동네"
+        dataSourceDriver?
+            .drive(townTableView.rx.items) { tableView, row, data in
+                guard let cell = tableView.dequeueReusableCell(
+                    withIdentifier: TownTableViewCell.reuseIdentifier,
+                    for: IndexPath(row: row, section: 0)
+                ) as? TownTableViewCell else {
+                    return UITableViewCell()
+                }
+                
+                cell.setupCell(data, cityCode: data.objectId)
+                cell.delegate = self
+            
+                return cell
             }
+            .disposed(by: disposeBag)
+        
+        dataSourceDriver?
+            .drive(onNext: { [weak self] searchTown in
+                self?.townCountTitle.text = "총 \(searchTown.count)개 동네"
+                self?.townTableView.isHidden = searchTown.isEmpty
+                self?.emptyDataView.isHidden = !searchTown.isEmpty
+            })
             .disposed(by: disposeBag)
     
         viewModel?.output.isFavorite

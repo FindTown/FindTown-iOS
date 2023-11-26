@@ -28,7 +28,7 @@ final class ShowVillageListViewModel: BaseViewModel {
     }
     
     struct Output {
-        var searchTownTableDataSource = BehaviorRelay<[TownTableModel]>(value: [])
+        var searchTownTableDataSource = BehaviorSubject<[TownTableModel]>(value: [])
         var isFavorite = PublishSubject<Bool>()
         let errorNotice = PublishSubject<Void>()
     }
@@ -37,8 +37,8 @@ final class ShowVillageListViewModel: BaseViewModel {
     let output = Output()
     let delegate: SearchViewModelDelegate
     
-    let searchType: SearchType?
-    let searchData: String?
+    let searchType: SearchType
+    let searchData: String
     
     // MARK: - UseCase
     
@@ -57,7 +57,7 @@ final class ShowVillageListViewModel: BaseViewModel {
         authUseCase: AuthUseCase,
         memberUseCase: MemberUseCase,
         searchType: SearchType,
-        data: String?
+        data: String
     ) {
         self.delegate = delegate
         self.townUseCase = townUseCase
@@ -71,12 +71,7 @@ final class ShowVillageListViewModel: BaseViewModel {
     }
     
     func bind() {
-        if searchType == .selection {
-            self.fetchTownInformation()
-        } else {
-            // TODO: 검색 API 연동
-            self.getSearchedData()
-        }
+        self.fetchTownInformation(searchType: searchType, data: searchData)
         
         self.input.townIntroButtonTrigger
             .subscribe(onNext: { [weak self] cityCode in
@@ -121,21 +116,22 @@ extension ShowVillageListViewModel: ShowVillageListViewModelType {
 // MARK: - Network
 
 extension ShowVillageListViewModel {
-    func fetchTownInformation() {
+    func fetchTownInformation(searchType: SearchType, data: String) {
         self.searchTask = Task {
             do {
                 var accessToken = ""
                 if !UserDefaultsSetting.isAnonymous {
                     accessToken = try await self.authUseCase.getAccessToken()
                 }
-                guard let selectCountyData = self.searchData else { return }
+                
                 let townInformation = try await self.townUseCase
                                                     .getSearchTownInformation(
-                                                        countyData: selectCountyData,
-                                                        accessToken: accessToken)
-                await MainActor.run(body: {
-                    let townTableModel = townInformation.toEntity
-                    self.output.searchTownTableDataSource.accept(townTableModel)
+                                                        searchType: searchType,
+                                                        data: data,
+                                                        accessToken: accessToken
+                                                    )
+                await MainActor.run(body: {                        
+                    self.output.searchTownTableDataSource.onNext(townInformation.toEntity)
                 })
                 searchTask?.cancel()
             } catch (let error) {
@@ -146,10 +142,6 @@ extension ShowVillageListViewModel {
             }
             searchTask?.cancel()
         }
-    }
-    
-    func getSearchedData() {
-        self.output.searchTownTableDataSource.accept([])
     }
     
     // 찜 등록, 해제

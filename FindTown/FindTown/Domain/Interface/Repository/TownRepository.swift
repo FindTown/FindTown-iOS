@@ -9,6 +9,6 @@ import Foundation
 
 protocol TownRepository {
     func getTownInformation(filterStatus: String, subwayList: [String], accessToken: String) async throws -> TownFilterResponseDTO
-    func getSearchTownInformation(countyData: String, accessToken: String) async throws -> TownSearchResponseDTO
+    func getSearchTownInformation(searchType: SearchType, data: String, accessToken: String) async throws -> TownSearchResponseDTO
     func getTownIntroduce(cityCode: Int, accessToken: String) async throws -> TownIntroduceResponseDTO
 }
