@@ -28,7 +28,7 @@ final class ShowVillageListViewModel: BaseViewModel {
     }
     
     struct Output {
-        var searchTownTableDataSource = PublishSubject<[TownTableModel]>()
+        var searchTownTableDataSource = BehaviorSubject<[TownTableModel]>(value: [])
         var isFavorite = PublishSubject<Bool>()
         let errorNotice = PublishSubject<Void>()
     }

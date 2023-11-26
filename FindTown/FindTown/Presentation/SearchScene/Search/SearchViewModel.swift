@@ -89,8 +89,8 @@ final class SearchViewModel: BaseViewModel {
         
         self.input.searchedData
             .bind(onNext: { [weak self] data in
-                self?.goToShowVillageList(searchType: .adm, data: data)
                 self?.addSearchedData(data)
+                self?.goToShowVillageList(searchType: .adm, data: data)
             })
             .disposed(by: disposeBag)
         
