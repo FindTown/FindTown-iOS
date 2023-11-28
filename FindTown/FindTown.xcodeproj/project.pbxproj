@@ -49,7 +49,9 @@
 		2B74F6252AFB7F66002A6A5F /* BannerCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B74F6242AFB7F66002A6A5F /* BannerCollectionViewCell.swift */; };
 		2B74F6282AFB7FCE002A6A5F /* BannerCollectionViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B74F6272AFB7FCE002A6A5F /* BannerCollectionViewFlowLayout.swift */; };
 		2B7AE8312987F59200DF19C8 /* TownIntroCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B7AE8302987F59200DF19C8 /* TownIntroCoordinator.swift */; };
+		2B83027D2B1632440029D4A4 /* ThemeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B83027C2B1632440029D4A4 /* ThemeCollectionViewCell.swift */; };
 		2BA009B129A2248300F3563A /* TownIntroduce.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA009B029A2248300F3563A /* TownIntroduce.swift */; };
+		2BBC53652B13A54F008FB237 /* ThemeCollectionViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BBC53642B13A54F008FB237 /* ThemeCollectionViewFlowLayout.swift */; };
 		2BE478172AEFF98900DF8632 /* NMapsMap in Frameworks */ = {isa = PBXBuildFile; productRef = 2BE478162AEFF98900DF8632 /* NMapsMap */; };
 		2BED7FA82AF6057800EFBFD6 /* SearchedDongCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BED7FA72AF6057700EFBFD6 /* SearchedDongCollectionView.swift */; };
 		2BED7FAA2AF6058600EFBFD6 /* SearchedDongCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BED7FA92AF6058600EFBFD6 /* SearchedDongCollectionViewCell.swift */; };
@@ -303,7 +305,9 @@
 		2B74F6242AFB7F66002A6A5F /* BannerCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerCollectionViewCell.swift; sourceTree = "<group>"; };
 		2B74F6272AFB7FCE002A6A5F /* BannerCollectionViewFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerCollectionViewFlowLayout.swift; sourceTree = "<group>"; };
 		2B7AE8302987F59200DF19C8 /* TownIntroCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TownIntroCoordinator.swift; sourceTree = "<group>"; };
+		2B83027C2B1632440029D4A4 /* ThemeCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeCollectionViewCell.swift; sourceTree = "<group>"; };
 		2BA009B029A2248300F3563A /* TownIntroduce.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TownIntroduce.swift; sourceTree = "<group>"; };
+		2BBC53642B13A54F008FB237 /* ThemeCollectionViewFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeCollectionViewFlowLayout.swift; sourceTree = "<group>"; };
 		2BED7FA72AF6057700EFBFD6 /* SearchedDongCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchedDongCollectionView.swift; sourceTree = "<group>"; };
 		2BED7FA92AF6058600EFBFD6 /* SearchedDongCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchedDongCollectionViewCell.swift; sourceTree = "<group>"; };
 		2BED7FAC2AF6090300EFBFD6 /* SearchedDongCollectionViewFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchedDongCollectionViewFlowLayout.swift; sourceTree = "<group>"; };
@@ -678,6 +682,7 @@
 		2B74F6212AFB7F31002A6A5F /* SubViews */ = {
 			isa = PBXGroup;
 			children = (
+				2B8302792B1631A80029D4A4 /* ThemeCollectionView */,
 				2B74F6262AFB7F6F002A6A5F /* BannerCollectionView */,
 			);
 			path = SubViews;
@@ -699,6 +704,15 @@
 				2B7AE8302987F59200DF19C8 /* TownIntroCoordinator.swift */,
 			);
 			path = Flows;
+			sourceTree = "<group>";
+		};
+		2B8302792B1631A80029D4A4 /* ThemeCollectionView */ = {
+			isa = PBXGroup;
+			children = (
+				2BBC53642B13A54F008FB237 /* ThemeCollectionViewFlowLayout.swift */,
+				2B83027C2B1632440029D4A4 /* ThemeCollectionViewCell.swift */,
+			);
+			path = ThemeCollectionView;
 			sourceTree = "<group>";
 		};
 		2BED7FAB2AF608D800EFBFD6 /* SearchedDongCollectionView */ = {
@@ -1785,6 +1799,7 @@
 				F362189D29B99AE2005A0C8F /* TokenRepository.swift in Sources */,
 				2BED7FAA2AF6058600EFBFD6 /* SearchedDongCollectionViewCell.swift in Sources */,
 				BC3C069229A0C5A20049DA8C /* TownSearchRequest.swift in Sources */,
+				2B83027D2B1632440029D4A4 /* ThemeCollectionViewCell.swift in Sources */,
 				BCE996662976915A00AACD02 /* FilterCollectionViewFlowLayout.swift in Sources */,
 				2B628DD52986508F00A90D9A /* TownIntroduceViewController.swift in Sources */,
 				2BA009B129A2248300F3563A /* TownIntroduce.swift in Sources */,
@@ -1811,6 +1826,7 @@
 				BC8B638D298A4B4C004E1116 /* ChangeNicknameViewModel.swift in Sources */,
 				BC9F4D59296BE5FC0099473C /* FavoriteTownViewController.swift in Sources */,
 				F3918476299E8B9700CEF02E /* MapThemaStoreResponseDTO.swift in Sources */,
+				2BBC53652B13A54F008FB237 /* ThemeCollectionViewFlowLayout.swift in Sources */,
 				F3918461299A693400CEF02E /* ThemaStore.swift in Sources */,
 				BC853E00298C04D00033AF20 /* MyPageAnonymousViewModel.swift in Sources */,
 				BC7BCBCF29646EEA003BB4FF /* TownMoodViewModel.swift in Sources */,

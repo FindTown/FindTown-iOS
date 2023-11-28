@@ -22,7 +22,12 @@ final class BannerCollectionViewFlowLayout: UICollectionViewFlowLayout {
     
     private func setupView() {
         scrollDirection = .horizontal
-        minimumInteritemSpacing = itemSpacing
-        estimatedItemSize = CGSize(width: 300, height: 80)
+        minimumLineSpacing = itemSpacing
+        let width = self.collectionView?.bounds.width ?? 300
+        sectionInset = UIEdgeInsets(top: 0.0,
+                                    left: 0.0,
+                                    bottom: 0.0,
+                                    right: 16.0)
+        estimatedItemSize = CGSize(width: width, height: 80)
     }
 }

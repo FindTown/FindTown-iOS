@@ -91,7 +91,6 @@ final class PlaceViewController: BaseViewController {
         stackView.setCustomSpacing(40.0, after: bannerCollectionView)
         stackView.setCustomSpacing(14.0, after: realTimePlaceLabel)
         stackView.setCustomSpacing(24.0, after: themeCollectionView)
-        bannerCollectionView.backgroundColor = .green
         placeTableView.backgroundColor = .green
     }
     
@@ -143,6 +142,18 @@ final class PlaceViewController: BaseViewController {
                 index, item, cell in
                     cell.setupCell(title: item.description)
             }.disposed(by: disposeBag)
+        
+        let mockData = BehaviorSubject<[UIImage]>(value: [UIImage(named: "banner1")!,
+                                                          UIImage(named: "banner2")!])
+        
+        mockData
+            .bind(to: bannerCollectionView.rx.items(
+                cellIdentifier: BannerCollectionViewCell.reuseIdentifier,
+                cellType: BannerCollectionViewCell.self)) {
+                index, item, cell in
+                    cell.setupCell(image: item)
+            }.disposed(by: disposeBag)
+        
         
         // TODO: 추후 수정
         themeCollectionView.selectItem(
