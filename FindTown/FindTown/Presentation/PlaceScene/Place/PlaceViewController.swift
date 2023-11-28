@@ -11,6 +11,7 @@ import FindTownCore
 import FindTownUI
 
 import SnapKit
+import RxSwift
 import RxCocoa
 
 final class PlaceViewController: BaseViewController {
@@ -36,7 +37,7 @@ final class PlaceViewController: BaseViewController {
     private let realTimePlaceLabel = FindTownLabel(
                                         text: "실시간 장소 제보",
                                         font: .subtitle2)
-    private let themeCollectionView = UIView()
+    private let themeCollectionView = CategoryCollectionView(type: .place)
     private let placeTableView = UIView()
     
     // MARK: - Life Cycle
@@ -60,6 +61,10 @@ final class PlaceViewController: BaseViewController {
         self.title = "플레이스"
         addressView.backgroundColor = .white
 //        indicator.startAnimating()
+        themeCollectionView.register(
+            ThemeCollectionViewCell.self,
+            forCellWithReuseIdentifier: ThemeCollectionViewCell.reuseIdentifier
+        )
         // TODO: 추후 수정
         addressButton.setTitle("서울시 강남구 역삼동", for: .normal)
     }
@@ -84,10 +89,9 @@ final class PlaceViewController: BaseViewController {
         stackView.layoutMargins = UIEdgeInsets(top: 64, left: 16, bottom: 16, right: 16)
         stackView.isLayoutMarginsRelativeArrangement = true
         stackView.setCustomSpacing(40.0, after: bannerCollectionView)
-        stackView.setCustomSpacing(24.0, after: realTimePlaceLabel)
+        stackView.setCustomSpacing(14.0, after: realTimePlaceLabel)
         stackView.setCustomSpacing(24.0, after: themeCollectionView)
         bannerCollectionView.backgroundColor = .green
-        themeCollectionView.backgroundColor = .yellow
         placeTableView.backgroundColor = .green
     }
     
@@ -115,7 +119,7 @@ final class PlaceViewController: BaseViewController {
         }
         
         themeCollectionView.snp.makeConstraints {
-            $0.height.equalTo(32)
+            $0.height.equalTo(32+10)
         }
         
         placeTableView.snp.makeConstraints {
@@ -129,5 +133,22 @@ final class PlaceViewController: BaseViewController {
                 self?.viewModel?.presentAddressSheet()
             })
             .disposed(by: disposeBag)
+        
+        viewModel?.output.themeDataSource
+            .distinctUntilChanged()
+            .observe(on: MainScheduler.instance)
+            .bind(to: themeCollectionView.rx.items(
+                cellIdentifier: ThemeCollectionViewCell.reuseIdentifier,
+                cellType: ThemeCollectionViewCell.self)) {
+                index, item, cell in
+                    cell.setupCell(title: item.description)
+            }.disposed(by: disposeBag)
+        
+        // TODO: 추후 수정
+        themeCollectionView.selectItem(
+            at: IndexPath(row: 0, section: 0),
+            animated: false,
+            scrollPosition: .bottom
+        )
     }
 }

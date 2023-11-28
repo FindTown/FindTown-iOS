@@ -8,6 +8,7 @@
 import UIKit
 
 enum ThemaCategory: CaseIterable, Category {
+    case every
     case restaurantForEatingAlone
     case cafeForStudy
     
@@ -17,6 +18,8 @@ enum ThemaCategory: CaseIterable, Category {
             return "혼밥하기 좋은 식당"
         case .cafeForStudy:
             return "카공하기 좋은 카페"
+        case .every:
+            return "전체"
         }
     }
     
@@ -26,6 +29,8 @@ enum ThemaCategory: CaseIterable, Category {
             return UIImage(named: "thema.restaurant")
         case .cafeForStudy:
             return UIImage(named: "thema.notebook")
+        case .every:
+            return nil
         }
     }
     
@@ -35,6 +40,8 @@ enum ThemaCategory: CaseIterable, Category {
             return "001"
         case .restaurantForEatingAlone:
             return "002"
+        case .every:
+            return ""
         }
     }
 }

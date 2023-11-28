@@ -7,10 +7,19 @@
 
 import UIKit
 
+enum CategoryCollectionViewType {
+    case map
+    case place
+}
+
 final class CategoryCollectionView: UICollectionView {
     
-    convenience init() {
-        self.init(frame: .zero, collectionViewLayout: CategoryCollectionViewFlowLayout())
+    convenience init(type: CategoryCollectionViewType) {
+        if type == .map {
+            self.init(frame: .zero, collectionViewLayout: CategoryCollectionViewFlowLayout())
+        } else {
+            self.init(frame: .zero, collectionViewLayout: ThemeCollectionViewFlowLayout())
+        }
     }
     
     required init?(coder: NSCoder) {
@@ -27,8 +36,5 @@ final class CategoryCollectionView: UICollectionView {
         backgroundColor = .clear
         showsHorizontalScrollIndicator = false
         allowsMultipleSelection = false
-        register(MapCategoryCollectionViewCell.self,
-                 forCellWithReuseIdentifier: MapCategoryCollectionViewCell.reuseIdentifier)
     }
-
 }
