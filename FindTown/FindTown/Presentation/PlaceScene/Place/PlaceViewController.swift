@@ -14,11 +14,12 @@ import SnapKit
 import RxSwift
 import RxCocoa
 
-final class PlaceViewController: BaseViewController {
+final class PlaceViewController: BaseViewController, UITableViewDelegate {
     
     // MARK: - Properties
     
     private let viewModel: PlaceViewModel?
+    private var placeTableViewHeightC: NSLayoutConstraint!
     
     // MARK: - Views
     
@@ -38,7 +39,7 @@ final class PlaceViewController: BaseViewController {
                                         text: "실시간 장소 제보",
                                         font: .subtitle2)
     private let themeCollectionView = CategoryCollectionView(type: .place)
-    private let placeTableView = UIView()
+    private let placeTableView = PlaceTableView()
     
     // MARK: - Life Cycle
     
@@ -56,6 +57,11 @@ final class PlaceViewController: BaseViewController {
         super.viewDidLoad()
     }
     
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        placeTableViewHeightC.constant = placeTableView.intrinsicContentSize.height
+    }
+
     override func setupView() {
         self.view.backgroundColor = .white
         self.title = "플레이스"
@@ -121,9 +127,8 @@ final class PlaceViewController: BaseViewController {
             $0.height.equalTo(32+10)
         }
         
-        placeTableView.snp.makeConstraints {
-            $0.height.equalTo(500)
-        }
+        placeTableViewHeightC = placeTableView.heightAnchor.constraint(equalToConstant: 500)
+        placeTableViewHeightC.isActive = true
     }
     
     override func bindViewModel() {
@@ -144,6 +149,8 @@ final class PlaceViewController: BaseViewController {
             }.disposed(by: disposeBag)
         
         let mockData = BehaviorSubject<[UIImage]>(value: [UIImage(named: "banner1")!,
+                                                          UIImage(named: "banner2")!,
+                                                          UIImage(named: "banner1")!,
                                                           UIImage(named: "banner2")!])
         
         mockData
@@ -161,5 +168,15 @@ final class PlaceViewController: BaseViewController {
             animated: false,
             scrollPosition: .bottom
         )
+        
+        mockData
+            .bind(to: placeTableView.rx.items(
+                cellIdentifier: PlaceTableViewCell.reuseIdentifier,
+                cellType: PlaceTableViewCell.self)) {
+                index, item, cell in
+//                    cell.setupCell(image: item)
+            }.disposed(by: disposeBag)
+        
+        placeTableView.layoutIfNeeded()
     }
 }

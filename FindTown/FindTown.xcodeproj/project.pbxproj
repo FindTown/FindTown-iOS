@@ -50,6 +50,8 @@
 		2B74F6282AFB7FCE002A6A5F /* BannerCollectionViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B74F6272AFB7FCE002A6A5F /* BannerCollectionViewFlowLayout.swift */; };
 		2B7AE8312987F59200DF19C8 /* TownIntroCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B7AE8302987F59200DF19C8 /* TownIntroCoordinator.swift */; };
 		2B83027D2B1632440029D4A4 /* ThemeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B83027C2B1632440029D4A4 /* ThemeCollectionViewCell.swift */; };
+		2B8302822B1C45460029D4A4 /* PlaceTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B8302812B1C45460029D4A4 /* PlaceTableView.swift */; };
+		2B8302842B1C45680029D4A4 /* PlaceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B8302832B1C45680029D4A4 /* PlaceTableViewCell.swift */; };
 		2BA009B129A2248300F3563A /* TownIntroduce.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA009B029A2248300F3563A /* TownIntroduce.swift */; };
 		2BBC53652B13A54F008FB237 /* ThemeCollectionViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BBC53642B13A54F008FB237 /* ThemeCollectionViewFlowLayout.swift */; };
 		2BE478172AEFF98900DF8632 /* NMapsMap in Frameworks */ = {isa = PBXBuildFile; productRef = 2BE478162AEFF98900DF8632 /* NMapsMap */; };
@@ -306,6 +308,8 @@
 		2B74F6272AFB7FCE002A6A5F /* BannerCollectionViewFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerCollectionViewFlowLayout.swift; sourceTree = "<group>"; };
 		2B7AE8302987F59200DF19C8 /* TownIntroCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TownIntroCoordinator.swift; sourceTree = "<group>"; };
 		2B83027C2B1632440029D4A4 /* ThemeCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeCollectionViewCell.swift; sourceTree = "<group>"; };
+		2B8302812B1C45460029D4A4 /* PlaceTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceTableView.swift; sourceTree = "<group>"; };
+		2B8302832B1C45680029D4A4 /* PlaceTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceTableViewCell.swift; sourceTree = "<group>"; };
 		2BA009B029A2248300F3563A /* TownIntroduce.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TownIntroduce.swift; sourceTree = "<group>"; };
 		2BBC53642B13A54F008FB237 /* ThemeCollectionViewFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeCollectionViewFlowLayout.swift; sourceTree = "<group>"; };
 		2BED7FA72AF6057700EFBFD6 /* SearchedDongCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchedDongCollectionView.swift; sourceTree = "<group>"; };
@@ -682,6 +686,7 @@
 		2B74F6212AFB7F31002A6A5F /* SubViews */ = {
 			isa = PBXGroup;
 			children = (
+				2B83027E2B1C44C10029D4A4 /* PlaceTableView */,
 				2B8302792B1631A80029D4A4 /* ThemeCollectionView */,
 				2B74F6262AFB7F6F002A6A5F /* BannerCollectionView */,
 			);
@@ -713,6 +718,15 @@
 				2B83027C2B1632440029D4A4 /* ThemeCollectionViewCell.swift */,
 			);
 			path = ThemeCollectionView;
+			sourceTree = "<group>";
+		};
+		2B83027E2B1C44C10029D4A4 /* PlaceTableView */ = {
+			isa = PBXGroup;
+			children = (
+				2B8302812B1C45460029D4A4 /* PlaceTableView.swift */,
+				2B8302832B1C45680029D4A4 /* PlaceTableViewCell.swift */,
+			);
+			path = PlaceTableView;
 			sourceTree = "<group>";
 		};
 		2BED7FAB2AF608D800EFBFD6 /* SearchedDongCollectionView */ = {
@@ -1825,6 +1839,7 @@
 				F3984A7429ACBE03003FA0C8 /* AppDIContainer.swift in Sources */,
 				BC8B638D298A4B4C004E1116 /* ChangeNicknameViewModel.swift in Sources */,
 				BC9F4D59296BE5FC0099473C /* FavoriteTownViewController.swift in Sources */,
+				2B8302842B1C45680029D4A4 /* PlaceTableViewCell.swift in Sources */,
 				F3918476299E8B9700CEF02E /* MapThemaStoreResponseDTO.swift in Sources */,
 				2BBC53652B13A54F008FB237 /* ThemeCollectionViewFlowLayout.swift in Sources */,
 				F3918461299A693400CEF02E /* ThemaStore.swift in Sources */,
@@ -1936,6 +1951,7 @@
 				F3219B742969B351000024E4 /* StoreDetailType.swift in Sources */,
 				BC354708298F9D010016FE4A /* ServiceMapPopUpViewController.swift in Sources */,
 				BCF68B56299BB25C00E8D83E /* TownFilterRequest.swift in Sources */,
+				2B8302822B1C45460029D4A4 /* PlaceTableView.swift in Sources */,
 				BC1CE29429753F9E00F89B81 /* InfraIconStackView.swift in Sources */,
 				F36218A129B99AE2005A0C8F /* AuthRepository.swift in Sources */,
 				2B628DF529869F0C00A90D9A /* TownRankView.swift in Sources */,
