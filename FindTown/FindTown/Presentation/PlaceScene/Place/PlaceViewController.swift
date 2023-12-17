@@ -40,6 +40,7 @@ final class PlaceViewController: BaseViewController, UITableViewDelegate {
                                         font: .subtitle2)
     private let themeCollectionView = CategoryCollectionView(type: .place)
     private let placeTableView = PlaceTableView()
+    private let emptyView = EmptyView(type: .emptyPlace)
     
     // MARK: - Life Cycle
     
@@ -88,7 +89,9 @@ final class PlaceViewController: BaseViewController, UITableViewDelegate {
          bannerCollectionView,
          realTimePlaceLabel,
          themeCollectionView,
-         placeTableView].forEach {
+         placeTableView,
+         emptyView
+        ].forEach {
             stackView.addArrangedSubview($0)
         }
         
@@ -125,6 +128,10 @@ final class PlaceViewController: BaseViewController, UITableViewDelegate {
         
         themeCollectionView.snp.makeConstraints {
             $0.height.equalTo(32+10)
+        }
+        
+        emptyView.snp.makeConstraints {
+            $0.height.equalTo(300)
         }
         
         placeTableViewHeightC = placeTableView.heightAnchor.constraint(equalToConstant: 500)

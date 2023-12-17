@@ -12,18 +12,21 @@ import FindTownUI
 final class EmptyView: UIView {
     
     private let iconImageView = UIImageView()
-    private let titleLabel = FindTownLabel(text: "찜한 동네가 아직 없어요.",
+    private lazy var titleLabel = FindTownLabel(text: type.title,
                                            font: .body1,
                                            textColor: .grey6,
                                            textAlignment: .center)
-    private let subLabel = FindTownLabel(text: "나에게 맞는 동네를 찾아서 찜해보세요!",
+    private lazy var subLabel = FindTownLabel(text: type.subTitle,
                                          font: .body4,
                                          textColor: .grey5,
                                          textAlignment: .center)
     let findOutButton = FTButton(style: .mediumFilled)
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    let type: EmptyType
+    
+    init(type: EmptyType) {
+        self.type = type
+        super.init(frame: .zero)
         setupLayout()
         setupView()
     }
@@ -67,9 +70,11 @@ private extension EmptyView {
     func setupView() {
         self.backgroundColor = .clear
         
-        iconImageView.image = UIImage(named: "emptyIcon")
+        iconImageView.image = type.iconImage
         titleLabel.setLineHeight(lineHeight: 24.0)
         subLabel.setLineHeight(lineHeight: 20.0)
+        subLabel.numberOfLines = 2
         findOutButton.setTitle("나에게 맞는 동네 찾기", for: .normal)
+        findOutButton.isHidden = type.isButtonHidden
     }
 }

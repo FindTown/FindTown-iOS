@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2B1CC56E2B2F1EC4003C846C /* EmptyType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1CC56D2B2F1EC4003C846C /* EmptyType.swift */; };
 		2B1E63252AFB68CE00D35A05 /* SearchType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1E63242AFB68CE00D35A05 /* SearchType.swift */; };
 		2B3266252A4D77FA00F883B0 /* APIKeyInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2B3266242A4D77FA00F883B0 /* APIKeyInfo.plist */; };
 		2B42E970299F83DB0093FB0A /* UserDefaultsWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B42E96F299F83DB0093FB0A /* UserDefaultsWrapper.swift */; };
@@ -266,6 +267,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2B1CC56D2B2F1EC4003C846C /* EmptyType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyType.swift; sourceTree = "<group>"; };
 		2B1E63242AFB68CE00D35A05 /* SearchType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchType.swift; sourceTree = "<group>"; };
 		2B3266242A4D77FA00F883B0 /* APIKeyInfo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = APIKeyInfo.plist; path = ../../../../../APIKeyInfo.plist; sourceTree = "<group>"; };
 		2B42E96F299F83DB0093FB0A /* UserDefaultsWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsWrapper.swift; sourceTree = "<group>"; };
@@ -1410,6 +1412,7 @@
 				2B42E98B29A0688D0093FB0A /* Traffic.swift */,
 				F3918469299BCE9200CEF02E /* MapTransition.swift */,
 				F32F849D29A49F9200EA403C /* InfraSubCategory.swift */,
+				2B1CC56D2B2F1EC4003C846C /* EmptyType.swift */,
 			);
 			path = Enumerations;
 			sourceTree = "<group>";
@@ -1755,6 +1758,7 @@
 				BCF825922988C90C00AC00BB /* MyPageViewController.swift in Sources */,
 				BC04A6DC296FDEC100B60BCF /* KeyChainManager.swift in Sources */,
 				2BED7FAF2AF60FB200EFBFD6 /* Search.swift in Sources */,
+				2B1CC56E2B2F1EC4003C846C /* EmptyType.swift in Sources */,
 				2B7AE8312987F59200DF19C8 /* TownIntroCoordinator.swift in Sources */,
 				F38CCBD729582869000C16AF /* AppCoordinator.swift in Sources */,
 				2B628DD7298650CD00A90D9A /* TownIntroduceViewModel.swift in Sources */,
