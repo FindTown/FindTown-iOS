@@ -41,7 +41,7 @@ final class MapViewController: BaseViewController {
     }()
     private let mapToggle = MapSegmentControl(items: ["인프라", "테마"])
     fileprivate let detailCategoryView = MapDetailCategoryView()
-    private let categoryCollectionView = CategoryCollectionView()
+    private let categoryCollectionView = CategoryCollectionView(type: .map)
     fileprivate let storeCollectionView = StoreCollectionView()
     private let moveToIntroduceButton: FTButton = {
         let button = FTButton(style: .round)
@@ -249,7 +249,8 @@ final class MapViewController: BaseViewController {
                 if index == 0 {
                     self?.viewModel?.output.categoryDataSource.onNext(InfraCategory.allCases)
                 } else {
-                    self?.viewModel?.output.categoryDataSource.onNext(ThemaCategory.allCases)
+                    self?.viewModel?.output.categoryDataSource
+                        .onNext(ThemaCategory.allCases.filter { $0 != .every })
                 }
             }
             .disposed(by: disposeBag)
@@ -316,6 +317,10 @@ final class MapViewController: BaseViewController {
         
         self.storeCollectionView.delegate = self
         self.emptyDataInformLabel.isHidden = true
+        categoryCollectionView.register(
+            MapCategoryCollectionViewCell.self,
+            forCellWithReuseIdentifier: MapCategoryCollectionViewCell.reuseIdentifier
+        )
         setMapZoomLevel()
         setMapLayerGrounp()
     }
@@ -343,13 +348,19 @@ private extension MapViewController {
         ])
         
         NSLayoutConstraint.activate([
-            addressButton.leadingAnchor.constraint(equalTo: naviBarSubView.leadingAnchor, constant: 16.0),
-            addressButton.bottomAnchor.constraint(equalTo: naviBarSubView.bottomAnchor, constant: -8.0)
+            addressButton.leadingAnchor.constraint(
+                equalTo: naviBarSubView.leadingAnchor,
+                constant: 16.0),
+            addressButton.topAnchor.constraint(
+                equalTo: naviBarSubView.topAnchor,
+                constant: 24.0)
         ])
         
         NSLayoutConstraint.activate([
             mapToggle.centerYAnchor.constraint(equalTo: naviBarSubView.centerYAnchor),
-            mapToggle.trailingAnchor.constraint(equalTo: naviBarSubView.trailingAnchor, constant: -16.0)
+            mapToggle.trailingAnchor.constraint(
+                equalTo: naviBarSubView.trailingAnchor,
+                constant: -16.0)
         ])
     }
     

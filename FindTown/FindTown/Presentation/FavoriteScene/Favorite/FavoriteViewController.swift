@@ -25,7 +25,7 @@ final class FavoriteViewController: BaseViewController {
     // MARK: - Views
     
     fileprivate let anonymousView = AnonymousView()
-    fileprivate let isEmptyView = EmptyView()
+    fileprivate let isEmptyView = EmptyView(type: .emptyFavorite)
     fileprivate let favoriteTableView = FavoriteTableView()
     fileprivate let refreshControl = UIRefreshControl()
     
